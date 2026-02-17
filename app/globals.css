@@ -1,0 +1,149 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+@theme {
+  /* Deep Space Blue background */
+  --color-space-950: #020617;
+  --color-space-900: #0f172a;
+  --color-space-800: #1e293b;
+  --color-space-700: #334155;
+
+  /* Electric Cyan/Teal (AI & Tech) */
+  --color-neon-cyan: #22d3ee;
+  --color-neon-teal: #2dd4bf;
+
+  /* Royal Blue (Trust & Finance) */
+  --color-royal-500: #3b82f6;
+  --color-royal-400: #60a5fa;
+
+  /* Glassmorphism */
+  --color-glass-10: rgba(255, 255, 255, 0.03);
+  --color-glass-20: rgba(255, 255, 255, 0.06);
+  --color-glass-border: rgba(255, 255, 255, 0.1);
+
+  /* Fonts */
+  --font-heebo: "Heebo", sans-serif;
+  --font-outfit: "Outfit", sans-serif;
+}
+
+/* Base styles */
+html {
+  direction: rtl;
+  scroll-behavior: smooth;
+  background-color: var(--color-space-950);
+}
+
+body {
+  font-family: var(--font-heebo);
+  background: radial-gradient(circle at top right, #1e1b4b, #020617 60%);
+  color: #f1f5f9;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* Premium Glassmorphism */
+.glass-panel {
+  background: var(--color-glass-20);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--color-glass-border);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+}
+
+/* Neon Border Effect */
+.neon-border {
+  position: relative;
+  border: 1px solid var(--color-neon-cyan);
+  box-shadow: 0 0 15px rgba(34, 211, 238, 0.3);
+}
+
+.neon-border::after {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  background: linear-gradient(45deg, var(--color-neon-cyan), var(--color-royal-500));
+  z-index: -1;
+  filter: blur(10px);
+  opacity: 0.5;
+  border-radius: inherit;
+}
+
+/* Animated Gradient Text */
+.gradient-text {
+  background: linear-gradient(to left, var(--color-neon-cyan), var(--color-neon-teal), var(--color-royal-500));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  background-size: 200% auto;
+  animation: text-flow 4s linear infinite;
+}
+
+@keyframes text-flow {
+  to {
+    background-position: 200% center;
+  }
+}
+
+/* Data Stream Background Background Animation */
+.data-stream-bg {
+  position: absolute;
+  inset: 0;
+  background-image: linear-gradient(rgba(34, 211, 238, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(34, 211, 238, 0.05) 1px, transparent 1px);
+  background-size: 50px 50px;
+  mask-image: radial-gradient(circle at center, black, transparent 80%);
+}
+
+/* Fade In Up */
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+    filter: blur(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+}
+
+/* Bounce Subtle for CTA */
+@keyframes bounce-subtle {
+
+  0%,
+  100% {
+    transform: translate(-50%, 0);
+  }
+
+  50% {
+    transform: translate(-50%, -10px);
+  }
+}
+
+.animate-bounce-subtle {
+  animation: bounce-subtle 4s ease-in-out infinite;
+}
+
+/* Glow Effect for Pricing */
+.price-glow {
+  box-shadow: 0 0 50px -10px var(--color-neon-teal);
+  animation: pulse-glow 3s infinite;
+}
+
+@keyframes pulse-glow {
+
+  0%,
+  100% {
+    box-shadow: 0 0 40px -10px var(--color-neon-teal);
+  }
+
+  50% {
+    box-shadow: 0 0 60px 0px var(--color-neon-cyan);
+  }
+}
+
+.animate-wow {
+  animation: fade-in-up 1s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
