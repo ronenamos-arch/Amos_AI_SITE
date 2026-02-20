@@ -87,7 +87,7 @@ export function AIChat() {
             <div
                 className="fixed z-50"
                 style={{
-                    bottom: "11.5rem",
+                    bottom: "12.5rem",
                     right: "1.5rem",
                     width: "min(92vw, 420px)",
                     height: isOpen ? "min(600px, 80vh)" : "0px",
@@ -246,7 +246,7 @@ export function AIChat() {
                 onClick={() => setIsOpen(!isOpen)}
                 className="fixed z-50 flex h-16 w-16 items-center justify-center rounded-full shadow-2xl transition-all duration-300 hover:scale-110 active:scale-95"
                 style={{
-                    bottom: "1.5rem",
+                    bottom: "6.5rem",
                     right: "1.5rem",
                     background: isOpen ? "#1e293b" : "white",
                     border: isOpen ? "2px solid rgba(255,255,255,0.2)" : "2px solid white",
