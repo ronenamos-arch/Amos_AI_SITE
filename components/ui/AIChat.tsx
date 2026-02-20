@@ -87,7 +87,7 @@ export function AIChat() {
             <div
                 className="fixed z-50"
                 style={{
-                    bottom: "7rem",
+                    bottom: "11.5rem",
                     right: "1.5rem",
                     width: "min(92vw, 420px)",
                     height: isOpen ? "min(600px, 80vh)" : "0px",
