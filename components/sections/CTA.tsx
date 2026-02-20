@@ -1,3 +1,5 @@
+import { Button } from "@/components/ui/Button";
+
 export function CTA() {
   return (
     <section className="relative overflow-hidden py-24 pb-32">
