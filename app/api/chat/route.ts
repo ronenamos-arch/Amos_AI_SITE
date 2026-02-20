@@ -14,7 +14,7 @@ export async function POST(req: Request) {
         // Attempting to use gemini-1.5-flash as it's the most stable free-tier model.
         // If 2.0 gave a "limit 0" error, it's likely restricted on this key/region.
         const model = genAI.getGenerativeModel({
-            model: "gemini-1.5-flash",
+            model: "gemini-1.5-flash-latest",
             systemInstruction: `אתה "עמוס Intelligence", עוזר ה-AI המקצועי של רונן עמוס.
       רונן עמוס הוא רו"ח ויועץ טכנולוגי פיננסי המתמחה ב-AI, Power BI ואוטומציות.
       ענה תמיד בעברית בצורה מקצועית ואדיבה.`,
