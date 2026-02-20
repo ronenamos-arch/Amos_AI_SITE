@@ -13,11 +13,11 @@ interface ButtonProps {
 
 const variants = {
   primary:
-    "bg-teal-400 text-space-950 font-semibold hover:bg-teal-300 hover:shadow-lg hover:shadow-teal-400/20 disabled:bg-teal-400/50 disabled:cursor-not-allowed",
+    "bg-teal-400 text-space-950 font-semibold hover:bg-teal-300 hover:scale-105 active:scale-95 hover:shadow-xl hover:shadow-teal-400/30 disabled:bg-teal-400/50 disabled:cursor-not-allowed",
   secondary:
-    "bg-royal-500 text-white font-semibold hover:bg-royal-400 hover:shadow-lg hover:shadow-royal-500/20 disabled:bg-royal-500/50 disabled:cursor-not-allowed",
+    "bg-royal-500 text-white font-semibold hover:bg-royal-400 hover:scale-105 active:scale-95 hover:shadow-xl hover:shadow-royal-500/30 disabled:bg-royal-500/50 disabled:cursor-not-allowed",
   ghost:
-    "text-text-secondary border border-glass-border hover:bg-glass-light hover:text-teal-400 disabled:opacity-50 disabled:cursor-not-allowed",
+    "text-text-secondary border border-glass-border hover:bg-glass-light hover:text-teal-400 hover:scale-105 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed",
 };
 
 const sizes = {
@@ -36,7 +36,7 @@ export function Button({
   type = "button",
   disabled = false,
 }: ButtonProps) {
-  const baseClasses = `inline-flex items-center justify-center transition-all duration-300 ${variants[variant]} ${sizes[size]} ${className}`;
+  const baseClasses = `inline-flex items-center justify-center transition-all duration-300 ease-out ${variants[variant]} ${sizes[size]} ${className}`;
 
   if (href && !disabled) {
     return (

@@ -40,32 +40,37 @@ const services = [
 
 export function Services() {
   return (
-    <section className="py-20">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <section id="services" className="py-24 relative overflow-hidden">
+      {/* Background glow */}
+      <div className="absolute top-1/2 left-0 h-96 w-96 bg-neon-cyan/5 blur-[120px] rounded-full" />
+
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative z-10">
         <SectionHeading
           title="השירותים שלי"
           subtitle="פתרונות מותאמים אישית לכל שלב בצמיחה של מחלקת הכספים שלך"
+          gradient
         />
-        <div className="grid gap-6 lg:grid-cols-3">
-          {services.map((service) => (
-            <GlassCard key={service.title}>
-              <div
-                className={`mb-4 flex h-14 w-14 items-center justify-center rounded-xl ${
-                  service.color === "teal"
-                    ? "bg-teal-400/10 text-teal-400"
-                    : "bg-royal-500/10 text-royal-400"
-                }`}
-              >
-                {service.icon}
-              </div>
-              <h3 className="mb-2 text-xl font-semibold">{service.title}</h3>
-              <p className="mb-6 text-sm text-text-secondary">
-                {service.description}
-              </p>
-              <Button href={service.href} variant="ghost" size="sm">
-                למידע נוסף
-              </Button>
-            </GlassCard>
+        <div className="grid gap-8 lg:grid-cols-3 mt-12">
+          {services.map((service, index) => (
+            <div key={service.title} className="animate-wow" style={{ animationDelay: `${index * 0.1}s` }}>
+              <GlassCard className="h-full p-8 hover:border-teal-400/30 transition-all duration-500 group">
+                <div
+                  className={`mb-6 flex h-16 w-16 items-center justify-center rounded-2xl transition-transform duration-500 group-hover:scale-110 group-hover:rotate-3 ${service.color === "teal"
+                      ? "bg-teal-400/10 text-teal-400 border border-teal-400/20"
+                      : "bg-royal-500/10 text-royal-400 border border-royal-500/20"
+                    }`}
+                >
+                  {service.icon}
+                </div>
+                <h3 className="mb-3 text-2xl font-bold text-white group-hover:text-teal-400 transition-colors">{service.title}</h3>
+                <p className="mb-8 text-slate-400 leading-relaxed">
+                  {service.description}
+                </p>
+                <Button href={service.href} variant="ghost" size="md" className="w-full group-hover:bg-glass-light transition-all">
+                  למידע נוסף
+                </Button>
+              </GlassCard>
+            </div>
           ))}
         </div>
       </div>
