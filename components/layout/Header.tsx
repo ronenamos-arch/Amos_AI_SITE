@@ -20,13 +20,21 @@ export function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
 
   return (
-    <header className="fixed top-0 right-0 left-0 z-50 glass">
+    <header
+      className="fixed top-0 right-0 left-0 z-50"
+      style={{
+        background: "rgba(2, 6, 23, 0.85)",
+        backdropFilter: "blur(20px)",
+        WebkitBackdropFilter: "blur(20px)",
+        borderBottom: "1px solid rgba(255,255,255,0.08)",
+      }}
+    >
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex h-16 items-center justify-between">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2">
             <span className="text-xl font-bold gradient-text">רונן עמוס</span>
-            <span className="hidden text-sm text-text-secondary sm:block">
+            <span className="hidden text-sm sm:block" style={{ color: "#94a3b8" }}>
               רו&quot;ח | יועץ טכנולוגי
             </span>
           </Link>
@@ -37,40 +45,61 @@ export function Header() {
               <Link
                 key={link.href}
                 href={link.href}
-                className="text-sm font-medium text-text-secondary transition-colors hover:text-teal-400"
+                className="text-sm font-medium transition-colors hover:text-teal-400"
+                style={{ color: "#94a3b8" }}
               >
                 {link.label}
               </Link>
             ))}
-            <div className="h-6 w-px bg-white/10" />
+            <div className="h-6 w-px" style={{ background: "rgba(255,255,255,0.1)" }} />
             <UserMenu />
           </nav>
 
           {/* Mobile menu button */}
           <button
             onClick={() => setMobileOpen(!mobileOpen)}
-            className="rounded-lg p-2 text-text-secondary hover:bg-glass-light md:hidden"
+            className="rounded-lg p-2 md:hidden"
+            style={{ color: "#94a3b8" }}
             aria-label="תפריט"
           >
             {mobileOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
           </button>
         </div>
 
-        {/* Mobile Nav */}
+        {/* Mobile Nav - with explicit dark background so text is visible */}
         {mobileOpen && (
-          <nav className="border-t border-glass-border pb-6 pt-4 md:hidden animate-wow">
-            <div className="flex flex-col gap-2">
+          <nav
+            className="pb-6 pt-4 md:hidden animate-wow"
+            style={{
+              borderTop: "1px solid rgba(255,255,255,0.08)",
+              background: "rgba(2, 6, 23, 0.98)",
+            }}
+          >
+            <div className="flex flex-col gap-1">
               {navLinks.map((link) => (
                 <Link
                   key={link.href}
                   href={link.href}
                   onClick={() => setMobileOpen(false)}
-                  className="block rounded-lg px-4 py-3 text-text-secondary transition-colors hover:bg-glass-light hover:text-teal-400"
+                  className="block rounded-lg px-4 py-3 text-base font-medium transition-colors hover:text-teal-400"
+                  style={{
+                    color: "#e2e8f0",
+                    background: "transparent",
+                  }}
+                  onMouseEnter={(e) => {
+                    (e.currentTarget as HTMLElement).style.background = "rgba(255,255,255,0.06)";
+                  }}
+                  onMouseLeave={(e) => {
+                    (e.currentTarget as HTMLElement).style.background = "transparent";
+                  }}
                 >
                   {link.label}
                 </Link>
               ))}
-              <div className="my-2 border-t border-white/5 pt-2 flex justify-center">
+              <div
+                className="mt-2 pt-4 flex justify-center"
+                style={{ borderTop: "1px solid rgba(255,255,255,0.08)" }}
+              >
                 <UserMenu />
               </div>
             </div>
