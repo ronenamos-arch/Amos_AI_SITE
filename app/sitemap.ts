@@ -1,9 +1,11 @@
 import { MetadataRoute } from 'next'
+import { getAllPosts } from '@/lib/blog'
+import { getDBPosts } from '@/lib/blog-supabase'
 
-export default function sitemap(): MetadataRoute.Sitemap {
-    const baseUrl = 'https://ronenamos-cpa.com' // Replace with actual domain when known
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+    const baseUrl = 'https://amos-ai-site.vercel.app'
 
-    return [
+    const staticPages: MetadataRoute.Sitemap = [
         {
             url: baseUrl,
             lastModified: new Date(),
@@ -47,4 +49,30 @@ export default function sitemap(): MetadataRoute.Sitemap {
             priority: 0.5,
         },
     ]
+
+    // Local markdown posts
+    const localPosts = getAllPosts()
+    const localPostEntries: MetadataRoute.Sitemap = localPosts.map((post) => ({
+        url: `${baseUrl}/blog/${encodeURIComponent(post.slug)}`,
+        lastModified: post.date ? new Date(post.date) : new Date(),
+        changeFrequency: 'monthly',
+        priority: 0.6,
+    }))
+
+    // DB posts from Supabase
+    const dbPosts = await getDBPosts()
+    const dbPostEntries: MetadataRoute.Sitemap = dbPosts.map((post) => ({
+        url: `${baseUrl}/blog/${encodeURIComponent(post.slug)}`,
+        lastModified: post.published_at ? new Date(post.published_at) : new Date(),
+        changeFrequency: 'monthly',
+        priority: 0.6,
+    }))
+
+    // Deduplicate by slug (DB posts take precedence)
+    const dbSlugs = new Set(dbPosts.map((p) => p.slug))
+    const uniqueLocalEntries = localPostEntries.filter(
+        (_, i) => !dbSlugs.has(localPosts[i].slug)
+    )
+
+    return [...staticPages, ...dbPostEntries, ...uniqueLocalEntries]
 }

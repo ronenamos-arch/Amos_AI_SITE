@@ -1,5 +1,3 @@
-"use client";
-
 import { createClient } from "@/lib/supabase/client";
 
 export async function updateUserSubscription(status: 'monthly' | 'lifetime', orderId: string, amount: number) {

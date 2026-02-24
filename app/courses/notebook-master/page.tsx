@@ -93,7 +93,7 @@ export default function NotebookMasterPage() {
                             </p>
                             <div className="flex flex-wrap justify-center gap-6 items-center">
                                 <div className="min-w-[200px]">
-                                    <PayPalPaymentButton amount="300" />
+                                    <PayPalPaymentButton amount="300" subscriptionType="lifetime" />
                                 </div>
                                 <Button size="lg" variant="ghost" href="#curriculum" className="px-10 py-7 text-xl border-white/10 hover:bg-white/5 h-fit">
                                     מה לומדים?
@@ -280,7 +280,7 @@ export default function NotebookMasterPage() {
                                         ))}
                                     </ul>
                                     <div className="mt-4">
-                                        <PayPalPaymentButton amount="300" />
+                                        <PayPalPaymentButton amount="300" subscriptionType="lifetime" />
                                     </div>
                                     <div className="mt-6 flex items-center justify-center gap-2 text-text-muted text-sm">
                                         <Shield className="w-4 h-4" />

@@ -20,7 +20,17 @@ export async function generateMetadata({
   // Try DB first
   const dbPost = await getDBPostBySlug(slug);
   if (dbPost) {
-    return { title: dbPost.title, description: dbPost.description };
+    return {
+      title: dbPost.title,
+      description: dbPost.description,
+      openGraph: {
+        title: dbPost.title,
+        description: dbPost.description,
+        type: "article",
+        locale: "he_IL",
+        ...(dbPost.image_url && { images: [dbPost.image_url] }),
+      },
+    };
   }
 
   const post = getPostBySlug(slug);
@@ -102,8 +112,38 @@ export default async function BlogPostPage({
     ? displayContent
     : parseMarkdown(displayContent);
 
+  const articleSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: post.title,
+    description: post.description,
+    datePublished: post.date,
+    dateModified: post.date,
+    author: {
+      '@type': 'Person',
+      name: 'רונן עמוס',
+      url: 'https://amos-ai-site.vercel.app',
+    },
+    publisher: {
+      '@type': 'Organization',
+      name: 'רונן עמוס - רו"ח ויועץ טכנולוגי פיננסי',
+      url: 'https://amos-ai-site.vercel.app',
+    },
+    mainEntityOfPage: {
+      '@type': 'WebPage',
+      '@id': `https://amos-ai-site.vercel.app/blog/${encodeURIComponent(post.slug)}`,
+    },
+    ...(post.image && { image: post.image.startsWith('http') ? post.image : `https://amos-ai-site.vercel.app${post.image}` }),
+    ...(post.tags.length > 0 && { keywords: post.tags.join(', ') }),
+    inLanguage: 'he',
+  };
+
   return (
     <div className="pt-24 pb-16">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
+      />
       <article className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 focus:outline-none">
         {/* Header */}
         <div className="mb-8 border-b border-white/5 pb-8">

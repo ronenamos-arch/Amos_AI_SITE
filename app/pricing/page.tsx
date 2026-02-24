@@ -117,7 +117,7 @@ export default function PricingPage() {
                                         <div className="mt-auto">
                                             <PayPalPaymentButton
                                                 amount={plan.price}
-                                                planId={plan.name.includes("חודשי") ? "P-7MB79953YD467123BNGKGEBI" : undefined}
+                                                planId={plan.name.includes("חודשי") ? process.env.NEXT_PUBLIC_PAYPAL_MONTHLY_PLAN_ID : undefined}
                                                 subscriptionType={plan.name.includes("חודשי") ? 'monthly' : 'lifetime'}
                                             />
                                         </div>
