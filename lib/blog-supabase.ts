@@ -33,12 +33,14 @@ export async function getDBPostBySlug(slug: string) {
         .from('articles')
         .select('*')
         .eq('slug', slug)
-        .single();
+        .limit(1);
 
     if (error) {
         console.error("Error fetching article by slug:", error);
         return null;
     }
 
-    return data as DBArticle;
+    if (!data || data.length === 0) return null;
+
+    return data[0] as DBArticle;
 }
