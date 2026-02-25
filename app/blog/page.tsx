@@ -6,6 +6,8 @@ import { Badge } from "@/components/ui/Badge";
 import { GlassCard } from "@/components/ui/GlassCard";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 
+export const dynamic = 'force-dynamic';
+
 export const metadata: Metadata = {
   title: "בלוג",
   description:
