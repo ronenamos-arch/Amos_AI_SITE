@@ -18,9 +18,10 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
+  const decodedSlug = decodeURIComponent(slug);
 
   // Try DB first
-  const dbPost = await getDBPostBySlug(slug);
+  const dbPost = await getDBPostBySlug(decodedSlug);
   if (dbPost) {
     return {
       title: dbPost.title,
@@ -59,11 +60,13 @@ export default async function BlogPostPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
+  // Decode in case the slug contains URL-encoded characters (e.g. Hebrew)
+  const decodedSlug = decodeURIComponent(slug);
   let post: BlogPost | null = null;
   let isDBPost = false;
 
   // Try DB first
-  const dbPost = await getDBPostBySlug(slug);
+  const dbPost = await getDBPostBySlug(decodedSlug);
   if (dbPost) {
     post = {
       slug: dbPost.slug,
@@ -77,7 +80,7 @@ export default async function BlogPostPage({
     };
     isDBPost = true;
   } else {
-    post = getPostBySlug(slug) || null;
+    post = getPostBySlug(decodedSlug) || null;
   }
 
   if (!post) {
