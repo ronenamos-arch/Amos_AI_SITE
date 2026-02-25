@@ -28,7 +28,16 @@ export async function updateSession(request: NextRequest) {
     );
 
     // refreshing the auth token
-    await supabase.auth.getUser();
+    const { data: { user } } = await supabase.auth.getUser();
+
+    if (request.nextUrl.pathname.startsWith('/admin')) {
+        if (!user || user.email !== "ronenamos@gmail.com") {
+            const redirectUrl = request.nextUrl.clone();
+            redirectUrl.pathname = '/';
+            redirectUrl.search = '';
+            return NextResponse.redirect(redirectUrl);
+        }
+    }
 
     return supabaseResponse;
 }

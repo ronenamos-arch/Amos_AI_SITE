@@ -1,4 +1,4 @@
-import { createClient } from "@/lib/supabase/server";
+import { createAdminClient } from "@/lib/supabase/admin";
 
 export interface DBArticle {
     id: string;
@@ -13,7 +13,7 @@ export interface DBArticle {
 }
 
 export async function getDBPosts() {
-    const supabase = await createClient();
+    const supabase = createAdminClient();
     const { data, error } = await supabase
         .from('articles')
         .select('*')
@@ -28,7 +28,7 @@ export async function getDBPosts() {
 }
 
 export async function getDBPostBySlug(slug: string) {
-    const supabase = await createClient();
+    const supabase = createAdminClient();
     const { data, error } = await supabase
         .from('articles')
         .select('*')
