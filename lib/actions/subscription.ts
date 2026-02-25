@@ -26,18 +26,18 @@ export async function updateUserSubscription(status: 'monthly' | 'lifetime', ord
         // We continue anyway to try and update the profile, but this should be logged
     }
 
-    // 2. Update the profile status (upsert handles missing profile rows)
+    // 2. Update the profile status
     const { error: profileError } = await supabase
         .from('profiles')
-        .upsert({
-            id: user.id,
-            email: user.email,
+        .update({
             subscription_status: status,
             updated_at: new Date().toISOString()
-        });
+        })
+        .eq('id', user.id);
 
     if (profileError) {
-        throw new Error("Failed to update user profile");
+        console.error("Profile update error:", JSON.stringify(profileError));
+        throw new Error(`Failed to update user profile: ${profileError.message}`);
     }
 
     return { success: true };
