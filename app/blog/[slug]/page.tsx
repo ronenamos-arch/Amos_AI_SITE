@@ -5,6 +5,8 @@ import { getDBPostBySlug } from "@/lib/blog-supabase";
 import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
 
+export const dynamic = 'force-dynamic';
+
 export async function generateStaticParams() {
   const posts = getAllPosts();
   return posts.map((post) => ({ slug: post.slug }));
