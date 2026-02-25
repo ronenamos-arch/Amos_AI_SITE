@@ -1,9 +1,10 @@
 "use client";
 
 import { PayPalButtons, usePayPalScriptReducer } from "@paypal/react-paypal-js";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { updateUserSubscription } from "@/lib/actions/subscription";
 import { useRouter } from "next/navigation";
+import { createClient } from "@/lib/supabase/client";
 
 interface PayPalPaymentButtonProps {
     amount: string;
@@ -16,14 +17,33 @@ export function PayPalPaymentButton({ amount, onSuccess, planId, subscriptionTyp
     const [{ isPending }] = usePayPalScriptReducer();
     const [error, setError] = useState<string | null>(null);
     const [isUpdating, setIsUpdating] = useState(false);
+    const [isLoggedIn, setIsLoggedIn] = useState<boolean | null>(null);
     const router = useRouter();
 
-    if (isPending || isUpdating) return (
+    useEffect(() => {
+        const supabase = createClient();
+        supabase.auth.getUser().then(({ data: { user } }) => {
+            setIsLoggedIn(!!user);
+        });
+    }, []);
+
+    if (isLoggedIn === null || isPending || isUpdating) return (
         <div className="h-12 w-full flex items-center justify-center bg-white/5 rounded-xl">
             <div className="animate-spin h-5 w-5 border-2 border-teal-400 border-t-transparent rounded-full" />
             <span className="mr-3 text-sm text-text-muted">מעדכן נתונים...</span>
         </div>
     );
+
+    if (!isLoggedIn) {
+        return (
+            <a
+                href="/login"
+                className="block w-full text-center py-3 px-6 bg-teal-500 hover:bg-teal-600 text-white font-semibold rounded-full transition-colors"
+            >
+                התחבר כדי להמשיך לתשלום
+            </a>
+        );
+    }
 
     // Handle placeholder Plan ID for development
     if (planId === "P-NOT-SET-YET") {
@@ -98,8 +118,8 @@ export function PayPalPaymentButton({ amount, onSuccess, planId, subscriptionTyp
 
                         if (onSuccess) onSuccess(details);
 
-                        // Force a refresh to update the UI (unlock posts)
-                        router.refresh();
+                        // Redirect to thank-you page
+                        router.push('/thanks');
                     } catch (err: any) {
                         console.error("Payment approval error:", err);
                         setError("התשלום הצליח אך חלה שגיאה בעדכון הפרופיל. פנה לתמיכה.");

@@ -1,7 +1,9 @@
-import { createClient } from "@/lib/supabase/client";
+"use server";
+
+import { createClient } from "@/lib/supabase/server";
 
 export async function updateUserSubscription(status: 'monthly' | 'lifetime', orderId: string, amount: number) {
-    const supabase = createClient();
+    const supabase = await createClient();
 
     const { data: { user } } = await supabase.auth.getUser();
 
@@ -24,14 +26,15 @@ export async function updateUserSubscription(status: 'monthly' | 'lifetime', ord
         // We continue anyway to try and update the profile, but this should be logged
     }
 
-    // 2. Update the profile status
+    // 2. Update the profile status (upsert handles missing profile rows)
     const { error: profileError } = await supabase
         .from('profiles')
-        .update({
+        .upsert({
+            id: user.id,
+            email: user.email,
             subscription_status: status,
             updated_at: new Date().toISOString()
-        })
-        .eq('id', user.id);
+        });
 
     if (profileError) {
         throw new Error("Failed to update user profile");
