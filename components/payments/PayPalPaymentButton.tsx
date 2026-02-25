@@ -3,7 +3,6 @@
 import { PayPalButtons, usePayPalScriptReducer } from "@paypal/react-paypal-js";
 import { useState, useEffect } from "react";
 import { updateUserSubscription } from "@/lib/actions/subscription";
-import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
 
 interface PayPalPaymentButtonProps {
@@ -18,7 +17,6 @@ export function PayPalPaymentButton({ amount, onSuccess, planId, subscriptionTyp
     const [error, setError] = useState<string | null>(null);
     const [isUpdating, setIsUpdating] = useState(false);
     const [isLoggedIn, setIsLoggedIn] = useState<boolean | null>(null);
-    const router = useRouter();
 
     useEffect(() => {
         const supabase = createClient();
@@ -119,7 +117,7 @@ export function PayPalPaymentButton({ amount, onSuccess, planId, subscriptionTyp
                         if (onSuccess) onSuccess(details);
 
                         // Redirect to thank-you page
-                        router.push('/thanks');
+                        window.location.href = '/thanks';
                     } catch (err: any) {
                         console.error("Payment approval error:", err);
                         setError("התשלום הצליח אך חלה שגיאה בעדכון הפרופיל. פנה לתמיכה.");

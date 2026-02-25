@@ -1,18 +1,22 @@
 "use server";
 
 import { createClient } from "@/lib/supabase/server";
+import { createAdminClient } from "@/lib/supabase/admin";
 
 export async function updateUserSubscription(status: 'monthly' | 'lifetime', orderId: string, amount: number) {
+    // Auth check — uses session cookies to verify identity
     const supabase = await createClient();
-
     const { data: { user } } = await supabase.auth.getUser();
 
     if (!user) {
         throw new Error("User must be logged in to update subscription");
     }
 
+    // DB writes — uses service role key, bypasses RLS
+    const adminSupabase = createAdminClient();
+
     // 1. Record the payment
-    const { error: paymentError } = await supabase
+    const { error: paymentError } = await adminSupabase
         .from('payment_records')
         .insert({
             user_id: user.id,
@@ -23,11 +27,10 @@ export async function updateUserSubscription(status: 'monthly' | 'lifetime', ord
 
     if (paymentError) {
         console.error("Error recording payment:", paymentError);
-        // We continue anyway to try and update the profile, but this should be logged
     }
 
-    // 2. Update the profile status
-    const { error: profileError } = await supabase
+    // 2. Activate subscription
+    const { error: profileError } = await adminSupabase
         .from('profiles')
         .update({
             subscription_status: status,
@@ -36,8 +39,7 @@ export async function updateUserSubscription(status: 'monthly' | 'lifetime', ord
         .eq('id', user.id);
 
     if (profileError) {
-        console.error("Profile update error:", JSON.stringify(profileError));
-        throw new Error(`Failed to update user profile: ${profileError.message}`);
+        throw new Error(`Profile update failed: ${profileError.message}`);
     }
 
     return { success: true };
