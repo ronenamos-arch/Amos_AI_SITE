@@ -30,7 +30,7 @@ export default function ThankYouPage() {
                                 <h3 className="font-bold">מה קורה עכשיו?</h3>
                             </div>
                             <p className="text-sm text-text-secondary">
-                                המערכת תשלח לך אישור למייל. הגישה לתכני הפרימיום תפתח תוך דקות ספורות (במקסימום עד שעה).
+                                שלחנו לך אישור תשלום למייל. הגישה לתכני הפרימיום כבר פעילה — אפשר להתחיל מיד.
                             </p>
                         </div>
                         <div className="p-4 rounded-xl bg-white/5 border border-white/5">
