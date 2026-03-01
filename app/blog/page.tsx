@@ -5,6 +5,7 @@ import { getDBPosts } from "@/lib/blog-supabase";
 import { Badge } from "@/components/ui/Badge";
 import { GlassCard } from "@/components/ui/GlassCard";
 import { SectionHeading } from "@/components/ui/SectionHeading";
+import { NewsletterForm } from "@/components/forms/NewsletterForm";
 
 export const dynamic = 'force-dynamic';
 
@@ -94,6 +95,11 @@ export default async function BlogPage() {
                   </GlassCard>
                 </Link>
               ))}
+            </div>
+
+            {/* Newsletter CTA */}
+            <div className="mt-16 max-w-2xl mx-auto">
+              <NewsletterForm source="blog" variant="card" />
             </div>
 
             {/* Tags moved to bottom */}

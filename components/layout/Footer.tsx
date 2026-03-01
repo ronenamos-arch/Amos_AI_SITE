@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Mail, Phone, MapPin, Linkedin, Github } from "lucide-react";
+import { NewsletterForm } from "@/components/forms/NewsletterForm";
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
@@ -67,6 +68,19 @@ export function Footer() {
                 <span>ישראל - פריסה ארצית</span>
               </li>
             </ul>
+          </div>
+        </div>
+
+        {/* Newsletter Signup */}
+        <div className="py-8 border-t border-white/5 mb-4">
+          <div className="flex flex-col md:flex-row items-center gap-4 md:gap-8">
+            <div className="shrink-0 text-center md:text-right">
+              <h4 className="text-text-primary font-bold text-sm">הישאר מעודכן</h4>
+              <p className="text-text-muted text-xs mt-1">טיפים על AI וכספים, פעם בשבוע</p>
+            </div>
+            <div className="flex-grow w-full md:max-w-md">
+              <NewsletterForm source="footer" variant="inline" />
+            </div>
           </div>
         </div>
 
