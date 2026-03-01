@@ -68,6 +68,11 @@ const plans = [
 ];
 
 export default function PricingPage() {
+    const isSandbox = process.env.NEXT_PUBLIC_PAYPAL_SANDBOX === 'true';
+    const monthlyPlanId = isSandbox
+        ? process.env.NEXT_PUBLIC_PAYPAL_SANDBOX_MONTHLY_PLAN_ID
+        : process.env.NEXT_PUBLIC_PAYPAL_MONTHLY_PLAN_ID;
+
     return (
         <PayPalProvider>
             <div className="pt-24 pb-16">
@@ -117,7 +122,7 @@ export default function PricingPage() {
                                         <div className="mt-auto">
                                             <PayPalPaymentButton
                                                 amount={plan.price}
-                                                planId={plan.name.includes("חודשי") ? process.env.NEXT_PUBLIC_PAYPAL_MONTHLY_PLAN_ID : undefined}
+                                                planId={plan.name.includes("חודשי") ? monthlyPlanId : undefined}
                                                 subscriptionType={plan.name.includes("חודשי") ? 'monthly' : 'lifetime'}
                                             />
                                         </div>

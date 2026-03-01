@@ -8,7 +8,10 @@ interface PayPalProviderProps {
 }
 
 export function PayPalProvider({ children }: PayPalProviderProps) {
-    const clientId = process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID;
+    const isSandbox = process.env.NEXT_PUBLIC_PAYPAL_SANDBOX === 'true';
+    const clientId = isSandbox
+        ? process.env.NEXT_PUBLIC_PAYPAL_SANDBOX_CLIENT_ID
+        : process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID;
 
     if (!clientId) {
         console.error("PayPal Client ID is missing");

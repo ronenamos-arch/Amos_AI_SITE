@@ -2,7 +2,6 @@
 
 import dynamic from 'next/dynamic';
 import 'react-quill-new/dist/quill.snow.css';
-import { createClient } from '@/lib/supabase/client';
 import { useMemo, useRef, forwardRef } from 'react';
 
 // Use a wrapper to forward the ref correctly
@@ -21,7 +20,6 @@ interface EditorProps {
 
 export default function RichTextEditor({ value, onChange }: EditorProps) {
     const quillRef = useRef<any>(null);
-    const supabase = createClient();
 
     const imageHandler = () => {
         const input = document.createElement('input');
@@ -42,20 +40,15 @@ export default function RichTextEditor({ value, onChange }: EditorProps) {
             if (!editor) return;
 
             try {
-                const fileExt = file.name.split('.').pop();
-                const fileName = `${Math.random()}.${fileExt}`;
-                const filePath = `blog/inner/${fileName}`;
-
-                const { error: uploadError } = await supabase.storage
-                    .from('blog-media')
-                    .upload(filePath, file);
-
-                if (uploadError) throw uploadError;
-
-                const { data: { publicUrl } } = supabase.storage
-                    .from('blog-media')
-                    .getPublicUrl(filePath);
-
+                const formData = new FormData();
+                formData.append("file", file);
+                formData.append("folder", "blog/inner");
+                const res = await fetch("/api/admin/upload", { method: "POST", body: formData });
+                if (!res.ok) {
+                    const { error } = await res.json();
+                    throw new Error(error || "Upload failed");
+                }
+                const { publicUrl } = await res.json();
                 editor.insertEmbed(range.index, 'image', publicUrl);
                 editor.setSelection(range.index + 1);
             } catch (err) {

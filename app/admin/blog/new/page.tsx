@@ -38,23 +38,17 @@ export default function NewArticlePage() {
     const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
         if (!file) return;
-
         try {
             setUploading(true);
-            const fileExt = file.name.split('.').pop();
-            const fileName = `${Math.random()}.${fileExt}`;
-            const filePath = `blog/${fileName}`;
-
-            const { error: uploadError } = await supabase.storage
-                .from('blog-media')
-                .upload(filePath, file);
-
-            if (uploadError) throw uploadError;
-
-            const { data: { publicUrl } } = supabase.storage
-                .from('blog-media')
-                .getPublicUrl(filePath);
-
+            const formData = new FormData();
+            formData.append("file", file);
+            formData.append("folder", "blog");
+            const res = await fetch("/api/admin/upload", { method: "POST", body: formData });
+            if (!res.ok) {
+                const { error } = await res.json();
+                throw new Error(error || "Upload failed");
+            }
+            const { publicUrl } = await res.json();
             setImageUrl(publicUrl);
         } catch (err: any) {
             console.error("Upload error:", err);
