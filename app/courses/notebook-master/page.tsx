@@ -4,8 +4,6 @@ import { Button } from "@/components/ui/Button";
 import { Badge } from "@/components/ui/Badge";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { CheckCircle2, PlayCircle, FileText, Globe, Zap, Shield, TrendingUp, Clock, Infinity } from "lucide-react";
-import { PayPalProvider } from "@/components/providers/PayPalProvider";
-import { PayPalPaymentButton } from "@/components/payments/PayPalPaymentButton";
 
 export const metadata: Metadata = {
     title: "Mastering NotebookLM: קורס מעשי לאנשי פיננסים",
@@ -57,8 +55,7 @@ const syllabus = [
 
 export default function NotebookMasterPage() {
     return (
-        <PayPalProvider>
-            <div className="relative min-h-screen bg-space-950 text-white overflow-hidden font-primary">
+        <div className="relative min-h-screen bg-space-950 text-white overflow-hidden font-primary">
                 {/* Background Gradients */}
                 <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none -z-10">
                     <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-royal-600/20 blur-[120px] rounded-full" />
@@ -67,13 +64,14 @@ export default function NotebookMasterPage() {
 
                 {/* Floating CTA */}
                 <div className="fixed bottom-8 left-1/2 -translate-x-1/2 z-50 animate-bounce-subtle">
-                    <Button
-                        href="#pricing"
-                        size="lg"
-                        className="shadow-2xl shadow-teal-500/40 px-8 py-6 text-lg font-bold bg-gradient-to-r from-teal-500 to-royal-500 border-none hover:scale-105 transition-transform"
+                    <a
+                        href="https://www.paypal.com/ncp/payment/4AVKHU45YU4XS"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="shadow-2xl shadow-teal-500/40 px-8 py-6 text-lg font-bold bg-gradient-to-r from-teal-500 to-royal-500 hover:scale-105 transition-transform inline-block text-white rounded-lg"
                     >
                         הבטח את מקומך - 300₪ בלבד
-                    </Button>
+                    </a>
                 </div>
 
                 <div className="pt-24 pb-32">
@@ -93,7 +91,14 @@ export default function NotebookMasterPage() {
                             </p>
                             <div className="flex flex-wrap justify-center gap-6 items-center">
                                 <div className="min-w-[200px]">
-                                    <PayPalPaymentButton amount="300" subscriptionType="lifetime" />
+                                    <a
+                                        href="https://www.paypal.com/ncp/payment/4AVKHU45YU4XS"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="inline-block bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-lg text-lg transition-colors"
+                                    >
+                                        רכוש גישה עכשיו — ₪300
+                                    </a>
                                 </div>
                                 <Button size="lg" variant="ghost" href="#curriculum" className="px-10 py-7 text-xl border-white/10 hover:bg-white/5 h-fit">
                                     מה לומדים?
@@ -280,7 +285,14 @@ export default function NotebookMasterPage() {
                                         ))}
                                     </ul>
                                     <div className="mt-4">
-                                        <PayPalPaymentButton amount="300" subscriptionType="lifetime" />
+                                        <a
+                                            href="https://www.paypal.com/ncp/payment/4AVKHU45YU4XS"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="inline-block bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-lg text-lg transition-colors"
+                                        >
+                                            רכוש גישה עכשיו — ₪300
+                                        </a>
                                     </div>
                                     <div className="mt-6 flex items-center justify-center gap-2 text-text-muted text-sm">
                                         <Shield className="w-4 h-4" />
@@ -319,6 +331,5 @@ export default function NotebookMasterPage() {
                     </div>
                 </div>
             </div>
-        </PayPalProvider>
     );
 }
