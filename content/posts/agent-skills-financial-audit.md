@@ -1,5 +1,5 @@
 ---
-title: "Practical Guide: Building Agent Skills for Financial Audit Automation"
+title: "מדריך מעשי: בניית כישורי סוכן (Agent Skills) לאוטומציה של בדיקות ביקורת וניתוח פיננסי"
 date: "2026-03-04"
 excerpt: "כיצד להפוך את הידע המקצועי שלך לנכס דיגיטלי אג'נטיבי. מדריך מעשי לבניית Agent Skills שמפעילים סקריפטי Python לזיהוי חריגות, התאמות בנקים, וניתוח פיננסי — בלי לטעון את כל הידע לתוך ה-LLM בבת אחת."
 image: "/images/blog/agent-skills-financial-audit-1.jpeg"
@@ -9,11 +9,11 @@ premium: "true"
 
 # מדריך מעשי: בניית "כישורי סוכן" (Agent Skills) לאוטומציה של בדיקות ביקורת וניתוח פיננסי
 
+![סוכן AI מבצע ניתוח פיננסי](/images/blog/agent-skills-financial-audit-1.jpeg)
+
 התקדמות ה-AI משנה את פני המקצוע הפיננסי בקצב חסר תקדים. אנו עוברים במהירות מעידן של "השלמת קוד" (Code Completion) פשוטה לעבודה עם סוכנים אוטונומיים (Agentic AI) המסוגלים לתכנן ולבצע משימות מורכבות. אולם, כארכיטקטים של מערכות, עלינו להכיר ב"קיר" הטכני: **עומס הקשר (Context Bloat)**. לא ניתן להזין את כל מתודולוגיית הביקורת, ספרי החשבונות והנהלים הארגוניים לתוך חלון ההקשר מבלי לגרום לבלבול של המודל או לבזבוז מיותר של טוקנים.
 
 כאן נכנס לתמונה ה-Finance Transformation. בהקשר האג'נטיבי, מדובר במעבר של איש הפיננסים מתפקיד של **מעבד נתונים (Data Processor)** לתפקיד של **אורקסטרטור של מערכות AI (AI Orchestrator)**. המפתח לשינוי זה הוא ניהול "ידע מבוזר" (Distributed Knowledge) באמצעות Agent Skills — פתרון המאפשר "טעינה עצלנית" (Lazy Loading) של הקשר עמוק וממוקד רק כאשר הסוכן מזהה צורך בכך בתהליך ה-Plan שלו.
-
-![סוכן AI מבצע ניתוח פיננסי](/images/blog/agent-skills-financial-audit-1.jpeg)
 
 ## הבנת הקונספט: מהו Agent Skill?
 
@@ -154,8 +154,10 @@ def analyze_journal(file_path):
 
 ## מה הצעד הבא שלכם?
 
-**אפשרות 1:** הצטרפו לקורס AI Finance Transformation והתחילו ליישם AI במחלקת הכספים שלכם.
+**אפשרות 1:** [הצטרפו לקורס AI Finance Mastery](https://amos-ai-site.vercel.app/courses/ai-mastery) והתחילו ליישם AI במחלקת הכספים שלכם.
 
-**אפשרות 2:** הזמינו אותי להרצאה או סדנה מעשית לצוות שלכם בנושא שילוב AI ו-ERP.
+**אפשרות 2:** [Mastering NotebookLM — קורס מעשי לאנשי פיננסים](https://amos-ai-site.vercel.app/courses/notebook-master) — כלי ה-AI שמארגן את הידע שלכם.
+
+**אפשרות 3:** [הזמינו אותי להרצאה או סדנה מעשית](https://amos-ai-site.vercel.app/contact) לצוות שלכם בנושא שילוב AI ו-ERP.
 
 המתחרים שלכם כבר בוחנים איך לשלב AI עמוק בתוך ה-ERP. השאלה היא האם אתם **מובילים** — או מגיבים.
