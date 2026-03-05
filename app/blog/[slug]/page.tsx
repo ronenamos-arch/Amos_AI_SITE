@@ -53,6 +53,7 @@ export async function generateMetadata({
 
 import { createClient } from "@/lib/supabase/server";
 import { Paywall } from "@/components/blog/Paywall";
+import { ShareButtons } from "@/components/blog/ShareButtons";
 
 export default async function BlogPostPage({
   params,
@@ -164,6 +165,12 @@ export default async function BlogPostPage({
         <div
           className={`prose prose-invert max-w-none text-text-secondary prose-headings:text-text-primary prose-a:text-teal-400 prose-strong:text-text-primary prose-img:rounded-xl prose-img:mx-auto ${isLocked ? 'overflow-hidden max-h-[400px] mask-fade-bottom' : ''}`}
           dangerouslySetInnerHTML={{ __html: contentHtml }}
+        />
+
+        {/* Share Buttons */}
+        <ShareButtons
+          title={post.title}
+          url={`${process.env.NEXT_PUBLIC_SITE_URL}/blog/${encodeURIComponent(post.slug)}`}
         />
 
         {/* Footer Tags */}
