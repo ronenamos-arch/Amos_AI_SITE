@@ -170,7 +170,7 @@ export default async function BlogPostPage({
         {/* Share Buttons */}
         <ShareButtons
           title={post.title}
-          url={`${process.env.NEXT_PUBLIC_SITE_URL}/blog/${encodeURIComponent(post.slug)}`}
+          url={`${process.env.NEXT_PUBLIC_SITE_URL}/blog/${post.slug}`}
         />
 
         {/* Footer Tags */}
