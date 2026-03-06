@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { createClient } from "@/lib/supabase/client";
+import { updateArticle } from "@/lib/actions/articles";
 import { GlassCard } from "@/components/ui/GlassCard";
 import { Button } from "@/components/ui/Button";
 import { ImagePlus, Loader2, Save, X, ArrowLeft } from "lucide-react";
@@ -20,7 +20,6 @@ interface Article {
 
 export default function EditArticleClient({ article }: { article: Article }) {
     const router = useRouter();
-    const supabase = createClient();
 
     // Form State — pre-populated from article
     const [title, setTitle] = useState(article.title);
@@ -68,19 +67,16 @@ export default function EditArticleClient({ article }: { article: Article }) {
             setLoading(true);
             setError("");
 
-            const { error: saveError } = await supabase
-                .from('articles')
-                .update({
-                    title,
-                    description,
-                    content,
-                    image_url: imageUrl,
-                    is_premium: isPremium,
-                    tags: tags.split(',').map(t => t.trim()).filter(Boolean),
-                })
-                .eq('slug', article.slug);
+            const res = await updateArticle(article.slug, {
+                title,
+                description,
+                content,
+                image_url: imageUrl,
+                is_premium: isPremium,
+                tags: tags.split(',').map(t => t.trim()).filter(Boolean),
+            });
 
-            if (saveError) throw saveError;
+            if (!res.success) throw new Error(res.error || "שגיאה בשמירה");
 
             router.push('/admin/blog');
             router.refresh();

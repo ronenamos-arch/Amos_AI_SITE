@@ -6,10 +6,11 @@ import { GlassCard } from "@/components/ui/GlassCard";
 import { Button } from "@/components/ui/Button";
 import { Send, Loader2, Users, CheckCircle2, Eye, X, ChevronDown, ChevronUp } from "lucide-react";
 import RichTextEditor from "@/components/admin/RichTextEditor";
-import { sendNewsletter, sendTestNewsletter, getSubscriberCount, getSubscribers } from "@/lib/actions/newsletter";
+import { sendNewsletter, sendTestNewsletter, getSubscriberCount, getSubscribers, getSubscriberSources } from "@/lib/actions/newsletter";
 import { buildNewsletterEmail } from "@/lib/emails/newsletter";
 
 type Subscriber = { email: string; source: string; subscribed_at: string };
+type SourceInfo = { source: string; count: number };
 
 export default function AdminNewsletterPage() {
     const [subject, setSubject] = useState("");
@@ -25,6 +26,9 @@ export default function AdminNewsletterPage() {
     const [error, setError] = useState("");
     const [previewOpen, setPreviewOpen] = useState(false);
     const [isAdmin, setIsAdmin] = useState<boolean | null>(null);
+    const [sources, setSources] = useState<SourceInfo[]>([]);
+    const [selectedSources, setSelectedSources] = useState<string[]>([]);
+    const [filteredCount, setFilteredCount] = useState<number | null>(null);
 
     const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://amos-ai-site.vercel.app";
 
@@ -38,7 +42,42 @@ export default function AdminNewsletterPage() {
             });
         }
         getSubscriberCount().then(setSubscriberCount);
+        getSubscriberSources().then((data) => {
+            setSources(data);
+            setSelectedSources(data.map((s) => s.source));
+        });
     }, []);
+
+    // Update filtered count when selection changes
+    useEffect(() => {
+        if (sources.length === 0) return;
+        const allSelected = selectedSources.length === sources.length;
+        if (allSelected) {
+            setFilteredCount(subscriberCount);
+        } else if (selectedSources.length === 0) {
+            setFilteredCount(0);
+        } else {
+            // Compute locally from sources data
+            const count = sources
+                .filter((s) => selectedSources.includes(s.source))
+                .reduce((sum, s) => sum + s.count, 0);
+            setFilteredCount(count);
+        }
+    }, [selectedSources, sources, subscriberCount]);
+
+    const toggleSource = (source: string) => {
+        setSelectedSources((prev) =>
+            prev.includes(source) ? prev.filter((s) => s !== source) : [...prev, source]
+        );
+    };
+
+    const toggleAll = () => {
+        if (selectedSources.length === sources.length) {
+            setSelectedSources([]);
+        } else {
+            setSelectedSources(sources.map((s) => s.source));
+        }
+    };
 
     const handleToggleSubscribers = async () => {
         if (!showSubscribers && subscribers.length === 0) {
@@ -56,8 +95,9 @@ export default function AdminNewsletterPage() {
             return;
         }
 
+        const targetCount = filteredCount ?? subscriberCount ?? 0;
         const confirmed = window.confirm(
-            `את/ה עומד/ת לשלוח ניוזלטר ל-${subscriberCount} נרשמים. להמשיך?`
+            `את/ה עומד/ת לשלוח ניוזלטר ל-${targetCount} נרשמים. להמשיך?`
         );
         if (!confirmed) return;
 
@@ -66,7 +106,8 @@ export default function AdminNewsletterPage() {
             setError("");
             setResult(null);
 
-            const res = await sendNewsletter(subject, bodyHtml);
+            const sourcesToSend = selectedSources.length === sources.length ? undefined : selectedSources;
+            const res = await sendNewsletter(subject, bodyHtml, sourcesToSend);
 
             if (!res.success) {
                 throw new Error(res.error || "שליחה נכשלה");
@@ -125,10 +166,12 @@ export default function AdminNewsletterPage() {
         );
     }
 
+    const targetCount = filteredCount ?? subscriberCount ?? 0;
+
     return (
         <div className="pt-24 pb-16 min-h-screen">
             <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
-                <div className="flex justify-between items-center mb-8">
+                <div className="flex justify-between items-center mb-6">
                     <h1 className="text-3xl font-bold">שליחת ניוזלטר</h1>
                     {subscriberCount !== null && (
                         <div className="flex items-center gap-3">
@@ -145,6 +188,36 @@ export default function AdminNewsletterPage() {
                         </div>
                     )}
                 </div>
+
+                {/* Source filter pills */}
+                {sources.length > 0 && (
+                    <div className="flex flex-wrap items-center gap-2 mb-6" dir="rtl">
+                        <span className="text-xs text-text-muted">סינון לפי מקור:</span>
+                        <button
+                            onClick={toggleAll}
+                            className={`px-3 py-1 rounded-full text-xs font-medium border transition-all ${
+                                selectedSources.length === sources.length
+                                    ? "bg-teal-500/20 border-teal-400 text-teal-300"
+                                    : "bg-white/5 border-white/10 text-text-secondary hover:border-teal-400/50"
+                            }`}
+                        >
+                            הכל ({subscriberCount})
+                        </button>
+                        {sources.map((s) => (
+                            <button
+                                key={s.source}
+                                onClick={() => toggleSource(s.source)}
+                                className={`px-3 py-1 rounded-full text-xs font-medium border transition-all ${
+                                    selectedSources.includes(s.source)
+                                        ? "bg-teal-500/20 border-teal-400 text-teal-300"
+                                        : "bg-white/5 border-white/10 text-text-secondary hover:border-teal-400/50"
+                                }`}
+                            >
+                                {s.source} ({s.count})
+                            </button>
+                        ))}
+                    </div>
+                )}
 
                 {/* Subscriber list panel */}
                 {showSubscribers && (
@@ -247,7 +320,7 @@ export default function AdminNewsletterPage() {
                         {/* Main send button */}
                         <Button
                             onClick={handleSend}
-                            disabled={sending || !subject.trim() || !bodyHtml.trim()}
+                            disabled={sending || !subject.trim() || !bodyHtml.trim() || selectedSources.length === 0}
                             className="px-10 py-4 text-lg"
                         >
                             {sending ? (
@@ -258,7 +331,7 @@ export default function AdminNewsletterPage() {
                             ) : (
                                 <>
                                     <Send className="h-5 w-5 ml-2" />
-                                    שלח ל-{subscriberCount || 0} נרשמים
+                                    שלח ל-{targetCount} נרשמים
                                 </>
                             )}
                         </Button>

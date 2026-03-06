@@ -56,13 +56,19 @@ export async function getSubscribers() {
     return data || [];
 }
 
-export async function getSubscriberCount() {
+export async function getSubscriberCount(sources?: string[]) {
     const adminSupabase = createAdminClient();
 
-    const { count, error } = await adminSupabase
+    let query = adminSupabase
         .from("newsletter_subscribers")
         .select("*", { count: "exact", head: true })
         .eq("status", "active");
+
+    if (sources && sources.length > 0) {
+        query = query.in("source", sources);
+    }
+
+    const { count, error } = await query;
 
     if (error) {
         console.error("Subscriber count error:", error);
@@ -72,7 +78,26 @@ export async function getSubscriberCount() {
     return count || 0;
 }
 
-export async function sendNewsletter(subject: string, bodyHtml: string) {
+export async function getSubscriberSources(): Promise<{ source: string; count: number }[]> {
+    const adminSupabase = createAdminClient();
+
+    const { data, error } = await adminSupabase
+        .from("newsletter_subscribers")
+        .select("source")
+        .eq("status", "active");
+
+    if (error || !data) return [];
+
+    const counts: Record<string, number> = {};
+    for (const row of data) {
+        const src = row.source || "unknown";
+        counts[src] = (counts[src] || 0) + 1;
+    }
+
+    return Object.entries(counts).map(([source, count]) => ({ source, count }));
+}
+
+export async function sendNewsletter(subject: string, bodyHtml: string, sources?: string[]) {
     // Auth check — admin only
     const supabase = await createClient();
     const { data: { user } } = await supabase.auth.getUser();
@@ -84,11 +109,17 @@ export async function sendNewsletter(subject: string, bodyHtml: string) {
     const adminSupabase = createAdminClient();
     const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://amos-ai-site.vercel.app";
 
-    // Fetch active subscribers
-    const { data: subscribers, error: fetchError } = await adminSupabase
+    // Fetch active subscribers (optionally filtered by source)
+    let query = adminSupabase
         .from("newsletter_subscribers")
         .select("email")
         .eq("status", "active");
+
+    if (sources && sources.length > 0) {
+        query = query.in("source", sources);
+    }
+
+    const { data: subscribers, error: fetchError } = await query;
 
     if (fetchError || !subscribers?.length) {
         return { success: false, error: fetchError?.message || "No active subscribers" };
