@@ -6,11 +6,12 @@ import { GlassCard } from "@/components/ui/GlassCard";
 import { Button } from "@/components/ui/Button";
 import { Send, Loader2, Users, CheckCircle2, Eye, X, ChevronDown, ChevronUp } from "lucide-react";
 import RichTextEditor from "@/components/admin/RichTextEditor";
-import { sendNewsletter, sendTestNewsletter, getSubscriberCount, getSubscribers, getSubscriberSources } from "@/lib/actions/newsletter";
+import { sendNewsletter, sendTestNewsletter, getSubscriberCount, getSubscribers, getSubscriberSources, getNewsletterHistory } from "@/lib/actions/newsletter";
 import { buildNewsletterEmail } from "@/lib/emails/newsletter";
 
 type Subscriber = { email: string; source: string; subscribed_at: string };
 type SourceInfo = { source: string; count: number };
+type SendRecord = { id: string; subject: string; sent_at: string; recipient_count: number; failed_count: number; sources: string[] | null };
 
 export default function AdminNewsletterPage() {
     const [subject, setSubject] = useState("");
@@ -29,6 +30,7 @@ export default function AdminNewsletterPage() {
     const [sources, setSources] = useState<SourceInfo[]>([]);
     const [selectedSources, setSelectedSources] = useState<string[]>([]);
     const [filteredCount, setFilteredCount] = useState<number | null>(null);
+    const [history, setHistory] = useState<SendRecord[]>([]);
 
     const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://amos-ai-site.vercel.app";
 
@@ -46,6 +48,7 @@ export default function AdminNewsletterPage() {
             setSources(data);
             setSelectedSources(data.map((s) => s.source));
         });
+        getNewsletterHistory().then((data) => setHistory(data as SendRecord[]));
     }, []);
 
     // Update filtered count when selection changes
@@ -116,6 +119,8 @@ export default function AdminNewsletterPage() {
             setResult({ sent: res.sent || 0, failed: res.failed || 0 });
             setSubject("");
             setBodyHtml("");
+            // Refresh history
+            getNewsletterHistory().then((data) => setHistory(data as SendRecord[]));
         } catch (err: any) {
             console.error("Newsletter send error:", err);
             setError(err.message || "חלה שגיאה בשליחה");
@@ -337,7 +342,52 @@ export default function AdminNewsletterPage() {
                         </Button>
                     </div>
                 </div>
+
+                {/* Send history */}
+                {history.length > 0 && (
+                    <div className="mt-10" dir="rtl">
+                        <h2 className="text-lg font-bold mb-4 text-text-secondary">היסטוריית שליחות</h2>
+                        <GlassCard className="overflow-hidden p-0">
+                            <table className="w-full text-sm">
+                                <thead>
+                                    <tr className="border-b border-white/10 text-text-secondary">
+                                        <th className="text-right py-3 px-4 font-medium">נושא</th>
+                                        <th className="text-right py-3 px-4 font-medium">תאריך</th>
+                                        <th className="text-right py-3 px-4 font-medium">נשלח</th>
+                                        <th className="text-right py-3 px-4 font-medium">מקורות</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {history.map((h) => (
+                                        <tr key={h.id} className="border-b border-white/5 last:border-0 hover:bg-white/3">
+                                            <td className="py-3 px-4 font-medium">{h.subject}</td>
+                                            <td className="py-3 px-4 text-text-secondary whitespace-nowrap">
+                                                {new Date(h.sent_at).toLocaleDateString("he-IL", {
+                                                    day: "numeric",
+                                                    month: "short",
+                                                    year: "numeric",
+                                                    hour: "2-digit",
+                                                    minute: "2-digit",
+                                                })}
+                                            </td>
+                                            <td className="py-3 px-4">
+                                                <span className="text-teal-400 font-medium">{h.recipient_count}</span>
+                                                {h.failed_count > 0 && (
+                                                    <span className="text-red-400 text-xs mr-1">({h.failed_count} נכשלו)</span>
+                                                )}
+                                            </td>
+                                            <td className="py-3 px-4 text-text-muted text-xs">
+                                                {h.sources ? h.sources.join(", ") : "הכל"}
+                                            </td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                        </GlassCard>
+                    </div>
+                )}
             </div>
+        </div>
 
             {/* Preview modal */}
             {previewOpen && (

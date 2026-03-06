@@ -1,8 +1,8 @@
 "use server";
 
-import { createClient } from "@/lib/supabase/server";
 import { createAdminClient } from "@/lib/supabase/admin";
 
+// Auth is enforced by middleware — /admin/* requires ronenamos@gmail.com
 export async function updateArticle(
     slug: string,
     fields: {
@@ -14,14 +14,6 @@ export async function updateArticle(
         tags: string[];
     }
 ) {
-    // Auth check — admin only
-    const supabase = await createClient();
-    const { data: { user } } = await supabase.auth.getUser();
-
-    if (!user || user.email !== "ronenamos@gmail.com") {
-        return { success: false, error: "Unauthorized" };
-    }
-
     const admin = createAdminClient();
     const { error } = await admin
         .from("articles")

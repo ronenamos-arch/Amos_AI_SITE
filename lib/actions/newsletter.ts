@@ -1,9 +1,10 @@
 "use server";
 
-import { createClient } from "@/lib/supabase/server";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { resend, EMAIL_FROM } from "@/lib/resend";
 import { buildNewsletterEmail } from "@/lib/emails/newsletter";
+
+// Auth for all actions is enforced by middleware (/admin/* requires ronenamos@gmail.com)
 
 export async function subscribeToNewsletter(email: string, source: string = "footer") {
     const adminSupabase = createAdminClient();
@@ -97,15 +98,24 @@ export async function getSubscriberSources(): Promise<{ source: string; count: n
     return Object.entries(counts).map(([source, count]) => ({ source, count }));
 }
 
-export async function sendNewsletter(subject: string, bodyHtml: string, sources?: string[]) {
-    // Auth check — admin only
-    const supabase = await createClient();
-    const { data: { user } } = await supabase.auth.getUser();
+export async function getNewsletterHistory() {
+    const adminSupabase = createAdminClient();
 
-    if (!user || user.email !== "ronenamos@gmail.com") {
-        return { success: false, error: "Unauthorized" };
+    const { data, error } = await adminSupabase
+        .from("newsletter_sends")
+        .select("id, subject, sent_at, recipient_count, failed_count, sources")
+        .order("sent_at", { ascending: false })
+        .limit(50);
+
+    if (error) {
+        console.error("Newsletter history error:", error);
+        return [];
     }
 
+    return data || [];
+}
+
+export async function sendNewsletter(subject: string, bodyHtml: string, sources?: string[]) {
     const adminSupabase = createAdminClient();
     const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://amos-ai-site.vercel.app";
 
@@ -157,17 +167,18 @@ export async function sendNewsletter(subject: string, bodyHtml: string, sources?
         }
     }
 
+    // Log the send to history
+    await adminSupabase.from("newsletter_sends").insert({
+        subject,
+        recipient_count: sent,
+        failed_count: failed,
+        sources: sources && sources.length > 0 ? sources : null,
+    });
+
     return { success: true, sent, failed, total: subscribers.length };
 }
 
 export async function sendTestNewsletter(subject: string, bodyHtml: string) {
-    const supabase = await createClient();
-    const { data: { user } } = await supabase.auth.getUser();
-
-    if (!user || user.email !== "ronenamos@gmail.com") {
-        return { success: false, error: "Unauthorized" };
-    }
-
     const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://amos-ai-site.vercel.app";
 
     try {
