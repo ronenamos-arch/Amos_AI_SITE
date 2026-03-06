@@ -344,6 +344,11 @@ export default function AdminNewsletterPage() {
                 </div>
 
                 {/* Send history */}
+                {history.length === 0 && (
+                    <p className="mt-8 text-xs text-text-muted text-center" dir="rtl">
+                        היסטוריית שליחות תופיע כאן לאחר שליחה ראשונה (דורש יצירת טבלת newsletter_sends ב-Supabase)
+                    </p>
+                )}
                 {history.length > 0 && (
                     <div className="mt-10" dir="rtl">
                         <h2 className="text-lg font-bold mb-4 text-text-secondary">היסטוריית שליחות</h2>

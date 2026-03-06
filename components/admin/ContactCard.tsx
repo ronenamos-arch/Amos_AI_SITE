@@ -147,19 +147,18 @@ export default function ContactCard({ contact }: { contact: Contact }) {
 
             {/* Actions row */}
             <div className="flex items-center gap-3 pt-1 border-t border-white/5">
-                {/* Reply button / replied badge */}
-                {repliedAt ? (
-                    <span className="flex items-center gap-1.5 text-xs text-teal-400">
-                        <CheckCircle2 className="h-3.5 w-3.5" />
-                        נשלח ב-{new Date(repliedAt).toLocaleDateString("he-IL")}
+                {/* Reply button — always shown; badge shows last reply date */}
+                <button
+                    onClick={() => setReplyOpen((v) => !v)}
+                    className="text-xs text-text-secondary hover:text-teal-400 transition-colors flex items-center gap-1"
+                >
+                    ↩ השב
+                </button>
+                {repliedAt && (
+                    <span className="flex items-center gap-1 text-xs text-teal-400/70">
+                        <CheckCircle2 className="h-3 w-3" />
+                        {new Date(repliedAt).toLocaleDateString("he-IL")}
                     </span>
-                ) : (
-                    <button
-                        onClick={() => setReplyOpen((v) => !v)}
-                        className="text-xs text-text-secondary hover:text-teal-400 transition-colors"
-                    >
-                        ↩ השב
-                    </button>
                 )}
 
                 {/* Notes toggle */}
@@ -173,7 +172,7 @@ export default function ContactCard({ contact }: { contact: Contact }) {
             </div>
 
             {/* Reply form */}
-            {replyOpen && !repliedAt && (
+            {replyOpen && (
                 <div className="space-y-3 pt-2 border-t border-white/5">
                     <input
                         type="text"
