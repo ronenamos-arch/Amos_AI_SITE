@@ -387,7 +387,6 @@ export default function AdminNewsletterPage() {
                     </div>
                 )}
             </div>
-        </div>
 
             {/* Preview modal */}
             {previewOpen && (
