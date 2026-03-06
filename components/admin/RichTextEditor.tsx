@@ -103,6 +103,8 @@ export default function RichTextEditor({ value, onChange }: EditorProps) {
                 }
                 .quill-editor-wrapper .ql-editor {
                     min-height: 400px;
+                    direction: rtl;
+                    text-align: right;
                 }
                 .quill-editor-wrapper .ql-editor.ql-blank::before {
                     color: rgba(255, 255, 255, 0.3) !important;

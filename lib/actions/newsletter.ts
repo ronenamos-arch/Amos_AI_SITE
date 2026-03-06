@@ -39,6 +39,23 @@ export async function unsubscribeFromNewsletter(email: string) {
     return { success: true };
 }
 
+export async function getSubscribers() {
+    const adminSupabase = createAdminClient();
+
+    const { data, error } = await adminSupabase
+        .from("newsletter_subscribers")
+        .select("email, source, subscribed_at")
+        .eq("status", "active")
+        .order("subscribed_at", { ascending: false });
+
+    if (error) {
+        console.error("Get subscribers error:", error);
+        return [];
+    }
+
+    return data || [];
+}
+
 export async function getSubscriberCount() {
     const adminSupabase = createAdminClient();
 
@@ -110,4 +127,29 @@ export async function sendNewsletter(subject: string, bodyHtml: string) {
     }
 
     return { success: true, sent, failed, total: subscribers.length };
+}
+
+export async function sendTestNewsletter(subject: string, bodyHtml: string) {
+    const supabase = await createClient();
+    const { data: { user } } = await supabase.auth.getUser();
+
+    if (!user || user.email !== "ronenamos@gmail.com") {
+        return { success: false, error: "Unauthorized" };
+    }
+
+    const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://amos-ai-site.vercel.app";
+
+    try {
+        const { error } = await resend.emails.send({
+            from: EMAIL_FROM,
+            to: "ronenamos@gmail.com",
+            subject: `[TEST] ${subject}`,
+            html: buildNewsletterEmail({ bodyHtml, siteUrl, unsubscribeUrl: "#" }),
+        });
+
+        if (error) throw error;
+        return { success: true };
+    } catch (err: any) {
+        return { success: false, error: err.message };
+    }
 }
