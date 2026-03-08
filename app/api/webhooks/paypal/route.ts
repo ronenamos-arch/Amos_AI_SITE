@@ -74,18 +74,23 @@ export async function POST(req: NextRequest) {
     console.log(`PayPal webhook received: ${eventType}`);
 
     // 2. Handle relevant events
+    let handled = true;
     if (eventType === "PAYMENT.CAPTURE.COMPLETED") {
-        await handlePaymentCompleted(event);
+        handled = await handlePaymentCompleted(event);
     } else if (eventType === "BILLING.SUBSCRIPTION.ACTIVATED") {
-        await handleSubscriptionActivated(event);
+        handled = await handleSubscriptionActivated(event);
     } else if (eventType === "BILLING.SUBSCRIPTION.CANCELLED" || eventType === "BILLING.SUBSCRIPTION.SUSPENDED") {
-        await handleSubscriptionCancelled(event);
+        handled = await handleSubscriptionCancelled(event);
+    }
+
+    if (!handled) {
+        return NextResponse.json({ error: "user not found" }, { status: 500 });
     }
 
     return NextResponse.json({ received: true });
 }
 
-async function handlePaymentCompleted(event: any) {
+async function handlePaymentCompleted(event: any): Promise<boolean> {
     const resource = event.resource;
     const orderId = resource.id;
     const amount = parseFloat(resource.amount?.value || "0");
@@ -102,7 +107,7 @@ async function handlePaymentCompleted(event: any) {
 
     if (existing) {
         console.log(`Payment ${orderId} already recorded, skipping`);
-        return;
+        return true;
     }
 
     // Find user by email
@@ -111,16 +116,20 @@ async function handlePaymentCompleted(event: any) {
 
     if (!user) {
         console.error(`Webhook: No user found for email ${payerEmail}, order ${orderId}`);
-        return;
+        return false;
     }
 
-    // Record payment
-    await adminSupabase.from("payment_records").insert({
-        user_id: user.id,
-        amount,
-        paypal_order_id: orderId,
-        status: "COMPLETED",
-    });
+    // Record payment (non-blocking — duplicate is safe to ignore)
+    try {
+        await adminSupabase.from("payment_records").insert({
+            user_id: user.id,
+            amount,
+            paypal_order_id: orderId,
+            status: "COMPLETED",
+        });
+    } catch (e) {
+        console.error("payment_records insert failed (likely duplicate):", e);
+    }
 
     // Activate lifetime subscription (one-time payment)
     await adminSupabase.from("profiles").upsert({
@@ -138,9 +147,11 @@ async function handlePaymentCompleted(event: any) {
             orderId,
         }).catch((err) => console.error("Webhook email error:", err));
     }
+
+    return true;
 }
 
-async function handleSubscriptionActivated(event: any) {
+async function handleSubscriptionActivated(event: any): Promise<boolean> {
     const resource = event.resource;
     const subscriptionId = resource.id;
     const subscriberEmail = resource.subscriber?.email_address;
@@ -156,7 +167,7 @@ async function handleSubscriptionActivated(event: any) {
 
     if (existing) {
         console.log(`Subscription ${subscriptionId} already recorded, skipping`);
-        return;
+        return true;
     }
 
     // Find user by email
@@ -165,16 +176,20 @@ async function handleSubscriptionActivated(event: any) {
 
     if (!user) {
         console.error(`Webhook: No user found for email ${subscriberEmail}, subscription ${subscriptionId}`);
-        return;
+        return false;
     }
 
-    // Record payment
-    await adminSupabase.from("payment_records").insert({
-        user_id: user.id,
-        amount: 10,
-        paypal_order_id: subscriptionId,
-        status: "COMPLETED",
-    });
+    // Record payment (non-blocking — duplicate is safe to ignore)
+    try {
+        await adminSupabase.from("payment_records").insert({
+            user_id: user.id,
+            amount: 10,
+            paypal_order_id: subscriptionId,
+            status: "COMPLETED",
+        });
+    } catch (e) {
+        console.error("payment_records insert failed (likely duplicate):", e);
+    }
 
     // Activate monthly subscription
     await adminSupabase.from("profiles").upsert({
@@ -191,9 +206,11 @@ async function handleSubscriptionActivated(event: any) {
             orderId: subscriptionId,
         }).catch((err) => console.error("Webhook email error:", err));
     }
+
+    return true;
 }
 
-async function handleSubscriptionCancelled(event: any) {
+async function handleSubscriptionCancelled(event: any): Promise<boolean> {
     const resource = event.resource;
     const subscriberEmail = resource.subscriber?.email_address;
 
@@ -205,7 +222,7 @@ async function handleSubscriptionCancelled(event: any) {
 
     if (!user) {
         console.error(`Webhook: No user found for cancelled subscription, email ${subscriberEmail}`);
-        return;
+        return false;
     }
 
     // Downgrade to free
@@ -216,4 +233,5 @@ async function handleSubscriptionCancelled(event: any) {
     });
 
     console.log(`Subscription cancelled for user ${user.id}`);
+    return true;
 }

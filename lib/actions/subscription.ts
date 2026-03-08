@@ -21,21 +21,25 @@ export async function updateUserSubscription(status: 'monthly' | 'lifetime', ord
     // DB writes — uses service role key, bypasses RLS
     const adminSupabase = createAdminClient();
 
-    // 1. Record the payment
-    const { error: paymentError } = await adminSupabase
-        .from('payment_records')
-        .insert({
-            user_id: user.id,
-            amount: amount,
-            paypal_order_id: orderId,
-            status: 'COMPLETED'
-        });
+    // 1. Record the payment (non-blocking — duplicate from webhook is fine)
+    try {
+        const { error: paymentError } = await adminSupabase
+            .from('payment_records')
+            .insert({
+                user_id: user.id,
+                amount: amount,
+                paypal_order_id: orderId,
+                status: 'COMPLETED'
+            });
 
-    if (paymentError) {
-        console.error("Error recording payment:", paymentError);
+        if (paymentError) {
+            console.error("payment_records insert failed (likely duplicate from webhook):", paymentError);
+        }
+    } catch (e) {
+        console.error("payment_records insert threw (likely duplicate from webhook):", e);
     }
 
-    // 2. Activate subscription
+    // 2. Activate subscription (always runs regardless of payment_records result)
     const { error: profileError } = await adminSupabase
         .from('profiles')
         .upsert({
