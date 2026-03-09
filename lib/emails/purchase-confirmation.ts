@@ -13,7 +13,7 @@ export function buildPurchaseConfirmationEmail({ planName, amount, orderId, site
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
-<body style="margin:0;padding:0;background-color:#0a0e17;font-family:Arial,Helvetica,sans-serif;color:#e0e0e0;">
+<body style="margin:0;padding:0;background-color:#0a0e17;font-family:Arial,Helvetica,sans-serif;color:#e0e0e0;direction:rtl;">
     <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color:#0a0e17;padding:40px 20px;">
         <tr>
             <td align="center">
@@ -22,7 +22,7 @@ export function buildPurchaseConfirmationEmail({ planName, amount, orderId, site
                     <!-- Header -->
                     <tr>
                         <td style="padding:32px 40px 24px;text-align:center;border-bottom:1px solid rgba(45,212,191,0.2);">
-                            <h1 style="margin:0;font-size:28px;color:#2dd4bf;">AI FINANCE</h1>
+                            <h1 style="margin:0;font-size:28px;color:#2dd4bf;font-weight:bold;letter-spacing:1px;">AI FINANCE</h1>
                             <p style="margin:8px 0 0;font-size:14px;color:#9ca3af;">ברוכים הבאים לפרימיום</p>
                         </td>
                     </tr>
@@ -30,12 +30,12 @@ export function buildPurchaseConfirmationEmail({ planName, amount, orderId, site
                     <!-- Body -->
                     <tr>
                         <td style="padding:40px;">
-                            <h2 style="margin:0 0 16px;font-size:22px;color:#ffffff;">תודה על הרישום! 🎉</h2>
+                            <h2 style="margin:0 0 16px;font-size:22px;color:#ffffff;font-weight:bold;">תודה על הרישום! 🎉</h2>
                             <p style="margin:0 0 24px;font-size:16px;line-height:1.8;color:#d1d5db;">
                                 יש לך עכשיו גישה מלאה לכל המאמרים בפרימיום, כולל מדריכים מעשיים בנושאי AI, פיננסים וחשבונאות.
                             </p>
 
-                            <!-- What you get -->
+                            <!-- Features List -->
                             <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color:rgba(45,212,191,0.05);border-radius:12px;border:1px solid rgba(45,212,191,0.15);margin-bottom:28px;">
                                 <tr>
                                     <td style="padding:24px;">
@@ -47,7 +47,7 @@ export function buildPurchaseConfirmationEmail({ planName, amount, orderId, site
                                 </tr>
                             </table>
 
-                            <!-- Courses discount -->
+                            <!-- Courses Promotion -->
                             <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color:rgba(255,255,255,0.03);border-radius:12px;border:1px solid rgba(255,255,255,0.06);margin-bottom:28px;">
                                 <tr>
                                     <td style="padding:24px;">
@@ -59,7 +59,7 @@ export function buildPurchaseConfirmationEmail({ planName, amount, orderId, site
                                         <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
                                             <tr>
                                                 <td style="padding-bottom:12px;">
-                                                    <a href="${siteUrl}/courses/ai-mastery" style="display:block;padding:14px 20px;background-color:rgba(45,212,191,0.08);border:1px solid rgba(45,212,191,0.25);border-radius:10px;text-decoration:none;">
+                                                    <a href="https://www.paypal.com/ncp/payment/AADF6XSF3UAVY" style="display:block;padding:14px 20px;background-color:rgba(45,212,191,0.08);border:1px solid rgba(45,212,191,0.25);border-radius:10px;text-decoration:none;">
                                                         <span style="display:block;font-size:15px;font-weight:bold;color:#2dd4bf;">🤖 Master AI</span>
                                                         <span style="display:block;font-size:13px;color:#9ca3af;margin-top:4px;">AI Finance Mastery — הפוך לחשבונאי של העתיד</span>
                                                     </a>
@@ -67,7 +67,7 @@ export function buildPurchaseConfirmationEmail({ planName, amount, orderId, site
                                             </tr>
                                             <tr>
                                                 <td>
-                                                    <a href="${siteUrl}/courses/notebook-master" style="display:block;padding:14px 20px;background-color:rgba(45,212,191,0.08);border:1px solid rgba(45,212,191,0.25);border-radius:10px;text-decoration:none;">
+                                                    <a href="https://www.paypal.com/ncp/payment/RNWU6D5DZHMHQ" style="display:block;padding:14px 20px;background-color:rgba(45,212,191,0.08);border:1px solid rgba(45,212,191,0.25);border-radius:10px;text-decoration:none;">
                                                         <span style="display:block;font-size:15px;font-weight:bold;color:#2dd4bf;">📓 Notebook LM Master</span>
                                                         <span style="display:block;font-size:13px;color:#9ca3af;margin-top:4px;">Mastering NotebookLM — קורס מעשי לאנשי פיננסים</span>
                                                     </a>
@@ -78,7 +78,7 @@ export function buildPurchaseConfirmationEmail({ planName, amount, orderId, site
                                 </tr>
                             </table>
 
-                            <!-- Order Details -->
+                            <!-- Order Details Summary -->
                             <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color:rgba(255,255,255,0.02);border-radius:12px;border:1px solid rgba(255,255,255,0.06);margin-bottom:32px;">
                                 <tr>
                                     <td style="padding:20px;">
@@ -101,7 +101,7 @@ export function buildPurchaseConfirmationEmail({ planName, amount, orderId, site
                                 </tr>
                             </table>
 
-                            <!-- CTA Buttons -->
+                            <!-- Actions -->
                             <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
                                 <tr>
                                     <td align="center" style="padding-bottom:12px;">
