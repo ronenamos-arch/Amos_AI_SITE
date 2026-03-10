@@ -57,32 +57,10 @@ export default function SkillVaultPage() {
   const [showToast, setShowToast] = useState(false);
 
   useEffect(() => {
-     // I will use the data from the original file I read.
-     // In a real scenario, this would be a JSON fetch or an import.
-     // I'll provide the full data in a separate step if needed, but for now I'll use the logic.
-     const fullData = [
-        { id: "balance-sheet", title: "Balance Sheet Creation", category: "Automated Financial Reporting", description: "הפקת מאזן חודשי מסודר ומדויק", prompt: "פעל כ-CFO Analyst. נתח את הנתונים וענה על הדרישות הבאות...\n[אתה אנליסט CFO מומחה ומנוסה...]" },
-        { id: "budget-variance", title: "Budget Variance Report", category: "Budgeting & Forecasting Prompts", description: "דוח סטיות תקציבי מפורט", prompt: "פעל כ-CFO Analyst. נתח את הנתונים וענה על הדרישות הבאות...\n[אתה אנליסט CFO מומחה ומנוסה...]" },
-        { id: "capex-forecast", title: "CapEx Forecasting", category: "Financial Forecasting", description: "תחזית השקעות הון וציוד", prompt: "פעל כ-CFO Analyst. נתח את הנתונים וענה על הדרישות הבאות...\n[אתה אנליסט CFO מומחה ומנוסה...]" },
-        { id: "cash-flow", title: "Cash Flow Statement", category: "Automated Financial Reporting", description: "דיווח תזרים מזומנים בשיטה הישירה או העקיפה", prompt: "פעל כ-CFO Analyst. נתח את הנתונים וענה על הדרישות הבאות...\n[אתה אנליסט CFO מומחה ומנוסה...]" },
-        { id: "cash-insight", title: "Cash Flow Insight Overview", category: "Financial Reporting Prompts", description: "תובנות עומק על תנועות המזומנים", prompt: "פעל כ-CFO Analyst. נתח את הנתונים וענה על הדרישות הבאות...\n[אתה אנליסט CFO מומחה ומנוסה...]" },
-        { id: "cash-projection", title: "Cash Flow Projection", category: "Financial Forecasting", description: "תחזית תזרים מזומנים קדימה", prompt: "פעל כ-CFO Analyst. נתח את הנתונים וענה על הדרישות הבאות...\n[אתה אנליסט CFO מומחה ומנוסה...]" },
-        { id: "dashboard-summary", title: "Financial Dashboard Summary", category: "Automated Financial Reporting", description: "סיכום מנהלים ויזואלי לנתונים פיננסיים", prompt: "פעל כ-CFO Analyst. נתח את הנתונים וענה על הדרישות הבאות...\n[אתה אנליסט CFO מומחה ומנוסה...]" },
-        { id: "earnings-prediction", title: "Earnings Surprise Prediction", category: "Financial Forecasting", description: "חיזוי סבירות להפתעה ברווחי הרבעון", prompt: "פעל כ-CFO Analyst. נתח את הנתונים וענה על הדרישות הבאות...\n[אתה אנליסט CFO מומחה ומנוסה...]" },
-        { id: "exec-summary", title: "Executive Summary for Boards", category: "Financial Reporting Prompts", description: "סיכום ממוקד להגשה לדירקטוריון", prompt: "פעל כ-CFO Analyst. נתח את הנתונים וענה על הדרישות הבאות...\n[אתה אנליסט CFO מומחה ומנוסה...]" },
-        { id: "expense-prediction", title: "Expense Trend Prediction", category: "Financial Forecasting", description: "חיזוי הוצאות עתידיות על סמך נתוני עבר", prompt: "פעל כ-CFO Analyst. נתח את הנתונים וענה על הדרישות הבאות...\n[אתה אנליסט CFO מומחה ומנוסה...]" },
-        { id: "income-statement", title: "Income Statement Generation", category: "Automated Financial Reporting", description: "דוח רווח והפסד אוטומטי מנתונים גולמיים", prompt: "פעל כ-CFO Analyst. נתח את הנתונים וענה על הדרישות הבאות...\n[אתה אנליסט CFO מומחה ומנוסה...]" },
-        { id: "interest-impact", title: "Interest Rate Impact Analysis", category: "Financial Forecasting", description: "ניתוח השפעת הריבית על עלויות המימון", prompt: "פעל כ-CFO Analyst. נתח את הנתונים וענה על הדרישות הבאות...\n[אתה אנליסט CFO מומחה ומנוסה...]" },
-        { id: "journal-audit", title: "Journal Entry Audit Check", category: "Audit & Compliance Prompts", description: "בדיקת תקינות פקודות יומן באופן אוטומטי", prompt: "פעל כ-CFO Analyst. נתח את הנתונים וענה על הדרישות הבאות...\n[אתה אנליסט CFO מומחה ומנוסה...]" },
-        { id: "kpi-analysis", title: "KPI Trend Analysis", category: "Financial Reporting Prompts", description: "ניתוח מגמות בביצועי מפתח (KPIs)", prompt: "פעל כ-CFO Analyst. נתח את הנתונים וענה על הדרישות הבאות...\n[אתה אנליסט CFO מומחה ומנוסה...]" },
-        { id: "market-forecast", title: "Market Price Forecast", category: "Financial Forecasting", description: "חיזוי מחירי שוק וחומרי גלם", prompt: "פעל כ-CFO Analyst. נתח את הנתונים וענה על הדרישות הבאות...\n[אתה אנליסט CFO מומחה ומנוסה...]" },
-        { id: "profitability-analysis", title: "Profitability Report Analysis", category: "Automated Financial Reporting", description: "ניתוח עומק של רווחיות לפי מוצר או מחלקה", prompt: "פעל כ-CFO Analyst. נתח את הנתונים וענה על הדרישות הבאות...\n[אתה אנליסט CFO מומחה ומנוסה...]" },
-        { id: "recon-narrative", title: "Reconciliation Narrative", category: "Audit & Compliance Prompts", description: "תיעוד והסבר של התאמות בנקים וכרטיסים", prompt: "פעל כ-CFO Analyst. נתח את הנתונים וענה על הדרישות הבאות...\n[אתה אנליסט CFO מומחה ומנוסה...]" },
-        { id: "sector-revenue", title: "Sector Revenue Trend Analysis", category: "Financial Forecasting", description: "ניתוח מגמות הכנסה לפי מגזרי פעילות", prompt: "פעל כ-CFO Analyst. נתח את הנתונים וענה על הדרישות הבאות...\n[אתה אנליסט CFO מומחה ומנוסה...]" },
-        { id: "strategic-outlook", title: "Strategic Outlook Generator", category: "Financial Reporting Prompts", description: "יצירת מבט אסטרטגי לדוחות רבעוניים", prompt: "פעל כ-CFO Analyst. נתח את הנתונים וענה על הדרישות הבאות...\n[אתה אנליסט CFO מומחה ומנוסה...]" },
-        { id: "variance-narrative", title: "Variance Analysis Narrative", category: "Financial Reporting Prompts", description: "מלל הסבר לסטיות בין תקציב לביצוע", prompt: "פעל כ-CFO Analyst. נתח את הנתונים וענה על הדרישות הבאות...\n[אתה אנליסט CFO מומחה ומנוסה...]" }
-     ];
-     setPrompts(fullData);
+     fetch("/content/prompts.json")
+       .then(res => res.json())
+       .then(data => setPrompts(data))
+       .catch(err => console.error("Error loading prompts:", err));
   }, []);
 
   const categories = useMemo(() => {
