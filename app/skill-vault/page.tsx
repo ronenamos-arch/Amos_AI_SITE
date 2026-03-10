@@ -1,7 +1,8 @@
 "use client";
 
-import { useState, useMemo, useEffect } from "react";
+import { useState, useMemo } from "react";
 import "../skills-vault.css";
+import promptsData from "../../content/prompts.json";
 
 // Category Icon Mapping
 const CATEGORY_ICONS: Record<string, string> = {
@@ -18,28 +19,6 @@ const CATEGORY_ICONS: Record<string, string> = {
   'General': '✨'
 };
 
-const PROMPTS_DATA = [
-  {
-    "id": "balance-sheet",
-    "title": "Balance Sheet Creation",
-    "category": "Automated Financial Reporting",
-    "description": "הפקת מאזן חודשי מסודר ומדויק",
-    "prompt": "פעל כ-CFO Analyst. נתח את הנתונים וענה על הדרישות הבאות...\n[אנא ספק מאזן מלא...]"
-  },
-  {
-    "id": "budget-variance",
-    "title": "Budget Variance Report",
-    "category": "Budgeting & Forecasting Prompts",
-    "description": "דוח סטיות תקציבי מפורט",
-    "prompt": "פעל כ-CFO Analyst. נתח את הנתונים וענה על הדרישות הבאות...\n[אנא ספק דוח סטיות...]"
-  }
-  // Data truncated for brevity in the component, I will inject the full data or import it.
-];
-
-// For now, I'll include a subset and then I should ideally move this to a JSON file.
-// Actually, I have the full data from prompts.js, I will use a simplified version here for the draft 
-// and then I can refine it or use the full content.
-
 interface PromptItem {
   id: string;
   title: string;
@@ -49,19 +28,14 @@ interface PromptItem {
 }
 
 export default function SkillVaultPage() {
-  const [prompts, setPrompts] = useState<PromptItem[]>([]);
+  const [prompts, setPrompts] = useState<PromptItem[]>(promptsData as PromptItem[]);
   const [searchQuery, setSearchQuery] = useState("");
   const [activeCategory, setActiveCategory] = useState("all");
   const [openSections, setOpenSections] = useState<Set<string>>(new Set());
   const [selectedPrompt, setSelectedPrompt] = useState<PromptItem | null>(null);
   const [showToast, setShowToast] = useState(false);
 
-  useEffect(() => {
-     fetch("/content/prompts.json")
-       .then(res => res.json())
-       .then(data => setPrompts(data))
-       .catch(err => console.error("Error loading prompts:", err));
-  }, []);
+  // useEffect is no longer needed for data fetching
 
   const categories = useMemo(() => {
     const cats = Array.from(new Set(prompts.map(p => p.category)));
