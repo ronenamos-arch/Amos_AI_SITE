@@ -30,11 +30,23 @@ export async function updateSession(request: NextRequest) {
     // refreshing the auth token
     const { data: { user } } = await supabase.auth.getUser();
 
-    if (request.nextUrl.pathname.startsWith('/admin')) {
+    const path = request.nextUrl.pathname;
+
+    if (path.startsWith('/admin')) {
         if (!user || user.email !== "ronenamos@gmail.com") {
             const redirectUrl = request.nextUrl.clone();
             redirectUrl.pathname = '/';
             redirectUrl.search = '';
+            return NextResponse.redirect(redirectUrl);
+        }
+    }
+
+    // Protect skill-vault
+    if (path.startsWith('/skill-vault')) {
+        if (!user) {
+            const redirectUrl = request.nextUrl.clone();
+            redirectUrl.pathname = '/login';
+            redirectUrl.searchParams.set('redirectedFrom', path);
             return NextResponse.redirect(redirectUrl);
         }
     }

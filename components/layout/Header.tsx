@@ -12,6 +12,7 @@ const navLinks = [
   { href: "/training", label: "הכשרות" },
   { href: "/courses", label: "קורסים" },
   { href: "/pricing", label: "מנוי פרימיום" },
+  { href: "/skill-vault", label: "Skill Vault" },
   { href: "/blog", label: "בלוג" },
   { href: "/contact", label: "צור קשר" },
 ];
