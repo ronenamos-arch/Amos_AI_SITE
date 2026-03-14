@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { getAllPosts, getPostBySlug, parseMarkdown, BlogPost } from "@/lib/blog";
+import { getAllPosts, getPostBySlug, parseMarkdown, linkify, BlogPost } from "@/lib/blog";
 import { getDBPostBySlug } from "@/lib/blog-supabase";
 import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
@@ -114,9 +114,10 @@ export default async function BlogPostPage({
     ? (isDBPost ? post.content.split('</p>')[0] + '</p>' : post.content.split('\n\n')[0])
     : post.content;
 
-  const contentHtml = (isDBPost && !isLocked)
+  const rawHtml = (isDBPost && !isLocked)
     ? displayContent
     : parseMarkdown(displayContent);
+  const contentHtml = linkify(rawHtml);
 
   const articleSchema = {
     '@context': 'https://schema.org',
@@ -153,7 +154,7 @@ export default async function BlogPostPage({
       <article className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 focus:outline-none">
         {/* Header */}
         <div className="mb-8 border-b border-white/5 pb-8">
-          <h1 className="text-4xl font-black sm:text-5xl leading-tight mb-6 bg-clip-text text-transparent bg-gradient-to-r from-white to-white/70">
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black leading-tight mb-6 bg-clip-text text-transparent bg-gradient-to-r from-white to-white/70 break-words">
             {post.title}
           </h1>
           <p className="text-xl text-text-secondary leading-relaxed">
@@ -163,7 +164,7 @@ export default async function BlogPostPage({
 
         {/* Content */}
         <div
-          className={`prose prose-invert max-w-none text-text-secondary prose-headings:text-text-primary prose-a:text-teal-400 prose-strong:text-text-primary prose-img:rounded-xl prose-img:mx-auto ${isLocked ? 'overflow-hidden max-h-[400px] mask-fade-bottom' : ''}`}
+          className={`prose prose-invert max-w-none text-text-secondary prose-headings:text-text-primary prose-a:text-teal-400 prose-strong:text-text-primary prose-img:rounded-xl prose-img:mx-auto prose-img:max-w-full prose-pre:overflow-x-auto break-words overflow-x-hidden ${isLocked ? 'overflow-hidden max-h-[400px] mask-fade-bottom' : ''}`}
           dangerouslySetInnerHTML={{ __html: contentHtml }}
         />
 

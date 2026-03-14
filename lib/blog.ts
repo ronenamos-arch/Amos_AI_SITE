@@ -106,6 +106,16 @@ export function parseMarkdown(content: string): string {
   return marked.parse(content, { async: false }) as string;
 }
 
+// Wrap bare URLs in HTML text with <a> tags (handles Quill plain-text URLs)
+export function linkify(html: string): string {
+  // Match URLs not already inside an href attribute or inside an existing <a> tag
+  const urlRegex = /(?<![='"">])(https?:\/\/[^\s<>"')\]]+)/g;
+  return html.replace(urlRegex, (url) => {
+    const display = url.length > 60 ? url.slice(0, 57) + '...' : url;
+    return `<a href="${url}" target="_blank" rel="noopener noreferrer">${display}</a>`;
+  });
+}
+
 export function getAllTags(): string[] {
   const posts = getAllPosts();
   const tags = new Set<string>();

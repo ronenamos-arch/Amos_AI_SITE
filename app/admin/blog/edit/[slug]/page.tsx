@@ -8,11 +8,12 @@ export default async function EditArticlePage({
     params: Promise<{ slug: string }>;
 }) {
     const { slug } = await params;
+    const decodedSlug = decodeURIComponent(slug);
     const admin = createAdminClient();
     const { data: article, error } = await admin
         .from("articles")
         .select("*")
-        .eq("slug", slug)
+        .eq("slug", decodedSlug)
         .single();
 
     if (error || !article) {
@@ -21,7 +22,7 @@ export default async function EditArticlePage({
                 <div className="bg-red-500/10 border border-red-500/20 text-red-400 rounded-xl p-8 max-w-lg text-center space-y-2">
                     <p className="font-bold text-lg">שגיאה בטעינת המאמר</p>
                     <p className="text-sm font-mono">{error?.message || "Article not found"}</p>
-                    <p className="text-xs text-red-400/70">slug: {slug}</p>
+                    <p className="text-xs text-red-400/70">slug: {decodedSlug}</p>
                 </div>
             </div>
         );
