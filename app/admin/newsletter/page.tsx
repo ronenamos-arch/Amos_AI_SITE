@@ -178,20 +178,34 @@ export default function AdminNewsletterPage() {
             <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
                 <div className="flex justify-between items-center mb-6">
                     <h1 className="text-3xl font-bold">שליחת ניוזלטר</h1>
-                    {subscriberCount !== null && (
-                        <div className="flex items-center gap-3">
-                            <div className="flex items-center gap-2 text-text-secondary text-sm">
-                                <Users className="h-4 w-4 text-teal-400" />
-                                <span>{subscriberCount} נרשמים פעילים</span>
-                            </div>
-                            <button
-                                onClick={handleToggleSubscribers}
-                                className="text-xs text-teal-400 hover:text-teal-300 transition-colors flex items-center gap-1"
-                            >
-                                {showSubscribers ? <><ChevronUp className="h-3 w-3" /> הסתר רשימה</> : <><ChevronDown className="h-3 w-3" /> הצג רשימה</>}
-                            </button>
-                        </div>
-                    )}
+                    <div className="flex items-center gap-3">
+                        {subscriberCount !== null && (
+                            <>
+                                <div className="flex items-center gap-2 text-text-secondary text-sm">
+                                    <Users className="h-4 w-4 text-teal-400" />
+                                    <span>{subscriberCount} נרשמים פעילים</span>
+                                </div>
+                                <button
+                                    onClick={handleToggleSubscribers}
+                                    className="text-xs text-teal-400 hover:text-teal-300 transition-colors flex items-center gap-1"
+                                >
+                                    {showSubscribers ? <><ChevronUp className="h-3 w-3" /> הסתר רשימה</> : <><ChevronDown className="h-3 w-3" /> הצג רשימה</>}
+                                </button>
+                            </>
+                        )}
+                        <a
+                            href="/api/admin/export-contacts"
+                            download
+                            className="flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-full border border-teal-400/30 text-teal-400 hover:bg-teal-400/10 transition-colors"
+                            title="ייצוא כל אנשי הקשר"
+                        >
+                            <svg xmlns="http://www.w3.org/2000/svg" className="h-3.5 w-3.5" viewBox="0 0 20 20" fill="currentColor">
+                                <path fillRule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clipRule="evenodd" />
+                            </svg>
+                            ייצוא CSV
+                            <span className="text-[10px] text-text-secondary">מנויים · משתמשים · פניות</span>
+                        </a>
+                    </div>
                 </div>
 
                 {/* Source filter pills */}
