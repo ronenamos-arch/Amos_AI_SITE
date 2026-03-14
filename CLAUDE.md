@@ -44,6 +44,22 @@ Required in `.env.local` and Vercel:
 - `GOOGLE_AI_API_KEY`
 - `NEXT_PUBLIC_SITE_URL`
 
+## Blog System
+
+- **Two content sources** (merged on blog listing page):
+  - File-based: `content/posts/*.md` — frontmatter + markdown, parsed via `lib/blog.ts`
+  - DB-based: Supabase `articles` table — HTML content from Quill rich-text editor
+- **Slug format:** DB slugs are decoded Hebrew strings (e.g. `בניית-מודל-...`), NOT URL-encoded
+  - Always use `decodeURIComponent(slug)` before querying — see `app/blog/[slug]/page.tsx`
+- **Admin panel:** `app/admin/blog/` — list, create (`/new`), edit (`/edit/[slug]`)
+  - Edit uses `app/admin/blog/edit/[slug]/EditArticleClient.tsx` with React Quill editor
+  - Image uploads go to `/api/admin/upload` → stored in Supabase Storage
+- **Key files:**
+  - `lib/blog.ts` — markdown parsing, `getAllPosts()`, `getPostBySlug()`, `linkify()`
+  - `lib/blog-supabase.ts` — `getDBPosts()`, `getDBPostBySlug()`
+  - `lib/actions/articles.ts` — `updateArticle()` server action
+- **Premium content:** `is_premium` field on articles; checked against `profiles.subscription_status`
+
 ## Completed
 
 - [x] Purchase confirmation email via Resend (sent after PayPal payment)
@@ -52,6 +68,10 @@ Required in `.env.local` and Vercel:
 - [x] Thanks page updated to reflect email is sent
 - [x] Vercel env vars updated (RESEND_API_KEY, PAYPAL_WEBHOOK_ID)
 - [x] amosbudget.com DNS records added to Resend (pending verification)
+- [x] Blog post text overflow fixed (break-words, prose-pre:overflow-x-auto)
+- [x] Admin edit page fixed (slug decodeURIComponent)
+- [x] URL linkify for bare URLs in blog content (lib/blog.ts `linkify()`)
+- [x] Mobile h1 responsiveness (text-3xl on mobile)
 
 ## Still TODO
 
