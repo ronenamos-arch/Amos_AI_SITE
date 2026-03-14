@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createAdminClient } from "@/lib/supabase/admin";
-import { sendPurchaseConfirmationEmail } from "@/lib/actions/email";
+import { sendPurchaseEmail as sendPurchaseConfirmationEmail } from "@/lib/mailer";
 
 const PAYPAL_API_BASE = process.env.NEXT_PUBLIC_PAYPAL_SANDBOX === "true"
     ? "https://api-m.sandbox.paypal.com"

@@ -3,7 +3,7 @@
 import { createAdminClient } from "@/lib/supabase/admin";
 import { resend, EMAIL_FROM } from "@/lib/resend";
 import { buildNewsletterEmail } from "@/lib/emails/newsletter";
-import { sendWelcomeEmail } from "@/lib/actions/email";
+import { sendWelcomeEmail } from "@/lib/mailer";
 
 // Auth for all actions is enforced by middleware (/admin/* requires ronenamos@gmail.com)
 
@@ -32,11 +32,11 @@ export async function subscribeToNewsletter(email: string, source: string = "foo
         return { success: false, error: error.message };
     }
 
-    // Send welcome email only to brand-new subscribers (non-blocking)
+    // Send welcome email only to brand-new subscribers
     if (isNew) {
         const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://amos-ai-site.vercel.app";
         const unsubscribeUrl = `${siteUrl}/api/newsletter/unsubscribe?email=${Buffer.from(normalizedEmail).toString("base64")}`;
-        sendWelcomeEmail({ to: normalizedEmail, type: "newsletter", unsubscribeUrl }).catch((err) =>
+        await sendWelcomeEmail({ to: normalizedEmail, type: "newsletter", unsubscribeUrl }).catch((err) =>
             console.error("Welcome email failed (newsletter):", err)
         );
     }

@@ -2,7 +2,7 @@
 
 import { createClient } from "@/lib/supabase/server";
 import { createAdminClient } from "@/lib/supabase/admin";
-import { sendPurchaseConfirmationEmail } from "@/lib/actions/email";
+import { sendPurchaseEmail as sendPurchaseConfirmationEmail } from "@/lib/mailer";
 
 const PLAN_LABELS: Record<string, string> = {
     monthly: "Monthly Flexible — ₪10/חודש",
