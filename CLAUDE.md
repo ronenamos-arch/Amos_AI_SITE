@@ -60,6 +60,13 @@ Required in `.env.local` and Vercel:
   - `lib/actions/articles.ts` — `updateArticle()` server action
 - **Premium content:** `is_premium` field on articles; checked against `profiles.subscription_status`
 
+## Email Architecture Note
+
+All Resend calls live in `lib/mailer.ts` (no `"use server"` directive).
+Route handlers (`app/api/webhooks/paypal/`, `app/auth/callback/`) import directly from `lib/mailer.ts`.
+`lib/actions/email.ts` re-exports from `lib/mailer.ts` as `"use server"` for client-callable actions.
+Never import `lib/actions/email.ts` from a route handler — it will silently fail due to the `"use server"` boundary.
+
 ## Completed
 
 - [x] Purchase confirmation email via Resend (sent after PayPal payment)
@@ -67,17 +74,19 @@ Required in `.env.local` and Vercel:
 - [x] Webhook handles: payment completed, subscription activated, subscription cancelled
 - [x] Thanks page updated to reflect email is sent
 - [x] Vercel env vars updated (RESEND_API_KEY, PAYPAL_WEBHOOK_ID)
-- [x] amosbudget.com DNS records added to Resend (pending verification)
+- [x] amosbudget.com domain verified in Resend — `RESEND_FROM_EMAIL=AI Finance <noreply@amosbudget.com>` set in Vercel
 - [x] Blog post text overflow fixed (break-words, prose-pre:overflow-x-auto)
 - [x] Admin edit page fixed (slug decodeURIComponent)
 - [x] URL linkify for bare URLs in blog content (lib/blog.ts `linkify()`)
 - [x] Mobile h1 responsiveness (text-3xl on mobile)
+- [x] Welcome email on newsletter signup (`lib/mailer.ts` → `subscribeToNewsletter`)
+- [x] Welcome email on account registration (`app/auth/callback/route.ts`, fires for users created < 10 min ago)
+- [x] Contacts CSV export — admin-only `GET /api/admin/export-contacts` (newsletter + users + contacts, UTF-8 BOM for Excel Hebrew)
+- [x] CSV download button on admin newsletter page
 
 ## Still TODO
 
-- [ ] Verify amosbudget.com domain in Resend, then set `RESEND_FROM_EMAIL=AI Finance <noreply@amosbudget.com>` in env
-- [ ] Test email flow end-to-end (make a test purchase)
-- [ ] Newsletter signup (collect emails, send campaigns)
+- [ ] Test purchase confirmation email end-to-end (make a test PayPal payment)
 - [ ] Subscription cancellation UI (user-facing)
 - [ ] Invoice/receipt generation
 - [ ] Payment history page in dashboard
