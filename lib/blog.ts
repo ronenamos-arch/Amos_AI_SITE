@@ -108,9 +108,9 @@ export function parseMarkdown(content: string): string {
 
 // Wrap bare URLs in HTML text with <a> tags (handles Quill plain-text URLs)
 export function linkify(html: string): string {
-  // Match URLs not already inside an href attribute or inside an existing <a> tag
-  const urlRegex = /(?<![='"">])(https?:\/\/[^\s<>"')\]]+)/g;
-  return html.replace(urlRegex, (url) => {
+  // Split on existing <a> tags to avoid double-wrapping already-linked URLs
+  return html.replace(/(<a[\s\S]*?<\/a>)|(<[^>]+>)|(https?:\/\/[^\s<>"')\]]+)/g, (match, anchor, tag, url) => {
+    if (anchor || tag) return match; // preserve existing tags as-is
     const display = url.length > 60 ? url.slice(0, 57) + '...' : url;
     return `<a href="${url}" target="_blank" rel="noopener noreferrer">${display}</a>`;
   });
