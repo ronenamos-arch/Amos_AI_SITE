@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
+import Image from "next/image";
 import { Mail, CheckCircle2, Loader2, Calendar, Clock, Video, Gift } from "lucide-react";
 import { subscribeToNewsletter } from "@/lib/actions/newsletter";
 
@@ -99,10 +100,15 @@ export default function WebinarCashflowPage() {
 
                     {/* Image placeholder */}
                     <div className="order-2 md:order-1">
-                        {/* הכנס תמונה כאן */}
-                        <div className="rounded-2xl overflow-hidden border border-white/10 bg-white/5 backdrop-blur-sm aspect-[4/3] flex flex-col items-center justify-center text-text-muted">
-                            <Video className="h-16 w-16 mb-3 text-neon-teal/40" />
-                            <span className="text-sm">תמונת השידור</span>
+                        <div className="rounded-2xl overflow-hidden border border-white/10 shadow-xl shadow-teal-400/10">
+                            <Image
+                                src="/images/webinar-host.jpg"
+                                alt="רונן עמוס — AI Finance Transformation"
+                                width={600}
+                                height={750}
+                                className="w-full h-auto object-cover"
+                                priority
+                            />
                         </div>
 
                         {/* What you get */}
