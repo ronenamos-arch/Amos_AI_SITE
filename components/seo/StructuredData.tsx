@@ -7,12 +7,30 @@ const StructuredData = () => {
         '@context': 'https://schema.org',
         '@type': 'Person',
         name: 'רונן עמוס',
+        alternateName: 'Ronen Amos',
         jobTitle: 'רואה חשבון ויועץ טכנולוגי פיננסי',
         url: primaryUrl,
+        image: `${primaryUrl}/og-image.png`,
         sameAs: [
-            'https://www.linkedin.com/in/ronen-amos-cpa/', // Example, should be updated if known
+            'https://www.linkedin.com/in/ronen-amos-cpa/',
+            primaryUrl,
         ],
         description: 'רו"ח מוסמך המתמחה בשילוב טכנולוגיה וכספים, AI, Power BI ואוטומציה פיננסית.',
+        knowsAbout: [
+            'AI Finance', 'Power BI', 'Financial Automation', 'ERP Implementation',
+            'ASC 606', 'IFRS 15', 'Digital Transformation', 'Financial Reporting',
+            'רואה חשבון', 'ייעוץ פיננסי', 'אוטומציה כספית', 'בינה מלאכותית לכספים',
+        ],
+        hasCredential: {
+            '@type': 'EducationalOccupationalCredential',
+            credentialCategory: 'רואה חשבון מוסמך (CPA)',
+            recognizedBy: { '@type': 'Organization', name: 'לשכת רואי החשבון בישראל' },
+        },
+        address: {
+            '@type': 'PostalAddress',
+            addressLocality: 'Tel Aviv',
+            addressCountry: 'IL',
+        },
     };
 
     const serviceSchema = {
@@ -22,13 +40,19 @@ const StructuredData = () => {
         image: `${primaryUrl}/og-image.png`,
         '@id': primaryUrl,
         url: primaryUrl,
-        telephone: '', // User can provide
         address: {
             '@type': 'PostalAddress',
-            streetAddress: '',
             addressLocality: 'Tel Aviv',
             addressCountry: 'IL',
         },
+        areaServed: [
+            { '@type': 'Country', name: 'Israel' },
+        ],
+        knowsAbout: [
+            'AI Finance Consulting', 'Power BI', 'ERP Implementation',
+            'ASC 606 Revenue Recognition', 'IFRS 15', 'Financial Automation',
+            'CFO Dashboard', 'Financial Digital Transformation',
+        ],
         openingHoursSpecification: [
             {
                 '@type': 'OpeningHoursSpecification',
@@ -38,6 +62,7 @@ const StructuredData = () => {
             },
         ],
         priceRange: '$$',
+        founder: { '@type': 'Person', name: 'רונן עמוס', url: primaryUrl },
     };
 
     const courseSchema = {

@@ -20,18 +20,24 @@ export async function generateMetadata({
   const { slug } = await params;
   const decodedSlug = decodeURIComponent(slug);
 
+  const canonicalUrl = `https://amos-ai-site.vercel.app/blog/${encodeURIComponent(decodedSlug)}`;
+
   // Try DB first
   const dbPost = await getDBPostBySlug(decodedSlug);
   if (dbPost) {
     return {
       title: dbPost.title,
       description: dbPost.description,
+      alternates: { canonical: canonicalUrl },
       openGraph: {
         title: dbPost.title,
         description: dbPost.description,
         type: "article",
         locale: "he_IL",
-        ...(dbPost.image_url && { images: [dbPost.image_url] }),
+        url: canonicalUrl,
+        ...(dbPost.image_url && {
+          images: [{ url: dbPost.image_url, alt: dbPost.title }],
+        }),
       },
     };
   }
@@ -42,11 +48,23 @@ export async function generateMetadata({
   return {
     title: post.title,
     description: post.description,
+    alternates: { canonical: canonicalUrl },
     openGraph: {
       title: post.title,
       description: post.description,
       type: "article",
       locale: "he_IL",
+      url: canonicalUrl,
+      ...(post.image && {
+        images: [
+          {
+            url: post.image.startsWith("http")
+              ? post.image
+              : `https://amos-ai-site.vercel.app${post.image}`,
+            alt: post.title,
+          },
+        ],
+      }),
     },
   };
 }
@@ -54,6 +72,7 @@ export async function generateMetadata({
 import { createClient } from "@/lib/supabase/server";
 import { Paywall } from "@/components/blog/Paywall";
 import { ShareButtons } from "@/components/blog/ShareButtons";
+import RelatedPosts from "@/components/blog/RelatedPosts";
 
 export default async function BlogPostPage({
   params,
@@ -119,6 +138,8 @@ export default async function BlogPostPage({
     : parseMarkdown(displayContent);
   const contentHtml = linkify(rawHtml);
 
+  const postUrl = `https://amos-ai-site.vercel.app/blog/${encodeURIComponent(post.slug)}`;
+
   const articleSchema = {
     '@context': 'https://schema.org',
     '@type': 'Article',
@@ -138,11 +159,21 @@ export default async function BlogPostPage({
     },
     mainEntityOfPage: {
       '@type': 'WebPage',
-      '@id': `https://amos-ai-site.vercel.app/blog/${encodeURIComponent(post.slug)}`,
+      '@id': postUrl,
     },
     ...(post.image && { image: post.image.startsWith('http') ? post.image : `https://amos-ai-site.vercel.app${post.image}` }),
     ...(post.tags.length > 0 && { keywords: post.tags.join(', ') }),
     inLanguage: 'he',
+  };
+
+  const breadcrumbSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'בית', item: 'https://amos-ai-site.vercel.app' },
+      { '@type': 'ListItem', position: 2, name: 'בלוג', item: 'https://amos-ai-site.vercel.app/blog' },
+      { '@type': 'ListItem', position: 3, name: post.title, item: postUrl },
+    ],
   };
 
   return (
@@ -151,12 +182,25 @@ export default async function BlogPostPage({
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
       />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
       <article className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 focus:outline-none">
         {/* Header */}
         <div className="mb-8 border-b border-white/5 pb-8">
           <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black leading-tight mb-6 bg-clip-text text-transparent bg-gradient-to-r from-white to-white/70 break-words">
             {post.title}
           </h1>
+          {/* Author + date byline — important for E-E-A-T and AI citability */}
+          <div className="flex flex-wrap items-center gap-x-4 gap-y-1 mb-4 text-sm text-text-muted">
+            <span>מאת <span className="text-teal-400 font-medium">רונן עמוס, רו&quot;ח</span></span>
+            {post.date && (
+              <time dateTime={post.date} className="text-text-muted">
+                {new Date(post.date).toLocaleDateString('he-IL', { year: 'numeric', month: 'long', day: 'numeric' })}
+              </time>
+            )}
+          </div>
           <p className="text-xl text-text-secondary leading-relaxed">
             {post.description}
           </p>
@@ -188,6 +232,10 @@ export default async function BlogPostPage({
               </div>
             </div>
           </div>
+        )}
+
+        {!isLocked && (
+          <RelatedPosts currentSlug={post.slug} tags={post.tags} />
         )}
 
         {isLocked ? (
