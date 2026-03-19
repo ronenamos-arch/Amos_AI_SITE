@@ -34,7 +34,7 @@ export async function subscribeToNewsletter(email: string, source: string = "foo
 
     // Send welcome email only to brand-new subscribers
     if (isNew) {
-        const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://amos-ai-site.vercel.app";
+        const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.ronenamoscpa.co.il";
         const unsubscribeUrl = `${siteUrl}/api/newsletter/unsubscribe?email=${Buffer.from(normalizedEmail).toString("base64")}`;
         await sendWelcomeEmail({ to: normalizedEmail, type: "newsletter", unsubscribeUrl }).catch((err) =>
             console.error("Welcome email failed (newsletter):", err)
@@ -137,7 +137,7 @@ export async function getNewsletterHistory() {
 
 export async function sendNewsletter(subject: string, bodyHtml: string, sources?: string[]) {
     const adminSupabase = createAdminClient();
-    const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://amos-ai-site.vercel.app";
+    const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.ronenamoscpa.co.il";
 
     // Fetch active subscribers (optionally filtered by source)
     let query = adminSupabase
@@ -199,7 +199,7 @@ export async function sendNewsletter(subject: string, bodyHtml: string, sources?
 }
 
 export async function sendTestNewsletter(subject: string, bodyHtml: string) {
-    const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://amos-ai-site.vercel.app";
+    const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.ronenamoscpa.co.il";
 
     try {
         const { error } = await resend.emails.send({

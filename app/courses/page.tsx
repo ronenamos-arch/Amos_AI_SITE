@@ -9,7 +9,7 @@ export const metadata: Metadata = {
     description:
         "גלו את מגוון ההדרכות והקורסים של רונן עמוס: מ-AI Mastery ועד Notebook Master. הכלים שיהפכו אותך לאיש כספים של המאה ה-21.",
     alternates: {
-        canonical: "https://amos-ai-site.vercel.app/courses",
+        canonical: "https://www.ronenamoscpa.co.il/courses",
     },
 };
 

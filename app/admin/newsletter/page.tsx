@@ -32,7 +32,7 @@ export default function AdminNewsletterPage() {
     const [filteredCount, setFilteredCount] = useState<number | null>(null);
     const [history, setHistory] = useState<SendRecord[]>([]);
 
-    const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://amos-ai-site.vercel.app";
+    const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.ronenamoscpa.co.il";
 
     useEffect(() => {
         const supabase = createClient();

@@ -21,6 +21,6 @@ export default function robots(): MetadataRoute.Robots {
             { userAgent: 'cohere-ai', allow: '/' },
             { userAgent: 'YouBot', allow: '/' },
         ],
-        sitemap: 'https://amos-ai-site.vercel.app/sitemap.xml',
+        sitemap: 'https://www.ronenamoscpa.co.il/sitemap.xml',
     }
 }

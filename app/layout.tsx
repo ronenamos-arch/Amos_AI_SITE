@@ -50,7 +50,7 @@ export const metadata: Metadata = {
     "ERP הטמעה",
     "רו\"ח סטארטאפ",
   ],
-  metadataBase: new URL("https://amos-ai-site.vercel.app"),
+  metadataBase: new URL("https://www.ronenamoscpa.co.il"),
   verification: {
     google: "h6QCaukFQ3DE1M7n84R35IvuQp4RyhhCjYhjq5b_Lu4",
   },

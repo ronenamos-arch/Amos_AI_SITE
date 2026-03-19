@@ -20,7 +20,7 @@ export async function generateMetadata({
   const { slug } = await params;
   const decodedSlug = decodeURIComponent(slug);
 
-  const canonicalUrl = `https://amos-ai-site.vercel.app/blog/${encodeURIComponent(decodedSlug)}`;
+  const canonicalUrl = `https://www.ronenamoscpa.co.il/blog/${encodeURIComponent(decodedSlug)}`;
 
   // Try DB first
   const dbPost = await getDBPostBySlug(decodedSlug);
@@ -60,7 +60,7 @@ export async function generateMetadata({
           {
             url: post.image.startsWith("http")
               ? post.image
-              : `https://amos-ai-site.vercel.app${post.image}`,
+              : `https://www.ronenamoscpa.co.il${post.image}`,
             alt: post.title,
           },
         ],
@@ -138,7 +138,7 @@ export default async function BlogPostPage({
     : parseMarkdown(displayContent);
   const contentHtml = linkify(rawHtml);
 
-  const postUrl = `https://amos-ai-site.vercel.app/blog/${encodeURIComponent(post.slug)}`;
+  const postUrl = `https://www.ronenamoscpa.co.il/blog/${encodeURIComponent(post.slug)}`;
 
   const articleSchema = {
     '@context': 'https://schema.org',
@@ -150,18 +150,18 @@ export default async function BlogPostPage({
     author: {
       '@type': 'Person',
       name: 'רונן עמוס',
-      url: 'https://amos-ai-site.vercel.app',
+      url: 'https://www.ronenamoscpa.co.il',
     },
     publisher: {
       '@type': 'Organization',
       name: 'רונן עמוס - רו"ח ויועץ טכנולוגי פיננסי',
-      url: 'https://amos-ai-site.vercel.app',
+      url: 'https://www.ronenamoscpa.co.il',
     },
     mainEntityOfPage: {
       '@type': 'WebPage',
       '@id': postUrl,
     },
-    ...(post.image && { image: post.image.startsWith('http') ? post.image : `https://amos-ai-site.vercel.app${post.image}` }),
+    ...(post.image && { image: post.image.startsWith('http') ? post.image : `https://www.ronenamoscpa.co.il${post.image}` }),
     ...(post.tags.length > 0 && { keywords: post.tags.join(', ') }),
     inLanguage: 'he',
     speakable: {
@@ -178,8 +178,8 @@ export default async function BlogPostPage({
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
     itemListElement: [
-      { '@type': 'ListItem', position: 1, name: 'בית', item: 'https://amos-ai-site.vercel.app' },
-      { '@type': 'ListItem', position: 2, name: 'בלוג', item: 'https://amos-ai-site.vercel.app/blog' },
+      { '@type': 'ListItem', position: 1, name: 'בית', item: 'https://www.ronenamoscpa.co.il' },
+      { '@type': 'ListItem', position: 2, name: 'בלוג', item: 'https://www.ronenamoscpa.co.il/blog' },
       { '@type': 'ListItem', position: 3, name: post.title, item: postUrl },
     ],
   };

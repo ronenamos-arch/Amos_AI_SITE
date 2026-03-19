@@ -1,7 +1,7 @@
 import React from 'react';
 
 const StructuredData = () => {
-    const primaryUrl = 'https://amos-ai-site.vercel.app';
+    const primaryUrl = 'https://www.ronenamoscpa.co.il';
 
     const personSchema = {
         '@context': 'https://schema.org',

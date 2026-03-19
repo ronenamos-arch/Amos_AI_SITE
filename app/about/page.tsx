@@ -6,7 +6,27 @@ import { SectionHeading } from "@/components/ui/SectionHeading";
 export const metadata: Metadata = {
   title: "אודות",
   description:
-    "רונן עמוס - רו\"ח מוסמך ויועץ טכנולוגי פיננסי. ronenamos@gmail.com",
+    'רונן עמוס – רו"ח מוסמך, Microsoft Power BI Data Analyst, ומומחה AI פיננסי עם מעל עשור ניסיון בסטארטאפים וחברות שירותים.',
+  alternates: {
+    canonical: "https://www.ronenamoscpa.co.il/about",
+  },
+  keywords: [
+    "רונן עמוס",
+    "רואה חשבון מוסמך",
+    "Power BI Data Analyst",
+    "יועץ טכנולוגי פיננסי",
+    "ASC 606",
+    "IFRS 15",
+    "Python Finance",
+    "אוטומציה חשבונאית",
+  ],
+  openGraph: {
+    title: 'רונן עמוס | רו"ח ויועץ AI פיננסי',
+    description:
+      'רו"ח מוסמך המשלב מומחיות חשבונאית עם כלי AI, Power BI ואוטומציה לטובת עסקים בצמיחה.',
+    url: "https://www.ronenamoscpa.co.il/about",
+    type: "website",
+  },
 };
 
 const certifications = [

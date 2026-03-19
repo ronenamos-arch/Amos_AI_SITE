@@ -3,7 +3,7 @@ import { getAllPosts } from '@/lib/blog'
 import { getDBPosts } from '@/lib/blog-supabase'
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-    const baseUrl = 'https://amos-ai-site.vercel.app'
+    const baseUrl = 'https://www.ronenamoscpa.co.il'
 
     const staticPages: MetadataRoute.Sitemap = [
         {
@@ -50,23 +50,40 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         },
     ]
 
+    const thirtyDaysAgo = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000)
+
     // Local markdown posts
     const localPosts = getAllPosts()
-    const localPostEntries: MetadataRoute.Sitemap = localPosts.map((post) => ({
-        url: `${baseUrl}/blog/${encodeURIComponent(post.slug)}`,
-        lastModified: post.date ? new Date(post.date) : new Date(),
-        changeFrequency: 'monthly',
-        priority: 0.6,
-    }))
+    const localPostEntries: MetadataRoute.Sitemap = localPosts.map((post) => {
+        const postDate = post.date ? new Date(post.date) : new Date()
+        const isRecent = postDate > thirtyDaysAgo
+        const imageUrl = post.image
+            ? post.image.startsWith('http')
+                ? post.image
+                : `${baseUrl}${post.image}`
+            : undefined
+        return {
+            url: `${baseUrl}/blog/${encodeURIComponent(post.slug)}`,
+            lastModified: postDate,
+            changeFrequency: 'monthly' as const,
+            priority: isRecent ? 0.8 : 0.6,
+            ...(imageUrl && { images: [imageUrl] }),
+        }
+    })
 
     // DB posts from Supabase
     const dbPosts = await getDBPosts()
-    const dbPostEntries: MetadataRoute.Sitemap = dbPosts.map((post) => ({
-        url: `${baseUrl}/blog/${encodeURIComponent(post.slug)}`,
-        lastModified: post.published_at ? new Date(post.published_at) : new Date(),
-        changeFrequency: 'monthly',
-        priority: 0.6,
-    }))
+    const dbPostEntries: MetadataRoute.Sitemap = dbPosts.map((post) => {
+        const postDate = post.published_at ? new Date(post.published_at) : new Date()
+        const isRecent = postDate > thirtyDaysAgo
+        return {
+            url: `${baseUrl}/blog/${encodeURIComponent(post.slug)}`,
+            lastModified: postDate,
+            changeFrequency: 'monthly' as const,
+            priority: isRecent ? 0.8 : 0.6,
+            ...(post.image_url && { images: [post.image_url] }),
+        }
+    })
 
     // Deduplicate by slug (DB posts take precedence)
     const dbSlugs = new Set(dbPosts.map((p) => p.slug))

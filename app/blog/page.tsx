@@ -12,7 +12,28 @@ export const dynamic = 'force-dynamic';
 export const metadata: Metadata = {
   title: "בלוג",
   description:
-    "מאמרים על AI בכספים, Power BI, אוטומציות Excel, ASC 606 וחשבונאות מודרנית.",
+    "מאמרים, מדריכים ותובנות על AI בכספים, Power BI, אוטומציות Excel, ASC 606 וחשבונאות מודרנית. תוכן מקצועי בעברית.",
+  alternates: {
+    canonical: "https://www.ronenamoscpa.co.il/blog",
+  },
+  keywords: [
+    "בלוג AI פיננסי",
+    "Power BI מדריך",
+    "אוטומציה Excel",
+    "ASC 606 הסבר",
+    "בינה מלאכותית רואי חשבון",
+    "ניתוח נתונים פיננסי",
+    "ChatGPT לעסקים",
+    "NotebookLM",
+    "דשבורד פיננסי",
+  ],
+  openGraph: {
+    title: "בלוג AI ופיננסים | רונן עמוס",
+    description:
+      "מאמרים מקצועיים על שילוב AI וטכנולוגיה בעולם הכספים. Power BI, אוטומציה, ASC 606 ועוד.",
+    url: "https://www.ronenamoscpa.co.il/blog",
+    type: "website",
+  },
 };
 
 export default async function BlogPage() {

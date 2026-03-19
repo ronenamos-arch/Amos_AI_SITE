@@ -3,7 +3,7 @@
 ## Project Info
 
 - **Repo:** https://github.com/ronenamos-arch/Amos_AI_SITE
-- **Live URL:** https://amos-ai-site.vercel.app
+- **Live URL:** https://www.ronenamoscpa.co.il
 - **Hosting:** Vercel (auto-deploys from `main` branch)
 - **Database:** Supabase (PostgreSQL + Auth)
 - **Payments:** PayPal (production + sandbox)
@@ -90,6 +90,22 @@ Never import `lib/actions/email.ts` from a route handler — it will silently fa
 - [ ] Subscription cancellation UI (user-facing)
 - [ ] Invoice/receipt generation
 - [ ] Payment history page in dashboard
+- [ ] Submit sitemap.xml in Google Search Console (manual, not code)
+
+## SEO — Completed
+
+- [x] Homepage explicit `metadata` export (`app/page.tsx`) — specific title, description, canonical, keywords, OG
+- [x] Canonical URLs on all pages (about, services, contact, blog)
+- [x] Per-page keyword sets on every page (5–9 Hebrew keywords each)
+- [x] Root keywords expanded to 22 (`app/layout.tsx`)
+- [x] OG image `alt` text on blog post pages (both DB and markdown)
+- [x] BreadcrumbList JSON-LD on every blog post (`app/blog/[slug]/page.tsx`)
+- [x] FAQ JSON-LD on services page (4 Q&A pairs for rich results)
+- [x] Security headers in `next.config.ts` (X-Content-Type-Options, X-Frame-Options, etc.)
+- [x] Sitemap (`app/sitemap.ts`): recent posts get priority 0.8, older 0.6; images included per entry
+- [x] Related posts component (`components/blog/RelatedPosts.tsx`) — tag-based, shown on every unlocked post
+- [x] `/publish-blog` skill updated with SEO pre-publish checklist (Step 5.5)
+- [x] `/convert-blog` skill updated with SEO metadata output (Step 7)
 
 ## Language
 

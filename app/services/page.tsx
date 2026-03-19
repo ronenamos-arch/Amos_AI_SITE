@@ -6,7 +6,67 @@ import { SectionHeading } from "@/components/ui/SectionHeading";
 export const metadata: Metadata = {
   title: "שירותים",
   description:
-    "ייעוץ עסקי ופיננסי מבוסס נתונים, הכשרות Power BI ו-AI, ליווי והטמעת מערכות.",
+    "ייעוץ עסקי ופיננסי מבוסס נתונים, הכשרות Power BI ו-AI, ליווי והטמעת מערכות ERP ו-BI. לקוחות חוסכים עד 15 שעות עבודה שבועיות.",
+  alternates: {
+    canonical: "https://www.ronenamoscpa.co.il/services",
+  },
+  keywords: [
+    "ייעוץ פיננסי מבוסס נתונים",
+    "Power BI לעסקים",
+    "הטמעת ERP",
+    "ASC 606 ייעוץ",
+    "IFRS 15",
+    "אוטומציה כספים",
+    "ליווי מחלקת כספים",
+    "דשבורד CFO",
+    "סגירת חודש מהירה",
+  ],
+  openGraph: {
+    title: "שירותי ייעוץ פיננסי-טכנולוגי | רונן עמוס",
+    description:
+      "ייעוץ פיננסי מבוסס נתונים, Power BI, אוטומציה ו-ASC 606. ROI מדיד – לקוחות חוסכים שעות עבודה מדי שבוע.",
+    url: "https://www.ronenamoscpa.co.il/services",
+    type: "website",
+  },
+};
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: 'מה כולל שירות הייעוץ הפיננסי מבוסס הנתונים?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'הייעוץ כולל ניתוח פיננסי מתקדם עם Power BI, אסטרטגיית הכרת הכנסות לפי ASC 606/IFRS 15, אופטימיזציה של תהליכים פיננסיים וליווי בהטמעת מערכות ERP ו-BI.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'כמה זמן לוקח לראות תוצאות?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'לקוחות מדווחים על חיסכון של עד 15 שעות עבודה שבועיות לאחר הטמעת דשבורד Power BI. חברות שליוויתי 6 חודשים קיצרו את סגירת החודש מ-10 ימים ל-3.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'למי מתאים שירות הליווי ארוך הטווח?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'לארגונים שרוצים שינוי מתמשך, חברות בצמיחה הזקוקות לתשתית כספית שגדלה איתן, ומחלקות כספים שמחפשות מנטור טכנולוגי קבוע.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'האם יש פגישת ייעוץ ראשונה חינמית?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'כן. פגישת הייעוץ הראשונה חינמית לחלוטין. ניתן לתאם דרך טופס יצירת הקשר באתר.',
+      },
+    },
+  ],
 };
 
 const services = [
@@ -51,6 +111,11 @@ const services = [
 
 export default function ServicesPage() {
   return (
+    <>
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+    />
     <div className="pt-24 pb-16">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <SectionHeading
@@ -120,5 +185,6 @@ export default function ServicesPage() {
         </div>
       </div>
     </div>
+    </>
   );
 }

@@ -152,10 +152,10 @@ def analyze_journal(file_path):
 
 ## מה הצעד הבא שלכם?
 
-**אפשרות 1:** [הצטרפו לקורס AI Finance Mastery](https://amos-ai-site.vercel.app/courses/ai-mastery) והתחילו ליישם AI במחלקת הכספים שלכם.
+**אפשרות 1:** [הצטרפו לקורס AI Finance Mastery](https://www.ronenamoscpa.co.il/courses/ai-mastery) והתחילו ליישם AI במחלקת הכספים שלכם.
 
-**אפשרות 2:** [Mastering NotebookLM — קורס מעשי לאנשי פיננסים](https://amos-ai-site.vercel.app/courses/notebook-master) — כלי ה-AI שמארגן את הידע שלכם.
+**אפשרות 2:** [Mastering NotebookLM — קורס מעשי לאנשי פיננסים](https://www.ronenamoscpa.co.il/courses/notebook-master) — כלי ה-AI שמארגן את הידע שלכם.
 
-**אפשרות 3:** [הזמינו אותי להרצאה או סדנה מעשית](https://amos-ai-site.vercel.app/contact) לצוות שלכם בנושא שילוב AI ו-ERP.
+**אפשרות 3:** [הזמינו אותי להרצאה או סדנה מעשית](https://www.ronenamoscpa.co.il/contact) לצוות שלכם בנושא שילוב AI ו-ERP.
 
 המתחרים שלכם כבר בוחנים איך לשלב AI עמוק בתוך ה-ERP. השאלה היא האם אתם **מובילים** — או מגיבים.

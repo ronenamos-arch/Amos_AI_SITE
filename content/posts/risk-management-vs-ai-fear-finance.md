@@ -103,8 +103,8 @@ AI מביא אתכם 80%–90% מהדרך. התפקיד שלכם הוא 10–15 
 
 בזמן שאתם קוראים את זה, מתחרים שלכם כבר משתמשים ב-AI. הצטרפו לקורס ואל תישארו מאחור.
 
-[לקורסים ולמידע נוסף ←](https://amos-ai-site.vercel.app)
+[לקורסים ולמידע נוסף ←](https://www.ronenamoscpa.co.il)
 
-להזמין אותי להרצאות והדרכות מעשיות אצלכם במחלקה הפיננסית: [AI Finance Transformation](https://amos-ai-site.vercel.app/contact)
+להזמין אותי להרצאות והדרכות מעשיות אצלכם במחלקה הפיננסית: [AI Finance Transformation](https://www.ronenamoscpa.co.il/contact)
 
 [ערוץ היוטיוב — אשף האוטומציה הפיננסית | AI for Finance](https://www.youtube.com/@AshafAutomation)

@@ -5,7 +5,25 @@ import { ContactForm } from "@/components/forms/ContactForm";
 
 export const metadata: Metadata = {
   title: "צור קשר",
-  description: "הזמן פגישת ייעוץ חינמית עם רונן עמוס - רו\"ח ויועץ טכנולוגי פיננסי.",
+  description:
+    'הזמן פגישת ייעוץ חינמית עם רונן עמוס – רו"ח ויועץ AI פיננסי. נענה תוך יום עסקים.',
+  alternates: {
+    canonical: "https://www.ronenamoscpa.co.il/contact",
+  },
+  keywords: [
+    "פגישת ייעוץ חינמית",
+    "ייעוץ רואה חשבון",
+    "ייעוץ Power BI",
+    "ייעוץ AI לעסקים",
+    "צור קשר רואה חשבון",
+  ],
+  openGraph: {
+    title: "צור קשר | רונן עמוס",
+    description:
+      'הזמן פגישת ייעוץ ראשונה חינמית – רו"ח מוסמך ויועץ AI פיננסי.',
+    url: "https://www.ronenamoscpa.co.il/contact",
+    type: "website",
+  },
 };
 
 const contactInfo = [

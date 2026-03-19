@@ -46,7 +46,7 @@ function buildPage(title: string, message: string): string {
     <div style="text-align:center;padding:40px;max-width:400px;">
         <h1 style="color:#2dd4bf;font-size:24px;margin-bottom:16px;">${title}</h1>
         <p style="color:#9ca3af;font-size:16px;line-height:1.6;">${message}</p>
-        <a href="${process.env.NEXT_PUBLIC_SITE_URL || "https://amos-ai-site.vercel.app"}" style="display:inline-block;margin-top:24px;padding:12px 28px;background-color:#2dd4bf;color:#0a0e17;font-weight:bold;text-decoration:none;border-radius:9999px;">חזרה לאתר</a>
+        <a href="${process.env.NEXT_PUBLIC_SITE_URL || "https://www.ronenamoscpa.co.il"}" style="display:inline-block;margin-top:24px;padding:12px 28px;background-color:#2dd4bf;color:#0a0e17;font-weight:bold;text-decoration:none;border-radius:9999px;">חזרה לאתר</a>
     </div>
 </body>
 </html>`.trim();

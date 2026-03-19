@@ -16,7 +16,7 @@ interface SendPurchaseEmailParams {
 }
 
 export async function sendPurchaseEmail({ to, planName, amount, orderId }: SendPurchaseEmailParams) {
-    const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://amos-ai-site.vercel.app";
+    const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.ronenamoscpa.co.il";
 
     try {
         const { data, error } = await resend.emails.send({
@@ -45,7 +45,7 @@ interface SendWelcomeEmailParams {
 }
 
 export async function sendWelcomeEmail({ to, type, unsubscribeUrl }: SendWelcomeEmailParams) {
-    const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://amos-ai-site.vercel.app";
+    const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.ronenamoscpa.co.il";
 
     try {
         const { data, error } = await resend.emails.send({

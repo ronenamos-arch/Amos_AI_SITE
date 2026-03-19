@@ -16,6 +16,7 @@ const CATEGORY_ICONS: Record<string, string> = {
   'Credit Scoring and Loan Assessment': '💳',
   'Due Diligence & M&A': '🤝',
   'ESG Analysis': '🌱',
+  'Financial Operating': '💼',
   'General': '✨'
 };
 
