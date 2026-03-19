@@ -12,7 +12,8 @@ const StructuredData = () => {
         url: primaryUrl,
         image: `${primaryUrl}/og-image.png`,
         sameAs: [
-            'https://www.linkedin.com/in/ronen-amos-cpa/',
+            'https://www.linkedin.com/in/ronenamoscpa/',
+            'https://www.youtube.com/@AIFinanceTransformation',
         ],
         description: 'רו"ח מוסמך המתמחה בשילוב טכנולוגיה וכספים, AI, Power BI ואוטומציה פיננסית.',
         knowsAbout: [
