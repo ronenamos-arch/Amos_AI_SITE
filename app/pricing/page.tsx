@@ -10,6 +10,9 @@ import { PayPalPaymentButton } from "@/components/payments/PayPalPaymentButton";
 export const metadata: Metadata = {
     title: "מסלולי פרימיום | AI FINANCE",
     description: "הצטרפו לקהילת הפרימיום של רונן עמוס וקבלו גישה לכל המדריכים, הפרומפטים והתכנים הבלעדיים.",
+    alternates: {
+        canonical: "https://amos-ai-site.vercel.app/pricing",
+    },
 };
 
 const plans = [

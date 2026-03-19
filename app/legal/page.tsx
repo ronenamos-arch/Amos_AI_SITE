@@ -4,6 +4,9 @@ import { GlassCard } from "@/components/ui/GlassCard";
 export const metadata: Metadata = {
     title: "מדיניות פרטיות ותנאי שימוש | AI FINANCE",
     description: "תנאי השימוש ומדיניות הפרטיות של אתר רונן עמוס - AI FINANCE, בהתאם לחוק הגנת הפרטיות ותיקון 13א.",
+    alternates: {
+        canonical: "https://amos-ai-site.vercel.app/legal",
+    },
 };
 
 export default function LegalPage() {

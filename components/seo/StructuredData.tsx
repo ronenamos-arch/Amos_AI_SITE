@@ -65,6 +65,22 @@ const StructuredData = () => {
         founder: { '@type': 'Person', name: 'רונן עמוס', url: primaryUrl },
     };
 
+    const websiteSchema = {
+        '@context': 'https://schema.org',
+        '@type': 'WebSite',
+        name: 'רונן עמוס | רו"ח ויועץ AI פיננסי',
+        url: primaryUrl,
+        inLanguage: 'he',
+        potentialAction: {
+            '@type': 'SearchAction',
+            target: {
+                '@type': 'EntryPoint',
+                urlTemplate: `${primaryUrl}/blog?q={search_term_string}`,
+            },
+            'query-input': 'required name=search_term_string',
+        },
+    };
+
     const courseSchema = {
         '@context': 'https://schema.org',
         '@type': 'Course',
@@ -90,6 +106,10 @@ const StructuredData = () => {
             <script
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(courseSchema) }}
+            />
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
             />
         </>
     );
