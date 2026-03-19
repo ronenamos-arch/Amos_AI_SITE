@@ -13,7 +13,6 @@ const StructuredData = () => {
         image: `${primaryUrl}/og-image.png`,
         sameAs: [
             'https://www.linkedin.com/in/ronen-amos-cpa/',
-            primaryUrl,
         ],
         description: 'רו"ח מוסמך המתמחה בשילוב טכנולוגיה וכספים, AI, Power BI ואוטומציה פיננסית.',
         knowsAbout: [
@@ -89,7 +88,7 @@ const StructuredData = () => {
         provider: {
             '@type': 'Organization',
             name: 'רונן עמוס',
-            sameAs: primaryUrl,
+            url: primaryUrl,
         },
     };
 

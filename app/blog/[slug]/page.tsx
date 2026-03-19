@@ -164,6 +164,14 @@ export default async function BlogPostPage({
     ...(post.image && { image: post.image.startsWith('http') ? post.image : `https://amos-ai-site.vercel.app${post.image}` }),
     ...(post.tags.length > 0 && { keywords: post.tags.join(', ') }),
     inLanguage: 'he',
+    speakable: {
+      '@type': 'SpeakableSpecification',
+      xpath: [
+        '/html/head/title',
+        "//article//h1",
+        "//article//p[1]",
+      ],
+    },
   };
 
   const breadcrumbSchema = {
