@@ -2,6 +2,8 @@ import { MetadataRoute } from 'next'
 import { getAllPosts } from '@/lib/blog'
 import { getDBPosts } from '@/lib/blog-supabase'
 
+export const dynamic = 'force-dynamic'
+
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     const baseUrl = 'https://www.ronenamoscpa.co.il'
 
