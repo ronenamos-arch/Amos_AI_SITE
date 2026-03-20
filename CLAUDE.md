@@ -8,7 +8,7 @@
 - **Database:** Supabase (PostgreSQL + Auth)
 - **Payments:** PayPal (production + sandbox)
 - **Email:** Resend (transactional emails)
-- **Email domain:** amosbudget.com (pending DNS verification in Resend)
+- **Email domain:** amosbudget.com (verified in Resend — `RESEND_FROM_EMAIL=AI Finance <noreply@amosbudget.com>`)
 
 ## Tech Stack
 
@@ -60,6 +60,44 @@ Required in `.env.local` and Vercel:
   - `lib/actions/articles.ts` — `updateArticle()` server action
 - **Premium content:** `is_premium` field on articles; checked against `profiles.subscription_status`
 
+## Build Rules — CRITICAL
+
+Vercel does **not** inject `NEXT_PUBLIC_*` env vars into the SSG pre-render worker.
+Any code that touches Supabase at module or render level will throw `supabaseUrl is required` during build.
+
+**Rule:** Any `app/` file that calls Supabase (directly or transitively) MUST have:
+```ts
+export const dynamic = 'force-dynamic'
+```
+
+**Files currently using this directive:**
+- `app/layout.tsx` — root layout renders `<UserMenu>` → `createClient()` runs at render
+- `app/sitemap.ts` — calls `getDBPosts()` which hits Supabase
+
+If you add a new special file (`opengraph-image`, `robots.ts`, etc.) that queries Supabase, add `force-dynamic` to it.
+
+**Rule:** Never create module-level Supabase or Resend singletons.
+- Supabase: call `createClient()` / `createAdminClient()` inside the function body
+- Resend: use `getResend()` from `lib/resend.ts` — never import a top-level `resend` instance
+
+**Rule:** Next.js 16 middleware file is `proxy.ts` (not `middleware.ts`), export named `proxy`.
+
+## Debugging Vercel Builds
+
+When a build fails with bare "Error", get the actual log via the Vercel API:
+
+```bash
+# 1. Get latest deployment UID
+curl -s "https://api.vercel.com/v6/deployments?teamId=team_xBXPCsrJ3odGUI51p3lRKarB&projectId=prj_LgGONkBo1W4Z1xIKaqEAm0siARY4&limit=1" \
+  -H "Authorization: Bearer $VERCEL_TOKEN"
+
+# 2. Fetch build events (use full dpl_... UID from step 1)
+curl -s "https://api.vercel.com/v2/deployments/{dpl_uid}/events?teamId=team_xBXPCsrJ3odGUI51p3lRKarB" \
+  -H "Authorization: Bearer $VERCEL_TOKEN"
+```
+
+`VERCEL_TOKEN` is in `.env.local`. Team ID: `team_xBXPCsrJ3odGUI51p3lRKarB`. Project ID: `prj_LgGONkBo1W4Z1xIKaqEAm0siARY4`.
+
 ## Email Architecture Note
 
 All Resend calls live in `lib/mailer.ts` (no `"use server"` directive).
@@ -83,6 +121,9 @@ Never import `lib/actions/email.ts` from a route handler — it will silently fa
 - [x] Welcome email on account registration (`app/auth/callback/route.ts`, fires for users created < 10 min ago)
 - [x] Contacts CSV export — admin-only `GET /api/admin/export-contacts` (newsletter + users + contacts, UTF-8 BOM for Excel Hebrew)
 - [x] CSV download button on admin newsletter page
+- [x] Vercel build fixed — `force-dynamic` on `app/layout.tsx` and `app/sitemap.ts` (SSG/Supabase crash)
+- [x] Resend refactored to lazy `getResend()` factory — no more module-level singleton
+- [x] Next.js 16 middleware: `proxy.ts` with `export function proxy()` convention
 
 ## Still TODO
 
