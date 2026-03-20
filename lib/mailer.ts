@@ -4,7 +4,7 @@
  * lib/actions/email.ts re-exports these as "use server" actions for client use.
  */
 
-import { resend, EMAIL_FROM } from "@/lib/resend";
+import { getResend, EMAIL_FROM } from "@/lib/resend";
 import { buildPurchaseConfirmationEmail } from "@/lib/emails/purchase-confirmation";
 import { buildWelcomeEmail } from "@/lib/emails/welcome";
 
@@ -19,7 +19,7 @@ export async function sendPurchaseEmail({ to, planName, amount, orderId }: SendP
     const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.ronenamoscpa.co.il";
 
     try {
-        const { data, error } = await resend.emails.send({
+        const { data, error } = await getResend().emails.send({
             from: EMAIL_FROM,
             to,
             subject: `אישור תשלום — ${planName} | AI Finance`,
@@ -48,7 +48,7 @@ export async function sendWelcomeEmail({ to, type, unsubscribeUrl }: SendWelcome
     const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.ronenamoscpa.co.il";
 
     try {
-        const { data, error } = await resend.emails.send({
+        const { data, error } = await getResend().emails.send({
             from: EMAIL_FROM,
             to,
             subject: "ברוך הבא ל-AI Finance 🎉",
