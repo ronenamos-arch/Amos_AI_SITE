@@ -14,6 +14,8 @@ const StructuredData = () => {
         sameAs: [
             'https://www.linkedin.com/in/ronenamoscpa/',
             'https://www.youtube.com/@AIFinanceTransformation',
+            'https://www.facebook.com/AmosFinancialServices',
+            'https://www.instagram.com/ronen_financial_services/',
         ],
         description: 'רו"ח מוסמך המתמחה בשילוב טכנולוגיה וכספים, AI, Power BI ואוטומציה פיננסית.',
         knowsAbout: [
@@ -26,9 +28,11 @@ const StructuredData = () => {
             credentialCategory: 'רואה חשבון מוסמך (CPA)',
             recognizedBy: { '@type': 'Organization', name: 'לשכת רואי החשבון בישראל' },
         },
+        telephone: '+972-50-5500344',
         address: {
             '@type': 'PostalAddress',
-            addressLocality: 'Tel Aviv',
+            streetAddress: 'Tzvi 8',
+            addressLocality: 'Ramat Gan',
             addressCountry: 'IL',
         },
     };
@@ -40,13 +44,22 @@ const StructuredData = () => {
         image: `${primaryUrl}/og-image.png`,
         '@id': primaryUrl,
         url: primaryUrl,
+        description: 'שירותי ייעוץ פיננסי וטכנולוגי לחברות וארגונים, כולל הכשרות Power BI ו-AI, אוטומציה פיננסית ויישום ERP.',
+        telephone: '+972-50-5500344',
         address: {
             '@type': 'PostalAddress',
-            addressLocality: 'Tel Aviv',
+            streetAddress: 'Tzvi 8',
+            addressLocality: 'Ramat Gan',
             addressCountry: 'IL',
         },
         areaServed: [
             { '@type': 'Country', name: 'Israel' },
+        ],
+        sameAs: [
+            'https://www.linkedin.com/in/ronenamoscpa/',
+            'https://www.youtube.com/@AIFinanceTransformation',
+            'https://www.facebook.com/AmosFinancialServices',
+            'https://www.instagram.com/ronen_financial_services/',
         ],
         knowsAbout: [
             'AI Finance Consulting', 'Power BI', 'ERP Implementation',
