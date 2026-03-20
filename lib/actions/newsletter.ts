@@ -1,7 +1,7 @@
 "use server";
 
 import { createAdminClient } from "@/lib/supabase/admin";
-import { resend, EMAIL_FROM } from "@/lib/resend";
+import { getResend, EMAIL_FROM } from "@/lib/resend";
 import { buildNewsletterEmail } from "@/lib/emails/newsletter";
 import { sendWelcomeEmail } from "@/lib/mailer";
 
@@ -174,7 +174,7 @@ export async function sendNewsletter(subject: string, bodyHtml: string, sources?
         });
 
         try {
-            const { data, error } = await resend.batch.send(emails);
+            const { error } = await getResend().batch.send(emails);
             if (error) {
                 console.error("Resend batch error:", error);
                 failed += batch.length;
@@ -202,7 +202,7 @@ export async function sendTestNewsletter(subject: string, bodyHtml: string) {
     const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.ronenamoscpa.co.il";
 
     try {
-        const { error } = await resend.emails.send({
+        const { error } = await getResend().emails.send({
             from: EMAIL_FROM,
             to: "ronenamos@gmail.com",
             subject: `[TEST] ${subject}`,

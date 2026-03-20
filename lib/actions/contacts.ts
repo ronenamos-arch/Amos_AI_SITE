@@ -2,7 +2,7 @@
 
 import { createClient } from "@/lib/supabase/server";
 import { createAdminClient } from "@/lib/supabase/admin";
-import { resend, EMAIL_FROM } from "@/lib/resend";
+import { getResend, EMAIL_FROM } from "@/lib/resend";
 
 async function requireAdmin() {
     const supabase = await createClient();
@@ -89,7 +89,7 @@ export async function replyToContact(
 </body>
 </html>`;
 
-        const { error } = await resend.emails.send({
+        const { error } = await getResend().emails.send({
             from: EMAIL_FROM,
             to: toEmail,
             subject: replySubject,
