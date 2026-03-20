@@ -28,7 +28,7 @@ export function buildNewsletterEmail({ bodyHtml, siteUrl, unsubscribeUrl }: News
                     <tr>
                         <td style="padding:32px 40px 24px;text-align:center;border-bottom:1px solid rgba(45,212,191,0.2);">
                             <a href="${siteUrl}" style="text-decoration:none;">
-                                <h1 style="margin:0;font-size:28px;color:#2dd4bf;">AI FINANCE</h1>
+                                <h1 style="margin:0;font-size:28px;color:#2dd4bf;">AI FINANCE TRANSFORMATION</h1>
                             </a>
                             <p style="margin:8px 0 0;font-size:14px;color:#9ca3af;">ניוזלטר</p>
                         </td>
