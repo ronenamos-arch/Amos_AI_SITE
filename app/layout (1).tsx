@@ -32,7 +32,7 @@ export const metadata: Metadata = {
     "ייעוץ פיננסי",
     "הכשרות כספים",
   ],
-  metadataBase: new URL("https://ronenamos-cpa.com"),
+  metadataBase: new URL("https://www.ronenamoscpa.co.il"),
   alternates: {
     canonical: "/",
   },
