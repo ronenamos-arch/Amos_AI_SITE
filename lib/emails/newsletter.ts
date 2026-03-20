@@ -5,6 +5,12 @@ interface NewsletterEmailParams {
 }
 
 export function buildNewsletterEmail({ bodyHtml, siteUrl, unsubscribeUrl }: NewsletterEmailParams): string {
+    // Add email-safe inline styles to all <img> tags
+    const processedBody = bodyHtml.replace(/<img\b([^>]*)>/gi, (_match, attrs) => {
+        const noStyle = attrs.replace(/\s*style="[^"]*"/gi, '');
+        return `<img${noStyle} style="max-width:100%;width:100%;height:auto;display:block;margin:16px auto;border-radius:8px;">`;
+    });
+
     return `
 <!DOCTYPE html>
 <html dir="rtl" lang="he">
@@ -30,8 +36,8 @@ export function buildNewsletterEmail({ bodyHtml, siteUrl, unsubscribeUrl }: News
 
                     <!-- Body Content -->
                     <tr>
-                        <td style="padding:40px;font-size:16px;line-height:1.8;color:#d1d5db;">
-                            ${bodyHtml}
+                        <td dir="rtl" style="padding:40px;font-size:16px;line-height:1.8;color:#d1d5db;direction:rtl;text-align:right;">
+                            ${processedBody}
                         </td>
                     </tr>
 
@@ -46,7 +52,7 @@ export function buildNewsletterEmail({ bodyHtml, siteUrl, unsubscribeUrl }: News
 
                     <!-- Footer -->
                     <tr>
-                        <td style="padding:24px 40px;text-align:center;border-top:1px solid rgba(255,255,255,0.06);">
+                        <td dir="rtl" style="padding:24px 40px;text-align:center;border-top:1px solid rgba(255,255,255,0.06);direction:rtl;">
                             <p style="margin:0;font-size:12px;color:#6b7280;">
                                 יש שאלה? דבר איתי ב-<a href="https://wa.me/972505500344" style="color:#2dd4bf;text-decoration:none;">WhatsApp</a>
                             </p>
