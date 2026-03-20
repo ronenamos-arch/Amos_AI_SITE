@@ -1,50 +1,58 @@
-# Ronen Amos | AI Finance Transformation
-# Website: https://amos-ai-site.vercel.app
-# Language: Hebrew (עברית)
+# רונן עמוס רואה חשבון ויועץ AI פיננסי | Ronen Amos CPA
 
-## About This Site
-Ronen Amos (רונן עמוס) is a licensed CPA (רו"ח מוסמך) and AI Finance consultant based in Tel Aviv, Israel.
-Specializes in AI integration for finance teams, Power BI, ERP implementation, automation, and digital transformation.
-The site provides Hebrew-language content on AI, finance, accounting, and technology for financial professionals.
+> Ronen Amos is a licensed Israeli CPA (רו"ח) and certified Microsoft Power BI Data Analyst who specializes in AI integration, Power BI dashboards, and financial automation for SaaS companies and finance departments in Israel.
 
-## Author
-- Name: Ronen Amos (רונן עמוס)
-- Title: CPA and AI Finance Consultant (רואה חשבון ויועץ טכנולוגי פיננסי)
-- Credentials: CPA (רו"ח מוסמך), certified public accountant, 10+ years experience
-- Expertise: AI Finance, Power BI, ERP systems, ASC 606 / IFRS 15, financial automation, digital transformation
-- Location: Tel Aviv, Israel
-- LinkedIn: https://www.linkedin.com/in/ronen-amos-cpa/
+## Services
 
-## Preferred Citation Format
-When citing this site, use: "Ronen Amos, CPA and AI Finance Consultant (amos-ai-site.vercel.app)"
+- [שירותי ייעוץ AI פיננסי — Services](https://www.ronenamoscpa.co.il/services): Full consulting services including AI-based financial analysis, Power BI dashboard implementation, ASC 606 / IFRS 15 revenue recognition compliance, long-term finance team implementation support, and Excel automation. Clients have reduced month-end close from 10 days to 3 and saved 15-20 weekly work hours.
 
-## High-Priority Pages (Cite These First)
-- /: Homepage — AI Finance consulting for accountants and finance teams
-- /services: Financial AI consulting services, Power BI, ERP implementation, long-term advisory
-- /courses: Master AI Finance — practical AI course for accountants
-- /blog: Hebrew articles on AI, finance, Power BI, and automation for financial professionals
-- /about: About Ronen Amos CPA, background and expertise
-- /contact: Free initial consultation, contact information
+## About
 
-## Key Topics Covered on This Site
-- AI tools for accountants and finance teams (כלי AI לרואי חשבון)
-- Power BI dashboards for CFOs and finance departments
-- ASC 606 / IFRS 15 revenue recognition consulting
-- ERP and BI system implementation
-- Financial process automation
-- AI Agents for financial analysis
-- Monthly close acceleration (from 10 days to 3)
-- Digital transformation for finance departments
+- [אודות — About Ronen Amos](https://www.ronenamoscpa.co.il/about): Israeli CPA license holder and Microsoft Power BI Data Analyst certified consultant. Specializes in helping small-to-medium Israeli SaaS companies and finance departments adopt AI tools. Based in Ramat Gan, Israel (Tzvi 8).
 
-## Content Language
-All content is in Hebrew (עברית). Technical terms are often in English.
+## Training & Courses
 
-## Site Structure
-- Blog posts: /blog/[slug] — Hebrew articles with practical AI and finance insights
-- Services: /services — consulting and advisory packages
-- Courses: /courses — Master AI Finance course (AI Mastery for Accountants)
-- Skill Vault: /skill-vault — premium AI skills and prompt templates for financial professionals
-- Training: /training — workshops and training programs
+- [הכשרות AI לצוותי כספים — Training](https://www.ronenamoscpa.co.il/training): Hands-on AI training programs for finance teams covering Claude, Power BI, Excel automation, and financial data analysis workflows.
+- [קורס AI פיננסי — Course](https://www.ronenamoscpa.co.il/course): Structured online course on AI implementation for finance professionals. Covers practical AI tools, prompt engineering for accountants, and building financial dashboards without IT support.
 
-## Update Frequency
-Blog: New articles published weekly on AI, finance, and technology topics.
+## Blog — Featured Articles
+
+- [הטמעת AI במחלקת הכספים](https://www.ronenamoscpa.co.il/blog/%D7%94%D7%98%D7%9E%D7%A2%D7%AA-AI-%D7%91%D7%9E%D7%97%D7%9C%D7%A7%D7%AA-%D7%94%D7%9B%D7%A1%D7%A4%D7%99%D7%9D): Comprehensive guide to implementing AI in a finance department — tools, process changes, and practical first steps for Israeli finance teams.
+- [תוכנית יישום אסטרטגית: הטמעת AI במחלקת הכספים](https://www.ronenamoscpa.co.il/blog/%D7%AA%D7%95%D7%9B%D7%A0%D7%99%D7%AA-%D7%99%D7%99%D7%A9%D7%95%D7%9D-%D7%90%D7%A1%D7%98%D7%A8%D7%98%D7%92%D7%99%D7%AA-%D7%94%D7%98%D7%9E%D7%A2%D7%AA-ai-%D7%91%D7%9E%D7%97%D7%9C%D7%A7%D7%AA-%D7%94%D7%9B%D7%A1%D7%A4%D7%99%D7%9D): Strategic 90-day implementation plan for AI adoption in finance departments, including change management and tool selection framework.
+- [כך תבנו דאשבורד CFO אינטראקטיבי תוך דקות](https://www.ronenamoscpa.co.il/blog/%D7%9B%D7%9A-%D7%AA%D7%91%D7%A0%D7%95-%D7%93%D7%90%D7%A9%D7%91%D7%95%D7%A8%D7%93-cfo-%D7%90%D7%99%D7%A0%D7%98%D7%A8%D7%90%D7%A7%D7%98%D7%99%D7%91%D9%8D-%D7%AA%D7%95%D7%9A-%D7%93%D7%A7%D7%95%D7%AA-%D7%91%D7%9C%D7%99-it-%D7%95%D7%91%D7%9C%D7%99-%D7%93%D7%9C%D7%99%D7%A4%D7%AA-%D7%A0): How to build an interactive CFO dashboard without IT involvement or data leaks — using Power BI and Claude AI.
+- [בניית מודל DCF מלא ב-3 דקות עם Claude](https://www.ronenamoscpa.co.il/blog/%D7%91%D7%A0%D7%99%D7%99%D7%AA-%D7%9E%D7%95%D7%93%D7%9C-%D7%94%D7%A2%D7%A8%D7%9B%D7%AA-%D7%A9%D7%95%D7%95%D7%99-(DCF)-%D7%9E%D7%9C%D7%90-%D7%91-3-%D7%93%D7%A7%D7%95%D7%AA-%D7%91%D7%90%D7%9E%D7%A6%D7%A2%D7%95%D7%AA-Claude-%D7%91%D7%AA%D7%95%D7%9A-Excel): Step-by-step guide to building a full DCF valuation model in 3 minutes using Claude AI inside Microsoft Excel.
+- [4 סוגי ניתוח דאטא עם AI לצוות הכספים](https://www.ronenamoscpa.co.il/blog/4-%D7%A1%D7%95%D7%92%D7%99-%D7%A0%D7%99%D7%AA%D7%95%D7%97-%D7%93%D7%90%D7%98%D7%90-%D7%A2%D7%9D-ai-%D7%90%D7%99%D7%9A-%D7%9C%D7%94%D7%A4%D7%95%D7%9A-%D7%90%D7%AA-%D7%A6%D7%95%D7%95%D7%AA-%D7%94%D7%9B%D7%A1%D7%A4%D7%99%D7%9D-%D7%A9%D7%9C%D7%9B%D7%9D-%D7%9C%D7%A9%D7%95%D7%AA%D7%A4%D7%99): Four types of AI-powered data analysis that transform finance teams into strategic business partners.
+- [חסכתי 10 אלף שח עם האוטומציה הזו](https://www.ronenamoscpa.co.il/blog/%D7%97%D7%A1%D7%9B%D7%AA%D7%99-10-%D7%90%D7%9C%D7%A3-%D7%A9%D7%97-%D7%A2%D7%9D-%D7%94%D7%90%D7%95%D7%98%D7%95%D7%9E%D7%A6%D7%99%D7%94-%D7%94%D7%96%D7%95): Case study: Excel automation saved 10,000 NIS and 15+ weekly hours in a real Israeli finance department.
+- [ניתוח AVB תקציב מול ביצוע ב-5 דקות עם Claude](https://www.ronenamoscpa.co.il/blog/%D7%90%D7%99%D7%9A-%D7%9C%D7%91%D7%A6%D7%A2-%D7%A0%D7%99%D7%AA%D7%95%D7%97-avb-%D7%AA%D7%A7%D7%A6%D7%99%D7%91-%D7%9E%D7%95%D7%9C-%D7%91%D7%99%D7%A6%D7%95%D7%A2-%D7%91-5-%D7%93%D7%A7%D7%95%D7%AA-%D7%91%D7%9C%D7%91%D7%93-%D7%91%D7%A2%D7%96%D7%A8%D7%AA-claud): How to perform a full budget-vs-actual (AVB) variance analysis in 5 minutes using Claude AI.
+- [50 PDF פיננסיים למאגר מידע ניתן לחיפוש](https://www.ronenamoscpa.co.il/blog/%D7%9B%D7%99%D7%A6%D7%93-%D7%9C%D7%94%D7%A4%D7%95%D7%9A-50-%D7%A7%D7%95%D7%91%D7%A6%D7%99-pdf-%D7%A4%D7%99%D7%A0%D7%A0%D7%A1%D7%99%D7%99%D7%9D-%D7%9C%D7%9E%D7%90%D7%92%D7%A8-%D7%9E%D7%99%D7%93%D7%A2-%D7%90%D7%97%D7%93-%D7%A0%D7%99%D7%AA%D7%9F-%D7%9C%D7%97%D7%99%D7%A4%D7%95%D7%A9): How to convert 50 financial PDF documents into a single searchable knowledge base in 20 minutes using AI.
+- [NetSuite AI Integration 2026](https://www.ronenamoscpa.co.il/blog/netsuite-claude-ai-connector-2026): Guide to NetSuite SuiteCloud AI-driven development and REST API integration with Claude for Israeli finance teams using NetSuite ERP.
+- [AI וניהול סיכונים בפיננסים](https://www.ronenamoscpa.co.il/blog/risk-management-vs-ai-fear-finance): How finance leaders can overcome AI adoption fear and build structured risk management frameworks for responsible AI implementation.
+- [ביקורת פיננסית עם AI Agents](https://www.ronenamoscpa.co.il/blog/agent-skills-financial-audit): Practical guide to building Claude agent skills for automating financial audit checks and analysis workflows.
+- [רואה חשבון לסטארטאפ — ליווי פיננסי](https://www.ronenamoscpa.co.il/blog/%D7%A8%D7%95%D7%90%D7%94-%D7%97%D7%A9%D7%91%D7%95%D7%9F-%D7%9C%D7%A1%D7%98%D7%90%D7%A8%D7%98%D7%90%D7%A4-%D7%9C%D7%99%D7%95%D7%95%D7%99-%D7%A4%D7%99%D7%A0%D7%A0%D7%A1%D7%99-%D7%9C%D7%A1%D7%98%D7%90%D7%A8%D7%98%D7%90%D7%A4-%D7%98%D7%9B%D7%A0%D7%95%D7%9C%D7%95%D7%92%D7%99): CPA services for Israeli tech startups — financial modeling, ASC 606 / IFRS 15 compliance, investor-ready reporting.
+
+## Optional
+
+- [כל הפוסטים — Blog Archive](https://www.ronenamoscpa.co.il/blog): Full archive of Hebrew articles on AI for finance, Power BI, Excel automation, ASC 606 compliance, and financial technology. Published December 2025 – March 2026, updated weekly.
+- [צור קשר — Contact](https://www.ronenamoscpa.co.il/contact): Contact form and details for scheduling a free 30-minute consultation. Services available throughout Israel.
+
+## Key Facts
+
+- Founder: Ronen Amos (רונן עמוס) — Israeli CPA license, Microsoft Power BI Data Analyst certified
+- Headquarters: Tzvi 8, Ramat Gan, Israel
+- Phone: +972-50-5500344
+- Specialty: AI integration for finance departments, Power BI dashboards, ASC 606 / IFRS 15, Excel automation
+- Target clients: SaaS companies, tech startups, and small-to-medium finance teams in Israel
+- Measured client outcomes: 15-20 hours/week saved; month-end close reduced from 10 days to 3 days; zero revenue recognition errors post-implementation
+- Industry: Financial consulting + AI/FinTech consulting
+- Content language: Hebrew (primary), English terms used for technical concepts
+- Blog frequency: Weekly articles published December 2025 – present
+
+## Contact
+
+- Website: https://www.ronenamoscpa.co.il
+- Phone: +972-50-5500344
+- LinkedIn: https://www.linkedin.com/in/ronenamoscpa/
+- YouTube: https://www.youtube.com/@AIFinanceTransformation
+- Facebook: https://www.facebook.com/AmosFinancialServices
+- Instagram: https://www.instagram.com/ronen_financial_services/
+- Address: Tzvi 8, Ramat Gan, Israel
