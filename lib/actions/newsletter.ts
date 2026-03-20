@@ -135,9 +135,46 @@ export async function getNewsletterHistory() {
     return data || [];
 }
 
+// Upload any base64 data URI images in the HTML to Supabase Storage
+// and replace their src with public URLs. Email clients (Gmail, Outlook)
+// strip data: URIs — images must be hosted externally to render.
+async function hoistBase64Images(html: string): Promise<string> {
+    const adminSupabase = createAdminClient();
+    const matches = [...html.matchAll(/<img[^>]+src="(data:image\/([^;]+);base64,([^"]+))"[^>]*>/gi)];
+    if (matches.length === 0) return html;
+
+    const replacements = await Promise.all(
+        matches.map(async ([, dataUri, rawType, base64Data]) => {
+            try {
+                const mimeType = rawType === "jpeg" ? "jpg" : rawType;
+                const buffer = Buffer.from(base64Data, "base64");
+                const fileName = `newsletter/${Date.now()}-${Math.random().toString(36).slice(2)}.${mimeType}`;
+                const { error } = await adminSupabase.storage
+                    .from("blog-media")
+                    .upload(fileName, buffer, { contentType: `image/${rawType}`, upsert: false });
+                if (error) throw error;
+                const { data: { publicUrl } } = adminSupabase.storage.from("blog-media").getPublicUrl(fileName);
+                return { dataUri, publicUrl };
+            } catch (err) {
+                console.error("Failed to upload base64 image:", err);
+                return null;
+            }
+        })
+    );
+
+    let result = html;
+    for (const r of replacements) {
+        if (r) result = result.replace(r.dataUri, r.publicUrl);
+    }
+    return result;
+}
+
 export async function sendNewsletter(subject: string, bodyHtml: string, sources?: string[]) {
     const adminSupabase = createAdminClient();
     const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.ronenamoscpa.co.il";
+
+    // Upload any pasted base64 images so email clients can display them
+    bodyHtml = await hoistBase64Images(bodyHtml);
 
     // Fetch active subscribers (optionally filtered by source)
     let query = adminSupabase
@@ -200,6 +237,9 @@ export async function sendNewsletter(subject: string, bodyHtml: string, sources?
 
 export async function sendTestNewsletter(subject: string, bodyHtml: string) {
     const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.ronenamoscpa.co.il";
+
+    // Upload any pasted base64 images so email clients can display them
+    bodyHtml = await hoistBase64Images(bodyHtml);
 
     try {
         const { error } = await getResend().emails.send({
