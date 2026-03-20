@@ -5,6 +5,7 @@ import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { WhatsAppFloat } from "@/components/ui/WhatsAppFloat";
 import { AIChat } from "@/components/ui/AIChat";
+import { StickyNewsletterBar } from "@/components/ui/StickyNewsletterBar";
 import StructuredData from "@/components/seo/StructuredData";
 
 const heebo = Heebo({
@@ -91,6 +92,7 @@ export default function RootLayout({
         <main>{children}</main>
         <AIChat />
         <WhatsAppFloat />
+        <StickyNewsletterBar />
         <Footer />
       </body>
     </html>

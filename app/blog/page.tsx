@@ -59,7 +59,7 @@ export default async function BlogPage() {
   const tags = Array.from(new Set([...getAllTags(), ...dbPosts.flatMap(p => p.tags)]));
 
   return (
-    <div className="pt-24 pb-16">
+    <div className="pt-24 pb-16 overflow-x-hidden">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <SectionHeading
           title="בלוג"
@@ -71,8 +71,8 @@ export default async function BlogPage() {
         {posts.length > 0 ? (
           <>
             <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-              {posts.map((post) => (
-                <Link key={post.slug} href={`/blog/${post.slug}`} className="group">
+              {posts.slice(0, 3).map((post) => (
+                <Link key={post.slug} href={`/blog/${post.slug}`} className="group overflow-hidden min-w-0">
                   <GlassCard className="h-full flex flex-col border-white/5 group-hover:border-teal-400/30 transition-all duration-500 overflow-hidden !p-0">
                     <div className="p-6 pb-0">
                       <div className="mb-4 flex flex-wrap gap-2">
@@ -116,11 +116,59 @@ export default async function BlogPage() {
                   </GlassCard>
                 </Link>
               ))}
-            </div>
 
-            {/* Newsletter CTA */}
-            <div className="mt-16 max-w-2xl mx-auto">
-              <NewsletterForm source="blog" variant="card" />
+              {/* Newsletter CTA — inline after 3rd post */}
+              {posts.length >= 3 && (
+                <div className="sm:col-span-2 lg:col-span-3">
+                  <NewsletterForm source="blog" variant="card" />
+                </div>
+              )}
+
+              {posts.slice(3).map((post) => (
+                <Link key={post.slug} href={`/blog/${post.slug}`} className="group overflow-hidden min-w-0">
+                  <GlassCard className="h-full flex flex-col border-white/5 group-hover:border-teal-400/30 transition-all duration-500 overflow-hidden !p-0">
+                    <div className="p-6 pb-0">
+                      <div className="mb-4 flex flex-wrap gap-2">
+                        {post.tags.slice(0, 3).map((tag) => (
+                          <Badge key={tag} variant="teal">
+                            {tag}
+                          </Badge>
+                        ))}
+                      </div>
+                      <h2 className="mb-4 text-xl font-bold leading-tight group-hover:text-teal-400 transition-colors">
+                        {post.title}
+                      </h2>
+                    </div>
+
+                    {post.image && (
+                      <div className="relative aspect-video w-full overflow-hidden">
+                        <img
+                          src={post.image}
+                          alt={post.title}
+                          className="object-cover w-full h-full transform group-hover:scale-110 transition-transform duration-700"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-space-950/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+                      </div>
+                    )}
+
+                    <div className="p-6 pt-4 flex-grow flex flex-col">
+                      <p className="mb-6 text-sm text-text-secondary line-clamp-3 leading-relaxed">
+                        {post.description}
+                      </p>
+                      <div className="mt-auto pt-4 border-t border-white/5 flex justify-between items-center text-xs text-text-muted">
+                        <span>
+                          {new Date(post.date).toLocaleDateString("he-IL", {
+                            year: "numeric",
+                            month: "long",
+                            day: "numeric",
+                          })}
+                        </span>
+                        {post.premium && <Badge variant="royal">Premium</Badge>}
+                      </div>
+                    </div>
+                  </GlassCard>
+                </Link>
+              ))}
             </div>
 
             {/* Tags moved to bottom */}
