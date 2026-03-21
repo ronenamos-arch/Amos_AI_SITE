@@ -48,6 +48,7 @@ export function Hero() {
                 alt="רונן עמוס - Master AI Finance"
                 width={800}
                 height={600}
+                sizes="(max-width: 1024px) 100vw, 50vw"
                 className="rounded-[2rem] relative z-20 grayscale-[20%] group-hover:grayscale-0 group-hover:scale-[1.02] transition-all duration-1000 ease-out"
                 priority
               />

@@ -5,10 +5,9 @@ import "./globals.css";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { WhatsAppFloat } from "@/components/ui/WhatsAppFloat";
-import { AIChat } from "@/components/ui/AIChat";
-import { StickyNewsletterBar } from "@/components/ui/StickyNewsletterBar";
 import { CookieConsent } from "@/components/ui/CookieConsent";
 import StructuredData from "@/components/seo/StructuredData";
+import { LazyAIChat, LazyStickyNewsletterBar } from "@/components/ui/LazyClientComponents";
 
 const heebo = Heebo({
   subsets: ["hebrew", "latin"],
@@ -125,9 +124,9 @@ export default function RootLayout({
         <StructuredData />
         <Header />
         <main>{children}</main>
-        <AIChat />
+        <LazyAIChat />
         <WhatsAppFloat />
-        <StickyNewsletterBar />
+        <LazyStickyNewsletterBar />
         <Footer />
         <CookieConsent />
       </body>

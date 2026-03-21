@@ -92,6 +92,7 @@ export default async function BlogPage() {
                         <img
                           src={post.image}
                           alt={post.title}
+                          loading="lazy"
                           className="object-cover w-full h-full transform group-hover:scale-110 transition-transform duration-700"
                         />
                         <div className="absolute inset-0 bg-gradient-to-t from-space-950/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
@@ -145,6 +146,7 @@ export default async function BlogPage() {
                         <img
                           src={post.image}
                           alt={post.title}
+                          loading="lazy"
                           className="object-cover w-full h-full transform group-hover:scale-110 transition-transform duration-700"
                         />
                         <div className="absolute inset-0 bg-gradient-to-t from-space-950/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
