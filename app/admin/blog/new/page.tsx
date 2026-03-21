@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
 import { createArticle } from "@/lib/actions/articles";
+import { sendBlogPostNotification } from "@/lib/actions/newsletter";
 import { GlassCard } from "@/components/ui/GlassCard";
 import { Button } from "@/components/ui/Button";
 import { Badge } from "@/components/ui/Badge";
@@ -21,6 +22,8 @@ export default function NewArticlePage() {
     const [content, setContent] = useState("");
     const [isPremium, setIsPremium] = useState(false);
     const [tags, setTags] = useState("");
+    const [notifySubscribers, setNotifySubscribers] = useState(true);
+    const [notifyResult, setNotifyResult] = useState("");
 
     // UI State
     const [loading, setLoading] = useState(false);
@@ -84,7 +87,14 @@ export default function NewArticlePage() {
 
             if (!res.success) throw new Error(res.error);
 
-            router.push('/blog');
+            if (notifySubscribers) {
+                const notif = await sendBlogPostNotification({ title, description, slug, imageUrl });
+                if (notif.success) {
+                    setNotifyResult(`המאמר פורסם ו-${notif.sent} מנויים קיבלו עדכון`);
+                }
+            }
+
+            router.push('/admin/blog');
             router.refresh();
         } catch (err: any) {
             console.error("Save error:", err);
@@ -212,6 +222,23 @@ export default function NewArticlePage() {
                                     <div className={`absolute top-1 w-4 h-4 rounded-full bg-white transition-all shadow-sm ${isPremium ? 'left-1' : 'left-7'}`} />
                                 </div>
                             </div>
+
+                            <div
+                                onClick={() => setNotifySubscribers(!notifySubscribers)}
+                                className="flex items-center justify-between p-4 bg-white/5 rounded-xl border border-white/10 cursor-pointer hover:bg-white/10 transition-all group"
+                            >
+                                <div>
+                                    <span className="text-sm font-bold group-hover:text-teal-400 transition-colors block">שלח עדכון למנויים</span>
+                                    <span className="text-xs text-text-muted">שלח אימייל לכל המנויים הפעילים</span>
+                                </div>
+                                <div className={`w-12 h-6 rounded-full transition-all relative flex-shrink-0 mr-3 ${notifySubscribers ? 'bg-teal-500' : 'bg-white/20'}`}>
+                                    <div className={`absolute top-1 w-4 h-4 rounded-full bg-white transition-all shadow-sm ${notifySubscribers ? 'left-1' : 'left-7'}`} />
+                                </div>
+                            </div>
+
+                            {notifyResult && (
+                                <p className="text-sm text-teal-400 text-center">{notifyResult}</p>
+                            )}
                         </GlassCard>
                     </div>
                 </div>

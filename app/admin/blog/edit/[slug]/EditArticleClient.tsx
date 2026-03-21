@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { updateArticle } from "@/lib/actions/articles";
+import { sendBlogPostNotification } from "@/lib/actions/newsletter";
 import { GlassCard } from "@/components/ui/GlassCard";
 import { Button } from "@/components/ui/Button";
 import { ImagePlus, Loader2, Save, X, ArrowLeft } from "lucide-react";
@@ -33,6 +34,8 @@ export default function EditArticleClient({ article }: { article: Article }) {
     const [uploading, setUploading] = useState(false);
     const [imageUrl, setImageUrl] = useState(article.image_url ?? "");
     const [error, setError] = useState("");
+    const [notifySubscribers, setNotifySubscribers] = useState(false);
+    const [notifyResult, setNotifyResult] = useState("");
 
     const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
@@ -77,6 +80,13 @@ export default function EditArticleClient({ article }: { article: Article }) {
             });
 
             if (!res.success) throw new Error(res.error || "שגיאה בשמירה");
+
+            if (notifySubscribers) {
+                const notif = await sendBlogPostNotification({ title, description, slug: article.slug, imageUrl });
+                if (notif.success) {
+                    setNotifyResult(`${notif.sent} מנויים קיבלו עדכון`);
+                }
+            }
 
             router.push('/admin/blog');
             router.refresh();
@@ -207,6 +217,23 @@ export default function EditArticleClient({ article }: { article: Article }) {
                                     <div className={`absolute top-1 w-4 h-4 rounded-full bg-white transition-all shadow-sm ${isPremium ? 'left-1' : 'left-7'}`} />
                                 </div>
                             </div>
+
+                            <div
+                                onClick={() => setNotifySubscribers(!notifySubscribers)}
+                                className="flex items-center justify-between p-4 bg-white/5 rounded-xl border border-white/10 cursor-pointer hover:bg-white/10 transition-all group"
+                            >
+                                <div>
+                                    <span className="text-sm font-bold group-hover:text-teal-400 transition-colors block">שלח עדכון למנויים</span>
+                                    <span className="text-xs text-text-muted">שלח אימייל לכל המנויים הפעילים</span>
+                                </div>
+                                <div className={`w-12 h-6 rounded-full transition-all relative flex-shrink-0 mr-3 ${notifySubscribers ? 'bg-teal-500' : 'bg-white/20'}`}>
+                                    <div className={`absolute top-1 w-4 h-4 rounded-full bg-white transition-all shadow-sm ${notifySubscribers ? 'left-1' : 'left-7'}`} />
+                                </div>
+                            </div>
+
+                            {notifyResult && (
+                                <p className="text-sm text-teal-400 text-center">{notifyResult}</p>
+                            )}
                         </GlassCard>
                     </div>
                 </div>
