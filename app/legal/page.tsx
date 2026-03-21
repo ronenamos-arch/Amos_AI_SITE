@@ -55,8 +55,39 @@ export default function LegalPage() {
                             </p>
                         </section>
 
+                        <section id="cookies">
+                            <h2 className="text-xl font-bold text-text-primary mb-4 border-b border-white/10 pb-2">6. מדיניות עוגיות (Cookies)</h2>
+                            <p className="mb-3">
+                                האתר משתמש בעוגיות (cookies) לצורך ניתוח תנועה ושיפור חוויית המשתמש. אנו מפעילים את Google Analytics 4 בלבד — <strong>לא נעשה שימוש בעוגיות לצורכי פרסום ממוקד</strong>.
+                            </p>
+                            <p className="mb-2 font-semibold text-text-primary">עוגיות בשימוש:</p>
+                            <ul className="list-disc list-inside space-y-1 mb-3 text-sm">
+                                <li><span className="font-mono text-teal-400">_ga</span> — מזהה מבקר ייחודי של Google Analytics. תפוגה: 2 שנים.</li>
+                                <li><span className="font-mono text-teal-400">_ga_EWLVGXCWLK</span> — מצב הסשן הנוכחי. תפוגה: 2 שנים.</li>
+                            </ul>
+                            <p className="mb-3">
+                                הנתונים מועברים לשרתי Google LLC בהתאם למדיניות הפרטיות של Google.{" "}
+                                <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer" className="text-teal-400 hover:text-teal-300 underline">
+                                    מדיניות הפרטיות של Google
+                                </a>.
+                            </p>
+                            <p className="mb-2 font-semibold text-text-primary">זכויותיך בהתאם לתיקון 13א לחוק הגנת הפרטיות:</p>
+                            <ul className="list-disc list-inside space-y-1 mb-3 text-sm">
+                                <li>זכות גישה — לבקש לדעת אילו נתונים נאספו עליך</li>
+                                <li>זכות תיקון — לבקש תיקון פרטים שגויים</li>
+                                <li>זכות מחיקה — לבקש מחיקת המידע שנאסף</li>
+                                <li>זכות ביטול הסכמה — ניתן לחזור בך מהסכמה לעוגיות בכל עת דרך באנר ההסכמה שבתחתית האתר, או על ידי מחיקת העוגיות מהדפדפן</li>
+                            </ul>
+                            <p className="text-sm">
+                                לפניות בנושא פרטיות:{" "}
+                                <a href="mailto:finance@amosbudget.com" className="text-teal-400 hover:text-teal-300 underline">
+                                    finance@amosbudget.com
+                                </a>
+                            </p>
+                        </section>
+
                         <div className="mt-12 pt-8 border-t border-white/10 text-center text-sm">
-                            עודכן לאחרונה: פברואר 2026
+                            עודכן לאחרונה: מרץ 2026
                         </div>
                     </div>
                 </GlassCard>

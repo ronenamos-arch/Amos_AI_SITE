@@ -7,6 +7,7 @@ import { Footer } from "@/components/layout/Footer";
 import { WhatsAppFloat } from "@/components/ui/WhatsAppFloat";
 import { AIChat } from "@/components/ui/AIChat";
 import { StickyNewsletterBar } from "@/components/ui/StickyNewsletterBar";
+import { CookieConsent } from "@/components/ui/CookieConsent";
 import StructuredData from "@/components/seo/StructuredData";
 
 const heebo = Heebo({
@@ -54,7 +55,10 @@ export const metadata: Metadata = {
   ],
   metadataBase: new URL("https://www.ronenamoscpa.co.il"),
   verification: {
-    google: "h6QCaukFQ3DE1M7n84R35IvuQp4RyhhCjYhjq5b_Lu4",
+    google: [
+      "h6QCaukFQ3DE1M7n84R35IvuQp4RyhhCjYhjq5b_Lu4",
+      "Qb4gOaZzEmtn_QSohy-v6cglMkkYnTEnkykVaRF6J9M",
+    ],
   },
   openGraph: {
     type: "website",
@@ -88,6 +92,22 @@ export default function RootLayout({
   return (
     <html lang="he" dir="rtl" className={`${heebo.variable} ${outfit.variable}`}>
       <head>
+        {/* Consent Mode v2 — must run before GA4 loads (default denied) */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('consent', 'default', {
+                analytics_storage: 'denied',
+                ad_storage: 'denied',
+                ad_user_data: 'denied',
+                ad_personalization: 'denied',
+                wait_for_update: 500
+              });
+            `,
+          }}
+        />
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-EWLVGXCWLK"
           strategy="afterInteractive"
@@ -109,6 +129,7 @@ export default function RootLayout({
         <WhatsAppFloat />
         <StickyNewsletterBar />
         <Footer />
+        <CookieConsent />
       </body>
     </html>
   );
