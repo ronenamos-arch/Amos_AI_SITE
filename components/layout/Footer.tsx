@@ -37,6 +37,7 @@ export function Footer() {
               <li><Link href="/blog" className="text-text-secondary hover:text-teal-400 transition-colors">בלוג פרימיום</Link></li>
               <li><Link href="/pricing" className="text-text-secondary hover:text-teal-400 transition-colors">מסלולי מנוי</Link></li>
               <li><Link href="/dashboard" className="text-text-secondary hover:text-teal-400 transition-colors">אזור אישי</Link></li>
+              <li><Link href="/contact" className="text-text-secondary hover:text-teal-400 transition-colors">צור קשר</Link></li>
             </ul>
           </div>
 
