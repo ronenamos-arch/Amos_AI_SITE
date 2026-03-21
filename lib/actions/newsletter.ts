@@ -258,6 +258,29 @@ export async function sendBlogPostNotification(post: {
     return sendNewsletter(`מאמר חדש: ${post.title}`, bodyHtml);
 }
 
+export async function sendBlogPostNotificationTest(post: {
+    title: string;
+    description: string;
+    slug: string;
+    imageUrl?: string;
+}) {
+    const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.ronenamoscpa.co.il";
+    const postUrl = `${siteUrl}/blog/${encodeURIComponent(post.slug)}`;
+
+    const bodyHtml = `
+        ${post.imageUrl ? `<img src="${post.imageUrl}" alt="${post.title}" style="max-width:100%;border-radius:8px;margin-bottom:16px;">` : ""}
+        <h2 style="font-size:24px;font-weight:bold;color:#2dd4bf;margin:0 0 12px;">${post.title}</h2>
+        ${post.description ? `<p style="font-size:16px;color:#d1d5db;margin:0 0 24px;">${post.description}</p>` : ""}
+        <div style="text-align:center;margin-top:8px;">
+            <a href="${postUrl}" style="display:inline-block;padding:14px 32px;background-color:#2dd4bf;color:#0a0e17;font-weight:bold;font-size:16px;text-decoration:none;border-radius:9999px;">
+                קרא את המאמר המלא
+            </a>
+        </div>
+    `;
+
+    return sendTestNewsletter(`מאמר חדש: ${post.title}`, bodyHtml);
+}
+
 export async function sendTestNewsletter(subject: string, bodyHtml: string) {
     const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.ronenamoscpa.co.il";
 

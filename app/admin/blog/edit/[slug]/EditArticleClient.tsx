@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { updateArticle } from "@/lib/actions/articles";
-import { sendBlogPostNotification } from "@/lib/actions/newsletter";
+import { sendBlogPostNotification, sendBlogPostNotificationTest } from "@/lib/actions/newsletter";
 import { GlassCard } from "@/components/ui/GlassCard";
 import { Button } from "@/components/ui/Button";
 import { ImagePlus, Loader2, Save, X, ArrowLeft } from "lucide-react";
@@ -36,6 +36,18 @@ export default function EditArticleClient({ article }: { article: Article }) {
     const [error, setError] = useState("");
     const [notifySubscribers, setNotifySubscribers] = useState(false);
     const [notifyResult, setNotifyResult] = useState("");
+    const [testSending, setTestSending] = useState(false);
+
+    const handleTestEmail = async () => {
+        try {
+            setTestSending(true);
+            const res = await sendBlogPostNotificationTest({ title, description, slug: article.slug, imageUrl });
+            if (res.success) setNotifyResult("טסט נשלח לronenamos@gmail.com");
+            else setError("שגיאה בשליחת טסט");
+        } finally {
+            setTestSending(false);
+        }
+    };
 
     const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
@@ -230,6 +242,14 @@ export default function EditArticleClient({ article }: { article: Article }) {
                                     <div className={`absolute top-1 w-4 h-4 rounded-full bg-white transition-all shadow-sm ${notifySubscribers ? 'left-1' : 'left-7'}`} />
                                 </div>
                             </div>
+
+                            <button
+                                onClick={handleTestEmail}
+                                disabled={testSending}
+                                className="w-full py-2 px-4 text-sm border border-teal-400/30 text-teal-400 rounded-xl hover:bg-teal-400/10 transition-all disabled:opacity-50"
+                            >
+                                {testSending ? <Loader2 className="h-4 w-4 animate-spin mx-auto" /> : "שלח טסט לעצמי"}
+                            </button>
 
                             {notifyResult && (
                                 <p className="text-sm text-teal-400 text-center">{notifyResult}</p>
