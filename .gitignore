@@ -46,3 +46,7 @@ next-env.d.ts
 !tsconfig.json
 !content/prompts.json
 !vercel.json
+
+# Windows backup copies (prevent TypeScript from compiling stale files)
+*.bak
+*\ (1).*
