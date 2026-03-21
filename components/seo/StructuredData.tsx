@@ -16,6 +16,7 @@ const StructuredData = () => {
             'https://www.youtube.com/@AIFinanceTransformation',
             'https://www.facebook.com/AmosFinancialServices',
             'https://www.instagram.com/ronen_financial_services/',
+            'https://www.wikidata.org/wiki/Q138751503',
         ],
         description: 'רו"ח מוסמך המתמחה בשילוב טכנולוגיה וכספים, AI, Power BI ואוטומציה פיננסית.',
         knowsAbout: [
@@ -60,6 +61,7 @@ const StructuredData = () => {
             'https://www.youtube.com/@AIFinanceTransformation',
             'https://www.facebook.com/AmosFinancialServices',
             'https://www.instagram.com/ronen_financial_services/',
+            'https://www.wikidata.org/wiki/Q138751503',
         ],
         knowsAbout: [
             'AI Finance Consulting', 'Power BI', 'ERP Implementation',
