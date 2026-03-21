@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
+import { createArticle } from "@/lib/actions/articles";
 import { GlassCard } from "@/components/ui/GlassCard";
 import { Button } from "@/components/ui/Button";
 import { Badge } from "@/components/ui/Badge";
@@ -70,21 +71,18 @@ export default function NewArticlePage() {
 
             const { data: { user } } = await supabase.auth.getUser();
 
-            const { error: saveError } = await supabase
-                .from('articles')
-                .insert({
-                    title,
-                    slug,
-                    description,
-                    content,
-                    image_url: imageUrl,
-                    is_premium: isPremium,
-                    tags: tags.split(',').map(tag => tag.trim()).filter(Boolean),
-                    author_id: user?.id,
-                    published_at: new Date().toISOString()
-                });
+            const res = await createArticle({
+                title,
+                slug,
+                description,
+                content,
+                image_url: imageUrl,
+                is_premium: isPremium,
+                tags: tags.split(',').map(tag => tag.trim()).filter(Boolean),
+                author_id: user?.id ?? '',
+            });
 
-            if (saveError) throw saveError;
+            if (!res.success) throw new Error(res.error);
 
             router.push('/blog');
             router.refresh();
