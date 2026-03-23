@@ -1,1 +1,10 @@
-{}
+{
+  "redirects": [
+    {
+      "source": "/:path*",
+      "has": [{ "type": "host", "value": "ronenamoscpa.co.il" }],
+      "destination": "https://www.ronenamoscpa.co.il/:path*",
+      "permanent": true
+    }
+  ]
+}
