@@ -41,6 +41,8 @@ Required in `.env.local` and Vercel:
 - `PAYPAL_WEBHOOK_ID`
 - `RESEND_API_KEY`
 - `RESEND_FROM_EMAIL` (optional — defaults to `onboarding@resend.dev` until domain verified)
+- `RESEND_AUDIENCE_ID` — Resend Contacts audience ID; new subscribers auto-sync to this audience; no-op if unset
+- `CRON_SECRET` — random secret used to authenticate Vercel Cron calls to `/api/cron/send-scheduled-newsletters`
 - `GOOGLE_AI_API_KEY`
 - `NEXT_PUBLIC_SITE_URL`
 
@@ -81,6 +83,8 @@ If you add a new special file (`opengraph-image`, `robots.ts`, etc.) that querie
 - Resend: use `getResend()` from `lib/resend.ts` — never import a top-level `resend` instance
 
 **Rule:** Next.js 16 middleware file is `proxy.ts` (not `middleware.ts`), export named `proxy`.
+
+**Rule:** Core newsletter sending logic lives in `lib/newsletter-service.ts` (no `"use server"`). Route handlers and cron endpoints MUST import from there — never from `lib/actions/newsletter.ts` (which has `"use server"` and will silently fail in route handlers).
 
 ## Debugging Vercel Builds
 
@@ -131,9 +135,16 @@ Never import `lib/actions/email.ts` from a route handler — it will silently fa
 - [ ] Subscription cancellation UI (user-facing)
 - [ ] Invoice/receipt generation
 - [ ] Payment history page in dashboard
-- [ ] Submit sitemap.xml in Google Search Console (manual, not code)
 
-## SEO — Completed
+## Privacy & Compliance — Completed
+
+- [x] Google Consent Mode v2 — default denied init (`app/layout.tsx`) before GA4 loads; updates to granted/denied on user choice
+- [x] Cookie consent banner (`components/ui/CookieConsent.tsx`) — Hebrew RTL, localStorage persistence, links to `/legal#cookies`
+- [x] Cookie policy added to `/legal` page (section 6) — lists GA4 cookies, retention, Google as third party, user rights
+- [x] תיקון 13א לחוק הגנת הפרטיות compliance — user rights (access, correction, deletion, consent withdrawal) documented at `/legal#cookies`
+- [x] Privacy contact email: `finance@amosbudget.com`
+
+## SEO & Search Console — Completed
 
 - [x] Homepage explicit `metadata` export (`app/page.tsx`) — specific title, description, canonical, keywords, OG
 - [x] Canonical URLs on all pages (about, services, contact, blog)
@@ -147,6 +158,12 @@ Never import `lib/actions/email.ts` from a route handler — it will silently fa
 - [x] Related posts component (`components/blog/RelatedPosts.tsx`) — tag-based, shown on every unlocked post
 - [x] `/publish-blog` skill updated with SEO pre-publish checklist (Step 5.5)
 - [x] `/convert-blog` skill updated with SEO metadata output (Step 7)
+- [x] Newsletter scheduling — admin can set date/time; Vercel Cron (`*/15 * * * *`) processes `scheduled_newsletters` table via `/api/cron/send-scheduled-newsletters` (requires `CRON_SECRET`)
+- [x] Resend Contacts/Audience sync — new subscribers auto-synced to Resend audience on subscribe/unsubscribe; bulk backfill button on admin page (requires `RESEND_AUDIENCE_ID`)
+- [x] Skill vault data cleaning module — tabbed "אמנות הנתונים הנקיים" section with 8 prompts (3 cleaning + 5 audit) at bottom of `/skill-vault`
+- [x] Google Search Console — `ronenamoscpa.co.il` property set up; two verification tokens in `metadata.verification.google` (`app/layout.tsx`): `h6QCaukFQ3DE1M7n84R35IvuQp4RyhhCjYhjq5b_Lu4` (original) + `Qb4gOaZzEmtn_QSohy-v6cglMkkYnTEnkykVaRF6J9M` (domain verification)
+- [x] Google Analytics 4 — property `G-EWLVGXCWLK`, Consent Mode v2 enabled, no data sent before user consent
+- [x] GSC redirect fix — `vercel.json` explicit 308 permanent redirect: `ronenamoscpa.co.il` → `www.ronenamoscpa.co.il` (replaces Vercel's automatic 307 temporary); domain-level redirect type changed to Permanent in Vercel Dashboard; sitemap + key pages submitted for re-indexing in GSC
 
 ## Language
 

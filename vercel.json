@@ -6,5 +6,11 @@
       "destination": "https://www.ronenamoscpa.co.il/:path*",
       "permanent": true
     }
+  ],
+  "crons": [
+    {
+      "path": "/api/cron/send-scheduled-newsletters",
+      "schedule": "*/15 * * * *"
+    }
   ]
 }

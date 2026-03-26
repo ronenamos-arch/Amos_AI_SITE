@@ -4,14 +4,20 @@ import { useState, useEffect } from "react";
 import { createClient } from "@/lib/supabase/client";
 import { GlassCard } from "@/components/ui/GlassCard";
 import { Button } from "@/components/ui/Button";
-import { Send, Loader2, Users, CheckCircle2, Eye, X, ChevronDown, ChevronUp } from "lucide-react";
+import { Send, Loader2, Users, CheckCircle2, Eye, X, ChevronDown, ChevronUp, Calendar, RefreshCw } from "lucide-react";
 import RichTextEditor from "@/components/admin/RichTextEditor";
-import { sendNewsletter, sendTestNewsletter, getSubscriberCount, getSubscribers, getSubscriberSources, getNewsletterHistory } from "@/lib/actions/newsletter";
+import {
+    sendNewsletter, sendTestNewsletter,
+    getSubscriberCount, getSubscribers, getSubscriberSources, getNewsletterHistory,
+    scheduleNewsletter, getScheduledNewsletters, cancelScheduledNewsletter,
+    bulkSyncToResend,
+} from "@/lib/actions/newsletter";
 import { buildNewsletterEmail } from "@/lib/emails/newsletter";
 
 type Subscriber = { email: string; source: string; subscribed_at: string };
 type SourceInfo = { source: string; count: number };
 type SendRecord = { id: string; subject: string; sent_at: string; recipient_count: number; failed_count: number; sources: string[] | null };
+type ScheduledRecord = { id: string; subject: string; scheduled_for: string; status: string; sources: string[] | null; recipient_count: number | null; failed_count: number | null; error_message: string | null };
 
 export default function AdminNewsletterPage() {
     const [subject, setSubject] = useState("");
@@ -32,6 +38,18 @@ export default function AdminNewsletterPage() {
     const [filteredCount, setFilteredCount] = useState<number | null>(null);
     const [history, setHistory] = useState<SendRecord[]>([]);
 
+    // Scheduling state
+    const [scheduleMode, setScheduleMode] = useState(false);
+    const [scheduledFor, setScheduledFor] = useState("");
+    const [scheduling, setScheduling] = useState(false);
+    const [scheduleSuccess, setScheduleSuccess] = useState(false);
+    const [scheduledItems, setScheduledItems] = useState<ScheduledRecord[]>([]);
+    const [cancellingId, setCancellingId] = useState<string | null>(null);
+
+    // Resend bulk sync state
+    const [syncingResend, setSyncingResend] = useState(false);
+    const [syncResult, setSyncResult] = useState<{ synced: number; failed: number; total: number } | null>(null);
+
     const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.ronenamoscpa.co.il";
 
     useEffect(() => {
@@ -49,6 +67,7 @@ export default function AdminNewsletterPage() {
             setSelectedSources(data.map((s) => s.source));
         });
         getNewsletterHistory().then((data) => setHistory(data as SendRecord[]));
+        getScheduledNewsletters().then((data) => setScheduledItems(data as ScheduledRecord[]));
     }, []);
 
     // Update filtered count when selection changes
@@ -60,7 +79,6 @@ export default function AdminNewsletterPage() {
         } else if (selectedSources.length === 0) {
             setFilteredCount(0);
         } else {
-            // Compute locally from sources data
             const count = sources
                 .filter((s) => selectedSources.includes(s.source))
                 .reduce((sum, s) => sum + s.count, 0);
@@ -119,11 +137,11 @@ export default function AdminNewsletterPage() {
             setResult({ sent: res.sent || 0, failed: res.failed || 0 });
             setSubject("");
             setBodyHtml("");
-            // Refresh history
             getNewsletterHistory().then((data) => setHistory(data as SendRecord[]));
-        } catch (err: any) {
+        } catch (err: unknown) {
+            const msg = err instanceof Error ? err.message : "חלה שגיאה בשליחה";
             console.error("Newsletter send error:", err);
-            setError(err.message || "חלה שגיאה בשליחה");
+            setError(msg);
         } finally {
             setSending(false);
         }
@@ -141,11 +159,73 @@ export default function AdminNewsletterPage() {
             if (!res.success) throw new Error(res.error || "שליחה נכשלה");
             setTestSent(true);
             setTimeout(() => setTestSent(false), 4000);
-        } catch (err: any) {
-            setError(err.message || "חלה שגיאה בשליחת הבדיקה");
+        } catch (err: unknown) {
+            const msg = err instanceof Error ? err.message : "חלה שגיאה בשליחת הבדיקה";
+            setError(msg);
         } finally {
             setTestSending(false);
         }
+    };
+
+    const handleSchedule = async () => {
+        if (!subject.trim() || !bodyHtml.trim()) {
+            setError("נא למלא נושא ותוכן");
+            return;
+        }
+        if (!scheduledFor) {
+            setError("נא לבחור תאריך ושעה לשליחה");
+            return;
+        }
+        const scheduledDate = new Date(scheduledFor);
+        if (scheduledDate <= new Date()) {
+            setError("יש לבחור תאריך עתידי");
+            return;
+        }
+
+        try {
+            setScheduling(true);
+            setError("");
+            const sourcesToSend = selectedSources.length === sources.length ? undefined : selectedSources;
+            const res = await scheduleNewsletter(subject, bodyHtml, scheduledDate.toISOString(), sourcesToSend);
+
+            if (!res.success) throw new Error(res.error || "שמירת תזמון נכשלה");
+
+            setScheduleSuccess(true);
+            setScheduleMode(false);
+            setScheduledFor("");
+            setTimeout(() => setScheduleSuccess(false), 5000);
+
+            // Refresh scheduled list
+            getScheduledNewsletters().then((data) => setScheduledItems(data as ScheduledRecord[]));
+        } catch (err: unknown) {
+            const msg = err instanceof Error ? err.message : "חלה שגיאה בשמירת התזמון";
+            setError(msg);
+        } finally {
+            setScheduling(false);
+        }
+    };
+
+    const handleCancelScheduled = async (id: string) => {
+        const confirmed = window.confirm("לבטל את השליחה המתוזמנת?");
+        if (!confirmed) return;
+        setCancellingId(id);
+        await cancelScheduledNewsletter(id);
+        getScheduledNewsletters().then((data) => setScheduledItems(data as ScheduledRecord[]));
+        setCancellingId(null);
+    };
+
+    const handleBulkSync = async () => {
+        const confirmed = window.confirm("לסנכרן את כל המנויים לרשימת Resend? פעולה זו תוסיף את כל המנויים מ-Supabase ל-Resend Audience.");
+        if (!confirmed) return;
+        setSyncingResend(true);
+        setSyncResult(null);
+        const res = await bulkSyncToResend();
+        if (res.success) {
+            setSyncResult({ synced: res.synced ?? 0, failed: res.failed ?? 0, total: res.total ?? 0 });
+        } else {
+            setError(res.error || "סנכרון Resend נכשל");
+        }
+        setSyncingResend(false);
     };
 
     const previewHtml = bodyHtml
@@ -172,13 +252,14 @@ export default function AdminNewsletterPage() {
     }
 
     const targetCount = filteredCount ?? subscriberCount ?? 0;
+    const pendingScheduled = scheduledItems.filter((s) => s.status === "pending");
 
     return (
         <div className="pt-24 pb-16 min-h-screen">
             <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
                 <div className="flex justify-between items-center mb-6">
                     <h1 className="text-3xl font-bold">שליחת ניוזלטר</h1>
-                    <div className="flex items-center gap-3">
+                    <div className="flex items-center gap-3 flex-wrap justify-end">
                         {subscriberCount !== null && (
                             <>
                                 <div className="flex items-center gap-2 text-text-secondary text-sm">
@@ -193,6 +274,16 @@ export default function AdminNewsletterPage() {
                                 </button>
                             </>
                         )}
+                        {/* Resend bulk sync button */}
+                        <button
+                            onClick={handleBulkSync}
+                            disabled={syncingResend}
+                            title="סנכרן מנויים קיימים ל-Resend Audience"
+                            className="flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-full border border-purple-400/30 text-purple-400 hover:bg-purple-400/10 transition-colors disabled:opacity-40"
+                        >
+                            {syncingResend ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : <RefreshCw className="h-3.5 w-3.5" />}
+                            סנכרן Resend
+                        </button>
                         <a
                             href="/api/admin/export-contacts"
                             download
@@ -207,6 +298,15 @@ export default function AdminNewsletterPage() {
                         </a>
                     </div>
                 </div>
+
+                {/* Resend sync result */}
+                {syncResult && (
+                    <div className="mb-4 p-3 bg-purple-500/10 border border-purple-500/20 text-purple-300 rounded-xl text-sm text-center" dir="rtl">
+                        סנכרון Resend הושלם: {syncResult.synced} מנויים סונכרנו
+                        {syncResult.failed > 0 && <span className="text-red-400"> ({syncResult.failed} נכשלו)</span>}
+                        {" "}מתוך {syncResult.total}
+                    </div>
+                )}
 
                 {/* Source filter pills */}
                 {sources.length > 0 && (
@@ -290,6 +390,13 @@ export default function AdminNewsletterPage() {
                     </div>
                 )}
 
+                {scheduleSuccess && (
+                    <div className="mb-6 p-4 bg-blue-500/10 border border-blue-500/20 text-blue-400 rounded-xl text-center font-medium flex items-center justify-center gap-3" dir="rtl">
+                        <Calendar className="h-5 w-5" />
+                        <span>הניוזלטר תוזמן לשליחה בהצלחה</span>
+                    </div>
+                )}
+
                 <div className="space-y-6" dir="rtl">
                     <GlassCard className="space-y-6">
                         <div>
@@ -309,7 +416,25 @@ export default function AdminNewsletterPage() {
                         </div>
                     </GlassCard>
 
-                    <div className="flex justify-end items-center gap-3">
+                    {/* Schedule date picker (shown when schedule mode is active) */}
+                    {scheduleMode && (
+                        <GlassCard className="border border-blue-400/20 bg-blue-500/5">
+                            <div className="flex items-center gap-3">
+                                <Calendar className="h-4 w-4 text-blue-400 shrink-0" />
+                                <label className="text-sm font-medium text-blue-300">תאריך ושעת שליחה</label>
+                                <input
+                                    type="datetime-local"
+                                    value={scheduledFor}
+                                    onChange={(e) => setScheduledFor(e.target.value)}
+                                    min={new Date(Date.now() + 60000).toISOString().slice(0, 16)}
+                                    className="flex-1 bg-white/5 border border-blue-400/30 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-blue-400 transition-all text-left"
+                                    dir="ltr"
+                                />
+                            </div>
+                        </GlassCard>
+                    )}
+
+                    <div className="flex justify-end items-center gap-3 flex-wrap">
                         {/* Preview button */}
                         <button
                             onClick={() => setPreviewOpen(true)}
@@ -336,31 +461,119 @@ export default function AdminNewsletterPage() {
                             {testSent ? "✓ נשלח אליך" : "שלח אליי בלבד"}
                         </button>
 
-                        {/* Main send button */}
-                        <Button
-                            onClick={handleSend}
-                            disabled={sending || !subject.trim() || !bodyHtml.trim() || selectedSources.length === 0}
-                            className="px-10 py-4 text-lg"
+                        {/* Schedule toggle */}
+                        <button
+                            onClick={() => { setScheduleMode((v) => !v); setError(""); }}
+                            className={`flex items-center gap-2 px-5 py-3 rounded-xl border transition-all ${
+                                scheduleMode
+                                    ? "border-blue-400 text-blue-400 bg-blue-500/10"
+                                    : "border-white/10 text-text-secondary hover:border-blue-400/50 hover:text-blue-400"
+                            }`}
                         >
-                            {sending ? (
-                                <>
-                                    <Loader2 className="h-5 w-5 animate-spin ml-2" />
-                                    שולח...
-                                </>
-                            ) : (
-                                <>
-                                    <Send className="h-5 w-5 ml-2" />
-                                    שלח ל-{targetCount} נרשמים
-                                </>
-                            )}
-                        </Button>
+                            <Calendar className="h-4 w-4" />
+                            תזמן שליחה
+                        </button>
+
+                        {/* Scheduled save button (only visible in schedule mode) */}
+                        {scheduleMode ? (
+                            <button
+                                onClick={handleSchedule}
+                                disabled={scheduling || !subject.trim() || !bodyHtml.trim() || !scheduledFor}
+                                className="flex items-center gap-2 px-8 py-3 rounded-xl bg-blue-500/20 border border-blue-400 text-blue-300 font-semibold hover:bg-blue-500/30 transition-all disabled:opacity-40 disabled:cursor-not-allowed"
+                            >
+                                {scheduling ? <Loader2 className="h-4 w-4 animate-spin" /> : <Calendar className="h-4 w-4" />}
+                                שמור תזמון
+                            </button>
+                        ) : (
+                            /* Main send button */
+                            <Button
+                                onClick={handleSend}
+                                disabled={sending || !subject.trim() || !bodyHtml.trim() || selectedSources.length === 0}
+                                className="px-10 py-4 text-lg"
+                            >
+                                {sending ? (
+                                    <>
+                                        <Loader2 className="h-5 w-5 animate-spin ml-2" />
+                                        שולח...
+                                    </>
+                                ) : (
+                                    <>
+                                        <Send className="h-5 w-5 ml-2" />
+                                        שלח ל-{targetCount} נרשמים
+                                    </>
+                                )}
+                            </Button>
+                        )}
                     </div>
                 </div>
+
+                {/* Scheduled newsletters section */}
+                {scheduledItems.length > 0 && (
+                    <div className="mt-10" dir="rtl">
+                        <h2 className="text-lg font-bold mb-4 text-blue-300 flex items-center gap-2">
+                            <Calendar className="h-4 w-4" />
+                            שליחות מתוזמנות
+                            {pendingScheduled.length > 0 && (
+                                <span className="text-xs bg-blue-500/20 border border-blue-400/30 text-blue-400 px-2 py-0.5 rounded-full">
+                                    {pendingScheduled.length} ממתינות
+                                </span>
+                            )}
+                        </h2>
+                        <GlassCard className="overflow-hidden p-0 border border-blue-400/10">
+                            <table className="w-full text-sm">
+                                <thead>
+                                    <tr className="border-b border-white/10 text-text-secondary">
+                                        <th className="text-right py-3 px-4 font-medium">נושא</th>
+                                        <th className="text-right py-3 px-4 font-medium">מתוזמן ל</th>
+                                        <th className="text-right py-3 px-4 font-medium">סטטוס</th>
+                                        <th className="text-right py-3 px-4 font-medium">מקורות</th>
+                                        <th className="py-3 px-4"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {scheduledItems.map((s) => (
+                                        <tr key={s.id} className="border-b border-white/5 last:border-0 hover:bg-white/3">
+                                            <td className="py-3 px-4 font-medium max-w-[200px] truncate">{s.subject}</td>
+                                            <td className="py-3 px-4 text-text-secondary whitespace-nowrap" dir="ltr">
+                                                {new Date(s.scheduled_for).toLocaleDateString("he-IL", {
+                                                    day: "numeric", month: "short", year: "numeric",
+                                                    hour: "2-digit", minute: "2-digit",
+                                                })}
+                                            </td>
+                                            <td className="py-3 px-4">
+                                                {s.status === "pending" && <span className="text-blue-400 text-xs bg-blue-500/10 px-2 py-0.5 rounded-full">ממתין</span>}
+                                                {s.status === "sending" && <span className="text-yellow-400 text-xs bg-yellow-500/10 px-2 py-0.5 rounded-full">שולח...</span>}
+                                                {s.status === "sent" && <span className="text-teal-400 text-xs bg-teal-500/10 px-2 py-0.5 rounded-full">נשלח ✓ ({s.recipient_count})</span>}
+                                                {s.status === "failed" && <span className="text-red-400 text-xs bg-red-500/10 px-2 py-0.5 rounded-full" title={s.error_message ?? ""}>נכשל</span>}
+                                                {s.status === "cancelled" && <span className="text-text-muted text-xs bg-white/5 px-2 py-0.5 rounded-full">בוטל</span>}
+                                            </td>
+                                            <td className="py-3 px-4 text-text-muted text-xs">
+                                                {s.sources ? s.sources.join(", ") : "הכל"}
+                                            </td>
+                                            <td className="py-3 px-4">
+                                                {s.status === "pending" && (
+                                                    <button
+                                                        onClick={() => handleCancelScheduled(s.id)}
+                                                        disabled={cancellingId === s.id}
+                                                        className="text-xs text-red-400/60 hover:text-red-400 transition-colors flex items-center gap-1"
+                                                    >
+                                                        {cancellingId === s.id ? <Loader2 className="h-3 w-3 animate-spin" /> : <X className="h-3 w-3" />}
+                                                        בטל
+                                                    </button>
+                                                )}
+                                            </td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                        </GlassCard>
+                    </div>
+                )}
 
                 {/* Send history */}
                 {history.length === 0 && (
                     <p className="mt-8 text-xs text-text-muted text-center" dir="rtl">
-                        היסטוריית שליחות תופיע כאן לאחר שליחה ראשונה (דורש יצירת טבלת newsletter_sends ב-Supabase)
+                        היסטוריית שליחות תופיע כאן לאחר שליחה ראשונה
                     </p>
                 )}
                 {history.length > 0 && (

@@ -14,3 +14,14 @@ export function getResend(): Resend {
 
 // Change this once you verify your own domain in Resend
 export const EMAIL_FROM = process.env.RESEND_FROM_EMAIL || "AI Finance <onboarding@resend.dev>";
+
+// Sync a subscriber to Resend Contacts/Audience.
+// Set unsubscribed=true to mark them as opted out.
+// No-op if RESEND_AUDIENCE_ID is not configured.
+export async function syncToResendAudience(email: string, unsubscribed: boolean): Promise<void> {
+    const audienceId = process.env.RESEND_AUDIENCE_ID;
+    if (!audienceId) return;
+
+    const resend = getResend();
+    await resend.contacts.create({ audienceId, email, unsubscribed });
+}

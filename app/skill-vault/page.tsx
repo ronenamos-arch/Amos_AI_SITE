@@ -3,6 +3,7 @@
 import { useState, useMemo } from "react";
 import "../skills-vault.css";
 import promptsData from "../../content/prompts.json";
+import DataCleaningModule from "@/components/skill-vault/DataCleaningModule";
 
 // Category Icon Mapping
 const CATEGORY_ICONS: Record<string, string> = {
@@ -186,6 +187,14 @@ export default function SkillVaultPage() {
               );
             })}
           </div>
+        </div>
+      </section>
+
+      {/* Data Cleaning Module */}
+      <section className="vault-skills-section" style={{ paddingTop: 0 }}>
+        <div className="vault-inner">
+          <hr className="dc-divider" />
+          <DataCleaningModule />
         </div>
       </section>
 
