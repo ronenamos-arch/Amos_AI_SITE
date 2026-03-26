@@ -109,6 +109,21 @@ Route handlers (`app/api/webhooks/paypal/`, `app/auth/callback/`) import directl
 `lib/actions/email.ts` re-exports from `lib/mailer.ts` as `"use server"` for client-callable actions.
 Never import `lib/actions/email.ts` from a route handler — it will silently fail due to the `"use server"` boundary.
 
+## Newsletter Architecture Note
+
+Core newsletter logic lives in `lib/newsletter-service.ts` (no `"use server"`).
+`lib/actions/newsletter.ts` re-exports as `"use server"` wrappers for the admin UI client.
+`app/api/cron/send-scheduled-newsletters/route.ts` imports directly from `lib/newsletter-service.ts`.
+Never import `lib/actions/newsletter.ts` from a route handler — same `"use server"` silent-fail issue.
+
+## Vercel Cron — Hobby Plan Limitation
+
+Hobby plan only allows **1 cron job, once per day**.
+Current schedule: `0 7 * * *` → fires at 07:00 UTC (10:00 Israel time) daily.
+Scheduled newsletters are picked up at that time each day.
+To get more frequent checks (e.g. every 15 min), upgrade to Vercel Pro.
+Resend Audience ID: `4c3b4ceb-c5dc-4eba-9d29-62fb8b26956a` (audience name: "General").
+
 ## Completed
 
 - [x] Purchase confirmation email via Resend (sent after PayPal payment)
@@ -164,6 +179,24 @@ Never import `lib/actions/email.ts` from a route handler — it will silently fa
 - [x] Google Search Console — `ronenamoscpa.co.il` property set up; two verification tokens in `metadata.verification.google` (`app/layout.tsx`): `h6QCaukFQ3DE1M7n84R35IvuQp4RyhhCjYhjq5b_Lu4` (original) + `Qb4gOaZzEmtn_QSohy-v6cglMkkYnTEnkykVaRF6J9M` (domain verification)
 - [x] Google Analytics 4 — property `G-EWLVGXCWLK`, Consent Mode v2 enabled, no data sent before user consent
 - [x] GSC redirect fix — `vercel.json` explicit 308 permanent redirect: `ronenamoscpa.co.il` → `www.ronenamoscpa.co.il` (replaces Vercel's automatic 307 temporary); domain-level redirect type changed to Permanent in Vercel Dashboard; sitemap + key pages submitted for re-indexing in GSC
+
+## GEO/SEO Audit — Completed (2026-03-26)
+
+- [x] `app/robots.ts` — Disallow: /admin, /dashboard, /login, /thanks, /api, /auth (fixes 22 crawled-not-indexed pages)
+- [x] noindex metadata on all admin pages (`app/admin/layout.tsx`), dashboard, login, thanks
+- [x] `app/login/layout.tsx` — created for noindex on "use client" login page
+- [x] `components/seo/StructuredData.tsx` — upgraded to `["LocalBusiness", "AccountingService"]` with geo coords (32.0842, 34.8124), hasMap, currenciesAccepted, paymentAccepted, full PostalAddress (postalCode: 5252006)
+- [x] `app/faq/page.tsx` — dedicated FAQ page: 15 Hebrew Q&As, accordion UI, FAQPage JSON-LD schema
+- [x] `app/faq/layout.tsx` — metadata with canonical, keywords, OG
+- [x] `app/sitemap.ts` — added /faq at priority 0.7
+- [x] `/services` + `/contact` — linked to /faq ("ראה שאלות נפוצות ←")
+- [x] `lib/blog.ts` — `addInternalLinks()`: auto-links Power BI→/services, NotebookLM→/courses/notebook-master, קורס AI→/courses/ai-mastery, ייעוץ פיננסי→/services, אוטומציה פיננסית→/services (max 1 per term per post)
+- [x] `app/blog/[slug]/page.tsx` — content piped through `addInternalLinks(linkify(rawHtml))`
+- [x] Meta titles updated: /services, /about, /blog, /contact — benefit-led, specific Hebrew titles
+- [x] `public/llms.txt` — added /faq, zero-click answers section, content clusters section
+
+### noindex pattern for "use client" pages
+Client components cannot export metadata. Solution: create a `layout.tsx` in the same directory that exports `metadata: { robots: { index: false } }`.
 
 ## Language
 
