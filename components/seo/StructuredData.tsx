@@ -40,21 +40,33 @@ const StructuredData = () => {
 
     const serviceSchema = {
         '@context': 'https://schema.org',
-        '@type': 'ProfessionalService',
+        '@type': ['LocalBusiness', 'AccountingService'],
         name: 'רונן עמוס - שירותי ייעוץ פיננסי וטכנולוגי',
         image: `${primaryUrl}/og-image.png`,
         '@id': primaryUrl,
         url: primaryUrl,
         description: 'שירותי ייעוץ פיננסי וטכנולוגי לחברות וארגונים, כולל הכשרות Power BI ו-AI, אוטומציה פיננסית ויישום ERP.',
         telephone: '+972-50-5500344',
+        email: 'finance@amosbudget.com',
         address: {
             '@type': 'PostalAddress',
-            streetAddress: 'Tzvi 8',
-            addressLocality: 'Ramat Gan',
+            streetAddress: 'צבי 8',
+            addressLocality: 'רמת גן',
+            postalCode: '5252006',
+            addressRegion: 'תל אביב',
             addressCountry: 'IL',
         },
+        geo: {
+            '@type': 'GeoCoordinates',
+            latitude: 32.0842,
+            longitude: 34.8124,
+        },
+        hasMap: 'https://maps.google.com/?q=צבי+8,+רמת+גן,+ישראל',
         areaServed: [
             { '@type': 'Country', name: 'Israel' },
+            { '@type': 'City', name: 'תל אביב' },
+            { '@type': 'City', name: 'רמת גן' },
+            { '@type': 'City', name: 'ירושלים' },
         ],
         sameAs: [
             'https://www.linkedin.com/in/ronenamoscpa/',
@@ -77,6 +89,8 @@ const StructuredData = () => {
             },
         ],
         priceRange: '$$',
+        currenciesAccepted: 'ILS',
+        paymentAccepted: 'Cash, Credit Card, Bank Transfer',
         founder: { '@type': 'Person', name: 'רונן עמוס', url: primaryUrl },
     };
 

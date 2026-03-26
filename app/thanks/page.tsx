@@ -6,6 +6,7 @@ import { CheckCircle2, ArrowRight, BookOpen, Crown } from "lucide-react";
 export const metadata: Metadata = {
     title: "תודה רבה! | AI FINANCE",
     description: "תודה על הצטרפותך לקהילת AI FINANCE PRO. הגישה שלך תאושר בהקדם.",
+    robots: { index: false, follow: false },
 };
 
 export default function ThankYouPage() {

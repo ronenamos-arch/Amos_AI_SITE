@@ -30,9 +30,30 @@
 - [ביקורת פיננסית עם AI Agents](https://www.ronenamoscpa.co.il/blog/agent-skills-financial-audit): Practical guide to building Claude agent skills for automating financial audit checks and analysis workflows.
 - [רואה חשבון לסטארטאפ — ליווי פיננסי](https://www.ronenamoscpa.co.il/blog/%D7%A8%D7%95%D7%90%D7%94-%D7%97%D7%A9%D7%91%D7%95%D7%9F-%D7%9C%D7%A1%D7%98%D7%90%D7%A8%D7%98%D7%90%D7%A4-%D7%9C%D7%99%D7%95%D7%95%D7%99-%D7%A4%D7%99%D7%A0%D7%A0%D7%A1%D7%99-%D7%9C%D7%A1%D7%98%D7%90%D7%A8%D7%98%D7%90%D7%A4-%D7%98%D7%9B%D7%A0%D7%95%D7%9C%D7%95%D7%92%D7%99): CPA services for Israeli tech startups — financial modeling, ASC 606 / IFRS 15 compliance, investor-ready reporting.
 
+## FAQ
+
+- [שאלות נפוצות — FAQ](https://www.ronenamoscpa.co.il/faq): Frequently asked questions about AI financial consulting, Power BI training, pricing, ASC 606, and how to get started. 15 direct Hebrew Q&As.
+
+## Zero-Click Answers
+
+- **What does AI financial consulting cost in Israel?** First consultation is free (30 minutes, no commitment). Ongoing retainers depend on scope — typically 5,000–15,000 NIS/month for SMEs.
+- **How long to learn Power BI for finance?** Finance professionals reach practical proficiency in 10–15 focused hours. The training covers CFO dashboards and budget-vs-actual analysis specifically for accountants.
+- **Can AI help with Israeli tax reporting?** AI can organize documents, flag deductible expenses, and prepare drafts — but a licensed CPA must review and submit to the Israeli Tax Authority (רשות המסים).
+- **How quickly can a CFO dashboard be built with Power BI?** A basic KPI + cash flow + budget-vs-actual dashboard takes 3–5 working days. Full ERP-integrated dashboards take 2–4 weeks.
+- **What is ASC 606 / IFRS 15?** Revenue recognition standards required for Israeli tech companies seeking international investment or planning an IPO. Ronen Amos specializes in implementing both standards.
+- **How much time can AI automation save a finance team?** Clients typically save 15–20 hours per week and reduce month-end close from 10 days to 3 days.
+
+## Content Clusters
+
+- **AI for Finance**: Implementation strategy, tools (Claude, ChatGPT, Gemini), agent skills for audit automation, risk management
+- **Power BI**: CFO dashboards, budget vs actual, ERP integration, training for non-IT finance teams
+- **Financial Automation**: Excel VBA, n8n, Zapier, PDF-to-knowledge-base, automated reporting
+- **Standards & Compliance**: ASC 606, IFRS 15, Israeli tax law, revenue recognition for SaaS
+- **CPA for Startups**: Financial modeling, investor reporting, ERP selection (NetSuite, Priority)
+
 ## Optional
 
-- [כל הפוסטים — Blog Archive](https://www.ronenamoscpa.co.il/blog): Full archive of Hebrew articles on AI for finance, Power BI, Excel automation, ASC 606 compliance, and financial technology. Published December 2025 – March 2026, updated weekly.
+- [כל הפוסטים — Blog Archive](https://www.ronenamoscpa.co.il/blog): Full archive of Hebrew articles on AI for finance, Power BI, Excel automation, ASC 606 compliance, and financial technology. Published December 2025 – present, updated weekly.
 - [צור קשר — Contact](https://www.ronenamoscpa.co.il/contact): Contact form and details for scheduling a free 30-minute consultation. Services available throughout Israel.
 
 ## Key Facts

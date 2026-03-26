@@ -4,9 +4,9 @@ import { SectionHeading } from "@/components/ui/SectionHeading";
 import { ContactForm } from "@/components/forms/ContactForm";
 
 export const metadata: Metadata = {
-  title: "צור קשר",
+  title: 'פגישת ייעוץ חינמית | רונן עמוס רו"ח',
   description:
-    'הזמן פגישת ייעוץ חינמית עם רונן עמוס – רו"ח ויועץ AI פיננסי. נענה תוך יום עסקים.',
+    'קבע פגישת ייעוץ חינמית של 30 דקות עם רו"ח ויועץ AI פיננסי. ללא התחייבות — נבדוק יחד איפה אפשר לחסוך זמן וכסף בעסק שלך.',
   alternates: {
     canonical: "https://www.ronenamoscpa.co.il/contact",
   },
@@ -126,6 +126,13 @@ export default function ContactPage() {
                 </li>
               </ul>
             </GlassCard>
+
+            <p className="text-sm text-text-muted text-center">
+              יש לך שאלה לפני שאנחנו מדברים?{" "}
+              <a href="/faq" className="text-teal-400 hover:underline">
+                ראה שאלות נפוצות ←
+              </a>
+            </p>
           </div>
         </div>
       </div>

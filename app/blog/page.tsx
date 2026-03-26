@@ -10,9 +10,9 @@ import { NewsletterForm } from "@/components/forms/NewsletterForm";
 export const dynamic = 'force-dynamic';
 
 export const metadata: Metadata = {
-  title: "בלוג",
+  title: "בלוג AI פיננסי | מדריכים על AI, Power BI ואוטומציה לאנשי כספים",
   description:
-    "מאמרים, מדריכים ותובנות על AI בכספים, Power BI, אוטומציות Excel, ASC 606 וחשבונאות מודרנית. תוכן מקצועי בעברית.",
+    "מאמרים מעשיים ומדריכים על AI בכספים, Power BI, אוטומציות Excel ו-ASC 606. תוכן מקצועי בעברית שחוסך לאנשי כספים עשרות שעות.",
   alternates: {
     canonical: "https://www.ronenamoscpa.co.il/blog",
   },

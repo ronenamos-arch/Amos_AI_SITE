@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { getAllPosts, getPostBySlug, parseMarkdown, linkify, BlogPost } from "@/lib/blog";
+import { getAllPosts, getPostBySlug, parseMarkdown, linkify, addInternalLinks, BlogPost } from "@/lib/blog";
 import { getDBPostBySlug } from "@/lib/blog-supabase";
 import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
@@ -136,7 +136,7 @@ export default async function BlogPostPage({
   const rawHtml = (isDBPost && !isLocked)
     ? displayContent
     : parseMarkdown(displayContent);
-  const contentHtml = linkify(rawHtml);
+  const contentHtml = addInternalLinks(linkify(rawHtml));
 
   const postUrl = `https://www.ronenamoscpa.co.il/blog/${encodeURIComponent(post.slug)}`;
 

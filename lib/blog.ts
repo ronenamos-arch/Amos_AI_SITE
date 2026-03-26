@@ -116,6 +116,41 @@ export function linkify(html: string): string {
   });
 }
 
+// Keyword → internal URL map for auto-linking in blog content.
+// Each term is linked at most once per post to avoid over-optimization.
+const INTERNAL_LINK_MAP: Array<{ pattern: RegExp; url: string; label: string }> = [
+  { pattern: /\bPower BI\b/g, url: '/services', label: 'Power BI' },
+  { pattern: /\bNotebookLM\b/g, url: '/courses/notebook-master', label: 'NotebookLM' },
+  { pattern: /קורס AI\b/g, url: '/courses/ai-mastery', label: 'קורס AI' },
+  { pattern: /\bייעוץ פיננסי\b/g, url: '/services', label: 'ייעוץ פיננסי' },
+  { pattern: /\bאוטומציה פיננסית\b/g, url: '/services', label: 'אוטומציה פיננסית' },
+];
+
+// Apply strategic internal links to HTML content — skips already-linked text.
+// Max 1 auto-link per keyword per call (capped to avoid over-optimization).
+export function addInternalLinks(html: string): string {
+  let result = html;
+  for (const { pattern, url, label } of INTERNAL_LINK_MAP) {
+    let linked = false;
+    // Reset lastIndex for global regex
+    pattern.lastIndex = 0;
+    result = result.replace(/(<a[\s\S]*?<\/a>)|(<[^>]+>)|([^<]+)/g, (segment, anchor, tag, text) => {
+      if (anchor || tag) return segment; // preserve existing markup
+      if (!linked) {
+        const replaced = text.replace(pattern, (match: string) => {
+          if (linked) return match;
+          linked = true;
+          return `<a href="${url}">${label || match}</a>`;
+        });
+        pattern.lastIndex = 0;
+        return replaced;
+      }
+      return segment;
+    });
+  }
+  return result;
+}
+
 export function getAllTags(): string[] {
   const posts = getAllPosts();
   const tags = new Set<string>();

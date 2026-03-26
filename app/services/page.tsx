@@ -4,9 +4,9 @@ import { Button } from "@/components/ui/Button";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 
 export const metadata: Metadata = {
-  title: "שירותים",
+  title: 'שירותי ייעוץ פיננסי ו-Power BI | רונן עמוס רו"ח',
   description:
-    "ייעוץ עסקי ופיננסי מבוסס נתונים, הכשרות Power BI ו-AI, ליווי והטמעת מערכות ERP ו-BI. לקוחות חוסכים עד 15 שעות עבודה שבועיות.",
+    "ייעוץ פיננסי מבוסס AI, הכשרות Power BI ואוטומציה — לקוחות חוסכים עד 15 שעות עבודה שבועיות ומקצרים סגירת חודש מ-10 ל-3 ימים. פגישת ייעוץ ראשונה חינם.",
   alternates: {
     canonical: "https://www.ronenamoscpa.co.il/services",
   },
@@ -178,10 +178,16 @@ export default function ServicesPage() {
           ))}
         </div>
 
-        <div className="mt-12 text-center">
+        <div className="mt-12 text-center space-y-4">
           <Button href="/contact" size="lg">
             הזמן פגישת ייעוץ חינם
           </Button>
+          <p className="text-sm text-text-muted">
+            יש לך שאלות?{" "}
+            <a href="/faq" className="text-teal-400 hover:underline">
+              ראה שאלות נפוצות ←
+            </a>
+          </p>
         </div>
       </div>
     </div>

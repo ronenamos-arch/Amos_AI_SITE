@@ -4,9 +4,9 @@ import { Button } from "@/components/ui/Button";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 
 export const metadata: Metadata = {
-  title: "אודות",
+  title: 'רונן עמוס – רו"ח ויועץ AI פיננסי | אודות',
   description:
-    'רונן עמוס – רו"ח מוסמך, Microsoft Power BI Data Analyst, ומומחה AI פיננסי עם מעל עשור ניסיון בסטארטאפים וחברות שירותים.',
+    'רו"ח מוסמך, Microsoft Power BI Data Analyst ומומחה AI פיננסי עם מעל עשור ניסיון. מסייע לעסקים לחסוך זמן ולהפוך נתונים לכסף.',
   alternates: {
     canonical: "https://www.ronenamoscpa.co.il/about",
   },

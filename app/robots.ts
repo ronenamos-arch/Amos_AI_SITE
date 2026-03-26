@@ -6,7 +6,15 @@ export default function robots(): MetadataRoute.Robots {
             {
                 userAgent: '*',
                 allow: '/',
-                disallow: '/private/',
+                disallow: [
+                    '/private/',
+                    '/admin',
+                    '/dashboard',
+                    '/login',
+                    '/thanks',
+                    '/api',
+                    '/auth',
+                ],
             },
             // Tier 1: AI search crawlers (ChatGPT, Claude, Perplexity)
             { userAgent: 'GPTBot', allow: '/' },
