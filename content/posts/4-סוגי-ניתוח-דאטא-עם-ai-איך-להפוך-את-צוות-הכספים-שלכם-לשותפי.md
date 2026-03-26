@@ -4,6 +4,7 @@ date: "2025-12-20"
 excerpt: ".jpg) מתיאור לפעולה: איך להפוך את צוות הכספים שלכם לשותפים אסטרטגיים הסקירה הפיננסית של החודש שעבר התחילה טוב. -------------------------------------------------..."
 image: "/images/blog/4-סוגי-ניתוח-דאטא-עם-ai-איך-להפוך-את-צוות-הכספים-שלכם-לשותפי-0.jpg"
 tags: ["\u05d1\u05d9\u05e0\u05d4 \u05de\u05dc\u05d0\u05db\u05d5\u05ea\u05d9\u05ea", "\u05d7\u05e9\u05d1\u05d5\u05e0\u05d0\u05d5\u05ea", "\u05db\u05e1\u05e4\u05d9\u05dd", "\u05e0\u05d9\u05ea\u05d5\u05d7 \u05e0\u05ea\u05d5\u05e0\u05d9\u05dd", "\u05e4\u05d9\u05e0\u05e0\u05e1\u05d9\u05dd", "AI", "FP&A"]
+premium: "true"
 ---
 
 [![](/images/blog/4-סוגי-ניתוח-דאטא-עם-ai-איך-להפוך-את-צוות-הכספים-שלכם-לשותפי-0.jpg)](https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgRrGjn7Md3cX2QBOw0usDI4pw1pOPUt8XZRSZa_mkCpg9rFnc8B_bEIeWiXym1GIb924phgB7KgxS7RrvcLrKss7EZRmxLA_F8lfC8op7gxm5RGhIae0w3bF_81GGFLF_ZLKYnt_CxpzK5LuyO0R3WkFZpL6PFL_Ly6QsDCWO5kI7RV9kDgXnt2G9u/s1350/composed%20(1).jpg)

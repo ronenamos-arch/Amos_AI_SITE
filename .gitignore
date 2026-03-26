@@ -50,3 +50,5 @@ next-env.d.ts
 # Windows backup copies (prevent TypeScript from compiling stale files)
 *.bak
 *\ (1).*
+
+.vercel
