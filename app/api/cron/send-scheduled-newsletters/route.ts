@@ -11,12 +11,49 @@ import { NextRequest, NextResponse } from "next/server";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { sendNewsletterCore } from "@/lib/newsletter-service";
 
+async function cleanupExpiredSubscriptions(): Promise<{ cleaned: number }> {
+    const adminSupabase = createAdminClient();
+    const now = new Date().toISOString();
+
+    const { data: expired, error } = await adminSupabase
+        .from("profiles")
+        .select("id, email")
+        .eq("subscription_status", "cancelled")
+        .lt("subscription_end_date", now);
+
+    if (error) {
+        console.error("Expiry cleanup query failed:", error.message);
+        return { cleaned: 0 };
+    }
+
+    if (!expired || expired.length === 0) {
+        return { cleaned: 0 };
+    }
+
+    const ids = expired.map((p: { id: string }) => p.id);
+    const { error: updateError } = await adminSupabase
+        .from("profiles")
+        .update({ subscription_status: "free", updated_at: now })
+        .in("id", ids);
+
+    if (updateError) {
+        console.error("Expiry cleanup update failed:", updateError.message);
+        return { cleaned: 0 };
+    }
+
+    console.log(`Expiry cleanup: downgraded ${ids.length} users to free`);
+    return { cleaned: ids.length };
+}
+
 export async function GET(request: NextRequest) {
     // Verify this is a legitimate Vercel cron call
     const authHeader = request.headers.get("authorization");
     if (authHeader !== `Bearer ${process.env.CRON_SECRET}`) {
         return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
+
+    // Run expiry cleanup before newsletter logic
+    const { cleaned } = await cleanupExpiredSubscriptions();
 
     const adminSupabase = createAdminClient();
     const now = new Date().toISOString();
@@ -36,7 +73,7 @@ export async function GET(request: NextRequest) {
     }
 
     if (!claimed || claimed.length === 0) {
-        return NextResponse.json({ processed: 0 });
+        return NextResponse.json({ cleaned, processed: 0 });
     }
 
     const results = await Promise.all(
@@ -77,5 +114,5 @@ export async function GET(request: NextRequest) {
         })
     );
 
-    return NextResponse.json({ processed: results.length, results });
+    return NextResponse.json({ cleaned, processed: results.length, results });
 }
