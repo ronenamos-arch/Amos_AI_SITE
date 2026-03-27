@@ -143,6 +143,7 @@ Resend Audience ID: `4c3b4ceb-c5dc-4eba-9d29-62fb8b26956a` (audience name: "Gene
 - [x] Vercel build fixed — `force-dynamic` on `app/layout.tsx` and `app/sitemap.ts` (SSG/Supabase crash)
 - [x] Resend refactored to lazy `getResend()` factory — no more module-level singleton
 - [x] Next.js 16 middleware: `proxy.ts` with `export function proxy()` convention
+- [x] Payment flow bugfix — removed invalid `.eq()` after `.upsert()` in `lib/actions/subscription.ts` (caused "profile update failed" error after PayPal payment); webhook hardened: `getUserByEmail()` replaces `listUsers()`, profile upsert errors now propagate, HTTP 500→200 on user-not-found
 
 ## Still TODO
 

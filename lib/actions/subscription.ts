@@ -46,8 +46,7 @@ export async function updateUserSubscription(status: 'monthly' | 'lifetime', ord
             id: user.id,
             subscription_status: status,
             updated_at: new Date().toISOString()
-        })
-        .eq('id', user.id);
+        });
 
     if (profileError) {
         console.error("Profile upsert error:", JSON.stringify(profileError));

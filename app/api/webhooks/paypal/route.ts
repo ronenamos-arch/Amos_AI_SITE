@@ -84,7 +84,7 @@ export async function POST(req: NextRequest) {
     }
 
     if (!handled) {
-        return NextResponse.json({ error: "user not found" }, { status: 500 });
+        return NextResponse.json({ warning: "user not found or already processed" }, { status: 200 });
     }
 
     return NextResponse.json({ received: true });
@@ -110,11 +110,14 @@ async function handlePaymentCompleted(event: any): Promise<boolean> {
         return true;
     }
 
-    // Find user by email
-    const { data: { users } } = await adminSupabase.auth.admin.listUsers();
-    const user = users?.find((u) => u.email === payerEmail);
+    // Find user by email via profiles table
+    const { data: profile, error: userLookupError } = await adminSupabase
+        .from("profiles")
+        .select("id")
+        .eq("email", payerEmail)
+        .maybeSingle();
 
-    if (!user) {
+    if (userLookupError || !profile) {
         console.error(`Webhook: No user found for email ${payerEmail}, order ${orderId}`);
         return false;
     }
@@ -122,7 +125,7 @@ async function handlePaymentCompleted(event: any): Promise<boolean> {
     // Record payment (non-blocking — duplicate is safe to ignore)
     try {
         await adminSupabase.from("payment_records").insert({
-            user_id: user.id,
+            user_id: profile.id,
             amount,
             paypal_order_id: orderId,
             status: "COMPLETED",
@@ -132,11 +135,15 @@ async function handlePaymentCompleted(event: any): Promise<boolean> {
     }
 
     // Activate lifetime subscription (one-time payment)
-    await adminSupabase.from("profiles").upsert({
-        id: user.id,
+    const { error: profileError } = await adminSupabase.from("profiles").upsert({
+        id: profile.id,
         subscription_status: "lifetime",
         updated_at: new Date().toISOString(),
     });
+    if (profileError) {
+        console.error("Profile upsert failed (lifetime):", profileError.message);
+        return false;
+    }
 
     // Send confirmation email
     if (payerEmail) {
@@ -170,11 +177,14 @@ async function handleSubscriptionActivated(event: any): Promise<boolean> {
         return true;
     }
 
-    // Find user by email
-    const { data: { users } } = await adminSupabase.auth.admin.listUsers();
-    const user = users?.find((u) => u.email === subscriberEmail);
+    // Find user by email via profiles table
+    const { data: profile, error: userLookupError } = await adminSupabase
+        .from("profiles")
+        .select("id")
+        .eq("email", subscriberEmail)
+        .maybeSingle();
 
-    if (!user) {
+    if (userLookupError || !profile) {
         console.error(`Webhook: No user found for email ${subscriberEmail}, subscription ${subscriptionId}`);
         return false;
     }
@@ -182,7 +192,7 @@ async function handleSubscriptionActivated(event: any): Promise<boolean> {
     // Record payment (non-blocking — duplicate is safe to ignore)
     try {
         await adminSupabase.from("payment_records").insert({
-            user_id: user.id,
+            user_id: profile.id,
             amount: 10,
             paypal_order_id: subscriptionId,
             status: "COMPLETED",
@@ -192,11 +202,15 @@ async function handleSubscriptionActivated(event: any): Promise<boolean> {
     }
 
     // Activate monthly subscription
-    await adminSupabase.from("profiles").upsert({
-        id: user.id,
+    const { error: profileError } = await adminSupabase.from("profiles").upsert({
+        id: profile.id,
         subscription_status: "monthly",
         updated_at: new Date().toISOString(),
     });
+    if (profileError) {
+        console.error("Profile upsert failed (monthly):", profileError.message);
+        return false;
+    }
 
     if (subscriberEmail) {
         await sendPurchaseConfirmationEmail({
@@ -216,22 +230,29 @@ async function handleSubscriptionCancelled(event: any): Promise<boolean> {
 
     const adminSupabase = createAdminClient();
 
-    // Find user by email
-    const { data: { users } } = await adminSupabase.auth.admin.listUsers();
-    const user = users?.find((u) => u.email === subscriberEmail);
+    // Find user by email via profiles table
+    const { data: profile, error: userLookupError } = await adminSupabase
+        .from("profiles")
+        .select("id")
+        .eq("email", subscriberEmail)
+        .maybeSingle();
 
-    if (!user) {
+    if (userLookupError || !profile) {
         console.error(`Webhook: No user found for cancelled subscription, email ${subscriberEmail}`);
         return false;
     }
 
     // Downgrade to free
-    await adminSupabase.from("profiles").upsert({
-        id: user.id,
+    const { error: profileError } = await adminSupabase.from("profiles").upsert({
+        id: profile.id,
         subscription_status: "free",
         updated_at: new Date().toISOString(),
     });
+    if (profileError) {
+        console.error("Profile upsert failed (cancellation):", profileError.message);
+        return false;
+    }
 
-    console.log(`Subscription cancelled for user ${user.id}`);
+    console.log(`Subscription cancelled for user ${profile.id}`);
     return true;
 }
