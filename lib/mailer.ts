@@ -7,6 +7,7 @@
 import { getResend, EMAIL_FROM } from "@/lib/resend";
 import { buildPurchaseConfirmationEmail } from "@/lib/emails/purchase-confirmation";
 import { buildWelcomeEmail } from "@/lib/emails/welcome";
+import { adminNotificationEmail } from "@/lib/emails/admin-notification";
 
 interface SendPurchaseEmailParams {
     to: string;
@@ -64,5 +65,28 @@ export async function sendWelcomeEmail({ to, type, unsubscribeUrl }: SendWelcome
     } catch (err) {
         console.error("Failed to send welcome email:", err);
         return { success: false, error: String(err) };
+    }
+}
+
+interface SendAdminNotificationParams {
+    eventType: string;
+    userEmail: string;
+    details: string;
+}
+
+export async function sendAdminNotification(params: SendAdminNotificationParams): Promise<void> {
+    try {
+        const { error } = await getResend().emails.send({
+            from: EMAIL_FROM,
+            to: "ronenamos@gmail.com",
+            subject: `[Admin Alert] ${params.eventType}`,
+            html: adminNotificationEmail(params),
+        });
+
+        if (error) {
+            console.error("Resend admin notification error:", error);
+        }
+    } catch (err) {
+        console.error("Failed to send admin notification:", err);
     }
 }
