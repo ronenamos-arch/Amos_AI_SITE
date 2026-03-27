@@ -99,6 +99,20 @@ export default function NewArticlePage() {
 
             if (!res.success) throw new Error(res.error);
 
+                  // Notify search engines via IndexNow
+      try {
+        await fetch('/api/indexnow', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ 
+            urls: [`https://ronenamoscpa.co.il/blog/${slug}`] 
+          })
+        });
+        console.log('✅ Search engines notified via IndexNow');
+      } catch (indexNowError) {
+        console.error('IndexNow notification failed:', indexNowError);
+      }
+
             if (notifySubscribers) {
                 const notif = await sendBlogPostNotification({ title, description, slug, imageUrl });
                 if (notif.success) {
