@@ -41,7 +41,7 @@ const StructuredData = () => {
     const serviceSchema = {
         '@context': 'https://schema.org',
         '@type': ['LocalBusiness', 'AccountingService'],
-        name: 'רונן עמוס - שירותי ייעוץ פיננסי וטכנולוגי',
+        name: 'רונן עמוס רואה חשבון',
         image: `${primaryUrl}/og-image.png`,
         '@id': primaryUrl,
         url: primaryUrl,

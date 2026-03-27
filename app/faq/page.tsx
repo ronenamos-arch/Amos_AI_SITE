@@ -1,14 +1,6 @@
-"use client";
-
-import type { Metadata } from "next";
-import { useState } from "react";
 import Link from "next/link";
-import { ChevronDown, ChevronUp } from "lucide-react";
 import { GlassCard } from "@/components/ui/GlassCard";
 import { Button } from "@/components/ui/Button";
-
-// Metadata must be in a server component — moved to layout or defined statically.
-// For client components, export metadata from a sibling layout.tsx instead.
 
 const faqs = [
     {
@@ -20,8 +12,8 @@ const faqs = [
         a: "המחיר תלוי בהיקף העבודה ובצרכים הספציפיים של העסק. פגישת ייעוץ ראשונה היא חינמית לחלוטין — ללא התחייבות. בפגישה נבין יחד מה נדרש ונציע הצעה מותאמת אישית.",
     },
     {
-        q: "מה ההבדל בין רואה חשבון רגיל לרו\"ח שמתמחה ב-AI?",
-        a: "רואה חשבון רגיל מתמקד בציות מס ודיווח. רו\"ח שמתמחה ב-AI מוסיף על כך יכולת לנתח נתונים בזמן אמת, לבנות דשבורדים פיננסיים אוטומטיים ולהפיק תובנות עסקיות שמניעות החלטות — לא רק לדווח על מה שכבר קרה.",
+        q: 'מה ההבדל בין רואה חשבון רגיל לרו"ח שמתמחה ב-AI?',
+        a: 'רואה חשבון רגיל מתמקד בציות מס ודיווח. רו"ח שמתמחה ב-AI מוסיף על כך יכולת לנתח נתונים בזמן אמת, לבנות דשבורדים פיננסיים אוטומטיים ולהפיק תובנות עסקיות שמניעות החלטות — לא רק לדווח על מה שכבר קרה.',
     },
     {
         q: "כמה זמן לוקח ללמוד Power BI לאנשי כספים?",
@@ -29,7 +21,7 @@ const faqs = [
     },
     {
         q: "האם AI יכול לעזור עם הגשות מס הכנסה בישראל?",
-        a: "AI יכול לסייע בארגון מסמכים, זיהוי הוצאות מוכרות, בדיקת עקביות נתונים והכנת טיוטות. עם זאת, ההגשה הסופית לרשות המסים חייבת לעבור רו\"ח מוסמך שמוודא ציות לתקנות הישראליות.",
+        a: 'AI יכול לסייע בארגון מסמכים, זיהוי הוצאות מוכרות, בדיקת עקביות נתונים והכנת טיוטות. עם זאת, ההגשה הסופית לרשות המסים חייבת לעבור רו"ח מוסמך שמוודא ציות לתקנות הישראליות.',
     },
     {
         q: "מה כולל ייעוץ ראשוני חינמי?",
@@ -41,15 +33,15 @@ const faqs = [
     },
     {
         q: "מה זה NotebookLM ואיך הוא עוזר לרואי חשבון?",
-        a: "NotebookLM הוא כלי AI של גוגל שמאפשר לטעון מסמכים פיננסיים — חוזים, דוחות, חקיקה — ולשאול שאלות בשפה טבעית. רואי חשבון משתמשים בו לניתוח מהיר של חוזים, ביקורת ומחקר מס.",
+        a: 'NotebookLM הוא כלי AI של גוגל שמאפשר לטעון מסמכים פיננסיים — חוזים, דוחות, חקיקה — ולשאול שאלות בשפה טבעית. רואי חשבון משתמשים בו לניתוח מהיר של חוזים, ביקורת ומחקר מס.',
     },
     {
         q: "האם ניתן לקבל ייעוץ מרחוק (לא פנים אל פנים)?",
         a: "כן. רוב הייעוצים שלנו מתקיימים בזום או בשיחת וידאו. לקוחות מכל הארץ — תל אביב, ירושלים, חיפה, באר שבע — מקבלים שירות מלא ללא צורך בנסיעה.",
     },
     {
-        q: "מה זה ASC 606 ו-IFRS 15 ולמה זה חשוב לחברות ישראליות?",
-        a: "ASC 606 (תקן אמריקאי) ו-IFRS 15 (תקן בינלאומי) הם כללי הכרת הכנסות שחברות טכנולוגיה וסטארטאפים צריכים לעמוד בהם — במיוחד כשמגייסים השקעות מחו\"ל או מתכננים IPO. אני מתמחה ביישום שני התקנים.",
+        q: 'מה זה ASC 606 ו-IFRS 15 ולמה זה חשוב לחברות ישראליות?',
+        a: 'ASC 606 (תקן אמריקאי) ו-IFRS 15 (תקן בינלאומי) הם כללי הכרת הכנסות שחברות טכנולוגיה וסטארטאפים צריכים לעמוד בהם — במיוחד כשמגייסים השקעות מחו"ל או מתכננים IPO. אני מתמחה ביישום שני התקנים.',
     },
     {
         q: "כמה זמן לוקח לבנות דשבורד CFO עם Power BI?",
@@ -69,50 +61,24 @@ const faqs = [
     },
     {
         q: "איך אני יודע אם העסק שלי צריך ייעוץ AI עכשיו?",
-        a: "אם אתה מוצא את עצמך מבלה יותר מ-3 שעות שבועיות על עדכון דוחות ידני, מעתיק נתונים בין מערכות, או מחכה יותר מ-5 ימים לסגירת חודש — יש כנראה הזדמנות ברורה לחסוך זמן ועלויות עם AI.",
+        a: "אם אתה מוצא את עצמך מבלה יותר מ-3 שעות שבועיות על עדכון דוחות ידני, מעתיק נתונים בין מערכות, או מחכה יותר מ-5 ימים לסגירת חודש — יש כנראה הזדמנות ברורה לחסכון בזמן ועלויות עם AI.",
     },
 ];
 
-function FaqItem({ q, a, isOpen, onToggle }: { q: string; a: string; isOpen: boolean; onToggle: () => void }) {
-    return (
-        <div className="border border-white/8 rounded-xl overflow-hidden">
-            <button
-                className="w-full text-right px-6 py-4 flex items-start justify-between gap-4 hover:bg-white/5 transition-colors"
-                onClick={onToggle}
-                aria-expanded={isOpen}
-            >
-                <span className="font-semibold text-base leading-snug">{q}</span>
-                {isOpen ? (
-                    <ChevronUp className="h-5 w-5 text-teal-400 shrink-0 mt-0.5" />
-                ) : (
-                    <ChevronDown className="h-5 w-5 text-text-muted shrink-0 mt-0.5" />
-                )}
-            </button>
-            {isOpen && (
-                <div className="px-6 pb-5 text-text-secondary leading-relaxed text-sm">
-                    {a}
-                </div>
-            )}
-        </div>
-    );
-}
+const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqs.map(({ q, a }) => ({
+        "@type": "Question",
+        name: q,
+        acceptedAnswer: {
+            "@type": "Answer",
+            text: a,
+        },
+    })),
+};
 
 export default function FaqPage() {
-    const [openIndex, setOpenIndex] = useState<number | null>(null);
-
-    const faqSchema = {
-        "@context": "https://schema.org",
-        "@type": "FAQPage",
-        mainEntity: faqs.map(({ q, a }) => ({
-            "@type": "Question",
-            name: q,
-            acceptedAnswer: {
-                "@type": "Answer",
-                text: a,
-            },
-        })),
-    };
-
     return (
         <>
             <script
@@ -131,13 +97,31 @@ export default function FaqPage() {
                     <GlassCard className="p-2 mb-12">
                         <div className="divide-y divide-white/5">
                             {faqs.map((faq, i) => (
-                                <FaqItem
+                                <details
                                     key={i}
-                                    q={faq.q}
-                                    a={faq.a}
-                                    isOpen={openIndex === i}
-                                    onToggle={() => setOpenIndex(openIndex === i ? null : i)}
-                                />
+                                    className="group border-0"
+                                    name="faq"
+                                >
+                                    <summary className="w-full text-right px-6 py-4 flex items-start justify-between gap-4 hover:bg-white/5 transition-colors cursor-pointer list-none">
+                                        <span className="font-semibold text-base leading-snug">{faq.q}</span>
+                                        {/* chevron: rotates when open */}
+                                        <svg
+                                            className="h-5 w-5 text-text-muted shrink-0 mt-0.5 transition-transform duration-200 group-open:rotate-180 group-open:text-teal-400"
+                                            viewBox="0 0 24 24"
+                                            fill="none"
+                                            stroke="currentColor"
+                                            strokeWidth="2"
+                                            strokeLinecap="round"
+                                            strokeLinejoin="round"
+                                            aria-hidden="true"
+                                        >
+                                            <polyline points="6 9 12 15 18 9" />
+                                        </svg>
+                                    </summary>
+                                    <div className="px-6 pb-5 text-text-secondary leading-relaxed text-sm">
+                                        {faq.a}
+                                    </div>
+                                </details>
                             ))}
                         </div>
                     </GlassCard>
