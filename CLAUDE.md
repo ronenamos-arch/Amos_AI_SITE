@@ -116,6 +116,44 @@ Core newsletter logic lives in `lib/newsletter-service.ts` (no `"use server"`).
 `app/api/cron/send-scheduled-newsletters/route.ts` imports directly from `lib/newsletter-service.ts`.
 Never import `lib/actions/newsletter.ts` from a route handler — same `"use server"` silent-fail issue.
 
+## Payment Flow Architecture
+
+### subscription_status values
+- `free` — no access
+- `monthly` — active subscriber
+- `lifetime` — permanent access
+- `cancelled` — cancelled but within paid period (grace period — still has access until subscription_end_date)
+- `payment_failed` — renewal payment failed (no access)
+
+### profiles table fields (payment-related)
+- `subscription_status TEXT` — see above
+- `subscription_end_date TIMESTAMP WITH TIME ZONE` — when current paid period ends (monthly/cancelled only)
+- `paypal_subscription_id TEXT` — PayPal subscription ID for reference
+
+### Webhook events handled
+- `PAYMENT.CAPTURE.COMPLETED` → status=lifetime
+- `BILLING.SUBSCRIPTION.ACTIVATED` → status=monthly + store paypal_subscription_id
+- `BILLING.SUBSCRIPTION.CANCELLED` / `SUSPENDED` → status=cancelled + subscription_end_date (grace period) + admin email
+- `PAYMENT.SALE.COMPLETED` → extends subscription_end_date +30 days
+- `BILLING.SUBSCRIPTION.PAYMENT.FAILED` → status=payment_failed + admin email
+- `BILLING.SUBSCRIPTION.EXPIRED` → status=free
+
+### Access gate logic (app/blog/[slug]/page.tsx)
+```
+hasAccess = !post.premium
+  || status === 'monthly'
+  || status === 'lifetime'
+  || (status === 'cancelled' && subscription_end_date > now)
+```
+
+### Expiry cron
+Daily at 07:00 UTC — piggybacks on send-scheduled-newsletters cron.
+Downgrades all cancelled users past subscription_end_date to free.
+
+### Admin notifications
+sendAdminNotification() in lib/mailer.ts → ronenamos@gmail.com
+Triggered on: cancellation, payment failure.
+
 ## Vercel Cron — Hobby Plan Limitation
 
 Hobby plan only allows **1 cron job, once per day**.
@@ -143,7 +181,7 @@ Resend Audience ID: `4c3b4ceb-c5dc-4eba-9d29-62fb8b26956a` (audience name: "Gene
 - [x] Vercel build fixed — `force-dynamic` on `app/layout.tsx` and `app/sitemap.ts` (SSG/Supabase crash)
 - [x] Resend refactored to lazy `getResend()` factory — no more module-level singleton
 - [x] Next.js 16 middleware: `proxy.ts` with `export function proxy()` convention
-- [x] Payment flow bugfix — removed invalid `.eq()` after `.upsert()` in `lib/actions/subscription.ts` (caused "profile update failed" error after PayPal payment); webhook hardened: `getUserByEmail()` replaces `listUsers()`, profile upsert errors now propagate, HTTP 500→200 on user-not-found
+- [x] Payment flow hardened — grace period on cancel, renewal tracking, admin alerts, expiry cron
 
 ## Still TODO
 
