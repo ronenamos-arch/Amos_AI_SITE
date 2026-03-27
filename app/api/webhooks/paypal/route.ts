@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createAdminClient } from "@/lib/supabase/admin";
-import { sendPurchaseEmail as sendPurchaseConfirmationEmail } from "@/lib/mailer";
+import { sendPurchaseEmail as sendPurchaseConfirmationEmail, sendAdminNotification } from "@/lib/mailer";
 
 const PAYPAL_API_BASE = process.env.NEXT_PUBLIC_PAYPAL_SANDBOX === "true"
     ? "https://api-m.sandbox.paypal.com"
@@ -81,6 +81,12 @@ export async function POST(req: NextRequest) {
         handled = await handleSubscriptionActivated(event);
     } else if (eventType === "BILLING.SUBSCRIPTION.CANCELLED" || eventType === "BILLING.SUBSCRIPTION.SUSPENDED") {
         handled = await handleSubscriptionCancelled(event);
+    } else if (eventType === "PAYMENT.SALE.COMPLETED") {
+        handled = await handleSubscriptionRenewal(event);
+    } else if (eventType === "BILLING.SUBSCRIPTION.PAYMENT.FAILED") {
+        handled = await handlePaymentFailed(event);
+    } else if (eventType === "BILLING.SUBSCRIPTION.EXPIRED") {
+        handled = await handleSubscriptionExpired(event);
     }
 
     if (!handled) {
@@ -205,6 +211,7 @@ async function handleSubscriptionActivated(event: any): Promise<boolean> {
     const { error: profileError } = await adminSupabase.from("profiles").upsert({
         id: profile.id,
         subscription_status: "monthly",
+        paypal_subscription_id: subscriptionId,
         updated_at: new Date().toISOString(),
     });
     if (profileError) {
@@ -242,10 +249,27 @@ async function handleSubscriptionCancelled(event: any): Promise<boolean> {
         return false;
     }
 
-    // Downgrade to free
+    // Determine grace period end date with fallback chain
+    let endDate: string;
+    if (resource.billing_info?.next_billing_time) {
+        // Already paid until this date — use it as end of access
+        endDate = resource.billing_info.next_billing_time;
+    } else if (resource.billing_info?.last_payment?.time) {
+        // Add 30 days from last payment date
+        endDate = new Date(
+            new Date(resource.billing_info.last_payment.time).getTime() + 30 * 24 * 60 * 60 * 1000
+        ).toISOString();
+    } else {
+        // Last resort: 30 days from now
+        endDate = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString();
+    }
+
+    // Set cancelled status with grace period (not "free" — user keeps access until endDate)
     const { error: profileError } = await adminSupabase.from("profiles").upsert({
         id: profile.id,
-        subscription_status: "free",
+        subscription_status: "cancelled",
+        subscription_end_date: endDate,
+        paypal_subscription_id: resource.id,
         updated_at: new Date().toISOString(),
     });
     if (profileError) {
@@ -253,6 +277,140 @@ async function handleSubscriptionCancelled(event: any): Promise<boolean> {
         return false;
     }
 
-    console.log(`Subscription cancelled for user ${profile.id}`);
+    console.log(`Subscription cancelled for user ${profile.id}, access until ${endDate}`);
+
+    sendAdminNotification({
+        eventType: "Subscription Cancelled",
+        userEmail: subscriberEmail,
+        details: `Subscription ID: ${resource.id}\nEnd date: ${endDate}`,
+    }).catch(() => {});
+
+    return true;
+}
+
+async function handleSubscriptionRenewal(event: any): Promise<boolean> {
+    const resource = event.resource;
+    const subscriberEmail = resource.payer?.email_address;
+    const subscriptionId = resource.billing_agreement_id;
+    const amount = parseFloat(resource.amount?.total || "0");
+
+    const adminSupabase = createAdminClient();
+
+    // Find user by email via profiles table
+    const { data: profile, error: userLookupError } = await adminSupabase
+        .from("profiles")
+        .select("id")
+        .eq("email", subscriberEmail)
+        .maybeSingle();
+
+    if (userLookupError || !profile) {
+        console.error(`Webhook: No user found for renewal, email ${subscriberEmail}, subscription ${subscriptionId}`);
+        return false;
+    }
+
+    // Extend end date by 30 days
+    const newEndDate = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString();
+    const now = new Date().toISOString();
+
+    // Record payment (non-blocking — duplicate is safe to ignore)
+    try {
+        await adminSupabase.from("payment_records").insert({
+            user_id: profile.id,
+            amount,
+            paypal_order_id: subscriptionId,
+            status: "COMPLETED",
+        });
+    } catch (e) {
+        console.error("payment_records insert failed (likely duplicate):", e);
+    }
+
+    // Re-activate if payment_failed, extend end date
+    const { error: profileError } = await adminSupabase.from("profiles").upsert({
+        id: profile.id,
+        subscription_status: "monthly",
+        subscription_end_date: newEndDate,
+        updated_at: now,
+    });
+    if (profileError) {
+        console.error("Profile upsert failed (renewal):", profileError.message);
+        return false;
+    }
+
+    console.log(`Subscription renewed for user ${profile.id}, extended until ${newEndDate}`);
+    return true;
+}
+
+async function handlePaymentFailed(event: any): Promise<boolean> {
+    const resource = event.resource;
+    const subscriberEmail = resource.subscriber?.email_address;
+    const subscriptionId = resource.id;
+
+    const adminSupabase = createAdminClient();
+
+    // Find user by email via profiles table
+    const { data: profile, error: userLookupError } = await adminSupabase
+        .from("profiles")
+        .select("id")
+        .eq("email", subscriberEmail)
+        .maybeSingle();
+
+    if (userLookupError || !profile) {
+        console.error(`Webhook: No user found for payment failure, email ${subscriberEmail}, subscription ${subscriptionId}`);
+        return false;
+    }
+
+    // Set payment_failed status
+    const { error: profileError } = await adminSupabase.from("profiles").upsert({
+        id: profile.id,
+        subscription_status: "payment_failed",
+        updated_at: new Date().toISOString(),
+    });
+    if (profileError) {
+        console.error("Profile upsert failed (payment_failed):", profileError.message);
+        return false;
+    }
+
+    console.log(`Payment failed for user ${profile.id}, subscription ${subscriptionId}`);
+
+    sendAdminNotification({
+        eventType: "Payment Failed",
+        userEmail: subscriberEmail,
+        details: `Subscription ID: ${subscriptionId}\nUser may lose access soon.`,
+    }).catch(() => {});
+
+    return true;
+}
+
+async function handleSubscriptionExpired(event: any): Promise<boolean> {
+    const resource = event.resource;
+    const subscriberEmail = resource.subscriber?.email_address;
+
+    const adminSupabase = createAdminClient();
+
+    // Find user by email via profiles table
+    const { data: profile, error: userLookupError } = await adminSupabase
+        .from("profiles")
+        .select("id")
+        .eq("email", subscriberEmail)
+        .maybeSingle();
+
+    if (userLookupError || !profile) {
+        console.error(`Webhook: No user found for expired subscription, email ${subscriberEmail}`);
+        return false;
+    }
+
+    // Downgrade to free — subscription has fully expired
+    const { error: profileError } = await adminSupabase.from("profiles").upsert({
+        id: profile.id,
+        subscription_status: "free",
+        subscription_end_date: null,
+        updated_at: new Date().toISOString(),
+    });
+    if (profileError) {
+        console.error("Profile upsert failed (expired):", profileError.message);
+        return false;
+    }
+
+    console.log(`Subscription expired for user ${profile.id}, downgraded to free`);
     return true;
 }
