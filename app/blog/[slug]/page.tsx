@@ -111,20 +111,28 @@ export default async function BlogPostPage({
   const { data: { user } } = await supabase.auth.getUser();
 
   let subscriptionStatus = 'free';
+  let subscriptionEndDate: string | null = null;
   if (user) {
     const { data: profile } = await supabase
       .from('profiles')
-      .select('subscription_status')
+      .select('subscription_status, subscription_end_date')
       .eq('id', user.id)
       .single();
 
     if (profile) {
       subscriptionStatus = profile.subscription_status;
+      subscriptionEndDate = profile.subscription_end_date ?? null;
     }
   }
 
   // If post is premium, check if user has access
-  const hasAccess = !post.premium || subscriptionStatus === 'monthly' || subscriptionStatus === 'lifetime';
+  // Cancelled users retain access until subscription_end_date (grace period)
+  const now = new Date();
+  const endDate = subscriptionEndDate ? new Date(subscriptionEndDate) : null;
+  const hasAccess = !post.premium
+    || subscriptionStatus === 'monthly'
+    || subscriptionStatus === 'lifetime'
+    || (subscriptionStatus === 'cancelled' && endDate !== null && endDate > now);
   const isLocked = post.premium && !hasAccess;
 
   // Show only first paragraph for locked posts
