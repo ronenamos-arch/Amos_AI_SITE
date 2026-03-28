@@ -22,6 +22,13 @@ const nextConfig: NextConfig = {
         ],
       },
       {
+        // Allow the preview-email API to be embedded in the admin iframe
+        source: "/api/admin/preview-email",
+        headers: [
+          { key: "X-Frame-Options", value: "SAMEORIGIN" },
+        ],
+      },
+      {
         source: "/_next/static/(.*)",
         headers: [
           { key: "Cache-Control", value: "public, max-age=31536000, immutable" },
