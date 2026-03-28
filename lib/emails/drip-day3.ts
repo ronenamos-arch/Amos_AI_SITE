@@ -89,7 +89,7 @@ export function buildDripDay3Email({ siteUrl, unsubscribeUrl }: DripDay3Params):
                     <tr>
                         <td style="padding:24px 40px;text-align:center;border-top:1px solid rgba(255,255,255,0.06);">
                             <p style="margin:0 0 6px;font-size:12px;color:#6b7280;">
-                                יש שאלה? דבר איתי ב-<a href="https://wa.me/972505500344" style="color:#2dd4bf;text-decoration:none;">WhatsApp</a>
+                                יש שאלה? דבר איתי ב-<a href="https://chat.whatsapp.com/CS6dgqnK45Q9XAMqScNr6R" style="color:#2dd4bf;text-decoration:none;">WhatsApp</a>
                             </p>
                             <p style="margin:0;font-size:13px;color:#9ca3af;font-weight:bold;">
                                 AI Finance Transformation

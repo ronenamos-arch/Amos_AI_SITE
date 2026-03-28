@@ -81,7 +81,7 @@ export function buildDripDay7Email({ siteUrl, unsubscribeUrl }: DripDay7Params):
                             <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin-bottom:28px;">
                                 <tr>
                                     <td style="padding-bottom:12px;">
-                                        <a href="${siteUrl}/courses/ai-mastery" style="display:block;padding:20px 24px;background-color:rgba(45,212,191,0.08);border:1px solid rgba(45,212,191,0.25);border-radius:12px;text-decoration:none;">
+                                        <a href="https://www.paypal.com/ncp/payment/RNWU6D5DZHMHQ" style="display:block;padding:20px 24px;background-color:rgba(45,212,191,0.08);border:1px solid rgba(45,212,191,0.25);border-radius:12px;text-decoration:none;">
                                             <span style="display:block;font-size:16px;font-weight:bold;color:#2dd4bf;">🤖 AI Finance Mastery</span>
                                             <span style="display:block;font-size:13px;color:#9ca3af;margin-top:6px;line-height:1.6;">הפוך לחשבונאי שמשתמש ב-AI בפועל. מ-Claude ועד ChatGPT — מדריך מלא לאנשי פיננסים.</span>
                                         </a>
@@ -89,7 +89,7 @@ export function buildDripDay7Email({ siteUrl, unsubscribeUrl }: DripDay7Params):
                                 </tr>
                                 <tr>
                                     <td>
-                                        <a href="${siteUrl}/courses/notebook-master" style="display:block;padding:20px 24px;background-color:rgba(45,212,191,0.08);border:1px solid rgba(45,212,191,0.25);border-radius:12px;text-decoration:none;">
+                                        <a href="https://www.paypal.com/ncp/payment/AADF6XSF3UAVY" style="display:block;padding:20px 24px;background-color:rgba(45,212,191,0.08);border:1px solid rgba(45,212,191,0.25);border-radius:12px;text-decoration:none;">
                                             <span style="display:block;font-size:16px;font-weight:bold;color:#2dd4bf;">📓 NotebookLM Master</span>
                                             <span style="display:block;font-size:13px;color:#9ca3af;margin-top:6px;line-height:1.6;">כלי ה-AI הכי חזק שאנשי פיננסים לא מכירים. קורס מעשי ב-5 מפגשים.</span>
                                         </a>
@@ -113,7 +113,7 @@ export function buildDripDay7Email({ siteUrl, unsubscribeUrl }: DripDay7Params):
                     <tr>
                         <td style="padding:24px 40px;text-align:center;border-top:1px solid rgba(255,255,255,0.06);">
                             <p style="margin:0 0 6px;font-size:12px;color:#6b7280;">
-                                יש שאלה? דבר איתי ב-<a href="https://wa.me/972505500344" style="color:#2dd4bf;text-decoration:none;">WhatsApp</a>
+                                יש שאלה? דבר איתי ב-<a href="https://chat.whatsapp.com/CS6dgqnK45Q9XAMqScNr6R" style="color:#2dd4bf;text-decoration:none;">WhatsApp</a>
                             </p>
                             <p style="margin:0;font-size:13px;color:#9ca3af;font-weight:bold;">
                                 AI Finance Transformation

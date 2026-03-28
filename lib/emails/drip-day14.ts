@@ -1,13 +1,11 @@
 interface DripDay14Params {
     siteUrl: string;
     unsubscribeUrl: string;
-    discountLink1?: string;
-    discountLink2?: string;
 }
 
-export function buildDripDay14Email({ siteUrl, unsubscribeUrl, discountLink1, discountLink2 }: DripDay14Params): string {
-    const link1 = process.env.DISCOUNT_LINK_COURSE1 || discountLink1 || `${siteUrl}/courses/ai-mastery`;
-    const link2 = process.env.DISCOUNT_LINK_COURSE2 || discountLink2 || `${siteUrl}/courses/notebook-master`;
+export function buildDripDay14Email({ siteUrl, unsubscribeUrl }: DripDay14Params): string {
+    const link1 = "https://www.paypal.com/ncp/payment/RNWU6D5DZHMHQ";
+    const link2 = "https://www.paypal.com/ncp/payment/AADF6XSF3UAVY";
 
     return `
 <!DOCTYPE html>
@@ -91,7 +89,7 @@ export function buildDripDay14Email({ siteUrl, unsubscribeUrl, discountLink1, di
                     <tr>
                         <td style="padding:24px 40px;text-align:center;border-top:1px solid rgba(255,255,255,0.06);">
                             <p style="margin:0 0 6px;font-size:12px;color:#6b7280;">
-                                יש שאלה? דבר איתי ב-<a href="https://wa.me/972505500344" style="color:#2dd4bf;text-decoration:none;">WhatsApp</a>
+                                יש שאלה? דבר איתי ב-<a href="https://chat.whatsapp.com/CS6dgqnK45Q9XAMqScNr6R" style="color:#2dd4bf;text-decoration:none;">WhatsApp</a>
                             </p>
                             <p style="margin:0;font-size:13px;color:#9ca3af;font-weight:bold;">
                                 AI Finance Transformation
