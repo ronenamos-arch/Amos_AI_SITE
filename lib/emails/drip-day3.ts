@@ -69,15 +69,18 @@ export function buildDripDay3Email({ siteUrl, unsubscribeUrl }: DripDay3Params):
                                 </tr>
                             </table>
 
-                            <p style="margin:0 0 28px;font-size:15px;line-height:1.8;color:#d1d5db;">
-                                אלה רק ההתחלה. בבלוג יש עוד עשרות פרומפטים ומדריכים מעשיים לאנשי פיננסים.
+                            <p style="margin:0 0 8px;font-size:15px;line-height:1.8;color:#d1d5db;">
+                                אלה רק ההתחלה. יש לי מאגר כלים שלם — עשרות פרומפטים, תבניות ומדריכים מעשיים לאנשי פיננסים.
+                            </p>
+                            <p style="margin:0 0 28px;font-size:14px;line-height:1.8;color:#9ca3af;">
+                                הגישה חינמית לחלוטין — צריך רק להירשם לאתר (זה לוקח 30 שניות).
                             </p>
 
                             <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
                                 <tr>
                                     <td align="center">
-                                        <a href="${siteUrl}/blog" style="display:inline-block;padding:14px 32px;background-color:#2dd4bf;color:#0a0e17;font-weight:bold;font-size:16px;text-decoration:none;border-radius:9999px;">
-                                            עוד כלים בבלוג
+                                        <a href="${siteUrl}/skill-vault" style="display:inline-block;padding:14px 32px;background-color:#2dd4bf;color:#0a0e17;font-weight:bold;font-size:16px;text-decoration:none;border-radius:9999px;">
+                                            כניסה למאגר הכלים המלא
                                         </a>
                                     </td>
                                 </tr>

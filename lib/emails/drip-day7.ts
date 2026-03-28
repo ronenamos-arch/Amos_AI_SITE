@@ -30,45 +30,24 @@ export function buildDripDay7Email({ siteUrl, unsubscribeUrl }: DripDay7Params):
                         <td style="padding:40px;">
                             <h2 style="margin:0 0 16px;font-size:22px;color:#ffffff;font-weight:bold;">איך רואי חשבון בישראל משתמשים ב-AI בפועל</h2>
                             <p style="margin:0 0 24px;font-size:16px;line-height:1.8;color:#d1d5db;">
-                                בשנה האחרונה הכשרתי עשרות אנשי פיננסים לעבוד עם AI. הנה מה שהם אומרים:
+                                בשנה האחרונה הכשרתי עשרות אנשי פיננסים לעבוד עם AI. הנה מה שכתבו לי:
                             </p>
 
                             <!-- Testimonials -->
                             <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin-bottom:28px;">
                                 <tr>
                                     <td style="padding-bottom:12px;">
-                                        <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color:rgba(255,255,255,0.03);border-radius:12px;border:1px solid rgba(255,255,255,0.06);">
-                                            <tr>
-                                                <td style="padding:20px 24px;">
-                                                    <p style="margin:0 0 8px;font-size:15px;color:#ffffff;line-height:1.7;">"חסכתי 3 שעות בשבוע על הכנת דוחות ללקוחות. מה שלקח יום — לוקח עכשיו שעתיים."</p>
-                                                    <p style="margin:0;font-size:12px;color:#6b7280;">— רואה חשבון, תל אביב</p>
-                                                </td>
-                                            </tr>
-                                        </table>
+                                        <img src="${siteUrl}/Testimonials/Linkedin%20message.png" alt="המלצה מ-Tilda Barliya PhD" width="520" style="width:100%;max-width:520px;border-radius:12px;display:block;" />
                                     </td>
                                 </tr>
                                 <tr>
                                     <td style="padding-bottom:12px;">
-                                        <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color:rgba(255,255,255,0.03);border-radius:12px;border:1px solid rgba(255,255,255,0.06);">
-                                            <tr>
-                                                <td style="padding:20px 24px;">
-                                                    <p style="margin:0 0 8px;font-size:15px;color:#ffffff;line-height:1.7;">"NotebookLM שינה את האופן שאני מכין את עצמי לפגישות. נכנס עם כל המידע, יוצא עם תוכנית פעולה."</p>
-                                                    <p style="margin:0;font-size:12px;color:#6b7280;">— מנהל כספים, חברת הי-טק</p>
-                                                </td>
-                                            </tr>
-                                        </table>
+                                        <img src="${siteUrl}/Testimonials/Linkedin%20recm%201.png" alt="המלצה מ-Nimrod Langmass, CEO @ Lynx" width="520" style="width:100%;max-width:520px;border-radius:12px;display:block;" />
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
-                                        <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color:rgba(255,255,255,0.03);border-radius:12px;border:1px solid rgba(255,255,255,0.06);">
-                                            <tr>
-                                                <td style="padding:20px 24px;">
-                                                    <p style="margin:0 0 8px;font-size:15px;color:#ffffff;line-height:1.7;">"הדוחות שאני מפיק עכשיו נראים כמו של חברה גדולה. הלקוחות שלי שואלים מה קרה לי."</p>
-                                                    <p style="margin:0;font-size:12px;color:#6b7280;">— בוגר קורס AI Finance Mastery</p>
-                                                </td>
-                                            </tr>
-                                        </table>
+                                        <img src="${siteUrl}/Testimonials/Linkedin%20recm%202.png" alt="המשך המלצה מ-Nimrod Langmass" width="520" style="width:100%;max-width:520px;border-radius:12px;display:block;" />
                                     </td>
                                 </tr>
                             </table>
