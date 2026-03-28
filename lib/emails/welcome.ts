@@ -11,14 +11,14 @@ export function buildWelcomeEmail({ type, siteUrl, unsubscribeUrl }: WelcomeEmai
 
     const headline = isNewsletter
         ? "נרשמת לניוזלטר של AI Finance!"
-        : "ברוך הבא ל-AI Finance!";
+        : "ברוך הבא לקהילת AI Finance Transformation";
 
     const subheadline = isNewsletter
         ? "תוכן מקצועי בנושאי AI, פיננסים וחשבונאות ישירות למייל שלך."
         : "החשבון שלך מוכן. ברוכים הבאים לקהילה.";
 
-    const discountLink1 = process.env.DISCOUNT_LINK_COURSE1 || `${siteUrl}/courses/ai-mastery`;
-    const discountLink2 = process.env.DISCOUNT_LINK_COURSE2 || `${siteUrl}/courses/notebook-master`;
+    const discountLink1 = process.env.DISCOUNT_LINK_COURSE1 || "https://www.paypal.com/ncp/payment/RNWU6D5DZHMHQ";
+    const discountLink2 = process.env.DISCOUNT_LINK_COURSE2 || "https://www.paypal.com/ncp/payment/AADF6XSF3UAVY";
 
     const secondaryCta = isNewsletter
         ? `<a href="${siteUrl}/blog" style="display:inline-block;padding:12px 28px;background-color:transparent;color:#2dd4bf;font-size:14px;text-decoration:none;border:1px solid rgba(45,212,191,0.3);border-radius:9999px;">
@@ -58,7 +58,7 @@ export function buildWelcomeEmail({ type, siteUrl, unsubscribeUrl }: WelcomeEmai
                     <!-- Body -->
                     <tr>
                         <td style="padding:40px;">
-                            <h2 style="margin:0 0 16px;font-size:22px;color:#ffffff;font-weight:bold;">${headline} 🎉</h2>
+                            <h2 style="margin:0 0 16px;font-size:22px;color:#ffffff;font-weight:bold;">${headline}</h2>
 
                             <!-- Gift Guide hero section -->
                             <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color:rgba(45,212,191,0.05);border-radius:12px;border:1px solid rgba(45,212,191,0.25);margin-bottom:24px;">
@@ -123,7 +123,7 @@ export function buildWelcomeEmail({ type, siteUrl, unsubscribeUrl }: WelcomeEmai
                     <tr>
                         <td style="padding:24px 40px;text-align:center;border-top:1px solid rgba(255,255,255,0.06);">
                             <p style="margin:0 0 6px;font-size:12px;color:#6b7280;">
-                                יש שאלה? דבר איתי ב-<a href="https://wa.me/972505500344" style="color:#2dd4bf;text-decoration:none;">WhatsApp</a>
+                                יש שאלה? דבר איתי ב-<a href="https://chat.whatsapp.com/CS6dgqnK45Q9XAMqScNr6R" style="color:#2dd4bf;text-decoration:none;">WhatsApp</a>
                             </p>
                             <p style="margin:0;font-size:13px;color:#9ca3af;font-weight:bold;">
                                 AI Finance Transformation
