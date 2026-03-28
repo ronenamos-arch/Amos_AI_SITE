@@ -9,16 +9,14 @@ interface WelcomeEmailParams {
 export function buildWelcomeEmail({ type, siteUrl, unsubscribeUrl }: WelcomeEmailParams): string {
     const isNewsletter = type === "newsletter";
 
-    const headline = isNewsletter
-        ? "נרשמת לניוזלטר של AI Finance!"
-        : "ברוך הבא לקהילת AI Finance Transformation";
+    const headline = "ברוך הבא לקהילת AI Finance Transformation";
 
     const subheadline = isNewsletter
         ? "תוכן מקצועי בנושאי AI, פיננסים וחשבונאות ישירות למייל שלך."
         : "החשבון שלך מוכן. ברוכים הבאים לקהילה.";
 
-    const discountLink1 = process.env.DISCOUNT_LINK_COURSE1 || "https://www.paypal.com/ncp/payment/RNWU6D5DZHMHQ";
-    const discountLink2 = process.env.DISCOUNT_LINK_COURSE2 || "https://www.paypal.com/ncp/payment/AADF6XSF3UAVY";
+    const discountLink1 = "https://www.paypal.com/ncp/payment/RNWU6D5DZHMHQ";
+    const discountLink2 = "https://www.paypal.com/ncp/payment/AADF6XSF3UAVY";
 
     const secondaryCta = isNewsletter
         ? `<a href="${siteUrl}/blog" style="display:inline-block;padding:12px 28px;background-color:transparent;color:#2dd4bf;font-size:14px;text-decoration:none;border:1px solid rgba(45,212,191,0.3);border-radius:9999px;">
