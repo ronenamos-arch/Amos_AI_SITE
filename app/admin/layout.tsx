@@ -8,7 +8,7 @@ export const metadata: Metadata = {
 };
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
-import { FileText, Mail, MessageSquare, ExternalLink } from "lucide-react";
+import { FileText, Mail, MessageSquare, ExternalLink, Eye } from "lucide-react";
 
 export default async function AdminLayout({ children }: { children: React.ReactNode }) {
     if (process.env.NODE_ENV !== "development") {
@@ -52,6 +52,13 @@ export default async function AdminLayout({ children }: { children: React.ReactN
                             >
                                 <MessageSquare className="h-3.5 w-3.5" />
                                 פניות
+                            </Link>
+                            <Link
+                                href="/admin/preview-emails"
+                                className="flex items-center gap-1.5 text-sm text-text-secondary hover:text-white px-3 py-1.5 rounded-lg hover:bg-white/5 transition-colors"
+                            >
+                                <Eye className="h-3.5 w-3.5" />
+                                אימיילים
                             </Link>
                         </div>
                         <Link
