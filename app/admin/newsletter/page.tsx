@@ -50,6 +50,11 @@ export default function AdminNewsletterPage() {
     const [syncingResend, setSyncingResend] = useState(false);
     const [syncResult, setSyncResult] = useState<{ synced: number; failed: number; total: number } | null>(null);
 
+    // Sequence trigger state
+    const [sequenceEmail, setSequenceEmail] = useState("");
+    const [triggeringSequence, setTriggeringSequence] = useState(false);
+    const [sequenceTriggerResult, setSequenceTriggerResult] = useState<{ success: boolean; message: string } | null>(null);
+
     const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.ronenamoscpa.co.il";
 
     useEffect(() => {
@@ -228,6 +233,34 @@ export default function AdminNewsletterPage() {
         setSyncingResend(false);
     };
 
+    const handleTriggerSequence = async () => {
+        const emailToTrigger = sequenceEmail.trim();
+        if (!emailToTrigger || !emailToTrigger.includes("@")) {
+            setSequenceTriggerResult({ success: false, message: "כתובת מייל לא תקינה" });
+            return;
+        }
+        setTriggeringSequence(true);
+        setSequenceTriggerResult(null);
+        try {
+            const res = await fetch("/api/admin/trigger-sequence", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ email: emailToTrigger }),
+            });
+            const data = await res.json();
+            if (data.success) {
+                setSequenceTriggerResult({ success: true, message: `רצף המיילים תוזמן בהצלחה עבור ${emailToTrigger}` });
+                setSequenceEmail("");
+            } else {
+                setSequenceTriggerResult({ success: false, message: data.error || "שגיאה בהפעלת הרצף" });
+            }
+        } catch {
+            setSequenceTriggerResult({ success: false, message: "שגיאת רשת — נסה שוב" });
+        } finally {
+            setTriggeringSequence(false);
+        }
+    };
+
     const previewHtml = bodyHtml
         ? buildNewsletterEmail({ bodyHtml, siteUrl, unsubscribeUrl: "#" })
         : "";
@@ -307,6 +340,38 @@ export default function AdminNewsletterPage() {
                         {" "}מתוך {syncResult.total}
                     </div>
                 )}
+
+                {/* Email sequence trigger */}
+                <div className="mb-6" dir="rtl">
+                    <GlassCard className="border border-teal-400/10">
+                        <p className="text-sm font-bold text-teal-400 mb-3">הפעל רצף מיילים (4 מיילים אוטומטיים)</p>
+                        <p className="text-xs text-text-muted mb-3">לאנשים שנוספו ידנית ל-Resend — הפעל את רצף ההכנסה שלהם</p>
+                        <div className="flex gap-2">
+                            <input
+                                type="email"
+                                value={sequenceEmail}
+                                onChange={(e) => setSequenceEmail(e.target.value)}
+                                onKeyDown={(e) => e.key === "Enter" && handleTriggerSequence()}
+                                placeholder="כתובת מייל"
+                                className="flex-1 bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:border-teal-400 transition-all"
+                                dir="ltr"
+                            />
+                            <button
+                                onClick={handleTriggerSequence}
+                                disabled={triggeringSequence || !sequenceEmail.trim()}
+                                className="flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-teal-500/20 border border-teal-400/40 text-teal-300 text-sm font-medium hover:bg-teal-500/30 transition-all disabled:opacity-40 disabled:cursor-not-allowed whitespace-nowrap"
+                            >
+                                {triggeringSequence ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : <Send className="h-3.5 w-3.5" />}
+                                שלח רצף
+                            </button>
+                        </div>
+                        {sequenceTriggerResult && (
+                            <p className={`mt-2 text-xs ${sequenceTriggerResult.success ? "text-teal-400" : "text-red-400"}`}>
+                                {sequenceTriggerResult.success ? "✓ " : "✗ "}{sequenceTriggerResult.message}
+                            </p>
+                        )}
+                    </GlassCard>
+                </div>
 
                 {/* Source filter pills */}
                 {sources.length > 0 && (

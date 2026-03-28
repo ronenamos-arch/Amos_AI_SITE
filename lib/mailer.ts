@@ -8,6 +8,7 @@ import { getResend, EMAIL_FROM } from "@/lib/resend";
 import { buildPurchaseConfirmationEmail } from "@/lib/emails/purchase-confirmation";
 import { buildWelcomeEmail } from "@/lib/emails/welcome";
 import { adminNotificationEmail } from "@/lib/emails/admin-notification";
+import { scheduleEmailSequence } from "@/lib/email-sequence";
 
 interface SendPurchaseEmailParams {
     to: string;
@@ -47,18 +48,27 @@ interface SendWelcomeEmailParams {
 
 export async function sendWelcomeEmail({ to, type, unsubscribeUrl }: SendWelcomeEmailParams) {
     const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.ronenamoscpa.co.il";
+    const resolvedUnsubscribeUrl = unsubscribeUrl
+        || `${siteUrl}/api/newsletter/unsubscribe?email=${Buffer.from(to).toString("base64")}`;
 
     try {
         const { data, error } = await getResend().emails.send({
             from: EMAIL_FROM,
             to,
             subject: "ברוך הבא ל-AI Finance 🎉",
-            html: buildWelcomeEmail({ type, siteUrl, unsubscribeUrl }),
+            html: buildWelcomeEmail({ type, siteUrl, unsubscribeUrl: resolvedUnsubscribeUrl }),
         });
 
         if (error) {
             console.error("Resend welcome email error:", error);
             return { success: false, error: error.message };
+        }
+
+        // Schedule the 3 follow-up drip emails (fire-and-forget)
+        if (data?.id) {
+            scheduleEmailSequence({ to, unsubscribeUrl: resolvedUnsubscribeUrl, siteUrl }).catch(
+                (err) => console.error("Email sequence scheduling failed:", err)
+            );
         }
 
         return { success: true, id: data?.id };

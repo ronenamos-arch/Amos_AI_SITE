@@ -20,7 +20,8 @@ export async function GET(request: Request) {
             if (user?.email && user.created_at) {
                 const ageMs = Date.now() - new Date(user.created_at).getTime();
                 if (ageMs < 600_000) {
-                    await sendWelcomeEmail({ to: user.email, type: "registration" }).catch((err) =>
+                    const unsubscribeUrl = `${siteUrl}/api/newsletter/unsubscribe?email=${Buffer.from(user.email).toString("base64")}`;
+                    await sendWelcomeEmail({ to: user.email, type: "registration", unsubscribeUrl }).catch((err) =>
                         console.error("Welcome email failed (registration):", err)
                     );
                 }

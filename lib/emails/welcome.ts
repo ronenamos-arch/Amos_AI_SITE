@@ -1,3 +1,5 @@
+const GIFT_GUIDE_URL = "https://gamma.app/docs/13--arjgfdjt26gnn74";
+
 interface WelcomeEmailParams {
     type: "newsletter" | "registration";
     siteUrl: string;
@@ -15,63 +17,18 @@ export function buildWelcomeEmail({ type, siteUrl, unsubscribeUrl }: WelcomeEmai
         ? "תוכן מקצועי בנושאי AI, פיננסים וחשבונאות ישירות למייל שלך."
         : "החשבון שלך מוכן. ברוכים הבאים לקהילה.";
 
-    const bodyContent = isNewsletter
-        ? `
-            <p style="margin:0 0 24px;font-size:16px;line-height:1.8;color:#d1d5db;">
-                הצטרפת לרשימת הניוזלטר של AI Finance. כל שבוע תקבל ישירות למייל תכנים מעשיים בנושאי:
-            </p>
-            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color:rgba(45,212,191,0.05);border-radius:12px;border:1px solid rgba(45,212,191,0.15);margin-bottom:28px;">
-                <tr>
-                    <td style="padding:24px;">
-                        <p style="margin:0 0 10px;font-size:14px;color:#d1d5db;line-height:1.7;">🤖 שימוש ב-AI לניהול פיננסי ולחשבונאות</p>
-                        <p style="margin:0 0 10px;font-size:14px;color:#d1d5db;line-height:1.7;">📊 ניתוחים פיננסיים מעשיים וכלים חשבונאיים</p>
-                        <p style="margin:0;font-size:14px;color:#d1d5db;line-height:1.7;">📓 טיפים ומדריכים למקצוענים בתחום הכספים</p>
-                    </td>
-                </tr>
-            </table>
-            <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
-                <tr>
-                    <td align="center" style="padding-bottom:12px;">
-                        <a href="${siteUrl}/blog" style="display:inline-block;padding:14px 32px;background-color:#2dd4bf;color:#0a0e17;font-weight:bold;font-size:16px;text-decoration:none;border-radius:9999px;">
-                            קרא את הבלוג
-                        </a>
-                    </td>
-                </tr>
-            </table>
-        `
-        : `
-            <p style="margin:0 0 24px;font-size:16px;line-height:1.8;color:#d1d5db;">
-                נרשמת בהצלחה ל-AI Finance — הפלטפורמה שמשלבת בינה מלאכותית עם ידע פיננסי וחשבונאי מקצועי.
-            </p>
-            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color:rgba(45,212,191,0.05);border-radius:12px;border:1px solid rgba(45,212,191,0.15);margin-bottom:28px;">
-                <tr>
-                    <td style="padding:24px;">
-                        <p style="margin:0 0 6px;font-size:15px;font-weight:bold;color:#2dd4bf;">מה מחכה לך:</p>
-                        <p style="margin:0 0 10px;font-size:14px;color:#d1d5db;line-height:1.7;">📖 מאמרים חינמיים בנושאי AI, פיננסים וחשבונאות</p>
-                        <p style="margin:0 0 10px;font-size:14px;color:#d1d5db;line-height:1.7;">🔒 גישה לתוכן פרימיום עם מנוי (מדריכים מעשיים + כלים)</p>
-                        <p style="margin:0;font-size:14px;color:#d1d5db;line-height:1.7;">📬 ניוזלטר שבועי ישירות למייל</p>
-                    </td>
-                </tr>
-            </table>
-            <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
-                <tr>
-                    <td align="center" style="padding-bottom:12px;">
-                        <a href="${siteUrl}/dashboard" style="display:inline-block;padding:14px 32px;background-color:#2dd4bf;color:#0a0e17;font-weight:bold;font-size:16px;text-decoration:none;border-radius:9999px;">
-                            כניסה לאזור האישי
-                        </a>
-                    </td>
-                </tr>
-                <tr>
-                    <td align="center">
-                        <a href="${siteUrl}/blog" style="display:inline-block;padding:12px 28px;background-color:transparent;color:#2dd4bf;font-size:14px;text-decoration:none;border:1px solid rgba(45,212,191,0.3);border-radius:9999px;">
-                            גלוש בבלוג
-                        </a>
-                    </td>
-                </tr>
-            </table>
-        `;
+    const discountLink1 = process.env.DISCOUNT_LINK_COURSE1 || `${siteUrl}/courses/ai-mastery`;
+    const discountLink2 = process.env.DISCOUNT_LINK_COURSE2 || `${siteUrl}/courses/notebook-master`;
 
-    const footerExtra = isNewsletter && unsubscribeUrl
+    const secondaryCta = isNewsletter
+        ? `<a href="${siteUrl}/blog" style="display:inline-block;padding:12px 28px;background-color:transparent;color:#2dd4bf;font-size:14px;text-decoration:none;border:1px solid rgba(45,212,191,0.3);border-radius:9999px;">
+               קרא את הבלוג
+           </a>`
+        : `<a href="${siteUrl}/dashboard" style="display:inline-block;padding:12px 28px;background-color:transparent;color:#2dd4bf;font-size:14px;text-decoration:none;border:1px solid rgba(45,212,191,0.3);border-radius:9999px;">
+               כניסה לאזור האישי
+           </a>`;
+
+    const footerExtra = unsubscribeUrl
         ? `<p style="margin:8px 0 0;font-size:11px;color:#6b7280;">
                <a href="${unsubscribeUrl}" style="color:#6b7280;text-decoration:underline;">הסר אותי מהרשימה</a>
            </p>`
@@ -102,7 +59,63 @@ export function buildWelcomeEmail({ type, siteUrl, unsubscribeUrl }: WelcomeEmai
                     <tr>
                         <td style="padding:40px;">
                             <h2 style="margin:0 0 16px;font-size:22px;color:#ffffff;font-weight:bold;">${headline} 🎉</h2>
-                            ${bodyContent}
+
+                            <!-- Gift Guide hero section -->
+                            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color:rgba(45,212,191,0.05);border-radius:12px;border:1px solid rgba(45,212,191,0.25);margin-bottom:24px;">
+                                <tr>
+                                    <td style="padding:24px;text-align:center;">
+                                        <p style="margin:0 0 6px;font-size:20px;font-weight:bold;color:#ffffff;">קיבלת מתנה ממני 🎁</p>
+                                        <p style="margin:0 0 18px;font-size:14px;color:#9ca3af;line-height:1.7;">
+                                            מדריך מעשי: איך לבנות מודל תזרים מזומנים ל-13 שבועות עם Claude — צעד אחר צעד
+                                        </p>
+                                        <a href="${GIFT_GUIDE_URL}" style="display:inline-block;padding:13px 28px;background-color:#2dd4bf;color:#0a0e17;font-weight:bold;font-size:15px;text-decoration:none;border-radius:9999px;">
+                                            פתח את המדריך
+                                        </a>
+                                    </td>
+                                </tr>
+                            </table>
+
+                            <!-- What's included / coming up -->
+                            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color:rgba(255,255,255,0.02);border-radius:12px;border:1px solid rgba(255,255,255,0.06);margin-bottom:24px;">
+                                <tr>
+                                    <td style="padding:20px 24px;">
+                                        <p style="margin:0 0 12px;font-size:14px;font-weight:bold;color:#2dd4bf;">מה עוד מחכה לך:</p>
+                                        <p style="margin:0 0 8px;font-size:14px;color:#d1d5db;line-height:1.7;">🤖 ניוזלטר שבועי — טיפים AI לאנשי פיננסים</p>
+                                        <p style="margin:0 0 8px;font-size:14px;color:#d1d5db;line-height:1.7;">📖 מאמרים ומדריכים מקצועיים בחינם</p>
+                                        <p style="margin:0;font-size:14px;color:#d1d5db;line-height:1.7;">🎓 קורסים מעמיקים לחשבונאי העתיד</p>
+                                    </td>
+                                </tr>
+                            </table>
+
+                            <!-- Discount course links -->
+                            <p style="margin:0 0 14px;font-size:14px;font-weight:bold;color:#ffffff;">ומיידית — הנחה בלעדית על הקורסים שלי:</p>
+                            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin-bottom:28px;">
+                                <tr>
+                                    <td style="padding-bottom:10px;">
+                                        <a href="${discountLink1}" style="display:block;padding:14px 20px;background-color:rgba(45,212,191,0.08);border:1px solid rgba(45,212,191,0.2);border-radius:10px;text-decoration:none;">
+                                            <span style="display:block;font-size:14px;font-weight:bold;color:#2dd4bf;">🤖 AI Finance Mastery — עם הנחה</span>
+                                            <span style="display:block;font-size:12px;color:#9ca3af;margin-top:4px;">הפוך לחשבונאי שמשתמש ב-AI בפועל</span>
+                                        </a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <a href="${discountLink2}" style="display:block;padding:14px 20px;background-color:rgba(45,212,191,0.08);border:1px solid rgba(45,212,191,0.2);border-radius:10px;text-decoration:none;">
+                                            <span style="display:block;font-size:14px;font-weight:bold;color:#2dd4bf;">📓 NotebookLM Master — עם הנחה</span>
+                                            <span style="display:block;font-size:12px;color:#9ca3af;margin-top:4px;">כלי ה-AI הכי חזק לאנשי פיננסים</span>
+                                        </a>
+                                    </td>
+                                </tr>
+                            </table>
+
+                            <!-- Secondary CTA -->
+                            <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
+                                <tr>
+                                    <td align="center">
+                                        ${secondaryCta}
+                                    </td>
+                                </tr>
+                            </table>
                         </td>
                     </tr>
 
