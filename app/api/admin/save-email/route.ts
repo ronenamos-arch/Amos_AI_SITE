@@ -1,14 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
-import path from "path";
-import fs from "fs";
+import { createAdminClient } from "@/lib/supabase/admin";
 
-const FILE_MAP: Record<string, string> = {
-    welcome: "welcome.ts",
-    day3: "drip-day3.ts",
-    day7: "drip-day7.ts",
-    day14: "drip-day14.ts",
-};
+const VALID_KEYS = ["welcome", "day3", "day7", "day14"] as const;
 
 export async function POST(request: NextRequest) {
     const supabase = await createClient();
@@ -23,13 +17,43 @@ export async function POST(request: NextRequest) {
     if (!email || !content) {
         return NextResponse.json({ error: "Missing email or content" }, { status: 400 });
     }
-
-    const filename = FILE_MAP[email];
-    if (!filename) {
+    if (!VALID_KEYS.includes(email as typeof VALID_KEYS[number])) {
         return NextResponse.json({ error: "Unknown email type" }, { status: 400 });
     }
 
-    const filePath = path.join(process.cwd(), "lib", "emails", filename);
-    fs.writeFileSync(filePath, content, "utf-8");
+    const adminSupabase = createAdminClient();
+    const { error } = await adminSupabase
+        .from("email_templates")
+        .upsert({ key: email, html: content, updated_at: new Date().toISOString() }, { onConflict: "key" });
+
+    if (error) {
+        return NextResponse.json({ error: error.message }, { status: 500 });
+    }
+
+    return NextResponse.json({ success: true });
+}
+
+export async function DELETE(request: NextRequest) {
+    const supabase = await createClient();
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user || user.email !== "ronenamos@gmail.com") {
+        return NextResponse.json({ error: "Forbidden" }, { status: 403 });
+    }
+
+    const key = request.nextUrl.searchParams.get("email");
+    if (!key || !VALID_KEYS.includes(key as typeof VALID_KEYS[number])) {
+        return NextResponse.json({ error: "Unknown email type" }, { status: 400 });
+    }
+
+    const adminSupabase = createAdminClient();
+    const { error } = await adminSupabase
+        .from("email_templates")
+        .delete()
+        .eq("key", key);
+
+    if (error) {
+        return NextResponse.json({ error: error.message }, { status: 500 });
+    }
+
     return NextResponse.json({ success: true });
 }

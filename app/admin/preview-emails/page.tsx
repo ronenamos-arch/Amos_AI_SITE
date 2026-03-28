@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useCallback } from "react";
 import { GlassCard } from "@/components/ui/GlassCard";
-import { RefreshCw, Save, AlertTriangle } from "lucide-react";
+import { RefreshCw, Save, AlertTriangle, RotateCcw } from "lucide-react";
 
 type EmailKey = "welcome" | "day3" | "day7" | "day14";
 
@@ -15,29 +15,33 @@ const TABS: { key: EmailKey; label: string }[] = [
 
 export default function PreviewEmailsPage() {
     const [selected, setSelected] = useState<EmailKey>("welcome");
-    const [source, setSource] = useState("");
+    const [html, setHtml] = useState("");
+    const [isCustom, setIsCustom] = useState(false);
     const [iframeKey, setIframeKey] = useState(0);
     const [saving, setSaving] = useState(false);
+    const [resetting, setResetting] = useState(false);
     const [saveResult, setSaveResult] = useState<{ ok: boolean; message: string } | null>(null);
     const [loadingSource, setLoadingSource] = useState(false);
 
-    const fetchSource = useCallback(async (email: EmailKey) => {
+    const fetchHtml = useCallback(async (email: EmailKey) => {
         setLoadingSource(true);
         setSaveResult(null);
         try {
             const res = await fetch(`/api/admin/get-email-source?email=${email}`);
-            const data = await res.json() as { source?: string };
-            setSource(data.source ?? "");
+            const data = await res.json() as { html?: string; isCustom?: boolean };
+            setHtml(data.html ?? "");
+            setIsCustom(data.isCustom ?? false);
         } catch {
-            setSource("// Error loading source");
+            setHtml("<!-- Error loading template -->");
+            setIsCustom(false);
         } finally {
             setLoadingSource(false);
         }
     }, []);
 
     useEffect(() => {
-        fetchSource(selected);
-    }, [selected, fetchSource]);
+        fetchHtml(selected);
+    }, [selected, fetchHtml]);
 
     const handleTabChange = (key: EmailKey) => {
         setSelected(key);
@@ -51,11 +55,12 @@ export default function PreviewEmailsPage() {
             const res = await fetch("/api/admin/save-email", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ email: selected, content: source }),
+                body: JSON.stringify({ email: selected, content: html }),
             });
             const data = await res.json() as { success?: boolean; error?: string };
             if (data.success) {
                 setSaveResult({ ok: true, message: "נשמר בהצלחה" });
+                setIsCustom(true);
                 setIframeKey(k => k + 1);
             } else {
                 setSaveResult({ ok: false, message: data.error ?? "שגיאה בשמירה" });
@@ -64,6 +69,28 @@ export default function PreviewEmailsPage() {
             setSaveResult({ ok: false, message: "שגיאת רשת" });
         } finally {
             setSaving(false);
+        }
+    };
+
+    const handleReset = async () => {
+        if (!confirm("לאפס לתבנית ברירת המחדל? השינויים ימחקו.")) return;
+        setResetting(true);
+        setSaveResult(null);
+        try {
+            const res = await fetch(`/api/admin/save-email?email=${selected}`, { method: "DELETE" });
+            const data = await res.json() as { success?: boolean; error?: string };
+            if (data.success) {
+                setSaveResult({ ok: true, message: "אופס לברירת מחדל" });
+                setIsCustom(false);
+                await fetchHtml(selected);
+                setIframeKey(k => k + 1);
+            } else {
+                setSaveResult({ ok: false, message: data.error ?? "שגיאה באיפוס" });
+            }
+        } catch {
+            setSaveResult({ ok: false, message: "שגיאת רשת" });
+        } finally {
+            setResetting(false);
         }
     };
 
@@ -112,15 +139,22 @@ export default function PreviewEmailsPage() {
                     />
                 </GlassCard>
 
-                {/* Right: source editor (40%) */}
+                {/* Right: HTML editor (40%) */}
                 <GlassCard className="flex-[2] flex flex-col !p-0 overflow-hidden" hover={false}>
                     <div className="flex items-center justify-between px-4 py-2 border-b border-slate-700">
-                        <span className="text-sm text-slate-400">קוד המקור</span>
+                        <div className="flex items-center gap-2">
+                            <span className="text-sm text-slate-400">HTML</span>
+                            {isCustom && (
+                                <span className="text-xs px-2 py-0.5 rounded-full bg-teal-500/20 text-teal-400 border border-teal-500/30">
+                                    מותאם אישית
+                                </span>
+                            )}
+                        </div>
                         {loadingSource && <span className="text-xs text-slate-500">טוען...</span>}
                     </div>
                     <textarea
-                        value={source}
-                        onChange={e => setSource(e.target.value)}
+                        value={html}
+                        onChange={e => setHtml(e.target.value)}
                         className="flex-1 w-full bg-transparent text-slate-200 text-xs font-mono p-4 resize-none focus:outline-none leading-5"
                         spellCheck={false}
                         dir="ltr"
@@ -146,6 +180,16 @@ export default function PreviewEmailsPage() {
                                 <RefreshCw size={14} />
                                 רענן תצוגה
                             </button>
+                            {isCustom && (
+                                <button
+                                    onClick={handleReset}
+                                    disabled={resetting}
+                                    className="flex items-center gap-1 px-4 py-1.5 bg-red-500/10 border border-red-500/30 text-red-400 hover:bg-red-500/20 text-sm rounded-lg transition-colors disabled:opacity-50"
+                                >
+                                    <RotateCcw size={14} />
+                                    {resetting ? "מאפס..." : "אפס"}
+                                </button>
+                            )}
                         </div>
                         {saveResult && (
                             <span className={`text-xs ${saveResult.ok ? "text-teal-400" : "text-red-400"}`}>
