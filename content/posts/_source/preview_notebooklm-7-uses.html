@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>7 שימושים פורצי דרך ב-NotebookLM — תצוגה מקדימה</title>
+  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --space-950: #020617;
+      --space-900: #0f172a;
+      --space-800: #1e293b;
+      --space-700: #334155;
+      --neon-cyan: #22d3ee;
+      --neon-teal: #2dd4bf;
+      --royal-500: #3b82f6;
+      --royal-400: #60a5fa;
+      --amber: #f59e0b;
+      --violet: #a78bfa;
+      --green: #25d366;
+      --text-primary: #f1f5f9;
+      --text-body: #cbd5e1;
+      --text-muted: #94a3b8;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--space-950);
+      color: var(--text-primary);
+      font-family: 'Heebo', sans-serif;
+      font-size: 17px;
+      line-height: 1.85;
+      direction: rtl;
+    }
+
+    /* ── Header ── */
+    .site-header {
+      background: rgba(15, 23, 42, 0.97);
+      border-bottom: 1px solid rgba(34, 211, 238, 0.15);
+      padding: 14px 32px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(8px);
+    }
+    .site-header .logo { font-size: 15px; font-weight: 700; color: var(--neon-cyan); }
+    .site-header .sep { color: var(--space-700); }
+    .site-header .breadcrumb { font-size: 13px; color: var(--text-muted); }
+
+    /* ── Layout ── */
+    .page-wrapper { max-width: 780px; margin: 0 auto; padding: 52px 24px 100px; }
+
+    /* ── Tags ── */
+    .tags { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 22px; }
+    .tag {
+      background: rgba(34, 211, 238, 0.08);
+      border: 1px solid rgba(34, 211, 238, 0.25);
+      color: var(--neon-cyan);
+      font-size: 12px; font-weight: 600;
+      padding: 3px 12px; border-radius: 99px;
+    }
+
+    /* ── Title ── */
+    h1.post-title {
+      font-size: clamp(26px, 4vw, 40px);
+      font-weight: 800; line-height: 1.3;
+      margin-bottom: 18px;
+      background: linear-gradient(135deg, var(--neon-cyan), var(--neon-teal), var(--royal-400));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* ── Meta ── */
+    .post-meta {
+      display: flex; gap: 20px; font-size: 13px;
+      color: var(--text-muted); margin-bottom: 40px;
+      align-items: center; flex-wrap: wrap;
+    }
+    .post-meta .author { color: var(--neon-teal); font-weight: 600; }
+
+    /* ── Cover image ── */
+    .cover-image {
+      width: 100%; border-radius: 14px; margin-bottom: 44px;
+      overflow: hidden; border: 1px solid rgba(255,255,255,0.07);
+    }
+    .cover-image img { width: 100%; height: auto; display: block; }
+
+    /* ── Body ── */
+    .post-body p { margin-bottom: 22px; color: var(--text-body); }
+
+    .post-body h2 {
+      font-size: 22px; font-weight: 700; color: var(--text-primary);
+      margin: 48px 0 18px; padding-right: 16px;
+      border-right: 3px solid var(--neon-cyan);
+    }
+
+    .post-body hr {
+      border: none; border-top: 1px solid rgba(255,255,255,0.07); margin: 40px 0;
+    }
+
+    /* ── Inline image ── */
+    .post-body .inline-img {
+      width: 100%; border-radius: 10px; margin: 20px 0 28px;
+      overflow: hidden; border: 1px solid rgba(255,255,255,0.06);
+    }
+    .post-body .inline-img img { width: 100%; height: auto; display: block; }
+
+    /* ── Use case cards ── */
+    .use-case {
+      background: rgba(255,255,255,0.025);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 14px;
+      padding: 24px 26px;
+      margin-bottom: 20px;
+      transition: border-color 0.2s;
+    }
+    .use-case:hover { border-color: rgba(34, 211, 238, 0.2); }
+    .use-case-header {
+      display: flex; align-items: center; gap: 14px; margin-bottom: 12px;
+    }
+    .use-case-num {
+      flex-shrink: 0;
+      width: 34px; height: 34px;
+      background: rgba(34, 211, 238, 0.1);
+      border: 1px solid rgba(34, 211, 238, 0.3);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 14px; font-weight: 700; color: var(--neon-cyan);
+    }
+    .use-case-title { font-size: 17px; font-weight: 700; color: var(--text-primary); }
+    .use-case p { color: var(--text-body); font-size: 15px; margin-bottom: 10px; }
+    .use-case p:last-child { margin-bottom: 0; }
+    .use-case .detail {
+      background: rgba(34, 211, 238, 0.04);
+      border-right: 2px solid rgba(34, 211, 238, 0.3);
+      padding: 10px 14px;
+      border-radius: 0 6px 6px 0;
+      margin-top: 10px;
+      font-size: 14px; color: var(--text-muted);
+    }
+    .use-case .detail strong { color: var(--neon-teal); }
+
+    /* ── Limitations list ── */
+    .post-body ul { padding-right: 20px; margin-bottom: 24px; }
+    .post-body ul li { color: var(--text-body); margin-bottom: 10px; }
+    .post-body ul li::marker { color: var(--neon-cyan); }
+
+    /* ── PDF / Course box ── */
+    .course-box {
+      background: linear-gradient(135deg, rgba(167, 139, 250, 0.08), rgba(59, 130, 246, 0.06));
+      border: 1px solid rgba(167, 139, 250, 0.35);
+      border-radius: 16px;
+      padding: 30px 32px;
+      margin: 48px 0;
+    }
+    .course-box .course-label {
+      font-size: 12px; font-weight: 700; color: var(--violet);
+      letter-spacing: 1px; text-transform: uppercase; margin-bottom: 10px;
+    }
+    .course-box h3 {
+      font-size: 20px; font-weight: 800; color: var(--text-primary);
+      margin-bottom: 10px; line-height: 1.4;
+    }
+    .course-box p {
+      font-size: 15px; color: var(--text-body);
+      margin-bottom: 20px !important;
+    }
+    .course-box a.dl-btn {
+      display: inline-flex; align-items: center; gap: 10px;
+      background: var(--violet);
+      color: #fff !important; font-weight: 700; font-size: 15px;
+      padding: 12px 28px; border-radius: 8px;
+      text-decoration: none; border-bottom: none !important;
+      transition: background 0.2s;
+    }
+    .course-box a.dl-btn:hover { background: #9061f9; }
+    .course-box .dl-icon { font-size: 18px; }
+
+    /* ── WhatsApp CTA ── */
+    .whatsapp-cta {
+      background: rgba(37, 211, 102, 0.07);
+      border: 1px solid rgba(37, 211, 102, 0.25);
+      border-radius: 14px; padding: 24px 28px;
+      margin: 48px 0; text-align: center;
+    }
+    .whatsapp-cta p {
+      font-size: 15px; font-weight: 600; color: var(--text-body);
+      margin-bottom: 16px !important;
+    }
+    .whatsapp-cta a {
+      display: inline-block; background: #25d366;
+      color: #000 !important; font-weight: 700; font-size: 15px;
+      padding: 11px 32px; border-radius: 8px;
+      text-decoration: none; border-bottom: none !important;
+    }
+    .whatsapp-cta a:hover { background: #1ebe57; }
+
+    /* ── Tip box ── */
+    .tip-box {
+      background: rgba(245, 158, 11, 0.06);
+      border: 1px solid rgba(245, 158, 11, 0.25);
+      border-radius: 10px; padding: 20px 24px; margin: 32px 0;
+    }
+    .tip-box .tip-label { font-size: 14px; font-weight: 700; color: var(--amber); margin-bottom: 8px; }
+    .tip-box p { color: var(--text-body); margin: 0; font-size: 15px; }
+
+    /* ── Links in body ── */
+    .post-body a {
+      color: var(--neon-cyan); text-decoration: none;
+      border-bottom: 1px solid rgba(34, 211, 238, 0.3);
+    }
+    .post-body a:hover { border-bottom-color: var(--neon-cyan); }
+
+    /* ── Bottom CTA block ── */
+    .cta-block {
+      background: linear-gradient(135deg, rgba(30, 41, 59, 0.8), rgba(15, 23, 42, 0.95));
+      border: 1px solid rgba(34, 211, 238, 0.15);
+      border-radius: 18px; padding: 40px 36px; margin-top: 60px;
+    }
+    .cta-block h2 {
+      font-size: 21px; font-weight: 800; color: var(--text-primary);
+      margin-bottom: 28px; border: none !important; padding: 0 !important; margin-top: 0 !important;
+    }
+    .cta-option {
+      display: flex; align-items: flex-start; gap: 14px;
+      margin-bottom: 14px; padding: 18px 16px;
+      background: rgba(255,255,255,0.03); border-radius: 10px;
+      border: 1px solid rgba(255,255,255,0.06); transition: border-color 0.2s;
+    }
+    .cta-option:hover { border-color: rgba(34, 211, 238, 0.25); }
+    .cta-option .num {
+      font-size: 13px; font-weight: 700; color: var(--neon-cyan);
+      background: rgba(34, 211, 238, 0.1); border-radius: 6px;
+      padding: 3px 10px; white-space: nowrap; margin-top: 1px;
+    }
+    .cta-option a {
+      color: var(--text-primary); font-weight: 600; text-decoration: none;
+      font-size: 15px; border-bottom: none !important;
+    }
+    .cta-option a:hover { color: var(--neon-cyan); }
+    .cta-option .desc { font-size: 13px; color: var(--text-muted); margin-top: 4px; }
+    .cta-closing {
+      margin-top: 26px; font-size: 14px; color: var(--text-muted);
+      border-top: 1px solid rgba(255,255,255,0.07);
+      padding-top: 22px; line-height: 1.75;
+    }
+    .cta-closing strong { color: var(--text-primary); }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <span class="logo">רונן עמוס CPA</span>
+    <span class="sep">›</span>
+    <span class="breadcrumb">בלוג</span>
+    <span class="sep">›</span>
+    <span class="breadcrumb">NotebookLM — 7 שימושים מתקדמים</span>
+  </header>
+
+  <main class="page-wrapper">
+
+    <!-- Tags -->
+    <div class="tags">
+      <span class="tag">NotebookLM</span>
+      <span class="tag">בינה מלאכותית</span>
+      <span class="tag">כלי פיננסיים</span>
+      <span class="tag">אוטומציה פיננסית</span>
+      <span class="tag">חשבונאות</span>
+    </div>
+
+    <!-- Title -->
+    <h1 class="post-title">המדריך למשתמש המתקדם: 7 שימושים פורצי דרך ב-NotebookLM</h1>
+
+    <!-- Meta -->
+    <div class="post-meta">
+      <span class="author">רונן עמוס, רו"ח</span>
+      <span>30 בינואר 2026</span>
+      <span>7 דקות קריאה</span>
+    </div>
+
+    <!-- Cover image -->
+    <div class="cover-image">
+      <img src="../../../public/images/blog/המדריך-למשתמש-המתקדם-7-שימושים-פורצי-דרך-ב-notebooklm-0.png"
+           alt="7 שימושים פורצי דרך ב-NotebookLM" />
+    </div>
+
+    <!-- Post body -->
+    <div class="post-body">
+
+      <p>
+        רוב האנשים מנצלים בקושי 10% מהפוטנציאל של NotebookLM. הם מעלים מסמך, שואלים שאלה, ועוצרים שם.
+        זו טעות. הכלי הזה הוא לא מנוע חיפוש — הוא אנליסט פיננסי אישי שמחכה לתדרוך.
+      </p>
+      <p>
+        הנה 7 שימושים שהופכים אותו למנוע צמיחה אמיתי עבור כל מי שעובד עם נתונים פיננסיים.
+      </p>
+
+      <hr />
+
+      <h2>מה זה בכלל NotebookLM?</h2>
+      <p>
+        NotebookLM הוא מודל AI אישי מגוגל שמנתח <strong>את המסמכים שאתם מעלים</strong> — לא את האינטרנט.
+        בניגוד ל-ChatGPT, הוא לא ממציא תשובות: כל מענה מגיע עם ציטוט מדויק מהמקור שהעליתם.
+        אפשר להעלות PDF, Word, Google Docs, אתרי אינטרנט, ואפילו קבצי אודיו.
+      </p>
+
+      <hr />
+
+      <h2>למה זה רלוונטי לרואי חשבון ספציפית</h2>
+      <p>
+        כלי AI כללי כמו ChatGPT עובד עם הידע שלו — שיכול להיות מיושן, לא מדויק, ולא מותאם לרגולציה הישראלית.
+        NotebookLM עובד רק עם <strong>המסמכים שאתם מביאים</strong>: חוזרי מס, תקנים חשבונאיים, דוחות לקוחות, פרוטוקולים.
+      </p>
+      <ul>
+        <li>כל תשובה מגובה בציטוט — אפס הלוצינציות</li>
+        <li>מעבד עשרות דוחות פיננסיים בו-זמנית</li>
+        <li>שומר על סודיות: המסמכים שלכם לא מאמנים את המודל</li>
+      </ul>
+
+      <hr />
+
+      <h2>7 השימושים המתקדמים — איך זה עובד בפועל</h2>
+
+      <!-- Use case 1 -->
+      <div class="use-case">
+        <div class="use-case-header">
+          <span class="use-case-num">1</span>
+          <span class="use-case-title">הפיכת מחקר "מבולגן" לנתונים מובנים</span>
+        </div>
+        <p>במקום לקרוא עשרות מסמכים ידנית, הכלי סורק את כולם ויוצר טבלה השוואתית אוטומטית.</p>
+        <div class="detail">
+          <strong>איך זה עובד:</strong> לחיצה על "Data Table" בלוח הבקרה. הגדירו עמודות ספציפיות (למשל: "עלות חודשית", "רמת קושי") — הכלי שולף ומסדר. ניתן לייצא ישירות ל-Google Sheets.
+        </div>
+      </div>
+
+      <!-- Use case 2 -->
+      <div class="use-case">
+        <div class="use-case-header">
+          <span class="use-case-num">2</span>
+          <span class="use-case-title">כתיבת תכנים מקצועיים מוכנים לפרסום</span>
+        </div>
+        <p>הכלי לא רק מסכם — הוא מסנתז נרטיב. העלו דוחות מחקר ובקשו מאמר Thought Leadership לקהל ניהולי או טכני.</p>
+        <div class="detail">
+          <strong>התוצאה:</strong> מאמר עם כותרת חזקה, מבנה לוגי וטרמינולוגיה מקצועית — מוכן לפרסום בבלוג או בלינקדאין תוך שניות.
+        </div>
+      </div>
+
+      <div class="inline-img">
+        <img src="../../../public/images/blog/המדריך-למשתמש-המתקדם-7-שימושים-פורצי-דרך-ב-notebooklm-1.png"
+             alt="מפות חשיבה אינטראקטיביות ב-NotebookLM" />
+      </div>
+
+      <!-- Use case 3 -->
+      <div class="use-case">
+        <div class="use-case-header">
+          <span class="use-case-num">3</span>
+          <span class="use-case-title">יצירת מפות חשיבה (Mind Maps) אינטראקטיביות</span>
+        </div>
+        <p>קריאת מסמכים משפטיים או אקדמיים ארוכים היא משימה סיזיפית. NotebookLM מנתח את הקשרים בין המושגים ויוצר ויזואליזציה אינטראקטיבית.</p>
+        <div class="detail">
+          <strong>הבונוס:</strong> לחיצה על כל צומת במפה מציגה את המקורות המדויקים והציטוטים הרלוונטיים מהמסמכים שלכם.
+        </div>
+      </div>
+
+      <!-- Use case 4 -->
+      <div class="use-case">
+        <div class="use-case-header">
+          <span class="use-case-num">4</span>
+          <span class="use-case-title">בניית "פרסונת מומחה" AI בפירוט עמוק</span>
+        </div>
+        <p>גוגל הגדילה את מגבלת ה-Custom Instructions מ-500 ל-10,000 תווים. המשמעות: אתם יכולים לבנות מומחה AI שחושב בדיוק כמוכם.</p>
+        <div class="detail">
+          <strong>דוגמה:</strong> "תפקד כמנהל כספים בכיר עם 10 שנות ניסיון. נתח את המסמכים והגש מזכר החלטות הכולל סיכום מנהלים ובדיקת היתכנות." ככל שההנחיה מפורטת יותר — התוצר מקצועי יותר.
+        </div>
+      </div>
+
+      <!-- Use case 5 -->
+      <div class="use-case">
+        <div class="use-case-header">
+          <span class="use-case-num">5</span>
+          <span class="use-case-title">יצירת מצגות מוכנות ללקוח תוך דקות</span>
+        </div>
+        <p>סיימתם פרויקט מחקר? אל תבזבזו שעות על עיצוב שקפים. העלו את מסמכי המקור ובקשו "Slide Deck".</p>
+        <div class="detail">
+          <strong>בונוס:</strong> ניתן ליצור גם אינפוגרפיקות להמחשת נתונים, או "Video Overview" — סרטון קריינות שבו דמויות AI דנות בממצאים שלכם.
+        </div>
+      </div>
+
+      <div class="inline-img">
+        <img src="../../../public/images/blog/המדריך-למשתמש-המתקדם-7-שימושים-פורצי-דרך-ב-notebooklm-2.png"
+             alt="כרטיסיות הדרכה ב-NotebookLM" />
+      </div>
+
+      <!-- Use case 6 -->
+      <div class="use-case">
+        <div class="use-case-header">
+          <span class="use-case-num">6</span>
+          <span class="use-case-title">בניית סימולטורים להדרכה והכשרת צוות</span>
+        </div>
+        <p>הפכו את מדריכי העבודה היבשים לכלים אינטראקטיביים. צרו כרטיסיות (Flashcards) או חידונים מבוססי תרחישים.</p>
+        <div class="detail">
+          <strong>ההבדל:</strong> במקום לבדוק זיכרון של הגדרות, הכלי בוחן <em>איך</em> העובדים מיישמים נהלים במצבי אמת — עם הסברים המפנים לעמוד המדויק במדריך.
+        </div>
+      </div>
+
+      <!-- Use case 7 -->
+      <div class="use-case">
+        <div class="use-case-header">
+          <span class="use-case-num">7</span>
+          <span class="use-case-title">סוכן מחקר עצמאי — Deep Research</span>
+        </div>
+        <p>בניגוד לחיפוש רגיל בגוגל, תכונת ה-Deep Research היא סוכן אוטונומי. אתם מגדירים יעד מורכב — ה-AI בונה תוכנית מחקר, סורק מאות מאמרים ומגיש סיכום מתוקף.</p>
+        <div class="detail">
+          <strong>דוגמה:</strong> "חקור את ההשפעה הפיננסית של שבוע עבודה בן 4 ימים על חברות בגודל בינוני." הכלי מסנן קליקבייטים ומביא נתונים בלבד.
+        </div>
+      </div>
+
+      <div class="inline-img">
+        <img src="../../../public/images/blog/המדריך-למשתמש-המתקדם-7-שימושים-פורצי-דרך-ב-notebooklm-3.png"
+             alt="Deep Research ב-NotebookLM" />
+      </div>
+
+      <hr />
+
+      <h2>מה מגבלות הכלי?</h2>
+      <p>להיות כנים — NotebookLM אינו קסם. חשוב לדעת מתי הוא פחות מתאים:</p>
+      <ul>
+        <li><strong>עובד רק עם המסמכים שהעליתם</strong> — לא מחובר לאינטרנט בזמן אמת (למעט תכונת Deep Research)</li>
+        <li><strong>מגבלת גודל מקור</strong> — קבצים כבדים מאוד עלולים להיחתך</li>
+        <li><strong>תלוי באיכות הקלט</strong> — מסמכים סרוקים בצורה גרועה יתנו תוצאות חלקיות</li>
+        <li><strong>אינו מחליף שיפוט מקצועי</strong> — כל פלט דורש בדיקת CPA לפני העברה ללקוח</li>
+      </ul>
+
+      <!-- PDF / Course box -->
+      <div class="course-box">
+        <div class="course-label">📚 מצגת השיעור הראשון — קורס Mastering NotebookLM</div>
+        <h3>Mastering Financial Analysis with NotebookLM</h3>
+        <p>
+          המצגת המלאה של שיעור 1 בקורס הדיגיטלי "Mastering NotebookLM לרואי חשבון" —
+          כולל מבנה העבודה, דוגמאות מהשטח ותבניות פרומפט מוכנות לשימוש.
+        </p>
+        <a href="/presentations/Mastering_Financial_Analysis_with_NotebookLM.pdf"
+           target="_blank" class="dl-btn">
+          <span class="dl-icon">⬇</span>
+          להורדת המצגת (PDF)
+        </a>
+      </div>
+
+      <!-- Mid-post WhatsApp CTA -->
+      <div class="whatsapp-cta">
+        <p>מוזמנים להצטרף לקהילת AI Finance Transformation בוואטסאפ —<br>עדכונים, כלים ופרומפטים מוכנים לשימוש לפני כולם:</p>
+        <a href="https://chat.whatsapp.com/CS6dgqnK45Q9XAMqScNr6R" target="_blank">הצטרפו לקהילה ←</a>
+      </div>
+
+      <!-- Tip box -->
+      <div class="tip-box">
+        <div class="tip-label">💡 טיפ הזהב</div>
+        <p>
+          התחילו עם דוח אחד של לקוח. העלו אותו, בקשו סיכום מנהלים + 3 שאלות אסטרטגיות שאתם צריכים לשאול.
+          התוצאה תהיה משהו שהייתם מבלים שעתיים לכתוב — ב-30 שניות.
+          כשזה עובד, תדעו בדיוק לאיפה להרחיב.
+        </p>
+      </div>
+
+      <h2>סיכום — שווה לנסות?</h2>
+      <p>
+        <strong>כן, בהחלט</strong> — במיוחד אם אתם עובדים עם נפח גדול של מסמכים חוזרים (דוחות שנתיים, חוזרי מס, פרוטוקולים).
+        ה-ROI הכי מהיר הוא בשימוש 1 (טבלאות השוואה) ושימוש 7 (מחקר עצמאי).
+      </p>
+      <ul>
+        <li>NotebookLM הוא לא מנוע חיפוש — הוא <strong>אנליסט שעובד רק עם המסמכים שלכם</strong></li>
+        <li>7 שימושים: מנתוני גלם ועד מחקר אוטונומי — כולם עם ציטוטים מדויקים</li>
+        <li>הכי חזק כשהמקורות נקיים ומאורגנים — השקיעו 5 דקות בהכנה, חסכו שעות בניתוח</li>
+      </ul>
+
+    </div><!-- /post-body -->
+
+    <!-- Bottom CTA block -->
+    <div class="cta-block">
+      <h2>מה הצעד הבא שלכם?</h2>
+
+      <div class="cta-option">
+        <span class="num">1</span>
+        <div>
+          <a href="https://www.ronenamoscpa.co.il/courses/ai-mastery">הצטרפו לקורס AI Finance Mastery</a>
+          <div class="desc">התחילו ליישם AI במחלקת הכספים שלכם — מהיום הראשון.</div>
+        </div>
+      </div>
+
+      <div class="cta-option">
+        <span class="num">2</span>
+        <div>
+          <a href="https://www.ronenamoscpa.co.il/courses/notebook-master">Mastering NotebookLM — קורס מעשי לאנשי פיננסים</a>
+          <div class="desc">כלי ה-AI שמארגן את הידע שלכם ומייצר ניתוחים תוך שניות.</div>
+        </div>
+      </div>
+
+      <div class="cta-option">
+        <span class="num">3</span>
+        <div>
+          <a href="https://www.ronenamoscpa.co.il/contact">הזמינו אותי להרצאה או סדנה מעשית</a>
+          <div class="desc">לצוות שלכם — בנושא שילוב AI בעבודת מחלקת הכספים.</div>
+        </div>
+      </div>
+
+      <div class="cta-closing">
+        המתחרים שלכם כבר בוחנים איך לשלב AI בעבודה היומיומית. השאלה היא האם אתם <strong>מובילים</strong> — או מגיבים.
+      </div>
+    </div>
+
+  </main>
+
+</body>
+</html>
