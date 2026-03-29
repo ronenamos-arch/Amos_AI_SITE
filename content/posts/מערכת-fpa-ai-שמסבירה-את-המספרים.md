@@ -4,6 +4,7 @@ date: "2026-03-28"
 excerpt: 'לקחתי 8 קבצי אקסל מפוצלים ובניתי מערכת FP&A שלמה עם AI — שמחברת ביצועים פיננסיים, רווחיות לפי קו שירות, צנרת מכירות וניתוח תמחור. תוך דקות.'
 image: '/images/blog/fpa-ai-system/cover.png'
 tags: ["FP&A", "דאשבורד", "AI", "רואי חשבון", "ניתוח פיננסי", "אוטומציה פיננסית"]
+premium: true
 ---
 
 ![מערכת FP&A עם AI](/images/blog/fpa-ai-system/cover.png)
