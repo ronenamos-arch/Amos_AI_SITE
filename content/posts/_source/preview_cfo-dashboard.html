@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>כך תבנו דאשבורד CFO אינטראקטיבי תוך דקות — תצוגה מקדימה</title>
+  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --space-950: #020617;
+      --space-900: #0f172a;
+      --space-800: #1e293b;
+      --space-700: #334155;
+      --neon-cyan: #22d3ee;
+      --neon-teal: #2dd4bf;
+      --royal-500: #3b82f6;
+      --royal-400: #60a5fa;
+      --amber: #f59e0b;
+      --green: #25d366;
+      --text-primary: #f1f5f9;
+      --text-body: #cbd5e1;
+      --text-muted: #94a3b8;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--space-950);
+      color: var(--text-primary);
+      font-family: 'Heebo', sans-serif;
+      font-size: 17px;
+      line-height: 1.85;
+      direction: rtl;
+    }
+
+    /* ── Header bar ── */
+    .site-header {
+      background: rgba(15, 23, 42, 0.97);
+      border-bottom: 1px solid rgba(34, 211, 238, 0.15);
+      padding: 14px 32px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(8px);
+    }
+    .site-header .logo { font-size: 15px; font-weight: 700; color: var(--neon-cyan); }
+    .site-header .sep { color: var(--space-700); }
+    .site-header .breadcrumb { font-size: 13px; color: var(--text-muted); }
+
+    /* ── Layout ── */
+    .page-wrapper {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 52px 24px 100px;
+    }
+
+    /* ── Tags ── */
+    .tags { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 22px; }
+    .tag {
+      background: rgba(34, 211, 238, 0.08);
+      border: 1px solid rgba(34, 211, 238, 0.25);
+      color: var(--neon-cyan);
+      font-size: 12px;
+      font-weight: 600;
+      padding: 3px 12px;
+      border-radius: 99px;
+    }
+
+    /* ── Title ── */
+    h1.post-title {
+      font-size: clamp(26px, 4vw, 40px);
+      font-weight: 800;
+      line-height: 1.3;
+      margin-bottom: 18px;
+      background: linear-gradient(135deg, var(--neon-cyan), var(--neon-teal), var(--royal-400));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* ── Meta ── */
+    .post-meta {
+      display: flex;
+      gap: 20px;
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-bottom: 40px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .post-meta .author { color: var(--neon-teal); font-weight: 600; }
+
+    /* ── Cover image ── */
+    .cover-image {
+      width: 100%;
+      border-radius: 14px;
+      margin-bottom: 44px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.07);
+    }
+    .cover-image img { width: 100%; height: auto; display: block; }
+
+    /* ── Body content ── */
+    .post-body p {
+      margin-bottom: 22px;
+      color: var(--text-body);
+    }
+
+    .post-body h2 {
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin: 48px 0 18px;
+      padding-right: 16px;
+      border-right: 3px solid var(--neon-cyan);
+    }
+
+    .post-body hr {
+      border: none;
+      border-top: 1px solid rgba(255,255,255,0.07);
+      margin: 40px 0;
+    }
+
+    /* ── Inline image ── */
+    .post-body .inline-img {
+      width: 100%;
+      border-radius: 10px;
+      margin: 20px 0 28px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.06);
+    }
+    .post-body .inline-img img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    /* ── 5 KPIs grid ── */
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+      gap: 14px;
+      margin: 28px 0 36px;
+    }
+    .kpi-card {
+      background: rgba(34, 211, 238, 0.05);
+      border: 1px solid rgba(34, 211, 238, 0.18);
+      border-radius: 10px;
+      padding: 16px 18px;
+    }
+    .kpi-card .kpi-icon { font-size: 22px; margin-bottom: 8px; }
+    .kpi-card .kpi-name {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--neon-cyan);
+      margin-bottom: 5px;
+    }
+    .kpi-card .kpi-desc { font-size: 13px; color: var(--text-muted); line-height: 1.5; }
+
+    /* ── Prompt block ── */
+    .prompt-block {
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(45, 212, 191, 0.3);
+      border-radius: 12px;
+      padding: 24px 28px;
+      margin: 24px 0 32px;
+      position: relative;
+    }
+    .prompt-block .prompt-label {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--neon-teal);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+    .prompt-block p {
+      font-size: 15px;
+      color: #e2e8f0;
+      line-height: 1.75;
+      margin-bottom: 0 !important;
+      font-style: italic;
+    }
+
+    /* ── Numbered steps ── */
+    .steps-list {
+      list-style: none;
+      padding: 0;
+      margin: 20px 0 28px;
+    }
+    .steps-list li {
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+      margin-bottom: 16px;
+      color: var(--text-body);
+    }
+    .step-num {
+      flex-shrink: 0;
+      width: 28px;
+      height: 28px;
+      background: rgba(34, 211, 238, 0.12);
+      border: 1px solid rgba(34, 211, 238, 0.3);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--neon-cyan);
+      margin-top: 2px;
+    }
+
+    /* ── Security callout ── */
+    .security-box {
+      background: rgba(59, 130, 246, 0.06);
+      border: 1px solid rgba(59, 130, 246, 0.25);
+      border-radius: 12px;
+      padding: 22px 26px;
+      margin: 28px 0 36px;
+    }
+    .security-box .sec-label {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--royal-400);
+      margin-bottom: 10px;
+    }
+    .security-box p { color: var(--text-body); margin-bottom: 0 !important; font-size: 15px; }
+
+    /* ── Tip box ── */
+    .tip-box {
+      background: rgba(245, 158, 11, 0.06);
+      border: 1px solid rgba(245, 158, 11, 0.25);
+      border-radius: 10px;
+      padding: 20px 24px;
+      margin: 32px 0;
+    }
+    .tip-box .tip-label {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--amber);
+      margin-bottom: 8px;
+    }
+    .tip-box p { color: var(--text-body); margin: 0; font-size: 15px; }
+
+    /* ── Summary list ── */
+    .post-body ul {
+      padding-right: 20px;
+      margin-bottom: 24px;
+    }
+    .post-body ul li {
+      color: var(--text-body);
+      margin-bottom: 10px;
+    }
+    .post-body ul li::marker { color: var(--neon-cyan); }
+
+    /* ── WhatsApp CTA ── */
+    .whatsapp-cta {
+      background: rgba(37, 211, 102, 0.07);
+      border: 1px solid rgba(37, 211, 102, 0.25);
+      border-radius: 14px;
+      padding: 24px 28px;
+      margin: 48px 0;
+      text-align: center;
+    }
+    .whatsapp-cta p {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text-body);
+      margin-bottom: 16px !important;
+    }
+    .whatsapp-cta a {
+      display: inline-block;
+      background: #25d366;
+      color: #000 !important;
+      font-weight: 700;
+      font-size: 15px;
+      padding: 11px 32px;
+      border-radius: 8px;
+      text-decoration: none;
+      border-bottom: none !important;
+    }
+    .whatsapp-cta a:hover { background: #1ebe57; }
+
+    /* ── Links in body ── */
+    .post-body a {
+      color: var(--neon-cyan);
+      text-decoration: none;
+      border-bottom: 1px solid rgba(34, 211, 238, 0.3);
+    }
+    .post-body a:hover { border-bottom-color: var(--neon-cyan); }
+
+    /* ── Video link ── */
+    .video-link {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: rgba(239, 68, 68, 0.07);
+      border: 1px solid rgba(239, 68, 68, 0.2);
+      border-radius: 10px;
+      padding: 16px 20px;
+      text-decoration: none !important;
+      border-bottom: none !important;
+      margin: 12px 0;
+      transition: border-color 0.2s;
+    }
+    .video-link:hover { border-color: rgba(239, 68, 68, 0.45); }
+    .video-link .yt-icon { font-size: 22px; flex-shrink: 0; }
+    .video-link .yt-text { font-size: 14px; font-weight: 600; color: var(--text-primary); }
+    .video-link .yt-sub { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
+
+    /* ── Bottom CTA block ── */
+    .cta-block {
+      background: linear-gradient(135deg, rgba(30, 41, 59, 0.8), rgba(15, 23, 42, 0.95));
+      border: 1px solid rgba(34, 211, 238, 0.15);
+      border-radius: 18px;
+      padding: 40px 36px;
+      margin-top: 60px;
+    }
+    .cta-block h2 {
+      font-size: 21px;
+      font-weight: 800;
+      color: var(--text-primary);
+      margin-bottom: 28px;
+      border: none !important;
+      padding: 0 !important;
+      margin-top: 0 !important;
+    }
+    .cta-option {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      margin-bottom: 14px;
+      padding: 18px 16px;
+      background: rgba(255,255,255,0.03);
+      border-radius: 10px;
+      border: 1px solid rgba(255,255,255,0.06);
+      transition: border-color 0.2s;
+    }
+    .cta-option:hover { border-color: rgba(34, 211, 238, 0.25); }
+    .cta-option .num {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--neon-cyan);
+      background: rgba(34, 211, 238, 0.1);
+      border-radius: 6px;
+      padding: 3px 10px;
+      white-space: nowrap;
+      margin-top: 1px;
+    }
+    .cta-option a {
+      color: var(--text-primary);
+      font-weight: 600;
+      text-decoration: none;
+      font-size: 15px;
+      border-bottom: none !important;
+    }
+    .cta-option a:hover { color: var(--neon-cyan); }
+    .cta-option .desc { font-size: 13px; color: var(--text-muted); margin-top: 4px; }
+    .cta-closing {
+      margin-top: 26px;
+      font-size: 14px;
+      color: var(--text-muted);
+      border-top: 1px solid rgba(255,255,255,0.07);
+      padding-top: 22px;
+      line-height: 1.75;
+    }
+    .cta-closing strong { color: var(--text-primary); }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <span class="logo">רונן עמוס CPA</span>
+    <span class="sep">›</span>
+    <span class="breadcrumb">בלוג</span>
+    <span class="sep">›</span>
+    <span class="breadcrumb">דאשבורד CFO אינטראקטיבי</span>
+  </header>
+
+  <main class="page-wrapper">
+
+    <!-- Tags -->
+    <div class="tags">
+      <span class="tag">דשבורדים פיננסיים</span>
+      <span class="tag">בינה מלאכותית</span>
+      <span class="tag">ChatGPT</span>
+      <span class="tag">אוטומציה פיננסית</span>
+      <span class="tag">כלי פיננסיים</span>
+    </div>
+
+    <!-- Title -->
+    <h1 class="post-title">כך תבנו דאשבורד CFO אינטראקטיבי תוך דקות — בלי IT ובלי דליפת נתונים</h1>
+
+    <!-- Meta -->
+    <div class="post-meta">
+      <span class="author">רונן עמוס, רו"ח</span>
+      <span>13 בפברואר 2026</span>
+      <span>6 דקות קריאה</span>
+    </div>
+
+    <!-- Cover image -->
+    <div class="cover-image">
+      <img src="../../../public/images/blog/כך-תבנו-דאשבורד-cfo-אינטראקטיבי-תוך-דקות-בלי-it-ובלי-דליפת-נ-0.jpg"
+           alt="דאשבורד CFO אינטראקטיבי" />
+    </div>
+
+    <!-- Post body -->
+    <div class="post-body">
+
+      <p>
+        ישיבת דירקטוריון רבעונית. סיימת מצגת מבריקה על האסטרטגיה לטווח הבינוני. אתה מרגיש בשיא.
+        ואז, היו"ר מצמצם עיניים לעבר שקופית 14 ושואל:
+        <em>"מה יקרה ל-EBITDA אם נדחה את הרחבת המחסן בשלושה חודשים, אבל עלויות העבודה יישארו בקצב הנוכחי?"</em>
+      </p>
+      <p>
+        החדר משתתק. במצגת ה-PDF הסטטית שלך אין תשובה. הנתונים קבורים במודל אקסל כבד שלוקח לו נצח לחשב מסלול מחדש.
+        שתי אפשרויות: לנחש — או להגיד "אחזור אליך בשבוע הבא".
+      </p>
+      <p>
+        <strong>הדממה הזו? זה הצליל של הסמכות המקצועית שדולפת מהחדר.</strong>
+      </p>
+
+      <hr />
+
+      <h2>למה זה חשוב עכשיו?</h2>
+      <p>
+        הבעיה היא לא שאתה לא מכיר את העסק. הבעיה היא שהדיווח שלך סטטי, בעוד שהעסק דינמי.
+      </p>
+      <p>
+        מערכות BI מסורתיות נכשלות בדיוק בנקודה הכי קריטית — חדר הישיבות:
+      </p>
+      <ul>
+        <li><strong>קשיחות:</strong> כל שינוי ב-KPI דורש קריאת שירות ל-IT. עד שחוזרים אליך, הישיבה הסתיימה.</li>
+        <li><strong>פיגור בנתונים:</strong> אתם מקבלים את הנתונים של אתמול, כשבזמן משבר צריך את הנתונים של הרגע.</li>
+        <li><strong>עלות הטמעה:</strong> פרויקט BI ארגוני עולה מאות אלפי שקלים ולוקח חודשים.</li>
+      </ul>
+      <p>
+        הפתרון: דאשבורד אינטראקטיבי שנבנה על ידי AI, רץ כקובץ HTML עצמאי בדפדפן שלך — מאובטח, מהיר, ואפס IT.
+      </p>
+
+      <hr />
+
+      <h2>5 ויזואליזציות ליבה לכל CFO</h2>
+      <p>לפני שמתחילים לבנות — חשוב לדעת מה לבקש. אלו 5 העוגנים שכל דאשבורד CFO חייב לכלול:</p>
+
+      <div class="kpi-grid">
+        <div class="kpi-card">
+          <div class="kpi-icon">📊</div>
+          <div class="kpi-name">אריחי KPI</div>
+          <div class="kpi-desc">השוואה מיידית: ביצוע מול תקציב וסטייה מול אשתקד.</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-icon">📈</div>
+          <div class="kpi-name">מגמות ביצועים</div>
+          <div class="kpi-desc">ממוצעים נעים לניטרול רעשים חודשיים וזיהוי מגמות עומק.</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-icon">🌊</div>
+          <div class="kpi-name">Variance Waterfall</div>
+          <div class="kpi-desc">הכלי החשוב ביותר — מסביר ויזואלית למה החמצנו את היעד.</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-icon">🔍</div>
+          <div class="kpi-name">מבנה הכנסות והוצאות</div>
+          <div class="kpi-desc">זיהוי מהיר של "עלויות צל" וחריגות תפעוליות.</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-icon">🌉</div>
+          <div class="kpi-name">גשר רווחיות</div>
+          <div class="kpi-desc">מסלול ויזואלי מרווח גולמי ועד רווח נקי.</div>
+        </div>
+      </div>
+
+      <hr />
+
+      <h2>שלב 1 — הכנת "המוח הפיננסי": אקסל שטוח</h2>
+      <p>
+        אל תזינו נתונים מבולגנים ל-AI. ההצלחה של הדאשבורד תלויה בפשטות הקלט.
+        הכינו <strong>טבלה שטוחה (Flat Table)</strong> עם חמישה עמודות בלבד:
+      </p>
+      <ul>
+        <li><strong>תאריך</strong> — בפורמט אחיד (לדוגמה: 2026-01)</li>
+        <li><strong>קטגוריה</strong> — הכנסות / עלות מכר / הוצאות תפעוליות</li>
+        <li><strong>סעיף</strong> — שורת P&amp;L ספציפית</li>
+        <li><strong>ערך בפועל</strong> — מספר בלבד</li>
+        <li><strong>ערך תקציב</strong> — מספר בלבד</li>
+      </ul>
+      <p>עבדו ביחידות של אלפי שקלים/דולרים — הויזואליזציה תישאר נקייה וקריאה.</p>
+
+      <div class="inline-img">
+        <img src="../../../public/images/blog/כך-תבנו-דאשבורד-cfo-אינטראקטיבי-תוך-דקות-בלי-it-ובלי-דליפת-נ-1.jpg" alt="טבלה שטוחה באקסל" />
+      </div>
+      <div class="inline-img">
+        <img src="../../../public/images/blog/כך-תבנו-דאשבורד-cfo-אינטראקטיבי-תוך-דקות-בלי-it-ובלי-דליפת-נ-2.jpg" alt="מבנה הנתונים הפיננסיים" />
+      </div>
+      <div class="inline-img">
+        <img src="../../../public/images/blog/כך-תבנו-דאשבורד-cfo-אינטראקטיבי-תוך-דקות-בלי-it-ובלי-דליפת-נ-3.jpg" alt="דוגמה לטבלה מוכנה" />
+      </div>
+
+      <hr />
+
+      <h2>שלב 2 — הנדסת הפרומפט: מה לומר ל-AI</h2>
+      <p>
+        פתחו את ChatGPT (עדיפות לגרסת Plus/Pro) והשתמשו בפרומפט המדויק הבא:
+      </p>
+
+      <div class="prompt-block">
+        <div class="prompt-label">📋 פרומפט מומלץ — העתיקו כמו שהוא</div>
+        <p>
+          "אני CFO. בנה לי דאשבורד אינטראקטיבי בקובץ HTML יחיד. הקובץ צריך לאפשר לי להעלות קובץ אקסל (בצד הלקוח), לנתח שונות (Variance) בין תקציב לביצוע, ולהציג תרשים Waterfall ומגמות חודשיות. השתמש בספריית Chart.js. ודא שהנתונים מעובדים מקומית בדפדפן מטעמי אבטחה."
+        </p>
+      </div>
+
+      <div class="inline-img">
+        <img src="../../../public/images/blog/כך-תבנו-דאשבורד-cfo-אינטראקטיבי-תוך-דקות-בלי-it-ובלי-דליפת-נ-4.jpg" alt="ChatGPT - כתיבת הפרומפט" />
+      </div>
+      <div class="inline-img">
+        <img src="../../../public/images/blog/כך-תבנו-דאשבורד-cfo-אינטראקטיבי-תוך-דקות-בלי-it-ובלי-דליפת-נ-5.jpg" alt="תשובת ChatGPT - קוד HTML" />
+      </div>
+      <div class="inline-img">
+        <img src="../../../public/images/blog/כך-תבנו-דאשבורד-cfo-אינטראקטיבי-תוך-דקות-בלי-it-ובלי-דליפת-נ-6.jpg" alt="קוד הדאשבורד שנוצר" />
+      </div>
+
+      <hr />
+
+      <h2>שלב 3 — הפיכה לקובץ עובד: מקוד לדאשבורד</h2>
+      <p>ארבעה צעדים פשוטים והדאשבורד שלכם חי:</p>
+      <ol class="steps-list">
+        <li>
+          <span class="step-num">1</span>
+          <div>העתיקו את הקוד שנוצר על ידי ChatGPT</div>
+        </li>
+        <li>
+          <span class="step-num">2</span>
+          <div>הדביקו אותו ב-Notepad (Windows) או TextEdit (Mac)</div>
+        </li>
+        <li>
+          <span class="step-num">3</span>
+          <div>שמרו את הקובץ עם סיומת <strong>.html</strong> — לדוגמה: Dashboard_2026.html</div>
+        </li>
+        <li>
+          <span class="step-num">4</span>
+          <div>פתחו את הקובץ בכרום או פיירפוקס — וגררו אליו את קובץ האקסל שהכנתם</div>
+        </li>
+      </ol>
+      <p>זהו. הדאשבורד שלכם חי, מגיב, ומאפשר "מה אם" בזמן אמת.</p>
+
+      <hr />
+
+      <h2>שלב 4 — אבטחת המידע: הפיל שבחדר</h2>
+      <p>
+        החשש הגדול ביותר של מנהלי כספים: <em>"האם הנתונים שלי דולפים ל-AI?"</em>
+      </p>
+
+      <div class="security-box">
+        <div class="sec-label">🔒 למה הנתונים שלכם מוגנים לחלוטין</div>
+        <p>
+          ה-AI בונה רק את <strong>הכלי</strong> — הקוד. הנתונים שלכם <strong>לעולם לא עוזבים את המחשב שלכם</strong>.
+          כל העיבוד קורה בזיכרון הדפדפן (Client-side Processing).
+          זהו מענה ל-99% מפרוטוקולי האבטחה הארגוניים.
+        </p>
+      </div>
+
+      <div class="inline-img">
+        <img src="../../../public/images/blog/כך-תבנו-דאשבורד-cfo-אינטראקטיבי-תוך-דקות-בלי-it-ובלי-דליפת-נ-7.jpg" alt="אבטחת מידע - עיבוד מקומי" />
+      </div>
+
+      <!-- Mid-post WhatsApp CTA -->
+      <div class="whatsapp-cta">
+        <p>מוזמנים להצטרף לקהילת AI Finance Transformation בוואטסאפ —<br>עדכונים, דוגמאות וכלים מהשטח לפני כולם:</p>
+        <a href="https://chat.whatsapp.com/CS6dgqnK45Q9XAMqScNr6R" target="_blank">הצטרפו לקהילה ←</a>
+      </div>
+
+      <!-- Tip box -->
+      <div class="tip-box">
+        <div class="tip-label">💡 טיפ מהשטח</div>
+        <p>
+          אל תנסו לבנות מערכת שלמה מהיום הראשון. קחו <strong>דוח אחד בלבד</strong> —
+          בקשו מה-AI לייצר לו גרף Waterfall אינטראקטיבי ב-HTML.
+          ברגע שתראו את המבט של המנכ"ל כשישנה פרמטר ותראו את הגרף מתעדכן תוך שנייה —
+          לא תחזרו לעולם ל-PDF.
+        </p>
+      </div>
+
+      <h2>סיכום — מה לוקחים מהמאמר הזה?</h2>
+      <ul>
+        <li>CFO שמציג דוח סטטי הוא <strong>היסטוריון</strong>; CFO שמאפשר "מה אם" בזמן אמת הוא <strong>נווט אסטרטגי</strong></li>
+        <li>4 שלבים בלבד: אקסל שטוח ← פרומפט נכון ← שמירה כ-HTML ← גרירת הקובץ</li>
+        <li>האבטחה פתורה לחלוטין: ה-AI בונה את הכלי, הנתונים נשארים אצלכם</li>
+        <li>נקודת התחלה: ויזואליזציה אחת (Waterfall) — ולא מערכת שלמה</li>
+      </ul>
+
+      <p>קישורים לחומר נוסף:</p>
+      <a href="https://youtu.be/dicOIm4Tljg" target="_blank" class="video-link">
+        <span class="yt-icon">▶️</span>
+        <div>
+          <div class="yt-text">צפו במדריך המלא בוידאו</div>
+          <div class="yt-sub">YouTube · AI Finance Transformation</div>
+        </div>
+      </a>
+
+    </div><!-- /post-body -->
+
+    <!-- Bottom CTA block -->
+    <div class="cta-block">
+      <h2>מה הצעד הבא שלכם?</h2>
+
+      <div class="cta-option">
+        <span class="num">1</span>
+        <div>
+          <a href="https://www.ronenamoscpa.co.il/courses/ai-mastery">הצטרפו לקורס AI Finance Mastery</a>
+          <div class="desc">התחילו ליישם AI במחלקת הכספים שלכם — מהיום הראשון.</div>
+        </div>
+      </div>
+
+      <div class="cta-option">
+        <span class="num">2</span>
+        <div>
+          <a href="https://www.ronenamoscpa.co.il/courses/notebook-master">Mastering NotebookLM — קורס מעשי לאנשי פיננסים</a>
+          <div class="desc">כלי ה-AI שמארגן את הידע שלכם ומייצר ניתוחים תוך שניות.</div>
+        </div>
+      </div>
+
+      <div class="cta-option">
+        <span class="num">3</span>
+        <div>
+          <a href="https://www.ronenamoscpa.co.il/contact">הזמינו אותי להרצאה או סדנה מעשית</a>
+          <div class="desc">לצוות שלכם — בנושא שילוב AI בעבודת מחלקת הכספים.</div>
+        </div>
+      </div>
+
+      <div class="cta-closing">
+        המתחרים שלכם כבר בוחנים איך לשלב AI בעבודה היומיומית. השאלה היא האם אתם <strong>מובילים</strong> — או מגיבים.
+      </div>
+    </div>
+
+  </main>
+
+</body>
+</html>
