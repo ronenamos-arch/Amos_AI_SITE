@@ -101,10 +101,18 @@ AI מביא אתכם 80%–90% מהדרך. התפקיד שלכם הוא 10–15 
 
 ---
 
-בזמן שאתם קוראים את זה, מתחרים שלכם כבר משתמשים ב-AI. הצטרפו לקורס ואל תישארו מאחור.
+מוזמנים להצטרף לקהילת AI Finance Transformation בוואטסאפ לקבלת עדכונים, דוגמאות ודיונים לייב:
 
-[לקורסים ולמידע נוסף ←](https://www.ronenamoscpa.co.il)
+[הצטרפו לקהילה](https://chat.whatsapp.com/CS6dgqnK45Q9XAMqScNr6R)
 
-להזמין אותי להרצאות והדרכות מעשיות אצלכם במחלקה הפיננסית: [AI Finance Transformation](https://www.ronenamoscpa.co.il/contact)
+---
 
-[ערוץ היוטיוב — אשף האוטומציה הפיננסית | AI for Finance](https://www.youtube.com/@AshafAutomation)
+## מה הצעד הבא שלכם?
+
+**אפשרות 1:** [הצטרפו לקורס AI Finance Mastery](https://www.ronenamoscpa.co.il/courses/ai-mastery) והתחילו ליישם AI במחלקת הכספים שלכם.
+
+**אפשרות 2:** [Mastering NotebookLM — קורס מעשי לאנשי פיננסים](https://www.ronenamoscpa.co.il/courses/notebook-master) — כלי ה-AI שמארגן את הידע שלכם.
+
+**אפשרות 3:** [הזמינו אותי להרצאה או סדנה מעשית](https://www.ronenamoscpa.co.il/contact) לצוות שלכם.
+
+המתחרים שלכם כבר בוחנים איך לשלב AI בעבודה היומיומית. השאלה היא האם אתם **מובילים** — או מגיבים.
