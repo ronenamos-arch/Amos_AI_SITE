@@ -235,7 +235,7 @@ export function AIChat() {
                         </div>
                         <div className="mt-2 text-[10px] text-center flex items-center justify-center gap-2" style={{ color: "#64748b" }}>
                             <Sparkles className="h-3 w-3" style={{ color: "#2dd4bf" }} />
-                            מופעל ע&quot;י Gemini 1.5 Flash • רונן עמוס AI
+                            מופעל ע&quot;י Gemini 2.5 Flash • רונן עמוס AI
                         </div>
                     </form>
                 </div>
