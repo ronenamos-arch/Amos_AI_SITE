@@ -66,7 +66,6 @@ export default function TrainingPage() {
     <div className="pt-24 pb-16">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <SectionHeading
-          as="h1"
           title="הכשרות מעשיות למחלקות כספים"
           subtitle="לא עוד הרצאות תיאורטיות. תרגול אמיתי עם כלים אמיתיים."
           gradient

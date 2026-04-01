@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/Button";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 
 export const metadata: Metadata = {
-  title: { absolute: 'שירותי ייעוץ AI פיננסי ו-Power BI | רונן עמוס' },
+  title: 'שירותי ייעוץ פיננסי ו-Power BI | רונן עמוס רו"ח',
   description:
     "ייעוץ פיננסי מבוסס AI, הכשרות Power BI ואוטומציה — לקוחות חוסכים עד 15 שעות עבודה שבועיות ומקצרים סגירת חודש מ-10 ל-3 ימים. פגישת ייעוץ ראשונה חינם.",
   alternates: {
@@ -119,7 +119,6 @@ export default function ServicesPage() {
     <div className="pt-24 pb-16">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <SectionHeading
-          as="h1"
           title="השירותים שלי"
           subtitle="פתרונות פיננסיים-טכנולוגיים מותאמים אישית עם ROI מדיד"
           gradient

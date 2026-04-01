@@ -10,7 +10,7 @@ import { NewsletterForm } from "@/components/forms/NewsletterForm";
 export const dynamic = 'force-dynamic';
 
 export const metadata: Metadata = {
-  title: { absolute: "בלוג AI פיננסי | רונן עמוס CPA" },
+  title: "בלוג AI פיננסי | מדריכים על AI, Power BI ואוטומציה לאנשי כספים",
   description:
     "מאמרים מעשיים ומדריכים על AI בכספים, Power BI, אוטומציות Excel ו-ASC 606. תוכן מקצועי בעברית שחוסך לאנשי כספים עשרות שעות.",
   alternates: {
@@ -62,7 +62,6 @@ export default async function BlogPage() {
     <div className="pt-24 pb-16 overflow-x-hidden">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <SectionHeading
-          as="h1"
           title="בלוג"
           subtitle="מאמרים, מדריכים ותובנות על AI, אוטומציה וחדשנות בעולם הכספים"
           gradient

@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-    title: { absolute: 'שאלות נפוצות – AI פיננסי | רונן עמוס' },
+    title: 'שאלות נפוצות | רונן עמוס רו"ח',
     description:
         'תשובות לשאלות הנפוצות ביותר על ייעוץ פיננסי, AI, Power BI, קורסים ורואי חשבון. כמה עולה ייעוץ? כמה זמן לוקח Power BI? ועוד.',
     keywords: [
@@ -17,7 +17,7 @@ export const metadata: Metadata = {
     alternates: { canonical: 'https://www.ronenamoscpa.co.il/faq' },
     openGraph: {
         url: 'https://www.ronenamoscpa.co.il/faq',
-        title: 'שאלות נפוצות – AI פיננסי | רונן עמוס',
+        title: 'שאלות נפוצות | רונן עמוס רו"ח',
         description:
             'תשובות לשאלות הנפוצות ביותר על ייעוץ פיננסי, AI, Power BI וקורסים לאנשי כספים.',
     },

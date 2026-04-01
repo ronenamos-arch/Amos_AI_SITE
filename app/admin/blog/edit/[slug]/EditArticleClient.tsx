@@ -12,7 +12,6 @@ import RichTextEditor from "@/components/admin/RichTextEditor";
 interface Article {
     slug: string;
     title: string;
-    meta_title: string | null;
     description: string | null;
     content: string;
     image_url: string | null;
@@ -25,7 +24,6 @@ export default function EditArticleClient({ article }: { article: Article }) {
 
     // Form State — pre-populated from article
     const [title, setTitle] = useState(article.title);
-    const [metaTitle, setMetaTitle] = useState(article.meta_title ?? "");
     const [description, setDescription] = useState(article.description ?? "");
     const [content, setContent] = useState(article.content);
     const [isPremium, setIsPremium] = useState(article.is_premium);
@@ -86,7 +84,6 @@ export default function EditArticleClient({ article }: { article: Article }) {
 
             const res = await updateArticle(article.slug, {
                 title,
-                meta_title: metaTitle || null,
                 description,
                 content,
                 image_url: imageUrl,
@@ -150,19 +147,6 @@ export default function EditArticleClient({ article }: { article: Article }) {
                                     className="w-full bg-white/5 border border-white/10 rounded-xl p-4 focus:outline-none focus:border-teal-400 text-2xl font-black transition-all"
                                     placeholder="הכנס כותרת מושכת..."
                                 />
-                            </div>
-
-                            <div>
-                                <label className="block text-sm font-bold mb-2 text-teal-400">כותרת SEO (אופציונלי — עד 60 תווים)</label>
-                                <input
-                                    type="text"
-                                    value={metaTitle}
-                                    onChange={(e) => setMetaTitle(e.target.value)}
-                                    maxLength={60}
-                                    className="w-full bg-white/5 border border-white/10 rounded-xl p-3 focus:outline-none focus:border-teal-400 text-sm transition-all"
-                                    placeholder="כותרת קצרה לגוגל (ריק = שימוש בכותרת המאמר)"
-                                />
-                                <p className="text-xs text-text-muted mt-1">{metaTitle.length}/60 תווים</p>
                             </div>
 
                             <div>

@@ -81,7 +81,6 @@ export default function PricingPage() {
             <div className="pt-24 pb-16">
                 <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                     <SectionHeading
-                        as="h1"
                         title="בחרו את מסלול ההצלחה שלכם"
                         subtitle="הצטרפו לקהילה המקצועית של מובילי ה-AI בעולם הפיננסים"
                         gradient

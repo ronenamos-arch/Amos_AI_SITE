@@ -25,9 +25,8 @@ export async function generateMetadata({
   // Try DB first
   const dbPost = await getDBPostBySlug(decodedSlug);
   if (dbPost) {
-    const pageTitle = dbPost.meta_title ?? dbPost.title;
     return {
-      title: { absolute: pageTitle },
+      title: dbPost.title,
       description: dbPost.description,
       alternates: { canonical: canonicalUrl },
       openGraph: {

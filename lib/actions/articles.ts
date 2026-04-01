@@ -8,7 +8,6 @@ export async function updateArticle(
     slug: string,
     fields: {
         title: string;
-        meta_title?: string | null;
         description: string;
         content: string;
         image_url: string;
