@@ -3,6 +3,7 @@ interface SectionHeadingProps {
   subtitle?: string;
   gradient?: boolean;
   className?: string;
+  as?: "h1" | "h2";
 }
 
 export function SectionHeading({
@@ -10,16 +11,17 @@ export function SectionHeading({
   subtitle,
   gradient = false,
   className = "",
+  as: Tag = "h2",
 }: SectionHeadingProps) {
   return (
     <div className={`mb-12 text-center ${className}`}>
-      <h2
+      <Tag
         className={`text-3xl font-bold sm:text-4xl ${
           gradient ? "gradient-text" : "text-text-primary"
         }`}
       >
         {title}
-      </h2>
+      </Tag>
       {subtitle && (
         <p className="mx-auto mt-4 max-w-2xl text-lg text-text-secondary">
           {subtitle}

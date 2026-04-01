@@ -4,7 +4,7 @@ import { SectionHeading } from "@/components/ui/SectionHeading";
 import { ContactForm } from "@/components/forms/ContactForm";
 
 export const metadata: Metadata = {
-  title: 'פגישת ייעוץ חינמית | רונן עמוס רו"ח',
+  title: { absolute: 'פגישת ייעוץ חינמית | רונן עמוס CPA' },
   description:
     'קבע פגישת ייעוץ חינמית של 30 דקות עם רו"ח ויועץ AI פיננסי. ללא התחייבות — נבדוק יחד איפה אפשר לחסוך זמן וכסף בעסק שלך.',
   alternates: {
@@ -65,6 +65,7 @@ export default function ContactPage() {
     <div className="pt-24 pb-16">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <SectionHeading
+          as="h1"
           title="צור קשר"
           subtitle="בוא נתחיל עם פגישת ייעוץ חינמית של 30 דקות. ללא התחייבות."
           gradient
