@@ -17,10 +17,22 @@ const StickyNewsletterBar = dynamic(
   { ssr: false }
 );
 
+const NewsletterPopup = dynamic(
+  () =>
+    import("@/components/ui/NewsletterPopup").then((m) => ({
+      default: m.NewsletterPopup,
+    })),
+  { ssr: false }
+);
+
 export function LazyAIChat() {
   return <AIChat />;
 }
 
 export function LazyStickyNewsletterBar() {
   return <StickyNewsletterBar />;
+}
+
+export function LazyNewsletterPopup() {
+  return <NewsletterPopup />;
 }
