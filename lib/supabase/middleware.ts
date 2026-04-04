@@ -41,15 +41,5 @@ export async function updateSession(request: NextRequest) {
         }
     }
 
-    // Protect skill-vault
-    if (path.startsWith('/skill-vault')) {
-        if (!user) {
-            const redirectUrl = request.nextUrl.clone();
-            redirectUrl.pathname = '/login';
-            redirectUrl.searchParams.set('redirectedFrom', path);
-            return NextResponse.redirect(redirectUrl);
-        }
-    }
-
     return supabaseResponse;
 }
