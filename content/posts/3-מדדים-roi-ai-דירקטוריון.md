@@ -3,12 +3,12 @@ title: "3 המדדים שישמרו על תקציב ה-AI שלכם בישיבת 
 date: "2026-04-09"
 author: "רונן עמוס"
 excerpt: "אם העדכון שלכם לדירקטוריון יכלול את המשפט 'הצוות משתמש בזה יותר' — אתם קרובים לאבד את התקציב. הדירקטוריון רוצה מספרים. הנה 3 המדדים שמשנים את השיחה מ'כמה זה עולה' ל'איפה עוד נוכל להשתמש'."
-image: "https://drive.google.com/uc?export=view&id=1kPbi5q4nHckPBOvfiNf5x7LwnfwB6Dpq"
+image: "https://lh3.googleusercontent.com/d/1kPbi5q4nHckPBOvfiNf5x7LwnfwB6Dpq"
 tags: ["AI", "ROI", "דירקטוריון", "CFO", "פיננסים", "מדדים"]
 premium: "false"
 ---
 
-![The AI CFO — 3 מדדים להוכחת ROI לדירקטוריון](https://drive.google.com/uc?export=view&id=1kPbi5q4nHckPBOvfiNf5x7LwnfwB6Dpq)
+![The AI CFO — 3 מדדים להוכחת ROI לדירקטוריון](https://lh3.googleusercontent.com/d/1kPbi5q4nHckPBOvfiNf5x7LwnfwB6Dpq)
 
 אם העדכון הבא שלכם לדירקטוריון על AI יכלול את המשפט **"הצוות משתמש בזה יותר"** — אתם קרובים לאבד את התקציב.
 
