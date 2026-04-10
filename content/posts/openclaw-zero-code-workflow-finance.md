@@ -2,12 +2,12 @@
 title: "אין קוד? אין בעיה — כך הופכים תיאור פשוט ל-Workflow AI שרץ לבד"
 date: "2026-04-10"
 excerpt: "המיומנות האמיתית באוטומציה ללא קוד היא תקשורת, לא קונפיגורציה. מדריך מעשי ל-CFOs וControllers: Framework של 4 שאלות + 5 Workflows מוכנים לפיננסים, RevOps, ו-Compliance."
-image: "/images/blog/openclaw-zero-code-workflow-finance-1.jpg"
+image: "/images/blog/openclaw-zero-code-workflow-finance-1.png"
 tags: ["OpenClaw", "אוטומציה", "AI", "Workflow", "פיננסים"]
 premium: "true"
 ---
 
-![אוטומציה ללא קוד עם AI](/images/blog/openclaw-zero-code-workflow-finance-1.jpg)
+![אוטומציה ללא קוד עם AI](/images/blog/openclaw-zero-code-workflow-finance-1.png)
 
 קיבלתי השבוע שאלה מ-Controller בחברת B2B:
 
