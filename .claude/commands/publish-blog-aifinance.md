@@ -8,8 +8,9 @@
 
 בקש מהמשתמש לספק:
 1. **תוכן הפוסט** — טקסט גולמי, נקודות, מאמר, כל פורמט
-2. **תמונה** — הדבק/שתף ישירות בצ'אט (תשמר ב-`public/images/blog/`)
-3. **פרמיום או חינמי?** — `premium: "true"` / `premium: "false"`
+2. **פרמיום או חינמי?** — `premium: "true"` / `premium: "false"`
+
+אין צורך לבקש תמונה בשלב זה — המשתמש יעלה אותה בנפרד לאחר ה-preview.
 
 אם המשתמש סיפק את הכל בהודעה אחת — המשך ישירות לשלב 2.
 
@@ -24,9 +25,11 @@
 - אנגלית/מעורב → slug אנגלי (לדוגמה: `data-cleaning-with-ai`)
 - מקפים במקום רווחים, ללא תווים מיוחדים
 
-**שמור תמונה:**
-- אם המשתמש סיפק תמונה → שמור בשם `public/images/blog/<slug>-1.<סיומת>`
-- אם לא סיפק → בחר תמונה קיימת מ-`public/images/blog/` שמתאימה לנושא
+**שם קובץ התמונה — קצר וברור:**
+- בנה שם קצר מהנושא המרכזי: `<נושא-קצר>-1.png`
+- **מקסימום 3-4 מילים**, אנגלית, מקפים
+- דוגמאות טובות: `openclaw-workflow-1.png`, `ai-budget-alert-1.png`, `cfo-dashboard-1.png`
+- **לא** להשתמש ב-slug המלא כשם התמונה — הוא ארוך מדי
 
 **בנה את ה-Frontmatter:**
 ```yaml
@@ -34,15 +37,14 @@
 title: "<כותרת ברורה ומושכת בעברית>"
 date: "<תאריך היום YYYY-MM-DD>"
 excerpt: "<תקציר 1-2 משפטים שמסביר את הערך לקורא>"
-image: "/images/blog/<slug>-1.<סיומת>"
+image: "/images/blog/<שם-תמונה-קצר>-1.png"
 tags: ["<תגית1>", "<תגית2>", "<תגית3>"]
 premium: "<true/false>"
 ---
 ```
 
 **בנה את גוף הפוסט:**
-- פתח עם תמונה: `![<תיאור alt>](/images/blog/<slug>-1.<סיומת>)`
-- כותרת ראשית שמחכה בהמשך (לא לחזור על ה-title)
+- פתח עם תמונה: `![<תיאור alt>](/images/blog/<שם-תמונה-קצר>-1.png)`
 - שימוש ב-`##` לסעיפים ראשיים, `###` לתת-סעיפים
 - הדגש נקודות מפתח ב-**bold**
 - טבלאות כשרלוונטי
@@ -62,58 +64,57 @@ premium: "<true/false>"
 **אפשרות 3:** [הזמינו אותי להרצאה או סדנה מעשית](https://www.ronenamoscpa.co.il/contact) לצוות שלכם בנושא שילוב AI ו-ERP.
 ```
 
-### שלב 3 — Preview
+### שלב 3 — Preview + הנחיית תמונה
 
 הצג את הפוסט המלא בפורמט Markdown בתוך הצ'אט כ-preview.
 
-כלול גם:
+כלול בסוף הpreview את הבלוק הזה במפורש:
+
 ```
 📄 שם קובץ: content/posts/<slug>.md
-🖼️ תמונה: public/images/blog/<slug>-1.<סיומת>
 🔒 פרמיום: כן/לא
 🔗 URL עתידי: https://www.ronenamoscpa.co.il/blog/<slug>
+
+📸 שם התמונה לשמור:
+   <שם-תמונה-קצר>-1.png
+   (העלה ל: public/images/blog/ בגיטהאב או מהמחשב)
+
+✋ המתן — עדכן אותי כשהתמונה שמורה ואז נעלה ביחד.
 ```
 
-**המתן לאישור המשתמש לפני המשך.**
+**עצור כאן. אל תצור קבצים עד שהמשתמש מאשר שהתמונה הועלתה.**
 
-### שלב 4 — יצירת קובץ ושמירת תמונה
+### שלב 4 — יצירת קובץ לאחר אישור תמונה
 
-רק לאחר אישור:
+רק לאחר שהמשתמש אומר "שמרתי" / "העליתי" / "done":
 
-1. **שמור את התמונה** ב-`public/images/blog/<slug>-1.<סיומת>`
-2. **צור קובץ markdown** ב-`content/posts/<slug>.md`
+1. **צור קובץ markdown** ב-`content/posts/<slug>.md`
+2. **אל תיגע בתמונה** — המשתמש כבר שמר אותה
 
-### שלב 5 — Git: Branch, Commit, Push
+### שלב 5 — Git: Commit ו-Push ל-main
 
 ```bash
-# צור branch חדש
-git checkout -b claude/blog-post-<slug>
+git checkout main && git pull origin main
 
-# Stage הקבצים
 git add content/posts/<slug>.md
-git add public/images/blog/<slug>-1.*  # אם הועלתה תמונה
 
-# Commit
 git commit -m "Add blog post: <כותרת הפוסט>"
 
-# Push
-git push -u origin claude/blog-post-<slug>
+git push origin main
 ```
 
-### שלב 6 — הנחיות למשתמש
+**דגש: push ישירות ל-main** — ללא branch ביניים, כדי שהדיפלוי יהיה מיידי דרך Vercel.
+
+### שלב 6 — סיכום למשתמש
 
 לאחר ה-push, הצג:
 
 ```
-✅ הפוסט הועלה ל-branch: claude/blog-post-<slug>
-
-כדי לפרסם באתר:
-1. כנס ל-GitHub → פתח Pull Request
-2. Merge → Vercel מבצע deploy אוטומטי (~3-5 דקות)
-3. URL: https://www.ronenamoscpa.co.il/blog/<slug>
+✅ הפוסט עלה ל-main — Vercel מתחיל deploy (~3-5 דקות)
+🔗 URL: https://www.ronenamoscpa.co.il/blog/<slug>
 
 📡 IndexNow (Bing) — פתח בדפדפן לאחר deploy:
-https://api.indexnow.org/indexnow?url=https://www.ronenamoscpa.co.il/blog/<slug-encoded>&key=f9826b1b81c34964b0fa14797b4af314&keyLocation=https://www.ronenamoscpa.co.il/f9826b1b81c34964b0fa14797b4af314.txt
+https://api.indexnow.org/indexnow?url=https://www.ronenamoscpa.co.il/blog/<slug>&key=f9826b1b81c34964b0fa14797b4af314&keyLocation=https://www.ronenamoscpa.co.il/f9826b1b81c34964b0fa14797b4af314.txt
 
 🔍 Google Search Console — בקש אינדקס ידנית:
 https://search.google.com/search-console
@@ -123,9 +124,10 @@ https://search.google.com/search-console
 
 ## כללים חשובים
 
-- **אל תיגע בנתון המקורי** — תמיד branch חדש, אף פעם לא push ל-main ישירות
+- **תמונה — לא יוצר placeholder** — ממתין תמיד לאישור המשתמש לפני יצירת הקובץ
+- **שם תמונה — קצר** — מקסימום 3-4 מילים אנגליות, ללא slug מלא
+- **סיומת תמונה** — ברירת מחדל `.png`; אם המשתמש ציין סיומת אחרת — קבל אותה
 - **Frontmatter תאריך** — תמיד תאריך היום
 - **slug** — ייחודי, לא קיים כבר ב-`content/posts/`
-- **תמונה חסרה** — אם המשתמש לא סיפק, בחר מהקיימות ב-`public/images/blog/` לפי נושא
 - **`force-dynamic`** — כבר קיים ב-`app/blog/[slug]/page.tsx`, לא צריך לשנות
 - **עברית RTL** — כל התוכן בעברית, כתיבה מימין לשמאל
