@@ -3,23 +3,32 @@
 import { useState, useMemo } from "react";
 import "../skills-vault.css";
 import promptsData from "../../content/prompts.json";
-import DataCleaningModule from "@/components/skill-vault/DataCleaningModule";
+import { VaultCTA } from "@/components/skill-vault/VaultCTA";
 
 // Category Icon Mapping
 const CATEGORY_ICONS: Record<string, string> = {
-  'Automated Financial Reporting': '📊',
-  'Financial Forecasting': '📈',
-  'Financial Reporting Prompts': '📋',
-  'Audit & Compliance Prompts': '🔍',
-  'Budget Analysis and Cost Optimization': '💰',
-  'Budgeting & Forecasting Prompts': '📅',
-  'Contract & Policy Review Prompts': '📜',
-  'Credit Scoring and Loan Assessment': '💳',
-  'Due Diligence & M&A': '🤝',
-  'ESG Analysis': '🌱',
-  'Financial Operating': '💼',
-  'General': '✨'
+  "Automated Financial Reporting": "📊",
+  "Financial Forecasting": "📈",
+  "Financial Reporting Prompts": "📋",
+  "Audit & Compliance Prompts": "🔍",
+  "Budget Analysis and Cost Optimization": "💰",
+  "Budgeting & Forecasting Prompts": "📅",
+  "Contract & Policy Review Prompts": "📜",
+  "Credit Scoring and Loan Assessment": "💳",
+  "Due Diligence & M&A": "🤝",
+  "ESG Analysis": "🌱",
+  "Financial Operating": "💼",
+  General: "✨",
 };
+
+// First 2 categories open by default
+const DEFAULT_OPEN = new Set([
+  "Automated Financial Reporting",
+  "Financial Forecasting",
+]);
+
+// Quick-win prompt IDs shown in the featured section
+const QUICK_WIN_IDS = ["budget-variance", "kpi-analysis", "exec-summary"];
 
 interface PromptItem {
   id: string;
@@ -29,36 +38,82 @@ interface PromptItem {
   prompt: string;
 }
 
+const prompts = promptsData as PromptItem[];
+
+// ─── Quick Win Card ────────────────────────────────────────────────────────────
+function QuickWinCard({
+  item,
+  onCopy,
+}: {
+  item: PromptItem;
+  onCopy: (text: string) => void;
+}) {
+  const preview = item.prompt.slice(0, 220).replace(/\r\n/g, "\n");
+  return (
+    <div className="qw-card">
+      <div className="qw-card-top">
+        <span className="vault-card-badge">{item.category}</span>
+        <span className="qw-free-tag">חינם</span>
+      </div>
+      <h3 className="qw-card-title">{item.title}</h3>
+      <p className="qw-card-desc">{item.description}</p>
+      <div className="qw-prompt-preview">
+        <div className="qw-prompt-bar">
+          <span className="qw-prompt-label">Prompt</span>
+        </div>
+        <p className="qw-prompt-text">{preview}…</p>
+      </div>
+      <button
+        className="qw-copy-btn"
+        onClick={() => onCopy(item.prompt)}
+      >
+        📋 העתק Prompt
+      </button>
+    </div>
+  );
+}
+
+// ─── Main Page ─────────────────────────────────────────────────────────────────
 export default function SkillVaultPage() {
-  const [prompts, setPrompts] = useState<PromptItem[]>(promptsData as PromptItem[]);
   const [searchQuery, setSearchQuery] = useState("");
   const [activeCategory, setActiveCategory] = useState("all");
-  const [openSections, setOpenSections] = useState<Set<string>>(new Set());
+  const [openSections, setOpenSections] = useState<Set<string>>(DEFAULT_OPEN);
   const [selectedPrompt, setSelectedPrompt] = useState<PromptItem | null>(null);
   const [showToast, setShowToast] = useState(false);
 
-  // useEffect is no longer needed for data fetching
+  const quickWins = useMemo(
+    () =>
+      QUICK_WIN_IDS.map((id) => prompts.find((p) => p.id === id)).filter(
+        Boolean
+      ) as PromptItem[],
+    []
+  );
 
   const categories = useMemo(() => {
-    const cats = Array.from(new Set(prompts.map(p => p.category)));
+    const cats = Array.from(new Set(prompts.map((p) => p.category)));
     return ["all", ...cats];
-  }, [prompts]);
+  }, []);
 
   const filteredGroups = useMemo(() => {
-    const filtered = prompts.filter(item => {
-      const matchesCategory = activeCategory === 'all' || item.category === activeCategory;
-      const matchesSearch = item.title.toLowerCase().includes(searchQuery.toLowerCase()) || 
-                            item.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                            item.category.toLowerCase().includes(searchQuery.toLowerCase());
+    const filtered = prompts.filter((item) => {
+      const matchesCategory =
+        activeCategory === "all" || item.category === activeCategory;
+      const matchesSearch =
+        item.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        item.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        item.category.toLowerCase().includes(searchQuery.toLowerCase());
       return matchesCategory && matchesSearch;
     });
 
-    return filtered.reduce((acc, item) => {
-      if (!acc[item.category]) acc[item.category] = [];
-      acc[item.category].push(item);
-      return acc;
-    }, {} as Record<string, PromptItem[]>);
-  }, [prompts, searchQuery, activeCategory]);
+    return filtered.reduce(
+      (acc, item) => {
+        if (!acc[item.category]) acc[item.category] = [];
+        acc[item.category].push(item);
+        return acc;
+      },
+      {} as Record<string, PromptItem[]>
+    );
+  }, [searchQuery, activeCategory]);
 
   const toggleSection = (cat: string) => {
     const next = new Set(openSections);
@@ -67,31 +122,32 @@ export default function SkillVaultPage() {
     setOpenSections(next);
   };
 
-  const copyPrompt = (prompt: string) => {
-    navigator.clipboard.writeText(prompt);
+  const copyPrompt = (text: string) => {
+    navigator.clipboard.writeText(text);
     setShowToast(true);
     setTimeout(() => setShowToast(false), 2500);
   };
 
   return (
     <div className="vault-container">
-      {/* Hero */}
+
+      {/* ── Hero ─────────────────────────────────────────────────────────── */}
       <section className="vault-hero">
         <div className="vault-inner">
-          <img src="/images/skill-vault/Logo.png" alt="רונן עמוס" className="vault-hero-image" />
-          <p className="vault-hero-eyebrow">AI Financial Transformation</p>
+          <p className="vault-hero-eyebrow">Free AI Finance Tools</p>
           <h1 className="vault-hero-headline">
-            עתיד הכספים<br />
-            <span className="vault-gradient-text">הוא כאן</span>
+            פרומפטים מוכנים לאנשי{" "}
+            <span className="vault-gradient-text">פיננסים</span>
           </h1>
           <p className="vault-hero-subtitle">
-            שלוט ב-AI Finance Skills ושנה את האופן שבו אתה עובד עם נתונים פיננסיים.
-            <br />בחר prompt, העתק, והדבק בכל כלי AI.
+            תקציב · P&L · תזרים · תחזית · דוחות לדירקטוריון
+            <br />
+            העתק, הדבק בכל AI — וקבל תוצאות מקצועיות תוך דקות.
           </p>
 
           <div className="vault-stats-row">
             <div className="vault-stat">
-              <span className="vault-gradient-text font-bold text-2xl">20</span>
+              <span className="vault-gradient-text font-bold text-2xl">22</span>
               <span className="text-xs text-gray-400">Prompt Templates</span>
             </div>
             <div className="vault-stat-divider" />
@@ -102,37 +158,92 @@ export default function SkillVaultPage() {
             <div className="vault-stat-divider" />
             <div className="vault-stat">
               <span className="vault-gradient-text font-bold text-2xl">CFO</span>
-              <span className="text-xs text-gray-400">Level Insights</span>
+              <span className="text-xs text-gray-400">Level Output</span>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Skills Section */}
+      {/* ── Quick Wins ───────────────────────────────────────────────────── */}
+      <section className="vault-skills-section" style={{ paddingTop: 0, paddingBottom: "48px" }}>
+        <div className="vault-inner">
+          <div className="qw-header">
+            <span className="qw-fire">🔥</span>
+            <div>
+              <h2 className="vault-section-title" style={{ textAlign: "right", marginBottom: "4px" }}>
+                התחל כאן — 3 פרומפטים שתוכל להשתמש בהם עכשיו
+              </h2>
+              <p className="vault-section-subtitle" style={{ textAlign: "right", marginBottom: 0 }}>
+                לחץ על "העתק Prompt" והדבק ב-ChatGPT, Claude או Gemini
+              </p>
+            </div>
+          </div>
+
+          <div className="qw-grid">
+            {quickWins.map((item) => (
+              <QuickWinCard key={item.id} item={item} onCopy={copyPrompt} />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── Who Is This For ──────────────────────────────────────────────── */}
+      <section className="vault-for-section">
+        <div className="vault-inner">
+          <h2 className="vault-section-title">
+            למי זה <span className="vault-gradient-text">מתאים?</span>
+          </h2>
+          <div className="vault-for-grid">
+            <div className="vault-for-card">
+              <div className="vault-for-icon">📊</div>
+              <h3>FP&A Analysts</h3>
+              <p>תחזיות, ניתוח סטיות תקציב, דוחות ביצוע חודשיים</p>
+            </div>
+            <div className="vault-for-card">
+              <div className="vault-for-icon">🏦</div>
+              <h3>CFOs & Controllers</h3>
+              <p>סיכומי מנהלים לדירקטוריון, ניתוח KPI, תחזית תזרים</p>
+            </div>
+            <div className="vault-for-card">
+              <div className="vault-for-icon">🧾</div>
+              <h3>רואי חשבון</h3>
+              <p>ביקורת יומנים, ניתוח התאמות, דוחות ציות ורגולציה</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── All Prompts ──────────────────────────────────────────────────── */}
       <section id="skills" className="vault-skills-section">
         <div className="vault-inner">
-          <h2 className="vault-section-title">The <span className="vault-gradient-text">Skill Vault</span></h2>
-          <p className="vault-section-subtitle">לחץ על קופסה לפרטים מלאים, או לחץ על "העתק Prompt" לשימוש מיידי</p>
+          <h2 className="vault-section-title">
+            כל ה-<span className="vault-gradient-text">Prompts</span>
+          </h2>
+          <p className="vault-section-subtitle">
+            לחץ על קטגוריה לפתיחה · לחץ על "העתק Prompt" לשימוש מיידי
+          </p>
 
           <div className="vault-filter-controls">
             <div className="vault-search-wrapper">
-              <input 
-                type="text" 
-                placeholder="חפש פרומפט או כלי..." 
+              <input
+                type="text"
+                placeholder="חפש פרומפט..."
                 className="vault-search-input"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
               />
-              <span className="absolute right-4 top-1/2 -translate-y-1/2 opacity-60">🔍</span>
+              <span className="absolute right-4 top-1/2 -translate-y-1/2 opacity-60">
+                🔍
+              </span>
             </div>
             <div className="vault-category-filters">
-              {categories.map(cat => (
-                <button 
+              {categories.map((cat) => (
+                <button
                   key={cat}
-                  className={`vault-filter-chip ${activeCategory === cat ? 'active' : ''}`}
+                  className={`vault-filter-chip ${activeCategory === cat ? "active" : ""}`}
                   onClick={() => setActiveCategory(cat)}
                 >
-                  {cat === 'all' ? 'הכל' : cat}
+                  {cat === "all" ? "הכל" : cat}
                 </button>
               ))}
             </div>
@@ -141,36 +252,46 @@ export default function SkillVaultPage() {
           <div className="vault-skills-container">
             {Object.keys(filteredGroups).map((cat, index) => {
               const items = filteredGroups[cat];
-              const isGroupOpen = (activeCategory !== 'all') || (searchQuery.length > 0) || (index === 0 && openSections.size === 0) || openSections.has(cat);
-              
+              const isGroupOpen =
+                activeCategory !== "all" ||
+                searchQuery.length > 0 ||
+                openSections.has(cat);
+
               return (
                 <section key={cat} className="vault-category-section">
-                  <button 
-                    className="vault-category-header" 
+                  <button
+                    className="vault-category-header"
                     onClick={() => toggleSection(cat)}
                   >
                     <div className="vault-category-title">
-                      <span>{CATEGORY_ICONS[cat] || '✨'}</span>
+                      <span>{CATEGORY_ICONS[cat] || "✨"}</span>
                       <span>{cat}</span>
                     </div>
                     <div className="flex items-center gap-4">
                       <span className="vault-card-badge">{items.length}</span>
-                      <span className={`transition-transform duration-300 ${isGroupOpen ? 'rotate-180' : ''}`}>▼</span>
+                      <span
+                        className={`transition-transform duration-300 ${isGroupOpen ? "rotate-180" : ""}`}
+                      >
+                        ▼
+                      </span>
                     </div>
                   </button>
+
                   {isGroupOpen && (
                     <div className="vault-category-content">
-                      {items.map(item => (
-                        <article 
-                          key={item.id} 
+                      {items.map((item) => (
+                        <article
+                          key={item.id}
                           className="vault-card"
                           onClick={() => setSelectedPrompt(item)}
                         >
-                          <div className="text-3xl mb-2">{CATEGORY_ICONS[cat] || '✨'}</div>
+                          <div className="text-3xl mb-2">
+                            {CATEGORY_ICONS[cat] || "✨"}
+                          </div>
                           <div className="vault-card-badge">{cat}</div>
                           <h3 className="vault-card-title">{item.title}</h3>
                           <p className="vault-card-desc">{item.description}</p>
-                          <button 
+                          <button
                             className="vault-btn-copy"
                             onClick={(e) => {
                               e.stopPropagation();
@@ -190,33 +311,40 @@ export default function SkillVaultPage() {
         </div>
       </section>
 
-      {/* Data Cleaning Module */}
-      <section className="vault-skills-section" style={{ paddingTop: 0 }}>
-        <div className="vault-inner">
-          <hr className="dc-divider" />
-          <DataCleaningModule />
-        </div>
-      </section>
+      {/* ── CTA ──────────────────────────────────────────────────────────── */}
+      <VaultCTA />
 
-      {/* Modal */}
+      {/* ── Modal ────────────────────────────────────────────────────────── */}
       {selectedPrompt && (
-        <div className="vault-modal-overlay" onClick={() => setSelectedPrompt(null)}>
-          <div className="vault-modal-box" onClick={e => e.stopPropagation()}>
+        <div
+          className="vault-modal-overlay"
+          onClick={() => setSelectedPrompt(null)}
+        >
+          <div
+            className="vault-modal-box"
+            onClick={(e) => e.stopPropagation()}
+          >
             <div className="flex justify-between items-center mb-6">
-              <h3 className="vault-card-title text-xl">{selectedPrompt.title}</h3>
-              <button 
+              <h3 className="vault-card-title text-xl">
+                {selectedPrompt.title}
+              </h3>
+              <button
                 className="text-gray-400 hover:text-white text-2xl"
                 onClick={() => setSelectedPrompt(null)}
               >
                 ✕
               </button>
             </div>
-            <p className="text-sm text-gray-300 mb-4 text-right">העתק את ה-Prompt הבא והדבק בכל כלי AI:</p>
+            <p className="text-sm text-gray-300 mb-4 text-right">
+              העתק את ה-Prompt הבא והדבק בכל כלי AI:
+            </p>
             <div className="bg-black/30 border border-teal-900/50 rounded-lg p-6 mb-6 text-right dir-rtl">
-              <p className="whitespace-pre-wrap leading-relaxed text-gray-100">{selectedPrompt.prompt}</p>
+              <p className="whitespace-pre-wrap leading-relaxed text-gray-100">
+                {selectedPrompt.prompt}
+              </p>
             </div>
             <div className="flex gap-4">
-              <button 
+              <button
                 className="vault-btn-copy flex-1 py-3 text-base font-bold bg-teal-400 text-black hover:bg-teal-300"
                 onClick={() => {
                   copyPrompt(selectedPrompt.prompt);
@@ -225,7 +353,7 @@ export default function SkillVaultPage() {
               >
                 📋 העתק Prompt
               </button>
-              <button 
+              <button
                 className="flex-1 py-3 border border-gray-700 rounded-lg text-gray-400 hover:text-white"
                 onClick={() => setSelectedPrompt(null)}
               >
@@ -236,7 +364,7 @@ export default function SkillVaultPage() {
         </div>
       )}
 
-      {/* Toast */}
+      {/* ── Toast ────────────────────────────────────────────────────────── */}
       {showToast && (
         <div className="fixed bottom-10 left-1/2 -translate-x-1/2 bg-teal-500/20 border border-teal-500 text-teal-400 px-8 py-3 rounded-full font-bold shadow-2xl z-[300] animate-bounce">
           ✅ הועתק ללוח
