@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import DataCleaningModule from "@/components/skill-vault/DataCleaningModule";
 import { VaultCTA } from "@/components/skill-vault/VaultCTA";
+import { VaultPageSwitch } from "@/components/skill-vault/VaultPageSwitch";
 import "../../skills-vault.css";
 
 export const metadata: Metadata = {
@@ -59,6 +60,9 @@ export default function DataCleaningPage() {
           <DataCleaningModule />
         </div>
       </section>
+
+      {/* Page Switch */}
+      <VaultPageSwitch currentPage="cleaning" />
 
       {/* CTA */}
       <VaultCTA />

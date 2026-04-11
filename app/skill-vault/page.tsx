@@ -4,6 +4,7 @@ import { useState, useMemo } from "react";
 import "../skills-vault.css";
 import promptsData from "../../content/prompts.json";
 import { VaultCTA } from "@/components/skill-vault/VaultCTA";
+import { VaultPageSwitch } from "@/components/skill-vault/VaultPageSwitch";
 
 // Category Icon Mapping
 const CATEGORY_ICONS: Record<string, string> = {
@@ -310,6 +311,9 @@ export default function SkillVaultPage() {
           </div>
         </div>
       </section>
+
+      {/* ── Page Switch ──────────────────────────────────────────────────── */}
+      <VaultPageSwitch currentPage="prompts" />
 
       {/* ── CTA ──────────────────────────────────────────────────────────── */}
       <VaultCTA />

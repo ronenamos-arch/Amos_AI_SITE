@@ -25,7 +25,7 @@
   direction: rtl;
   text-align: right;
   font-family: var(--font-heebo), sans-serif;
-  padding-top: 0; /* Tab bar + layout handle top spacing */
+  padding-top: 16px; /* floating tab bar is sticky + overlaid, page flow handled by hero padding */
 }
 
 .vault-inner {
@@ -835,34 +835,41 @@
    Vault Tab Bar
    ========================================================================= */
 
-.vault-tabbar {
+/* Outer wrapper pushes the floating bar below the fixed header */
+.vault-tabbar-wrap {
   position: sticky;
-  top: 64px; /* just below the fixed main header (h-16) */
+  top: 64px; /* below main header (h-16) */
   z-index: 49;
-  background: rgba(8, 21, 24, 0.92);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border-bottom: 1px solid var(--vault-border);
+  display: flex;
+  justify-content: center;
+  padding-block: 10px;
+  /* transparent — page shows through */
+  pointer-events: none; /* let clicks pass through the wrapper gap */
 }
 
-.vault-tabbar-inner {
-  max-width: 1100px;
-  margin-inline: auto;
-  padding-inline: 24px;
-  height: 52px;
+/* The floating pill itself */
+.vault-tabbar {
+  pointer-events: all;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 16px;
+  gap: 12px;
+  padding: 6px 8px 6px 16px;
+  background: rgba(13, 34, 40, 0.88);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--vault-border);
+  border-radius: 999px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.45), 0 0 0 1px rgba(34, 211, 168, 0.08);
 }
 
 .vault-tabbar-back {
-  font-size: 0.82rem;
+  font-size: 0.8rem;
   color: var(--vault-text-dim);
   text-decoration: none;
   white-space: nowrap;
   transition: color 0.2s ease;
-  flex-shrink: 0;
+  padding-inline-end: 8px;
+  border-inline-end: 1px solid var(--vault-border);
 }
 
 .vault-tabbar-back:hover {
@@ -874,17 +881,12 @@
   gap: 4px;
 }
 
-.vault-tabbar-spacer {
-  flex: 0 0 80px; /* mirrors back-link width for centering */
-}
-
 .vault-tab {
   display: flex;
   align-items: center;
-  gap: 6px;
   padding: 6px 18px;
-  border-radius: 8px;
-  font-size: 0.88rem;
+  border-radius: 999px;
+  font-size: 0.85rem;
   font-weight: 600;
   color: var(--vault-text-dim);
   text-decoration: none;
@@ -895,18 +897,13 @@
 
 .vault-tab:hover {
   color: var(--vault-text);
-  background: rgba(34, 211, 168, 0.05);
-  border-color: var(--vault-border);
+  background: rgba(34, 211, 168, 0.06);
 }
 
 .vault-tab-active {
   color: var(--vault-accent);
-  background: rgba(34, 211, 168, 0.08);
-  border-color: rgba(34, 211, 168, 0.3);
-}
-
-.vault-tab-icon {
-  font-size: 1rem;
+  background: rgba(34, 211, 168, 0.12);
+  border-color: rgba(34, 211, 168, 0.35);
 }
 
 /* =========================================================================
@@ -1213,16 +1210,92 @@
 }
 
 /* =========================================================================
+   Page Switcher
+   ========================================================================= */
+
+.vault-pageswitch {
+  padding-block: 40px;
+  border-top: 1px solid var(--vault-border);
+  background: rgba(13, 34, 40, 0.4);
+}
+
+.vault-pageswitch-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  background: var(--vault-card);
+  border: 1px solid rgba(34, 211, 168, 0.2);
+  border-radius: 16px;
+  padding: 24px 28px;
+  transition: border-color 0.2s ease;
+}
+
+.vault-pageswitch-inner:hover {
+  border-color: rgba(34, 211, 168, 0.45);
+}
+
+.vault-pageswitch-text {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.vault-pageswitch-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--vault-accent);
+}
+
+.vault-pageswitch-title {
+  font-size: 1rem;
+  font-weight: 800;
+  color: var(--vault-text);
+}
+
+.vault-pageswitch-desc {
+  font-size: 0.8rem;
+  color: var(--vault-text-dim);
+  line-height: 1.5;
+  max-width: 480px;
+}
+
+.vault-pageswitch-btn {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  padding: 10px 22px;
+  background: rgba(34, 211, 168, 0.1);
+  border: 1px solid rgba(34, 211, 168, 0.35);
+  border-radius: 10px;
+  color: var(--vault-accent);
+  font-size: 0.88rem;
+  font-weight: 700;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: all 0.2s ease;
+}
+
+.vault-pageswitch-btn:hover {
+  background: var(--vault-accent);
+  color: #000;
+  border-color: var(--vault-accent);
+  transform: translateX(-2px);
+}
+
+/* =========================================================================
    Responsive adjustments
    ========================================================================= */
 
 @media (max-width: 640px) {
-  .vault-tabbar-inner { padding-inline: 16px; }
-  .vault-tabbar-spacer { display: none; }
-  .vault-tab { padding: 6px 12px; font-size: 0.8rem; }
+  .vault-tab { padding: 5px 12px; font-size: 0.8rem; }
   .qw-grid { grid-template-columns: 1fr; }
   .vault-for-grid { grid-template-columns: 1fr; }
   .vault-cta-grid { grid-template-columns: 1fr; }
   .qw-header { flex-direction: column; gap: 8px; }
   .qw-fire { font-size: 1.5rem; }
+  .vault-pageswitch-inner { flex-direction: column; align-items: flex-start; }
+  .vault-pageswitch-btn { width: 100%; justify-content: center; }
 }

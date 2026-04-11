@@ -9,8 +9,8 @@ export function VaultTabBar() {
   const isCleaning = pathname.startsWith("/skill-vault/cleaning");
 
   return (
-    <nav className="vault-tabbar">
-      <div className="vault-tabbar-inner">
+    <div className="vault-tabbar-wrap">
+      <nav className="vault-tabbar">
         <Link href="/" className="vault-tabbar-back">
           ← חזרה לאתר
         </Link>
@@ -20,20 +20,16 @@ export function VaultTabBar() {
             href="/skill-vault"
             className={`vault-tab ${isPrompts ? "vault-tab-active" : ""}`}
           >
-            <span className="vault-tab-icon">🗃️</span>
-            <span>Prompt Vault</span>
+            Prompt Vault
           </Link>
           <Link
             href="/skill-vault/cleaning"
             className={`vault-tab ${isCleaning ? "vault-tab-active" : ""}`}
           >
-            <span className="vault-tab-icon">🧹</span>
-            <span>ניקוי נתונים</span>
+            ניקוי נתונים
           </Link>
         </div>
-
-        <div className="vault-tabbar-spacer" />
-      </div>
-    </nav>
+      </nav>
+    </div>
   );
 }
