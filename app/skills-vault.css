@@ -25,7 +25,7 @@
   direction: rtl;
   text-align: right;
   font-family: var(--font-heebo), sans-serif;
-  padding-top: 80px; /* Room for header */
+  padding-top: 0; /* Tab bar + layout handle top spacing */
 }
 
 .vault-inner {
@@ -829,4 +829,400 @@
   .dc-tab { padding: 12px 14px; font-size: 0.8rem; }
   .dc-audit-section-header { flex-wrap: wrap; }
   .dc-audit-flow-steps { gap: 4px; }
+}
+
+/* =========================================================================
+   Vault Tab Bar
+   ========================================================================= */
+
+.vault-tabbar {
+  position: sticky;
+  top: 64px; /* just below the fixed main header (h-16) */
+  z-index: 49;
+  background: rgba(8, 21, 24, 0.92);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--vault-border);
+}
+
+.vault-tabbar-inner {
+  max-width: 1100px;
+  margin-inline: auto;
+  padding-inline: 24px;
+  height: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.vault-tabbar-back {
+  font-size: 0.82rem;
+  color: var(--vault-text-dim);
+  text-decoration: none;
+  white-space: nowrap;
+  transition: color 0.2s ease;
+  flex-shrink: 0;
+}
+
+.vault-tabbar-back:hover {
+  color: var(--vault-accent);
+}
+
+.vault-tabbar-tabs {
+  display: flex;
+  gap: 4px;
+}
+
+.vault-tabbar-spacer {
+  flex: 0 0 80px; /* mirrors back-link width for centering */
+}
+
+.vault-tab {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 18px;
+  border-radius: 8px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--vault-text-dim);
+  text-decoration: none;
+  border: 1px solid transparent;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.vault-tab:hover {
+  color: var(--vault-text);
+  background: rgba(34, 211, 168, 0.05);
+  border-color: var(--vault-border);
+}
+
+.vault-tab-active {
+  color: var(--vault-accent);
+  background: rgba(34, 211, 168, 0.08);
+  border-color: rgba(34, 211, 168, 0.3);
+}
+
+.vault-tab-icon {
+  font-size: 1rem;
+}
+
+/* =========================================================================
+   Quick Wins Section
+   ========================================================================= */
+
+.qw-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  margin-bottom: 28px;
+}
+
+.qw-fire {
+  font-size: 2rem;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.qw-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 16px;
+}
+
+.qw-card {
+  background: var(--vault-card);
+  border: 1px solid rgba(34, 211, 168, 0.3);
+  border-radius: 16px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  transition: all 0.25s ease;
+  box-shadow: 0 0 24px rgba(34, 211, 168, 0.05);
+}
+
+.qw-card:hover {
+  border-color: var(--vault-accent);
+  background: var(--vault-card-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25), 0 0 30px var(--vault-accent-glow);
+}
+
+.qw-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.qw-free-tag {
+  font-size: 0.65rem;
+  font-weight: 800;
+  color: #34d399;
+  background: rgba(52, 211, 153, 0.1);
+  border: 1px solid rgba(52, 211, 153, 0.3);
+  border-radius: 999px;
+  padding: 2px 10px;
+  letter-spacing: 0.05em;
+}
+
+.qw-card-title {
+  font-size: 1rem;
+  font-weight: 800;
+  color: var(--vault-text);
+}
+
+.qw-card-desc {
+  font-size: 0.82rem;
+  color: var(--vault-text-dim);
+  line-height: 1.55;
+}
+
+.qw-prompt-preview {
+  background: var(--vault-bg);
+  border: 1px solid var(--vault-border);
+  border-radius: 10px;
+  overflow: hidden;
+  flex: 1;
+}
+
+.qw-prompt-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 7px 12px;
+  background: var(--vault-surface);
+  border-bottom: 1px solid var(--vault-border);
+}
+
+.qw-prompt-label {
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: var(--vault-accent);
+  font-family: "Courier New", Courier, monospace;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.qw-prompt-text {
+  padding: 12px;
+  font-size: 0.75rem;
+  color: var(--vault-text-dim);
+  line-height: 1.6;
+  font-family: "Courier New", Courier, monospace;
+  direction: rtl;
+  white-space: pre-wrap;
+  word-break: break-word;
+  max-height: 100px;
+  overflow: hidden;
+}
+
+.qw-copy-btn {
+  width: 100%;
+  padding: 10px 16px;
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: #000;
+  background: var(--vault-accent);
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-top: auto;
+}
+
+.qw-copy-btn:hover {
+  background: var(--vault-cyan);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 16px rgba(34, 211, 168, 0.4);
+}
+
+/* =========================================================================
+   Who Is This For
+   ========================================================================= */
+
+.vault-for-section {
+  padding-block: 48px 60px;
+  background: rgba(13, 34, 40, 0.5);
+  border-top: 1px solid var(--vault-border);
+  border-bottom: 1px solid var(--vault-border);
+}
+
+.vault-for-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 16px;
+  margin-top: 32px;
+}
+
+.vault-for-card {
+  background: var(--vault-card);
+  border: 1px solid var(--vault-border);
+  border-radius: 14px;
+  padding: 24px 20px;
+  text-align: center;
+  transition: all 0.25s ease;
+}
+
+.vault-for-card:hover {
+  border-color: var(--vault-border-hover);
+  background: var(--vault-card-hover);
+  transform: translateY(-2px);
+}
+
+.vault-for-icon {
+  font-size: 2rem;
+  margin-bottom: 12px;
+}
+
+.vault-for-card h3 {
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: var(--vault-accent);
+  margin-bottom: 8px;
+}
+
+.vault-for-card p {
+  font-size: 0.78rem;
+  color: var(--vault-text-dim);
+  line-height: 1.55;
+}
+
+/* =========================================================================
+   CTA Section
+   ========================================================================= */
+
+.vault-cta-section {
+  padding-block: 72px 80px;
+  background: linear-gradient(180deg, var(--vault-bg) 0%, rgba(13, 34, 40, 0.8) 100%);
+  border-top: 1px solid var(--vault-border);
+  text-align: center;
+}
+
+.vault-cta-eyebrow {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--vault-accent);
+  background: rgba(34, 211, 168, 0.08);
+  border: 1px solid rgba(34, 211, 168, 0.22);
+  border-radius: 999px;
+  padding: 4px 14px;
+  margin-bottom: 16px;
+}
+
+.vault-cta-title {
+  font-size: clamp(1.5rem, 3.5vw, 2.2rem);
+  font-weight: 900;
+  margin-bottom: 10px;
+}
+
+.vault-cta-subtitle {
+  color: var(--vault-text-dim);
+  font-size: 0.95rem;
+  margin-bottom: 40px;
+}
+
+.vault-cta-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+  max-width: 760px;
+  margin-inline: auto;
+  text-align: right;
+}
+
+.vault-cta-card {
+  background: var(--vault-card);
+  border: 1px solid var(--vault-border);
+  border-radius: 18px;
+  padding: 28px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  transition: all 0.25s ease;
+}
+
+.vault-cta-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+}
+
+.vault-cta-whatsapp {
+  border-color: rgba(37, 211, 102, 0.3);
+  background: rgba(37, 211, 102, 0.04);
+}
+
+.vault-cta-whatsapp:hover {
+  border-color: rgba(37, 211, 102, 0.6);
+}
+
+.vault-cta-newsletter {
+  border-color: rgba(34, 211, 168, 0.3);
+}
+
+.vault-cta-newsletter:hover {
+  border-color: var(--vault-accent);
+}
+
+.vault-cta-card-icon {
+  font-size: 2rem;
+}
+
+.vault-cta-card-title {
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: var(--vault-text);
+}
+
+.vault-cta-card-desc {
+  font-size: 0.82rem;
+  color: var(--vault-text-dim);
+  line-height: 1.6;
+  flex: 1;
+}
+
+.vault-cta-btn {
+  display: inline-block;
+  padding: 10px 20px;
+  border-radius: 10px;
+  font-size: 0.88rem;
+  font-weight: 700;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  text-align: center;
+}
+
+.vault-cta-btn-whatsapp {
+  background: #25d366;
+  color: #000;
+}
+
+.vault-cta-btn-whatsapp:hover {
+  background: #20ba58;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 16px rgba(37, 211, 102, 0.4);
+}
+
+.vault-cta-form {
+  margin-top: 4px;
+}
+
+/* =========================================================================
+   Responsive adjustments
+   ========================================================================= */
+
+@media (max-width: 640px) {
+  .vault-tabbar-inner { padding-inline: 16px; }
+  .vault-tabbar-spacer { display: none; }
+  .vault-tab { padding: 6px 12px; font-size: 0.8rem; }
+  .qw-grid { grid-template-columns: 1fr; }
+  .vault-for-grid { grid-template-columns: 1fr; }
+  .vault-cta-grid { grid-template-columns: 1fr; }
+  .qw-header { flex-direction: column; gap: 8px; }
+  .qw-fire { font-size: 1.5rem; }
 }
