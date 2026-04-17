@@ -52,3 +52,8 @@ next-env.d.ts
 *\ (1).*
 
 .vercel
+
+# HyperFrames skills & reel (separate project)
+.agents/
+.claude/skills/
+hebrew-finance-reel/
