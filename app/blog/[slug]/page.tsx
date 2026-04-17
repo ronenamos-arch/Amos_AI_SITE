@@ -101,7 +101,8 @@ export default async function BlogPostPage({
     };
     isDBPost = true;
   } else {
-    post = getPostBySlug(decodedSlug) || null;
+    // Falling back to file-based post with normalized lookup
+    post = getPostBySlug(slug) || null;
   }
 
   if (!post) {

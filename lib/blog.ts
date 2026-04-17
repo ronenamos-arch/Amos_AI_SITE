@@ -67,7 +67,10 @@ export function getAllPosts(): BlogPost[] {
     return [];
   }
 
-  const files = fs.readdirSync(postsDirectory).filter((f) => f.endsWith(".mdx") || f.endsWith(".md"));
+  const files = fs.readdirSync(postsDirectory).filter((f) => {
+    const lower = f.toLowerCase();
+    return lower.endsWith(".mdx") || lower.endsWith(".md");
+  });
 
   const posts = files.map((filename) => {
     const slug = filename.replace(/\.mdx?$/, "");
@@ -91,16 +94,25 @@ export function getAllPosts(): BlogPost[] {
     };
   });
 
-  return posts.sort(
-    (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
-  );
+  console.log(`[Blog] Found ${posts.length} posts. Slugs: ${posts.map(p => p.slug).join(", ")}`);
+
+  return posts.sort((a, b) => {
+    const dateA = new Date(a.date).getTime();
+    const dateB = new Date(b.date).getTime();
+    return (isNaN(dateB) ? 0 : dateB) - (isNaN(dateA) ? 0 : dateA);
+  });
 }
 
 export function getPostBySlug(slug: string): BlogPost | undefined {
   const posts = getAllPosts();
-  // Decode slug to handle Hebrew characters from the URL
-  const decodedSlug = decodeURIComponent(slug);
-  return posts.find((post) => post.slug === slug || post.slug === decodedSlug);
+  const normalizedSlug = slug.toLowerCase().trim();
+  // Handle Hebrew/Encoded slugs
+  const decodedSlug = decodeURIComponent(slug).toLowerCase().trim();
+
+  return posts.find((post) => {
+    const postSlug = post.slug.toLowerCase().trim();
+    return postSlug === normalizedSlug || postSlug === decodedSlug;
+  });
 }
 
 export function parseMarkdown(content: string): string {
