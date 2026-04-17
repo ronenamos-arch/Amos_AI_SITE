@@ -1,6 +1,7 @@
 import { VaultTabBar } from "@/components/skill-vault/VaultTabBar";
 import type { Metadata } from "next";
 
+// Redeploy trigger
 export const metadata: Metadata = {
   title: { absolute: "Skill Vault – פרומפטים מוכנים לאנשי פיננסים | AI Finance" },
   description:
