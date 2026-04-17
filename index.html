@@ -1,0 +1,299 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <script src="assets/gsap.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;700;900&display=swap" rel="stylesheet" />
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body {
+        width: 1080px;
+        height: 1920px;
+        overflow: hidden;
+        background: #0f172a;
+        font-family: 'Heebo', sans-serif;
+        direction: rtl;
+      }
+
+      /* ── shared clip styles ── */
+      .clip {
+        position: absolute;
+        top: 0; left: 0;
+        width: 1080px;
+        height: 1920px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background: #0f172a;
+      }
+
+      /* ── Slide 1 — Hook ── */
+      #slide1 { z-index: 10; }
+      #hook-label {
+        font-size: 38px;
+        color: #f59e0b;
+        letter-spacing: 4px;
+        text-transform: uppercase;
+        opacity: 0;
+        margin-bottom: 32px;
+      }
+      #hook-title {
+        font-size: 88px;
+        font-weight: 900;
+        color: #ffffff;
+        text-align: center;
+        line-height: 1.15;
+        opacity: 0;
+        padding: 0 60px;
+      }
+      #hook-subtitle {
+        font-size: 42px;
+        color: #94a3b8;
+        text-align: center;
+        margin-top: 32px;
+        opacity: 0;
+        padding: 0 80px;
+      }
+      #hook-divider {
+        width: 0;
+        height: 4px;
+        background: #f59e0b;
+        margin-top: 50px;
+        border-radius: 2px;
+      }
+
+      /* ── Slide 2 — 50/30/20 breakdown ── */
+      #slide2 { z-index: 9; }
+      #slide2-title {
+        font-size: 52px;
+        font-weight: 900;
+        color: #f59e0b;
+        text-align: center;
+        opacity: 0;
+        margin-bottom: 80px;
+      }
+      .rule-item {
+        display: flex;
+        align-items: center;
+        width: 860px;
+        margin-bottom: 48px;
+        opacity: 0;
+        transform: translateX(80px);
+      }
+      .rule-pct {
+        font-size: 90px;
+        font-weight: 900;
+        width: 220px;
+        text-align: center;
+        flex-shrink: 0;
+      }
+      .rule-info { flex: 1; padding-right: 28px; }
+      .rule-name { font-size: 52px; font-weight: 700; color: #fff; }
+      .rule-desc { font-size: 32px; color: #94a3b8; margin-top: 6px; }
+      .rule-bar {
+        width: 0%;
+        height: 8px;
+        border-radius: 4px;
+        margin-top: 12px;
+      }
+      #rule-needs  .rule-pct { color: #34d399; }
+      #rule-needs  .rule-bar { background: #34d399; }
+      #rule-wants  .rule-pct { color: #60a5fa; }
+      #rule-wants  .rule-bar { background: #60a5fa; }
+      #rule-save   .rule-pct { color: #f59e0b; }
+      #rule-save   .rule-bar { background: #f59e0b; }
+
+      /* ── Slide 3 — CTA ── */
+      #slide3 { z-index: 8; background: linear-gradient(160deg, #0f172a 0%, #1e293b 100%); }
+      #cta-icon {
+        font-size: 100px;
+        opacity: 0;
+        margin-bottom: 40px;
+      }
+      #cta-text {
+        font-size: 64px;
+        font-weight: 900;
+        color: #fff;
+        text-align: center;
+        line-height: 1.3;
+        opacity: 0;
+        padding: 0 80px;
+      }
+      #cta-btn {
+        margin-top: 60px;
+        padding: 30px 80px;
+        background: #f59e0b;
+        color: #0f172a;
+        font-size: 44px;
+        font-weight: 900;
+        border-radius: 100px;
+        opacity: 0;
+      }
+      #cta-url {
+        margin-top: 30px;
+        font-size: 34px;
+        color: #64748b;
+        opacity: 0;
+      }
+
+      /* ── Slide 4 — Brand outro ── */
+      #slide4 { z-index: 7; background: #0f172a; }
+      #brand-logo {
+        font-size: 56px;
+        font-weight: 900;
+        color: #f59e0b;
+        opacity: 0;
+        letter-spacing: 2px;
+      }
+      #brand-name {
+        font-size: 72px;
+        font-weight: 900;
+        color: #fff;
+        opacity: 0;
+        margin-top: 16px;
+      }
+      #brand-tagline {
+        font-size: 36px;
+        color: #64748b;
+        opacity: 0;
+        margin-top: 20px;
+      }
+
+      /* ── Gold shimmer overlay ── */
+      #shimmer {
+        position: absolute;
+        top: 0; left: -100%;
+        width: 60px;
+        height: 1920px;
+        background: linear-gradient(90deg, transparent, rgba(245,158,11,0.15), transparent);
+        z-index: 100;
+        pointer-events: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div
+      id="root"
+      data-composition-id="hebrew-finance-reel"
+      data-start="0"
+      data-duration="15"
+      data-width="1080"
+      data-height="1920"
+    >
+
+      <!-- Slide 1: Hook (0–3s) -->
+      <div id="slide1" class="clip" data-start="0" data-duration="3" data-track-index="1">
+        <div id="hook-label">טיפ פיננסי</div>
+        <h1 id="hook-title">כלל<br/>50/30/20</h1>
+        <p id="hook-subtitle">הדרך הפשוטה לנהל<br/>את הכסף שלך</p>
+        <div id="hook-divider"></div>
+      </div>
+
+      <!-- Slide 2: Breakdown (3–11s) -->
+      <div id="slide2" class="clip" data-start="3" data-duration="8" data-track-index="1">
+        <div id="slide2-title">מה עושים עם המשכורת?</div>
+
+        <div id="rule-needs" class="rule-item">
+          <div class="rule-pct">50%</div>
+          <div class="rule-info">
+            <div class="rule-name">צרכים</div>
+            <div class="rule-desc">שכירות, מזון, תחבורה</div>
+            <div class="rule-bar"></div>
+          </div>
+        </div>
+
+        <div id="rule-wants" class="rule-item">
+          <div class="rule-pct">30%</div>
+          <div class="rule-info">
+            <div class="rule-name">רצונות</div>
+            <div class="rule-desc">בילויים, קניות, נסיעות</div>
+            <div class="rule-bar"></div>
+          </div>
+        </div>
+
+        <div id="rule-save" class="rule-item">
+          <div class="rule-pct">20%</div>
+          <div class="rule-info">
+            <div class="rule-name">חיסכון</div>
+            <div class="rule-desc">השקעות, קרן חירום, פנסיה</div>
+            <div class="rule-bar"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Slide 3: CTA (11–14s) -->
+      <div id="slide3" class="clip" data-start="11" data-duration="3" data-track-index="1">
+        <div id="cta-icon">💡</div>
+        <h2 id="cta-text">רוצה לתכנן<br/>את התקציב שלך?</h2>
+        <div id="cta-btn">כנסו לאתר</div>
+        <div id="cta-url">ronenamoscpa.co.il</div>
+      </div>
+
+      <!-- Slide 4: Brand outro (14–15s) -->
+      <div id="slide4" class="clip" data-start="14" data-duration="1" data-track-index="1">
+        <div id="brand-logo">AI Finance</div>
+        <div id="brand-name">רונן עמוס, רו"ח</div>
+        <div id="brand-tagline">ייעוץ פיננסי חכם</div>
+      </div>
+
+      <!-- Shimmer overlay -->
+      <div id="shimmer"></div>
+
+    </div>
+
+    <script>
+      window.__timelines = window.__timelines || {};
+      const tl = gsap.timeline({ paused: true });
+
+      /* ── Slide 1: Hook (0–3s) ── */
+      tl.to("#hook-label",    { opacity: 1, y: 0, duration: 0.5 }, 0.2);
+      tl.from("#hook-label",  { y: -30 }, 0.2);
+      tl.to("#hook-title",    { opacity: 1, y: 0, duration: 0.6 }, 0.55);
+      tl.from("#hook-title",  { y: 40 }, 0.55);
+      tl.to("#hook-subtitle", { opacity: 1, duration: 0.5 }, 1.2);
+      tl.to("#hook-divider",  { width: 200, duration: 0.6, ease: "power2.out" }, 1.4);
+      /* fade out slide 1 */
+      tl.to("#slide1",        { opacity: 0, duration: 0.4 }, 2.7);
+
+      /* shimmer sweep */
+      tl.to("#shimmer", { left: "110%", duration: 1.2, ease: "power1.inOut" }, 0.1);
+
+      /* ── Slide 2: Breakdown (3–11s) ── */
+      tl.to("#slide2-title",  { opacity: 1, y: 0, duration: 0.5 }, 3.2);
+      tl.from("#slide2-title",{ y: -20 }, 3.2);
+
+      /* Needs (green) */
+      tl.to("#rule-needs",    { opacity: 1, x: 0, duration: 0.5, ease: "back.out(1.2)" }, 4.0);
+      tl.to("#rule-needs .rule-bar", { width: "100%", duration: 0.6, ease: "power2.out" }, 4.4);
+
+      /* Wants (blue) */
+      tl.to("#rule-wants",    { opacity: 1, x: 0, duration: 0.5, ease: "back.out(1.2)" }, 5.4);
+      tl.to("#rule-wants .rule-bar", { width: "60%", duration: 0.6, ease: "power2.out" }, 5.8);
+
+      /* Savings (gold) */
+      tl.to("#rule-save",     { opacity: 1, x: 0, duration: 0.5, ease: "back.out(1.2)" }, 6.8);
+      tl.to("#rule-save .rule-bar",  { width: "40%", duration: 0.6, ease: "power2.out" }, 7.2);
+
+      /* fade out slide 2 */
+      tl.to("#slide2",        { opacity: 0, duration: 0.4 }, 10.7);
+
+      /* ── Slide 3: CTA (11–14s) ── */
+      tl.to("#cta-icon", { opacity: 1, y: 0, duration: 0.4 }, 11.1);
+      tl.from("#cta-icon",    { y: -30 }, 11.1);
+      tl.to("#cta-text",  { opacity: 1, duration: 0.5 }, 11.5);
+      tl.to("#cta-btn",   { opacity: 1, scale: 1, duration: 0.5, ease: "back.out(1.4)" }, 12.2);
+      tl.to("#cta-url",   { opacity: 1, duration: 0.4 }, 12.8);
+      tl.to("#slide3",    { opacity: 0, duration: 0.4 }, 13.7);
+
+      /* ── Slide 4: Brand (14–15s) ── */
+      tl.to("#brand-logo",    { opacity: 1, duration: 0.35 }, 14.0);
+      tl.to("#brand-name",    { opacity: 1, duration: 0.35 }, 14.2);
+      tl.to("#brand-tagline", { opacity: 1, duration: 0.35 }, 14.4);
+      tl.to("#slide4",        { opacity: 0, duration: 0.4 }, 14.7);
+
+      window.__timelines["hebrew-finance-reel"] = tl;
+    </script>
+  </body>
+</html>
