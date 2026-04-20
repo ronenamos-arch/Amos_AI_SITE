@@ -13,7 +13,7 @@ export interface BlogPost {
   premium?: boolean;
 }
 
-// Cache bust: force sitemap rebuild — 2026-04-17
+// Cache bust: force sitemap rebuild — 2026-04-21
 const postsDirectory = path.join(process.cwd(), "content", "posts");
 
 function parseFrontmatter(fileContent: string): {
