@@ -1,6 +1,5 @@
-import fs from "fs";
-import path from "path";
 import { marked } from "marked";
+import { POSTS_INDEX } from "./generated/posts-index";
 
 export interface BlogPost {
   slug: string;
@@ -12,9 +11,6 @@ export interface BlogPost {
   image?: string;
   premium?: boolean;
 }
-
-// Cache bust: force sitemap rebuild — 2026-04-21
-const postsDirectory = path.join(process.cwd(), "content", "posts");
 
 function parseFrontmatter(fileContent: string): {
   metadata: Record<string, any>;
@@ -63,21 +59,8 @@ function parseFrontmatter(fileContent: string): {
 }
 
 export function getAllPosts(): BlogPost[] {
-  if (!fs.existsSync(postsDirectory)) {
-    return [];
-  }
-
-  const files = fs.readdirSync(postsDirectory).filter((f) => {
-    const lower = f.toLowerCase();
-    return lower.endsWith(".mdx") || lower.endsWith(".md");
-  });
-
-  const posts = files.map((filename) => {
-    const slug = filename.replace(/\.mdx?$/, "");
-    const filePath = path.join(postsDirectory, filename);
-    const fileContent = fs.readFileSync(filePath, "utf-8");
-    const { metadata, content } = parseFrontmatter(fileContent);
-
+  const posts = POSTS_INDEX.map(({ slug, raw }) => {
+    const { metadata, content } = parseFrontmatter(raw);
     return {
       slug,
       title: metadata.title || slug,
@@ -93,8 +76,6 @@ export function getAllPosts(): BlogPost[] {
       premium: metadata.premium === "true" || metadata.premium === true,
     };
   });
-
-  console.log(`[Blog] Found ${posts.length} posts. Slugs: ${posts.map(p => p.slug).join(", ")}`);
 
   return posts.sort((a, b) => {
     const dateA = new Date(a.date).getTime();

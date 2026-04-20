@@ -52,3 +52,6 @@ next-env.d.ts
 *\ (1).*
 
 .vercel
+
+# generated at build time — see scripts/generate-posts-index.mjs
+/lib/generated/
