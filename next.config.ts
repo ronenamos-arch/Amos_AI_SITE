@@ -1,6 +1,10 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  outputFileTracingIncludes: {
+    "/blog/**": ["./content/posts/**/*.md", "./content/posts/**/*.mdx"],
+    "/sitemap.xml": ["./content/posts/**/*.md", "./content/posts/**/*.mdx"],
+  },
   images: {
     formats: ["image/avif", "image/webp"],
     minimumCacheTTL: 31536000,
