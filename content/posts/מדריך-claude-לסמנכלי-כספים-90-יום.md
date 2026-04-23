@@ -162,10 +162,6 @@ Project הוא "המקום" (עם הקבצים והזיכרון). Skill הוא "
 **5. כמה עולה ומה ה-ROI הריאלי?**
 עלות של $20 למשתמש. ה-ROI הריאלי הוא חיסכון של לפחות 15 שעות עבודה בחודש ל-CFO, מה ששווה אלפי שקלים בזמן ניהולי.
 
----
-
-## JSON-LD Structured Data
-
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
