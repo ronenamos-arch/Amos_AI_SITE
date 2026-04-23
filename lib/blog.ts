@@ -101,13 +101,17 @@ export function parseMarkdown(content: string): string {
 }
 
 // Wrap bare URLs in HTML text with <a> tags (handles Quill plain-text URLs)
+// Critically, <script> and <style> blocks are preserved verbatim — otherwise
+// URLs inside JSON-LD script tags get wrapped and the JSON becomes invalid.
 export function linkify(html: string): string {
-  // Split on existing <a> tags to avoid double-wrapping already-linked URLs
-  return html.replace(/(<a[\s\S]*?<\/a>)|(<[^>]+>)|(https?:\/\/[^\s<>"')\]]+)/g, (match, anchor, tag, url) => {
-    if (anchor || tag) return match; // preserve existing tags as-is
-    const display = url.length > 60 ? url.slice(0, 57) + '...' : url;
-    return `<a href="${url}" target="_blank" rel="noopener noreferrer">${display}</a>`;
-  });
+  return html.replace(
+    /(<script[\s\S]*?<\/script>)|(<style[\s\S]*?<\/style>)|(<a[\s\S]*?<\/a>)|(<[^>]+>)|(https?:\/\/[^\s<>"')\]]+)/gi,
+    (match, script, style, anchor, tag, url) => {
+      if (script || style || anchor || tag) return match;
+      const display = url.length > 60 ? url.slice(0, 57) + '...' : url;
+      return `<a href="${url}" target="_blank" rel="noopener noreferrer">${display}</a>`;
+    }
+  );
 }
 
 // Keyword → internal URL map for auto-linking in blog content.
@@ -128,19 +132,22 @@ export function addInternalLinks(html: string): string {
     let linked = false;
     // Reset lastIndex for global regex
     pattern.lastIndex = 0;
-    result = result.replace(/(<a[\s\S]*?<\/a>)|(<[^>]+>)|([^<]+)/g, (segment, anchor, tag, text) => {
-      if (anchor || tag) return segment; // preserve existing markup
-      if (!linked) {
-        const replaced = text.replace(pattern, (match: string) => {
-          if (linked) return match;
-          linked = true;
-          return `<a href="${url}">${label || match}</a>`;
-        });
-        pattern.lastIndex = 0;
-        return replaced;
+    result = result.replace(
+      /(<script[\s\S]*?<\/script>)|(<style[\s\S]*?<\/style>)|(<a[\s\S]*?<\/a>)|(<[^>]+>)|([^<]+)/gi,
+      (segment, script, style, anchor, tag, text) => {
+        if (script || style || anchor || tag) return segment;
+        if (!linked) {
+          const replaced = text.replace(pattern, (match: string) => {
+            if (linked) return match;
+            linked = true;
+            return `<a href="${url}">${label || match}</a>`;
+          });
+          pattern.lastIndex = 0;
+          return replaced;
+        }
+        return segment;
       }
-      return segment;
-    });
+    );
   }
   return result;
 }
