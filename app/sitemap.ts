@@ -1,6 +1,7 @@
 import { MetadataRoute } from 'next'
 import { getAllPosts } from '@/lib/blog'
 import { getDBPosts } from '@/lib/blog-supabase'
+import { getAllGuides } from '@/lib/guides-data'
 
 export const dynamic = 'force-dynamic'
 
@@ -105,5 +106,15 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         (_, i) => !dbSlugs.has(localPosts[i].slug)
     )
 
-    return [...staticPages, ...dbPostEntries, ...uniqueLocalEntries]
+    // Individual guide pages (skip placeholders)
+    const guideEntries: MetadataRoute.Sitemap = getAllGuides()
+        .filter((g) => g.gammaUrl !== '#')
+        .map((g) => ({
+            url: `${baseUrl}/guides/${g.slug}`,
+            lastModified: new Date(g.publishedAt),
+            changeFrequency: 'monthly' as const,
+            priority: 0.7,
+        }))
+
+    return [...staticPages, ...guideEntries, ...dbPostEntries, ...uniqueLocalEntries]
 }

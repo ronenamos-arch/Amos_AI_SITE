@@ -69,12 +69,18 @@ Static library of Gamma-hosted guides. No DB, no admin UI — managed entirely v
 - **URL:** https://www.ronenamoscpa.co.il/guides
 - **Cheatsheet:** `GUIDES_CHEATSHEET.md` (project root) — full how-to for adding/editing guides and images
 - **Data:** `lib/guides-data.ts` — `Guide` interface + `guides` array (single source of truth)
-- **Components:** `components/guides/GuideCard.tsx`, `components/guides/GuidesGrid.tsx`
-- **Page:** `app/guides/page.tsx` (hero with dashboard mockup + grid + JSON-LD ItemList)
+  - Helper functions: `getGuideBySlug()`, `getRelatedGuides()`, `getAllGuides()`
+  - Optional field: `longDescription?: string` — shown on detail page above the embed; falls back to `description` if absent
+- **Components:** `components/guides/GuideCard.tsx` (clicking navigates to internal page), `components/guides/GuidesGrid.tsx`
+- **Pages:**
+  - `app/guides/page.tsx` — listing (hero + dashboard mockup + grid + JSON-LD ItemList)
+  - `app/guides/[slug]/page.tsx` — individual guide page (Gamma iframe embed, breadcrumb, related guides, newsletter CTA, Article + BreadcrumbList JSON-LD)
+- **Embed:** `https://gamma.app/embed/<id>` — responsive 16:9 iframe; Gamma explicitly supports iframing (no X-Frame-Options restriction)
 - **Images:** `public/guides/` (referenced as `/guides/filename.ext`)
 - **Header link:** "מדריכים" between Skill Vault and בלוג
 - **Categories:** Claude, ChatGPT, אוטומציה, Excel, Power BI, NotebookLM, מחלקות כספים
-- **Placeholder behavior:** `gammaUrl: '#'` renders disabled "בקרוב..." CTA
+- **Placeholder behavior:** `gammaUrl: '#'` renders disabled "בקרוב..." CTA; no internal page is generated (`generateStaticParams` skips them)
+- **No `force-dynamic`** needed on `/guides/[slug]` — pure static data, no Supabase
 
 ## Build Rules — CRITICAL
 

@@ -21,6 +21,7 @@ export interface Guide {
   slug: string;
   title: string;
   description: string;
+  longDescription?: string;
   category: GuideCategory;
   tags: string[];
   gammaUrl: string;
@@ -162,6 +163,18 @@ export function searchGuides(query: string): Guide[] {
     return haystack.includes(q);
   });
   return sortByDateDesc(matched);
+}
+
+export function getGuideBySlug(slug: string): Guide | undefined {
+  return guides.find((g) => g.slug === slug && g.gammaUrl !== '#');
+}
+
+export function getRelatedGuides(slug: string, limit = 3): Guide[] {
+  const current = guides.find((g) => g.slug === slug);
+  const real = guides.filter((g) => g.gammaUrl !== '#' && g.slug !== slug);
+  const sameCategory = sortByDateDesc(real.filter((g) => g.category === current?.category));
+  const others = sortByDateDesc(real.filter((g) => g.category !== current?.category));
+  return [...sameCategory, ...others].slice(0, limit);
 }
 
 export function getCategoryCounts(): Record<GuideCategory | 'all', number> {

@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import Link from 'next/link';
 import {
   Bot,
   MessageSquare,
@@ -30,8 +31,8 @@ export function GuideCard({ guide }: { guide: Guide }) {
   const Icon = CATEGORY_ICONS[guide.category];
   const isComingSoon = guide.gammaUrl === '#';
 
-  return (
-    <article className="glass-panel rounded-xl overflow-hidden flex flex-col transition-all duration-300 hover:-translate-y-1 hover:border-neon-cyan/50 hover:shadow-[0_0_30px_-8px_rgba(34,211,238,0.4)] group">
+  const card = (
+    <article className="glass-panel rounded-xl overflow-hidden flex flex-col transition-all duration-300 hover:-translate-y-1 hover:border-neon-cyan/50 hover:shadow-[0_0_30px_-8px_rgba(34,211,238,0.4)] group h-full">
       <div className="relative h-44 overflow-hidden">
         {guide.thumbnail ? (
           <Image
@@ -97,17 +98,19 @@ export function GuideCard({ guide }: { guide: Guide }) {
             בקרוב...
           </span>
         ) : (
-          <a
-            href={guide.gammaUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-sm font-bold text-neon-cyan hover:text-neon-teal inline-flex items-center gap-1 transition-colors"
-          >
+          <span className="text-sm font-bold text-neon-cyan hover:text-neon-teal inline-flex items-center gap-1 transition-colors">
             <span>צפה במדריך</span>
             <span className="inline-block transition-transform group-hover:-translate-x-1">←</span>
-          </a>
+          </span>
         )}
       </div>
     </article>
+  );
+
+  if (isComingSoon) return card;
+  return (
+    <Link href={`/guides/${guide.slug}`} className="block">
+      {card}
+    </Link>
   );
 }
