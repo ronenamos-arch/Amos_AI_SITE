@@ -15,6 +15,10 @@
 - [הכשרות AI לצוותי כספים — Training](https://www.ronenamoscpa.co.il/training): Hands-on AI training programs for finance teams covering Claude, Power BI, Excel automation, and financial data analysis workflows.
 - [קורס AI פיננסי — Course](https://www.ronenamoscpa.co.il/course): Structured online course on AI implementation for finance professionals. Covers practical AI tools, prompt engineering for accountants, and building financial dashboards without IT support.
 
+## Guides Library
+
+- [מדריכי AI לאנשי כספים — Guides Library](https://www.ronenamoscpa.co.il/guides): Curated library of practical Hebrew guides on Claude, ChatGPT, automation, Excel, Power BI, and AI-driven finance departments. Filterable by category and tag, with search. Free to access — actionable steps you can implement this week, no theory.
+
 ## Blog — Featured Articles
 
 - [הטמעת AI במחלקת הכספים](https://www.ronenamoscpa.co.il/blog/%D7%94%D7%98%D7%9E%D7%A2%D7%AA-AI-%D7%91%D7%9E%D7%97%D7%9C%D7%A7%D7%AA-%D7%94%D7%9B%D7%A1%D7%A4%D7%99%D7%9D): Comprehensive guide to implementing AI in a finance department — tools, process changes, and practical first steps for Israeli finance teams.
