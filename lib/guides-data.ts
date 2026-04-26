@@ -50,7 +50,7 @@ export const guides: Guide[] = [
     category: 'Claude',
     tags: ['Claude Code', 'Productivity'],
     gammaUrl: 'https://gamma.app/docs/Claude-Code-Checkpoints-81xx84cs1vbpj8b',
-    thumbnail: '/guides/subagents.jpg',
+    thumbnail: '/guides/checkpoints.jpg',
     duration: "8 דק'",
     isPremium: false,
     publishedAt: '2026-04-25',
