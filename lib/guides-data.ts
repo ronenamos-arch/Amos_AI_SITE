@@ -33,6 +33,18 @@ export interface Guide {
 
 export const guides: Guide[] = [
   {
+    slug: 'live-artifacts-claude',
+    title: 'Live Artifacts ב-Claude – המדריך המלא',
+    description: 'כיצד לבנות דאשבורדים חיים לניהול פיננסי חכם – מדריך שלב-אחר-שלב לרואי חשבון ומנהלי כספים בישראל.',
+    category: 'Claude',
+    tags: ['Claude', 'Dashboard', 'Finance Ops'],
+    gammaUrl: 'https://gamma.app/docs/Live-Artifacts-Claude--tc34b99focp2u95',
+    thumbnail: '/guides/artifacts.jpg',
+    duration: "10 דק'",
+    isPremium: false,
+    publishedAt: '2026-04-26',
+  },
+  {
     slug: 'subagents',
     title: 'Subagents — קלוד שעובד כמו צוות שלם',
     description: 'איך לבנות צוות סוכנים שעובד בשבילך 24/7 — מהבסיס של Claude Code ועד delegation מתקדם.',
