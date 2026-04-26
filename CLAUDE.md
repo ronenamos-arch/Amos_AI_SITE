@@ -62,6 +62,20 @@ Required in `.env.local` and Vercel:
   - `lib/actions/articles.ts` — `updateArticle()` server action
 - **Premium content:** `is_premium` field on articles; checked against `profiles.subscription_status`
 
+## Guides Page (`/guides`)
+
+Static library of Gamma-hosted guides. No DB, no admin UI — managed entirely via `lib/guides-data.ts`.
+
+- **URL:** https://www.ronenamoscpa.co.il/guides
+- **Cheatsheet:** `GUIDES_CHEATSHEET.md` (project root) — full how-to for adding/editing guides and images
+- **Data:** `lib/guides-data.ts` — `Guide` interface + `guides` array (single source of truth)
+- **Components:** `components/guides/GuideCard.tsx`, `components/guides/GuidesGrid.tsx`
+- **Page:** `app/guides/page.tsx` (hero with dashboard mockup + grid + JSON-LD ItemList)
+- **Images:** `public/guides/` (referenced as `/guides/filename.ext`)
+- **Header link:** "מדריכים" between Skill Vault and בלוג
+- **Categories:** Claude, ChatGPT, אוטומציה, Excel, Power BI, NotebookLM, מחלקות כספים
+- **Placeholder behavior:** `gammaUrl: '#'` renders disabled "בקרוב..." CTA
+
 ## Build Rules — CRITICAL
 
 Vercel does **not** inject `NEXT_PUBLIC_*` env vars into the SSG pre-render worker.
