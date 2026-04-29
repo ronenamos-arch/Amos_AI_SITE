@@ -33,6 +33,18 @@ export interface Guide {
 
 export const guides: Guide[] = [
   {
+    slug: 'b2b-claude-vibe-prospecting',
+    title: 'איך למצוא לקוחות פרימיום ב-60 שניות? אוטומציית לידים לרואי חשבון עם Claude AI',
+    description: 'יושב לכם כסף על הרצפה במשרד, ואתם פשוט דורכים עליו. הלידים המדויקים ביותר שלכם נמצאים במרחק פרומפט אחד – הגיע הזמן שתאספו אותם ותפסיקו לבזבז זמן על חיפושים ידניים.',
+    category: 'Claude',
+    tags: ['Claude', 'Automation', 'Workflow'],
+    gammaUrl: 'https://gamma.app/docs/B2B-Claude-Vibe-Prospecting-mrh1bqt9jp80hrb',
+    thumbnail: '/guides/vibe-prospecting.png',
+    duration: "12 דק'",
+    isPremium: false,
+    publishedAt: '2026-04-29',
+  },
+  {
     slug: 'live-artifacts-claude',
     title: 'Live Artifacts ב-Claude – המדריך המלא',
     description: 'כיצד לבנות דאשבורדים חיים לניהול פיננסי חכם – מדריך שלב-אחר-שלב לרואי חשבון ומנהלי כספים בישראל.',
