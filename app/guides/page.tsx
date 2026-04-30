@@ -1,30 +1,31 @@
 import type { Metadata } from "next";
 import { getAllGuides } from "@/lib/guides-data";
 import { GuidesGrid } from "@/components/guides/GuidesGrid";
+import { GuidesGeoContent } from "@/components/guides/GuidesGeoContent";
 import { NewsletterForm } from "@/components/forms/NewsletterForm";
 
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
-    title: { absolute: "מדריכי AI לאנשי כספים | רונן עמוס CPA" },
+    title: { absolute: "מדריכים AI לחשבונאים — Claude, ChatGPT, אוטומציה" },
     description:
-        "ספריית מדריכים מעשיים על Claude, ChatGPT, אוטומציה ו-AI לצוותי כספים. צעדים פרקטיים שתוכל ליישם השבוע — ללא תיאוריה.",
+        "למדו כיצד משתמשים בClaude וChatGPT לאוטומציה בחשבונאות. 5 מדריכים חינמיים על AI, עיבוד נתונים, דוחות כספיים, וחסכון 21 שעות בשבוע.",
     alternates: { canonical: "https://www.ronenamoscpa.co.il/guides" },
     keywords: [
         "מדריכי AI",
         "Claude לאנשי כספים",
         "ChatGPT לרואי חשבון",
         "אוטומציה פיננסית",
-        "Power BI מדריך",
-        "Excel AI",
+        "AI בחשבונאות",
         "מדריכים פיננסיים",
-        "AI לCFO",
+        "AI לCPA",
         "סוכני AI",
+        "אוטומציה בתכנית הוצאות",
     ],
     openGraph: {
-        title: "מדריכי AI לאנשי כספים | רונן עמוס",
+        title: "מדריכים AI לחשבונאים — Claude, ChatGPT, אוטומציה",
         description:
-            "ספריית מדריכים מעשיים על Claude, ChatGPT ואוטומציה לצוותי כספים.",
+            "למדו כיצד משתמשים בClaude וChatGPT לאוטומציה בחשבונאות.",
         url: "https://www.ronenamoscpa.co.il/guides",
         type: "website",
     },
@@ -35,21 +36,65 @@ export default async function GuidesPage() {
 
     const jsonLd = {
         "@context": "https://schema.org",
-        "@type": "ItemList",
-        name: "מדריכי AI לאנשי כספים",
-        description:
-            "ספריית מדריכים מעשיים על AI, Claude, ChatGPT ואוטומציה לצוותי כספים",
-        numberOfItems: guides.length,
-        itemListElement: guides.map((g, i) => ({
-            "@type": "ListItem",
-            position: i + 1,
-            name: g.title,
-            description: g.description,
-            url:
-                g.gammaUrl !== "#"
-                    ? g.gammaUrl
-                    : `https://www.ronenamoscpa.co.il/guides`,
-        })),
+        "@type": ["Article", "FAQPage"],
+        headline: "מדריכים מעשיים לשימוש ב-AI בחשבונאות",
+        alternativeHeadline: "Practical Guides to AI for Accountants & Finance Professionals",
+        description: "5 free guides teaching Claude, ChatGPT, automation frameworks for Israeli CPAs and accountants",
+        author: {
+            "@type": "Person",
+            name: "Ronen Amos",
+            title: "CPA & AI Automation Expert",
+            url: "https://www.ronenamoscpa.co.il/",
+            sameAs: [
+                "https://www.linkedin.com/in/ronenamoscpa",
+                "https://github.com/ronenamos",
+            ],
+        },
+        datePublished: "2025-01-15",
+        dateModified: "2026-05-01",
+        publisher: {
+            "@type": "Organization",
+            name: "Ronen Amos CPA",
+            logo: {
+                "@type": "ImageObject",
+                url: "https://www.ronenamoscpa.co.il/logo.png",
+            },
+        },
+        mainEntityOfPage: "https://www.ronenamoscpa.co.il/guides",
+        faqs: [
+            {
+                "@type": "Question",
+                name: "Which is better for accounting—Claude or ChatGPT?",
+                acceptedAnswer: {
+                    "@type": "Answer",
+                    text: "Claude excels at document analysis, spotting discrepancies in large datasets, and drafting sensitive communications (memos, client correspondence). ChatGPT is stronger for rapid data transformation and report generation. Most firms use both: Claude for quality, ChatGPT for speed.",
+                },
+            },
+            {
+                "@type": "Question",
+                name: "How much time will AI actually save my firm?",
+                acceptedAnswer: {
+                    "@type": "Answer",
+                    text: "Accountants report saving 50–80% of processing time on data entry and bank reconciliation tasks (Intuit 2025). Finance teams using AI tools save an average of 21 hours per week on routine work (BILL 2026). These hours typically shift to advisory work and client relationships—higher-margin work.",
+                },
+            },
+            {
+                "@type": "Question",
+                name: "Do I need coding skills to use Claude for automation?",
+                acceptedAnswer: {
+                    "@type": "Answer",
+                    text: "No. Claude Code (included in these guides) lets you build Python and Excel automations without writing a single line yourself. If you can describe the task, Claude builds it.",
+                },
+            },
+            {
+                "@type": "Question",
+                name: "Is my firm too small for AI automation?",
+                acceptedAnswer: {
+                    "@type": "Answer",
+                    text: "46% of accountants using AI work in firms of all sizes (Intuit 2025). The smallest wins—invoice categorization, expense matching, draft report generation—require no infrastructure changes and pay off immediately.",
+                },
+            },
+        ],
     };
 
     return (
@@ -441,6 +486,8 @@ export default async function GuidesPage() {
                     </div>
                 </div>
             </section>
+
+            <GuidesGeoContent />
 
             <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12">
                 <GuidesGrid guides={guides} />
