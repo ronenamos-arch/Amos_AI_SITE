@@ -14,6 +14,7 @@ const navLinks = [
   { href: "/pricing", label: "מנוי פרימיום" },
   { href: "/skill-vault", label: "Skill Vault" },
   { href: "/guides", label: "מדריכים" },
+  { href: "/tools", label: "כלים" },
   { href: "/blog", label: "בלוג" },
   { href: "/contact", label: "צור קשר" },
 ];

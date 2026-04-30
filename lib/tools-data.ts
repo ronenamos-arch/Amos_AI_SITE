@@ -53,7 +53,7 @@ export const tools: Tool[] = [
     categoryLabel: 'אוטומציה',
     descriptionHe:
       'Nilus AI היא פלטפורמת ניהול תזרים מזומנים דור-הבא שמשנה את ניהול ה-Treasury. באמצעות AI Agents שמבצעים תחזית, פיוס ואופטימיזציית נזילות, Nilus מאפשרת לצוותי כספים לבצע פעולות ממוסגרות עם מסגרת שקופה וניתנת לביקורת, תוך הפחתה של עד 80% בעבודה ידנית.',
-    href: 'https://nilus.io',
+    href: 'https://nilus.com',
   },
   {
     name: 'NetSuite',
