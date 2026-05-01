@@ -84,19 +84,19 @@ premium: "<true/false>"
 
 **עצור כאן. אל תצור קבצים עד שהמשתמש מאשר שהתמונה הועלתה.**
 
-### שלב 4 — יצירת קובץ לאחר אישור תמונה
+### שלב 4 — יצירת קובץ + Push לאחר אישור תמונה
 
 רק לאחר שהמשתמש אומר "שמרתי" / "העליתי" / "done":
 
 1. **צור קובץ markdown** ב-`content/posts/<slug>.md`
-2. **אל תיגע בתמונה** — המשתמש כבר שמר אותה
+2. **המשך מיד ל-commit ו-push** — אין צורך לבקש אישור נוסף
 
 ### שלב 5 — Git: Commit ו-Push ל-main
 
 ```bash
 git checkout main && git pull origin main
 
-git add content/posts/<slug>.md
+git add content/posts/<slug>.md public/images/blog/<image-filename>
 
 git commit -m "Add blog post: <כותרת הפוסט>"
 

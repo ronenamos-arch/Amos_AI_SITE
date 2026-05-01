@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="he">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>ספריית מדריכים | רונן עמוס CPA — Mockup</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700;900&display=swap" rel="stylesheet" />
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          'space-950': '#020617',
+          'space-900': '#0f172a',
+          'space-800': '#1e293b',
+          'space-700': '#334155',
+          'neon-cyan': '#22d3ee',
+          'neon-teal': '#2dd4bf',
+          'royal-500': '#3b82f6',
+          'royal-400': '#60a5fa',
+        },
+        fontFamily: {
+          heebo: ['Heebo', 'sans-serif'],
+        },
+      },
+    },
+  };
+</script>
+<style>
+  html { background-color: #020617; }
+  body {
+    font-family: 'Heebo', sans-serif;
+    background: radial-gradient(circle at top right, #1e1b4b, #020617 60%);
+    color: #f1f5f9;
+    min-height: 100vh;
+  }
+  .glass-panel {
+    background: rgba(255, 255, 255, 0.06);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+  }
+  .gradient-text {
+    background: linear-gradient(to left, #22d3ee, #2dd4bf, #3b82f6);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    background-size: 200% auto;
+    animation: text-flow 4s linear infinite;
+  }
+  @keyframes text-flow {
+    0% { background-position: 0% 50%; }
+    100% { background-position: 200% 50%; }
+  }
+
+  /* Professional, subtle thumbnail backgrounds — light & refined */
+  .thumb-base {
+    background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 50%, #cbd5e1 100%);
+    position: relative;
+  }
+  .thumb-claude::before,
+  .thumb-chatgpt::before,
+  .thumb-automation::before,
+  .thumb-excel::before,
+  .thumb-powerbi::before,
+  .thumb-notebooklm::before,
+  .thumb-finance::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    opacity: 0.5;
+  }
+  .thumb-claude::before { background: linear-gradient(135deg, transparent 0%, rgba(45, 212, 191, 0.18) 100%); }
+  .thumb-chatgpt::before { background: linear-gradient(135deg, transparent 0%, rgba(16, 185, 129, 0.15) 100%); }
+  .thumb-automation::before { background: linear-gradient(135deg, transparent 0%, rgba(245, 158, 11, 0.15) 100%); }
+  .thumb-excel::before { background: linear-gradient(135deg, transparent 0%, rgba(34, 197, 94, 0.15) 100%); }
+  .thumb-powerbi::before { background: linear-gradient(135deg, transparent 0%, rgba(234, 179, 8, 0.15) 100%); }
+  .thumb-notebooklm::before { background: linear-gradient(135deg, transparent 0%, rgba(99, 102, 241, 0.15) 100%); }
+  .thumb-finance::before { background: linear-gradient(135deg, transparent 0%, rgba(59, 130, 246, 0.15) 100%); }
+
+  /* Subtle grid pattern overlay — like graph paper */
+  .thumb-pattern {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(100, 116, 139, 0.08) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(100, 116, 139, 0.08) 1px, transparent 1px);
+    background-size: 24px 24px;
+    z-index: 1;
+  }
+
+  /* Center icon for placeholder */
+  .thumb-icon {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+    color: #475569;
+    opacity: 0.6;
+  }
+  .thumb-claude { background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%); }
+  .thumb-chatgpt { background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%); }
+  .thumb-automation { background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%); }
+  .thumb-excel { background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%); }
+  .thumb-powerbi { background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%); }
+  .thumb-notebooklm { background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%); }
+  .thumb-finance { background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%); }
+
+  .card-hover {
+    transition: all 0.3s ease;
+  }
+  .card-hover:hover {
+    transform: translateY(-4px);
+    border-color: rgba(34, 211, 238, 0.4);
+    box-shadow: 0 12px 40px 0 rgba(34, 211, 238, 0.15);
+  }
+
+  /* Category sidebar active state */
+  .cat-active {
+    background: linear-gradient(to left, rgba(34, 211, 238, 0.15), rgba(45, 212, 191, 0.05));
+    border-right: 2px solid #22d3ee;
+    color: #22d3ee;
+  }
+
+  /* Filter chip active */
+  .chip-active {
+    background: linear-gradient(135deg, #22d3ee, #2dd4bf);
+    color: #020617;
+    font-weight: 700;
+  }
+</style>
+</head>
+<body class="font-heebo antialiased">
+
+<!-- ===== HEADER (mock — matches site Header.tsx) ===== -->
+<header class="fixed top-0 right-0 left-0 z-50" style="background: rgba(2,6,23,0.85); backdrop-filter: blur(20px); border-bottom: 1px solid rgba(255,255,255,0.08);">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <div class="flex h-16 items-center justify-between">
+      <div class="flex items-center gap-2">
+        <span class="text-xl font-bold gradient-text">רונן עמוס</span>
+        <span class="hidden text-sm sm:block" style="color:#94a3b8">רו&quot;ח | יועץ טכנולוגי</span>
+      </div>
+      <nav class="hidden items-center gap-6 md:flex text-sm font-medium" style="color:#94a3b8">
+        <a href="#" class="hover:text-teal-400">בית</a>
+        <a href="#" class="hover:text-teal-400">אודות</a>
+        <a href="#" class="hover:text-teal-400">שירותים</a>
+        <a href="#" class="hover:text-teal-400">הכשרות</a>
+        <a href="#" class="hover:text-teal-400">קורסים</a>
+        <a href="#" class="hover:text-teal-400">מנוי פרימיום</a>
+        <a href="#" class="hover:text-teal-400">Skill Vault</a>
+        <a href="#" class="text-teal-400 border-b-2 border-teal-400 pb-0.5">מדריכים</a>
+        <a href="#" class="hover:text-teal-400">בלוג</a>
+        <a href="#" class="hover:text-teal-400">צור קשר</a>
+      </nav>
+    </div>
+  </div>
+</header>
+
+<main class="pt-16">
+
+  <!-- ===== HERO ===== -->
+  <section class="relative overflow-hidden border-b" style="border-color: rgba(255,255,255,0.06)">
+    <div class="absolute inset-0 opacity-30" style="background: radial-gradient(ellipse at top left, #1e1b4b 0%, transparent 50%);"></div>
+    <div class="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12 md:py-20">
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
+
+        <!-- Right: Text content (RTL — appears first) -->
+        <div>
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full glass-panel mb-6">
+            <span class="text-xs font-medium text-neon-teal">📚 ספרייה מתעדכנת</span>
+          </div>
+          <h1 class="text-3xl md:text-4xl lg:text-5xl font-black mb-6 leading-tight">
+            <span class="text-white">המדריכים שמלמדים אנשי כספים</span>
+            <br />
+            <span class="text-white">לעבוד חכם יותר –</span>
+            <span class="gradient-text">עם AI</span>
+          </h1>
+          <p class="text-base md:text-lg mb-8 leading-relaxed" style="color:#cbd5e1">
+            ספרייה של מדריכים מעשיים על Claude, ChatGPT, אוטומציה ומחלקות כספים מבוססות-AI. בלי תיאוריה — רק צעדים שאתה יכול ליישם השבוע.
+          </p>
+
+          <!-- Search -->
+          <div class="relative">
+            <input
+              type="text"
+              placeholder="חפש מדריך... (לדוגמה: Claude, אוטומציה, סוכנים)"
+              class="w-full glass-panel rounded-xl px-5 py-4 pr-12 text-white placeholder-slate-500 focus:outline-none focus:border-neon-cyan/50 transition-all"
+              style="background: rgba(15, 23, 42, 0.6);"
+            />
+            <span class="absolute right-4 top-1/2 -translate-y-1/2 text-neon-cyan text-xl">🔍</span>
+          </div>
+
+          <!-- Stats row -->
+          <div class="flex flex-wrap gap-6 mt-6 text-sm" style="color:#94a3b8">
+            <div class="flex items-center gap-2"><span class="text-neon-teal text-lg">●</span> 8 מדריכים</div>
+            <div class="flex items-center gap-2"><span class="text-neon-cyan text-lg">●</span> 7 קטגוריות</div>
+          </div>
+        </div>
+
+        <!-- Left: Dashboard mockup -->
+        <div class="relative hidden lg:block">
+          <!-- Glow behind dashboard -->
+          <div class="absolute -inset-4 opacity-40 blur-3xl" style="background: radial-gradient(ellipse, #22d3ee 0%, #3b82f6 40%, transparent 70%);"></div>
+
+          <!-- Dashboard frame -->
+          <div class="relative glass-panel rounded-xl overflow-hidden shadow-2xl" style="background: linear-gradient(135deg, rgba(15,23,42,0.95), rgba(2,6,23,0.95));">
+            <!-- Top bar -->
+            <div class="px-4 py-3 flex items-center justify-between border-b" style="border-color: rgba(255,255,255,0.08); background: rgba(15,23,42,0.6);" dir="ltr">
+              <div class="flex items-center gap-2">
+                <div class="w-7 h-7 rounded-full" style="background: linear-gradient(135deg, #8b5cf6, #ec4899);"></div>
+                <div>
+                  <div class="text-xs font-bold text-white leading-tight">Finance Dashboard</div>
+                  <div class="text-[9px]" style="color:#94a3b8">Modern KPI + trends view</div>
+                </div>
+              </div>
+              <div class="flex items-center gap-1.5">
+                <div class="px-2 py-1 rounded text-[9px] font-medium" style="background:rgba(255,255,255,0.05); color:#cbd5e1;">All</div>
+                <div class="px-2 py-1 rounded text-[9px] font-medium" style="background: linear-gradient(135deg, #22d3ee, #2dd4bf); color:#020617;">Export</div>
+              </div>
+            </div>
+
+            <!-- KPI cards row -->
+            <div class="grid grid-cols-4 gap-2 p-3" dir="ltr">
+              <div class="rounded-lg p-2.5" style="background:rgba(34,211,238,0.08); border:1px solid rgba(34,211,238,0.2);">
+                <div class="text-[8px] font-bold uppercase tracking-wider" style="color:#67e8f9">Revenue</div>
+                <div class="text-sm font-bold text-white mt-1">$297K</div>
+                <div class="text-[8px] text-emerald-400">+1.6% MoM</div>
+              </div>
+              <div class="rounded-lg p-2.5" style="background:rgba(45,212,191,0.08); border:1px solid rgba(45,212,191,0.2);">
+                <div class="text-[8px] font-bold uppercase tracking-wider" style="color:#5eead4">ARR</div>
+                <div class="text-sm font-bold text-white mt-1">$295K</div>
+                <div class="text-[8px] text-emerald-400">+3.6%</div>
+              </div>
+              <div class="rounded-lg p-2.5" style="background:rgba(59,130,246,0.08); border:1px solid rgba(59,130,246,0.2);">
+                <div class="text-[8px] font-bold uppercase tracking-wider" style="color:#93c5fd">Profit</div>
+                <div class="text-sm font-bold text-white mt-1">$88K</div>
+                <div class="text-[8px]" style="color:#94a3b8">Net 29.8%</div>
+              </div>
+              <div class="rounded-lg p-2.5" style="background:rgba(168,85,247,0.08); border:1px solid rgba(168,85,247,0.2);">
+                <div class="text-[8px] font-bold uppercase tracking-wider" style="color:#c4b5fd">Customers</div>
+                <div class="text-sm font-bold text-white mt-1">3,168</div>
+                <div class="text-[8px] text-amber-400">Churn 2.8%</div>
+              </div>
+            </div>
+
+            <!-- Charts row 1: Revenue & Margins -->
+            <div class="grid grid-cols-2 gap-2 px-3 pb-3" dir="ltr">
+              <div class="rounded-lg p-3" style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.06);">
+                <div class="text-[9px] font-semibold text-white mb-2">Revenue & ARR</div>
+                <!-- Mini line chart -->
+                <svg viewBox="0 0 120 50" class="w-full h-12">
+                  <defs>
+                    <linearGradient id="g1" x1="0%" y1="0%" x2="0%" y2="100%">
+                      <stop offset="0%" stop-color="#22d3ee" stop-opacity="0.4"/>
+                      <stop offset="100%" stop-color="#22d3ee" stop-opacity="0"/>
+                    </linearGradient>
+                  </defs>
+                  <path d="M0,40 L15,38 L30,32 L45,28 L60,25 L75,20 L90,15 L105,10 L120,8 L120,50 L0,50 Z" fill="url(#g1)"/>
+                  <path d="M0,40 L15,38 L30,32 L45,28 L60,25 L75,20 L90,15 L105,10 L120,8" fill="none" stroke="#22d3ee" stroke-width="1.5"/>
+                  <path d="M0,42 L15,41 L30,38 L45,36 L60,33 L75,30 L90,27 L105,24 L120,22" fill="none" stroke="#ec4899" stroke-width="1" stroke-dasharray="2,1"/>
+                </svg>
+              </div>
+              <div class="rounded-lg p-3" style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.06);">
+                <div class="text-[9px] font-semibold text-white mb-2">Margins</div>
+                <svg viewBox="0 0 120 50" class="w-full h-12">
+                  <path d="M0,15 L15,17 L30,14 L45,16 L60,13 L75,15 L90,12 L105,14 L120,11" fill="none" stroke="#2dd4bf" stroke-width="1.5"/>
+                  <path d="M0,32 L15,33 L30,30 L45,32 L60,28 L75,30 L90,27 L105,29 L120,26" fill="none" stroke="#f59e0b" stroke-width="1.5"/>
+                </svg>
+              </div>
+            </div>
+
+            <!-- Charts row 2: 3 small charts -->
+            <div class="grid grid-cols-3 gap-2 px-3 pb-3" dir="ltr">
+              <div class="rounded-lg p-2" style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.06);">
+                <div class="text-[8px] font-semibold text-white mb-1">Expense Mix</div>
+                <svg viewBox="0 0 60 30" class="w-full h-8">
+                  <rect x="2" y="10" width="4" height="18" fill="#3b82f6" opacity="0.7"/>
+                  <rect x="9" y="8" width="4" height="20" fill="#ec4899" opacity="0.7"/>
+                  <rect x="16" y="12" width="4" height="16" fill="#3b82f6" opacity="0.7"/>
+                  <rect x="23" y="6" width="4" height="22" fill="#ec4899" opacity="0.7"/>
+                  <rect x="30" y="9" width="4" height="19" fill="#3b82f6" opacity="0.7"/>
+                  <rect x="37" y="11" width="4" height="17" fill="#ec4899" opacity="0.7"/>
+                  <rect x="44" y="7" width="4" height="21" fill="#3b82f6" opacity="0.7"/>
+                  <rect x="51" y="13" width="4" height="15" fill="#ec4899" opacity="0.7"/>
+                </svg>
+              </div>
+              <div class="rounded-lg p-2" style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.06);">
+                <div class="text-[8px] font-semibold text-white mb-1">Customer Flow</div>
+                <svg viewBox="0 0 60 30" class="w-full h-8">
+                  <path d="M0,20 L10,15 L20,18 L30,12 L40,16 L50,8 L60,11" fill="none" stroke="#22d3ee" stroke-width="1"/>
+                  <path d="M0,25 L10,24 L20,26 L30,23 L40,25 L50,22 L60,24" fill="none" stroke="#ec4899" stroke-width="1"/>
+                </svg>
+              </div>
+              <div class="rounded-lg p-2" style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.06);">
+                <div class="text-[8px] font-semibold text-white mb-1">Unit Economics</div>
+                <svg viewBox="0 0 60 30" class="w-full h-8">
+                  <rect x="2" y="14" width="3" height="14" fill="#22d3ee" opacity="0.6"/>
+                  <rect x="7" y="10" width="3" height="18" fill="#22d3ee" opacity="0.6"/>
+                  <rect x="12" y="12" width="3" height="16" fill="#22d3ee" opacity="0.6"/>
+                  <rect x="17" y="8" width="3" height="20" fill="#22d3ee" opacity="0.6"/>
+                  <rect x="22" y="11" width="3" height="17" fill="#22d3ee" opacity="0.6"/>
+                  <rect x="27" y="6" width="3" height="22" fill="#22d3ee" opacity="0.6"/>
+                  <rect x="32" y="9" width="3" height="19" fill="#22d3ee" opacity="0.6"/>
+                  <rect x="37" y="13" width="3" height="15" fill="#22d3ee" opacity="0.6"/>
+                  <rect x="42" y="7" width="3" height="21" fill="#22d3ee" opacity="0.6"/>
+                  <rect x="47" y="10" width="3" height="18" fill="#22d3ee" opacity="0.6"/>
+                  <rect x="52" y="5" width="3" height="23" fill="#22d3ee" opacity="0.6"/>
+                  <rect x="57" y="8" width="3" height="20" fill="#22d3ee" opacity="0.6"/>
+                </svg>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== MAIN: SIDEBAR + GRID ===== -->
+  <section class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12">
+    <div class="flex flex-col md:flex-row gap-8">
+
+      <!-- Sidebar -->
+      <aside class="w-full md:w-64 flex-shrink-0">
+        <!-- Mobile toggle button (visible only on mobile) -->
+        <button
+          id="cat-toggle"
+          onclick="toggleCategories()"
+          class="md:hidden w-full glass-panel rounded-xl px-4 py-3 flex items-center justify-between mb-3"
+        >
+          <span class="flex items-center gap-2">
+            <span class="text-neon-teal">☰</span>
+            <span class="font-medium text-white">קטגוריות</span>
+            <span id="active-cat-label" class="text-xs px-2 py-0.5 rounded" style="background: rgba(34,211,238,0.15); color:#67e8f9;">הכל</span>
+          </span>
+          <span id="cat-arrow" class="text-neon-teal transition-transform">▼</span>
+        </button>
+
+        <!-- Categories container — collapsible on mobile, sticky on desktop -->
+        <div id="cat-panel" class="hidden md:block md:sticky md:top-24 space-y-6">
+          <div class="glass-panel md:bg-transparent md:border-0 md:shadow-none md:backdrop-blur-0 rounded-xl md:rounded-none p-4 md:p-0">
+            <div class="hidden md:block text-xs font-bold uppercase tracking-widest mb-4 px-2" style="color:#64748b">קטגוריות</div>
+            <nav class="space-y-1">
+              <a href="#" onclick="selectCat(event, 'הכל')" class="cat-active flex items-center justify-between px-4 py-3 rounded-l-lg transition-all">
+                <span class="font-medium">הכל</span>
+                <span class="text-xs opacity-70">8</span>
+              </a>
+              <a href="#" onclick="selectCat(event, 'Claude')" class="flex items-center justify-between px-4 py-3 rounded-l-lg transition-all hover:bg-white/5" style="color:#94a3b8">
+                <span class="font-medium">Claude</span>
+                <span class="text-xs">3</span>
+              </a>
+              <a href="#" onclick="selectCat(event, 'ChatGPT')" class="flex items-center justify-between px-4 py-3 rounded-l-lg transition-all hover:bg-white/5" style="color:#94a3b8">
+                <span class="font-medium">ChatGPT</span>
+                <span class="text-xs">1</span>
+              </a>
+              <a href="#" onclick="selectCat(event, 'אוטומציה')" class="flex items-center justify-between px-4 py-3 rounded-l-lg transition-all hover:bg-white/5" style="color:#94a3b8">
+                <span class="font-medium">אוטומציה</span>
+                <span class="text-xs">1</span>
+              </a>
+              <a href="#" onclick="selectCat(event, 'Excel')" class="flex items-center justify-between px-4 py-3 rounded-l-lg transition-all hover:bg-white/5" style="color:#94a3b8">
+                <span class="font-medium">Excel</span>
+                <span class="text-xs">1</span>
+              </a>
+              <a href="#" onclick="selectCat(event, 'Power BI')" class="flex items-center justify-between px-4 py-3 rounded-l-lg transition-all hover:bg-white/5" style="color:#94a3b8">
+                <span class="font-medium">Power BI</span>
+                <span class="text-xs">1</span>
+              </a>
+              <a href="#" onclick="selectCat(event, 'NotebookLM')" class="flex items-center justify-between px-4 py-3 rounded-l-lg transition-all hover:bg-white/5" style="color:#94a3b8">
+                <span class="font-medium">NotebookLM</span>
+                <span class="text-xs">0</span>
+              </a>
+              <a href="#" onclick="selectCat(event, 'מחלקות כספים')" class="flex items-center justify-between px-4 py-3 rounded-l-lg transition-all hover:bg-white/5" style="color:#94a3b8">
+                <span class="font-medium">מחלקות כספים</span>
+                <span class="text-xs">1</span>
+              </a>
+            </nav>
+          </div>
+
+          <!-- Premium CTA -->
+          <div class="glass-panel rounded-xl p-5 relative overflow-hidden">
+            <div class="absolute -top-10 -right-10 w-32 h-32 rounded-full opacity-20" style="background: radial-gradient(circle, #22d3ee, transparent 70%);"></div>
+            <div class="relative">
+              <div class="text-2xl mb-2">⚡</div>
+              <h4 class="font-bold text-white mb-2">רוצה גישה מלאה?</h4>
+              <p class="text-xs mb-4 leading-relaxed" style="color:#94a3b8">מנוי פרימיום פותח את כל הבלוג, ה-Skill Vault והמדריכים המתקדמים.</p>
+              <a href="#" class="block text-center w-full py-2 rounded-lg text-sm font-bold transition-all hover:brightness-110" style="background: linear-gradient(135deg, #22d3ee, #2dd4bf); color: #020617;">הצטרף לפרימיום</a>
+            </div>
+          </div>
+        </div>
+      </aside>
+
+      <script>
+        function toggleCategories() {
+          const panel = document.getElementById('cat-panel');
+          const arrow = document.getElementById('cat-arrow');
+          panel.classList.toggle('hidden');
+          arrow.style.transform = panel.classList.contains('hidden') ? 'rotate(0deg)' : 'rotate(180deg)';
+        }
+        function selectCat(e, name) {
+          e.preventDefault();
+          // Update active state
+          document.querySelectorAll('#cat-panel nav a').forEach(a => {
+            a.classList.remove('cat-active');
+            a.style.color = '#94a3b8';
+          });
+          e.currentTarget.classList.add('cat-active');
+          e.currentTarget.style.color = '';
+          // Update label in toggle button
+          document.getElementById('active-cat-label').textContent = name;
+          // Auto-close on mobile
+          if (window.innerWidth < 768) {
+            const panel = document.getElementById('cat-panel');
+            const arrow = document.getElementById('cat-arrow');
+            panel.classList.add('hidden');
+            arrow.style.transform = 'rotate(0deg)';
+          }
+        }
+      </script>
+
+      <!-- Main content -->
+      <div class="flex-grow min-w-0">
+
+        <!-- Filter chips + sort -->
+        <div class="flex flex-wrap items-center justify-between gap-4 mb-6">
+          <div class="flex flex-wrap gap-2">
+            <button class="chip-active px-4 py-1.5 rounded-full text-xs transition-all">הכל</button>
+            <button class="px-4 py-1.5 rounded-full text-xs glass-panel hover:border-neon-cyan/40 transition-all" style="color:#cbd5e1">סוכנים</button>
+            <button class="px-4 py-1.5 rounded-full text-xs glass-panel hover:border-neon-cyan/40 transition-all" style="color:#cbd5e1">אוטומציה</button>
+            <button class="px-4 py-1.5 rounded-full text-xs glass-panel hover:border-neon-cyan/40 transition-all" style="color:#cbd5e1">Workflow</button>
+            <button class="px-4 py-1.5 rounded-full text-xs glass-panel hover:border-neon-cyan/40 transition-all" style="color:#cbd5e1">Prompting</button>
+            <button class="px-4 py-1.5 rounded-full text-xs glass-panel hover:border-neon-cyan/40 transition-all" style="color:#cbd5e1">CFO</button>
+          </div>
+          <div class="flex items-center gap-2 text-sm" style="color:#94a3b8">
+            <span>מיין:</span>
+            <select class="bg-transparent border-none text-neon-teal font-medium focus:outline-none cursor-pointer">
+              <option>החדש ביותר</option>
+              <option>פופולרי</option>
+              <option>קצר → ארוך</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Grid -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+
+          <!-- Card 1: Subagents (Claude) -->
+          <article class="glass-panel rounded-xl overflow-hidden card-hover flex flex-col">
+            <div class="relative h-44 thumb-claude">
+              <div class="thumb-pattern"></div>
+              <div class="thumb-icon">
+                <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
+              </div>
+              <div class="absolute top-3 right-3 z-10">
+                <span class="px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider" style="background: rgba(45, 212, 191, 0.95); color: #042f2e;">חינמי</span>
+              </div>
+              <div class="absolute bottom-3 right-3 left-3 flex items-center justify-between z-10">
+                <span class="px-2 py-0.5 rounded-md text-[10px] font-bold uppercase tracking-wider" style="background: rgba(15, 23, 42, 0.85); color: #e2e8f0;">Claude</span>
+                <span class="text-xs font-medium" style="color:#475569;">⏱ 12 דק'</span>
+              </div>
+            </div>
+            <div class="p-5 flex-grow flex flex-col">
+              <h3 class="font-bold text-lg text-white mb-2 leading-snug">7 סאב-אגנטים שכל מקצוען AI חייב להכיר</h3>
+              <p class="text-sm mb-4 flex-grow leading-relaxed" style="color:#94a3b8">איך לבנות צוות סוכנים שעובד בשבילך 24/7 — מהבסיס של Claude Code ועד delegation מתקדם.</p>
+              <div class="flex flex-wrap gap-1.5 mb-4">
+                <span class="text-[10px] px-2 py-0.5 rounded" style="background:rgba(34,211,238,0.1); color:#67e8f9;">Subagents</span>
+                <span class="text-[10px] px-2 py-0.5 rounded" style="background:rgba(34,211,238,0.1); color:#67e8f9;">Workflow</span>
+              </div>
+              <a href="https://gamma.app/docs/7-Subagents--ptensygek0sxy54" target="_blank" rel="noopener" class="flex items-center justify-between text-sm font-bold text-neon-cyan hover:text-neon-teal transition-colors group">
+                <span>צפה במדריך</span>
+                <span class="group-hover:-translate-x-1 transition-transform">←</span>
+              </a>
+            </div>
+          </article>
+
+          <!-- Card 2: Claude Code Checkpoints -->
+          <article class="glass-panel rounded-xl overflow-hidden card-hover flex flex-col">
+            <div class="relative h-44 thumb-claude">
+              <div class="thumb-pattern"></div>
+              <div class="thumb-icon">
+                <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
+              </div>
+              <div class="absolute top-3 right-3 z-10">
+                <span class="px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider" style="background: rgba(45, 212, 191, 0.95); color: #042f2e;">חינמי</span>
+              </div>
+              <div class="absolute bottom-3 right-3 left-3 flex items-center justify-between z-10">
+                <span class="px-2 py-0.5 rounded-md text-[10px] font-bold uppercase tracking-wider" style="background: rgba(15, 23, 42, 0.85); color: #e2e8f0;">Claude</span>
+                <span class="text-white/90 text-xs font-medium">⏱ 8 דק'</span>
+              </div>
+            </div>
+            <div class="p-5 flex-grow flex flex-col">
+              <h3 class="font-bold text-lg text-white mb-2 leading-snug">Claude Code Checkpoints — שמירה חכמה של עבודה</h3>
+              <p class="text-sm mb-4 flex-grow leading-relaxed" style="color:#94a3b8">כל מה שצריך לדעת על Checkpoints ב-Claude Code — איך לשחזר, להשוות גרסאות ולא לאבד שום שינוי.</p>
+              <div class="flex flex-wrap gap-1.5 mb-4">
+                <span class="text-[10px] px-2 py-0.5 rounded" style="background:rgba(34,211,238,0.1); color:#67e8f9;">Claude Code</span>
+                <span class="text-[10px] px-2 py-0.5 rounded" style="background:rgba(34,211,238,0.1); color:#67e8f9;">Productivity</span>
+              </div>
+              <a href="https://gamma.app/docs/Claude-Code-Checkpoints-81xx84cs1vbpj8b" target="_blank" rel="noopener" class="flex items-center justify-between text-sm font-bold text-neon-cyan hover:text-neon-teal transition-colors group">
+                <span>צפה במדריך</span>
+                <span class="group-hover:-translate-x-1 transition-transform">←</span>
+              </a>
+            </div>
+          </article>
+
+          <!-- Card 3: Untitled / Generic Claude -->
+          <article class="glass-panel rounded-xl overflow-hidden card-hover flex flex-col">
+            <div class="relative h-44 thumb-claude">
+              <div class="thumb-pattern"></div>
+              <div class="thumb-icon">
+                <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
+              </div>
+              <div class="absolute top-3 right-3 z-10">
+                <span class="px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider" style="background: rgba(45, 212, 191, 0.95); color: #042f2e;">חינמי</span>
+              </div>
+              <div class="absolute bottom-3 right-3 left-3 flex items-center justify-between z-10">
+                <span class="px-2 py-0.5 rounded-md text-[10px] font-bold uppercase tracking-wider" style="background: rgba(15, 23, 42, 0.85); color: #e2e8f0;">Claude</span>
+                <span class="text-white/90 text-xs font-medium">⏱ 10 דק'</span>
+              </div>
+            </div>
+            <div class="p-5 flex-grow flex flex-col">
+              <h3 class="font-bold text-lg text-white mb-2 leading-snug">[Placeholder — עדכן כותרת]</h3>
+              <p class="text-sm mb-4 flex-grow leading-relaxed" style="color:#94a3b8">תיאור placeholder — תעדכן את כותרת המדריך, התיאור והתגיות בקובץ lib/guides-data.ts.</p>
+              <div class="flex flex-wrap gap-1.5 mb-4">
+                <span class="text-[10px] px-2 py-0.5 rounded" style="background:rgba(34,211,238,0.1); color:#67e8f9;">Claude</span>
+              </div>
+              <a href="https://gamma.app/docs/Untitled-wpdzhezkj470s92" target="_blank" rel="noopener" class="flex items-center justify-between text-sm font-bold text-neon-cyan hover:text-neon-teal transition-colors group">
+                <span>צפה במדריך</span>
+                <span class="group-hover:-translate-x-1 transition-transform">←</span>
+              </a>
+            </div>
+          </article>
+
+          <!-- Card 4: ChatGPT placeholder -->
+          <article class="glass-panel rounded-xl overflow-hidden card-hover flex flex-col">
+            <div class="relative h-44 thumb-chatgpt">
+              <div class="thumb-pattern"></div>
+              <div class="thumb-icon">
+                <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+              </div>
+              <div class="absolute top-3 right-3 z-10">
+                <span class="px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider" style="background: rgba(45, 212, 191, 0.95); color: #042f2e;">חינמי</span>
+              </div>
+              <div class="absolute bottom-3 right-3 left-3 flex items-center justify-between z-10">
+                <span class="px-2 py-0.5 rounded-md text-[10px] font-bold uppercase tracking-wider" style="background: rgba(15, 23, 42, 0.85); color: #e2e8f0;">ChatGPT</span>
+                <span class="text-xs font-medium" style="color:#475569;">⏱ 15 דק'</span>
+              </div>
+            </div>
+            <div class="p-5 flex-grow flex flex-col">
+              <h3 class="font-bold text-lg text-white mb-2 leading-snug">ChatGPT לאנשי כספים — המדריך השלם</h3>
+              <p class="text-sm mb-4 flex-grow leading-relaxed" style="color:#94a3b8">[Placeholder] איך להפיק מ-ChatGPT עבודה ברמת אנליסט בכיר. פרומפטים, דוגמאות ושיטות עבודה.</p>
+              <div class="flex flex-wrap gap-1.5 mb-4">
+                <span class="text-[10px] px-2 py-0.5 rounded" style="background:rgba(34,211,238,0.1); color:#67e8f9;">ChatGPT</span>
+                <span class="text-[10px] px-2 py-0.5 rounded" style="background:rgba(34,211,238,0.1); color:#67e8f9;">Prompting</span>
+              </div>
+              <a href="#" class="flex items-center justify-between text-sm font-bold text-neon-cyan hover:text-neon-teal transition-colors group">
+                <span>צפה במדריך</span>
+                <span class="group-hover:-translate-x-1 transition-transform">←</span>
+              </a>
+            </div>
+          </article>
+
+          <!-- Card 5: Automation -->
+          <article class="glass-panel rounded-xl overflow-hidden card-hover flex flex-col">
+            <div class="relative h-44 thumb-automation">
+              <div class="thumb-pattern"></div>
+              <div class="thumb-icon">
+                <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+              </div>
+              <div class="absolute top-3 right-3 z-10">
+                <span class="px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider" style="background: rgba(45, 212, 191, 0.95); color: #042f2e;">חינמי</span>
+              </div>
+              <div class="absolute bottom-3 right-3 left-3 flex items-center justify-between z-10">
+                <span class="px-2 py-0.5 rounded-md text-[10px] font-bold uppercase tracking-wider" style="background: rgba(15, 23, 42, 0.85); color: #e2e8f0;">אוטומציה</span>
+                <span class="text-xs font-medium" style="color:#475569;">⏱ 20 דק'</span>
+              </div>
+            </div>
+            <div class="p-5 flex-grow flex flex-col">
+              <h3 class="font-bold text-lg text-white mb-2 leading-snug">5 אוטומציות שכל צוות כספים צריך</h3>
+              <p class="text-sm mb-4 flex-grow leading-relaxed" style="color:#94a3b8">[Placeholder] אוטומציות שחוסכות 10+ שעות בחודש — מסגירת חודש ועד התאמות בנקים.</p>
+              <div class="flex flex-wrap gap-1.5 mb-4">
+                <span class="text-[10px] px-2 py-0.5 rounded" style="background:rgba(34,211,238,0.1); color:#67e8f9;">Automation</span>
+                <span class="text-[10px] px-2 py-0.5 rounded" style="background:rgba(34,211,238,0.1); color:#67e8f9;">Finance Ops</span>
+              </div>
+              <a href="#" class="flex items-center justify-between text-sm font-bold text-neon-cyan hover:text-neon-teal transition-colors group">
+                <span>צפה במדריך</span>
+                <span class="group-hover:-translate-x-1 transition-transform">←</span>
+              </a>
+            </div>
+          </article>
+
+          <!-- Card 6: Excel -->
+          <article class="glass-panel rounded-xl overflow-hidden card-hover flex flex-col">
+            <div class="relative h-44 thumb-excel">
+              <div class="thumb-pattern"></div>
+              <div class="thumb-icon">
+                <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="3" y1="15" x2="21" y2="15"/><line x1="9" y1="3" x2="9" y2="21"/><line x1="15" y1="3" x2="15" y2="21"/></svg>
+              </div>
+              <div class="absolute top-3 right-3 z-10">
+                <span class="px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider" style="background: rgba(45, 212, 191, 0.95); color: #042f2e;">חינמי</span>
+              </div>
+              <div class="absolute bottom-3 right-3 left-3 flex items-center justify-between z-10">
+                <span class="px-2 py-0.5 rounded-md text-[10px] font-bold uppercase tracking-wider" style="background: rgba(15, 23, 42, 0.85); color: #e2e8f0;">Excel</span>
+                <span class="text-xs font-medium" style="color:#475569;">⏱ 14 דק'</span>
+              </div>
+            </div>
+            <div class="p-5 flex-grow flex flex-col">
+              <h3 class="font-bold text-lg text-white mb-2 leading-snug">Excel + AI — האנליסט החדש שלך</h3>
+              <p class="text-sm mb-4 flex-grow leading-relaxed" style="color:#94a3b8">[Placeholder] שילוב של Excel עם Claude/ChatGPT ליצירת ניתוחים מורכבים בלחיצת כפתור.</p>
+              <div class="flex flex-wrap gap-1.5 mb-4">
+                <span class="text-[10px] px-2 py-0.5 rounded" style="background:rgba(34,211,238,0.1); color:#67e8f9;">Excel</span>
+                <span class="text-[10px] px-2 py-0.5 rounded" style="background:rgba(34,211,238,0.1); color:#67e8f9;">AI</span>
+              </div>
+              <a href="#" class="flex items-center justify-between text-sm font-bold text-neon-cyan hover:text-neon-teal transition-colors group">
+                <span>צפה במדריך</span>
+                <span class="group-hover:-translate-x-1 transition-transform">←</span>
+              </a>
+            </div>
+          </article>
+
+          <!-- Card 7: Power BI -->
+          <article class="glass-panel rounded-xl overflow-hidden card-hover flex flex-col">
+            <div class="relative h-44 thumb-powerbi">
+              <div class="thumb-pattern"></div>
+              <div class="thumb-icon">
+                <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+              </div>
+              <div class="absolute top-3 right-3 z-10">
+                <span class="px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider" style="background: rgba(45, 212, 191, 0.95); color: #042f2e;">חינמי</span>
+              </div>
+              <div class="absolute bottom-3 right-3 left-3 flex items-center justify-between z-10">
+                <span class="px-2 py-0.5 rounded-md text-[10px] font-bold uppercase tracking-wider" style="background: rgba(15, 23, 42, 0.85); color: #e2e8f0;">Power BI</span>
+                <span class="text-xs font-medium" style="color:#475569;">⏱ 22 דק'</span>
+              </div>
+            </div>
+            <div class="p-5 flex-grow flex flex-col">
+              <h3 class="font-bold text-lg text-white mb-2 leading-snug">דשבורד CFO ב-Power BI מאפס</h3>
+              <p class="text-sm mb-4 flex-grow leading-relaxed" style="color:#94a3b8">[Placeholder] שלב-אחרי-שלב לבניית דשבורד שמדבר בשפה של מנכ&quot;לים — KPIs, drill-down ו-mobile-ready.</p>
+              <div class="flex flex-wrap gap-1.5 mb-4">
+                <span class="text-[10px] px-2 py-0.5 rounded" style="background:rgba(34,211,238,0.1); color:#67e8f9;">Power BI</span>
+                <span class="text-[10px] px-2 py-0.5 rounded" style="background:rgba(34,211,238,0.1); color:#67e8f9;">Dashboard</span>
+              </div>
+              <a href="#" class="flex items-center justify-between text-sm font-bold text-neon-cyan hover:text-neon-teal transition-colors group">
+                <span>צפה במדריך</span>
+                <span class="group-hover:-translate-x-1 transition-transform">←</span>
+              </a>
+            </div>
+          </article>
+
+          <!-- Card 8: Finance dept -->
+          <article class="glass-panel rounded-xl overflow-hidden card-hover flex flex-col">
+            <div class="relative h-44 thumb-finance">
+              <div class="thumb-pattern"></div>
+              <div class="thumb-icon">
+                <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+              </div>
+              <div class="absolute top-3 right-3 z-10">
+                <span class="px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider" style="background: rgba(45, 212, 191, 0.95); color: #042f2e;">חינמי</span>
+              </div>
+              <div class="absolute bottom-3 right-3 left-3 flex items-center justify-between z-10">
+                <span class="px-2 py-0.5 rounded-md text-[10px] font-bold uppercase tracking-wider" style="background: rgba(15, 23, 42, 0.85); color: #e2e8f0;">מחלקות כספים</span>
+                <span class="text-xs font-medium" style="color:#475569;">⏱ 18 דק'</span>
+              </div>
+            </div>
+            <div class="p-5 flex-grow flex flex-col">
+              <h3 class="font-bold text-lg text-white mb-2 leading-snug">מחלקת כספים מבוססת-AI — Roadmap</h3>
+              <p class="text-sm mb-4 flex-grow leading-relaxed" style="color:#94a3b8">[Placeholder] איך להפוך מחלקת כספים שמרנית למחלקה שמובילה את הארגון בעזרת AI.</p>
+              <div class="flex flex-wrap gap-1.5 mb-4">
+                <span class="text-[10px] px-2 py-0.5 rounded" style="background:rgba(34,211,238,0.1); color:#67e8f9;">CFO</span>
+                <span class="text-[10px] px-2 py-0.5 rounded" style="background:rgba(34,211,238,0.1); color:#67e8f9;">Strategy</span>
+              </div>
+              <a href="#" class="flex items-center justify-between text-sm font-bold text-neon-cyan hover:text-neon-teal transition-colors group">
+                <span>צפה במדריך</span>
+                <span class="group-hover:-translate-x-1 transition-transform">←</span>
+              </a>
+            </div>
+          </article>
+
+        </div>
+
+        <!-- Empty state preview (commented for visibility — real grid is above) -->
+        <div class="mt-12 text-center" style="color:#64748b">
+          <p class="text-sm">📍 כשנגמרים מדריכים בקטגוריה — מצב ריק עם הצעה לעבור לקטגוריה אחרת</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Newsletter banner (matches site style) ===== -->
+  <section class="border-t" style="border-color: rgba(255,255,255,0.06); background: linear-gradient(180deg, transparent, rgba(15,23,42,0.6));">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16">
+      <div class="glass-panel rounded-2xl p-8 md:p-12 flex flex-col md:flex-row items-center gap-8 text-right">
+        <div class="flex-grow text-center md:text-right">
+          <h2 class="text-2xl md:text-3xl font-bold text-white mb-3">קבל מדריך חדש כל שבוע</h2>
+          <p class="text-base max-w-xl" style="color:#94a3b8">מצטרפים לרשימה — מקבלים מדריך מעשי חדש על AI בכספים כל יום שלישי, ישירות למייל.</p>
+        </div>
+        <div class="w-full md:w-auto flex flex-col sm:flex-row gap-3">
+          <input type="email" placeholder="המייל שלך" class="px-5 py-3 rounded-lg text-white min-w-[260px] focus:outline-none focus:border-neon-cyan/50" style="background: rgba(15,23,42,0.8); border: 1px solid rgba(255,255,255,0.15);" />
+          <button class="px-6 py-3 rounded-lg font-bold whitespace-nowrap" style="background: linear-gradient(135deg, #22d3ee, #2dd4bf); color: #020617;">הירשם</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Footer (mock) ===== -->
+  <footer class="border-t py-10 mt-12" style="border-color: rgba(255,255,255,0.06)">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center text-sm" style="color:#64748b">
+      © 2026 רונן עמוס CPA — כל הזכויות שמורות
+    </div>
+  </footer>
+
+</main>
+
+</body>
+</html>

@@ -1,0 +1,634 @@
+- generic [active] [ref=e1]:
+  - banner [ref=e2]:
+    - generic [ref=e4]:
+      - link "רונן עמוס רו\"ח | יועץ טכנולוגי" [ref=e5] [cursor=pointer]:
+        - /url: /
+        - generic [ref=e6]: רונן עמוס
+        - generic [ref=e7]: רו"ח | יועץ טכנולוגי
+      - navigation [ref=e8]:
+        - link "בית" [ref=e9] [cursor=pointer]:
+          - /url: /
+        - link "אודות" [ref=e10] [cursor=pointer]:
+          - /url: /about
+        - link "שירותים" [ref=e11] [cursor=pointer]:
+          - /url: /services
+        - link "הכשרות" [ref=e12] [cursor=pointer]:
+          - /url: /training
+        - link "קורסים" [ref=e13] [cursor=pointer]:
+          - /url: /courses
+        - link "מנוי פרימיום" [ref=e14] [cursor=pointer]:
+          - /url: /pricing
+        - link "Skill Vault" [ref=e15] [cursor=pointer]:
+          - /url: /skill-vault
+        - link "מדריכים" [ref=e16] [cursor=pointer]:
+          - /url: /guides
+        - link "כלים" [ref=e17] [cursor=pointer]:
+          - /url: /tools
+        - link "בלוג" [ref=e18] [cursor=pointer]:
+          - /url: /blog
+        - link "צור קשר" [ref=e19] [cursor=pointer]:
+          - /url: /contact
+  - main [ref=e22]:
+    - generic [ref=e23]:
+      - generic [ref=e27]:
+        - generic [ref=e28]:
+          - generic [ref=e30]: 📚 ספרייה מתעדכנת
+          - heading "המדריכים שמלמדים אנשי כספים לעבוד חכם יותר – עם AI" [level=1] [ref=e31]:
+            - text: המדריכים שמלמדים אנשי כספים
+            - text: לעבוד חכם יותר – עם AI
+          - paragraph [ref=e32]: ספרייה של מדריכים מעשיים על Claude, ChatGPT, אוטומציה ומחלקות כספים מבוססות-AI. בלי תיאוריה — רק צעדים שאתה יכול ליישם השבוע.
+          - generic [ref=e33]:
+            - generic [ref=e34]:
+              - generic [ref=e35]: ●
+              - text: 10 מדריכים
+            - generic [ref=e36]:
+              - generic [ref=e37]: ●
+              - text: 7 קטגוריות
+        - generic [ref=e40]:
+          - generic [ref=e41]:
+            - generic [ref=e44]:
+              - generic [ref=e45]: Finance Dashboard
+              - generic [ref=e46]: Modern KPI + trends view
+            - generic [ref=e47]:
+              - generic [ref=e48]: All
+              - generic [ref=e49]: Export
+          - generic [ref=e50]:
+            - generic [ref=e51]:
+              - generic [ref=e52]: Revenue
+              - generic [ref=e53]: $297K
+              - generic [ref=e54]: +1.6% MoM
+            - generic [ref=e55]:
+              - generic [ref=e56]: ARR
+              - generic [ref=e57]: $295K
+              - generic [ref=e58]: +3.6%
+            - generic [ref=e59]:
+              - generic [ref=e60]: Profit
+              - generic [ref=e61]: $88K
+              - generic [ref=e62]: Net 29.8%
+            - generic [ref=e63]:
+              - generic [ref=e64]: Customers
+              - generic [ref=e65]: 3,168
+              - generic [ref=e66]: Churn 2.8%
+          - generic [ref=e67]:
+            - generic [ref=e68]:
+              - generic [ref=e69]: Revenue & ARR
+              - img [ref=e70]
+            - generic [ref=e74]:
+              - generic [ref=e75]: Margins
+              - img [ref=e76]
+          - generic [ref=e79]:
+            - generic [ref=e80]:
+              - generic [ref=e81]: Expense Mix
+              - img [ref=e82]
+            - generic [ref=e91]:
+              - generic [ref=e92]: Customer Flow
+              - img [ref=e93]
+            - generic [ref=e96]:
+              - generic [ref=e97]: Unit Economics
+              - img [ref=e98]
+      - generic [ref=e111]:
+        - paragraph [ref=e112]:
+          - text: AI adoption in accounting surged to
+          - strong [ref=e113]: 41% of firms in 2025
+          - text: ", up from just 9% in 2024 (Karbon State of AI in Accounting Report 2025). Firms using Claude and ChatGPT report reducing routine data entry and processing time by"
+          - strong [ref=e114]: 50–80%
+          - text: ", with bank reconciliations executing"
+          - strong [ref=e115]: 75% faster
+          - text: (Intuit QuickBooks 2025 Accountant Technology Report). Over
+          - strong [ref=e116]: 81% of accountants
+          - text: now report AI positively impacting productivity, while
+          - strong [ref=e117]: 86% say it reduces mental load
+          - text: on daily tasks (Intuit, 2025). Finance teams leveraging AI tools reclaim an average of
+          - strong [ref=e118]: 21 hours per week
+          - text: previously spent crunching data (BILL 2026 State of AI in Finance).
+        - paragraph [ref=e119]: "This guides library teaches you the specific techniques: Claude for document analysis and risk spotting, ChatGPT for data workflows, and automation frameworks that plug into your existing CPA practice."
+        - generic [ref=e120]:
+          - heading "Key Takeaways" [level=2] [ref=e121]
+          - list [ref=e122]:
+            - listitem [ref=e123]:
+              - generic [ref=e124]: ●
+              - generic [ref=e125]:
+                - strong [ref=e126]: 46% of accountants
+                - text: now use AI daily in their work (Intuit, 2025)
+            - listitem [ref=e127]:
+              - generic [ref=e128]: ●
+              - generic [ref=e129]:
+                - strong [ref=e130]: Accountants using AI training
+                - text: unlock an additional
+                - strong [ref=e131]: 7 weeks of capacity
+                - text: per employee per year
+            - listitem [ref=e132]:
+              - generic [ref=e133]: ●
+              - generic [ref=e134]:
+                - strong [ref=e135]: Finance close cycles
+                - text: compress by
+                - strong [ref=e136]: 40–60%
+                - text: with automation (McKinsey, 2024)
+            - listitem [ref=e137]:
+              - generic [ref=e138]: ●
+              - generic [ref=e139]:
+                - strong [ref=e140]: 93% of CPA firms
+                - text: now offer advisory services—the work AI automation freed up (Karbon, 2025)
+        - heading "Available Guides (Free)" [level=2] [ref=e141]
+        - table [ref=e143]:
+          - rowgroup [ref=e144]:
+            - row "Guide Duration Best For Key Skill" [ref=e145]:
+              - columnheader "Guide" [ref=e146]
+              - columnheader "Duration" [ref=e147]
+              - columnheader "Best For" [ref=e148]
+              - columnheader "Key Skill" [ref=e149]
+          - rowgroup [ref=e150]:
+            - row "AI-Powered Lead Prospecting 12 min Growing client base Claude for CRM workflows" [ref=e151]:
+              - cell "AI-Powered Lead Prospecting" [ref=e152]:
+                - strong [ref=e153]: AI-Powered Lead Prospecting
+              - cell "12 min" [ref=e154]
+              - cell "Growing client base" [ref=e155]
+              - cell "Claude for CRM workflows" [ref=e156]
+            - 'row "Subagents: Building AI Agent Teams 12 min Scaling repetitive workflows Multi-agent automation" [ref=e157]':
+              - 'cell "Subagents: Building AI Agent Teams" [ref=e158]':
+                - strong [ref=e159]: "Subagents: Building AI Agent Teams"
+              - cell "12 min" [ref=e160]
+              - cell "Scaling repetitive workflows" [ref=e161]
+              - cell "Multi-agent automation" [ref=e162]
+            - row "Live Artifacts for Financial Dashboards 10 min Real-time client reporting Claude dynamic dashboards" [ref=e163]:
+              - cell "Live Artifacts for Financial Dashboards" [ref=e164]:
+                - strong [ref=e165]: Live Artifacts for Financial Dashboards
+              - cell "10 min" [ref=e166]
+              - cell "Real-time client reporting" [ref=e167]
+              - cell "Claude dynamic dashboards" [ref=e168]
+            - row "Claude Code Checkpoints 8 min Excel & Python automation Checkpoint-based workflows" [ref=e169]:
+              - cell "Claude Code Checkpoints" [ref=e170]:
+                - strong [ref=e171]: Claude Code Checkpoints
+              - cell "8 min" [ref=e172]
+              - cell "Excel & Python automation" [ref=e173]
+              - cell "Checkpoint-based workflows" [ref=e174]
+            - row "Scheduling Claude Routines 10 min Recurring automations Background task scheduling" [ref=e175]:
+              - cell "Scheduling Claude Routines" [ref=e176]:
+                - strong [ref=e177]: Scheduling Claude Routines
+              - cell "10 min" [ref=e178]
+              - cell "Recurring automations" [ref=e179]
+              - cell "Background task scheduling" [ref=e180]
+        - heading "Coming Soon (May–July 2026)" [level=2] [ref=e181]
+        - list [ref=e182]:
+          - listitem [ref=e183]:
+            - strong [ref=e184]: ChatGPT for Finance Professionals
+            - text: (15 min) — data transformation, report drafting, variance analysis
+          - listitem [ref=e185]:
+            - strong [ref=e186]: 5 Essential Finance Automations
+            - text: (20 min) — invoice-to-ledger, tax prep workflows, month-end close
+          - listitem [ref=e187]:
+            - strong [ref=e188]: Excel + AI Integration
+            - text: (14 min) — Python + Claude in spreadsheets
+          - listitem [ref=e189]:
+            - strong [ref=e190]: CFO Dashboards in Power BI
+            - text: (22 min) — AI-driven business intelligence
+          - listitem [ref=e191]:
+            - strong [ref=e192]: AI-Driven Finance Department Roadmap
+            - text: (18 min) — phased 90-day implementation plan
+        - heading "Why These Guides?" [level=2] [ref=e193]
+        - paragraph [ref=e194]:
+          - text: The
+          - strong [ref=e195]: AI in accounting market
+          - text: reached
+          - strong [ref=e196]: $4.73 billion in 2024
+          - text: and is projected to grow to
+          - strong [ref=e197]: $26.66 billion by 2029
+          - text: (41.27% annual growth rate), according to Karbon's 2025 market analysis. Yet only
+          - strong [ref=e198]: 37% of firms invest in AI training
+          - text: —creating a gap between adoption and effective use.
+        - paragraph [ref=e199]: "These guides bridge that gap. Each is grounded in:"
+        - list [ref=e200]:
+          - listitem [ref=e201]:
+            - strong [ref=e202]: Real use cases
+            - text: from CPA firms (not theoretical)
+          - listitem [ref=e203]:
+            - strong [ref=e204]: Verified time savings
+            - text: (50–80% on data work, per Intuit; 21 hours/week reclaimed per BILL)
+          - listitem [ref=e205]:
+            - strong [ref=e206]: Step-by-step implementations
+            - text: you can deploy in your firm within weeks
+          - listitem [ref=e207]:
+            - strong [ref=e208]: Hebrew language instruction
+            - text: for Israeli CPAs and finance teams
+        - heading "Frequently Asked Questions" [level=2] [ref=e209]
+        - generic [ref=e210]:
+          - generic [ref=e211]:
+            - 'heading "Q: Which is better for accounting—Claude or ChatGPT?" [level=3] [ref=e212]'
+            - paragraph [ref=e213]: "A: Claude excels at document analysis, spotting discrepancies in large datasets, and drafting sensitive communications (memos, client correspondence). ChatGPT is stronger for rapid data transformation and report generation. Most firms use both: Claude for quality, ChatGPT for speed."
+          - generic [ref=e214]:
+            - 'heading "Q: How much time will AI actually save my firm?" [level=3] [ref=e215]'
+            - paragraph [ref=e216]: "A: Accountants report saving 50–80% of processing time on data entry and bank reconciliation tasks (Intuit 2025). Finance teams using AI tools save an average of 21 hours per week on routine work (BILL 2026). These hours typically shift to advisory work and client relationships—higher-margin work."
+          - generic [ref=e217]:
+            - 'heading "Q: Do I need coding skills to use Claude for automation?" [level=3] [ref=e218]'
+            - paragraph [ref=e219]: "A: No. Claude Code (included in these guides) lets you build Python and Excel automations without writing a single line yourself. If you can describe the task, Claude builds it."
+          - generic [ref=e220]:
+            - 'heading "Q: Is my firm too small for AI automation?" [level=3] [ref=e221]'
+            - paragraph [ref=e222]: "A: 46% of accountants using AI work in firms of all sizes (Intuit 2025). The smallest wins—invoice categorization, expense matching, draft report generation—require no infrastructure changes and pay off immediately."
+        - heading "The Numbers Behind These Guides" [level=2] [ref=e223]
+        - table [ref=e225]:
+          - rowgroup [ref=e226]:
+            - row "Metric Finding Source" [ref=e227]:
+              - columnheader "Metric" [ref=e228]
+              - columnheader "Finding" [ref=e229]
+              - columnheader "Source" [ref=e230]
+          - rowgroup [ref=e231]:
+            - row "Daily AI Usage 46% of accountants Intuit 2025" [ref=e232]:
+              - cell "Daily AI Usage" [ref=e233]:
+                - strong [ref=e234]: Daily AI Usage
+              - cell "46% of accountants" [ref=e235]
+              - cell "Intuit 2025" [ref=e236]
+            - row "Productivity Gain 81% report positive impact Intuit 2025" [ref=e237]:
+              - cell "Productivity Gain" [ref=e238]:
+                - strong [ref=e239]: Productivity Gain
+              - cell "81% report positive impact" [ref=e240]
+              - cell "Intuit 2025" [ref=e241]
+            - row "Data Processing Speed 50–80% faster Intuit 2025" [ref=e242]:
+              - cell "Data Processing Speed" [ref=e243]:
+                - strong [ref=e244]: Data Processing Speed
+              - cell "50–80% faster" [ref=e245]
+              - cell "Intuit 2025" [ref=e246]
+            - row "Bank Reconciliation Speed 75% faster Intuit 2025" [ref=e247]:
+              - cell "Bank Reconciliation Speed" [ref=e248]:
+                - strong [ref=e249]: Bank Reconciliation Speed
+              - cell "75% faster" [ref=e250]
+              - cell "Intuit 2025" [ref=e251]
+            - row "Time Reclaimed 21 hours/week per person BILL 2026" [ref=e252]:
+              - cell "Time Reclaimed" [ref=e253]:
+                - strong [ref=e254]: Time Reclaimed
+              - cell "21 hours/week per person" [ref=e255]
+              - cell "BILL 2026" [ref=e256]
+            - row "Close Cycle Time Reduction 40–60% shorter McKinsey 2024" [ref=e257]:
+              - cell "Close Cycle Time Reduction" [ref=e258]:
+                - strong [ref=e259]: Close Cycle Time Reduction
+              - cell "40–60% shorter" [ref=e260]
+              - cell "McKinsey 2024" [ref=e261]
+            - row "Market Growth (2024–2029) 41.27% annual Karbon 2025" [ref=e262]:
+              - cell "Market Growth (2024–2029)" [ref=e263]:
+                - strong [ref=e264]: Market Growth (2024–2029)
+              - cell "41.27% annual" [ref=e265]
+              - cell "Karbon 2025" [ref=e266]
+            - row "Firms with AI Training ROI 7 weeks added capacity/employee/year Intuit 2025" [ref=e267]:
+              - cell "Firms with AI Training ROI" [ref=e268]:
+                - strong [ref=e269]: Firms with AI Training ROI
+              - cell "7 weeks added capacity/employee/year" [ref=e270]
+              - cell "Intuit 2025" [ref=e271]
+        - heading "Get Started" [level=2] [ref=e272]
+        - paragraph [ref=e273]:
+          - strong [ref=e274]: Free guides start immediately.
+          - text: Premium subscribers unlock video walkthroughs, templates, and direct access to Claude automation examples.
+        - list [ref=e275]:
+          - listitem [ref=e276]:
+            - strong [ref=e277]: "WhatsApp:"
+            - text: +972-50-5500344
+          - listitem [ref=e278]:
+            - strong [ref=e279]: "Email:"
+            - text: ronenamos@gmail.com
+          - listitem [ref=e280]:
+            - strong [ref=e281]: "Location:"
+            - text: Israel (nationwide)
+        - paragraph [ref=e282]: "Last updated: May 1, 2026"
+      - generic [ref=e284]:
+        - complementary [ref=e285]:
+          - generic [ref=e286]:
+            - generic [ref=e287]:
+              - paragraph [ref=e288]: קטגוריות
+              - navigation [ref=e289]:
+                - button "הכל 10" [ref=e290]:
+                  - generic [ref=e291]: הכל
+                  - generic [ref=e292]: "10"
+                - button "Claude 5" [ref=e293]:
+                  - generic [ref=e294]: Claude
+                  - generic [ref=e295]: "5"
+                - button "ChatGPT 1" [ref=e296]:
+                  - generic [ref=e297]: ChatGPT
+                  - generic [ref=e298]: "1"
+                - button "אוטומציה 1" [ref=e299]:
+                  - generic [ref=e300]: אוטומציה
+                  - generic [ref=e301]: "1"
+                - button "Excel 1" [ref=e302]:
+                  - generic [ref=e303]: Excel
+                  - generic [ref=e304]: "1"
+                - button "Power BI 1" [ref=e305]:
+                  - generic [ref=e306]: Power BI
+                  - generic [ref=e307]: "1"
+                - button "NotebookLM 0" [ref=e308]:
+                  - generic [ref=e309]: NotebookLM
+                  - generic [ref=e310]: "0"
+                - button "מחלקות כספים 1" [ref=e311]:
+                  - generic [ref=e312]: מחלקות כספים
+                  - generic [ref=e313]: "1"
+            - generic [ref=e314]:
+              - heading "רוצה גישה מלאה?" [level=4] [ref=e315]
+              - paragraph [ref=e316]: מנוי פרימיום פותח את כל הבלוג, ה-Skill Vault והמדריכים המתקדמים.
+              - link "שדרג עכשיו" [ref=e317] [cursor=pointer]:
+                - /url: /pricing
+        - main [ref=e318]:
+          - generic [ref=e319]:
+            - img
+            - searchbox "חפש מדריך, תגית או קטגוריה..." [ref=e320]
+          - generic [ref=e321]:
+            - generic [ref=e322]:
+              - button "הכל" [ref=e323]
+              - button "Claude" [ref=e324]
+              - button "Automation" [ref=e325]
+              - button "Workflow" [ref=e326]
+              - button "Subagents" [ref=e327]
+              - button "Dashboard" [ref=e328]
+              - button "Finance Ops" [ref=e329]
+              - button "Claude Code" [ref=e330]
+              - button "Productivity" [ref=e331]
+              - button "ChatGPT" [ref=e332]
+              - button "Prompting" [ref=e333]
+              - button "Excel" [ref=e334]
+              - button "AI" [ref=e335]
+              - button "Power BI" [ref=e336]
+              - button "CFO" [ref=e337]
+              - button "Strategy" [ref=e338]
+            - combobox [ref=e339] [cursor=pointer]:
+              - option "החדש ביותר" [selected]
+              - option "פופולרי"
+          - generic [ref=e340]:
+            - link [ref=e341] [cursor=pointer]:
+              - /url: /guides/b2b-claude-vibe-prospecting
+              - article [ref=e342]:
+                - generic [ref=e343]:
+                  - img "איך למצוא לקוחות פרימיום ב-60 שניות? אוטומציית לידים לרואי חשבון עם Claude AI" [ref=e344]
+                  - generic [ref=e345]: חינמי
+                  - generic [ref=e346]:
+                    - generic [ref=e347]: Claude
+                    - generic [ref=e348]: 12 דק'
+                - generic [ref=e349]:
+                  - heading "איך למצוא לקוחות פרימיום ב-60 שניות? אוטומציית לידים לרואי חשבון עם Claude AI" [level=3] [ref=e350]
+                  - paragraph [ref=e351]: יושב לכם כסף על הרצפה במשרד, ואתם פשוט דורכים עליו. הלידים המדויקים ביותר שלכם נמצאים במרחק פרומפט אחד – הגיע הזמן שתאספו אותם ותפסיקו לבזבז זמן על חיפושים ידניים.
+                  - generic [ref=e352]:
+                    - generic [ref=e353]: Claude
+                    - generic [ref=e354]: Automation
+                    - generic [ref=e355]: Workflow
+                  - generic [ref=e356]:
+                    - generic [ref=e357]: צפה במדריך
+                    - generic [ref=e358]: ←
+            - link [ref=e359] [cursor=pointer]:
+              - /url: /guides/subagents
+              - article [ref=e360]:
+                - generic [ref=e361]:
+                  - img "Subagents — קלוד שעובד כמו צוות שלם" [ref=e362]
+                  - generic [ref=e363]: חינמי
+                  - generic [ref=e364]:
+                    - generic [ref=e365]: Claude
+                    - generic [ref=e366]: 12 דק'
+                - generic [ref=e367]:
+                  - heading "Subagents — קלוד שעובד כמו צוות שלם" [level=3] [ref=e368]
+                  - paragraph [ref=e369]: איך לבנות צוות סוכנים שעובד בשבילך 24/7 — מהבסיס של Claude Code ועד delegation מתקדם.
+                  - generic [ref=e370]:
+                    - generic [ref=e371]: Subagents
+                    - generic [ref=e372]: Workflow
+                  - generic [ref=e373]:
+                    - generic [ref=e374]: צפה במדריך
+                    - generic [ref=e375]: ←
+            - link [ref=e376] [cursor=pointer]:
+              - /url: /guides/live-artifacts-claude
+              - article [ref=e377]:
+                - generic [ref=e378]:
+                  - img "Live Artifacts ב-Claude – המדריך המלא" [ref=e379]
+                  - generic [ref=e380]: חינמי
+                  - generic [ref=e381]:
+                    - generic [ref=e382]: Claude
+                    - generic [ref=e383]: 10 דק'
+                - generic [ref=e384]:
+                  - heading "Live Artifacts ב-Claude – המדריך המלא" [level=3] [ref=e385]
+                  - paragraph [ref=e386]: כיצד לבנות דאשבורדים חיים לניהול פיננסי חכם – מדריך שלב-אחר-שלב לרואי חשבון ומנהלי כספים בישראל.
+                  - generic [ref=e387]:
+                    - generic [ref=e388]: Claude
+                    - generic [ref=e389]: Dashboard
+                    - generic [ref=e390]: Finance Ops
+                  - generic [ref=e391]:
+                    - generic [ref=e392]: צפה במדריך
+                    - generic [ref=e393]: ←
+            - link [ref=e394] [cursor=pointer]:
+              - /url: /guides/claude-code-checkpoints
+              - article [ref=e395]:
+                - generic [ref=e396]:
+                  - img "Claude Code Checkpoints — שמירה חכמה של עבודה" [ref=e397]
+                  - generic [ref=e398]: חינמי
+                  - generic [ref=e399]:
+                    - generic [ref=e400]: Claude
+                    - generic [ref=e401]: 8 דק'
+                - generic [ref=e402]:
+                  - heading "Claude Code Checkpoints — שמירה חכמה של עבודה" [level=3] [ref=e403]
+                  - paragraph [ref=e404]: כל מה שצריך לדעת על Checkpoints ב-Claude Code — איך לשחזר, להשוות גרסאות ולא לאבד שום שינוי.
+                  - generic [ref=e405]:
+                    - generic [ref=e406]: Claude Code
+                    - generic [ref=e407]: Productivity
+                  - generic [ref=e408]:
+                    - generic [ref=e409]: צפה במדריך
+                    - generic [ref=e410]: ←
+            - link [ref=e411] [cursor=pointer]:
+              - /url: /guides/Repeatable-Routines
+              - article [ref=e412]:
+                - generic [ref=e413]:
+                  - img "תזמן את קלוד כמו עובד שמגיע לבד" [ref=e414]
+                  - generic [ref=e415]: חינמי
+                  - generic [ref=e416]:
+                    - generic [ref=e417]: Claude
+                    - generic [ref=e418]: 10 דק'
+                - generic [ref=e419]:
+                  - heading "תזמן את קלוד כמו עובד שמגיע לבד" [level=3] [ref=e420]
+                  - paragraph [ref=e421]: מדריך פרקטי שמראה איך להגדיר Repeatable Routines ב- Claude כדי להריץ אוטומטית משימות פיננסיות קבועות – מדוחות חוזרים ועד מעקב אחרי חייבים.
+                  - generic [ref=e423]: Claude
+                  - generic [ref=e424]:
+                    - generic [ref=e425]: צפה במדריך
+                    - generic [ref=e426]: ←
+            - article [ref=e427]:
+              - generic [ref=e428]:
+                - img [ref=e432]
+                - generic [ref=e434]: חינמי
+                - generic [ref=e435]:
+                  - generic [ref=e436]: ChatGPT
+                  - generic [ref=e437]: 15 דק'
+              - generic [ref=e438]:
+                - heading "ChatGPT לאנשי כספים — המדריך השלם" [level=3] [ref=e439]
+                - paragraph [ref=e440]: איך להפיק מ-ChatGPT עבודה ברמת אנליסט בכיר. פרומפטים, דוגמאות ושיטות עבודה.
+                - generic [ref=e441]:
+                  - generic [ref=e442]: ChatGPT
+                  - generic [ref=e443]: Prompting
+                - generic [ref=e444]: בקרוב...
+            - article [ref=e445]:
+              - generic [ref=e446]:
+                - img [ref=e450]
+                - generic [ref=e454]: חינמי
+                - generic [ref=e455]:
+                  - generic [ref=e456]: אוטומציה
+                  - generic [ref=e457]: 20 דק'
+              - generic [ref=e458]:
+                - heading "5 אוטומציות שכל צוות כספים צריך" [level=3] [ref=e459]
+                - paragraph [ref=e460]: אוטומציות שחוסכות 10+ שעות בחודש — מסגירת חודש ועד התאמות בנקים.
+                - generic [ref=e461]:
+                  - generic [ref=e462]: Automation
+                  - generic [ref=e463]: Finance Ops
+                - generic [ref=e464]: בקרוב...
+            - article [ref=e465]:
+              - generic [ref=e466]:
+                - img [ref=e470]
+                - generic [ref=e472]: חינמי
+                - generic [ref=e473]:
+                  - generic [ref=e474]: Excel
+                  - generic [ref=e475]: 14 דק'
+              - generic [ref=e476]:
+                - heading "Excel + AI — האנליסט החדש שלך" [level=3] [ref=e477]
+                - paragraph [ref=e478]: שילוב של Excel עם Claude/ChatGPT ליצירת ניתוחים מורכבים בלחיצת כפתור.
+                - generic [ref=e479]:
+                  - generic [ref=e480]: Excel
+                  - generic [ref=e481]: AI
+                - generic [ref=e482]: בקרוב...
+            - article [ref=e483]:
+              - generic [ref=e484]:
+                - img [ref=e488]
+                - generic [ref=e490]: חינמי
+                - generic [ref=e491]:
+                  - generic [ref=e492]: Power BI
+                  - generic [ref=e493]: 22 דק'
+              - generic [ref=e494]:
+                - heading "דשבורד CFO ב-Power BI מאפס" [level=3] [ref=e495]
+                - paragraph [ref=e496]: שלב-אחרי-שלב לבניית דשבורד שמדבר בשפה של מנכ"לים — KPIs, drill-down ו-mobile-ready.
+                - generic [ref=e497]:
+                  - generic [ref=e498]: Power BI
+                  - generic [ref=e499]: Dashboard
+                - generic [ref=e500]: בקרוב...
+            - article [ref=e501]:
+              - generic [ref=e502]:
+                - img [ref=e506]
+                - generic [ref=e509]: חינמי
+                - generic [ref=e510]:
+                  - generic [ref=e511]: מחלקות כספים
+                  - generic [ref=e512]: 18 דק'
+              - generic [ref=e513]:
+                - heading "מחלקת כספים מבוססת-AI — Roadmap" [level=3] [ref=e514]
+                - paragraph [ref=e515]: איך להפוך מחלקת כספים שמרנית למחלקה שמובילה את הארגון בעזרת AI.
+                - generic [ref=e516]:
+                  - generic [ref=e517]: CFO
+                  - generic [ref=e518]: Strategy
+                - generic [ref=e519]: בקרוב...
+      - generic [ref=e522]:
+        - generic [ref=e523]:
+          - heading "קבל מדריך חדש כל שבוע" [level=2] [ref=e524]
+          - paragraph [ref=e525]: מצטרפים לרשימה — מקבלים מדריך מעשי חדש על AI בכספים כל שבוע, ישירות למייל.
+        - generic [ref=e527]:
+          - textbox "הכנס את כתובת האימייל שלך" [ref=e530]
+          - button "הרשמה" [ref=e531]:
+            - img [ref=e532]
+            - text: הרשמה
+  - generic:
+    - generic:
+      - generic:
+        - generic:
+          - generic:
+            - img "רונן עמוס AI"
+          - generic:
+            - heading "עמוס Intelligence" [level=3]
+            - generic:
+              - generic: מחובר כרגע
+        - button:
+          - img
+      - generic:
+        - generic:
+          - generic: שלום! אני עמוס Intelligence. איך אני יכול לעזור לך לייעל את מחלקת הכספים שלך היום?
+      - generic:
+        - generic:
+          - textbox "שאל אותי משהו..."
+          - button [disabled]:
+            - img
+        - generic:
+          - img
+          - text: מופעל ע"י Gemini 2.5 Flash • רונן עמוס AI
+  - button "פתח צ'אט" [ref=e535]:
+    - img "רונן עמוס AI" [ref=e537]
+  - link "צור קשר בוואטסאפ" [ref=e541] [cursor=pointer]:
+    - /url: https://wa.me/972505500344?text=%D7%A9%D7%9C%D7%95%D7%9D%20%D7%A8%D7%95%D7%A0%D7%9F%2C%20%D7%94%D7%92%D7%A2%D7%AA%D7%99%20%D7%93%D7%A8%D7%9A%20%D7%94%D7%90%D7%AA%D7%A8%20%D7%95%D7%90%D7%A9%D7%9E%D7%97%20%D7%9C%D7%94%D7%AA%D7%99%D7%99%D7%A2%D7%A5%20%D7%90%D7%99%D7%AA%D7%9A%20%D7%91%D7%A0%D7%95%D7%92%D7%A2%20%D7%9C-
+    - img [ref=e542]
+    - generic: דבר איתי בוואטסאפ
+  - contentinfo [ref=e545]:
+    - generic [ref=e546]:
+      - generic [ref=e547]:
+        - generic [ref=e548]:
+          - link "רונן עמוס" [ref=e549] [cursor=pointer]:
+            - /url: /
+          - paragraph [ref=e550]: רואה חשבון ויועץ טכנולוגי פיננסי. הופך מחלקות כספים לחכמות, מהירות ויעילות באמצעות כלי AI ואוטומציות מתקדמים.
+          - generic [ref=e551]:
+            - link [ref=e552] [cursor=pointer]:
+              - /url: https://www.linkedin.com/in/ronenamoscpa
+              - img [ref=e553]
+            - link [ref=e557] [cursor=pointer]:
+              - /url: "#"
+              - img [ref=e558]
+        - generic [ref=e561]:
+          - heading "ניווט מהיר" [level=4] [ref=e562]
+          - list [ref=e563]:
+            - listitem [ref=e564]:
+              - link "דף הבית" [ref=e565] [cursor=pointer]:
+                - /url: /
+            - listitem [ref=e566]:
+              - link "קורסי AI" [ref=e567] [cursor=pointer]:
+                - /url: /courses
+            - listitem [ref=e568]:
+              - link "בלוג פרימיום" [ref=e569] [cursor=pointer]:
+                - /url: /blog
+            - listitem [ref=e570]:
+              - link "מסלולי מנוי" [ref=e571] [cursor=pointer]:
+                - /url: /pricing
+            - listitem [ref=e572]:
+              - link "אזור אישי" [ref=e573] [cursor=pointer]:
+                - /url: /dashboard
+            - listitem [ref=e574]:
+              - link "צור קשר" [ref=e575] [cursor=pointer]:
+                - /url: /contact
+        - generic [ref=e576]:
+          - heading "שירותים" [level=4] [ref=e577]
+          - list [ref=e578]:
+            - listitem [ref=e579]:
+              - link "ייעוץ טכנולוגי פיננסי" [ref=e580] [cursor=pointer]:
+                - /url: /services
+            - listitem [ref=e581]:
+              - link "הכשרות צוותי כספים" [ref=e582] [cursor=pointer]:
+                - /url: /training
+            - listitem [ref=e583]:
+              - link "אוטומציות Power BI" [ref=e584] [cursor=pointer]:
+                - /url: /services
+            - listitem [ref=e585]:
+              - link "מדיניות פרטיות ותנאי שימוש" [ref=e586] [cursor=pointer]:
+                - /url: /legal
+        - generic [ref=e587]:
+          - heading "צור קשר" [level=4] [ref=e588]
+          - list [ref=e589]:
+            - listitem [ref=e590]:
+              - img [ref=e591]
+              - link "050-5500344" [ref=e593] [cursor=pointer]:
+                - /url: tel:0505500344
+            - listitem [ref=e594]:
+              - img [ref=e595]
+              - link "ronenamos@gmail.com" [ref=e598] [cursor=pointer]:
+                - /url: mailto:ronenamos@gmail.com
+            - listitem [ref=e599]:
+              - img [ref=e600]
+              - generic [ref=e603]: ישראל - פריסה ארצית
+      - generic [ref=e605]:
+        - generic [ref=e606]:
+          - heading "הישאר מעודכן" [level=4] [ref=e607]
+          - paragraph [ref=e608]: טיפים על AI וכספים, פעם בשבוע
+        - generic [ref=e610]:
+          - textbox "הכנס את כתובת האימייל שלך" [ref=e613]
+          - button "הרשמה" [ref=e614]:
+            - img [ref=e615]
+            - text: הרשמה
+      - generic [ref=e618]:
+        - paragraph [ref=e619]: © 2026 רונן עמוס - AI FINANCE. כל הזכויות שמורות.
+        - paragraph [ref=e620]: "בנייה ועיצוב: Antigravity AI Engine"
+  - alert [ref=e621]
+  - dialog "הסכמה לעוגיות" [ref=e622]:
+    - generic [ref=e623]:
+      - generic [ref=e624]:
+        - text: אנו משתמשים בעוגיות לצורך ניתוח תנועה באתר (Google Analytics) ושיפור חוויית המשתמש. לא נשתמש בעוגיות לפרסום.
+        - link "מדיניות עוגיות" [ref=e625] [cursor=pointer]:
+          - /url: /legal#cookies
+      - generic [ref=e626]:
+        - button "דחייה" [ref=e627]
+        - button "אני מסכים" [ref=e628]

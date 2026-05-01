@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="he">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Newsletter — AI Finance: העיכוב של 10 שניות שהורג החלטות</title>
+    <style>
+        /* Colors from globals.css */
+        :root {
+            --space-950: #020617;
+            --space-900: #0f172a;
+            --indigo-900: #1e1b4b;
+            --neon-cyan: #22d3ee;
+            --neon-teal: #2dd4bf;
+            --glass-20: rgba(255, 255, 255, 0.06);
+            --glass-border: rgba(255, 255, 255, 0.1);
+        }
+
+        body { 
+            margin: 0; 
+            padding: 0; 
+            background-color: var(--space-950); 
+            background: radial-gradient(circle at top right, #1e1b4b, #020617 80%);
+            font-family: 'Heebo', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            -webkit-font-smoothing: antialiased; 
+            color: #f1f5f9;
+        }
+        
+        .wrapper { padding: 40px 20px; }
+        
+        .container { 
+            max-width: 600px; 
+            margin: 0 auto; 
+            background-color: rgba(15, 23, 42, 0.8);
+            border-radius: 24px; 
+            border: 1px solid var(--glass-border); 
+            overflow: hidden; 
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(10px);
+        }
+        
+        /* Header */
+        .header { 
+            padding: 40px 40px 30px; 
+            text-align: center; 
+            background: rgba(2, 6, 23, 0.5); 
+            border-bottom: 1px solid var(--glass-border); 
+        }
+        .logo { 
+            font-size: 22px; 
+            font-weight: 900; 
+            letter-spacing: 2px; 
+            margin: 0; 
+            text-transform: uppercase;
+            background: linear-gradient(to left, var(--neon-cyan), var(--neon-teal));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .subtitle { 
+            font-size: 13px; 
+            color: var(--neon-teal); 
+            margin-top: 10px; 
+            font-weight: 500; 
+            letter-spacing: 0.5px;
+        }
+        
+        /* Content Body */
+        .content-body { padding: 40px; line-height: 1.8; font-size: 16px; }
+        
+        /* Titles */
+        .main-title { 
+            font-size: 34px; 
+            color: #ffffff; 
+            margin: 0 0 24px; 
+            font-weight: 800; 
+            line-height: 1.2; 
+            text-align: center; 
+        }
+        h2 { 
+            color: var(--neon-cyan); 
+            font-size: 22px; 
+            margin-top: 40px; 
+            margin-bottom: 16px; 
+            border-right: 4px solid var(--neon-cyan); 
+            padding-right: 15px; 
+            font-weight: 700;
+        }
+        h3 { 
+            color: #ffffff; 
+            font-size: 19px; 
+            margin-top: 30px; 
+            margin-bottom: 12px; 
+            font-weight: 600;
+        }
+        
+        p { margin-bottom: 22px; color: #cbd5e1; }
+        ul { margin-bottom: 22px; padding-right: 20px; color: #cbd5e1; }
+        li { margin-bottom: 10px; }
+        
+        /* Prompt/Code Boxes */
+        .prompt-box { 
+            background: rgba(34, 211, 238, 0.05); 
+            border: 1px solid rgba(34, 211, 238, 0.2); 
+            border-radius: 12px; 
+            padding: 20px; 
+            margin: 25px 0; 
+            font-family: 'monospace'; 
+            font-size: 14px; 
+            color: var(--neon-cyan); 
+        }
+        .prompt-label { 
+            font-weight: bold; 
+            display: block; 
+            margin-bottom: 10px; 
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--neon-teal);
+        }
+
+        /* Table */
+        .comparison-table { 
+            width: 100%; 
+            border-collapse: collapse; 
+            margin: 35px 0; 
+            font-size: 14px; 
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+        .comparison-table th { 
+            background: rgba(34, 211, 238, 0.1); 
+            color: var(--neon-cyan); 
+            text-align: right; 
+            padding: 15px; 
+            border-bottom: 1px solid var(--glass-border);
+        }
+        .comparison-table td { 
+            padding: 15px; 
+            border-bottom: 1px solid var(--glass-border); 
+            color: #94a3b8;
+        }
+        
+        /* High Visibility CTAs Section */
+        .cta-section { 
+            padding: 40px; 
+            background: rgba(2, 6, 23, 0.6); 
+            border-top: 1px solid var(--glass-border);
+            text-align: center;
+        }
+        .cta-grid {
+            display: table;
+            width: 100%;
+            border-spacing: 10px;
+            margin-top: 20px;
+        }
+        .cta-row { display: table-row; }
+        .cta-cell { 
+            display: table-cell; 
+            width: 50%; 
+            padding: 5px;
+        }
+        .action-button { 
+            display: block; 
+            padding: 15px 10px; 
+            background: rgba(34, 211, 238, 0.1); 
+            border: 1px solid var(--neon-cyan); 
+            color: var(--neon-cyan); 
+            font-weight: 700; 
+            font-size: 14px; 
+            text-decoration: none; 
+            border-radius: 10px; 
+            transition: all 0.3s;
+            text-align: center;
+        }
+        .action-button:hover {
+            background: var(--neon-cyan);
+            color: var(--space-950);
+        }
+        .action-button.primary {
+            background: linear-gradient(135deg, var(--neon-cyan), var(--neon-teal));
+            color: var(--space-950);
+            border: none;
+            box-shadow: 0 8px 20px rgba(34, 211, 238, 0.3);
+        }
+        
+        /* Footer */
+        .footer { 
+            padding: 40px; 
+            background: rgba(2, 6, 23, 0.9); 
+            text-align: center; 
+            border-top: 1px solid var(--glass-border); 
+        }
+        .footer-text { font-size: 12px; color: #64748b; margin: 0 0 10px; line-height: 1.6; }
+        
+        @media only screen and (max-width: 600px) {
+            .container { border-radius: 0; border: none; }
+            .header, .content-body, .cta-section, .footer { padding: 30px 20px; }
+            .cta-cell { display: block; width: 100%; margin-bottom: 10px; }
+            .cta-row { display: block; }
+        }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <div class="container">
+            <!-- Header -->
+            <div class="header">
+                <h1 class="logo">AI FINANCE TRANSFORMATION</h1>
+                <p class="subtitle">שינוי עולם הפיננסים באמצעות בינה מלאכותית</p>
+            </div>
+
+            <div class="content-body">
+                <h2 class="main-title">העיכוב של 10 שניות שהורג החלטות</h2>
+                
+                <p>
+                    כבר יש לך את התשובה. אתה פשוט לא יכול להציג אותה מהר מספיק. CFOs ורואי-חשבון מכירים את הרגע הזה — ישיבת דירקטוריון, מישהו שואל שאלה פשוטה, והמודל שבניית בקפידה הופך לנטל במקום לכלי. במדריך הזה נראה איך AI מאפשר לך להפעיל את אותו אקסל — בזמן אמת, בתוך הישיבה.
+                </p>
+
+                <h2>השיעור האמיתי — לא מה שחשבת</h2>
+                <p>
+                    הבעיה אינה המודל. המודל שלך נכון, מובנה, ומתועד. הבעיה היא המרחק בין השאלה לתשובה — ברגע שהשאלה עולה בישיבה.
+                </p>
+                <p>
+                    כל "what-if" יוצר לולאה חדשה: עדכון תשומות ← מעקב נוסחאות ← בניית פלטים מחדש ← עיצוב תוצאות ← שליחה. עד שהתשובה מגיעה — ההחלטה כבר התקבלה בלעדיה.
+                </p>
+
+                <h2>המדריך המעשי — 4 שלבים להפעלת המודל בזמן אמת</h2>
+
+                <h3>שלב 1 — מפו את המבנה: תשומות ופלטים</h3>
+                <p>
+                    פתחו את קובץ האקסל וסמנו שני סוגי תאים:
+                </p>
+                <ul>
+                    <li><b>פלטים (OUTPUT):</b> הכנסות, EBITDA, רווח נקי, שולי רווח</li>
+                    <li><b>תשומות (INPUT):</b> עלות מכר, שכר, ימי אשראי (DSO), ריבית</li>
+                </ul>
+
+                <div class="prompt-box">
+                    <span class="prompt-label">פרומפט 1 — מיפוי מבנה המודל</span>
+                    אני שולח לך קובץ Excel עם מודל פיננסי. זהה ורשום: 1. תאי OUTPUT: הכנסות, EBITDA, רווח נקי. 2. תאי INPUT: עלות מכר, שכר, DSO, הוצאות ריבית. פלט: טבלה עם שם הפרמטר | כתובת התא | ערך נוכחי | טווח הגיוני (min/max)
+                </div>
+
+                <h3>שלב 2 — הגדירו טווחים ריאליים</h3>
+                <div class="prompt-box">
+                    <span class="prompt-label">פרומפט 2 — בדיקת הגיון הטווחים</span>
+                    האם הטווחים הבאים הגיוניים לשוק הישראלי? (עלות מכר, שכר, DSO). אם לא — הצע טווחים מתאימים יותר לענף ולרגולציה הישראלית.
+                </div>
+
+                <h3>שלב 3 — צרו דשבורד אינטראקטיבי</h3>
+                <div class="prompt-box">
+                    <span class="prompt-label">פרומפט 3 — יצירת דשבורד אינטראקטיבי</span>
+                    צור דשבורד HTML אינטראקטיבי עבור המודל הפיננסי שלי. פרמטרי תשומה: עלות מכר, שכר, DSO. כרטיסי KPI: הכנסות, EBITDA, רווח נקי. עיצוב: פונט Heebo, RTL, כחול כהה + זהב. הכל ב-vanilla JS.
+                </div>
+
+                <h3>שלב 4 — הכינו 3 תרחישים לישיבת הדירקטוריון</h3>
+                <div class="prompt-box">
+                    <span class="prompt-label">פרומפט 4 — הכנת 3 תרחישים</span>
+                    הכן השוואת תרחישים לישיבת דירקטוריון: תרחיש בסיס, תרחיש שמרני, ותרחיש אופטימי. לכל תרחיש הצג טבלה עם הכנסות, EBITDA ורווח נקי.
+                </div>
+
+                <h2>לפני ה-AI vs. אחרי ה-AI</h2>
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>מצב</th>
+                            <th>לפני AI</th>
+                            <th>אחרי AI</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>שאלת what-if</td>
+                            <td>חזרה לאקסל, עדכון ידני</td>
+                            <td>בתוך הדשבורד, בזמן אמת</td>
+                        </tr>
+                        <tr>
+                            <td>הכנת תרחישים</td>
+                            <td>שעות עבודה</td>
+                            <td>פרומפט אחד → 3 תרחישים</td>
+                        </tr>
+                        <tr>
+                            <td>מהירות תגובה</td>
+                            <td>10+ דקות</td>
+                            <td>10 שניות</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <p style="text-align: center; font-style: italic; color: #64748b; margin-top: 40px; border-top: 1px solid var(--glass-border); padding-top: 20px;">
+                    "הפער בין דיווח לקבלת החלטות בזמן אמת גדול בהרבה ממה שנראה מבחוץ."
+                </p>
+            </div>
+
+            <!-- High Visibility CTAs Section -->
+            <div class="cta-section">
+                <h3 style="margin-top:0; color:var(--neon-cyan);">הצטרפו לקהילה ושדרגו את היכולות שלכם</h3>
+                <div class="cta-grid">
+                    <div class="cta-row">
+                        <div class="cta-cell">
+                            <a href="https://chat.whatsapp.com/CS6dgqnK45Q9XAMqScNr6R" class="action-button primary">WhatsApp Club</a>
+                        </div>
+                        <div class="cta-cell">
+                            <a href="https://www.linkedin.com/in/ronenamoscpa" class="action-button">LinkedIn Profile</a>
+                        </div>
+                    </div>
+                    <div class="cta-row">
+                        <div class="cta-cell">
+                            <a href="https://ronenamoscpa.co.il/courses" class="action-button">AI Courses</a>
+                        </div>
+                        <div class="cta-cell">
+                            <a href="https://www.youtube.com/@AIFinanceTransformation" class="action-button">YouTube Channel</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Footer -->
+            <div class="footer">
+                <p class="footer-text">
+                    <strong>AI Finance Transformation</strong><br>
+                    רונן עמוס, רואה חשבון | מומחה לבינה מלאכותית בפיננסים
+                </p>
+                <p class="footer-text">
+                    <a href="https://ronenamoscpa.co.il/" style="color:var(--neon-teal);text-decoration:none;">ronenamoscpa.co.il</a>
+                </p>
+                <a href="#" style="font-size:10px; color:#475569; text-decoration:underline;">ביטול הרשמה</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+
+<html class="dark" dir="rtl" lang="he"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;900&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<title>ספריית מדריכים | רואי חשבון + בינה מלאכותית</title>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            background-color: #060C1D;
+            color: #F0F4FF;
+        }
+        .glass-panel {
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "primary-fixed": "#55fcd0",
+                      "border-subtle": "rgba(255, 255, 255, 0.06)",
+                      "tertiary-fixed-dim": "#ffb77a",
+                      "bg-dark": "#0A1128",
+                      "text-stars": "#F6C90E",
+                      "tertiary-fixed": "#ffdcc1",
+                      "secondary-fixed": "#dce2fa",
+                      "bg-card": "#111C38",
+                      "bg-cta": "#162040",
+                      "teal-muted": "rgba(0, 212, 170, 0.12)",
+                      "surface-dim": "#0d1512",
+                      "inverse-on-surface": "#2a322f",
+                      "on-tertiary-fixed-variant": "#6c3a00",
+                      "background": "#0d1512",
+                      "primary-fixed-dim": "#28dfb5",
+                      "inverse-primary": "#006b55",
+                      "on-secondary-container": "#afb4cc",
+                      "bg-deep": "#060C1D",
+                      "error-container": "#93000a",
+                      "on-surface-variant": "#bacac2",
+                      "on-error-container": "#ffdad6",
+                      "outline": "#85948d",
+                      "tertiary-container": "#ffa858",
+                      "text-muted": "rgba(160, 174, 192, 0.6)",
+                      "on-secondary-fixed-variant": "#40465a",
+                      "secondary": "#c0c6de",
+                      "teal-border": "rgba(0, 212, 170, 0.35)",
+                      "on-error": "#690005",
+                      "surface-container-lowest": "#08100d",
+                      "on-primary-fixed-variant": "#00513f",
+                      "text-secondary": "#A0AEC0",
+                      "outline-variant": "#3b4a44",
+                      "surface-variant": "#2f3633",
+                      "inverse-surface": "#dce4df",
+                      "on-tertiary-container": "#733e00",
+                      "surface": "#0d1512",
+                      "on-primary": "#00382b",
+                      "on-tertiary": "#4c2700",
+                      "primary": "#46f1c5",
+                      "surface-container-low": "#161d1a",
+                      "surface-container-highest": "#2f3633",
+                      "tertiary": "#ffcea6",
+                      "surface-bright": "#333b37",
+                      "on-primary-container": "#005643",
+                      "text-primary": "#F0F4FF",
+                      "on-surface": "#dce4df",
+                      "primary-container": "#00d4aa",
+                      "bg-mid": "#0F1A35",
+                      "error": "#ffb4ab",
+                      "secondary-fixed-dim": "#c0c6de",
+                      "on-primary-fixed": "#002118",
+                      "on-secondary": "#2a3042",
+                      "surface-container-high": "#242c28",
+                      "surface-tint": "#28dfb5",
+                      "on-background": "#dce4df",
+                      "on-secondary-fixed": "#151b2d",
+                      "surface-container": "#19211e",
+                      "border-input": "rgba(255, 255, 255, 0.15)",
+                      "on-tertiary-fixed": "#2e1500",
+                      "border-card": "rgba(255, 255, 255, 0.08)",
+                      "secondary-container": "#40465a"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "lg": "24px",
+                      "md": "16px",
+                      "3xl": "96px",
+                      "sm": "8px",
+                      "xl": "40px",
+                      "2xl": "64px",
+                      "container-max": "1200px",
+                      "xs": "4px"
+              },
+              "fontFamily": {
+                      "display-h1": ["Be Vietnam Pro", "Inter"],
+                      "label-tag": ["Inter"],
+                      "body-sm": ["Inter"],
+                      "body-lg": ["Inter"],
+                      "card-h3": ["Be Vietnam Pro", "Inter"],
+                      "section-h2": ["Be Vietnam Pro", "Inter"],
+                      "body-reg": ["Inter"],
+                      "stats": ["Be Vietnam Pro", "Inter"]
+              },
+              "fontSize": {
+                      "display-h1": ["52px", {"lineHeight": "1.2", "fontWeight": "700"}],
+                      "label-tag": ["12px", {"lineHeight": "1", "letterSpacing": "0.02em", "fontWeight": "500"}],
+                      "body-sm": ["14px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                      "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                      "card-h3": ["22px", {"lineHeight": "1.4", "fontWeight": "600"}],
+                      "section-h2": ["36px", {"lineHeight": "1.3", "fontWeight": "700"}],
+                      "body-reg": ["16px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                      "stats": ["48px", {"lineHeight": "1", "fontWeight": "700"}]
+              }
+            },
+          },
+        }
+      </script>
+</head>
+<body class="bg-deep font-body-reg text-text-primary">
+<!-- TopNavBar -->
+<header class="fixed top-0 w-full z-50 bg-slate-950/80 backdrop-blur-md border-b border-white/10 shadow-2xl shadow-teal-500/5">
+<div class="max-w-[1200px] mx-auto px-6 h-20 flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="text-xl font-bold tracking-tighter text-white">רואי חשבון + AI פיננסי</span>
+</div>
+<nav class="hidden md:flex items-center gap-8 font-medium text-sm tracking-tight">
+<a class="text-[#00D4AA] border-b-2 border-[#00D4AA] pb-1" href="#">מדריכים</a>
+<a class="text-slate-400 hover:text-white transition-colors" href="#">שירותים</a>
+<a class="text-slate-400 hover:text-white transition-colors" href="#">סיפורי לקוח</a>
+<a class="text-slate-400 hover:text-white transition-colors" href="#">אודות</a>
+<a class="text-slate-400 hover:text-white transition-colors" href="#">צור קשר</a>
+</nav>
+<div class="flex items-center gap-4">
+<button class="material-symbols-outlined text-slate-400 hover:text-[#00D4AA] transition-colors p-2 hover:bg-white/5 rounded-full">search</button>
+<button class="bg-primary-container text-on-primary px-6 py-2.5 rounded font-bold text-sm hover:brightness-110 active:scale-95 transition-all duration-150">
+                    בואו נתחיל
+                </button>
+</div>
+</div>
+</header>
+<main class="pt-20">
+<!-- Compact Hero -->
+<section class="bg-bg-dark border-b border-border-subtle py-12">
+<div class="max-w-[1200px] mx-auto px-6">
+<div class="max-w-2xl">
+<h1 class="font-display-h1 text-display-h1 mb-4 text-white">מדריכי <span class="text-primary-container">טרנספורמציה פיננסית</span></h1>
+<p class="font-body-lg text-body-lg text-text-secondary">תוכניות עבודה מומחיות למנהלי כספים (CFOs) וצוותי פיננסים הממנפים AI לאוטומציית דיווח, שיפור FP&amp;A והובלת צמיחה אסטרטגית.</p>
+</div>
+</div>
+</section>
+<!-- Knowledge Base Layout -->
+<section class="max-w-[1200px] mx-auto px-6 py-12 flex flex-col md:flex-row gap-lg">
+<!-- Sidebar Navigation -->
+<aside class="w-full md:w-64 flex-shrink-0 space-y-md">
+<div class="sticky top-32">
+<div class="text-xs font-bold uppercase tracking-widest text-text-muted mb-4 px-2">קטגוריות בספרייה</div>
+<nav class="space-y-1">
+<a class="flex items-center gap-3 px-4 py-3 bg-teal-muted text-primary-container border-r-2 border-primary-container rounded-l transition-all group" href="#">
+<span class="material-symbols-outlined text-lg" data-weight="fill">leaderboard</span>
+<span class="font-medium">אסטרטגיית CFO</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-text-secondary hover:text-white hover:bg-white/5 border-r-2 border-transparent transition-all group" href="#">
+<span class="material-symbols-outlined text-lg">account_balance_wallet</span>
+<span class="font-medium">חשבות ותפעול</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-text-secondary hover:text-white hover:bg-white/5 border-r-2 border-transparent transition-all group" href="#">
+<span class="material-symbols-outlined text-lg">query_stats</span>
+<span class="font-medium">מצוינות ב-FP&amp;A</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-text-secondary hover:text-white hover:bg-white/5 border-r-2 border-transparent transition-all group" href="#">
+<span class="material-symbols-outlined text-lg">calculate</span>
+<span class="font-medium">חשבונאות 2.0</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-text-secondary hover:text-white hover:bg-white/5 border-r-2 border-transparent transition-all group" href="#">
+<span class="material-symbols-outlined text-lg">auto_awesome</span>
+<span class="font-medium">אוטומציית AI</span>
+</a>
+</nav>
+<div class="mt-xl p-6 bg-bg-cta rounded-xl border border-teal-border">
+<h4 class="font-card-h3 text-base mb-2 text-white">זקוקים למפת דרכים אישית?</h4>
+<p class="text-body-sm text-text-muted mb-4">הזמינו שיחת הערכה של 15 דקות למוכנות AI עם רואה החשבון הראשי שלנו.</p>
+<button class="w-full py-2 bg-primary-container text-on-primary rounded font-bold text-sm">התייעצו עם מומחה</button>
+</div>
+</div>
+</aside>
+<!-- Main Content: List View -->
+<div class="flex-grow space-y-md">
+<div class="flex items-center justify-between mb-6">
+<h2 class="font-section-h2 text-2xl text-white">מדריכי CFO אחרונים</h2>
+<div class="flex items-center gap-2 text-body-sm text-text-secondary">
+<span>מיין לפי:</span>
+<select class="bg-transparent border-none text-primary-container font-medium focus:ring-0 cursor-pointer">
+<option>החדש ביותר</option>
+<option>פופולריות</option>
+<option>רמת מורכבות</option>
+</select>
+</div>
+</div>
+<!-- Guide Item 1 -->
+<article class="bg-bg-card border border-border-card rounded-xl p-6 hover:translate-y-[-4px] transition-all duration-300 group">
+<div class="flex flex-col md:flex-row gap-6">
+<div class="w-full md:w-48 h-32 rounded-lg overflow-hidden flex-shrink-0">
+<img class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500" data-alt="minimalist dark dashboard with blue data visualizations and charts on a professional high-tech screen background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBCVywhN5zRQJ714VoihJoL7cKV-EsfkRqg9MKxu_gXXZnO9lLffLUn9IyJyASKA6GBraWXaFhbWLu5mcxOtzXG9vni9yw_uJBRJZ7-WQHkpQKcYRMPJKwgByl8zBaWAylvFkjOnoFg27iyDKIrA_u_yszuNJJyYvejM2jqIFnrJ0G_fir0Y9Mw5aYhnDEpiDUWUNb96ynMfHOx6QL0ebruYlufFFSLBCMP9wcsn3HYArh0iWMFHnyrgeIYPK2up5-eZ7t_b-9Irkom"/>
+</div>
+<div class="flex-grow">
+<div class="flex items-start justify-between mb-2">
+<div class="flex items-center gap-2 mb-2">
+<span class="bg-teal-muted text-primary-container text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded border border-teal-border">אסטרטגיית CFO</span>
+<span class="text-text-muted text-[10px] uppercase font-bold tracking-widest">• 12 דקות קריאה</span>
+</div>
+<span class="material-symbols-outlined text-text-muted cursor-pointer hover:text-primary-container">bookmark</span>
+</div>
+<h3 class="font-card-h3 text-white group-hover:text-primary-container transition-colors mb-3">תכנית ה-AI לשנת 2024 למנהלי כספים אסטרטגיים</h3>
+<p class="text-body-reg text-text-secondary mb-4">עברו מתפקיד שומר הסף לאדריכל אסטרטגי. מדריך זה מפרט כיצד לשלב מודלי שפה (LLMs) בסקירות הביצועים החודשיות ובתהליכי העבודה של חיזוי ומודלים.</p>
+<div class="flex flex-wrap items-center justify-between gap-4 pt-4 border-t border-border-subtle">
+<div class="flex items-center gap-6">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary-container text-sm">bolt</span>
+<span class="text-xs font-medium text-white uppercase tracking-tight">רווח מהיר:</span>
+<span class="text-xs text-text-secondary">ניתוח סטיות אוטומטי בפחות מ-5 דקות</span>
+</div>
+</div>
+<a class="text-primary-container font-bold text-sm flex items-center gap-1 group/link" href="#">
+                                    קראו את המדריך המלא
+                                    <span class="material-symbols-outlined text-sm group-hover/link:-translate-x-1 transition-transform rotate-180">arrow_forward</span>
+</a>
+</div>
+</div>
+</div>
+</article>
+<!-- Guide Item 2 -->
+<article class="bg-bg-card border border-border-card rounded-xl p-6 hover:translate-y-[-4px] transition-all duration-300 group">
+<div class="flex flex-col md:flex-row gap-6">
+<div class="w-full md:w-48 h-32 rounded-lg overflow-hidden flex-shrink-0">
+<img class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500" data-alt="overhead view of a workspace with a modern laptop and documents showing business growth graphs in soft cinematic lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC9cCcMxe2L5-GcyTltpuyXhsjDdkMS7M37-ZU69YhyKqX0loQOEPKOBGdrPPEImnU8waagDgCXh50AHieAVub1rn0Nmh8a8aCQnJ1ID_wus27m3GpjCCEeH-CxJJX3w3EVAbQAL8JeM-talCr8gADCyCQVbtEjjGyd1BvWXMUAOhKioo-DG33UwM1rz8v4wS51lZO0Z8gXeuWBcvWz5UJ2mL8EPXos3j7j5OI_DFMimSy7xKXDrKqht7ngGHGoZqnIpM_I6qcoORQS"/>
+</div>
+<div class="flex-grow">
+<div class="flex items-start justify-between mb-2">
+<div class="flex items-center gap-2 mb-2">
+<span class="bg-teal-muted text-primary-container text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded border border-teal-border">אסטרטגיית CFO</span>
+<span class="text-text-muted text-[10px] uppercase font-bold tracking-widest">• 18 דקות קריאה</span>
+</div>
+<span class="material-symbols-outlined text-text-muted cursor-pointer hover:text-primary-container">bookmark</span>
+</div>
+<h3 class="font-card-h3 text-white group-hover:text-primary-container transition-colors mb-3">צמיחת פעילות ההכנסות באמצעות AI גנרטיבי</h3>
+<p class="text-body-reg text-text-secondary mb-4">צלילה טכנית עמוקה לאוטומציה של RevOps. למדו כיצד למפות את מערך הטכנולוגיה הפיננסי שלכם לסוכני AI לחיוב וגבייה ללא מגע יד אדם.</p>
+<div class="flex flex-wrap items-center justify-between gap-4 pt-4 border-t border-border-subtle">
+<div class="flex items-center gap-6">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary-container text-sm">bolt</span>
+<span class="text-xs font-medium text-white uppercase tracking-tight">רווח מהיר:</span>
+<span class="text-xs text-text-secondary">הפחתת DSO ב-14% באמצעות תזכורות מבוססות AI</span>
+</div>
+</div>
+<a class="text-primary-container font-bold text-sm flex items-center gap-1 group/link" href="#">
+                                    קראו את המדריך המלא
+                                    <span class="material-symbols-outlined text-sm group-hover/link:-translate-x-1 transition-transform rotate-180">arrow_forward</span>
+</a>
+</div>
+</div>
+</div>
+</article>
+<!-- Guide Item 3 -->
+<article class="bg-bg-card border border-border-card rounded-xl p-6 hover:translate-y-[-4px] transition-all duration-300 group">
+<div class="flex flex-col md:flex-row gap-6">
+<div class="w-full md:w-48 h-32 rounded-lg overflow-hidden flex-shrink-0">
+<img class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500" data-alt="professional document signing with high-end pen on textured paper, deep shadows and elegant desk setting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC4T0q2qbXpXIRLgcjaaewbBGJDD6YCWU_wk7a3kkTST3HpVEd_LDgL4xQ81a-hS626ssbUDnEbaP1TWki_XKFhNGojblRzC1Q-oQS9EukVzjVMxG9_0PXasu1fwXEK-vESBgjtBXcHS7vfLhnoeLFj0tx_gCE887wbO4z6H70rQpj4EbOyjJqKHIZ8nZoYq6kK8MsA9biPaU5Sv0EACyce0LE7nIun_geQI5ZUEKakjbn-ClsuLo-QVIOKhbA89-gMxP7PdjiKfcCY"/>
+</div>
+<div class="flex-grow">
+<div class="flex items-start justify-between mb-2">
+<div class="flex items-center gap-2 mb-2">
+<span class="bg-teal-muted text-primary-container text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded border border-teal-border">חשבות ותפעול</span>
+<span class="text-text-muted text-[10px] uppercase font-bold tracking-widest">• 25 דקות קריאה</span>
+</div>
+<span class="material-symbols-outlined text-text-muted cursor-pointer hover:text-primary-container">bookmark</span>
+</div>
+<h3 class="font-card-h3 text-white group-hover:text-primary-container transition-colors mb-3">הגנה על דוחות כספיים מבוססי AI מפני ביקורת</h3>
+<p class="text-body-reg text-text-secondary mb-4">מסגרות ממשל עבור החשב המודרני. הבטחת שלמות הנתונים ותאימות SOC2 בעת שימוש בלמידת מכונה לסגירת ספרים.</p>
+<div class="flex flex-wrap items-center justify-between gap-4 pt-4 border-t border-border-subtle">
+<div class="flex items-center gap-6">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary-container text-sm">bolt</span>
+<span class="text-xs font-medium text-white uppercase tracking-tight">רווח מהיר:</span>
+<span class="text-xs text-text-secondary">תבנית רשימת בדיקה לנתיב ביקורת AI</span>
+</div>
+</div>
+<a class="text-primary-container font-bold text-sm flex items-center gap-1 group/link" href="#">
+                                    קראו את המדריך המלא
+                                    <span class="material-symbols-outlined text-sm group-hover/link:-translate-x-1 transition-transform rotate-180">arrow_forward</span>
+</a>
+</div>
+</div>
+</div>
+</article>
+<!-- Pagination -->
+<div class="flex items-center justify-center gap-4 py-8">
+<button class="w-10 h-10 flex items-center justify-center rounded border border-border-card text-text-muted hover:border-primary-container hover:text-white transition-all">
+<span class="material-symbols-outlined">chevron_right</span>
+</button>
+<button class="w-10 h-10 flex items-center justify-center rounded bg-primary-container text-on-primary font-bold">1</button>
+<button class="w-10 h-10 flex items-center justify-center rounded border border-border-card text-text-muted hover:border-primary-container hover:text-white transition-all">2</button>
+<button class="w-10 h-10 flex items-center justify-center rounded border border-border-card text-text-muted hover:border-primary-container hover:text-white transition-all">3</button>
+<button class="w-10 h-10 flex items-center justify-center rounded border border-border-card text-text-muted hover:border-primary-container hover:text-white transition-all">
+<span class="material-symbols-outlined">chevron_left</span>
+</button>
+</div>
+</div>
+</section>
+<!-- Newsletter Section -->
+<section class="bg-[#0A1128] py-24">
+<div class="max-w-[1200px] mx-auto px-6">
+<div class="bg-gradient-to-l from-bg-card to-bg-cta rounded-2xl border border-white/5 p-12 flex flex-col md:flex-row items-center gap-12 text-right">
+<div class="flex-grow text-center md:text-right">
+<h2 class="font-section-h2 text-white mb-4">תקציר פיננסי שבועי</h2>
+<p class="text-body-lg text-text-secondary max-w-lg">קבלו את מסגרות ה-AI ומדריכי האוטומציה האחרונים שלנו ישירות לתיבת הדואר הנכנס שלכם בכל יום שלישי בבוקר. בלי דיבורים מיותרים, רק ביצועים פיננסיים טכניים.</p>
+</div>
+<div class="w-full md:w-auto flex flex-col sm:flex-row gap-3">
+<input class="bg-bg-dark border border-border-input rounded px-6 py-4 text-white focus:border-primary-container focus:ring-1 focus:ring-primary-container/20 min-w-[300px]" placeholder="כתובת אימייל בעבודה" type="email"/>
+<button class="bg-primary-container text-on-primary font-bold px-8 py-4 rounded hover:brightness-110 transition-all">הירשמו</button>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="w-full border-t border-white/5 py-12 bg-[#060C1D]">
+<div class="max-w-[1200px] mx-auto px-8 flex flex-col md:flex-row justify-between items-center gap-6">
+<div class="flex flex-col gap-2">
+<span class="text-lg font-black text-white">CPA AI טרנספורמציה פיננסית</span>
+<span class="font-['Inter'] text-xs uppercase tracking-widest text-slate-500 text-center md:text-right">© 2024 CPA AI טרנספורמציה פיננסית. כל הזכויות שמורות.</span>
+</div>
+<nav class="flex gap-8">
+<a class="font-['Inter'] text-xs uppercase tracking-widest text-slate-500 hover:text-[#00D4AA] transition-colors" href="#">מדיניות פרטיות</a>
+<a class="font-['Inter'] text-xs uppercase tracking-widest text-slate-500 hover:text-[#00D4AA] transition-colors" href="#">תנאי שימוש</a>
+<a class="font-['Inter'] text-xs uppercase tracking-widest text-slate-500 hover:text-[#00D4AA] transition-colors" href="#">רשת מומחים</a>
+<a class="font-['Inter'] text-xs uppercase tracking-widest text-slate-500 hover:text-[#00D4AA] transition-colors" href="#">תמיכה</a>
+</nav>
+</div>
+</footer>
+</body></html>

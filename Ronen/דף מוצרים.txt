@@ -1,0 +1,278 @@
+כאן מעדכנים URL "C:\Users\Ronen\Documents\Projects\Personal\Antigravity\blog andwebsite\site\lib\tools-data.ts"
+
+
+## רשימת כל החברות מהאתר bojanfin.com — לפי קטגוריה
+
+
+
+כלים ופלטפורמות פיננסיות — מחקר אפיליאציה ושיתופי פעולה
+חלק א׳ — החברות מהרשימה המקורית (bojanfin.com)
+1. Traild
+קטגוריה: אוטומציה | URL אפיליאציה/שותפות: https://traildsoftware.com/become-a-traild-partner/
+מה החברה עושה: פלטפורמת אוטומציה לחשבונות לתשלום (AP) עם זיהוי הונאות ו-PO Matching, משולבת עם ERP כמו NetSuite, SAP ו-Xero.
+תוכנית השותפים: תוכנית Reseller/Partner רשמית. Traild מציעה עמלות תחרותיות לשותפים — גם one-off וגם recurring (חוזרות). אין השקעה ראשונית, והחברה מלווה את השותף בתהליך המכירה.
+
+2. Sequence
+קטגוריה: אוטומציה | URL אפיליאציה: https://go.getsequence.io/landing/partners
+מה החברה עושה: פלטפורמת Revenue מבוססת AI שמאחדת CPQ, Billing ו-Revenue Recognition לחברות B2B.
+תוכנית השותפים: תוכנית Referral בסיסית — $25 לכל חבר שמצטרף. מוגבלת ל-10 הפניות. מתאימה פחות למונטיזציה רצינית, אך קיימת. כדאי לבדוק אם יש תוכנית עסקית נפרדת דרך יצירת קשר ישיר.
+
+3. Nilus
+קטגוריה: אוטומציה
+מה החברה עושה: פלטפורמת Treasury Management מבוססת AI Agents לניהול תזרים מזומנים, פיוס ואופטימיזציית נזילות.
+תוכנית השותפים: אין תוכנית אפיליאציה/referral ציבורית ידועה נכון לעכשיו. הם כן מציעים "The Delta" — אקדמיה חינמית לפרופסיונלים. מומלץ לפנות ישירות לחברה לגבי שיתוף פעולה.
+
+4. NetSuite (Oracle)
+קטגוריה: ERP | URL אפיליאציה: https://www.netsuite.com/portal/partners/referral-program.shtml
+מה החברה עושה: ה-ERP המוביל בענן בעולם — ERP, CRM, eCommerce וניהול הון אנושי בפלטפורמה אחת, מעל 43,000 לקוחות.
+תוכנית השותפים: תוכנית SuiteReferrals רשמית. עמלה של 10% מדמי הרישיון של השנה הראשונה. יש רמות Bronze / Silver / Gold לפי כמות ההפניות. Silver (5-9 הפניות/שנה) ו-Gold (10+ הפניות/שנה) כוללות הטבות נוספות כמו training מוזל, חומרי שיווק ושותפות אירועים.
+
+5. Campfire
+קטגוריה: ERP | URL שותפות: https://campfire.ai/solutions/partners
+מה החברה עושה: ERP AI-Native לחברות בצמיחה מהירה — ספר חשבונות ראשי, אוטומציית הכנסות, דיווח בזמן אמת וניהול סגירה.
+תוכנית השותפים: תוכנית Partnership רשמית עם "נתיב ברור למונטיזציה" — הן דרך Referrals ישירים והן דרך שיתופי פעולה אסטרטגיים. השיקו Certified Implementation Partner Program עם 11 חברות ייעוץ. פנה ישירות לקבלת פרטי עמלה.
+
+6. FloQast
+קטגוריה: Financial Close | URL שותפות: https://www.floqast.com/partners
+מה החברה עושה: פלטפורמת טרנספורמציה חשבונאית מבוססת AI — אוטומציה של פיוסים ותהליך R2R עם עד 40-80% אוטומציה.
+תוכנית השותפים: תוכנית Partner רשמית הכוללת Channel Partners, Technology Partners ו-Strategic Alliance Consulting Program. יש Referral Registration רשמי לייעוצנים (
+get.floqast.com/consulting-referral
+). רו"ח ויועצים יכולים להירשם ולהפנות לקוחות תמורת עמלה.
+
+7. Numeric
+קטגוריה: Financial Close | URL שותפות: https://www.numeric.io/partners
+מה החברה עושה: פלטפורמת AI-Native לסגירה פיננסית (Close) — פיוסים, cash matching (90% אוטומטי) ו-flux analysis לצוותי Enterprise.
+תוכנית השותפים: תוכנית Partner רשמית למיישמים, VARs ויועצים. Numeric שולחים לידים לשותפים, עושים co-marketing ומאפשרים referrals, reselling ו-implementation. מציינים במפורש שהם "שולחים לידים לכיוונך" — מבטיח.
+
+8. Endex
+קטגוריה: Financial Modeling | URL: https://endex.ai
+מה החברה עושה: AI Agent מוסדי ל-Excel, מגובה OpenAI ו-$14M השקעה. מאיץ מידול פיננסי, ניתוח נתונים, המרת PDF ו-DCF בתוך Excel.
+תוכנית השותפים: אין תוכנית אפיליאציה ציבורית ידועה כרגע (חברה צעירה, גייסה סבב A בלבד). מומלץ לפנות ישירות — לחברות מוקדמות בשלב כזה לפעמים ניתן לסגור הסדרי שיתוף פרי בתנאים טובים מאוד.
+
+9. Nummo
+קטגוריה: Financial Modeling
+מה החברה עושה: תוכנת ספרדשיט AI-Native הראשונה בעולם — Prompt-to-Action, בדיקת שגיאות פרואקטיבית וגרפים סמנטיים למודלים.
+תוכנית השותפים: אין תוכנית אפיליאציה ציבורית. חברה מאוד חדשה. מומלץ ליצור קשר ישיר.
+
+10. Lumanu
+קטגוריה: Fintech
+מה החברה עושה: פלטפורמת תשלומים ו-Compliance לכלכלת היוצרים — תשלומים ל-influencers, affiliates וספקים בצורה גלובלית ועמידה ברגולציה.
+תוכנית השותפים: Lumanu היא פלטפורמת תשלומים לשותפים/אפיליאייטים של חברות אחרות (לא תוכנית לקדם את עצמה). אין עדות לתוכנית referral לגבי Lumanu עצמה. קרוב יותר לאינטגרציה עסקית.
+
+11. Airwallex
+קטגוריה: Fintech | URL אפיליאציה: https://www.airwallex.com/partners/affiliate-programme
+מה החברה עושה: פלטפורמת פיננסים גלובלית — חשבונות ב-70+ מדינות, קבלת תשלומים ב-180+ מדינות, כרטיסי חיוב ארגוניים ו-Embedded Finance.
+תוכנית השותפים: תוכנית Affiliate רשמית ומפורסמת. עמלה של עד 20% על כל לקוח שמצטרף. Cookie window: 90 יום. מנוהלת דרך Impact.com. תשלומים חודשיים (EFT או PayPal). זו אחת מתוכניות האפיליאציה החזקות ברשימה — ממש מתאימה לקהל שלך.
+
+12. Lucanet
+קטגוריה: FP&A | URL שותפות: https://www.lucanet.com/en/partners/become-a-partner/
+מה החברה עושה: פלטפורמת CFO Solution מקיפה — Consolidation, xP&A, ESG, Tax Compliance, Cash Management. 300+ ETL adapters.
+תוכנית השותפים: תוכנית "Lucanet & Friends" — תוכנית Referral רשמית שבה מפנים קשרים ומרוויחים margin על מכירות רישיון. בנוסף, תוכנית Certified Partners לייעוצנים (Partner / Premium / Global). מתאים מאוד לרו"ח ויועצים פיננסיים.
+
+13. Jedox
+קטגוריה: FP&A | URL שותפות: https://www.jedox.com/en/about/become-a-partner/
+מה החברה עושה: תוכנת FP&A מבוססת AI — תכנון, תחזית, Consolidation ו-ESG Reporting עם ממשק Excel-like ו-JedoxAI Agentic.
+תוכנית השותפים: רשת של 250+ שותפים ב-140 מדינות. כולל Academy והסמכות, תמיכת מכירות, שיווק משותף, גישה לפורטל שותפים עם תוכן מקצועי ו-lead generation. תוכנית מגובה ומקצועית מאוד. יש נציגות ישראלית: קבוצת Yael — הנציגה הרשמית של Jedox בישראל.
+
+14. Switch-io
+קטגוריה: FP&A
+מה החברה עושה: פלטפורמת AI לניהול פיננסי אסטרטגי בזמן אמת — BI + FP&A בפלטפורמה אחת, מעבר מדיווח ידני לניווט פרואקטיבי.
+תוכנית השותפים: אין תוכנית אפיליאציה ציבורית ידועה. מומלץ לפנות ישירות.
+
+חלק ב׳ — חברות מותאמות לשוק הישראלי
+15. Datarails 🇮🇱
+קטגוריה: FP&A | URL שותפות: https://www.datarails.com/partners/
+מה החברה עושה: פלטפורמת FP&A ישראלית (מטה: Tel Aviv + New York) שמאפשרת לצוותי כספים לעבוד עם Excel שלהם — אוטומציית Consolidation, דיווח, תקצוב ו-AI FP&A Genius. גייסה $175M כולל $70M סיבוב C בינואר 2026.
+תוכנית השותפים: תוכנית Referral Partner רשמית עם "תגמולים נדיבים" על הפניות. אין גילוי ציבורי של גובה העמלה — פנייה ישירה נדרשת. זו חברה ישראלית לחלוטין, מה שמקל על שיח עסקי ישיר.
+
+16. Priority Software 🇮🇱
+קטגוריה: ERP | URL שותפות: https://www.priority-software.com/become-a-partner/
+מה החברה עושה: ERP ישראלי מוביל — כלי ניהול עסקי מקיף (כספים, ייצור, שרשרת אספקה, CRM, HR) נפוץ מאוד בשוק הישראלי.
+תוכנית השותפים: תוכנית VAR (Value Added Reseller) ו-Technology Partner רשמית. כוללת revenue-sharing על דמי תוכנה + שמירה של 100% מדמי השירות. אחת מתוכניות השותפים המובנות ביותר בשוק הישראלי.
+
+17. Tipalti 🇮🇱
+קטגוריה: AP Automation / Fintech | URL שותפות: https://tipalti.com/resources/technology-partners/
+
+
+חברות ישראליות — רשימה מורחבת
+1. Morning (חשבונית ירוקה) 🇮🇱
+URL אפיליאציה: https://www.greeninvoice.co.il/refer-and-earn/
+מה החברה עושה: המערכת המובילה בישראל לניהול עסק עצמאי — הפקת חשבוניות דיגיטליות, ניהול הוצאות, תשלומים ודוחות. מעל 170,000 עסקים.
+תוכנית שותפים: "חבר מביא חבר" — 40 ₪ קרדיט על כל לקוח שמצטרף ורוכש מינוי שנתי. הקרדיט מצטבר ללא הגבלה. מתאים יותר למשתמשים בודדים מאשר לאפיליאציה עסקית רצינית.
+
+2. iCount 🇮🇱
+URL אפיליאציה: https://help.icount.co.il/misc/affiliates/
+מה החברה עושה: מערכת הנהלת חשבונות ישראלית online — הפקת חשבוניות, ניהול ספרים, דוחות מס ו-AI עסקי. עשרות אלפי עסקים בישראל.
+תוכנית שותפים: 15% מסך ההכנסות של הלקוח לתקופה של 3 שנים. אפשרות לפצל בין הנחה ללקוח (למשל 5%) ועמלה עצמית (10%). ניתן לבדוק ביצועים בדשבורד ייעודי. זו אחת מתוכניות האפיליאציה הטובות ביותר בשוק הישראלי.
+
+3. EZcount (איזיקאונט) 🇮🇱
+URL אפיליאציה: https://www.ezcount.co.il/affiliates
+מה החברה עושה: מערכת ישראלית להפקת חשבוניות וניהול עסק קטן — חשבוניות, קבלות, הצעות מחיר ותשלומים דיגיטליים.
+תוכנית שותפים: 70 ₪ על כל לקוח נרשם שהופך למשלם. מוצגת כאחת מהעמלות האטרקטיביות בשוק לפי הצהרתם. שילמו "עשרות אלפי שקלים" לשותפים עד היום.
+
+4. DOKKA 🇮🇱
+URL שותפות: https://dokka.com/channel-partner-registration-signup/
+מה החברה עושה: פלטפורמת אוטומציה חשבונאית AI-First ישראלית — AP Automation ו-Financial Close Automation. מעל 3,500 חברות לקוחות כולל חברות NASDAQ. משולבת עם Priority ועוד.
+תוכנית שותפים: תוכנית Channel Partner רשמית הכוללת: White Label, Reseller, VAR, API Program ו-System Integrator. יש גם תוכנית Affiliate שהוצגה בפייסבוק. מתאים מאוד לרו"ח שעובדים עם לקוחות.
+
+5. Mesh Payments 🇮🇱
+URL שותפות: https://meshpayments.com/perks-and-partners/
+מה החברה עושה: פתרון ניהול הוצאות נסיעות ועסקיות (T&E) גלובלי. חברה ישראלית שקיבלה רישיון תשלום מרשות ניירות ערך בישראל. מאחדת נסיעות, הוצאות, תשלומים וקבלת חשבונות.
+תוכנית שותפים: תוכנית Partner רשמית לשותפי Referral ו-Integration — כולל ERP Partners (NetSuite), HRIS, TMC ו-SSO. כדאי לפנות ישירות לפרטי העמלה.
+
+6. Hyp (יעד שריג / Hyp) 🇮🇱
+URL שותפות: https://hyp.co.il/blog/segment/distribution-channels-and-partnerships/
+מה החברה עושה: חברת הפינטק הגדולה בישראל לפתרונות תשלום — שערי תשלום, מסופי POS, חשבוניות דיגיטליות וסליקת אשראי ל-70,000+ עסקים. עובדת עם כל הבנקים וחברות האשראי בישראל.
+תוכנית שותפים: תוכנית ערוצי הפצה ושותפויות קיימת. פונה לשותפים שיכולים להוסיף ערך ללקוחות הקיימים. פרטי עמלות — פנייה ישירה.
+
+7. Datarails 🇮🇱
+URL שותפות: https://www.datarails.com/partners/
+מה החברה עושה: פלטפורמת FP&A ישראלית (Tel Aviv + New York) — אוטומציית Consolidation, דיווח, תקצוב ו-AI FP&A Genius, תוך שמירה על Excel. גייסה $175M סה"כ.
+תוכנית שותפים: תוכנית Referral Partner עם "תגמולים נדיבים". עמלה מדויקת לא פורסמה — פנייה ישירה. חברה ישראלית לחלוטין, קל יותר לשיח עסקי.
+
+8. Priority Software 🇮🇱
+URL שותפות: https://www.priority-software.com/become-a-partner/
+מה החברה עושה: מערכת ERP ישראלית מובילה — ניהול עסקי מקיף (כספים, ייצור, שרשרת אספקה, CRM, HR). נפוצה מאוד בשוק הישראלי.
+תוכנית שותפים: תוכנית VAR (Value Added Reseller) מבוססת — Revenue Sharing על דמי תוכנה + שמירת 100% מדמי שירות. אחת מהתוכניות המובנות ביותר בישראל.
+
+9. Tipalti 🇮🇱 (ייסוד ישראלי)
+URL שותפות: https://tipalti.com/resources/technology-partners/
+מה החברה עושה: פלטפורמת אוטומציה לחשבונות לתשלום ותשלומים גלובליים — AP Automation, ניהול ספקים, תשלומי מאסה ורכש. הוקמה על ידי יזמים ישראלים.
+תוכנית שותפים: תוכנית Referral Partner רשמית — מזהים לקוחות שצריכים לשדרג תהליכי תשלום ומרוויחים Referral Fee. פרטי גובה עמלה — פנייה ישירה.
+
+10. Payoneer (פעיל מאוד בישראל)
+URL אפיליאציה: https://www.payoneer.com/affiliate-program/
+מה החברה עושה: פלטפורמה גלובלית לתשלומים חוצי גבולות — קבלת תשלומים מ-Amazon, Fiverr, מרקטפליסים, לקוחות בינלאומיים. פופולרית מאוד בישראל בקרב פרילנסרים ועסקים.
+תוכנית שותפים: תוכנית Affiliate Partner רשמית — עמלה על כל referral שהופך ללקוח פעיל. אחת מהתוכניות הנגישות ביותר.
+
+סיכום השוואתי — תוכניות האפיליאציה הכי אטרקטיביות לך כרו"ח
+חברה	עמלה	משך	הערה
+iCount 🇮🇱	15%	3 שנים	הכי טוב בשוק הישראלי לרו"ח
+Airwallex	עד 20%	12 חודשים	Cookie 90 יום, פלטפורמה מוכרת
+NetSuite	10% רישיון שנה 1	חד-פעמי	סכומים גדולים = עמלות גדולות
+Lucanet	Margin על רישיון	שוטף	תוכנית "Lucanet & Friends"
+EZcount 🇮🇱	70 ₪ / לקוח	חד-פעמי	קל, מהיר
+DOKKA 🇮🇱	לא פורסם	—	מתאים מאוד לקהל רו"ח
+Datarails 🇮🇱	לא פורסם	—	פנייה ישירה מומלצת
+
+
+
+
+
+
+
+
+
+
+
+***
+
+### 🔄 Automations
+
+**1. Traild**
+`https://bojanfin.com/tool/traild/`
+Traild מגדירה מחדש את תהליך חשבונות לתשלום (AP) על ידי שילוב אינטגרציה עמוקה עם ERP, AI מתקדם וראיות real-time. המערכת אוטומטית מאשרת חשבוניות בסיכון נמוך, מסמנת סיכונים גבוהים עם ציון סיכון וזיהוי הונאות, ומטפלת בתעשיות מורכבות (ייצור, בנייה ועוד) עם PO matching, תשלומי B2B (EFT, העברות בנקאיות) ואינטגרציה ל-NetSuite, SAP ו-Xero. [bojanfin](https://bojanfin.com/tool/traild/)
+
+***
+
+**2. Sequence**
+`https://bojanfin.com/tool/sequence/`
+Sequence היא פלטפורמת Revenue המבוססת AI שמאחדת CPQ, Billing ו-Revenue Recognition למנגנון אוטומטי אחד. מיועדת לחברות B2B מודרניות, היא מאפשרת גבייה ללא שגיאות על עסקאות מורכבות בקנה מידה גדול, עם תמיכה במחירים גמישים (usage-based, seats, tiers), חוזים אוטומטיים, Revenue Recognition לפי ASC 606, ועוד — כל תהליך ה-Receivables על אוטופיילוט. [bojanfin](https://bojanfin.com/tool/sequence/)
+
+***
+
+**3. Nilus**
+`https://bojanfin.com/tool/nilus/`
+Nilus AI היא פלטפורמת ניהול תזרים מזומנים דור-הבא שמשנה את ניהול ה-Treasury. באמצעות AI Agents שמבצעים תחזית, פיוס ואופטימיזציית נזילות, Nilus מאפשרת לצוותי כספים לבצע פעולות ממוסגרות-מדיניות בתוך מסגרת שקופה וניתנת לביקורת, תוך הפחתה של עד 80% בעבודה ידנית. [bojanfin](https://bojanfin.com/tool/nilus/)
+
+***
+
+### 🏢 ERPs
+
+**4. NetSuite**
+`https://bojanfin.com/tool/netsuite/`
+NetSuite הוא ה-ERP המוביל בענן בעולם, המספק פלטפורמה אחת מאוחדת שכוללת ERP, Financials, CRM, eCommerce וניהול הון אנושי. מהימן על ידי למעלה מ-43,000 לקוחות גלובלית, NetSuite מחבר כל היבט של הארגון למקור אמת יחיד — עם AI מובנה, ניהול גלובלי (OneWorld), analytics בזמן אמת ועוד. [bojanfin](https://bojanfin.com/tool/netsuite/)
+
+***
+
+**5. Campfire**
+`https://bojanfin.com/tool/campfire/`
+Campfire הוא ERP AI-native שנועד להכפיל את תפוקת הצוות שלך. בנוי לצמיחה מהירה ולהתרחבות, הוא מספק פלטפורמה אחת ומאוחדת לספר חשבונות ראשי, אוטומציית הכנסות, דיווח בזמן אמת וניהול סגירה (Financial Close). המטרה: לאוטומט את עבודת החשבונאות החוזרת שאף אחד לא רוצה לעשות, כך שהצוות נשאר רזה גם ככל שהחברה גדלה. [bojanfin](https://bojanfin.com/tool/campfire/)
+
+***
+
+### 📊 Financial Close
+
+**6. FloQast**
+`https://bojanfin.com/tool/floqast/`
+FloQast היא פלטפורמת טרנספורמציה חשבונאית מבוססת AI, שמבטלת עבודה ידנית על ידי אוטומציה של פיוסים (Reconciliations), follow-ups ותהליך ה-Record-to-Report (R2R) כולו. AI Agents ממירים מכינים למעיינים ומבטיחים שהארגון תמיד מוכן לביקורת, עם עד 40-80% אוטומציה ללא צורך בקוד. [bojanfin](https://bojanfin.com/tool/floqast/)
+
+***
+
+**7. Numeric**
+`https://bojanfin.com/tool/numeric/`
+Numeric היא פלטפורמת AI-Native לאוטומציה של Close מורכב, שמאחדת ניהול סגירה, דיווח ומזומן לצוותי חשבונאות ארגוניים. היא מתחברת ישירות ל-ERP, משלבת bank feeds ועיבוד מסמכים לאוטומציית פיוסים, cash matching (90% אוטומטי), ניתוח flux ומעקב בזמן אמת — מהירות ובקרה ללא הגדלת headcount. [bojanfin](https://bojanfin.com/tool/numeric/)
+
+***
+
+### 📈 Financial Modeling
+
+**8. Endex**
+`https://bojanfin.com/tool/endex/`
+Endex הוא AI Agent מוסדי-רמה, native ל-Excel, שנבנה ספציפית לצוותי Finance ארגוניים. מגובה OpenAI, הוא מאיץ מידול פיננסי וניתוח נתונים עם LLMs מותאמים לכספים, גישה מאוחדת לנתונים, המרת PDF לטבלה, traces לביקורת ואבטחה ברמה ארגונית (zero data retention, AES-256 encryption). [bojanfin](https://bojanfin.com/tool/endex/)
+
+***
+
+**9. Nummo**
+`https://bojanfin.com/tool/nummo/`
+Nummo הוא תוכנת ספרדשיט AI-Native הראשונה בעולם עם אינטגרציה פתוחה, שנועדה לשמש כ-workflow engine הראשי לכלל התעשיות. תומכת בהוראות שפה טבעית (Prompt-to-Action) לשינויים בגיליון, בדיקת שגיאות פרואקטיבית, ייבוא נתונים חלק, גרפים סמנטיים למודלים ואבטחה local-first. [bojanfin](https://bojanfin.com/tool/nummo/)
+
+***
+
+### 💳 Fintech
+
+**10. Lumanu**
+`https://bojanfin.com/tool/lumanu/`
+Lumanu היא פלטפורמת תשלומים ועמידה ברגולציה (Compliance) שנבנתה לכלכלת היוצרים. מהימנה על ידי מאות מותגים וסוכנויות גלובליות, היא מייעלת את תהליך ה-Onboarding והתשלום עבור משפיענים, שותפים (Affiliates) וספקים — ומאפשרת לצוותי Marketing לנוע מהר יותר בעוד צוותי כספים מקבלים שליטה ונראות מלאה. [bojanfin](https://bojanfin.com/tool/lumanu/)
+
+***
+
+**11. Airwallex**
+`https://bojanfin.com/tool/airwallex/`
+Airwallex היא פלטפורמת הפיננסים והתשלומים המובילה לעסקים גלובליים שמבקשים להתרחב ללא גבולות. מהימנה על ידי מעל 200,000 חברות בעולם, היא מאחדת חשבונות עסקיים גלובליים (70+ מדינות), קבלת תשלומים (180+ מדינות), ניהול הוצאות, כרטיסי חיוב ארגוניים, אינטגרציות אוטומטיות ותובנות AI — הכל בפלטפורמה אחת. [bojanfin](https://bojanfin.com/tool/airwallex/)
+
+***
+
+### 📉 FP&A
+
+**12. Lucanet**
+`https://bojanfin.com/tool/lucanet/`
+Lucanet היא פלטפורמת CFO Solution מקיפה לעידן המודרני של הכספים. היא מספקת workflows מאוחדים ופתרונות ארגוניים שמהפכים נתונים מפוצלים למקור אמת אסטרטגי אחד. כוללת: Consolidation, xP&A, ESG Reporting, Tax Compliance, ניהול Leasing ו-Cash Management — עם ארכיטקטורת AI-Native ו-300+ ETL adapters. [bojanfin](https://bojanfin.com/tool/lucanet/)
+
+***
+
+**13. Jedox**
+`https://bojanfin.com/tool/jedox/`
+Jedox מספקת תוכנת FP&A מבוססת AI שמאפשרת לצוותי כספים גלובליים "Superplännen" — כלומר, להפוך תהליכי תכנון, תחזית וניהול ביצועים לאוטומטיים לחלוטין. JedoxAI הוא מנוע Agentic AI רב-שכבתי שמבין את ההקשר העסקי ספציפי ומסייע בהפיכת נתונים גולמיים לכיוון אסטרטגי, כולל אינטגרציה חלקה, ממשק Excel-like, Consolidation ו-ESG Reporting. [bojanfin](https://bojanfin.com/tool/jedox/)
+
+***
+
+**14. Switch-io**
+`https://bojanfin.com/tool/switch-io/`
+Switch-IO היא פלטפורמת AI שמשמשת כמנוע אחיד לניהול פיננסי אסטרטגי בזמן אמת. היא ממזגת בין Business Intelligence (BI) לבין FP&A, מאפשרת לצוותי הנהלה לעבור מדיווח ידני לניווט פרואקטיבי — על ידי שילוב נתונים מפוצלים לפלטפורמה אחת חלקה ונותן לצוותי כספים כלים לקבלת החלטות בזמן אמת. [bojanfin](https://bojanfin.com/tool/switch-io/)
+
+***
+
+**סיכום: 14 חברות בסה"כ**, מחולקות ל-5 קטגוריות:
+| קטגוריה | חברות |
+|---|---|
+| Automations | Traild, Sequence, Nilus |
+| ERPs | NetSuite, Campfire |
+| Financial Close | FloQast, Numeric |
+| Financial Modeling | Endex, Nummo |
+| Fintech | Lumanu, Airwallex |
+| FP&A | Lucanet, Jedox, Switch-io |
+
+כשתשלח לי את הלינק של האתר שלך, נוכל להתחיל לבנות את הדף בסגנון מותאם לצבעים ולמיתוג שלך.
+
+

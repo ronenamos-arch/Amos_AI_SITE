@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { getAllGuides } from "@/lib/guides-data";
 import { GuidesGrid } from "@/components/guides/GuidesGrid";
-import { GuidesGeoContent } from "@/components/guides/GuidesGeoContent";
 import { NewsletterForm } from "@/components/forms/NewsletterForm";
 
 export const dynamic = "force-dynamic";
@@ -486,8 +485,6 @@ export default async function GuidesPage() {
                     </div>
                 </div>
             </section>
-
-            <GuidesGeoContent />
 
             <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12">
                 <GuidesGrid guides={guides} />

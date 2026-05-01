@@ -1,0 +1,410 @@
+- generic [active] [ref=e1]:
+  - banner [ref=e2]:
+    - generic [ref=e4]:
+      - link "רונן עמוס רו\"ח | יועץ טכנולוגי" [ref=e5] [cursor=pointer]:
+        - /url: /
+        - generic [ref=e6]: רונן עמוס
+        - generic [ref=e7]: רו"ח | יועץ טכנולוגי
+      - navigation [ref=e8]:
+        - link "בית" [ref=e9] [cursor=pointer]:
+          - /url: /
+        - link "אודות" [ref=e10] [cursor=pointer]:
+          - /url: /about
+        - link "שירותים" [ref=e11] [cursor=pointer]:
+          - /url: /services
+        - link "הכשרות" [ref=e12] [cursor=pointer]:
+          - /url: /training
+        - link "קורסים" [ref=e13] [cursor=pointer]:
+          - /url: /courses
+        - link "מנוי פרימיום" [ref=e14] [cursor=pointer]:
+          - /url: /pricing
+        - link "Skill Vault" [ref=e15] [cursor=pointer]:
+          - /url: /skill-vault
+        - link "מדריכים" [ref=e16] [cursor=pointer]:
+          - /url: /guides
+        - link "כלים" [ref=e17] [cursor=pointer]:
+          - /url: /tools
+        - link "בלוג" [ref=e18] [cursor=pointer]:
+          - /url: /blog
+        - link "צור קשר" [ref=e19] [cursor=pointer]:
+          - /url: /contact
+        - link "התחבר" [ref=e21] [cursor=pointer]:
+          - /url: /login
+  - main [ref=e22]:
+    - generic [ref=e23]:
+      - generic [ref=e27]:
+        - generic [ref=e28]:
+          - generic [ref=e30]: 📚 ספרייה מתעדכנת
+          - heading "המדריכים שמלמדים אנשי כספים לעבוד חכם יותר – עם AI" [level=1] [ref=e31]:
+            - text: המדריכים שמלמדים אנשי כספים
+            - text: לעבוד חכם יותר – עם AI
+          - paragraph [ref=e32]: ספרייה של מדריכים מעשיים על Claude, ChatGPT, אוטומציה ומחלקות כספים מבוססות-AI. בלי תיאוריה — רק צעדים שאתה יכול ליישם השבוע.
+          - generic [ref=e33]:
+            - generic [ref=e34]:
+              - generic [ref=e35]: ●
+              - text: 10 מדריכים
+            - generic [ref=e36]:
+              - generic [ref=e37]: ●
+              - text: 7 קטגוריות
+        - generic [ref=e40]:
+          - generic [ref=e41]:
+            - generic [ref=e44]:
+              - generic [ref=e45]: Finance Dashboard
+              - generic [ref=e46]: Modern KPI + trends view
+            - generic [ref=e47]:
+              - generic [ref=e48]: All
+              - generic [ref=e49]: Export
+          - generic [ref=e50]:
+            - generic [ref=e51]:
+              - generic [ref=e52]: Revenue
+              - generic [ref=e53]: $297K
+              - generic [ref=e54]: +1.6% MoM
+            - generic [ref=e55]:
+              - generic [ref=e56]: ARR
+              - generic [ref=e57]: $295K
+              - generic [ref=e58]: +3.6%
+            - generic [ref=e59]:
+              - generic [ref=e60]: Profit
+              - generic [ref=e61]: $88K
+              - generic [ref=e62]: Net 29.8%
+            - generic [ref=e63]:
+              - generic [ref=e64]: Customers
+              - generic [ref=e65]: 3,168
+              - generic [ref=e66]: Churn 2.8%
+          - generic [ref=e67]:
+            - generic [ref=e68]:
+              - generic [ref=e69]: Revenue & ARR
+              - img [ref=e70]
+            - generic [ref=e74]:
+              - generic [ref=e75]: Margins
+              - img [ref=e76]
+          - generic [ref=e79]:
+            - generic [ref=e80]:
+              - generic [ref=e81]: Expense Mix
+              - img [ref=e82]
+            - generic [ref=e91]:
+              - generic [ref=e92]: Customer Flow
+              - img [ref=e93]
+            - generic [ref=e96]:
+              - generic [ref=e97]: Unit Economics
+              - img [ref=e98]
+      - generic [ref=e112]:
+        - complementary [ref=e113]:
+          - generic [ref=e114]:
+            - generic [ref=e115]:
+              - paragraph [ref=e116]: קטגוריות
+              - navigation [ref=e117]:
+                - button "הכל 10" [ref=e118]:
+                  - generic [ref=e119]: הכל
+                  - generic [ref=e120]: "10"
+                - button "Claude 5" [ref=e121]:
+                  - generic [ref=e122]: Claude
+                  - generic [ref=e123]: "5"
+                - button "ChatGPT 1" [ref=e124]:
+                  - generic [ref=e125]: ChatGPT
+                  - generic [ref=e126]: "1"
+                - button "אוטומציה 1" [ref=e127]:
+                  - generic [ref=e128]: אוטומציה
+                  - generic [ref=e129]: "1"
+                - button "Excel 1" [ref=e130]:
+                  - generic [ref=e131]: Excel
+                  - generic [ref=e132]: "1"
+                - button "Power BI 1" [ref=e133]:
+                  - generic [ref=e134]: Power BI
+                  - generic [ref=e135]: "1"
+                - button "NotebookLM 0" [ref=e136]:
+                  - generic [ref=e137]: NotebookLM
+                  - generic [ref=e138]: "0"
+                - button "מחלקות כספים 1" [ref=e139]:
+                  - generic [ref=e140]: מחלקות כספים
+                  - generic [ref=e141]: "1"
+            - generic [ref=e142]:
+              - heading "רוצה גישה מלאה?" [level=4] [ref=e143]
+              - paragraph [ref=e144]: מנוי פרימיום פותח את כל הבלוג, ה-Skill Vault והמדריכים המתקדמים.
+              - link "שדרג עכשיו" [ref=e145] [cursor=pointer]:
+                - /url: /pricing
+        - main [ref=e146]:
+          - generic [ref=e147]:
+            - img
+            - searchbox "חפש מדריך, תגית או קטגוריה..." [ref=e148]
+          - generic [ref=e149]:
+            - generic [ref=e150]:
+              - button "הכל" [ref=e151]
+              - button "Claude" [ref=e152]
+              - button "Automation" [ref=e153]
+              - button "Workflow" [ref=e154]
+              - button "Subagents" [ref=e155]
+              - button "Dashboard" [ref=e156]
+              - button "Finance Ops" [ref=e157]
+              - button "Claude Code" [ref=e158]
+              - button "Productivity" [ref=e159]
+              - button "ChatGPT" [ref=e160]
+              - button "Prompting" [ref=e161]
+              - button "Excel" [ref=e162]
+              - button "AI" [ref=e163]
+              - button "Power BI" [ref=e164]
+              - button "CFO" [ref=e165]
+              - button "Strategy" [ref=e166]
+            - combobox [ref=e167] [cursor=pointer]:
+              - option "החדש ביותר" [selected]
+              - option "פופולרי"
+          - generic [ref=e168]:
+            - link [ref=e169] [cursor=pointer]:
+              - /url: /guides/b2b-claude-vibe-prospecting
+              - article [ref=e170]:
+                - generic [ref=e171]:
+                  - img "איך למצוא לקוחות פרימיום ב-60 שניות? אוטומציית לידים לרואי חשבון עם Claude AI" [ref=e172]
+                  - generic [ref=e173]: חינמי
+                  - generic [ref=e174]:
+                    - generic [ref=e175]: Claude
+                    - generic [ref=e176]: 12 דק'
+                - generic [ref=e177]:
+                  - heading "איך למצוא לקוחות פרימיום ב-60 שניות? אוטומציית לידים לרואי חשבון עם Claude AI" [level=3] [ref=e178]
+                  - paragraph [ref=e179]: יושב לכם כסף על הרצפה במשרד, ואתם פשוט דורכים עליו. הלידים המדויקים ביותר שלכם נמצאים במרחק פרומפט אחד – הגיע הזמן שתאספו אותם ותפסיקו לבזבז זמן על חיפושים ידניים.
+                  - generic [ref=e180]:
+                    - generic [ref=e181]: Claude
+                    - generic [ref=e182]: Automation
+                    - generic [ref=e183]: Workflow
+                  - generic [ref=e184]:
+                    - generic [ref=e185]: צפה במדריך
+                    - generic [ref=e186]: ←
+            - link [ref=e187] [cursor=pointer]:
+              - /url: /guides/subagents
+              - article [ref=e188]:
+                - generic [ref=e189]:
+                  - img "Subagents — קלוד שעובד כמו צוות שלם" [ref=e190]
+                  - generic [ref=e191]: חינמי
+                  - generic [ref=e192]:
+                    - generic [ref=e193]: Claude
+                    - generic [ref=e194]: 12 דק'
+                - generic [ref=e195]:
+                  - heading "Subagents — קלוד שעובד כמו צוות שלם" [level=3] [ref=e196]
+                  - paragraph [ref=e197]: איך לבנות צוות סוכנים שעובד בשבילך 24/7 — מהבסיס של Claude Code ועד delegation מתקדם.
+                  - generic [ref=e198]:
+                    - generic [ref=e199]: Subagents
+                    - generic [ref=e200]: Workflow
+                  - generic [ref=e201]:
+                    - generic [ref=e202]: צפה במדריך
+                    - generic [ref=e203]: ←
+            - link [ref=e204] [cursor=pointer]:
+              - /url: /guides/live-artifacts-claude
+              - article [ref=e205]:
+                - generic [ref=e206]:
+                  - img "Live Artifacts ב-Claude – המדריך המלא" [ref=e207]
+                  - generic [ref=e208]: חינמי
+                  - generic [ref=e209]:
+                    - generic [ref=e210]: Claude
+                    - generic [ref=e211]: 10 דק'
+                - generic [ref=e212]:
+                  - heading "Live Artifacts ב-Claude – המדריך המלא" [level=3] [ref=e213]
+                  - paragraph [ref=e214]: כיצד לבנות דאשבורדים חיים לניהול פיננסי חכם – מדריך שלב-אחר-שלב לרואי חשבון ומנהלי כספים בישראל.
+                  - generic [ref=e215]:
+                    - generic [ref=e216]: Claude
+                    - generic [ref=e217]: Dashboard
+                    - generic [ref=e218]: Finance Ops
+                  - generic [ref=e219]:
+                    - generic [ref=e220]: צפה במדריך
+                    - generic [ref=e221]: ←
+            - link [ref=e222] [cursor=pointer]:
+              - /url: /guides/claude-code-checkpoints
+              - article [ref=e223]:
+                - generic [ref=e224]:
+                  - img "Claude Code Checkpoints — שמירה חכמה של עבודה" [ref=e225]
+                  - generic [ref=e226]: חינמי
+                  - generic [ref=e227]:
+                    - generic [ref=e228]: Claude
+                    - generic [ref=e229]: 8 דק'
+                - generic [ref=e230]:
+                  - heading "Claude Code Checkpoints — שמירה חכמה של עבודה" [level=3] [ref=e231]
+                  - paragraph [ref=e232]: כל מה שצריך לדעת על Checkpoints ב-Claude Code — איך לשחזר, להשוות גרסאות ולא לאבד שום שינוי.
+                  - generic [ref=e233]:
+                    - generic [ref=e234]: Claude Code
+                    - generic [ref=e235]: Productivity
+                  - generic [ref=e236]:
+                    - generic [ref=e237]: צפה במדריך
+                    - generic [ref=e238]: ←
+            - link [ref=e239] [cursor=pointer]:
+              - /url: /guides/Repeatable-Routines
+              - article [ref=e240]:
+                - generic [ref=e241]:
+                  - img "תזמן את קלוד כמו עובד שמגיע לבד" [ref=e242]
+                  - generic [ref=e243]: חינמי
+                  - generic [ref=e244]:
+                    - generic [ref=e245]: Claude
+                    - generic [ref=e246]: 10 דק'
+                - generic [ref=e247]:
+                  - heading "תזמן את קלוד כמו עובד שמגיע לבד" [level=3] [ref=e248]
+                  - paragraph [ref=e249]: מדריך פרקטי שמראה איך להגדיר Repeatable Routines ב- Claude כדי להריץ אוטומטית משימות פיננסיות קבועות – מדוחות חוזרים ועד מעקב אחרי חייבים.
+                  - generic [ref=e251]: Claude
+                  - generic [ref=e252]:
+                    - generic [ref=e253]: צפה במדריך
+                    - generic [ref=e254]: ←
+            - article [ref=e255]:
+              - generic [ref=e256]:
+                - img [ref=e260]
+                - generic [ref=e262]: חינמי
+                - generic [ref=e263]:
+                  - generic [ref=e264]: ChatGPT
+                  - generic [ref=e265]: 15 דק'
+              - generic [ref=e266]:
+                - heading "ChatGPT לאנשי כספים — המדריך השלם" [level=3] [ref=e267]
+                - paragraph [ref=e268]: איך להפיק מ-ChatGPT עבודה ברמת אנליסט בכיר. פרומפטים, דוגמאות ושיטות עבודה.
+                - generic [ref=e269]:
+                  - generic [ref=e270]: ChatGPT
+                  - generic [ref=e271]: Prompting
+                - generic [ref=e272]: בקרוב...
+            - article [ref=e273]:
+              - generic [ref=e274]:
+                - img [ref=e278]
+                - generic [ref=e282]: חינמי
+                - generic [ref=e283]:
+                  - generic [ref=e284]: אוטומציה
+                  - generic [ref=e285]: 20 דק'
+              - generic [ref=e286]:
+                - heading "5 אוטומציות שכל צוות כספים צריך" [level=3] [ref=e287]
+                - paragraph [ref=e288]: אוטומציות שחוסכות 10+ שעות בחודש — מסגירת חודש ועד התאמות בנקים.
+                - generic [ref=e289]:
+                  - generic [ref=e290]: Automation
+                  - generic [ref=e291]: Finance Ops
+                - generic [ref=e292]: בקרוב...
+            - article [ref=e293]:
+              - generic [ref=e294]:
+                - img [ref=e298]
+                - generic [ref=e300]: חינמי
+                - generic [ref=e301]:
+                  - generic [ref=e302]: Excel
+                  - generic [ref=e303]: 14 דק'
+              - generic [ref=e304]:
+                - heading "Excel + AI — האנליסט החדש שלך" [level=3] [ref=e305]
+                - paragraph [ref=e306]: שילוב של Excel עם Claude/ChatGPT ליצירת ניתוחים מורכבים בלחיצת כפתור.
+                - generic [ref=e307]:
+                  - generic [ref=e308]: Excel
+                  - generic [ref=e309]: AI
+                - generic [ref=e310]: בקרוב...
+            - article [ref=e311]:
+              - generic [ref=e312]:
+                - img [ref=e316]
+                - generic [ref=e318]: חינמי
+                - generic [ref=e319]:
+                  - generic [ref=e320]: Power BI
+                  - generic [ref=e321]: 22 דק'
+              - generic [ref=e322]:
+                - heading "דשבורד CFO ב-Power BI מאפס" [level=3] [ref=e323]
+                - paragraph [ref=e324]: שלב-אחרי-שלב לבניית דשבורד שמדבר בשפה של מנכ"לים — KPIs, drill-down ו-mobile-ready.
+                - generic [ref=e325]:
+                  - generic [ref=e326]: Power BI
+                  - generic [ref=e327]: Dashboard
+                - generic [ref=e328]: בקרוב...
+            - article [ref=e329]:
+              - generic [ref=e330]:
+                - img [ref=e334]
+                - generic [ref=e337]: חינמי
+                - generic [ref=e338]:
+                  - generic [ref=e339]: מחלקות כספים
+                  - generic [ref=e340]: 18 דק'
+              - generic [ref=e341]:
+                - heading "מחלקת כספים מבוססת-AI — Roadmap" [level=3] [ref=e342]
+                - paragraph [ref=e343]: איך להפוך מחלקת כספים שמרנית למחלקה שמובילה את הארגון בעזרת AI.
+                - generic [ref=e344]:
+                  - generic [ref=e345]: CFO
+                  - generic [ref=e346]: Strategy
+                - generic [ref=e347]: בקרוב...
+      - generic [ref=e350]:
+        - generic [ref=e351]:
+          - heading "קבל מדריך חדש כל שבוע" [level=2] [ref=e352]
+          - paragraph [ref=e353]: מצטרפים לרשימה — מקבלים מדריך מעשי חדש על AI בכספים כל שבוע, ישירות למייל.
+        - generic [ref=e355]:
+          - textbox "הכנס את כתובת האימייל שלך" [ref=e358]
+          - button "הרשמה" [ref=e359]:
+            - img [ref=e360]
+            - text: הרשמה
+  - link "צור קשר בוואטסאפ" [ref=e363] [cursor=pointer]:
+    - /url: https://wa.me/972505500344?text=%D7%A9%D7%9C%D7%95%D7%9D%20%D7%A8%D7%95%D7%A0%D7%9F%2C%20%D7%94%D7%92%D7%A2%D7%AA%D7%99%20%D7%93%D7%A8%D7%9A%20%D7%94%D7%90%D7%AA%D7%A8%20%D7%95%D7%90%D7%A9%D7%9E%D7%97%20%D7%9C%D7%94%D7%AA%D7%99%D7%99%D7%A2%D7%A5%20%D7%90%D7%99%D7%AA%D7%9A%20%D7%91%D7%A0%D7%95%D7%92%D7%A2%20%D7%9C-
+    - img [ref=e364]
+    - generic: דבר איתי בוואטסאפ
+  - contentinfo [ref=e367]:
+    - generic [ref=e368]:
+      - generic [ref=e369]:
+        - generic [ref=e370]:
+          - link "רונן עמוס" [ref=e371] [cursor=pointer]:
+            - /url: /
+          - paragraph [ref=e372]: רואה חשבון ויועץ טכנולוגי פיננסי. הופך מחלקות כספים לחכמות, מהירות ויעילות באמצעות כלי AI ואוטומציות מתקדמים.
+          - generic [ref=e373]:
+            - link [ref=e374] [cursor=pointer]:
+              - /url: https://www.linkedin.com/in/ronenamoscpa
+              - img [ref=e375]
+            - link [ref=e379] [cursor=pointer]:
+              - /url: "#"
+              - img [ref=e380]
+        - generic [ref=e383]:
+          - heading "ניווט מהיר" [level=4] [ref=e384]
+          - list [ref=e385]:
+            - listitem [ref=e386]:
+              - link "דף הבית" [ref=e387] [cursor=pointer]:
+                - /url: /
+            - listitem [ref=e388]:
+              - link "קורסי AI" [ref=e389] [cursor=pointer]:
+                - /url: /courses
+            - listitem [ref=e390]:
+              - link "בלוג פרימיום" [ref=e391] [cursor=pointer]:
+                - /url: /blog
+            - listitem [ref=e392]:
+              - link "מסלולי מנוי" [ref=e393] [cursor=pointer]:
+                - /url: /pricing
+            - listitem [ref=e394]:
+              - link "אזור אישי" [ref=e395] [cursor=pointer]:
+                - /url: /dashboard
+            - listitem [ref=e396]:
+              - link "צור קשר" [ref=e397] [cursor=pointer]:
+                - /url: /contact
+        - generic [ref=e398]:
+          - heading "שירותים" [level=4] [ref=e399]
+          - list [ref=e400]:
+            - listitem [ref=e401]:
+              - link "ייעוץ טכנולוגי פיננסי" [ref=e402] [cursor=pointer]:
+                - /url: /services
+            - listitem [ref=e403]:
+              - link "הכשרות צוותי כספים" [ref=e404] [cursor=pointer]:
+                - /url: /training
+            - listitem [ref=e405]:
+              - link "אוטומציות Power BI" [ref=e406] [cursor=pointer]:
+                - /url: /services
+            - listitem [ref=e407]:
+              - link "מדיניות פרטיות ותנאי שימוש" [ref=e408] [cursor=pointer]:
+                - /url: /legal
+        - generic [ref=e409]:
+          - heading "צור קשר" [level=4] [ref=e410]
+          - list [ref=e411]:
+            - listitem [ref=e412]:
+              - img [ref=e413]
+              - link "050-5500344" [ref=e415] [cursor=pointer]:
+                - /url: tel:0505500344
+            - listitem [ref=e416]:
+              - img [ref=e417]
+              - link "ronenamos@gmail.com" [ref=e420] [cursor=pointer]:
+                - /url: mailto:ronenamos@gmail.com
+            - listitem [ref=e421]:
+              - img [ref=e422]
+              - generic [ref=e425]: ישראל - פריסה ארצית
+      - generic [ref=e427]:
+        - generic [ref=e428]:
+          - heading "הישאר מעודכן" [level=4] [ref=e429]
+          - paragraph [ref=e430]: טיפים על AI וכספים, פעם בשבוע
+        - generic [ref=e432]:
+          - textbox "הכנס את כתובת האימייל שלך" [ref=e435]
+          - button "הרשמה" [ref=e436]:
+            - img [ref=e437]
+            - text: הרשמה
+      - generic [ref=e440]:
+        - paragraph [ref=e441]: © 2026 רונן עמוס - AI FINANCE. כל הזכויות שמורות.
+        - paragraph [ref=e442]: "בנייה ועיצוב: Antigravity AI Engine"
+  - alert [ref=e443]
+  - dialog "הסכמה לעוגיות" [ref=e444]:
+    - generic [ref=e445]:
+      - generic [ref=e446]:
+        - text: אנו משתמשים בעוגיות לצורך ניתוח תנועה באתר (Google Analytics) ושיפור חוויית המשתמש. לא נשתמש בעוגיות לפרסום.
+        - link "מדיניות עוגיות" [ref=e447] [cursor=pointer]:
+          - /url: /legal#cookies
+      - generic [ref=e448]:
+        - button "דחייה" [ref=e449]
+        - button "אני מסכים" [ref=e450]

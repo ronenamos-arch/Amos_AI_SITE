@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+
+<html class="dark" dir="rtl" lang="he"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<title>ספריית מדריכים - רשימה מינימליסטית</title>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "teal-dark": "#00B894",
+                      "on-secondary-fixed-variant": "#40465a",
+                      "inverse-primary": "#006b55",
+                      "text-primary": "#F0F4FF",
+                      "on-tertiary-fixed-variant": "#6c3a00",
+                      "primary": "#46f1c5",
+                      "surface-variant": "#2f3633",
+                      "surface-container-high": "#242c28",
+                      "on-tertiary": "#4c2700",
+                      "secondary": "#c0c6de",
+                      "bg-card": "#111C38",
+                      "on-secondary-container": "#afb4cc",
+                      "bg-dark": "#0A1128",
+                      "outline": "#85948d",
+                      "background": "#0d1512",
+                      "on-secondary-fixed": "#151b2d",
+                      "bg-mid": "#0F1A35",
+                      "primary-fixed-dim": "#28dfb5",
+                      "on-primary-container": "#005643",
+                      "on-error": "#690005",
+                      "surface-container": "#19211e",
+                      "border-card": "rgba(255, 255, 255, 0.08)",
+                      "border-subtle": "rgba(255, 255, 255, 0.06)",
+                      "primary-fixed": "#55fcd0",
+                      "teal-muted": "rgba(0, 212, 170, 0.12)",
+                      "on-surface-variant": "#bacac2",
+                      "teal-border": "rgba(0, 212, 170, 0.35)",
+                      "bg-deep": "#060C1D",
+                      "error": "#ffb4ab",
+                      "on-surface": "#dce4df",
+                      "outline-variant": "#3b4a44",
+                      "inverse-on-surface": "#2a322f",
+                      "surface-bright": "#333b37",
+                      "on-tertiary-fixed": "#2e1500",
+                      "on-tertiary-container": "#733e00",
+                      "surface": "#0d1512",
+                      "tertiary-fixed": "#ffdcc1",
+                      "border-input": "rgba(255, 255, 255, 0.15)",
+                      "surface-container-lowest": "#08100d",
+                      "text-stars": "#F6C90E",
+                      "error-container": "#93000a",
+                      "surface-container-low": "#161d1a",
+                      "on-primary": "#00382b",
+                      "surface-container-highest": "#2f3633",
+                      "secondary-container": "#40465a",
+                      "on-primary-fixed-variant": "#00513f",
+                      "on-background": "#dce4df",
+                      "text-secondary": "#A0AEC0",
+                      "surface-dim": "#0d1512",
+                      "tertiary": "#ffcea6",
+                      "secondary-fixed-dim": "#c0c6de",
+                      "text-muted": "rgba(160, 174, 192, 0.6)",
+                      "secondary-fixed": "#dce2fa",
+                      "surface-tint": "#28dfb5",
+                      "bg-cta": "#162040",
+                      "tertiary-fixed-dim": "#ffb77a",
+                      "tertiary-container": "#ffa858",
+                      "primary-container": "#00d4aa",
+                      "on-primary-fixed": "#002118",
+                      "on-secondary": "#2a3042",
+                      "on-error-container": "#ffdad6",
+                      "inverse-surface": "#dce4df"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "xl": "40px",
+                      "container-max": "1200px",
+                      "lg": "24px",
+                      "sm": "8px",
+                      "md": "16px",
+                      "3xl": "96px",
+                      "xs": "4px",
+                      "2xl": "64px"
+              },
+              "fontFamily": {
+                      "section-h2": [
+                              "Be Vietnam Pro"
+                      ],
+                      "label-tag": [
+                              "Inter"
+                      ],
+                      "display-h1": [
+                              "Be Vietnam Pro"
+                      ],
+                      "body-lg": [
+                              "Inter"
+                      ],
+                      "stats": [
+                              "Be Vietnam Pro"
+                      ],
+                      "body-sm": [
+                              "Inter"
+                      ],
+                      "body-reg": [
+                              "Inter"
+                      ],
+                      "card-h3": [
+                              "Be Vietnam Pro"
+                      ]
+              },
+              "fontSize": {
+                      "section-h2": [
+                              "36px",
+                              {
+                                      "lineHeight": "1.3",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "label-tag": [
+                              "12px",
+                              {
+                                      "lineHeight": "1",
+                                      "letterSpacing": "0.02em",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "display-h1": [
+                              "52px",
+                              {
+                                      "lineHeight": "1.2",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "body-lg": [
+                              "18px",
+                              {
+                                      "lineHeight": "1.6",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "stats": [
+                              "48px",
+                              {
+                                      "lineHeight": "1",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "body-sm": [
+                              "14px",
+                              {
+                                      "lineHeight": "1.5",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "body-reg": [
+                              "16px",
+                              {
+                                      "lineHeight": "1.5",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "card-h3": [
+                              "22px",
+                              {
+                                      "lineHeight": "1.4",
+                                      "fontWeight": "600"
+                              }
+                      ]
+              }
+      },
+          },
+        }
+      </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-card {
+            background: rgba(17, 28, 56, 0.4);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .glow-border:hover {
+            border-color: rgba(0, 212, 170, 0.4);
+            box-shadow: 0 0 20px rgba(0, 212, 170, 0.1);
+        }
+        body {
+            background-color: #060C1D;
+            color: #F0F4FF;
+        }
+    </style>
+</head>
+<body class="font-body-reg overflow-x-hidden">
+<!-- Top Navigation -->
+<header class="sticky top-0 w-full z-50 flex justify-between items-center px-8 h-16 rtl bg-[#060C1D]/80 backdrop-blur-lg border-b border-white/10 shadow-2xl shadow-teal-900/10">
+<div class="flex items-center gap-8">
+<span class="text-xl font-bold tracking-tight text-[#00D4AA]">CPA AI Library</span>
+<nav class="hidden md:flex gap-6">
+<a class="font-['Be_Vietnam_Pro'] font-medium text-slate-100 text-[#00D4AA] border-b-2 border-[#00D4AA] pb-1 cursor-pointer active:scale-95" href="#">Guides</a>
+<a class="font-['Be_Vietnam_Pro'] font-medium text-slate-100 text-slate-400 hover:text-slate-100 transition-colors cursor-pointer active:scale-95" href="#">Calculators</a>
+<a class="font-['Be_Vietnam_Pro'] font-medium text-slate-100 text-slate-400 hover:text-slate-100 transition-colors cursor-pointer active:scale-95" href="#">AI Insights</a>
+<a class="font-['Be_Vietnam_Pro'] font-medium text-slate-100 text-slate-400 hover:text-slate-100 transition-colors cursor-pointer active:scale-95" href="#">Archive</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<div class="relative group">
+<span class="material-symbols-outlined text-slate-400 p-2 hover:bg-white/5 transition-all duration-300 rounded-full cursor-pointer">search</span>
+</div>
+<span class="material-symbols-outlined text-slate-400 p-2 hover:bg-white/5 transition-all duration-300 rounded-full cursor-pointer">notifications</span>
+<span class="material-symbols-outlined text-slate-400 p-2 hover:bg-white/5 transition-all duration-300 rounded-full cursor-pointer">account_circle</span>
+</div>
+</header>
+<div class="flex w-full">
+<!-- Slim Sidebar Navigation -->
+<aside class="fixed right-0 top-16 h-[calc(100vh-64px)] w-20 md:w-64 flex flex-col z-40 rtl bg-[#0A1128] border-l border-white/10 shadow-xl transition-all duration-300">
+<div class="p-6 hidden md:block">
+<h3 class="font-section-h2 text-body-sm text-text-secondary uppercase tracking-widest opacity-60 mb-2">Library Categories</h3>
+<p class="text-xs text-text-muted">Expert Curated Guides</p>
+</div>
+<nav class="flex-1 px-4 space-y-2 mt-4">
+<a class="flex items-center gap-4 p-3 rounded-lg bg-[#00D4AA]/10 text-[#00D4AA] border-r-4 border-[#00D4AA] font-semibold hover:translate-x-1 transition-transform duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="account_balance">account_balance</span>
+<span class="hidden md:block font-body-sm">Tax Strategy</span>
+</a>
+<a class="flex items-center gap-4 p-3 rounded-lg text-slate-400 hover:bg-white/5 hover:translate-x-1 transition-transform duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="verified">verified</span>
+<span class="hidden md:block font-body-sm">Audit Procedures</span>
+</a>
+<a class="flex items-center gap-4 p-3 rounded-lg text-slate-400 hover:bg-white/5 hover:translate-x-1 transition-transform duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="psychology">psychology</span>
+<span class="hidden md:block font-body-sm">AI Integration</span>
+</a>
+<a class="flex items-center gap-4 p-3 rounded-lg text-slate-400 hover:bg-white/5 hover:translate-x-1 transition-transform duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="security">security</span>
+<span class="hidden md:block font-body-sm">Risk Management</span>
+</a>
+<a class="flex items-center gap-4 p-3 rounded-lg text-slate-400 hover:bg-white/5 hover:translate-x-1 transition-transform duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="analytics">analytics</span>
+<span class="hidden md:block font-body-sm">Corporate Finance</span>
+</a>
+</nav>
+<div class="p-4 border-t border-white/5">
+<button class="w-full bg-[#111C38] border border-white/10 text-[#00D4AA] py-3 rounded-xl hover:bg-[#00D4AA] hover:text-[#060C1D] transition-all duration-300 flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-sm">add_circle</span>
+<span class="hidden md:block text-xs font-bold">Request Analysis</span>
+</button>
+</div>
+<footer class="p-4 space-y-2">
+<a class="flex items-center gap-4 p-3 rounded-lg text-slate-400 hover:bg-white/5" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="hidden md:block font-body-sm">Settings</span>
+</a>
+<a class="flex items-center gap-4 p-3 rounded-lg text-slate-400 hover:bg-white/5" href="#">
+<span class="material-symbols-outlined" data-icon="help">help</span>
+<span class="hidden md:block font-body-sm">Support</span>
+</a>
+</footer>
+</aside>
+<!-- Main Content Canvas -->
+<main class="mr-20 md:mr-64 w-full min-h-screen p-8 lg:p-xl flex flex-col gap-xl">
+<!-- Header Section -->
+<section class="max-w-container-max mx-auto w-full flex flex-col md:flex-row md:items-end justify-between gap-lg mb-4">
+<div class="space-y-4">
+<span class="bg-teal-muted text-primary px-4 py-1.5 rounded-full border border-teal-border font-label-tag text-label-tag">ספריית ידע מתקדמת</span>
+<h1 class="font-display-h1 text-display-h1 text-text-primary tracking-tight">ספריית מדריכים - רשימה מינימליסטית</h1>
+<p class="text-text-secondary font-body-lg max-w-2xl">ריכוז המדריכים המקצועיים של רונן עמוס CPA בתחומי המיסוי, ראיית החשבון והאסטרטגיה הפיננסית.</p>
+</div>
+<div class="flex gap-4">
+<div class="flex items-center gap-2 px-4 py-2 bg-bg-mid rounded-xl border border-border-card text-text-secondary cursor-pointer hover:bg-bg-card transition-all">
+<span class="material-symbols-outlined text-lg">filter_list</span>
+<span class="font-body-sm">סינון לפי קטגוריה</span>
+</div>
+<div class="flex items-center gap-2 px-4 py-2 bg-bg-mid rounded-xl border border-border-card text-text-secondary cursor-pointer hover:bg-bg-card transition-all">
+<span class="material-symbols-outlined text-lg">sort</span>
+<span class="font-body-sm">מיון לפי תאריך</span>
+</div>
+</div>
+</section>
+<!-- Minimalist Bento List -->
+<section class="max-w-container-max mx-auto w-full grid grid-cols-1 gap-6">
+<!-- Item 1 -->
+<div class="glass-card glow-border rounded-2xl p-lg flex flex-col md:flex-row gap-8 items-center transition-all duration-300 group">
+<div class="w-full md:w-64 h-40 rounded-xl overflow-hidden relative shrink-0">
+<img alt="Finance analysis" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700" data-alt="Close-up of high-end business financial report documents with gold pen on a dark wood executive desk, dramatic office lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBvLdKlIpVhnmQVX9khW6dod1e9MCvU-wb7gWVfSy90jMlYgGTELJkcWd_0wI30GEi7lflEVwhpBlsXDL4ByXG5N4WHE4FjJke0Op3-IPofLFPh3bQ15vXONlGB1DbaNAHYft8l0GJUStXEjQm3TY-auTiSXpuOifx0KO2HwX6NeFYqsJ3N6JgE1ogEdvARNSPQr95RGY5KuKhGrAPqaAlItfi-z7B6poXL3HvxO0j2dgxyvIF251EPkbFBEEJyab-qdq4tzHghYuq1"/>
+<div class="absolute inset-0 bg-gradient-to-t from-bg-deep/60 to-transparent"></div>
+</div>
+<div class="flex-1 space-y-4">
+<div class="flex justify-between items-start">
+<div class="space-y-1">
+<span class="text-primary text-xs font-bold tracking-widest uppercase">אסטרטגיית מס</span>
+<h3 class="font-card-h3 text-card-h3 text-text-primary">תכנון מס ליחידים וחברות 2024</h3>
+</div>
+<span class="material-symbols-outlined text-text-muted group-hover:text-primary transition-colors">bookmark</span>
+</div>
+<p class="text-text-secondary font-body-reg line-clamp-2">מדריך מקיף הסוקר את השינויים האחרונים בחקיקת המס, הטבות מס ליצואנים, ודרכים לייעול חבות המס השנתית שלכם.</p>
+<div class="flex items-center gap-6 pt-2">
+<div class="flex items-center gap-2 text-text-muted font-body-sm">
+<span class="material-symbols-outlined text-sm">schedule</span>
+<span>12 דקות קריאה</span>
+</div>
+<div class="flex items-center gap-2 text-text-muted font-body-sm">
+<span class="material-symbols-outlined text-sm">visibility</span>
+<span>1.2k צפיות</span>
+</div>
+<div class="flex items-center gap-2 text-text-muted font-body-sm">
+<span class="material-symbols-outlined text-sm">visibility</span>
+<span>1.2k צפיות</span>
+</div>
+</div>
+</div>
+<button class="shrink-0 w-12 h-12 rounded-full border border-teal-border flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-bg-deep transition-all duration-300">
+<span class="material-symbols-outlined">arrow_back</span>
+</button>
+</div>
+<!-- Item 2 -->
+<div class="glass-card glow-border rounded-2xl p-lg flex flex-col md:flex-row gap-8 items-center transition-all duration-300 group">
+<div class="w-full md:w-64 h-40 rounded-xl overflow-hidden relative shrink-0">
+<img alt="Audit" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700" data-alt="Modern digital visualization of abstract data nodes and lines in teal and white on a dark blue background representing audit accuracy" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCcTZz4xxnU6oxK_v2AF48x87YiDqzkMZ4j6Z3WVrdxui-Rzqe0rSirrIVSUh4hZVCSr4NkIjAkd9Bq5GOrdxUzNb95RUBOYUcPdIh6a9-hgphDJAHmyn0pBRC_QTRY4lTm0M_koVZkQ19hke84dXwP5Xh66b0yMTR_qXMUIEJrhpTwhIKk3Z-tWO5M9muDNOL01PL8O-V6Hd2zYTWZ0Pai9pu_vwUPsZA2rSPCCXdKOqd9q7jA52OT6H5MU_YyanGBt0C7JgwDlT0A"/>
+<div class="absolute inset-0 bg-gradient-to-t from-bg-deep/60 to-transparent"></div>
+</div>
+<div class="flex-1 space-y-4">
+<div class="flex justify-between items-start">
+<div class="space-y-1">
+<span class="text-primary text-xs font-bold tracking-widest uppercase">ביקורת פנים</span>
+<h3 class="font-card-h3 text-card-h3 text-text-primary">ניהול סיכונים בארגונים גלובליים</h3>
+</div>
+<span class="material-symbols-outlined text-text-muted group-hover:text-primary transition-colors">bookmark</span>
+</div>
+<p class="text-text-secondary font-body-reg line-clamp-2">כיצד להטמיע בקרות פנימיות חזקות למניעת הונאות וניהול סיכונים תפעוליים בסביבה עסקית משתנה ודינמית.</p>
+<div class="flex items-center gap-6 pt-2">
+<div class="flex items-center gap-2 text-text-muted font-body-sm">
+<span class="material-symbols-outlined text-sm">schedule</span>
+<span>15 דקות קריאה</span>
+</div>
+<div class="flex items-center gap-2 text-text-muted font-body-sm">
+<span class="material-symbols-outlined text-sm">verified</span>
+<span>מאומת ע"י מומחה</span>
+</div>
+</div>
+</div>
+<button class="shrink-0 w-12 h-12 rounded-full border border-teal-border flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-bg-deep transition-all duration-300">
+<span class="material-symbols-outlined">arrow_back</span>
+</button>
+</div>
+<!-- Item 3 -->
+<div class="glass-card glow-border rounded-2xl p-lg flex flex-col md:flex-row gap-8 items-center transition-all duration-300 group">
+<div class="w-full md:w-64 h-40 rounded-xl overflow-hidden relative shrink-0">
+<img alt="AI Tech" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700" data-alt="A robotic hand interacting with a holographic interface displaying financial charts and glowing blue teal particles" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBPqnzt-7jCVetcVzwlpo4LAHFemLnD18F3AtyxaKv87ME-bVuu4p0EGbyQqdNuxXV3XgpEY2CKBIU_oouS77GbwdMUSTUiGQIjl0qvuYFPbuHPH9V0h-uIcpzlwq41qdu225UNxgde7fWQfiysfVQ47Szl_PH72jxHs9V9Sui3q5NbwBcCftRBoxlwEX8nCOkd44azbP3f-uHquLvpeo9nrF6CXrwYkpqzGxgRMJvtRqh-m-2xwuXK9vnnsr3Yd4rt6sbUZ0njDBzg"/>
+<div class="absolute inset-0 bg-gradient-to-t from-bg-deep/60 to-transparent"></div>
+</div>
+<div class="flex-1 space-y-4">
+<div class="flex justify-between items-start">
+<div class="space-y-1">
+<span class="text-primary text-xs font-bold tracking-widest uppercase">בינה מלאכותית</span>
+<h3 class="font-card-h3 text-card-h3 text-text-primary">מהפכת ה-AI בעולם הפיננסי</h3>
+</div>
+<span class="material-symbols-outlined text-text-muted group-hover:text-primary transition-colors">bookmark</span>
+</div>
+<p class="text-text-secondary font-body-reg line-clamp-2">סקירה מעמיקה של כלי בינה מלאכותית החדשים המשנים את פני המקצוע, מאוטומציה של פקודות יומן ועד לניבוי תזרימי מזומנים.</p>
+<div class="flex items-center gap-6 pt-2">
+<div class="flex items-center gap-2 text-text-muted font-body-sm">
+<span class="material-symbols-outlined text-sm">schedule</span>
+<span>8 דקות קריאה</span>
+</div>
+<div class="flex items-center gap-2 text-primary font-body-sm">
+<span class="material-symbols-outlined text-sm">stars</span>
+<span>הכי פופולרי</span>
+</div>
+</div>
+</div>
+<button class="shrink-0 w-12 h-12 rounded-full border border-teal-border flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-bg-deep transition-all duration-300">
+<span class="material-symbols-outlined">arrow_back</span>
+</button>
+</div>
+</section>
+<!-- Stats Bar -->
+<section class="max-w-container-max mx-auto w-full py-2xl border-y border-white/5 my-xl">
+<div class="grid grid-cols-1 md:grid-cols-3 gap-lg text-center">
+<div class="space-y-2">
+<div class="font-stats text-stats text-primary">150+</div>
+<div class="text-text-secondary font-body-sm uppercase tracking-widest">מדריכים מקצועיים</div>
+</div>
+<div class="space-y-2">
+<div class="font-stats text-stats text-primary">12k</div>
+<div class="text-text-secondary font-body-sm uppercase tracking-widest">משתמשים פעילים</div>
+</div>
+<div class="space-y-2">
+<div class="font-stats text-stats text-primary">24/7</div>
+<div class="text-text-secondary font-body-sm uppercase tracking-widest">תמיכת מומחים</div>
+</div>
+</div>
+</section>
+<!-- Bottom CTA Section -->
+<section class="max-w-container-max mx-auto w-full mb-3xl">
+<div class="bg-bg-cta rounded-3xl p-xl flex flex-col md:flex-row items-center justify-between gap-xl relative overflow-hidden">
+<div class="absolute top-0 left-0 w-64 h-64 bg-primary/10 blur-[100px] rounded-full"></div>
+<div class="relative z-10 space-y-4">
+<h2 class="font-section-h2 text-section-h2 text-text-primary">לא מצאת את מה שחיפשת?</h2>
+<p class="text-text-secondary font-body-lg">צוות המומחים שלנו זמין עבורך לייעוץ אישי והכנת מדריכים בהתאמה אישית.</p>
+</div>
+<div class="relative z-10 flex flex-col sm:flex-row gap-4 w-full md:w-auto">
+<button class="bg-primary text-bg-deep font-bold px-8 py-4 rounded-xl hover:bg-teal-dark transition-all duration-300">צור קשר עם מומחה</button>
+<button class="border border-white/20 text-text-primary px-8 py-4 rounded-xl hover:bg-white/5 transition-all duration-300">צפה בשאלות נפוצות</button>
+</div>
+</div>
+</section>
+</main>
+</div>
+<!-- Footer -->
+<footer class="w-full flex flex-col items-center justify-center gap-4 mt-auto rtl bg-[#060C1D] border-t border-white/5 py-8">
+<div class="flex gap-8 mb-4">
+<a class="font-['Be_Vietnam_Pro'] text-xs text-slate-500 text-slate-500 hover:text-slate-300 transition-colors duration-200" href="#">Privacy Policy</a>
+<a class="font-['Be_Vietnam_Pro'] text-xs text-slate-500 text-slate-500 hover:text-slate-300 transition-colors duration-200" href="#">Terms of Service</a>
+<a class="font-['Be_Vietnam_Pro'] text-xs text-slate-500 text-[#00D4AA] underline transition-colors duration-200" href="#">Contact Expert</a>
+</div>
+<div class="text-[#00D4AA] font-bold">CPA AI Finance Library</div>
+<p class="font-['Be_Vietnam_Pro'] text-xs text-slate-500">© 2024 CPA AI Finance Library. All Rights Reserved.</p>
+</footer>
+</body></html>
