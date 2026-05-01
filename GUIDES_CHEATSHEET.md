@@ -57,7 +57,9 @@ Under the "Guides Library" section, add a bullet for the new guide:
 - /guides/<slug> — <title>
 ```
 
-### 4. Commit + push
+### 4. Commit + push (⚠️ DON'T FORGET THE IMAGE)
+
+Add all three files — the guide data, the image, and the llms.txt entry:
 
 ```bash
 git add lib/guides-data.ts public/guides/your-file.png public/llms.txt
@@ -65,7 +67,7 @@ git commit -m "feat(guides): add <title>"
 git push
 ```
 
-Vercel auto-deploys in ~1-2 min.
+**Critical:** The image file (`public/guides/your-file.png`) MUST be added to git and pushed. If you skip the image, the card will show the gradient fallback instead of your thumbnail. Vercel auto-deploys in ~1-2 min.
 
 ## Edit an existing guide
 
@@ -89,7 +91,7 @@ Each non-placeholder guide has an internal page at `/guides/<slug>`. The page:
 
 ## Common mistakes
 
-- **Image not loading?** Check that the `thumbnail` path matches the actual filename in `public/guides/` exactly (case-sensitive). Hard-refresh the page (Ctrl+F5) to bust the cached 404.
+- **Image not loading after deploy?** First check: did you `git add` and `git push` the actual image file (`public/guides/your-file.png`)? The file must be committed to git or Vercel won't have it. If the image exists locally but isn't in git, it won't deploy. Then verify the `thumbnail` path matches the filename exactly (case-sensitive). Finally, hard-refresh the page (Ctrl+F5) to bust browser cache.
 - **Card shows gradient instead of image?** Either `thumbnail` is `null`, or the path is wrong.
 - **"בקרוב..." showing instead of CTA?** That's intentional when `gammaUrl === '#'`. Replace with the real Gamma URL.
 - **Build error about category type?** You used a category not in the `GuideCategory` union — fix the spelling or add it to `CATEGORIES`.
