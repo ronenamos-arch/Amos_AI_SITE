@@ -33,6 +33,18 @@ export interface Guide {
 
 export const guides: Guide[] = [
   {
+    slug: 'claude-code-loop',
+    title: 'איך לחסוך שעות בשבוע בלי לדעת לתכנת? אוטומציית /loop עם Claude Code',
+    description: 'אתם שורפים שעות יקרות על משימות רפטטיביות ודוחות שחוזרים על עצמם, במקום להתעסק במה שבאמת מביא ערך. האוטומציה הזו תעשה עבורכם את העבודה השחורה – בעזרת פקודת /loop הפשוטה ב-Claude Code, תוכלו להריץ תהליכים בלופ במרחק של פרומפט אחד (וגם אם בחיים לא כתבתם שורת קוד). הגיע הזמן להפסיק לעבוד קשה, ולהתחיל לעבוד חכם.',
+    category: 'אוטומציה',
+    tags: ['Claude Code', 'Automation', 'Workflow'],
+    gammaUrl: 'https://gamma.app/docs/1-loop--qxcrkdjnzcrb6yn',
+    thumbnail: '/guides/loop.png',
+    duration: "11 דק'",
+    isPremium: false,
+    publishedAt: '2026-05-01',
+  },
+  {
     slug: 'b2b-claude-vibe-prospecting',
     title: 'איך למצוא לקוחות פרימיום ב-60 שניות? אוטומציית לידים לרואי חשבון עם Claude AI',
     description: 'יושב לכם כסף על הרצפה במשרד, ואתם פשוט דורכים עליו. הלידים המדויקים ביותר שלכם נמצאים במרחק פרומפט אחד – הגיע הזמן שתאספו אותם ותפסיקו לבזבז זמן על חיפושים ידניים.',
