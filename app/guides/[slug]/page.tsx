@@ -186,7 +186,7 @@ export default async function GuideDetailPage({
         <div className="mb-4">
           <div
             className="relative w-full rounded-xl overflow-hidden glass-panel"
-            style={{ paddingTop: '75%' /* 4:3 — taller embed */ }}
+            style={{ paddingTop: '110%' /* even taller on all devices */ }}
           >
             <iframe
               src={embedUrl}
