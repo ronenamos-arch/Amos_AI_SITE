@@ -53,6 +53,33 @@ export default function DataCleaningPage() {
         </div>
       </section>
 
+      {/* Demo File Download Box */}
+      <section className="vault-demo-section">
+        <div className="vault-inner">
+          <div className="vault-demo-box">
+            <h2 className="vault-demo-heading">קובץ לתרגול — נסה בעצמך</h2>
+            <p className="vault-demo-description">
+              גיליון PNL עם 4 אזורים — ישראל, אירופה, אמריקה, אסיה
+              <br />
+              בדיוק הדאטה המבולגן שצריך לנקות עם ה-AI.
+            </p>
+            <div className="vault-demo-sheets">
+              <span className="vault-demo-chip">ישראל</span>
+              <span className="vault-demo-chip">אירופה</span>
+              <span className="vault-demo-chip">אמריקה</span>
+              <span className="vault-demo-chip">אסיה</span>
+            </div>
+            <a
+              href="/downloads/pnl-demo.xlsx"
+              download="pnl-demo.xlsx"
+              className="vault-demo-button"
+            >
+              📥 הורד קובץ לדוגמה
+            </a>
+          </div>
+        </div>
+      </section>
+
       {/* Data Cleaning Module */}
       <section className="vault-skills-section" style={{ paddingTop: 0 }}>
         <div className="vault-inner">

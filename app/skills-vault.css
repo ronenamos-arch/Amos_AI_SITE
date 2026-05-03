@@ -1216,6 +1216,83 @@
    Responsive adjustments
    ========================================================================= */
 
+/* =========================================================================
+   Demo File Box (Data Cleaning Module)
+   ========================================================================= */
+
+.vault-demo-section {
+  padding-block: 40px 60px;
+}
+
+.vault-demo-box {
+  background: var(--vault-card);
+  border: 1px solid var(--vault-border);
+  border-radius: 16px;
+  padding: 32px 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  transition: all 0.25s ease;
+}
+
+.vault-demo-box:hover {
+  border-color: var(--vault-border-hover);
+  background: var(--vault-card-hover);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, .25), 0 0 30px var(--vault-accent-glow-lg);
+}
+
+.vault-demo-heading {
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: var(--vault-text);
+  margin: 0;
+}
+
+.vault-demo-description {
+  font-size: 0.95rem;
+  color: var(--vault-text-dim);
+  line-height: 1.65;
+  margin: 0;
+}
+
+.vault-demo-sheets {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.vault-demo-chip {
+  display: inline-block;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--vault-accent);
+  background: rgba(34, 211, 168, .10);
+  border: 1px solid rgba(34, 211, 168, .25);
+  border-radius: 8px;
+  padding: 6px 14px;
+}
+
+.vault-demo-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 24px;
+  background: var(--vault-accent);
+  color: #000;
+  font-size: 0.95rem;
+  font-weight: 700;
+  border-radius: 12px;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  width: fit-content;
+}
+
+.vault-demo-button:hover {
+  background: var(--vault-cyan);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(34, 211, 168, .35);
+}
+
 @media (max-width: 640px) {
   .vault-tabbar-inner { padding-inline: 16px; }
   .vault-tabbar-spacer { display: none; }
@@ -1225,4 +1302,6 @@
   .vault-cta-grid { grid-template-columns: 1fr; }
   .qw-header { flex-direction: column; gap: 8px; }
   .qw-fire { font-size: 1.5rem; }
+  .vault-demo-box { padding: 24px 20px; }
+  .vault-demo-heading { font-size: 1.1rem; }
 }
