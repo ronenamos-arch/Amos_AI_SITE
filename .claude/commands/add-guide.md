@@ -8,7 +8,7 @@ Use this command whenever the user wants to add a new guide to the site — whet
 
 Ask the user for the following. If they already provided some in the message that triggered this command, use those and only ask for what's missing:
 
-1. **Gamma URL** — e.g. `https://gamma.app/docs/My-Guide--abc123xyz`
+1. **Gamma URL** — Use the `/embed/` URL form, e.g. `https://gamma.app/embed/abc123xyz` (this is the embeddable version that appears in the iframe; if you have a `/docs/` URL, extract the ID from the end and use `/embed/` instead)
 2. **Hebrew title** — the card headline
 3. **Hebrew description** — 1–2 sentences shown on the card and guide page
 4. **Image path** — full path to the thumbnail image on disk (e.g. `C:\...\public\guides\myfile.jpg`). If they say "no image" or skip it, use `null`.
@@ -17,9 +17,11 @@ Ask the user for the following. If they already provided some in the message tha
 
 From the inputs above, derive:
 
-**slug** — extract from the Gamma URL. The slug is the last path segment after `/docs/`, lowercased, with trailing `--<id>` removed and spaces/underscores replaced with hyphens.
-- Example: `https://gamma.app/docs/Live-Artifacts-Claude--tc34b99focp2u95` → `live-artifacts-claude`
-- Example: `https://gamma.app/docs/Subagents--ptensygek0sxy54` → `subagents`
+**slug** — infer from the title or derive manually. Keep it short, lowercase, hyphenated. This becomes the URL path: `/guides/<slug>`.
+- Example title: "מדריך Codex App לרואי חשבון" → slug: `codex`
+- Example title: "Live Artifacts Claude" → slug: `live-artifacts-claude`
+
+(Note: You can also extract from the `/docs/` URL if provided — the last path segment before `--<id>`, lowercased with spaces/underscores replaced by hyphens. But it's often shorter to just choose a concise slug.)
 
 **category** — infer from the title and description using these rules:
 - Mentions Claude, Claude Code, Artifacts, Subagents, MCP → `Claude`
@@ -70,15 +72,18 @@ Entry format:
   slug: '<slug>',
   title: '<Hebrew title>',
   description: '<Hebrew description>',
+  longDescription: '<optional longer description shown on detail page>',
   category: '<category>',
   tags: [<tags>],
-  gammaUrl: '<full Gamma URL>',
+  gammaUrl: '<Gamma /embed/ URL>',
   thumbnail: '<web path or null>',
   duration: "<duration>",
   isPremium: false,
   publishedAt: '<YYYY-MM-DD>',
 },
 ```
+
+(Note: `longDescription` is optional. If provided, it shows above the Gamma embed on the guide detail page. If omitted, the `description` is used instead.)
 
 ## Step 5 — Update public/llms.txt
 
