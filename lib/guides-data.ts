@@ -33,6 +33,19 @@ export interface Guide {
 
 export const guides: Guide[] = [
   {
+    slug: 'codex',
+    title: 'מדריך Codex App לרואי חשבון 2026: מ-0 ל-AI מלא ב-30 דקות',
+    description: 'מדריך מלא לכלי Codex App של OpenAI לרואי חשבון בהייטק. למד להוריד, להקים, ולבנות דוחות תזרים בעשר דקות. 70% חיסכון זמן + דוגמאות חיות.',
+    longDescription: 'Codex היא אפליקציית desktop חדשה של OpenAI עם multi-agent AI שמנתחת קבצים מקומיים (Excel, PDF, CSV). בניית דוחות תזרים, סידור חשבוניות וניתוח FP&A - הכל בדקות בודדות במקום שעות. פתרון מושלם לסטארטאפים ורואי חשבון בהייטק.',
+    category: 'ChatGPT',
+    tags: ['Finance Ops', 'Automation', 'CFO'],
+    gammaUrl: 'https://gamma.app/embed/4f2dayq2vlfz7sn',
+    thumbnail: '/guides/codex.png',
+    duration: "30 דק'",
+    isPremium: false,
+    publishedAt: '2026-05-04',
+  },
+  {
     slug: 'claude-code-loop',
     title: 'איך לחסוך שעות בשבוע בלי לדעת לתכנת? אוטומציית /loop עם Claude Code',
     description: 'אתם שורפים שעות יקרות על משימות רפטטיביות ודוחות שחוזרים על עצמם, במקום להתעסק במה שבאמת מביא ערך. האוטומציה הזו תעשה עבורכם את העבודה השחורה – בעזרת פקודת /loop הפשוטה ב-Claude Code, תוכלו להריץ תהליכים בלופ במרחק של פרומפט אחד (וגם אם בחיים לא כתבתם שורת קוד). הגיע הזמן להפסיק לעבוד קשה, ולהתחיל לעבוד חכם.',
