@@ -33,6 +33,18 @@ export interface Guide {
 
 export const guides: Guide[] = [
   {
+    slug: 'ai-agents-finance',
+    title: '5 סוכני AI שכל צוות כספים צריך להכיר',
+    description: 'האם AI באמת יכול לעזור בעבודה הפיננסית היומיומית — או שזה בעיקר רעש? AI לא מחליף שיקול דעת מקצועי, אבל הוא כן מתחיל להיות מאוד שימושי דווקא בחלקים הכי שוחקים של העבודה — התאמות, בדיקות, בניית טיוטות, סקירות ראשוניות, וניתוח ראשוני של נתונים.',
+    category: 'מחלקות כספים',
+    tags: ['AI', 'Agents', 'Automation', 'Finance', 'Productivity'],
+    gammaUrl: 'https://gamma.app/embed/5-AI--w12mxql861zjz5m',
+    thumbnail: '/guides/רקע פיננסי.png',
+    duration: "20 דק'",
+    isPremium: true,
+    publishedAt: '2026-05-11',
+  },
+  {
     slug: 'codex',
     title: 'מדריך Codex App לרואי חשבון 2026: מ-0 ל-AI מלא ב-30 דקות',
     description: 'מדריך מלא לכלי Codex App של OpenAI לרואי חשבון בהייטק. למד להוריד, להקים, ולבנות דוחות תזרים בעשר דקות. 70% חיסכון זמן + דוגמאות חיות.',
