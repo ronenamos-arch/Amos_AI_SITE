@@ -2,7 +2,7 @@
 
 import { PayPalButtons, usePayPalScriptReducer } from "@paypal/react-paypal-js";
 import { useState, useEffect } from "react";
-import { updateUserSubscription } from "@/lib/actions/subscription";
+import { updateUserSubscription, createGuestPayment } from "@/lib/actions/subscription";
 import { createClient } from "@/lib/supabase/client";
 
 interface PayPalPaymentButtonProps {
@@ -17,11 +17,13 @@ export function PayPalPaymentButton({ amount, onSuccess, planId, subscriptionTyp
     const [error, setError] = useState<string | null>(null);
     const [isUpdating, setIsUpdating] = useState(false);
     const [isLoggedIn, setIsLoggedIn] = useState<boolean | null>(null);
+    const [userEmail, setUserEmail] = useState<string | null>(null);
 
     useEffect(() => {
         const supabase = createClient();
         supabase.auth.getUser().then(({ data: { user } }) => {
             setIsLoggedIn(!!user);
+            setUserEmail(user?.email || null);
         });
     }, []);
 
@@ -31,17 +33,6 @@ export function PayPalPaymentButton({ amount, onSuccess, planId, subscriptionTyp
             <span className="mr-3 text-sm text-text-muted">מעדכן נתונים...</span>
         </div>
     );
-
-    if (!isLoggedIn) {
-        return (
-            <a
-                href="/login"
-                className="block w-full text-center py-3 px-6 bg-teal-500 hover:bg-teal-600 text-white font-semibold rounded-full transition-colors"
-            >
-                התחבר כדי להמשיך לתשלום
-            </a>
-        );
-    }
 
     // Handle placeholder Plan ID for development
     if (planId === "P-NOT-SET-YET") {
@@ -100,6 +91,7 @@ export function PayPalPaymentButton({ amount, onSuccess, planId, subscriptionTyp
                         setIsUpdating(true);
                         let orderId = "";
                         let details: any = null;
+                        let payerEmail = userEmail;
 
                         if (planId) {
                             orderId = data.subscriptionID || data.orderID || "";
@@ -109,9 +101,18 @@ export function PayPalPaymentButton({ amount, onSuccess, planId, subscriptionTyp
                             orderId = details.id;
                         }
 
-                        // If it's a blog subscription, update the profile
-                        if (subscriptionType) {
+                        // For subscription payments, try to get payer email from PayPal details
+                        if (!payerEmail && details?.payer?.email_address) {
+                            payerEmail = details.payer.email_address;
+                        }
+
+                        // If logged in: update subscription for authenticated user
+                        if (isLoggedIn && subscriptionType) {
                             await updateUserSubscription(subscriptionType, orderId, parseFloat(amount));
+                        }
+                        // If guest: record payment with email, webhook will handle user creation
+                        else if (!isLoggedIn && subscriptionType && payerEmail) {
+                            await createGuestPayment(payerEmail, orderId, parseFloat(amount), subscriptionType);
                         }
 
                         if (onSuccess) onSuccess(details);

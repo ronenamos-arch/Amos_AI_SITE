@@ -65,3 +65,31 @@ export async function updateUserSubscription(status: 'monthly' | 'lifetime', ord
 
     return { success: true };
 }
+
+export async function createGuestPayment(email: string, orderId: string, amount: number, subscriptionType: 'monthly' | 'lifetime') {
+    // Guest checkout: record payment without requiring auth
+    // Webhook will handle user creation and subscription activation
+    const adminSupabase = createAdminClient();
+
+    try {
+        // Record payment — webhook will match this by email/orderId
+        const { error: paymentError } = await adminSupabase
+            .from('payment_records')
+            .insert({
+                email: email,
+                amount: amount,
+                paypal_order_id: orderId,
+                status: 'COMPLETED'
+            });
+
+        if (paymentError) {
+            console.error("Guest payment record failed:", paymentError);
+            throw new Error("Failed to record payment");
+        }
+
+        return { success: true };
+    } catch (e) {
+        console.error("createGuestPayment error:", e);
+        throw e;
+    }
+}

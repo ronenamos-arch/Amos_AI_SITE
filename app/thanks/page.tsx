@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import { GlassCard } from "@/components/ui/GlassCard";
 import { Button } from "@/components/ui/Button";
-import { CheckCircle2, ArrowRight, BookOpen, Crown } from "lucide-react";
+import { CheckCircle2, ArrowRight, BookOpen, Crown, Mail } from "lucide-react";
+import { createClient } from "@/lib/supabase/server";
 
 export const metadata: Metadata = {
     title: "תודה רבה! | AI FINANCE",
@@ -9,7 +10,11 @@ export const metadata: Metadata = {
     robots: { index: false, follow: false },
 };
 
-export default function ThankYouPage() {
+export default async function ThankYouPage() {
+    const supabase = await createClient();
+    const { data: { user } } = await supabase.auth.getUser();
+    const isGuest = !user;
+
     return (
         <div className="pt-24 pb-16 min-h-[80vh] flex items-center">
             <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
@@ -19,41 +24,83 @@ export default function ThankYouPage() {
                     </div>
 
                     <h1 className="text-4xl font-bold mb-4">תודה על הצטרפותך!</h1>
-                    <p className="text-xl text-text-secondary mb-8 leading-relaxed">
-                        התשלום התקבל בהצלחה ב-PayPal. <br />
-                        אנחנו מבצעים כעת סנכרון של החשבון שלך.
-                    </p>
-
-                    <div className="grid gap-6 md:grid-cols-2 mb-10 text-right" dir="rtl">
-                        <div className="p-4 rounded-xl bg-white/5 border border-white/5">
-                            <div className="flex items-center gap-3 mb-2">
-                                <Crown className="h-5 w-5 text-royal-400" />
-                                <h3 className="font-bold">מה קורה עכשיו?</h3>
-                            </div>
-                            <p className="text-sm text-text-secondary">
-                                שלחנו לך אישור תשלום למייל. הגישה לתכני הפרימיום כבר פעילה — אפשר להתחיל מיד.
+                    {isGuest ? (
+                        <>
+                            <p className="text-xl text-text-secondary mb-8 leading-relaxed">
+                                התשלום התקבל בהצלחה ב-PayPal. <br />
+                                כעת שלחנו לך דוא״ל עם הוראות ליצירת חשבון.
                             </p>
-                        </div>
-                        <div className="p-4 rounded-xl bg-white/5 border border-white/5">
-                            <div className="flex items-center gap-3 mb-2">
-                                <BookOpen className="h-5 w-5 text-teal-400" />
-                                <h3 className="font-bold">לאן כדאי להיכנס?</h3>
-                            </div>
-                            <p className="text-sm text-text-secondary">
-                                אנחנו ממליצים להתחיל מהמדריך "הטמעת AI בביקורת" שנמצא בבלוג הפרימיום.
-                            </p>
-                        </div>
-                    </div>
 
-                    <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-                        <Button href="/dashboard" size="lg" className="w-full sm:w-auto">
-                            עבור לאזור האישי
-                        </Button>
-                        <Button href="/blog" variant="secondary" size="lg" className="w-full sm:w-auto">
-                            גלוש בבלוג
-                            <ArrowRight className="mr-2 h-4 w-4 rotate-180" />
-                        </Button>
-                    </div>
+                            <div className="grid gap-6 md:grid-cols-2 mb-10 text-right" dir="rtl">
+                                <div className="p-4 rounded-xl bg-white/5 border border-white/5">
+                                    <div className="flex items-center gap-3 mb-2">
+                                        <Mail className="h-5 w-5 text-teal-400" />
+                                        <h3 className="font-bold">בדוק את הדוא״ל שלך</h3>
+                                    </div>
+                                    <p className="text-sm text-text-secondary">
+                                        שלחנו לך אישור תשלום והוראות לביצוע התחברות. בדוק גם את תיקיית הספאם.
+                                    </p>
+                                </div>
+                                <div className="p-4 rounded-xl bg-white/5 border border-white/5">
+                                    <div className="flex items-center gap-3 mb-2">
+                                        <Crown className="h-5 w-5 text-royal-400" />
+                                        <h3 className="font-bold">מה קורה עכשיו?</h3>
+                                    </div>
+                                    <p className="text-sm text-text-secondary">
+                                        לאחר שתיצור חשבון וההתחברות שלך תאישור, תקבל גישה מלאה לכל התוכן הפרימיום.
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+                                <Button href="/login" size="lg" className="w-full sm:w-auto">
+                                    התחבר או צור חשבון
+                                </Button>
+                                <Button href="/blog" variant="secondary" size="lg" className="w-full sm:w-auto">
+                                    גלוש בבלוג
+                                    <ArrowRight className="mr-2 h-4 w-4 rotate-180" />
+                                </Button>
+                            </div>
+                        </>
+                    ) : (
+                        <>
+                            <p className="text-xl text-text-secondary mb-8 leading-relaxed">
+                                התשלום התקבל בהצלחה ב-PayPal. <br />
+                                אנחנו מבצעים כעת סנכרון של החשבון שלך.
+                            </p>
+
+                            <div className="grid gap-6 md:grid-cols-2 mb-10 text-right" dir="rtl">
+                                <div className="p-4 rounded-xl bg-white/5 border border-white/5">
+                                    <div className="flex items-center gap-3 mb-2">
+                                        <Crown className="h-5 w-5 text-royal-400" />
+                                        <h3 className="font-bold">מה קורה עכשיו?</h3>
+                                    </div>
+                                    <p className="text-sm text-text-secondary">
+                                        שלחנו לך אישור תשלום למייל. הגישה לתכני הפרימיום כבר פעילה — אפשר להתחיל מיד.
+                                    </p>
+                                </div>
+                                <div className="p-4 rounded-xl bg-white/5 border border-white/5">
+                                    <div className="flex items-center gap-3 mb-2">
+                                        <BookOpen className="h-5 w-5 text-teal-400" />
+                                        <h3 className="font-bold">לאן כדאי להיכנס?</h3>
+                                    </div>
+                                    <p className="text-sm text-text-secondary">
+                                        אנחנו ממליצים להתחיל מהמדריך "הטמעת AI בביקורת" שנמצא בבלוג הפרימיום.
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+                                <Button href="/dashboard" size="lg" className="w-full sm:w-auto">
+                                    עבור לאזור האישי
+                                </Button>
+                                <Button href="/blog" variant="secondary" size="lg" className="w-full sm:w-auto">
+                                    גלוש בבלוג
+                                    <ArrowRight className="mr-2 h-4 w-4 rotate-180" />
+                                </Button>
+                            </div>
+                        </>
+                    )}
 
                     <p className="mt-12 text-xs text-text-muted">
                         יש לך שאלה דחופה? אני כאן בשבילך גם ב- <a href="https://wa.me/972505500344" className="text-teal-400 hover:underline">WhatsApp</a>

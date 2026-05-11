@@ -58,6 +58,34 @@ async function verifyWebhookSignature(req: NextRequest, body: string): Promise<b
     return result.verification_status === "SUCCESS";
 }
 
+async function createGuestUserIfNotExists(email: string): Promise<string | null> {
+    // Create a guest user via Supabase admin API
+    // Returns the new user ID, or null if creation failed
+    const adminSupabase = createAdminClient();
+
+    // Generate random password for the guest account
+    const tempPassword = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+
+    try {
+        const { data, error } = await adminSupabase.auth.admin.createUser({
+            email: email,
+            password: tempPassword,
+            email_confirm: true, // Auto-confirm email for instant access
+        });
+
+        if (error) {
+            console.error(`Failed to create guest user for ${email}:`, error);
+            return null;
+        }
+
+        console.log(`Created guest user for email ${email}, user ID: ${data.user?.id}`);
+        return data.user?.id || null;
+    } catch (e) {
+        console.error(`Exception creating guest user for ${email}:`, e);
+        return null;
+    }
+}
+
 export async function POST(req: NextRequest) {
     const body = await req.text();
 
@@ -117,11 +145,19 @@ async function handlePaymentCompleted(event: any): Promise<boolean> {
     }
 
     // Find user by email via profiles table
-    const { data: profile, error: userLookupError } = await adminSupabase
+    let { data: profile, error: userLookupError } = await adminSupabase
         .from("profiles")
         .select("id")
         .eq("email", payerEmail)
         .maybeSingle();
+
+    // If user not found, create guest account
+    if (!profile && payerEmail) {
+        const newUserId = await createGuestUserIfNotExists(payerEmail);
+        if (newUserId) {
+            profile = { id: newUserId };
+        }
+    }
 
     if (userLookupError || !profile) {
         console.error(`Webhook: No user found for email ${payerEmail}, order ${orderId}`);
@@ -184,11 +220,19 @@ async function handleSubscriptionActivated(event: any): Promise<boolean> {
     }
 
     // Find user by email via profiles table
-    const { data: profile, error: userLookupError } = await adminSupabase
+    let { data: profile, error: userLookupError } = await adminSupabase
         .from("profiles")
         .select("id")
         .eq("email", subscriberEmail)
         .maybeSingle();
+
+    // If user not found, create guest account
+    if (!profile && subscriberEmail) {
+        const newUserId = await createGuestUserIfNotExists(subscriberEmail);
+        if (newUserId) {
+            profile = { id: newUserId };
+        }
+    }
 
     if (userLookupError || !profile) {
         console.error(`Webhook: No user found for email ${subscriberEmail}, subscription ${subscriptionId}`);
