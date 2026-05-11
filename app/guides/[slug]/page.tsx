@@ -5,6 +5,10 @@ import { notFound } from 'next/navigation';
 import { getGuideBySlug, getRelatedGuides, getAllGuides } from '@/lib/guides-data';
 import { GuideCard } from '@/components/guides/GuideCard';
 import { NewsletterForm } from '@/components/forms/NewsletterForm';
+import { Paywall } from '@/components/blog/Paywall';
+import { createClient } from '@/lib/supabase/server';
+
+export const dynamic = 'force-dynamic';
 
 const BASE_URL = 'https://www.ronenamoscpa.co.il';
 
@@ -12,12 +16,6 @@ function getEmbedUrl(gammaUrl: string): string {
   // https://gamma.app/docs/<id> → https://gamma.app/embed/<id>
   const id = gammaUrl.split('/').pop() ?? '';
   return `https://gamma.app/embed/${id}`;
-}
-
-export async function generateStaticParams() {
-  return getAllGuides()
-    .filter((g) => g.gammaUrl !== '#')
-    .map((g) => ({ slug: g.slug }));
 }
 
 export async function generateMetadata({
@@ -61,6 +59,33 @@ export default async function GuideDetailPage({
   const { slug } = await params;
   const guide = getGuideBySlug(slug);
   if (!guide) notFound();
+
+  // Auth & subscription check
+  const supabase = await createClient();
+  const { data: { user } } = await supabase.auth.getUser();
+
+  let subscriptionStatus = 'free';
+  let subscriptionEndDate: string | null = null;
+  if (user) {
+    const { data: profile } = await supabase
+      .from('profiles')
+      .select('subscription_status, subscription_end_date')
+      .eq('id', user.id)
+      .single();
+    if (profile) {
+      subscriptionStatus = profile.subscription_status;
+      subscriptionEndDate = profile.subscription_end_date ?? null;
+    }
+  }
+
+  const now = new Date();
+  const endDate = subscriptionEndDate ? new Date(subscriptionEndDate) : null;
+  const hasAccess =
+    !guide.isPremium ||
+    subscriptionStatus === 'monthly' ||
+    subscriptionStatus === 'lifetime' ||
+    (subscriptionStatus === 'cancelled' && endDate !== null && endDate > now);
+  const isLocked = guide.isPremium && !hasAccess;
 
   const related = getRelatedGuides(slug);
   const guideUrl = `${BASE_URL}/guides/${guide.slug}`;
@@ -182,32 +207,52 @@ export default async function GuideDetailPage({
           {guide.longDescription ?? guide.description}
         </p>
 
-        {/* Gamma embed */}
-        <div className="mb-4">
-          <div
-            className="relative w-full rounded-xl overflow-hidden glass-panel"
-            style={{ paddingTop: '110%' /* even taller on all devices */ }}
-          >
-            <iframe
-              src={embedUrl}
-              className="absolute inset-0 w-full h-full border-0"
-              allowFullScreen
-              loading="lazy"
-              title={guide.title}
+        {/* Gamma embed or paywall */}
+        {isLocked ? (
+          <>
+            {guide.thumbnail && (
+              <div className="mb-8 rounded-xl overflow-hidden">
+                <Image
+                  src={guide.thumbnail}
+                  alt={guide.title}
+                  width={900}
+                  height={506}
+                  className="w-full object-cover"
+                />
+              </div>
+            )}
+            <Paywall
+              title="מדריך פרימיום נעול"
+              description="שדרג למנוי פרימיום כדי לגשת למדריך המלא ולכל תכני הפרימיום האחרים."
             />
-          </div>
-          <div className="mt-3 text-left">
-            <a
-              href={guide.gammaUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-sm text-slate-500 hover:text-neon-cyan transition-colors inline-flex items-center gap-1"
+          </>
+        ) : (
+          <div className="mb-4">
+            <div
+              className="relative w-full rounded-xl overflow-hidden glass-panel"
+              style={{ paddingTop: '110%' /* even taller on all devices */ }}
             >
-              <span>פתח את המדריך ב-Gamma</span>
-              <span>↗</span>
-            </a>
+              <iframe
+                src={embedUrl}
+                className="absolute inset-0 w-full h-full border-0"
+                allowFullScreen
+                loading="lazy"
+                title={guide.title}
+              />
+            </div>
+            <div className="mt-3 text-left">
+              <a
+                href={guide.gammaUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-sm text-slate-500 hover:text-neon-cyan transition-colors inline-flex items-center gap-1"
+              >
+                <span>פתח את המדריך ב-Gamma</span>
+                <span>↗</span>
+              </a>
+            </div>
           </div>
-        </div>
+        )}
 
         {/* Thumbnail fallback for og/share — visually hidden but helps crawlers */}
         {guide.thumbnail && (
@@ -231,22 +276,24 @@ export default async function GuideDetailPage({
           </div>
         </section>
 
-        {/* Pricing CTA */}
-        <section
-          className="mt-6 glass-panel rounded-xl p-6 relative overflow-hidden"
-          style={{ backgroundImage: 'radial-gradient(circle at 20% 0%, rgba(45,212,191,0.15), transparent 60%)' }}
-        >
-          <h3 className="text-white font-bold text-lg mb-2">רוצה גישה מלאה?</h3>
-          <p className="text-slate-400 text-sm leading-relaxed mb-4">
-            מנוי פרימיום פותח את כל הבלוג, ה-Skill Vault והמדריכים המתקדמים.
-          </p>
-          <Link
-            href="/pricing"
-            className="inline-block bg-gradient-to-l from-neon-cyan to-neon-teal text-space-950 font-bold text-sm px-6 py-2.5 rounded-lg hover:opacity-90 transition-opacity"
+        {/* Pricing CTA — hidden if locked (paywall already shown) */}
+        {!isLocked && (
+          <section
+            className="mt-6 glass-panel rounded-xl p-6 relative overflow-hidden"
+            style={{ backgroundImage: 'radial-gradient(circle at 20% 0%, rgba(45,212,191,0.15), transparent 60%)' }}
           >
-            שדרג עכשיו
-          </Link>
-        </section>
+            <h3 className="text-white font-bold text-lg mb-2">רוצה גישה מלאה?</h3>
+            <p className="text-slate-400 text-sm leading-relaxed mb-4">
+              מנוי פרימיום פותח את כל הבלוג, ה-Skill Vault והמדריכים המתקדמים.
+            </p>
+            <Link
+              href="/pricing"
+              className="inline-block bg-gradient-to-l from-neon-cyan to-neon-teal text-space-950 font-bold text-sm px-6 py-2.5 rounded-lg hover:opacity-90 transition-opacity"
+            >
+              שדרג עכשיו
+            </Link>
+          </section>
+        )}
 
         {/* Related guides */}
         {related.length > 0 && (
