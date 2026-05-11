@@ -5,7 +5,7 @@ import { createAdminClient } from "@/lib/supabase/admin";
 import { sendPurchaseEmail as sendPurchaseConfirmationEmail } from "@/lib/mailer";
 
 const PLAN_LABELS: Record<string, string> = {
-    monthly: "Monthly Flexible — ₪10/חודש",
+    monthly: "Monthly Flexible — ₪30/חודש",
     lifetime: "Lifetime PRO — תשלום חד-פעמי",
 };
 

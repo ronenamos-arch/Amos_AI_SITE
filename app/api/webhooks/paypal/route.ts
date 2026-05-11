@@ -199,7 +199,7 @@ async function handleSubscriptionActivated(event: any): Promise<boolean> {
     try {
         await adminSupabase.from("payment_records").insert({
             user_id: profile.id,
-            amount: 10,
+            amount: 30,
             paypal_order_id: subscriptionId,
             status: "COMPLETED",
         });
@@ -222,8 +222,8 @@ async function handleSubscriptionActivated(event: any): Promise<boolean> {
     if (subscriberEmail) {
         await sendPurchaseConfirmationEmail({
             to: subscriberEmail,
-            planName: "Monthly Flexible — ₪10/חודש",
-            amount: 10,
+            planName: "Monthly Flexible — ₪30/חודש",
+            amount: 30,
             orderId: subscriptionId,
         }).catch((err) => console.error("Webhook email error:", err));
     }

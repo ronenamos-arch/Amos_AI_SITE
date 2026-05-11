@@ -33,7 +33,7 @@ const plans = [
     },
     {
         name: "מנוי חודשי גמיש",
-        price: "10",
+        price: "30",
         period: "לחודש (ביטול בכל עת)",
         description: "גישה מלאה לכל התוכן המקצועי בתשלום חודשי סמלי.",
         features: [
@@ -48,25 +48,6 @@ const plans = [
         href: "/dashboard",
         variant: "secondary" as const,
         popular: false
-    },
-    {
-        name: "AI FINANCE PRO - לכל החיים",
-        price: "199",
-        period: "חד פעמי - גישה לתמיד",
-        description: "החבילה המלאה והמשתלמת ביותר למי שרוצה להוביל.",
-        features: [
-            "גישה מלאה לכל מאמרי הפרימיום",
-            "ספריית 100+ פרומפטים מוכנים לחשבונאים",
-            "גישה למדריכים טכניים (NotebookLM, Power BI)",
-            "קבוצת וואטסאפ 'שקטה' לעדכונים בלעדיים",
-            "הנחה של 15% על כל הקורסים הפרונטליים",
-            "תבניות אקסל ושיטות עבודה אוטומטיות",
-            "תשלום אחד קטן וחשבון PRO לתמיד"
-        ],
-        cta: "רכוש גישה לכל החיים",
-        href: "/dashboard",
-        variant: "primary" as const,
-        popular: true
     }
 ];
 
