@@ -33,6 +33,18 @@ export interface Guide {
 
 export const guides: Guide[] = [
   {
+    slug: 'claude-cowork',
+    title: 'המדריך המלא לעבודה עם Claude Cowork — עקרון 80/20',
+    description: 'המדריך בנוי על עיקרון ה-80/20: רוב התוצאות מגיעות ממיעוט הפעולות. לכן חילקנו אותו כך שתדעו בדיוק מה חשוב ללמוד קודם — ומה שמור למקצוענים.',
+    category: 'Claude',
+    tags: ['Claude', 'Claude Cowork', 'Collaboration', 'Productivity'],
+    gammaUrl: 'https://gamma.app/embed/rosbrjjrbzh51l3',
+    thumbnail: '/guides/claude-cowork.png',
+    duration: "15 דק'",
+    isPremium: true,
+    publishedAt: '2026-05-11',
+  },
+  {
     slug: 'ai-agents-finance',
     title: '5 סוכני AI שכל צוות כספים צריך להכיר',
     description: 'האם AI באמת יכול לעזור בעבודה הפיננסית היומיומית — או שזה בעיקר רעש? AI לא מחליף שיקול דעת מקצועי, אבל הוא כן מתחיל להיות מאוד שימושי דווקא בחלקים הכי שוחקים של העבודה — התאמות, בדיקות, בניית טיוטות, סקירות ראשוניות, וניתוח ראשוני של נתונים.',
