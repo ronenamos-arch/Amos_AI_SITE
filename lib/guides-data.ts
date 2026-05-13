@@ -33,6 +33,18 @@ export interface Guide {
 
 export const guides: Guide[] = [
   {
+    slug: 'excel-to-zite-finance-crm-guide',
+    title: 'מ‑Excel מבולגן לאפליקציית CRM פיננסית חכמה: מדריך Zite לאנשי כספים',
+    description: 'מדריך שלב‑אחר‑שלב לאנשי כספים למעבר מגיליון Excel כבד ומסוכן לאפליקציית CRM פיננסית חכמה ב‑Zite – עם קשרי טבלאות, בקרת גישה ו‑Audit Trail.',
+    category: 'Excel',
+    tags: ['Excel to app', 'Automation', 'CRM ל‑אנשי כספים', 'רואי חשבון ו‑CFOs', 'אפליקציות ללא קוד'],
+    gammaUrl: 'https://gamma.app/embed/Excel-Zite-gh8qt3uzu6lwxhw',
+    thumbnail: '/guides/building-custom-tools.png',
+    duration: "15 דק'",
+    isPremium: false,
+    publishedAt: '2026-05-13',
+  },
+  {
     slug: 'finance-teams',
     title: 'מחלקות כספים — איך בונים צוות פיננסי שעובד חכם יותר',
     description: 'מדריך לבניית מחלקת כספים מודרנית עם תהליכים ברורים, אוטומציה, בקרות, dashboards ויכולת לספק להנהלה תמונה ניהולית מהירה.',

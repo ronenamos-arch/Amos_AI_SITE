@@ -18,6 +18,7 @@
 ## Guides Library
 
 - [מדריכי AI לאנשי כספים — Guides Library](https://www.ronenamoscpa.co.il/guides): Curated library of practical Hebrew guides on Claude, ChatGPT, automation, Excel, Power BI, and AI-driven finance departments. Filterable by category and tag, with search. Free to access — actionable steps you can implement this week, no theory.
+- /guides/excel-to-zite-finance-crm-guide — מ‑Excel מבולגן לאפליקציית CRM פיננסית חכמה: מדריך Zite לאנשי כספים
 - /guides/finance-teams — מחלקות כספים — איך בונים צוות פיננסי שעובד חכם יותר
 - /guides/power-bi — Power BI לאנשי כספים — לראות את המספרים אחרת
 - /guides/chatgpt — ChatGPT לאנשי כספים — המדריך השלם
