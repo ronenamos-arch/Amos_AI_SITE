@@ -63,6 +63,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
             changeFrequency: 'weekly',
             priority: 0.8,
         },
+        {
+            url: `${baseUrl}/resources/claude-code`,
+            lastModified: new Date('2026-05-19'),
+            changeFrequency: 'monthly' as const,
+            priority: 0.8,
+        },
     ]
 
     const thirtyDaysAgo = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000)
