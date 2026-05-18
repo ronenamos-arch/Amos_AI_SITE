@@ -33,6 +33,18 @@ export interface Guide {
 
 export const guides: Guide[] = [
   {
+    slug: 'zite-MRR-dashboard',
+    title: 'מ‑Excel חוזים ללוח שליטה ב‑Zite: Retainer Control Panel לצוותי כספים',
+    description: 'מדריך מעשי שמראה איך להפוך גיליון חוזים וריטיינרים באקסל לאפליקציית Retainer Control Panel ב‑Zite: Dashboard ל‑MRR/ARR, חידושי חוזים, מסכי Clients ו‑Contracts, כולל קובץ Excel לדוגמה והפרומפט המלא.',
+    category: 'מחלקות כספים',
+    tags: ['Excel', 'Dashboard', 'CFO', 'Finance Ops'],
+    gammaUrl: 'https://gamma.app/embed/j2pen9r6uzhux5h',
+    thumbnail: '/guides/zite-retainer-dashboard.png',
+    duration: "15 דק'",
+    isPremium: true,
+    publishedAt: '2026-05-19',
+  },
+  {
     slug: 'excel-to-zite-finance-crm-guide',
     title: 'מ‑Excel מבולגן לאפליקציית CRM פיננסית חכמה: מדריך Zite לאנשי כספים',
     description: 'מדריך שלב‑אחר‑שלב לאנשי כספים למעבר מגיליון Excel כבד ומסוכן לאפליקציית CRM פיננסית חכמה ב‑Zite – עם קשרי טבלאות, בקרת גישה ו‑Audit Trail.',
