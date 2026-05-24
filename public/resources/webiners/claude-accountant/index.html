@@ -1,0 +1,1288 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <base href="/resources/webiners/claude-accountant/" />
+  <title>Claude לרואי חשבון — סביבת העבודה החדשה של איש הכספים</title>
+  <meta name="description" content="וובינר מעשי לרואי חשבון, CFOs, Controllers ו-FP&A: איך עובדים נכון עם Claude, Projects, Files, Artifacts, Chrome ו-Excel." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg:#0b0d10;
+      --surface:#12161a;
+      --surface-2:#171c21;
+      --surface-3:#1d2329;
+      --border:rgba(255,255,255,.09);
+      --border-strong:rgba(255,255,255,.16);
+      --text:#f4f6f8;
+      --text-muted:#a4afb8;
+      --text-faint:#73808b;
+      --accent:#1aa3a8;
+      --accent-soft:rgba(26,163,168,.12);
+      --success:#4caf72;
+      --warning:#d7a54b;
+      --danger:#d16a7d;
+      --shadow:0 16px 48px rgba(0,0,0,.28);
+      --radius-sm:10px;
+      --radius-md:18px;
+      --radius-lg:28px;
+      --space-1:4px;
+      --space-2:8px;
+      --space-3:12px;
+      --space-4:16px;
+      --space-5:20px;
+      --space-6:24px;
+      --space-8:32px;
+      --space-10:40px;
+      --space-12:48px;
+      --space-16:64px;
+      --space-20:80px;
+      --max:1200px;
+      --max-copy:780px;
+      --hero:clamp(3.2rem, 7vw, 7rem);
+      --h1:clamp(2rem, 4vw, 3.8rem);
+      --h2:clamp(1.45rem, 2.4vw, 2.3rem);
+      --h3:clamp(1.1rem, 1.4vw, 1.4rem);
+      --body:clamp(1.02rem, 1.2vw, 1.2rem);
+      --meta:.95rem;
+      --mono:"IBM Plex Mono", monospace;
+      --font:"Heebo", system-ui, sans-serif;
+    }
+
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family:var(--font);
+      background:
+        radial-gradient(circle at 85% 10%, rgba(26,163,168,.09), transparent 22%),
+        radial-gradient(circle at 10% 0%, rgba(255,255,255,.04), transparent 20%),
+        var(--bg);
+      color:var(--text);
+      line-height:1.7;
+      font-size:var(--body);
+    }
+
+    a{color:inherit;text-decoration:none}
+    img{max-width:100%;display:block}
+
+    .container{
+      width:min(calc(100% - 32px), var(--max));
+      margin-inline:auto;
+    }
+
+    .narrow{
+      width:min(100%, var(--max-copy));
+    }
+
+    .section{
+      min-height:100vh;
+      padding:var(--space-20) 0;
+      position:relative;
+      display:flex;
+      align-items:center;
+    }
+
+    .section + .section{
+      border-top:1px solid rgba(255,255,255,.04);
+    }
+
+    .topbar{
+      position:sticky;
+      top:0;
+      z-index:30;
+      backdrop-filter:blur(14px);
+      background:rgba(11,13,16,.92);
+      border-bottom:1px solid rgba(255,255,255,.06);
+    }
+
+    .topbar-inner{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:var(--space-4);
+      min-height:68px;
+      padding:0 var(--space-4);
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:var(--space-3);
+      font-weight:700;
+      font-size:1.05rem;
+    }
+
+    .brand-mark{
+      width:40px;
+      height:40px;
+      border-radius:12px;
+      display:grid;
+      place-items:center;
+      background:linear-gradient(135deg, rgba(26,163,168,.24), rgba(26,163,168,.05));
+      border:1px solid rgba(26,163,168,.28);
+      color:#baf1f4;
+      font-family:var(--mono);
+      font-size:1rem;
+      font-weight:800;
+    }
+
+    .nav{
+      display:flex;
+      gap:var(--space-3);
+      flex-wrap:wrap;
+      color:var(--text-muted);
+      font-size:.95rem;
+    }
+
+    .nav a{transition:color .2s}
+    .nav a:hover{color:var(--text)}
+
+    .hero{
+      padding-top:var(--space-10);
+      display:grid;
+      grid-template-columns:1fr 1.1fr;
+      gap:var(--space-10);
+      align-items:center;
+    }
+
+    .eyebrow,.kicker{
+      display:inline-flex;
+      align-items:center;
+      gap:var(--space-2);
+      color:var(--text-muted);
+      font-size:var(--meta);
+      letter-spacing:.12em;
+      text-transform:uppercase;
+    }
+
+    .eyebrow::before,.kicker::before{
+      content:"";
+      width:28px;
+      height:1px;
+      background:rgba(255,255,255,.22);
+    }
+
+    .hero h1{
+      margin:var(--space-4) 0 var(--space-6);
+      font-size:var(--hero);
+      line-height:1;
+      letter-spacing:-.03em;
+    }
+
+    .hero h1 .accent{color:#9be3e5}
+
+    .lede{
+      color:var(--text-muted);
+      font-size:clamp(1.08rem,1.55vw,1.32rem);
+      max-width:72ch;
+      line-height:1.6;
+      margin:0;
+    }
+
+    .section-head{
+      display:grid;
+      gap:var(--space-4);
+      margin-bottom:var(--space-10);
+    }
+
+    .section-head h2{
+      margin:0;
+      font-size:var(--h1);
+      line-height:1.1;
+      letter-spacing:-.02em;
+      max-width:16ch;
+    }
+
+    .section-head p{
+      margin:0;
+      color:var(--text-muted);
+      max-width:68ch;
+      font-size:var(--body);
+      line-height:1.7;
+    }
+
+    .split{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:var(--space-8);
+      align-items:start;
+    }
+
+    .stat-block{
+      padding:var(--space-10);
+      background:linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
+      border:1px solid var(--border);
+      border-radius:var(--radius-lg);
+      box-shadow:var(--shadow);
+    }
+
+    .stat-number{
+      font-size:clamp(3.2rem,10vw,7rem);
+      line-height:.95;
+      font-weight:800;
+      letter-spacing:-.05em;
+      margin:var(--space-6) 0;
+    }
+
+    .stat-caption{
+      font-size:clamp(1.15rem,2vw,1.4rem);
+      color:var(--text-muted);
+      line-height:1.5;
+    }
+
+    .bullet-list{
+      display:grid;
+      gap:var(--space-5);
+      margin-top:var(--space-8);
+    }
+
+    .bullet{
+      display:flex;
+      gap:var(--space-4);
+      color:var(--text-muted);
+      padding:var(--space-4);
+      border-radius:var(--radius-md);
+      background:rgba(255,255,255,.02);
+      border:1px solid rgba(255,255,255,.06);
+      font-size:clamp(1rem,1.2vw,1.08rem);
+      line-height:1.6;
+    }
+
+    .bullet::before{
+      content:"•";
+      color:var(--accent);
+      font-size:1.4rem;
+      line-height:1;
+      flex-shrink:0;
+    }
+
+    .timeline{
+      display:grid;
+      gap:var(--space-6);
+    }
+
+    .timeline-item{
+      display:grid;
+      grid-template-columns:140px 1fr;
+      gap:var(--space-6);
+      padding:var(--space-6);
+      border-radius:var(--radius-md);
+      background:rgba(255,255,255,.03);
+      border:1px solid rgba(255,255,255,.06);
+    }
+
+    .timeline-time{
+      color:var(--text-faint);
+      font-family:var(--mono);
+      font-size:.95rem;
+      font-weight:600;
+    }
+
+    .timeline-item h3{
+      margin:0 0 8px;
+      font-size:var(--h3);
+      font-weight:600;
+    }
+
+    .timeline-item p{
+      margin:0;
+      color:var(--text-muted);
+      font-size:var(--body);
+      line-height:1.6;
+    }
+
+    .grid-2,.grid-3{
+      display:grid;
+      gap:var(--space-6);
+    }
+
+    .grid-2{
+      grid-template-columns:repeat(auto-fit, minmax(300px, 1fr));
+    }
+
+    .grid-3{
+      grid-template-columns:repeat(auto-fit, minmax(280px, 1fr));
+    }
+
+    .card{
+      background:linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
+      border:1px solid var(--border);
+      border-radius:var(--radius-md);
+      padding:var(--space-8);
+      box-shadow:var(--shadow);
+    }
+
+    .card .kicker{margin-bottom:var(--space-4)}
+    .card h3{
+      margin:0 0 12px;
+      font-size:var(--h2);
+      line-height:1.1;
+    }
+
+    .card p{
+      margin:0;
+      color:var(--text-muted);
+      font-size:var(--body);
+      line-height:1.6;
+    }
+
+    .callout,.code-box,.checklist,.warning-box,.quote-box,.comparison,.cta-box{
+      border-radius:var(--radius-md);
+      border:1px solid var(--border);
+      overflow:hidden;
+      background:linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
+    }
+
+    .callout-header,.box-header{
+      padding:16px 20px;
+      border-bottom:1px solid rgba(255,255,255,.06);
+      color:var(--text-muted);
+      font-size:var(--meta);
+      letter-spacing:.12em;
+      text-transform:uppercase;
+      background:rgba(255,255,255,.02);
+      font-weight:600;
+    }
+
+    .callout-body,.box-body{
+      padding:var(--space-8);
+    }
+
+    .callout-body p,.box-body p{
+      margin:0;
+      color:var(--text-muted);
+      font-size:var(--body);
+      line-height:1.7;
+    }
+
+    .callout-body h3,.box-body h3{
+      margin:0 0 12px;
+      font-size:var(--h2);
+      line-height:1.1;
+    }
+
+    .code-box pre{
+      margin:0;
+      white-space:pre-wrap;
+      font-family:var(--mono);
+      font-size:1rem;
+      line-height:1.8;
+      color:#dff7f8;
+    }
+
+    .code-box .box-body{
+      background:linear-gradient(180deg, rgba(26,163,168,.08), rgba(26,163,168,.03));
+    }
+
+    .checklist ul,.warning-box ul{
+      list-style:none;
+      padding:0;
+      margin:0;
+      display:grid;
+      gap:16px;
+    }
+
+    .checklist li,.warning-box li{
+      color:var(--text-muted);
+      padding-inline-start:32px;
+      position:relative;
+      font-size:var(--body);
+      line-height:1.6;
+    }
+
+    .checklist li::before{
+      content:"✓";
+      position:absolute;
+      right:0;
+      top:0;
+      color:var(--success);
+      font-weight:700;
+    }
+
+    .warning-box{
+      border-color:rgba(215,165,75,.2);
+    }
+
+    .warning-box .box-header{color:#f1ca83}
+
+    .warning-box li::before{
+      content:"!";
+      position:absolute;
+      right:0;
+      top:0;
+      color:var(--warning);
+      font-weight:800;
+    }
+
+    .quote-box .box-body{
+      padding:var(--space-10);
+    }
+
+    .quote-box blockquote{
+      margin:0;
+      font-size:clamp(1.8rem,4vw,3rem);
+      line-height:1.2;
+      letter-spacing:-.03em;
+      max-width:14ch;
+    }
+
+    .quote-box p{
+      margin-top:var(--space-6);
+      color:var(--text-muted);
+      font-size:var(--body);
+    }
+
+    .comparison-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit, minmax(280px, 1fr));
+    }
+
+    .compare-col{
+      padding:var(--space-8);
+      border-inline-start:1px solid rgba(255,255,255,.06);
+    }
+
+    .compare-col:first-child{
+      border-inline-start:0;
+    }
+
+    .compare-col h3{
+      margin:0 0 16px;
+      font-size:var(--h2);
+      line-height:1.1;
+    }
+
+    .compare-col ul{
+      margin:0;
+      padding:0;
+      list-style:none;
+      display:grid;
+      gap:12px;
+    }
+
+    .compare-col li{
+      color:var(--text-muted);
+      font-size:var(--body);
+      line-height:1.6;
+    }
+
+    .cta-box{
+      background:linear-gradient(180deg, rgba(26,163,168,.12), rgba(26,163,168,.04));
+      border-color:rgba(26,163,168,.22);
+    }
+
+    .cta-box .box-body{
+      display:flex;
+      flex-direction:column;
+      gap:var(--space-8);
+      align-items:flex-start;
+    }
+
+    .cta-box h3{
+      font-size:var(--h1);
+      line-height:1.1;
+      margin:0;
+    }
+
+    .btn-row{
+      display:flex;
+      gap:var(--space-4);
+      flex-wrap:wrap;
+    }
+
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      min-height:52px;
+      padding:0 24px;
+      border-radius:999px;
+      border:1px solid transparent;
+      font-weight:700;
+      font-size:1rem;
+      cursor:pointer;
+      transition:all .2s;
+    }
+
+    .btn-primary{
+      background:var(--accent);
+      color:#071214;
+    }
+
+    .btn-primary:hover{
+      opacity:.9;
+      transform:translateY(-2px);
+    }
+
+    .btn-secondary{
+      background:rgba(255,255,255,.04);
+      border-color:rgba(255,255,255,.08);
+      color:var(--text);
+    }
+
+    .btn-secondary:hover{
+      background:rgba(255,255,255,.08);
+    }
+
+    .screenshot-placeholder{
+      border:2px dashed rgba(26,163,168,.3);
+      border-radius:var(--radius-md);
+      padding:var(--space-10);
+      background:linear-gradient(135deg, rgba(26,163,168,.06), rgba(26,163,168,.02));
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
+      min-height:320px;
+      text-align:center;
+      margin:var(--space-6) 0 0;
+    }
+
+    .screenshot-placeholder strong{
+      font-size:clamp(1.1rem, 2vw, 1.4rem);
+      color:var(--accent);
+      margin-bottom:var(--space-3);
+    }
+
+    .screenshot-placeholder p{
+      color:var(--text-faint);
+      font-size:var(--meta);
+      margin:0;
+      max-width:54ch;
+    }
+
+    .fullscreen-cta{
+      min-height:100vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      text-align:center;
+      padding:var(--space-10);
+    }
+
+    .fullscreen-cta h2{
+      font-size:clamp(3rem, 10vw, 5.5rem);
+      line-height:1.1;
+      margin:0 0 var(--space-8);
+      letter-spacing:-.03em;
+    }
+
+    .fullscreen-cta p{
+      font-size:clamp(1.3rem, 2.5vw, 1.6rem);
+      color:var(--text-muted);
+      max-width:48ch;
+      line-height:1.6;
+      margin:0 auto;
+    }
+
+    .footer{
+      padding:var(--space-12) 0 var(--space-16);
+      color:var(--text-faint);
+      font-size:.95rem;
+      border-top:1px solid rgba(255,255,255,.04);
+    }
+
+    .muted{color:var(--text-muted)}
+    .accent{color:var(--accent)}
+    .mono{font-family:var(--mono)}
+
+    @media (max-width:980px){
+      .hero,.split,.grid-2,.grid-3,.comparison-grid{grid-template-columns:1fr}
+      .timeline-item{grid-template-columns:1fr}
+      .compare-col{
+        border-inline-start:0;
+        border-top:1px solid rgba(255,255,255,.06);
+      }
+      .compare-col:first-child{border-top:0}
+      .section{
+        min-height:auto;
+        padding:var(--space-16) 0;
+      }
+    }
+
+    @media (max-width:720px){
+      .topbar-inner{
+        flex-direction:column;
+        align-items:flex-start;
+        gap:var(--space-3);
+        padding-block:var(--space-3);
+      }
+      .nav{
+        font-size:.9rem;
+        gap:var(--space-2);
+      }
+      .card,.stat-block,.callout-body,.box-body{
+        padding:var(--space-6);
+      }
+    }
+
+:root{
+  --border:rgba(255,255,255,.10);
+  --border-strong:rgba(255,255,255,.18);
+
+  --text:#fafbfc;
+  --text-muted:#c2cad2;
+  --text-faint:#8b96a3;
+
+  --accent:#b8c45a;
+  --accent-strong:#d6e36a;
+  --accent-soft:rgba(184,196,90,.12);
+}
+
+.brand-mark{
+  background:linear-gradient(135deg, rgba(184,196,90,.22), rgba(184,196,90,.05));
+  border:1px solid rgba(184,196,90,.28);
+  color:#f3f7d2;
+  box-shadow:0 0 0 1px rgba(184,196,90,.18), 0 10px 30px rgba(184,196,90,.08);
+}
+
+.hero h1 .accent{
+  color:var(--accent-strong);
+}
+
+.cta-box{
+  background:linear-gradient(180deg, rgba(184,196,90,.12), rgba(184,196,90,.04));
+  border-color:rgba(184,196,90,.22);
+}
+
+.code-box .box-body{
+  background:linear-gradient(180deg, rgba(184,196,90,.08), rgba(184,196,90,.03));
+}
+
+.screenshot-placeholder{
+  border:2px dashed rgba(184,196,90,.28);
+  background:linear-gradient(135deg, rgba(184,196,90,.07), rgba(184,196,90,.02));
+}
+
+.screenshot-placeholder strong{
+  color:var(--accent);
+}
+
+body{
+  color:var(--text);
+}
+
+.lede,
+.section-head p,
+.card p,
+.callout-body p,
+.box-body p,
+.timeline-item p,
+.bullet,
+.compare-col li,
+.stat-caption,
+.fullscreen-cta p{
+  color:var(--text-muted);
+}
+
+.eyebrow,
+.kicker,
+.timeline-time,
+.footer,
+.screenshot-placeholder p{
+  color:var(--text-faint);
+}
+
+    details.callout-toggle{
+      border-radius:var(--radius-md);
+      border:1px solid var(--border);
+      background:var(--surface);
+      margin-top:32px;
+    }
+    details.callout-toggle summary{
+      padding:16px 20px;
+      border-bottom:1px solid rgba(255,255,255,.06);
+      font-weight:600;
+      font-size:var(--meta);
+      text-transform:uppercase;
+      letter-spacing:.06em;
+      color:var(--text-faint);
+      cursor:pointer;
+      list-style:none;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      user-select:none;
+    }
+    details.callout-toggle summary::-webkit-details-marker{display:none}
+    details.callout-toggle summary::after{
+      content:"+";
+      font-size:1.2rem;
+      color:var(--accent);
+      transition:transform .2s;
+    }
+    details.callout-toggle[open] summary::after{
+      transform:rotate(45deg);
+    }
+  </style>
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container topbar-inner">
+      <div class="brand">
+        <span class="brand-mark">AI</span>
+        <span>Claude לרואי חשבון</span>
+      </div>
+      <nav class="nav">
+        <a href="#hero">פתיחה</a>
+        <a href="#problem">הבעיה</a>
+        <a href="#agenda">מה נעשה</a>
+        <a href="#map">מפת Claude</a>
+        <a href="#use-cases">Use Cases</a>
+        <a href="#excel">Excel</a>
+        <a href="#projects">Projects</a>
+        <a href="#boundaries">גבולות</a>
+        <a href="#demo">דמו</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+
+    <section class="section" id="hero">
+      <div class="container">
+        <div class="hero">
+          <div>
+            <span class="eyebrow">AI Finance Transformation</span>
+            <h1><span class="accent">Claude</span> לרואי חשבון</h1>
+            <p class="lede">
+              סביבת העבודה החדשה של איש הכספים — איך עובדים נכון עם Claude, Projects, Files, Artifacts, Chrome ו־Excel,
+              בצורה פרקטית שמתאימה ליום עבודה אמיתי במחלקת כספים.
+            </p>
+
+            <div class="bullet-list">
+              <div class="bullet">מיועד לרואי חשבון, Controllers, CFOs, FP&amp;A ואנשי כספים שרוצים לעבוד מהר יותר בלי לוותר על שליטה.</div>
+              <div class="bullet">המטרה היום: להבין איפה Claude נכנס נכון, במה הוא באמת טוב, ואיך להפוך אותו מכלי צ'אט לכלי עבודה.</div>
+              <div class="bullet">זה לא Deep Dive טכני — זה וובינר אוריינטציה מעשי, ברור, ובגובה העיניים.</div>
+            </div>
+          </div>
+
+          <aside>
+            <img src="PLACEHOLDER — Hero Screenshot.png" alt="Hero Screenshot" style="width:130%;max-width:none;border-radius:var(--radius-md);margin:var(--space-6) 0 0;display:block;align-self:center;">
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="problem">
+      <div class="container">
+        <div class="section-head">
+          <span class="kicker">The real issue</span>
+          <h2>הבעיה היא לא שאין AI</h2>
+          <p>
+            הבעיה היא שרוב אנשי הכספים עדיין לא יודעים איפה Claude נכנס נכון, ולכן משתמשים בו כמו צ׳אט מזדמן —
+            במקום כמו סביבת עבודה מסודרת שמבינה קבצים, הקשר ותוצרים.
+          </p>
+        </div>
+
+        <div class="split">
+          <div class="stat-block">
+            <div class="stat-number">1</div>
+            <div class="stat-caption">
+              רוב הצוותים לא צריכים עוד כלי.<br>
+              הם צריכים דרך עבודה נכונה עם הכלי שכבר יכול לחסוך להם שעות.
+            </div>
+          </div>
+
+          <div>
+            <div class="bullet-list">
+              <div class="bullet">Excel עדיין נשאר מרכז העבודה — אבל כל מה שמסביבו עדיין ידני: הסברים, סיכומים, בדיקות ראשוניות, מיילים ודוחות.</div>
+              <div class="bullet">הקבצים מפוזרים בין PDF, Excel, מיילים, טאבים, וצילומי מסך — ואין מקום אחד שמאגד את העבודה.</div>
+              <div class="bullet">אנשים שואלים שאלות ב־Claude, אבל לא בונים Projects, לא מעלים הקשר, ולא מייצרים תוצרים קבועים.</div>
+              <div class="bullet">התוצאה: תשובות נחמדות, אבל בלי Workflow אמיתי למחלקת כספים.</div>
+            </div>
+
+            <img src="PLACEHOLDER — Before Screenshot.png" alt="Before Screenshot" style="width:100%;border-radius:var(--radius-md);margin:var(--space-6) 0 0;display:block;">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="agenda">
+      <div class="container narrow">
+        <div class="section-head">
+          <span class="kicker">Flow</span>
+          <h2>מה נעשה היום</h2>
+          <p>
+            בשעה הקרובה לא נעשה סקירה תאורטית של פיצ׳רים. נבנה מפה ברורה:
+            מה יש ב־Claude, איפה כל חלק מתאים, ואיך איש כספים מתחיל לעבוד נכון כבר מחר בבוקר.
+          </p>
+        </div>
+
+        <div class="timeline">
+          <div class="timeline-item">
+            <div class="timeline-time">00–05</div>
+            <div>
+              <h3>למה בכלל צריך את זה</h3>
+              <p>נגדיר את הבעיה האמיתית: לא מחסור ב־AI, אלא חוסר במבנה עבודה נכון לאנשי כספים.</p>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-time">05–15</div>
+            <div>
+              <h3>מפת Claude</h3>
+              <p>נעבור על Claude Web, Projects, Files, Artifacts, Chrome ו־Excel — בלי עומס, רק מה שצריך להבין.</p>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-time">15–30</div>
+            <div>
+              <h3>מה כל חלק עושה בפועל</h3>
+              <p>נחבר כל רכיב לשאלה מעשית: מתי משתמשים בו, מה מקבלים ממנו, ואיפה הוא מתאים למחלקת כספים.</p>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-time">30–45</div>
+            <div>
+              <h3>Use Cases אמיתיים</h3>
+              <p>נראה דוגמאות פרקטיות: הבנת קובץ, הסבר ניהולי, תוצר ויזואלי, וסביבת עבודה חוזרת.</p>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-time">45–55</div>
+            <div>
+              <h3>מתי כן ומתי לא</h3>
+              <p>נדבר על גבולות, שיקול דעת, בקרה ואבטחת מידע — כדי לעבוד מקצועית ולא בהתלהבות עיוורת.</p>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-time">55–60</div>
+            <div>
+              <h3>מעבר להדגמה חיה</h3>
+              <p>נסגור את המפה ונעבור למסך של Claude כדי לראות איך זה נראה על קובץ פיננסי אמיתי.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="map">
+      <div class="container">
+        <div class="section-head">
+          <span class="kicker">Claude ecosystem</span>
+          <h2>מפת Claude</h2>
+          <p>
+            כדי לעבוד נכון עם Claude, צריך להבין שלא מדובר בכלי אחד. זו סביבת עבודה עם כמה שכבות,
+            וכל שכבה פותרת סוג אחר של בעיה.
+          </p>
+        </div>
+
+        <div class="grid-3">
+          <article class="card">
+            <span class="kicker">Claude Web</span>
+            <h3>המסך הראשי</h3>
+            <p>המקום שבו שואלים, מעלים קבצים, מנתחים חומר ומתחילים משימה חדשה במהירות.</p>
+          </article>
+
+          <article class="card">
+            <span class="kicker">Projects</span>
+            <h3>הקשר קבוע</h3>
+            <p>המקום שבו בונים סביבת עבודה למחלקת כספים: הוראות, tone, דוגמאות, נהלים וקבצי הקשר.</p>
+          </article>
+
+          <article class="card">
+            <span class="kicker">Files</span>
+            <h3>עבודה על חומר אמיתי</h3>
+            <p>PDF, exports, Excel, נהלים, מצגות, מיילים — לא עובדים רק על טקסט, עובדים על הקבצים עצמם.</p>
+          </article>
+
+          <article class="card">
+            <span class="kicker">Artifacts</span>
+            <h3>תוצר חי</h3>
+            <p>כאן Claude מפסיק להיות תשובה ומתחיל להיות output: dashboard, template, calculator או mini app.</p>
+          </article>
+
+          <article class="card">
+            <span class="kicker">Chrome</span>
+            <h3>Claude בתוך הדפדפן</h3>
+            <p>עוזר לעבוד בתוך ההקשר של אתרים, עמודים, מערכות ווב או טקסטים פתוחים על המסך.</p>
+          </article>
+
+          <article class="card">
+            <span class="kicker">Excel</span>
+            <h3>ליד Excel, לא במקום</h3>
+            <p>Claude לא בא להחליף מודל פיננסי, אלא לעזור להבין, לנקות, להסביר ולייצר תוצרים סביבו.</p>
+          </article>
+        </div>
+
+        <div class="grid-2" style="margin-top:32px">
+          <img src="PLACEHOLDER — Claude Main Screen.png" alt="Claude Main Screen" style="width:100%;border-radius:var(--radius-md);display:block;">
+          <img src="PLACEHOLDER — Projects  Artifact  Chrome.png" alt="Projects Artifact Chrome" style="width:100%;border-radius:var(--radius-md);display:block;">
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="parts">
+      <div class="container">
+        <div class="section-head">
+          <span class="kicker">What each part does</span>
+          <h2>מה כל חלק עושה בפועל</h2>
+          <p>
+            לא צריך לזכור את כל המוצרים. צריך להבין מה כל חלק פותר, ואיזה סוג עבודה פיננסית הוא מקצר.
+          </p>
+        </div>
+
+        <div class="comparison">
+          <div class="comparison-grid">
+            <div class="compare-col">
+              <h3>Claude Chat</h3>
+              <ul>
+                <li>שאלות מהירות, ניתוח ראשוני, הסברים וסיכומים.</li>
+                <li>מעולה להתחלת משימה, לארגון מחשבה ולבניית draft ראשון.</li>
+                <li>דוגמה: “סכם לי את ה־P&amp;L הזה ב־5 נקודות להנהלה”.</li>
+              </ul>
+            </div>
+
+            <div class="compare-col">
+              <h3>Projects</h3>
+              <ul>
+                <li>שומר הקשר קבוע למחלקה או ללקוח.</li>
+                <li>מונע התחלה מחדש בכל שיחה.</li>
+                <li>דוגמה: Project קבוע ל־Board Updates או Monthly Close.</li>
+              </ul>
+            </div>
+
+            <div class="compare-col">
+              <h3>Files</h3>
+              <ul>
+                <li>מאפשר לעבוד על קבצים ממשיים ולא רק על רעיון כללי.</li>
+                <li>PDF, נהלים, exports, דוחות, spreadsheets.</li>
+                <li>דוגמה: העלאת GL export ובקשה לזהות חריגות או שגיאות מבנה.</li>
+              </ul>
+            </div>
+
+            <div class="compare-col">
+              <h3>Artifacts</h3>
+              <ul>
+                <li>מייצר output usable ולא רק תשובה טקסטואלית.</li>
+                <li>אפשר לערוך, לשפר, לשתף ולהציג.</li>
+                <li>דוגמה: KPI dashboard, variance summary, template לעדכון הנהלה.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="callout" style="margin-top:32px">
+          <div class="callout-header">העיקרון החשוב</div>
+          <div class="callout-body">
+            <h3>לא שואלים רק “מה Claude יודע לעשות”</h3>
+            <p>
+              שואלים: איזה חלק ב־Claude מתאים לשלב הנוכחי בעבודה שלי — להבין קובץ, לבנות הקשר,
+              לייצר output, או לעזור לי בתוך Excel והדפדפן.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="use-cases">
+      <div class="container">
+        <div class="section-head">
+          <span class="kicker">Finance workflows</span>
+          <h2>4 Use Cases שכל איש כספים צריך להכיר</h2>
+          <p>
+            במקום לדבר על AI באופן כללי, הנה ארבעה מצבים אמיתיים שבהם Claude נותן ערך מהר —
+            בלי לבנות מערכת מורכבת ובלי לחכות לפרויקט ארוך.
+          </p>
+        </div>
+
+        <div class="grid-2">
+          <article class="card">
+            <span class="kicker">Use case 01</span>
+            <h3>להבין קובץ מהר</h3>
+            <p>מעלים קובץ P&amp;L, GL export או PDF — ומבקשים מ־Claude לזהות מבנה, חריגות, שאלות, ובעיות ראשוניות.</p>
+          </article>
+
+          <article class="card">
+            <span class="kicker">Use case 02</span>
+            <h3>להפוך נתונים להסבר ניהולי</h3>
+            <p>מטבלה או מדוח גולמי לטיוטת summary ברורה ל־CEO, CFO, ועדכון הנהלה או board pack.</p>
+          </article>
+
+          <article class="card">
+            <span class="kicker">Use case 03</span>
+            <h3>לייצר תוצר, לא רק תשובה</h3>
+            <p>Artifact בסיסי של KPI summary, variance board, mini dashboard או template שאפשר לחזור אליו.</p>
+          </article>
+
+          <article class="card">
+            <span class="kicker">Use case 04</span>
+            <h3>לבנות סביבת עבודה חוזרת</h3>
+            <p>Project עם קבצים, הגדרות, דוגמאות ו־prompting קבוע — כדי לא להתחיל כל חודש מחדש מאפס.</p>
+          </article>
+        </div>
+
+        <img src="PLACEHOLDER — Use Cases Visual.png" alt="Use Cases Visual" style="width:100%;border-radius:var(--radius-md);margin:var(--space-6) 0 0;display:block;">
+      </div>
+    </section>
+
+    <section class="section" id="excel">
+      <div class="container">
+        <div class="section-head">
+          <span class="kicker">Excel + Claude</span>
+          <h2>Claude ו־Excel: לא במקום, אלא ליד</h2>
+          <p>
+            אחת הטעויות הכי נפוצות היא לחשוב ש־Claude בא להחליף את Excel.
+            בפועל, הערך הגדול הוא דווקא בעבודה שמסביב ל־Excel: להבין, לנקות, להסביר, לתעד ולבנות output.
+          </p>
+        </div>
+
+        <div class="comparison">
+          <div class="comparison-grid">
+            <div class="compare-col">
+              <h3>הדרך הידנית</h3>
+              <ul>
+                <li>פותחים קובץ ומנסים להבין לבד מה קורה.</li>
+                <li>מחפשים חריגות, כותרות לא עקביות, מבנה לא מסודר.</li>
+                <li>אחר כך כותבים summary ידני למנהל או ללקוח.</li>
+                <li>ובפעם הבאה — מתחילים שוב מחדש.</li>
+              </ul>
+            </div>
+
+            <div class="compare-col">
+              <h3>Excel + Claude</h3>
+              <ul>
+                <li>Claude עוזר להבין את הקובץ מהר יותר.</li>
+                <li>מזהה בעיות מבנה, ניסוח, קטגוריות וחריגות ראשוניות.</li>
+                <li>מייצר הסבר, summary או תוצר להצגה.</li>
+                <li>ואם צריך — בונים Project או Artifact לשימוש חוזר.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <details class="callout-toggle">
+          <summary>הפרומפט המלא — CFO Board Review</summary>
+          <div class="callout-body">
+            <p>הפרומפט שבו השתמשתי כדי לבנות את ה־CFO Board Review — כולל הנחיות מבנה, שפה ורמת פירוט.</p>
+            <a href="https://drive.google.com/file/d/1Rx3qgOhWZF6GvzKmmp5uNvXHdu6QtVy5/view?usp=sharing" target="_blank" rel="noopener" style="display:inline-block;margin-top:12px;padding:10px 20px;background:var(--accent);color:#fff;border-radius:var(--radius-sm);font-weight:600;text-decoration:none;font-size:var(--meta);">פתח את הפרומפט</a>
+          </div>
+        </details>
+
+        <div style="margin-top:32px">
+          <img src="PLACEHOLDER — Excel Before.png" alt="Excel Before" style="width:75%;border-radius:var(--radius-md);display:block;margin:0 auto;margin-bottom:24px">
+          <img src="PLACEHOLDER — Claude Analysis.gif" alt="Claude Analysis" style="width:75%;border-radius:var(--radius-md);display:block;margin:0 auto;margin-bottom:24px">
+          <img src="PLACEHOLDER — Executive Analysis summary.gif" alt="Executive Analysis Summary" style="width:75%;border-radius:var(--radius-md);display:block;margin:0 auto;">
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="projects">
+      <div class="container">
+        <div class="section-head">
+          <span class="kicker">From chat to workspace</span>
+          <h2>מתי Claude מפסיק להיות צ׳אט ומתחיל להיות מערכת עבודה</h2>
+          <p>
+            זה הרגע המשמעותי באמת: כשמפסיקים להשתמש ב־Claude רק כדי “לשאול משהו”,
+            ומתחילים לבנות סביבת עבודה שחוזרת על עצמה.
+          </p>
+        </div>
+
+        <div class="grid-2">
+          <div class="callout">
+            <div class="callout-header">Projects</div>
+            <div class="callout-body">
+              <h3>הקשר קבוע למחלקת כספים</h3>
+              <p>
+                Project טוב כולל תפקיד ברור, מסמכי הקשר, דוגמאות output, הוראות עבודה וטון מקצועי.
+                כך Claude מבין טוב יותר מהו המבנה הפיננסי שלכם ומה אתם מצפים לקבל.
+              </p>
+            </div>
+          </div>
+
+          <div class="callout">
+            <div class="callout-header">Artifacts</div>
+            <div class="callout-body">
+              <h3>תוצרים שאפשר להשתמש בהם</h3>
+              <p>
+                Artifact הוא לא רק תשובה יפה. זה output חי — dashboard, calculator, template או מסך אינטראקטיבי —
+                שאפשר לשפר, להציג, לשתף ולעבוד איתו שוב.
+              </p>
+<a class="btn btn-secondary" href="https://popup.fm/ronenamoscpa/events/hiuWNSyTFccLU0Z6pMF6" target="_blank" rel="noopener noreferrer">לצפות בוובינר הקודם</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="checklist" style="margin-top:32px">
+          <div class="box-header">Workflow פשוט להתחלה</div>
+          <div class="box-body">
+            <ul>
+              <li>בוחרים תהליך אחד שחוזר על עצמו: close, board update, variance analysis או cash flow.</li>
+              <li>פותחים Project ייעודי עם שם ברור ומטרה ברורה.</li>
+              <li>מעלים 2–3 קבצי הקשר: דוגמה לדוח, קובץ מקור, וניסוח רצוי.</li>
+              <li>מגדירים ל־Claude מה התפקיד שלו ומה ה־output שאתם מצפים לקבל.</li>
+              <li>מפיקים תוצר ראשון, ואז משפרים אותו עד שהוא usable באמת.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="grid-2" style="margin-top:32px">
+          <img src="PLACEHOLDER — Finance Project.png" alt="Finance Project" style="width:100%;border-radius:var(--radius-md);display:block;">
+          <img src="PLACEHOLDER — Artifact Output.png" alt="Artifact Output" style="width:100%;border-radius:var(--radius-md);display:block;">
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="chrome">
+      <div class="container">
+        <div class="section-head">
+          <span class="kicker">Claude in context</span>
+          <h2>ומה עם Claude Chrome?</h2>
+          <p>
+            לא כל העבודה של איש כספים מתרחשת בתוך Excel. חלק גדול ממנה קורה בדפדפן:
+            מערכות ווב, דוחות אונליין, פורטלים, מסכים, טקסטים ומידע שצריך להבין מהר.
+          </p>
+        </div>
+
+        <div class="grid-2">
+          <article class="card">
+            <span class="kicker">When it helps</span>
+            <h3>איפה זה עוזר</h3>
+            <p>
+              כשאתם עובדים מול אתר, פורטל, מסך מערכת, מסמך פתוח או מידע מקוון —
+              Claude יכול לעזור לנסח, להבין, לסכם ולארגן את מה שנמצא מולכם בדפדפן.
+            </p>
+          </article>
+
+          <article class="card">
+            <span class="kicker">What not to expect</span>
+            <h3>מה לא לצפות ממנו</h3>
+            <p>
+              זה לא מחליף מערכת ERP, לא בונה אינטגרציה מלאה, ולא פותר Governance.
+              זה כלי עזר בתוך ההקשר של מה שאתם כבר רואים ועושים.
+            </p>
+          </article>
+        </div>
+
+        <details class="callout-toggle">
+          <summary>איפה זה עוזר</summary>
+          <div class="callout-body">
+            <p>
+              כשאתם עובדים מול אתר, פורטל, מסך מערכת, מסמך פתוח או מידע מקוון —
+              Claude יכול לעזור לנסח, להבין, לסכם ולארגן את מה שנמצא מולכם בדפדפן.
+            </p>
+            <div class="bullet-list">
+              <div class="bullet">לסכם עמוד ארוך או מסמך פתוח לכמה נקודות עיקריות.</div>
+              <div class="bullet">להסביר מסך מערכת, שדות, סטטוסים או חריגים בשפה פשוטה.</div>
+              <div class="bullet">להשוות מידע בין כמה עמודים או טאבים פתוחים.</div>
+              <div class="bullet">לנסח מייל, הודעת המשך או סיכום פעולה על בסיס מה שמופיע באתר.</div>
+              <div class="bullet">להפוך מידע מפוזר באינטרנט או בפורטל פנימי לתקציר ברור למנהל או לצוות.</div>
+            </div>
+          </div>
+        </details>
+
+        <img src="PLACEHOLDER — Claude Chrome.png" alt="Claude Chrome" style="width:100%;border-radius:var(--radius-md);margin:var(--space-6) 0 0;display:block;">
+      </div>
+    </section>
+
+    <section class="section" id="boundaries">
+      <div class="container">
+        <div class="section-head">
+          <span class="kicker">Professional use</span>
+          <h2>מתי כן, מתי לא</h2>
+          <p>
+            כדי ש־Claude באמת יעבוד לכם במחלקת כספים, צריך לא רק להתלהב — אלא גם לעבוד מקצועית:
+            להבין גבולות, לשמור על בקרה, ולהשתמש בו במקום הנכון.
+          </p>
+        </div>
+
+        <div class="grid-2">
+          <div class="checklist">
+            <div class="box-header">מתי כן</div>
+            <div class="box-body">
+              <ul>
+                <li>כשצריך להבין קובץ, מסמך או export מהר יותר.</li>
+                <li>כשצריך טיוטת הסבר להנהלה, ללקוח או לצוות.</li>
+                <li>כשצריך לבנות תוצר ראשוני: template, summary, dashboard או artifact.</li>
+                <li>כשצריך סביבת עבודה מסודרת שחוזרת על עצמה ולא שיחת צ׳אט חד־פעמית.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="warning-box">
+            <div class="box-header">מתי לא</div>
+            <div class="box-body">
+              <ul>
+                <li>לא כמקור אמת יחיד בלי בדיקה אנושית.</li>
+                <li>לא במקום שיקול דעת מקצועי חשבונאי או פיננסי.</li>
+                <li>לא לשליחת מידע רגיש בלי Governance, אנונימיזציה או סביבת שימוש מתאימה.</li>
+                <li>לא כדי “לאשר” מספרים סופיים בלי בקרת איכות וסקירה מקצועית.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="quote-box" style="margin-top:32px">
+          <div class="box-body">
+            <blockquote>Claude לא מחליף רואה חשבון. הוא מחליף חלק מהעבודה האיטית, הידנית והחוזרת.</blockquote>
+            <p>וזה בדיוק ההבדל בין צעצוע נחמד לבין כלי עבודה אמיתי למחלקת כספים.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="next">
+      <div class="container narrow">
+        <div class="section-head">
+          <span class="kicker">What to take from this</span>
+          <h2>מה חשוב לקחת מהוובינר הזה</h2>
+          <p>
+            המטרה של המפגש הראשון היא לא להשתמש בכל היכולות של Claude בבת אחת.
+            המטרה היא להבין את המפה, לבחור נקודת כניסה נכונה, ולהתחיל לעבוד בצורה חכמה יותר.
+          </p>
+        </div>
+
+        <div class="bullet-list">
+          <div class="bullet">Claude הוא לא רק צ׳אט — הוא workspace עם שכבות שונות של עבודה.</div>
+          <div class="bullet">לא כל משימה צריכה Artifact, ולא כל משימה צריכה Project — אבל משימות חוזרות בהחלט כן.</div>
+          <div class="bullet">Excel נשאר הכלי המרכזי. Claude עוזר סביבו: להבין, לנסח, לבנות, לסכם ולהציג.</div>
+          <div class="bullet">השלב הבא אחרי היכרות הוא לבחור Use Case אחד ולבנות סביבו workflow אמיתי.</div>
+        </div>
+
+        <div class="cta-box" style="margin-top:32px">
+          <div class="box-body">
+            <h3>מפה קודם. עומק אחר כך.</h3>
+            <p>
+              היום בנינו תמונה ברורה. בוובינרים הבאים אפשר לצלול לעומק ל־Artifacts, לעבודה עם Excel,
+              ל־Monthly Close או ל־finance workflows מתקדמים יותר.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="fullscreen-cta" id="demo">
+      <div class="container narrow">
+        <h2>ממשיכים להדגמה חיה</h2>
+        <p>
+          נעבור עכשיו למסך של Claude ונראה איך זה נראה על קובץ פיננסי אמיתי —
+          משיחה ראשונית ועד תוצר שאפשר להציג ולהשתמש בו.
+        </p>
+      </div>
+    </section>
+
+    <div style="display:flex;justify-content:center;padding:0;margin-top:-32px;margin-bottom:var(--space-8);">
+      <img src="LOGO.png" alt="Ronen Amos Logo" style="max-width:850px;width:120%;display:block;">
+    </div>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div>Ronen Amos · AI Finance Transformation · Claude for Finance Webinar Screen Guide</div>
+    </div>
+  </footer>
+
+</body>
+</html>
