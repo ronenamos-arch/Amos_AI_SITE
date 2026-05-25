@@ -60,7 +60,7 @@ export default async function GuidesPage() {
             },
         },
         mainEntityOfPage: "https://www.ronenamoscpa.co.il/guides",
-        faqs: [
+        mainEntity: [
             {
                 "@type": "Question",
                 name: "Which is better for accounting—Claude or ChatGPT?",
