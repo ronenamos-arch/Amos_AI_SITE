@@ -714,6 +714,145 @@ details.faq .faq-body {
   box-shadow: 0 12px 30px var(--teal-glow);
 }
 .cta-btn:hover { transform: translateY(-2px); background: #00e3bd; }
+
+/* ============================================
+   RESOURCES / COURSE SECTION
+   ============================================ */
+.resources-section {
+  max-width: 860px;
+  margin: 80px auto 40px;
+  padding: 0 32px;
+}
+.resources-section h2 {
+  font-family: var(--font-display);
+  font-size: clamp(22px, 3vw, 30px);
+  color: var(--text-0);
+  margin-bottom: 32px;
+  text-align: center;
+}
+.course-card {
+  background: linear-gradient(135deg, var(--bg-2) 0%, rgba(0,201,167,0.08) 100%);
+  border: 1px solid rgba(0,201,167,0.35);
+  border-radius: var(--radius-lg);
+  padding: 40px 48px;
+  margin-bottom: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 0 60px rgba(0,201,167,0.12), 0 2px 24px rgba(0,0,0,0.4);
+}
+.course-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(0,201,167,0.10), transparent 70%);
+  pointer-events: none;
+}
+.course-card > * { position: relative; }
+.course-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(0,201,167,0.15);
+  border: 1px solid rgba(0,201,167,0.4);
+  border-radius: 100px;
+  padding: 4px 14px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--teal);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+}
+.course-title {
+  font-family: var(--font-display);
+  font-size: clamp(22px, 3vw, 32px);
+  font-weight: 700;
+  color: var(--text-0);
+  line-height: 1.3;
+  margin-bottom: 14px;
+}
+.course-desc {
+  color: var(--text-1);
+  font-size: 16px;
+  line-height: 1.7;
+  max-width: 580px;
+  margin-bottom: 32px;
+}
+.course-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--teal);
+  color: var(--bg-0);
+  font-family: var(--font-body);
+  font-size: 17px;
+  font-weight: 700;
+  padding: 16px 40px;
+  border-radius: var(--radius-md);
+  text-decoration: none;
+  transition: transform 0.2s, background 0.2s, box-shadow 0.2s;
+  box-shadow: 0 4px 24px rgba(0,201,167,0.35);
+  letter-spacing: 0.01em;
+}
+.course-btn:hover {
+  background: #00e3bd;
+  transform: translateY(-3px);
+  box-shadow: 0 8px 32px rgba(0,201,167,0.45);
+}
+.course-btn svg { flex-shrink: 0; }
+.repo-card {
+  background: var(--bg-2);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-md);
+  padding: 28px 36px;
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  text-decoration: none;
+  transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
+}
+.repo-card:hover {
+  border-color: rgba(0,201,167,0.5);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 20px rgba(0,201,167,0.12);
+}
+.repo-icon {
+  flex-shrink: 0;
+  width: 48px;
+  height: 48px;
+  background: rgba(255,255,255,0.06);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-1);
+}
+.repo-body { flex: 1; }
+.repo-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text-0);
+  margin-bottom: 4px;
+}
+.repo-desc { color: var(--text-2); font-size: 14px; line-height: 1.5; }
+.repo-arrow {
+  flex-shrink: 0;
+  color: var(--teal);
+  font-size: 20px;
+  font-weight: 300;
+  transition: transform 0.2s;
+}
+.repo-card:hover .repo-arrow { transform: translateX(-4px); }
+@media (max-width: 640px) {
+  .resources-section { padding: 0 20px; }
+  .course-card { padding: 32px 24px; }
+  .repo-card { flex-wrap: wrap; gap: 16px; }
+}
+
 @media (max-width: 720px) {
   .cta-inner { grid-template-columns: 1fr; text-align: right; padding: 32px 26px; }
 }
@@ -1877,6 +2016,35 @@ claude mcp add --transport http my-server https://example.com/mcp</pre>
 
   </article>
 </div>
+
+<!-- =================== RESOURCES =================== -->
+<section class="resources-section">
+  <h2>קורסים וכלים מומלצים</h2>
+
+  <div class="course-card">
+    <div class="course-badge">✦ קורס חינמי</div>
+    <div class="course-title">Zero to Claude — קוד עם AI מהבסיס</div>
+    <p class="course-desc">
+      קורס אונליין חינמי שמלמד איך לבנות תוכנה עם Claude Code מאפס.
+      אם אתם רוצים להפיק את המקסימום מהמדריך הזה — זה הצעד הבא.
+    </p>
+    <a href="https://zero2claude.dev/" target="_blank" rel="noopener" class="course-btn">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+      לקורס החינמי ←
+    </a>
+  </div>
+
+  <a href="https://github.com/ronenamos-arch/claude-code-history-search" target="_blank" rel="noopener" class="repo-card">
+    <div class="repo-icon">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
+    </div>
+    <div class="repo-body">
+      <div class="repo-title">claude-code-history-search</div>
+      <div class="repo-desc">דאשבורד HTML לחיפוש וסינון כל ה-sessions של Claude Code שלכם — פרויקט קוד פתוח שכתבתי</div>
+    </div>
+    <div class="repo-arrow">←</div>
+  </a>
+</section>
 
 <!-- =================== CTA =================== -->
 <section class="cta-banner">

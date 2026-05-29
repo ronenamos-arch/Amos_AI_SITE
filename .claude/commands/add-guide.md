@@ -105,7 +105,14 @@ Commit message:
 feat(guides): add <title>
 ```
 
-Then push to `main`. Vercel auto-deploys in ~1–2 minutes.
+Then run:
+```bash
+git pull --rebase origin main && git push origin main
+```
+
+Always pull with rebase before pushing — the remote may have new commits from Vercel or other sources, and a plain push will be rejected if it does.
+
+Vercel auto-deploys in ~1–2 minutes.
 
 Confirm to the user that the guide is live at:
 `https://www.ronenamoscpa.co.il/guides/<slug>`
