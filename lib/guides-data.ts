@@ -33,6 +33,18 @@ export interface Guide {
 
 export const guides: Guide[] = [
   {
+    slug: 'claude-live-artifacts',
+    title: 'מדריך Claude Live Artifacts לצוותי Finance ו-FP&A',
+    description: 'מדריך פרקטי בעברית לשימוש ב-Claude Live Artifacts עבור צוותי Finance ו-FP&A. תלמדו איך לבנות דשבורדים חיים, לחבר מקורות נתונים, ולהפוך שאלות פיננסיות חוזרות לממשק עבודה אינטראקטיבי ומתעדכן.',
+    category: 'Claude',
+    tags: ['Claude', 'Dashboard', 'Finance Ops'],
+    gammaUrl: 'https://gamma.app/embed/n4yrpzmk00kqge4',
+    thumbnail: '/guides/claude-live-artifacts.png',
+    duration: "15 דק'",
+    isPremium: false,
+    publishedAt: '2026-05-30',
+  },
+  {
     slug: 'zite-MRR-dashboard',
     title: 'מ‑Excel חוזים ללוח שליטה ב‑Zite: Retainer Control Panel לצוותי כספים',
     description: 'מדריך מעשי שמראה איך להפוך גיליון חוזים וריטיינרים באקסל לאפליקציית Retainer Control Panel ב‑Zite: Dashboard ל‑MRR/ARR, חידושי חוזים, מסכי Clients ו‑Contracts, כולל קובץ Excel לדוגמה והפרומפט המלא.',
