@@ -41,7 +41,7 @@ export const guides: Guide[] = [
     gammaUrl: 'https://gamma.app/embed/n4yrpzmk00kqge4',
     thumbnail: '/guides/claude-live-artifacts.png',
     duration: "15 דק'",
-    isPremium: false,
+    isPremium: true,
     publishedAt: '2026-05-30',
   },
   {
