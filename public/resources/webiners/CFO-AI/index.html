@@ -1,0 +1,938 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Claude ל-CFOs — מנתונים לנרטיב הנהלה ודשבורדים</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800;900&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #0b0d10;
+      --surface: #12161a;
+      --surface2: #1a1f26;
+      --accent: #b8c45a;
+      --accent-strong: #d6e36a;
+      --accent-dim: rgba(184,196,90,0.12);
+      --text: #fafbfc;
+      --text-muted: #c2cad2;
+      --text-faint: #7a8694;
+      --border: rgba(255,255,255,0.07);
+      --radius-sm: 10px;
+      --radius-md: 18px;
+      --radius-lg: 28px;
+      --font: Heebo, system-ui, sans-serif;
+      --mono: "IBM Plex Mono", monospace;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font);
+      font-size: 16px;
+      line-height: 1.7;
+      direction: rtl;
+    }
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
+
+    .topbar {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(11,13,16,0.92);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 2rem;
+      display: flex; align-items: center; justify-content: space-between;
+      min-height: 58px;
+      gap: 1rem;
+    }
+    .topbar-brand {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.12em;
+      color: var(--accent);
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+    .topbar-nav {
+      display: flex; gap: 1.2rem; flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+    .topbar-nav a {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      transition: color 0.2s;
+    }
+    .topbar-nav a:hover { color: var(--accent); }
+
+    section { padding: 5rem 2rem; }
+    .inner { max-width: 1120px; margin: 0 auto; }
+    .section-label {
+      font-family: var(--mono);
+      font-size: 0.66rem;
+      letter-spacing: 0.16em;
+      color: var(--accent);
+      text-transform: uppercase;
+      margin-bottom: 0.7rem;
+    }
+    .section-title {
+      font-size: clamp(1.7rem, 3.8vw, 2.8rem);
+      font-weight: 800;
+      line-height: 1.2;
+      margin-bottom: 1rem;
+    }
+    .section-desc {
+      font-size: 1rem;
+      color: var(--text-muted);
+      max-width: 760px;
+      line-height: 1.85;
+    }
+
+    .hero {
+      padding: 5.8rem 2rem 4.2rem;
+      border-bottom: 1px solid var(--border);
+      background:
+        radial-gradient(circle at top right, rgba(184,196,90,0.10), transparent 24%),
+        radial-gradient(circle at 20% 20%, rgba(184,196,90,0.06), transparent 20%),
+        var(--bg);
+    }
+    .hero-eyebrow {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.14em;
+      color: var(--accent);
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+    .hero-title {
+      font-size: clamp(2.2rem, 5.5vw, 4rem);
+      line-height: 1.08;
+      font-weight: 900;
+      margin-bottom: 1.3rem;
+    }
+    .hero-title span { color: var(--accent); }
+    .hero-desc {
+      max-width: 760px;
+      font-size: 1.08rem;
+      color: var(--text-muted);
+      line-height: 1.85;
+      margin-bottom: 2rem;
+    }
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.25fr 0.9fr;
+      gap: 1.5rem;
+      align-items: start;
+    }
+    .hero-card,
+    .metric-card,
+    .agenda-block,
+    .question-card,
+    .framework-card,
+    .artifact-card,
+    .boundary-card,
+    .footer-card,
+    .takeaway-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+    }
+    .hero-card { padding: 1.5rem; }
+    .hero-list { list-style: none; display: flex; flex-direction: column; gap: 0.7rem; }
+    .hero-list li {
+      color: var(--text-muted);
+      padding-right: 1.2rem;
+      position: relative;
+      font-size: 0.92rem;
+    }
+    .hero-list li::before {
+      content: "•";
+      position: absolute;
+      right: 0;
+      color: var(--accent);
+    }
+    .hero-mini-title {
+      font-family: var(--mono);
+      color: var(--accent);
+      font-size: 0.7rem;
+      letter-spacing: 0.12em;
+      margin-bottom: 0.9rem;
+      text-transform: uppercase;
+    }
+    .hero-side {
+      display: grid;
+      gap: 1rem;
+    }
+    .metric-card { padding: 1.3rem 1.4rem; }
+    .metric-number {
+      font-family: var(--mono);
+      font-size: 2rem;
+      line-height: 1;
+      color: var(--accent);
+      margin-bottom: 0.5rem;
+    }
+    .metric-text {
+      font-size: 0.86rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    .series-banner {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: 2.3rem 2rem;
+    }
+    .series-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.9rem;
+      margin-top: 1.4rem;
+    }
+    .series-card {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 1rem 1.05rem;
+      transition: transform 0.22s, box-shadow 0.22s;
+    }
+    .series-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 12px 36px rgba(0,0,0,0.35);
+    }
+    .series-card.active {
+      border-color: var(--accent);
+      background: var(--accent-dim);
+    }
+    .series-num {
+      font-family: var(--mono);
+      font-size: 0.64rem;
+      letter-spacing: 0.11em;
+      color: var(--text-faint);
+      margin-bottom: 0.35rem;
+    }
+    .series-card.active .series-num { color: var(--accent); }
+    .series-title-card {
+      font-size: 0.84rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      line-height: 1.45;
+      margin-bottom: 0.2rem;
+    }
+    .series-card.active .series-title-card { color: var(--text); }
+    .series-tags {
+      font-size: 0.71rem;
+      color: var(--text-faint);
+      line-height: 1.5;
+    }
+
+    .agenda-grid,
+    .question-grid,
+    .framework-grid,
+    .artifact-grid,
+    .takeaway-grid,
+    .footer-grid {
+      display: grid;
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+    .agenda-grid { grid-template-columns: repeat(2, 1fr); }
+    .question-grid { grid-template-columns: repeat(3, 1fr); }
+    .framework-grid { grid-template-columns: repeat(2, 1fr); }
+    .artifact-grid { grid-template-columns: repeat(3, 1fr); }
+    .takeaway-grid { grid-template-columns: repeat(4, 1fr); }
+    .footer-grid { grid-template-columns: repeat(3, 1fr); }
+
+    .agenda-block { padding: 1.35rem 1.45rem; display: flex; gap: 1rem; align-items: flex-start; }
+    .agenda-time {
+      min-width: 52px;
+      white-space: nowrap;
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      color: var(--accent);
+      padding-top: 0.15rem;
+    }
+    .agenda-title { font-size: 0.95rem; font-weight: 700; margin-bottom: 0.35rem; }
+    .agenda-desc { font-size: 0.83rem; color: var(--text-muted); line-height: 1.65; }
+
+    .section-alt {
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .question-card,
+    .framework-card,
+    .artifact-card,
+    .boundary-card,
+    .takeaway-card,
+    .footer-card {
+      padding: 1.35rem 1.4rem;
+    }
+    .card-kicker {
+      font-family: var(--mono);
+      font-size: 0.66rem;
+      color: var(--accent);
+      letter-spacing: 0.11em;
+      text-transform: uppercase;
+      margin-bottom: 0.55rem;
+    }
+    .card-title {
+      font-size: 0.94rem;
+      font-weight: 700;
+      margin-bottom: 0.35rem;
+    }
+    .card-desc {
+      font-size: 0.84rem;
+      color: var(--text-muted);
+      line-height: 1.65;
+    }
+
+    .workflow {
+      margin-top: 2.1rem;
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 0.8rem;
+    }
+    .workflow-step {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 1.1rem 1rem;
+      min-height: 120px;
+    }
+    .workflow-step.highlight {
+      border-color: var(--accent);
+      background: var(--accent-dim);
+    }
+    .workflow-step-num {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      color: var(--accent);
+      margin-bottom: 0.6rem;
+      letter-spacing: 0.09em;
+    }
+    .workflow-step-title {
+      font-size: 0.88rem;
+      font-weight: 700;
+      margin-bottom: 0.35rem;
+    }
+    .workflow-step-desc {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      line-height: 1.55;
+    }
+
+    .code-block {
+      margin-top: 1.8rem;
+      background: #0d1117;
+      border: 1px solid var(--border);
+      border-right: 3px solid var(--accent);
+      border-radius: var(--radius-sm);
+      padding: 1.35rem 1.5rem;
+      font-family: var(--mono);
+      font-size: 0.78rem;
+      color: #c9d1d9;
+      line-height: 1.8;
+      overflow-x: auto;
+      white-space: pre;
+      direction: ltr;
+      text-align: left;
+    }
+    .code-block .comment { color: var(--accent); }
+
+    .boundary-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+    .boundary-card.good { border-color: rgba(184,196,90,0.28); }
+    .boundary-card.risk { border-color: rgba(224,90,90,0.22); }
+    .bullet-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.55rem;
+      margin-top: 0.9rem;
+    }
+    .bullet-list li {
+      position: relative;
+      padding-right: 1.25rem;
+      font-size: 0.84rem;
+      color: var(--text-muted);
+      line-height: 1.65;
+    }
+    .good .bullet-list li::before,
+    .takeaway-card .bullet-list li::before,
+    .footer-card .bullet-list li::before {
+      content: "✓";
+      color: var(--accent);
+      position: absolute;
+      right: 0;
+    }
+    .risk .bullet-list li::before {
+      content: "!";
+      color: #e05a5a;
+      position: absolute;
+      right: 0;
+    }
+
+    .cta {
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .cta-title {
+      font-size: clamp(1.5rem, 3vw, 2.1rem);
+      font-weight: 800;
+      margin-bottom: 0.7rem;
+    }
+    .cta-desc {
+      max-width: 720px;
+      color: var(--text-muted);
+      line-height: 1.8;
+      margin-bottom: 1.8rem;
+      font-size: 0.96rem;
+    }
+    .cta-btn {
+      display: inline-block;
+      background: var(--accent);
+      color: #0b0d10;
+      padding: 0.9rem 2rem;
+      border-radius: var(--radius-sm);
+      font-size: 0.92rem;
+      font-weight: 800;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .cta-btn:hover {
+      background: var(--accent-strong);
+      transform: translateY(-2px);
+    }
+
+    .footer-title {
+      font-size: clamp(1.35rem, 2.6vw, 1.9rem);
+      font-weight: 800;
+      margin-bottom: 0.5rem;
+    }
+/* ── FOOTER CTA ── */
+#footer { padding: 5rem 2rem 3rem; }
+.footer-title { font-size: clamp(1.3rem, 2.5vw, 1.8rem); font-weight: 800; margin-bottom: 0.5rem; }
+.footer-sub { font-size: 0.88rem; color: var(--text-muted); margin-bottom: 2.5rem; }
+.footer-grid { display: grid; grid-template-columns: 1fr; gap: 1rem; }
+@media (min-width: 500px) { .footer-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 900px) { .footer-grid { grid-template-columns: repeat(3, 1fr); } }
+.footer-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 1.3rem 1.5rem;
+  transition: border-color 0.2s, transform 0.22s;
+  display: block;
+}
+.footer-card:hover { border-color: var(--accent); transform: translateY(-4px); }
+.footer-card-num { font-family: var(--mono); font-size: 0.62rem; color: var(--text-faint); letter-spacing: 0.1em; margin-bottom: 0.4rem; }
+.footer-card-title { font-size: 0.9rem; font-weight: 700; margin-bottom: 0.3rem; }
+.footer-card-desc { font-size: 0.78rem; color: var(--text-muted); line-height: 1.5; margin-bottom: 0.5rem; }
+.footer-card-link { font-size: 0.72rem; color: var(--accent); font-family: var(--mono); }
+.footer-copy { margin-top: 3rem; text-align: center; font-size: 0.75rem; color: var(--text-faint); font-family: var(--mono); letter-spacing: 0.05em; }
+
+/* divider */
+.divider { border: none; border-top: 1px solid var(--border); margin: 0; }
+
+
+    .footer-sub {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      margin-bottom: 2rem;
+    }
+    .footer-card {
+      display: block;
+      transition: transform 0.2s, border-color 0.2s;
+    }
+    .footer-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--accent);
+    }
+    .footer-card-link {
+      font-family: var(--mono);
+      color: var(--accent);
+      font-size: 0.72rem;
+      margin-top: 0.6rem;
+      display: inline-block;
+    }
+    .footer-copy {
+      margin-top: 2.5rem;
+      text-align: center;
+      color: var(--text-faint);
+      font-family: var(--mono);
+      font-size: 0.75rem;
+      letter-spacing: 0.05em;
+    }
+
+    @media (max-width: 1080px) {
+      .workflow { grid-template-columns: repeat(3, 1fr); }
+      .artifact-grid,
+      .question-grid,
+      .takeaway-grid,
+      .footer-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 860px) {
+      .hero-grid,
+      .agenda-grid,
+      .framework-grid,
+      .boundary-grid { grid-template-columns: 1fr; }
+      .series-grid { grid-template-columns: repeat(2, 1fr); }
+      .workflow { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 620px) {
+      section { padding: 4rem 1.2rem; }
+      .topbar { padding: 0.8rem 1rem; align-items: flex-start; }
+      .series-banner { padding: 2rem 1.2rem; }
+      .topbar-nav,
+      .series-grid,
+      .question-grid,
+      .artifact-grid,
+      .takeaway-grid,
+      .footer-grid,
+      .workflow { grid-template-columns: 1fr; display: grid; }
+      .hero-title { font-size: 2rem; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <span class="topbar-brand">AI Finance Transformation</span>
+    <nav class="topbar-nav">
+      <a href="#hero">פתיחה</a>
+      <a href="#agenda">אג'נדה</a>
+      <a href="#questions">שאלות</a>
+      <a href="#narrative">נרטיב</a>
+      <a href="#artifacts">Artifacts</a>
+      <a href="#boundaries">גבולות</a>
+    </nav>
+  </header>
+
+  <div class="series-banner">
+    <div class="inner">
+      <div class="section-label">AI FINANCE TRANSFORMATION — EXECUTIVE TRACK</div>
+      <h2 class="section-title" style="font-size:1.15rem; margin-bottom:0.25rem;">וובינר בכירים: Claude ל-CFOs ואנשי מפתח</h2>
+      <p class="section-desc" style="font-size:0.84rem; max-width:880px;">פוקוס על חשיבה ניהולית, שאלות עסקיות על ה-data, narrative להנהלה ותוצרים שאפשר להציג בפועל.</p>
+      <div class="series-grid">
+        <div class="series-card">
+          <div class="series-num">MODULE 01</div>
+          <div class="series-title-card">שאלות הנהלה טובות יותר על הדאטה</div>
+          <div class="series-tags">Business Questions · Signal vs Noise</div>
+        </div>
+        <div class="series-card active">
+          <div class="series-num">MODULE 02</div>
+          <div class="series-title-card">מנתונים לנרטיב הנהלה ברור</div>
+          <div class="series-tags">Narrative · Executive Framing · Decision Flow</div>
+        </div>
+        <div class="series-card">
+          <div class="series-num">MODULE 03</div>
+          <div class="series-title-card">Artifacts ודשבורדים ב-HTML</div>
+          <div class="series-tags">Artifacts · KPI Views · Management Dashboards</div>
+        </div>
+        <div class="series-card">
+          <div class="series-num">MODULE 04</div>
+          <div class="series-title-card">Governance, Review ויישום בארגון</div>
+          <div class="series-tags">Controls · Human Review · Rollout</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <section class="hero" id="hero">
+    <div class="inner hero-grid">
+      <div>
+        <div class="hero-eyebrow">WEBINAR FOR CFOs & EXECUTIVE FINANCE LEADERS</div>
+        <h1 class="hero-title">איך CFO שואל שאלות טובות יותר על ה-data,<br /><span>בונה נרטיב הנהלה</span><br />ויוצר תוצר שאפשר להציג</h1>
+        <p class="hero-desc">זה לא וובינר על פיצ'רים. זה וובינר על קבלת החלטות: איך לקחת data קיים, להוציא ממנו את השאלות הנכונות, לנסח narrative ברור, ולסיים עם dashboard שמשרת שיחה ניהולית אמיתית.</p>
+        <div class="hero-card">
+          <div class="hero-mini-title">מה המשתתפים יקבלו</div>
+          <ul class="hero-list">
+            <li>Framework ברור לשאלות הנהלה על ביצועים, חריגות, וסיכונים עסקיים.</li>
+            <li>שיטה להפוך מספרים יבשים ל-executive narrative שאפשר לשלוח או להציג.</li>
+            <li>דוגמאות מעשיות לדשבורדים, מסמכי הנהלה ותוצרים ניהוליים שניתן להפיק בעזרת Claude.</li>
+            <li>גבולות שימוש, review process ודרך לעבוד עם Claude מבלי לאבד שליטה.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="hero-side">
+        <div class="metric-card">
+          <div class="metric-number">60 דק'</div>
+          <div class="metric-text">פוקוס מלא על Executive Use Case — לא על walkthrough טכני ארוך.</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-number">3 Outputs</div>
+          <div class="metric-text">Questions, Narrative, Dashboard — שלושה תוצרים שבכיר באמת צריך מה-AI.</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-number">Live Demo</div>
+          <div class="metric-text">תוצרים אמיתיים הכוללים דשבורדים, מסמכי הנהלה ומסגרות עבודה לקבלת החלטות.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="agenda">
+    <div class="inner">
+      <div class="section-label">AGENDA</div>
+      <h2 class="section-title">אג'נדה לוובינר של שעה</h2>
+      <p class="section-desc">הוובינר בנוי עבור CFOs ואנשי מפתח בכירים, ולכן הסדר הוא: קודם framing, אחר כך שאלות, אחר כך narrative, ורק אז output ויזואלי שאפשר להציג.</p>
+      <div class="agenda-grid">
+        <div class="agenda-block">
+          <div class="agenda-time">00–05</div>
+          <div>
+            <div class="agenda-title">למה הנהלה בכירה לא צריכה עוד דאטה — אלא בהירות</div>
+            <div class="agenda-desc">פותחים בכאב האמיתי: יש dashboards, יש reports, אבל קשה להבין מהר מה באמת דורש החלטה.</div>
+          </div>
+        </div>
+        <div class="agenda-block">
+          <div class="agenda-time">05–12</div>
+          <div>
+            <div class="agenda-title">מה CFO באמת צריך מ-Claude</div>
+            <div class="agenda-desc">לא summary גנרי אלא framing, שאלות המשך, red flags, וטיוטת narrative להנהלה.</div>
+          </div>
+        </div>
+        <div class="agenda-block">
+          <div class="agenda-time">12–20</div>
+          <div>
+            <div class="agenda-title">איך לשאול שאלות עסקיות על ה-data</div>
+            <div class="agenda-desc">Volume, price, mix, margin, efficiency, execution, forecast risk — השאלות שבכיר באמת צריך לשאול.</div>
+          </div>
+        </div>
+        <div class="agenda-block">
+          <div class="agenda-time">20–30</div>
+          <div>
+            <div class="agenda-title">איך הופכים מספרים לנרטיב הנהלה</div>
+            <div class="agenda-desc">מה קרה, למה זה קרה, מה המשמעות, מה דורש החלטה, ומה הצעד הבא.</div>
+          </div>
+        </div>
+        <div class="agenda-block">
+          <div class="agenda-time">30–40</div>
+          <div>
+            <div class="agenda-title">Artifacts ככלי עבודה ניהולי</div>
+            <div class="agenda-desc">לא תשובת טקסט, אלא מסך עבודה: KPI board, management memo, dashboard ו-view לדיון הנהלה.</div>
+          </div>
+        </div>
+        <div class="agenda-block">
+          <div class="agenda-time">40–50</div>
+          <div>
+            <div class="agenda-title">דשבורדים ב-HTML ל-CFO</div>
+            <div class="agenda-desc">מה נראה על המסך: KPI, narrative, risks, assumptions, action priorities ו-questions to ask.</div>
+          </div>
+        </div>
+        <div class="agenda-block">
+          <div class="agenda-time">50–57</div>
+          <div>
+            <div class="agenda-title">Governance ו-human review</div>
+            <div class="agenda-desc">איפה עוצרים, מה בודקים, ומה לא שולחים בלי בדיקת הנהלה או finance lead.</div>
+          </div>
+        </div>
+        <div class="agenda-block">
+          <div class="agenda-time">57–60</div>
+          <div>
+            <div class="agenda-title">Operating Model להמשך</div>
+            <div class="agenda-desc">Data → Questions → Narrative → Artifact → Decision — מודל פשוט להתחיל איתו כבר השבוע.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-alt" id="questions">
+    <div class="inner">
+      <div class="section-label">EXECUTIVE QUESTIONS</div>
+      <h2 class="section-title">השאלות שבכירים צריכים לשאול על הדאטה</h2>
+      <p class="section-desc">הערך של Claude לקהל בכיר לא מתחיל בכתיבה. הוא מתחיל ביכולת למסגר את הדאטה לשאלות עסקיות נכונות יותר.</p>
+      <div class="question-grid">
+        <div class="question-card">
+          <div class="card-kicker">QUESTION SET 01</div>
+          <div class="card-title">מה באמת מסביר את הסטייה</div>
+          <div class="card-desc">האם מדובר ב-volume, price, mix, efficiency או timing — ומהו הגורם המרכזי שמסביר את השינוי.</div>
+        </div>
+        <div class="question-card">
+          <div class="card-kicker">QUESTION SET 02</div>
+          <div class="card-title">מה צריך להדאיג אותי עכשיו</div>
+          <div class="card-desc">לא כל variance חשוב באותה מידה. Claude צריך לעזור לבודד signal אמיתי מהרעש.</div>
+        </div>
+        <div class="question-card">
+          <div class="card-kicker">QUESTION SET 03</div>
+          <div class="card-title">אילו שאלות לשאול את ההנהלה</div>
+          <div class="card-desc">אילו 3 שאלות צריך להפנות ל-VP Sales, COO או Head of Product כדי להבין את המשמעות העסקית.</div>
+        </div>
+      </div>
+      <div class="workflow">
+        <div class="workflow-step">
+          <div class="workflow-step-num">STEP 01</div>
+          <div class="workflow-step-title">Data Intake</div>
+          <div class="workflow-step-desc">P&L, KPI pack, forecast, board materials, operational inputs.</div>
+        </div>
+        <div class="workflow-step highlight">
+          <div class="workflow-step-num">STEP 02</div>
+          <div class="workflow-step-title">Question Framing</div>
+          <div class="workflow-step-desc">מה השאלות האמיתיות שהנהלה צריכה לשאול עכשיו.</div>
+        </div>
+        <div class="workflow-step highlight">
+          <div class="workflow-step-num">STEP 03</div>
+          <div class="workflow-step-title">Insight Prioritization</div>
+          <div class="workflow-step-desc">מה חשוב, מה משני, ומה רק רעש שלא דורש זמן הנהלה.</div>
+        </div>
+        <div class="workflow-step">
+          <div class="workflow-step-num">STEP 04</div>
+          <div class="workflow-step-title">Executive Narrative</div>
+          <div class="workflow-step-desc">הפיכת insight לשפה ניהולית ברורה וקצרה.</div>
+        </div>
+        <div class="workflow-step">
+          <div class="workflow-step-num">STEP 05</div>
+          <div class="workflow-step-title">Artifact Output</div>
+          <div class="workflow-step-desc">מסך, memo, dashboard או HTML view שאפשר לשתף.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="narrative">
+    <div class="inner">
+      <div class="section-label">EXECUTIVE NARRATIVE</div>
+      <h2 class="section-title">ממספרים יבשים לנרטיב הנהלה</h2>
+      <p class="section-desc">כיצד להפוך נתונים פיננסיים לתובנות ברורות ולנרטיב הנהלה שמוביל לפעולה — עם מבנה קבוע וחזרתי שאפשר להשתמש בו בכל חודש.</p>
+      <div class="framework-grid">
+        <div class="framework-card">
+          <div class="card-kicker">NARRATIVE BLOCK 01</div>
+          <div class="card-title">What happened</div>
+          <div class="card-desc">מה קרה בפועל: סטייה ברווחיות, שינוי בביקוש, האטה בגבייה או עלייה בעלויות.</div>
+        </div>
+        <div class="framework-card">
+          <div class="card-kicker">NARRATIVE BLOCK 02</div>
+          <div class="card-title">Why it happened</div>
+          <div class="card-desc">מהם ההסברים הסבירים, ואיפה צריך לעצור ולבקש הבהרה מהארגון.</div>
+        </div>
+        <div class="framework-card">
+          <div class="card-kicker">NARRATIVE BLOCK 03</div>
+          <div class="card-title">Why it matters</div>
+          <div class="card-desc">המשמעות העסקית: תחזית, margin pressure, cash impact, execution risk או צורך בהחלטה.</div>
+        </div>
+        <div class="framework-card">
+          <div class="card-kicker">NARRATIVE BLOCK 04</div>
+          <div class="card-title">What to do next</div>
+          <div class="card-desc">פעולות המשך, שאלות, והחלטות שצריכות להגיע לדיון הנהלה הבא.</div>
+        </div>
+      </div>
+      <div class="code-block"><span class="comment"># Executive Narrative Prompt</span>
+
+You are acting as a strategic finance partner supporting a CFO.
+
+<span class="comment">## Goal</span>
+Turn the uploaded finance data into an executive narrative for leadership.
+
+<span class="comment">## Rules</span>
+- Never invent numbers
+- Distinguish facts from interpretation
+- Highlight only the 3 most important signals
+- Explain business implications clearly
+- End with 3 management questions
+
+<span class="comment">## Output</span>
+1. What happened
+2. Why it happened
+3. Why it matters
+4. Questions for leadership
+5. Recommended next actions</div>
+    </div>
+  </section>
+
+  <section class="section-alt" id="artifacts">
+    <div class="inner">
+      <div class="section-label">ARTIFACTS & HTML DASHBOARDS</div>
+      <h2 class="section-title">דוגמאות לתוצרים ניהוליים שניתן להפיק בעזרת Claude</h2>
+      <p class="section-desc">הצפו בהדגמות מעשיות של תוצרים ניהוליים שאפשר להציג בישיבת הנהלה, board review, או בישיבת תכנון אסטרטגי.</p>
+      <div style="display: grid; grid-template-columns: 1fr; gap: 2.5rem; margin-top: 2rem;">
+
+        <!-- VIDEO 01 -->
+        <div style="border: 1px solid var(--border); border-radius: var(--radius-md); overflow: hidden;">
+          <video width="100%" height="400" controls style="display: block; width: 100%; background: #000;">
+            <source src="Media/תחזית 5 שנים אקסל ותרחישים.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+          <div style="padding: 1.5rem;">
+            <div class="card-kicker">VIDEO 01</div>
+            <div class="card-title">תחזית 5 שנים: Excel, תרחישים, וניתוח רגישות</div>
+            <div class="card-desc">הדגמה של אופן בניית תחזוקה פיננסית 5 שנתית בעזרת Claude, עם תרחישים מרובים וניתוח רגישות של דוחקים עסקיים.</div>
+          </div>
+        </div>
+
+        <!-- VIDEO 02 -->
+        <div style="border: 1px solid var(--border); border-radius: var(--radius-md); overflow: hidden;">
+          <video width="100%" height="400" controls style="display: block; width: 100%; background: #000;">
+            <source src="Media/דשבורד ביצועי עבר ומגמות צמיחה.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+          <div style="padding: 1.5rem;">
+            <div class="card-kicker">VIDEO 02</div>
+            <div class="card-title">דשבורד ביצועים ומגמות צמיחה</div>
+            <div class="card-desc">יצירת דשבורד קריאה מהירה עם KPIs ציבוריים, מגמות ט-12 חודשים, וזיהוי אזורים שדורשים החלטה או בדיקה נוספת.</div>
+          </div>
+        </div>
+
+        <!-- VIDEO 03 -->
+        <div style="border: 1px solid var(--border); border-radius: var(--radius-md); overflow: hidden;">
+          <video width="100%" height="400" controls style="display: block; width: 100%; background: #000;">
+            <source src="Media/PP - Executive Summary.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+          <div style="padding: 1.5rem;">
+            <div class="card-kicker">VIDEO 03</div>
+            <div class="card-title">Executive Summary: מנתונים ל-Presentation בדקה</div>
+            <div class="card-desc">הפקת סיכום הנהלתי, מסגרה ברורה של הנושאים העיקריים, וטיוטת presentation slide שניתן להציג למנהיגות בתוך דקות.</div>
+          </div>
+        </div>
+
+        <!-- VIDEO 04 -->
+        <div style="border: 1px solid var(--border); border-radius: var(--radius-md); overflow: hidden;">
+          <video width="100%" height="400" controls style="display: block; width: 100%; background: #000;">
+            <source src="Media/Live scenario simulator board session.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+          <div style="padding: 1.5rem;">
+            <div class="card-kicker">VIDEO 04</div>
+            <div class="card-title">Live Scenario Simulator: Board Session Prep</div>
+            <div class="card-desc">סימולציה של תרחישים מרובים בזמן אמת במהלך ישיבת board, עם דיון משפחתי ותשובות מהירות לשאלות "מה אם".</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <section class="section-alt" id="boundaries">
+    <div class="inner">
+      <div class="section-label">GOVERNANCE</div>
+      <h2 class="section-title">גבולות שימוש והיגיינה ניהולית</h2>
+      <p class="section-desc">לקהל בכיר, אמינות חשובה לא פחות ממהירות. לכן צריך להבהיר היכן Claude עוזר לחשיבה — והיכן נדרש review אנושי מלא.</p>
+      <div class="boundary-grid">
+        <div class="boundary-card good">
+          <div class="card-kicker">WHEN IT WORKS WELL</div>
+          <div class="card-title">מתי כן להשתמש</div>
+          <ul class="bullet-list">
+            <li>כשצריך לנסח narrative הנהלה מתוך data קיים.</li>
+            <li>כשצריך לחדד שאלות עסקיות לפני ישיבת הנהלה.</li>
+            <li>כשבונים dashboard כ-view תומך החלטה.</li>
+            <li>כשצריך לקצר זמן הכנה ל-board pack או monthly review.</li>
+          </ul>
+        </div>
+        <div class="boundary-card risk">
+          <div class="card-kicker">WHERE TO BE CAREFUL</div>
+          <div class="card-title">איפה חייבים לעצור</div>
+          <ul class="bullet-list">
+            <li>לא לשלוח מספרים סופיים בלי review אנושי.</li>
+            <li>לא להסתמך על inference כשחסרות הנחות או context.</li>
+            <li>לא להכניס מידע רגיש בלי governance ו-policy ברורים.</li>
+            <li>לא להחליף שיקול דעת ניהולי ב-output יפה.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="takeaways">
+    <div class="inner">
+      <div class="section-label">TAKEAWAYS</div>
+      <h2 class="section-title">מה המשתתפים לוקחים מהוובינר</h2>
+      <p class="section-desc">לא עוד כלי — אלא דרך אחת ברורה לעבוד מהר יותר וטוב יותר ברמת הנהלה.</p>
+      <div class="takeaway-grid">
+        <div class="takeaway-card">
+          <div class="card-kicker">TAKEAWAY 01</div>
+          <div class="card-title">לשאול טוב יותר</div>
+          <ul class="bullet-list">
+            <li>מסגור נכון של שאלה עסקית חשוב יותר מהדאטה עצמו.</li>
+          </ul>
+        </div>
+        <div class="takeaway-card">
+          <div class="card-kicker">TAKEAWAY 02</div>
+          <div class="card-title">לנסח טוב יותר</div>
+          <ul class="bullet-list">
+            <li>Executive narrative ברור מקצר זמן דיון ומשפר החלטות.</li>
+          </ul>
+        </div>
+        <div class="takeaway-card">
+          <div class="card-kicker">TAKEAWAY 03</div>
+          <div class="card-title">להציג טוב יותר</div>
+          <ul class="bullet-list">
+            <li>Dashboard טוב עוזר ליישר קו מהר מול הנהלה.</li>
+          </ul>
+        </div>
+        <div class="takeaway-card">
+          <div class="card-kicker">TAKEAWAY 04</div>
+          <div class="card-title">לשלוט טוב יותר</div>
+          <ul class="bullet-list">
+            <li>Human review ו-governance נשארים חלק בלתי נפרד מהתהליך.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta">
+    <div class="inner">
+      <div class="section-label">NEXT STEP</div>
+      <h2 class="cta-title">הצטרפו לסדרת הוובינרים ולמדו כיצד לקצר את הדרך מנתונים להחלטות</h2>
+      <p class="cta-desc">במהלך הוובינר תקבלו מסגרת עבודה ברורה לניתוח נתונים, בניית נרטיב הנהלה ויצירת תוצרים ניהוליים בעזרת Claude — עם דוגמאות מעשיות מהעולם הפיננסי.</p>
+      <a href="https://popup.fm/ronenamoscpa/events/G9g9e7OtFnhtgYhkwSy4" class="cta-btn">לצפייה בוובינר הראשון </a>
+    </div>
+  </section>
+
+<!-- ── FOOTER CTA ── -->
+<section id="footer">
+  <div class="inner">
+    <div class="section-label">המשך</div>
+    <h2 class="footer-title">למדריכים ותוכן נוסף</h2>
+    <p class="footer-sub">כל הכלים, הקהילה והמשאבים — במקום אחד.</p>
+    <div class="footer-grid">
+      <a href="https://chat.whatsapp.com/CS6dgqnK45Q9XAMqScNr6R" target="_blank" class="footer-card">
+        <div class="footer-card-num">01 · COMMUNITY</div>
+        <div class="footer-card-title">קהילת AI Finance</div>
+        <div class="footer-card-desc">מעל 800 אנשי פיננסים שחולקים כלים ו-prompts בזמן אמת.</div>
+        <div class="footer-card-link">chat.whatsapp.com ↗</div>
+      </a>
+      <a href="https://www.youtube.com/@AIFinanceTransformation" target="_blank" class="footer-card">
+        <div class="footer-card-num">02 · YOUTUBE</div>
+        <div class="footer-card-title">AI for Finance</div>
+        <div class="footer-card-desc">הדגמות מעשיות, walkthroughs ו-playbooks שמאחורי הפרקטיקה.</div>
+        <div class="footer-card-link">@AIFinanceTransformation ↗</div>
+      </a>
+      <a href="https://www.ronenamoscpa.co.il/" target="_blank" class="footer-card">
+        <div class="footer-card-num">03 · NEWSLETTER</div>
+        <div class="footer-card-title">הניוזלטר השבועי</div>
+        <div class="footer-card-desc">תובנות AI לפיננסים ישר למייל שלך — כתוב על ידי איש פיננסים.</div>
+        <div class="footer-card-link">ronenamoscpa.co.il ↗</div>
+      </a>
+      <a href="https://www.ronenamoscpa.co.il/skill-vault" target="_blank" class="footer-card">
+        <div class="footer-card-num">04 · PROMPT HUB</div>
+        <div class="footer-card-title">Skill Vault</div>
+        <div class="footer-card-desc">ספריית ה-prompts שלי — מוכנים לשימוש מיידי בצוות הפיננסים שלך.</div>
+        <div class="footer-card-link">ronenamoscpa.co.il/skill-vault ↗</div>
+      </a>
+      <a href="https://www.paypal.com/ncp/payment/E36KBLHK8MDPN" target="_blank" class="footer-card">
+        <div class="footer-card-num">05 · THE BOOK</div>
+        <div class="footer-card-title">Claude Playbook</div>
+        <div class="footer-card-desc">הספר המלא — frameworks, case studies ומדריכי יישום לצוותי פיננסים.</div>
+        <div class="footer-card-link">רכישה מאובטחת ↗</div>
+      </a>
+      <a href="https://www.ronenamoscpa.co.il/courses" target="_blank" class="footer-card">
+        <div class="footer-card-num">06 · COURSE</div>
+        <div class="footer-card-title">קורס AI Finance</div>
+        <div class="footer-card-desc">תוכנית מובנית להטמעת חשיבה AI-First בצוות הפיננסים שלך.</div>
+        <div class="footer-card-link">ronenamoscpa.co.il/courses ↗</div>
+      </a>
+    </div>
+    <div class="footer-copy">Ronen Amos · AI Finance Transformation</div>
+  </div>
+</section>
+
+
+</body>
+</html>
