@@ -33,6 +33,18 @@ export interface Guide {
 
 export const guides: Guide[] = [
   {
+    slug: 'claude-routines-fpna',
+    title: 'Claude Routines למנהלי כספים וצוותי FP&A',
+    description: 'Claude השיקה יכולת חדשה בשם Routines בתוך פלטפורמת Claude Code. מדובר ב-workflow אוטומטי שרץ בענן של Anthropic — על פי לוח זמנים קבוע או בהפעלה חיצונית — ומאפשר לצוות הפיננסי לבצע עבודה חוזרת בצורה אוטומטית ועקבית.',
+    category: 'Claude',
+    tags: ['Claude', 'Automation', 'Workflow', 'Finance Ops'],
+    gammaUrl: 'https://gamma.app/embed/s4fn1w5ua2oqrsh',
+    thumbnail: '/guides/claude-routines-pnl.png',
+    duration: "15 דק'",
+    isPremium: true,
+    publishedAt: '2026-05-31',
+  },
+  {
     slug: 'chatgpt-finance-guide-hebrew',
     title: 'ChatGPT לפיננסים: 20 מסגרות עבודה',
     description: 'למדו איך לכתוב פרומפטים טובים יותר לפיננסים עם 20 מסגרות עבודה ב־ChatGPT, כולל דוגמאות מעשיות ל־FP&A, תקציב, תזרים וסקירות הנהלה.',
