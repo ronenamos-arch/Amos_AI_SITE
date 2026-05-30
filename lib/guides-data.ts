@@ -33,6 +33,18 @@ export interface Guide {
 
 export const guides: Guide[] = [
   {
+    slug: 'copilot-guide',
+    title: 'Copilot המדריך המלא',
+    description: 'המדריך הפרקטי: 5 תכונות שישנו את עבודתכם',
+    category: 'אוטומציה',
+    tags: ['Copilot', 'Automation', 'Productivity'],
+    gammaUrl: 'https://gamma.app/embed/bfzwd8lj4ugiwoj',
+    thumbnail: '/guides/copilot-guide.png',
+    duration: "13 דק'",
+    isPremium: true,
+    publishedAt: '2026-05-31',
+  },
+  {
     slug: 'projects',
     title: 'Projects ב-AI: מכפיל הכוח שאנשי הכספים עוד לא מנצלים מספיק',
     description: 'Projects הם סביבת עבודה ייעודית בתוך כלי AI שמאפשרת להגדיר פעם אחת את ההקשר, הידע ודרך העבודה, ולשמר אותם לאורך כל השיחות. במקום לפתוח שיחה ריקה בכל פעם, אתם נכנסים לסביבה שכבר "מכירה" אתכם.',
