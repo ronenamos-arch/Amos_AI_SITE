@@ -33,6 +33,18 @@ export interface Guide {
 
 export const guides: Guide[] = [
   {
+    slug: 'projects',
+    title: 'Projects ב-AI: מכפיל הכוח שאנשי הכספים עוד לא מנצלים מספיק',
+    description: 'Projects הם סביבת עבודה ייעודית בתוך כלי AI שמאפשרת להגדיר פעם אחת את ההקשר, הידע ודרך העבודה, ולשמר אותם לאורך כל השיחות. במקום לפתוח שיחה ריקה בכל פעם, אתם נכנסים לסביבה שכבר "מכירה" אתכם.',
+    category: 'Claude',
+    tags: ['Claude', 'Projects', 'Workflow', 'Productivity'],
+    gammaUrl: 'https://gamma.app/embed/l38cdtlw865g0nx',
+    thumbnail: '/guides/projects-ai.png',
+    duration: "12 דק'",
+    isPremium: false,
+    publishedAt: '2026-05-31',
+  },
+  {
     slug: 'claude-routines-fpna',
     title: 'Claude Routines למנהלי כספים וצוותי FP&A',
     description: 'Claude השיקה יכולת חדשה בשם Routines בתוך פלטפורמת Claude Code. מדובר ב-workflow אוטומטי שרץ בענן של Anthropic — על פי לוח זמנים קבוע או בהפעלה חיצונית — ומאפשר לצוות הפיננסי לבצע עבודה חוזרת בצורה אוטומטית ועקבית.',
