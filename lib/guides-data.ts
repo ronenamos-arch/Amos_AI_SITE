@@ -33,6 +33,18 @@ export interface Guide {
 
 export const guides: Guide[] = [
   {
+    slug: 'chatgpt-finance-guide-hebrew',
+    title: 'ChatGPT לפיננסים: 20 מסגרות עבודה',
+    description: 'למדו איך לכתוב פרומפטים טובים יותר לפיננסים עם 20 מסגרות עבודה ב־ChatGPT, כולל דוגמאות מעשיות ל־FP&A, תקציב, תזרים וסקירות הנהלה.',
+    category: 'ChatGPT',
+    tags: ['ChatGPT', 'Prompting', 'Finance Ops'],
+    gammaUrl: 'https://gamma.app/embed/f5xvsd0pfybxfa0',
+    thumbnail: '/guides/chatgpt-20-frameworks.png',
+    duration: "15 דק'",
+    isPremium: false,
+    publishedAt: '2026-05-30',
+  },
+  {
     slug: 'claude-live-artifacts',
     title: 'מדריך Claude Live Artifacts לצוותי Finance ו-FP&A',
     description: 'מדריך פרקטי בעברית לשימוש ב-Claude Live Artifacts עבור צוותי Finance ו-FP&A. תלמדו איך לבנות דשבורדים חיים, לחבר מקורות נתונים, ולהפוך שאלות פיננסיות חוזרות לממשק עבודה אינטראקטיבי ומתעדכן.',
