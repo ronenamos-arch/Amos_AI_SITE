@@ -13,6 +13,12 @@ premium: "false"
 
 Alice Fong, מצוות הפיננסים והאסטרטגיה של Anthropic, תיארה לאחרונה איך שינתה את שגרת העבודה שלה עם Claude. הממצאים רלוונטיים לכל CFO, בקר וסמנכ"ל כספים שמוצא את עצמו שקוע בבדיקות עקביות במקום בניתוח אמיתי.
 
+<div style="background: linear-gradient(135deg, #1e3a5f 0%, #1a2744 100%); border: 1px solid #3b82f6; border-radius: 12px; padding: 24px; margin: 24px 0; text-align: center; direction: rtl;">
+  <div style="font-size: 1rem; font-weight: 700; color: #e2e8f0; margin-bottom: 8px;">📽️ וובינר מקורי של Anthropic</div>
+  <div style="font-size: 0.875rem; color: #94a3b8; margin-bottom: 16px;">Alice Fong מסבירה בשידור חי איך מחלקת הכספים של Anthropic עובדת עם Claude — 30 דקות שיתן לכם תמונה מלאה</div>
+  <a href="https://events.goldcast.io/auth/link/3c4d914d-ab81-4e2f-907a-d112ae2c8543/YBrmKsoruw8?eventID=bb248461-9b1b-489a-94f9-53ca3aeddc71&shortId=159887" target="_blank" rel="noopener noreferrer" style="display: inline-block; background: #3b82f6; color: white; padding: 12px 28px; border-radius: 8px; font-weight: 600; text-decoration: none; font-size: 1rem;">▶ צפו בוובינר</a>
+</div>
+
 ---
 
 ## הבעיה שכולם מכירים: הנרטיב שמתפרק עם כל רענון
