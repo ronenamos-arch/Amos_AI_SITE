@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI-First Finance | רונן עמוס CPA</title>
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800;900&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #0b0d10;
+    --bg2: #111318;
+    --bg3: #181c22;
+    --border: #232830;
+    --accent: #b8c45a;
+    --accent-light: #d6e36a;
+    --accent-dim: rgba(184,196,90,0.12);
+    --text: #e8eaf0;
+    --text-muted: #7a8299;
+    --text-dim: #4a5268;
+    --mono: 'IBM Plex Mono', monospace;
+    --sans: 'Heebo', sans-serif;
+  }
+
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: var(--sans);
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    font-size: 16px;
+    direction: rtl;
+  }
+
+  /* TOPBAR */
+  .topbar {
+    position: fixed; top: 0; right: 0; left: 0; z-index: 100;
+    background: rgba(11,13,16,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 2rem; height: 58px;
+  }
+  .topbar-logo {
+    font-family: var(--mono);
+    font-size: 0.8rem;
+    color: var(--accent);
+    letter-spacing: 0.05em;
+  }
+  .topbar-nav { display: flex; gap: 1.5rem; }
+  .topbar-nav a {
+    color: var(--text-muted); font-size: 0.82rem; text-decoration: none;
+    transition: color 0.2s;
+  }
+  .topbar-nav a:hover { color: var(--accent); }
+
+  /* HERO */
+  .hero {
+    padding: 120px 2rem 80px;
+    max-width: 900px; margin: 0 auto; text-align: center;
+  }
+  .hero-tag {
+    font-family: var(--mono); font-size: 0.72rem;
+    color: var(--accent); letter-spacing: 0.15em; text-transform: uppercase;
+    margin-bottom: 1.2rem;
+    display: inline-block;
+    border: 1px solid var(--accent-dim);
+    padding: 4px 14px; border-radius: 20px;
+  }
+  .hero h1 {
+    font-size: clamp(2rem, 5vw, 3.4rem);
+    font-weight: 800; line-height: 1.2;
+    margin-bottom: 1.2rem;
+    color: var(--text);
+  }
+  .hero h1 span { color: var(--accent); }
+  .hero p {
+    font-size: 1.1rem; color: var(--text-muted);
+    max-width: 600px; margin: 0 auto 2rem;
+  }
+  .hero-cta {
+    display: inline-block;
+    background: var(--accent); color: #0b0d10;
+    font-weight: 700; font-size: 0.95rem;
+    padding: 12px 28px; border-radius: 8px;
+    text-decoration: none; transition: background 0.2s, transform 0.2s;
+  }
+  .hero-cta:hover { background: var(--accent-light); transform: translateY(-1px); }
+
+  /* SECTIONS */
+  .section { padding: 80px 2rem; max-width: 960px; margin: 0 auto; }
+  .section-num {
+    font-family: var(--mono); font-size: 0.72rem;
+    color: var(--accent); letter-spacing: 0.12em;
+    margin-bottom: 0.5rem;
+  }
+  .section h2 {
+    font-size: clamp(1.5rem, 3vw, 2.2rem);
+    font-weight: 800; margin-bottom: 1rem; line-height: 1.25;
+  }
+  .section .lead {
+    font-size: 1.05rem; color: var(--text-muted);
+    margin-bottom: 2.5rem; max-width: 720px;
+  }
+  .divider {
+    border: none; border-top: 1px solid var(--border);
+    margin: 0 2rem;
+  }
+
+  /* CARDS */
+  .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.2rem; }
+  .card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.5rem;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+  .card:hover { border-color: var(--accent-dim); transform: translateY(-2px); }
+  .card-icon {
+    font-size: 1.5rem; margin-bottom: 0.8rem;
+  }
+  .card h3 { font-size: 1rem; font-weight: 700; margin-bottom: 0.5rem; color: var(--accent-light); }
+  .card p { font-size: 0.88rem; color: var(--text-muted); line-height: 1.6; }
+
+  /* THREE QUESTIONS */
+  .questions { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1rem; margin-bottom: 2.5rem; }
+  .q-card {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1.4rem;
+    border-right: 3px solid var(--accent);
+  }
+  .q-card .q-label {
+    font-family: var(--mono); font-size: 0.65rem;
+    color: var(--accent); letter-spacing: 0.1em; margin-bottom: 0.5rem;
+    text-transform: uppercase;
+  }
+  .q-card p { font-size: 0.95rem; font-weight: 600; color: var(--text); }
+
+  /* QUOTE BOX */
+  .quote-box {
+    background: var(--accent-dim);
+    border: 1px solid rgba(184,196,90,0.25);
+    border-radius: 12px;
+    padding: 2rem 2.5rem;
+    margin: 2.5rem 0;
+    position: relative;
+  }
+  .quote-box::before {
+    content: '"';
+    font-size: 5rem; line-height: 1;
+    color: var(--accent); opacity: 0.3;
+    position: absolute; top: -0.5rem; right: 1.5rem;
+    font-family: Georgia, serif;
+  }
+  .quote-box p {
+    font-size: 1.15rem; font-weight: 600;
+    color: var(--text); line-height: 1.6;
+    position: relative;
+  }
+  .quote-box cite {
+    display: block; margin-top: 0.8rem;
+    font-size: 0.82rem; color: var(--text-muted);
+    font-style: normal;
+  }
+
+  /* COMPARISON GRID */
+  .compare-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 0;
+    border: 1px solid var(--border); border-radius: 12px; overflow: hidden;
+    margin-bottom: 2rem;
+  }
+  .compare-header {
+    padding: 1rem 1.5rem;
+    font-family: var(--mono); font-size: 0.75rem; font-weight: 600;
+    letter-spacing: 0.08em; text-transform: uppercase;
+  }
+  .compare-header.old { background: #151820; color: var(--text-muted); border-bottom: 1px solid var(--border); }
+  .compare-header.new { background: var(--accent-dim); color: var(--accent); border-bottom: 1px solid rgba(184,196,90,0.2); border-right: 1px solid var(--border); }
+  .compare-row { display: contents; }
+  .compare-cell {
+    padding: 0.9rem 1.5rem;
+    font-size: 0.88rem;
+    border-bottom: 1px solid var(--border);
+    line-height: 1.5;
+  }
+  .compare-cell.old { color: var(--text-muted); background: var(--bg2); }
+  .compare-cell.new { color: var(--text); background: var(--bg3); border-right: 1px solid var(--border); }
+  .compare-cell .step-label {
+    font-family: var(--mono); font-size: 0.65rem;
+    color: var(--accent); display: block; margin-bottom: 3px;
+  }
+
+  /* TIMELINE / STEPS */
+  .timeline { position: relative; padding-right: 2rem; }
+  .timeline::before {
+    content: '';
+    position: absolute; right: 7px; top: 0; bottom: 0;
+    width: 2px; background: var(--border);
+  }
+  .tl-item { position: relative; margin-bottom: 2rem; }
+  .tl-dot {
+    position: absolute; right: -2rem;
+    top: 4px; width: 16px; height: 16px;
+    background: var(--accent); border-radius: 50%;
+    border: 2px solid var(--bg);
+  }
+  .tl-num {
+    font-family: var(--mono); font-size: 0.68rem;
+    color: var(--accent); margin-bottom: 0.3rem;
+    letter-spacing: 0.08em;
+  }
+  .tl-item h3 { font-size: 1.02rem; font-weight: 700; margin-bottom: 0.4rem; }
+  .tl-item p { font-size: 0.88rem; color: var(--text-muted); }
+
+  /* CHECKLIST */
+  .checklist { list-style: none; }
+  .checklist li {
+    display: flex; align-items: flex-start; gap: 0.8rem;
+    padding: 0.7rem 0; border-bottom: 1px solid var(--border);
+    font-size: 0.92rem;
+  }
+  .checklist li:last-child { border-bottom: none; }
+  .checklist li::before {
+    content: '✓'; color: var(--accent);
+    font-weight: 700; font-size: 0.9rem;
+    flex-shrink: 0; margin-top: 2px;
+  }
+
+  /* QUIZ */
+  .quiz-wrap {
+    background: var(--bg2); border: 1px solid var(--border);
+    border-radius: 14px; padding: 2rem;
+  }
+  .quiz-progress {
+    display: flex; gap: 6px; margin-bottom: 1.5rem;
+  }
+  .quiz-dot {
+    height: 4px; border-radius: 2px; flex: 1;
+    background: var(--border); transition: background 0.3s;
+  }
+  .quiz-dot.done { background: var(--accent); }
+  .quiz-q {
+    font-size: 1rem; font-weight: 600; margin-bottom: 1.2rem;
+    min-height: 3rem;
+  }
+  .quiz-q .q-index {
+    font-family: var(--mono); font-size: 0.7rem;
+    color: var(--accent); display: block; margin-bottom: 0.3rem;
+  }
+  .quiz-options { display: flex; flex-direction: column; gap: 0.6rem; margin-bottom: 1.5rem; }
+  .quiz-option {
+    background: var(--bg3); border: 1px solid var(--border);
+    border-radius: 8px; padding: 0.7rem 1rem;
+    cursor: pointer; font-size: 0.88rem; color: var(--text);
+    transition: border-color 0.2s, background 0.2s;
+    text-align: right;
+  }
+  .quiz-option:hover { border-color: var(--accent); background: var(--accent-dim); }
+  .quiz-option.selected { border-color: var(--accent); background: var(--accent-dim); color: var(--accent-light); }
+  .quiz-btn {
+    background: var(--accent); color: #0b0d10;
+    border: none; border-radius: 8px;
+    padding: 10px 24px; font-size: 0.9rem; font-weight: 700;
+    cursor: pointer; font-family: var(--sans);
+    transition: background 0.2s;
+  }
+  .quiz-btn:hover { background: var(--accent-light); }
+  .quiz-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+  .quiz-result {
+    display: none; text-align: center; padding: 1rem 0;
+  }
+  .quiz-score {
+    font-size: 3rem; font-weight: 900; color: var(--accent);
+    font-family: var(--mono); line-height: 1;
+    margin-bottom: 0.5rem;
+  }
+  .quiz-score-label { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem; }
+  .quiz-verdict { font-size: 1rem; font-weight: 600; max-width: 480px; margin: 0 auto; }
+
+  /* CTA */
+  .cta-section {
+    background: var(--bg2); border: 1px solid var(--border);
+    border-radius: 16px; padding: 3rem 2rem; text-align: center;
+    margin: 0 2rem 80px;
+  }
+  .cta-section h2 { font-size: 1.8rem; font-weight: 800; margin-bottom: 0.8rem; }
+  .cta-section p { color: var(--text-muted); margin-bottom: 2rem; font-size: 0.95rem; }
+  .cta-links { display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center; }
+  .cta-link {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    padding: 10px 20px; border-radius: 8px;
+    text-decoration: none; font-size: 0.88rem; font-weight: 600;
+    transition: all 0.2s;
+  }
+  .cta-link.primary {
+    background: var(--accent); color: #0b0d10;
+  }
+  .cta-link.primary:hover { background: var(--accent-light); }
+  .cta-link.secondary {
+    background: var(--bg3); border: 1px solid var(--border);
+    color: var(--text);
+  }
+  .cta-link.secondary:hover { border-color: var(--accent); color: var(--accent); }
+
+  /* FOOTER */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 2rem;
+    text-align: center;
+    font-size: 0.78rem; color: var(--text-dim);
+    font-family: var(--mono);
+  }
+
+  /* UTILITY */
+  .mono { font-family: var(--mono); }
+  .accent { color: var(--accent); }
+  .mt-2 { margin-top: 2rem; }
+  .mb-1 { margin-bottom: 1rem; }
+
+  .bootcamp-cta {
+    display: inline-block;
+    background: var(--accent);
+    color: #0b0d10;
+    font-weight: 800;
+    font-size: 1.05rem;
+    padding: 16px 36px;
+    border-radius: 10px;
+    text-decoration: none;
+    transition: background 0.2s, transform 0.2s;
+    letter-spacing: 0.01em;
+  }
+  .bootcamp-cta:hover { background: var(--accent-light); transform: translateY(-2px); }
+
+    .compare-grid { grid-template-columns: 1fr; }
+    .compare-header.new, .compare-cell.new { border-right: none; border-top: 1px solid var(--border); }
+    .topbar-nav { display: none; }
+    .hero { padding: 100px 1rem 60px; }
+    .section { padding: 60px 1rem; }
+    .cta-section { margin: 0 1rem 60px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<header class="topbar">
+  <div class="topbar-logo">// AI_FINANCE_TRANSFORMATION</div>
+  <nav class="topbar-nav">
+    <a href="#s01">השינוי</a>
+    <a href="#s02">יכולות</a>
+    <a href="#s03">בפרקטיקה</a>
+    <a href="#s04">אימון</a>
+    <a href="#s05">מדד</a>
+    <a href="#s06">המשך</a>
+  </nav>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-tag">§ AI-First Finance Framework</div>
+  <h1>הגיע הזמן לעצור ולשאול:<br><span>איך AI משנה את הפיננסים?</span></h1>
+  <p>מדריך מלא לצוותי פיננסים שרוצים לעבור מ-AI כתוסף לשולחן — ל-AI כנקודת פתיחה לכל תהליך.</p>
+  <a href="#s01" class="hero-cta">התחל לקרוא ↓</a>
+</section>
+
+<hr class="divider">
+
+<!-- S01 -->
+<section class="section" id="s01">
+  <div class="section-num">§ 01 — השינוי</div>
+  <h2>AI כנקודת פתיחה, לא מוצא אחרון</h2>
+  <p class="lead">רוב הצוותים מגיעים ל-AI אחרי שנסגרו על תהליך. הגישה ה-AI-First מתחילה בשאלה שונה לחלוטין.</p>
+
+  <div class="questions">
+    <div class="q-card">
+      <div class="q-label">שאלה 01</div>
+      <p>כיצד AI יכול <strong>לשפר</strong> את התהליך הזה?</p>
+    </div>
+    <div class="q-card">
+      <div class="q-label">שאלה 02</div>
+      <p>כיצד AI יכול <strong>לזרז</strong> אותו מ-5 שעות ל-15 דקות?</p>
+    </div>
+    <div class="q-card">
+      <div class="q-label">שאלה 03</div>
+      <p>כיצד AI יכול <strong>לבטל לחלוטין</strong> את הצורך בו?</p>
+    </div>
+  </div>
+
+  <div class="quote-box">
+    <p>הבעיה אינה שצוותי פיננסים לא משתמשים ב-AI. הבעיה היא שהם משתמשים בו כדי לעשות דברים ישנים מהר יותר — במקום לשאול אם הדברים הישנים צריכים להתקיים בכלל.</p>
+    <cite>— AI Finance Transformation | רונן עמוס CPA</cite>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- S02 -->
+<section class="section" id="s02">
+  <div class="section-num">§ 02 — מעבר לצ'אטבוט</div>
+  <h2>5 יכולות שרוב הצוותים מפספסים</h2>
+  <p class="lead">רובם מכירים ChatGPT ותו לא. אך היכולות שמשנות את המשחק נמצאות בדיוק מחוץ לאזור הנוחות הזה.</p>
+
+  <div class="cards">
+    <div class="card">
+      <div class="card-icon">⌨️</div>
+      <h3>יצירת קוד</h3>
+      <p>כתיבת סקריפטים Python, Google Apps Script או Power Query — בלי ידע בתכנות. המודל מבין את הצורך ומייצר קוד עובד.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">🛠️</div>
+      <h3>מיני-אפליקציות</h3>
+      <p>בניית כלים פנימיים: מחשבוני תקציב, דשבורדים לניהול, טפסי אישור חשבוניות — בזמן קצר ועלות אפסית.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">🔁</div>
+      <h3>Workflows קבועים</h3>
+      <p>אוטומציה של תהליכים חוזרים: ייצוא, עיבוד, שליחה — עם כלים כמו n8n, Zapier ו-Make ללא קוד.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">🔗</div>
+      <h3>אינטגרציה</h3>
+      <p>חיבור מערכות ERP, CRM ו-BI לפלטפורמות AI — כך שהנתונים זורמים אוטומטית בין המערכות.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">📊</div>
+      <h3>תובנות מוכנות לשיתוף</h3>
+      <p>AI שכותב executive summaries, מזהה חריגות ומייצר commentary — מוכן לשליחה לדירקטוריון.</p>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- S03 -->
+<section class="section" id="s03">
+  <div class="section-num">§ 03 — בפרקטיקה</div>
+  <h2>ניתוח סטיות: מסורתי מול AI-First</h2>
+  <p class="lead">דוגמה קונקרטית: אותה משימה, שני עולמות. כך נראה ניתוח סטיות תקציביות בשתי הגישות.</p>
+
+  <div class="compare-grid">
+    <div class="compare-header new">// גישה מסורתית</div>
+    <div class="compare-header old">// גישה AI-First</div>
+
+    <div class="compare-cell new">
+      <span class="step-label">שלב 01</span>
+      ייצוא ידני מה-ERP לאקסל, ניקוי נתונים, התאמת עמודות
+    </div>
+    <div class="compare-cell old">
+      <span class="step-label">שלב 01</span>
+      AI שואל: "מה הנתונים שאתה צריך?" — ומחולל סקריפט חיבור אוטומטי
+    </div>
+
+    <div class="compare-cell new">
+      <span class="step-label">שלב 02</span>
+      בניית מודל סטיות בנוסחאות אקסל — כולל טעויות אנוש
+    </div>
+    <div class="compare-cell old">
+      <span class="step-label">שלב 02</span>
+      מודל מחולל תוך דקות, עם טיפול בחריגות, outliers וניתוח שכבות
+    </div>
+
+    <div class="compare-cell new">
+      <span class="step-label">שלב 03</span>
+      כתיבת commentary ידנית — 2-3 שעות עבודה
+    </div>
+    <div class="compare-cell old">
+      <span class="step-label">שלב 03</span>
+      AI מזהה את הסטיות המשמעותיות, מסביר ומציע המלצות — בדקות
+    </div>
+
+    <div class="compare-cell new">
+      <span class="step-label">שלב 04</span>
+      עיצוב מצגת PowerPoint לדירקטוריון — שעה נוספת
+    </div>
+    <div class="compare-cell old">
+      <span class="step-label">שלב 04</span>
+      תבנית מצגת מוכנה, מאוכלסת בנתונים, מוכנה לשיתוף
+    </div>
+  </div>
+
+  <div class="quote-box">
+    <p>תהליך שלקח יום עבודה שלם — מתקצר ל-45 דקות. לא כי עבדנו מהר יותר, אלא כי שינינו את נקודת הפתיחה.</p>
+    <cite>— לקוח, CFO בחברת SaaS ישראלית</cite>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- S04 -->
+<section class="section" id="s04">
+  <div class="section-num">§ 04 — אימון הצוות</div>
+  <h2>4 צעדים לבניית תרבות AI-First</h2>
+  <p class="lead">אין טכנולוגיה שתסייע לצוות שהתרבות שלו מתנגדת לשינוי. כך בונים את הבסיס הנכון.</p>
+
+  <div class="timeline">
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-num">// STEP_01</div>
+      <h3>נרמל ניסויים</h3>
+      <p>הקצה זמן שבועי — 30 דקות — לכל חבר צוות לנסות כלי AI חדש ולשתף את הממצאים. כשלון הוא חלק מהתהליך.</p>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-num">// STEP_02</div>
+      <h3>תגמל מינוף, לא מאמץ</h3>
+      <p>הזז את סרגל ההצלחה: לא "עבדת קשה" אלא "השגת תוצאה מצוינת ביעילות". מי שמצא קיצור חכם — הוא שיקבל הכרה.</p>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-num">// STEP_03</div>
+      <h3>בנה Playbooks</h3>
+      <p>לכל תהליך חוזר: תעד את ה-prompt הנכון, הכלי המתאים, וה-output הצפוי. ה-playbook הופך לנכס ארגוני.</p>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-num">// STEP_04</div>
+      <h3>העבר מטלות למערכות</h3>
+      <p>כל מטלה שביצעת שלוש פעמים — היא מועמדת לאוטומציה. בנה workflow, בדוק, שחרר. הזמן שחסך הוא שלך.</p>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- S05 -->
+<section class="section" id="s05">
+  <div class="section-num">§ 05 — ביקורת עצמית</div>
+  <h2>מדד AI-First Readiness</h2>
+  <p class="lead">5 שאלות. 2 דקות. תקבל תמונה ישירה של מצב הצוות שלך.</p>
+
+  <div class="quiz-wrap">
+    <div class="quiz-progress" id="qProgress">
+      <div class="quiz-dot" id="dot0"></div>
+      <div class="quiz-dot" id="dot1"></div>
+      <div class="quiz-dot" id="dot2"></div>
+      <div class="quiz-dot" id="dot3"></div>
+      <div class="quiz-dot" id="dot4"></div>
+    </div>
+
+    <div id="quizBody">
+      <div class="quiz-q" id="qText">
+        <span class="q-index" id="qIndex">// שאלה 1 מתוך 5</span>
+        <span id="qContent">האם הצוות שלך מגדיר AI כשלב ראשון בתכנון תהליכים חדשים?</span>
+      </div>
+      <div class="quiz-options" id="qOptions"></div>
+      <button class="quiz-btn" id="qNext" onclick="nextQ()" disabled>הבא →</button>
+    </div>
+
+    <div class="quiz-result" id="quizResult">
+      <div class="quiz-score" id="resultScore">0/5</div>
+      <div class="quiz-score-label">נקודות מתוך 5 אפשריות</div>
+      <div class="quiz-verdict" id="resultVerdict"></div>
+      <div style="margin-top:1.5rem; display:flex; flex-direction:column; align-items:center; gap:0.8rem;">
+        <a href="#" class="bootcamp-cta"> הוובינר קרוב — מנתונים לנרטיב הנהלה ודשבורדים ניהוליים</a>
+        <button style="background:none;border:none;color:var(--text-muted);font-size:0.8rem;cursor:pointer;font-family:var(--sans);" onclick="resetQuiz()">← עשה את המדד שוב</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div style="max-width:960px;margin:0 auto;padding:0 2rem 60px;text-align:center;">
+  <h2 style="font-size:1.6rem;font-weight:800;margin-bottom:0.6rem;">הצעד הבא שלך</h2>
+  <p style="color:var(--text-muted);font-size:0.95rem;margin-bottom:1.5rem;">הגיע הזמן לעבור מידע לפעולה — הצטרף לבוטקמפ ותתחיל ליישם.</p>
+  <a href="https://popup.fm/ronenamoscpa/events/3eEf0YLkeOiop2gXe1sk" 
+   class="bootcamp-cta" 
+   target="_blank">
+הוובינר קרוב — מנתונים לנרטיב הנהלה ודשבורדים ניהוליים</a>
+
+</div>
+
+<hr class="divider">
+
+<!-- S06 -->
+<section class="section" id="s06">
+  <div class="section-num">§ 06 — המשך</div>
+  <h2>למדריכים ותוכן נוסף</h2>
+  <p class="lead">כל הכלים, הקהילה והמשאבים — במקום אחד.</p>
+
+  <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:20px; margin-top:8px;">
+
+    <a href="https://chat.whatsapp.com/CS6dgqnK45Q9XAMqScNr6R" target="_blank"
+      style="display:flex;flex-direction:column;padding:28px;background:#1f2433;border:1px solid #2a3347;border-radius:12px;border-left:3px solid #b8c45a;text-decoration:none;color:#e8eaf0;transition:all .2s;cursor:pointer;" onmouseover="this.style.background='#252d3d'" onmouseout="this.style.background='#1f2433'">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:0.75rem;color:#7a8299;letter-spacing:.1em;margin-bottom:6px;">01 &nbsp;·&nbsp; COMMUNITY</div>
+      <div style="font-size:1.3rem;font-weight:800;color:#d6e36a;margin-bottom:10px;">קהילת AI Finance</div>
+      <div style="font-size:0.9rem;color:#a0aac0;line-height:1.7;flex:1;">מעל 800 אנשי פיננסים שחולקים כלים ו-prompts בזמן אמת.</div>
+      <div style="margin-top:18px;padding-top:14px;border-top:1px solid #2a3347;font-family:'IBM Plex Mono',monospace;font-size:0.72rem;color:#d6e36a;">chat.whatsapp.com ↗</div>
+    </a>
+
+    <a href="https://www.youtube.com/@AIFinanceTransformation" target="_blank"
+      style="display:flex;flex-direction:column;padding:28px;background:#1f2433;border:1px solid #2a3347;border-radius:12px;border-left:3px solid #b8c45a;text-decoration:none;color:#e8eaf0;transition:all .2s;cursor:pointer;" onmouseover="this.style.background='#252d3d'" onmouseout="this.style.background='#1f2433'">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:0.75rem;color:#7a8299;letter-spacing:.1em;margin-bottom:6px;">02 &nbsp;·&nbsp; YOUTUBE</div>
+      <div style="font-size:1.3rem;font-weight:800;color:#d6e36a;margin-bottom:10px;">AI for Finance</div>
+      <div style="font-size:0.9rem;color:#a0aac0;line-height:1.7;flex:1;">הדגמות מעשיות, walkthroughs ו-playbooks שמאחורי הפרקטיקה.</div>
+      <div style="margin-top:18px;padding-top:14px;border-top:1px solid #2a3347;font-family:'IBM Plex Mono',monospace;font-size:0.72rem;color:#d6e36a;">@AIFinanceTransformation ↗</div>
+    </a>
+
+    <a href="https://www.ronenamoscpa.co.il/" target="_blank"
+      style="display:flex;flex-direction:column;padding:28px;background:#1f2433;border:1px solid #2a3347;border-radius:12px;border-left:3px solid #b8c45a;text-decoration:none;color:#e8eaf0;transition:all .2s;cursor:pointer;" onmouseover="this.style.background='#252d3d'" onmouseout="this.style.background='#1f2433'">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:0.75rem;color:#7a8299;letter-spacing:.1em;margin-bottom:6px;">03 &nbsp;·&nbsp; NEWSLETTER</div>
+      <div style="font-size:1.3rem;font-weight:800;color:#d6e36a;margin-bottom:10px;">הניוזלטר השבועי</div>
+      <div style="font-size:0.9rem;color:#a0aac0;line-height:1.7;flex:1;">תובנות AI לפיננסים ישר למייל שלך — כתוב על ידי איש פיננסים.</div>
+      <div style="margin-top:18px;padding-top:14px;border-top:1px solid #2a3347;font-family:'IBM Plex Mono',monospace;font-size:0.72rem;color:#d6e36a;">ronenamoscpa.co.il ↗</div>
+    </a>
+
+    <a href="https://www.ronenamoscpa.co.il/skill-vault" target="_blank"
+      style="display:flex;flex-direction:column;padding:28px;background:#1f2433;border:1px solid #2a3347;border-radius:12px;border-left:3px solid #b8c45a;text-decoration:none;color:#e8eaf0;transition:all .2s;cursor:pointer;" onmouseover="this.style.background='#252d3d'" onmouseout="this.style.background='#1f2433'">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:0.75rem;color:#7a8299;letter-spacing:.1em;margin-bottom:6px;">04 &nbsp;·&nbsp; PROMPT HUB</div>
+      <div style="font-size:1.3rem;font-weight:800;color:#d6e36a;margin-bottom:10px;">Skill Vault</div>
+      <div style="font-size:0.9rem;color:#a0aac0;line-height:1.7;flex:1;">ספריית ה-prompts שלי — מוכנים לשימוש מיידי בצוות הפיננסים שלך.</div>
+      <div style="margin-top:18px;padding-top:14px;border-top:1px solid #2a3347;font-family:'IBM Plex Mono',monospace;font-size:0.72rem;color:#d6e36a;">ronenamoscpa.co.il/skill-vault ↗</div>
+    </a>
+
+    <a href="https://www.paypal.com/ncp/payment/E36KBLHK8MDPN" target="_blank"
+      style="display:flex;flex-direction:column;padding:28px;background:#1f2433;border:1px solid #2a3347;border-radius:12px;border-left:3px solid #b8c45a;text-decoration:none;color:#e8eaf0;transition:all .2s;cursor:pointer;" onmouseover="this.style.background='#252d3d'" onmouseout="this.style.background='#1f2433'">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:0.75rem;color:#7a8299;letter-spacing:.1em;margin-bottom:6px;">05 &nbsp;·&nbsp; THE BOOK</div>
+      <div style="font-size:1.3rem;font-weight:800;color:#d6e36a;margin-bottom:10px;">Claude Playbook</div>
+      <div style="font-size:0.9rem;color:#a0aac0;line-height:1.7;flex:1;">הספר המלא — frameworks, case studies ומדריכי יישום לצוותי פיננסים.</div>
+      <div style="margin-top:18px;padding-top:14px;border-top:1px solid #2a3347;font-family:'IBM Plex Mono',monospace;font-size:0.72rem;color:#d6e36a;">רכישה מאובטחת ↗</div>
+    </a>
+
+    <a href="https://www.ronenamoscpa.co.il/courses" target="_blank"
+      style="display:flex;flex-direction:column;padding:28px;background:#1f2433;border:1px solid #2a3347;border-radius:12px;border-left:3px solid #b8c45a;text-decoration:none;color:#e8eaf0;transition:all .2s;cursor:pointer;" onmouseover="this.style.background='#252d3d'" onmouseout="this.style.background='#1f2433'">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:0.75rem;color:#7a8299;letter-spacing:.1em;margin-bottom:6px;">06 &nbsp;·&nbsp; COURSE</div>
+      <div style="font-size:1.3rem;font-weight:800;color:#d6e36a;margin-bottom:10px;">קורס AI Finance</div>
+      <div style="font-size:0.9rem;color:#a0aac0;line-height:1.7;flex:1;">תוכנית מובנית להטמעת חשיבה AI-First בצוות הפיננסים שלך.</div>
+      <div style="margin-top:18px;padding-top:14px;border-top:1px solid #2a3347;font-family:'IBM Plex Mono',monospace;font-size:0.72rem;color:#d6e36a;">ronenamoscpa.co.il/courses ↗</div>
+    </a>
+
+  </div>
+</section>
+
+<!-- CTA -->
+<div class="cta-section">
+  <h2>מוכן להתחיל?</h2>
+  <p>בחר את הצעד הראשון שמתאים לך — ואנחנו נלווה אותך משם.</p>
+  <div class="cta-links">
+    <a href="https://ronenamoscpa.co.il" class="cta-link primary" target="_blank">🌐 האתר שלי</a>
+    <a href="https://chat.whatsapp.com/CS6dgqnK45Q9XAMqScNr6R" class="cta-link secondary" target="_blank">💬 קהילת וואטסאפ</a>
+    <a href="https://www.youtube.com/@AIFinanceTransformation" class="cta-link secondary" target="_blank">▶️ YouTube</a>
+    <a href="mailto:ronenamos@gmail.com" class="cta-link secondary">📧 צור קשר</a>
+  </div>
+</div>
+
+<footer>
+  <span class="mono">© 2025 רונן עמוס CPA | AI Finance Transformation</span><br>
+  <span style="color:var(--text-dim)">ronenamoscpa.co.il · ronenamos@gmail.com</span>
+</footer>
+
+<script>
+const questions = [
+  {
+    text: "האם הצוות שלך מגדיר AI כשלב ראשון בתכנון תהליכים חדשים?",
+    opts: ["כן, תמיד", "לפעמים", "רק לאחר שנסגרנו על התהליך", "לא בכלל"]
+  },
+  {
+    text: "האם יש לפחות אחד בצוות שמסוגל לבנות workflow אוטומטי ללא עזרת IT?",
+    opts: ["כן, כמה אנשים", "יש אחד כזה", "בתהליך לימוד", "לא"]
+  },
+  {
+    text: "כמה זמן לוקח לצוות לייצר דוח ניתוח סטיות חודשי?",
+    opts: ["פחות משעתיים", "חצי יום", "יום שלם", "יותר מיום"]
+  },
+  {
+    text: "האם יש לכם Playbook מתועד לתהליכים חוזרים עם AI?",
+    opts: ["כן, מלא ועדכני", "חלקי", "בבנייה", "לא"]
+  },
+  {
+    text: "האם ההנהלה מעודדת ניסויים עם כלי AI גם אם הם נכשלים?",
+    opts: ["כן בפירוש", "ברמה סבירה", "בסבלנות מוגבלת", "לא ממש"]
+  }
+];
+
+const scores = [
+  [2, 1, 0, 0],
+  [2, 1, 1, 0],
+  [2, 1, 0, 0],
+  [2, 1, 1, 0],
+  [2, 1, 0, 0]
+];
+
+const verdicts = [
+  { min: 9, label: "🚀 AI-First Leader", text: "הצוות שלך כבר פועל בחלק גדול מהעקרונות. הצעד הבא: תעד, שכפל והפץ את הגישה לחלקים נוספים בארגון." },
+  { min: 6, label: "⚡ On the Right Track", text: "יש בסיס טוב, אך עוד יש פוטנציאל לא ממומש. מומלץ לבנות playbooks ולהרחיב את מעגל האימוץ בצוות." },
+  { min: 3, label: "🌱 Early Stage", text: "אתם בתחילת הדרך — וזו ההזדמנות הכי טובה. זה הזמן לאמץ שלב אחד מ-§04 ולהתחיל לבנות עליו." },
+  { min: 0, label: "🔑 Starting Point", text: "הצוות עדיין לא שם, אבל זה בדיוק למה אתה כאן. קרא §04 מחדש וקבע פגישה אחת השבוע לנושא הזה." }
+];
+
+let cur = 0, sel = null, pts = 0, answers = [];
+
+function renderQ() {
+  const q = questions[cur];
+  document.getElementById('qIndex').textContent = `// שאלה ${cur+1} מתוך 5`;
+  document.getElementById('qContent').textContent = q.text;
+  const opts = document.getElementById('qOptions');
+  opts.innerHTML = '';
+  q.opts.forEach((o, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'quiz-option';
+    btn.textContent = o;
+    btn.onclick = () => selectOpt(i, btn);
+    opts.appendChild(btn);
+  });
+  sel = null;
+  document.getElementById('qNext').disabled = true;
+  document.querySelectorAll('.quiz-dot').forEach((d, i) => {
+    d.classList.toggle('done', i < cur);
+  });
+}
+
+function selectOpt(i, btn) {
+  document.querySelectorAll('.quiz-option').forEach(b => b.classList.remove('selected'));
+  btn.classList.add('selected');
+  sel = i;
+  document.getElementById('qNext').disabled = false;
+}
+
+function nextQ() {
+  if (sel === null) return;
+  pts += scores[cur][sel];
+  cur++;
+  if (cur < questions.length) {
+    renderQ();
+  } else {
+    showResult();
+  }
+}
+
+function showResult() {
+  document.getElementById('quizBody').style.display = 'none';
+  const res = document.getElementById('quizResult');
+  res.style.display = 'block';
+  document.getElementById('resultScore').textContent = pts + '/10';
+  const v = verdicts.find(x => pts >= x.min);
+  document.getElementById('resultVerdict').innerHTML = `<strong>${v.label}</strong><br><br>${v.text}`;
+  document.querySelectorAll('.quiz-dot').forEach(d => d.classList.add('done'));
+}
+
+function resetQuiz() {
+  cur = 0; sel = null; pts = 0;
+  document.getElementById('quizBody').style.display = 'block';
+  document.getElementById('quizResult').style.display = 'none';
+  renderQ();
+}
+
+renderQ();
+</script>
+</body>
+</html>
