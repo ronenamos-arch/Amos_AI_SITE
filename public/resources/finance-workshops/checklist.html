@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>צ׳קליסט הכנה להדרכת Claude | רונן עמוס CPA</title>
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;700;800;900&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg: #0b0d10;
+  --surface: #12161a;
+  --surface2: #1a1f26;
+  --accent: #b8c45a;
+  --accent-strong: #d6e36a;
+  --accent-dim: rgba(184,196,90,0.12);
+  --text: #fafbfc;
+  --text-muted: #c2cad2;
+  --text-faint: #7a8694;
+  --border: rgba(255,255,255,0.07);
+  --radius-sm: 10px;
+  --radius-md: 18px;
+  --font: Heebo, system-ui, sans-serif;
+  --mono: "IBM Plex Mono", monospace;
+}
+html { -webkit-font-smoothing: antialiased; font-size: 17px; }
+body { font-family: var(--font); background: var(--bg); color: var(--text); direction: rtl; line-height: 1.7; }
+
+/* TOPBAR */
+.topbar {
+  background: rgba(11,13,16,0.95);
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--border);
+  height: 52px; display: flex; align-items: center;
+  justify-content: space-between; padding: 0 2rem;
+}
+.topbar-brand { font-family: var(--mono); font-size: 0.72rem; color: var(--accent); letter-spacing: 0.06em; }
+.topbar-actions { display: flex; gap: 0.8rem; align-items: center; }
+.topbar-back {
+  display: flex; align-items: center; gap: 0.4rem;
+  font-size: 0.8rem; color: var(--text-faint);
+  text-decoration: none; transition: color 0.2s;
+}
+.topbar-back:hover { color: var(--accent); }
+
+/* ACTION BUTTONS */
+.action-btn {
+  display: inline-flex; align-items: center; gap: 0.4rem;
+  font-family: var(--mono); font-size: 0.68rem;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--accent); background: var(--accent-dim);
+  border: 1px solid rgba(184,196,90,0.3);
+  border-radius: var(--radius-sm); padding: 0.45rem 1rem;
+  cursor: pointer; text-decoration: none;
+  transition: background 0.2s, border-color 0.2s;
+}
+.action-btn:hover { background: rgba(184,196,90,0.22); border-color: var(--accent); }
+.action-btn.primary { background: var(--accent); color: #0b0d10; border-color: var(--accent); font-weight: 700; }
+.action-btn.primary:hover { background: var(--accent-strong); }
+
+/* PAGE */
+.page { max-width: 860px; margin: 0 auto; padding: 3rem 2rem 4rem; }
+
+/* HEADER */
+.page-header { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.page-eyebrow {
+  font-family: var(--mono); font-size: 0.65rem;
+  letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--accent); margin-bottom: 0.8rem;
+}
+.page-title { font-size: clamp(1.6rem, 4vw, 2.3rem); font-weight: 900; margin-bottom: 0.6rem; }
+.page-title span { color: var(--accent); }
+.page-desc { font-size: 0.95rem; color: var(--text-muted); max-width: 580px; line-height: 1.7; }
+
+/* ACTIONS BAR */
+.actions-bar {
+  display: flex; gap: 0.8rem; flex-wrap: wrap;
+  align-items: center; margin-bottom: 2.5rem;
+}
+
+/* CHECKLIST GRID */
+.cl-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.2rem; margin-bottom: 2rem; }
+
+/* CARD */
+.cl-card {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--radius-md); padding: 1.5rem 1.5rem 1.4rem;
+  display: flex; flex-direction: column;
+}
+.cl-card-head {
+  display: flex; align-items: center; gap: 0.7rem;
+  margin-bottom: 1.2rem; padding-bottom: 0.9rem;
+  border-bottom: 1px solid var(--border);
+}
+.cl-icon { font-size: 1.6rem; }
+.cl-card-title {
+  font-family: var(--mono); font-size: 0.65rem;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--accent); font-weight: 600;
+}
+.cl-card-who { font-size: 0.78rem; color: var(--text-faint); margin-top: 2px; }
+
+/* ITEMS */
+.cl-items { list-style: none; flex: 1; }
+.cl-item {
+  display: flex; align-items: flex-start; gap: 0.75rem;
+  padding: 0.55rem 0; border-bottom: 1px solid rgba(255,255,255,0.04);
+}
+.cl-item:last-child { border-bottom: none; }
+.cl-box {
+  width: 20px; height: 20px; flex-shrink: 0;
+  border: 2px solid rgba(184,196,90,0.35);
+  border-radius: 5px; margin-top: 1px;
+  transition: border-color 0.2s, background 0.2s;
+  cursor: pointer; display: flex; align-items: center; justify-content: center;
+}
+.cl-box:hover { border-color: var(--accent); }
+.cl-box.checked { background: var(--accent); border-color: var(--accent); }
+.cl-check { display: none; color: #0b0d10; font-size: 0.75rem; font-weight: 800; }
+.cl-box.checked .cl-check { display: block; }
+.cl-text { font-size: 0.88rem; color: var(--text-muted); line-height: 1.55; }
+.cl-text strong { color: var(--accent-strong); font-weight: 600; }
+.cl-item.done .cl-text { opacity: 0.45; text-decoration: line-through; }
+
+/* PROGRESS */
+.progress-wrap { margin-bottom: 2rem; }
+.progress-label {
+  display: flex; justify-content: space-between;
+  font-family: var(--mono); font-size: 0.68rem;
+  color: var(--text-faint); margin-bottom: 0.5rem;
+  letter-spacing: 0.06em;
+}
+.progress-label span { color: var(--accent); }
+.progress-bar {
+  height: 4px; background: var(--surface2);
+  border-radius: 2px; overflow: hidden;
+}
+.progress-fill {
+  height: 100%; background: var(--accent);
+  border-radius: 2px; transition: width 0.35s ease;
+  width: 0%;
+}
+
+/* TIP */
+.tip-box {
+  background: var(--accent-dim); border: 1px solid rgba(184,196,90,0.22);
+  border-radius: var(--radius-sm); padding: 1rem 1.3rem;
+  display: flex; gap: 0.8rem; align-items: flex-start;
+  margin-bottom: 2rem;
+}
+.tip-text { font-size: 0.88rem; color: var(--text-muted); line-height: 1.65; }
+.tip-text strong { color: var(--accent); }
+
+/* FOOTER */
+.page-footer {
+  border-top: 1px solid var(--border); padding-top: 1.5rem;
+  display: flex; justify-content: space-between; align-items: center;
+  flex-wrap: wrap; gap: 1rem;
+}
+.footer-brand { font-family: var(--mono); font-size: 0.68rem; color: var(--text-faint); }
+.footer-contact { font-size: 0.82rem; color: var(--text-faint); }
+.footer-contact a { color: var(--accent); text-decoration: none; }
+.footer-contact a:hover { color: var(--accent-strong); }
+
+/* PRINT */
+@media print {
+  body { background: #fff; color: #111; font-size: 13px; }
+  .topbar, .actions-bar, .progress-wrap, .tip-box .tip-icon { display: none !important; }
+  .page { padding: 1rem; max-width: 100%; }
+  .cl-card { background: #fff; border: 1.5px solid #ccc; break-inside: avoid; }
+  .cl-box { border: 2px solid #aaa; }
+  .cl-text { color: #333; }
+  .cl-text strong { color: #111; }
+  .cl-card-title { color: #555; }
+  .cl-card-who { color: #888; }
+  .tip-box { background: #f5f5f5; border: 1px solid #ccc; }
+  .tip-text, .tip-text strong { color: #333; }
+  .page-title { color: #111; }
+  .page-title span { color: #5a6e1a; }
+  .page-eyebrow { color: #5a6e1a; }
+  .page-desc { color: #555; }
+  .footer-brand, .footer-contact { color: #777; }
+  .footer-contact a { color: #5a6e1a; }
+  .cl-grid { grid-template-columns: repeat(3,1fr); }
+}
+
+@media (max-width: 680px) {
+  .cl-grid { grid-template-columns: 1fr; }
+  .topbar-back span { display: none; }
+  .page { padding: 2rem 1rem 3rem; }
+}
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-brand">RONEN AMOS // PRE-TRAINING CHECKLIST</div>
+  <div class="topbar-actions">
+    <a class="topbar-back" href="agenda.html">← חזרה לאג׳נדה <span>ההדרכה</span></a>
+    <button class="action-btn primary" onclick="window.print()">🖨️ הדפסה / PDF</button>
+  </div>
+</header>
+
+<div class="page">
+
+  <!-- HEADER -->
+  <div class="page-header">
+    <div class="page-eyebrow">§ PRE-TRAINING CHECKLIST · AI FINANCE TRAINING</div>
+    <h1 class="page-title">צ׳קליסט הכנה <span>להדרכה</span></h1>
+    <p class="page-desc">לשליחה למשתתפים ולמנהל המארגן שבוע לפני יום ההדרכה. הכנה נכונה מראש חוסכת זמן יקר — ומבטיחה שנתחיל בזמן.</p>
+  </div>
+
+  <!-- ACTIONS -->
+  <div class="actions-bar">
+    <button class="action-btn primary" onclick="window.print()">🖨️ הדפסה / שמירה כ-PDF</button>
+    <a class="action-btn" href="mailto:?subject=צ׳קליסט הכנה — הדרכת Claude&body=שלום,%0A%0Aמצורף צ׳קליסט הכנה להדרכת Claude שתתקיים בקרוב.%0Aאנא עברו עליו ווידאו שהכל מוכן לפני יום ההדרכה.%0A%0Aלשאלות: ronenamos@gmail.com%0Aronenamoscpa.co.il">📧 שלח למשתתפים</a>
+    <a class="action-btn" href="https://wa.me/972505500344?text=שאלה לגבי הכנה להדרכה" target="_blank">💬 שאלה לרונן</a>
+  </div>
+
+  <!-- PROGRESS -->
+  <div class="progress-wrap">
+    <div class="progress-label">
+      <span>התקדמות כוללת</span>
+      <span id="progress-text">0 / 15 סעיפים</span>
+    </div>
+    <div class="progress-bar"><div class="progress-fill" id="progress-fill"></div></div>
+  </div>
+
+  <!-- GRID -->
+  <div class="cl-grid">
+
+    <!-- STEP 1 -->
+    <div class="cl-card">
+      <div class="cl-card-head">
+        <div class="cl-icon">🗓️</div>
+        <div>
+          <div class="cl-card-title">שבוע לפני</div>
+          <div class="cl-card-who">HR / מנהל מארגן</div>
+        </div>
+      </div>
+      <ul class="cl-items">
+        <li class="cl-item" onclick="toggle(this)">
+          <div class="cl-box"><span class="cl-check">✓</span></div>
+          <div class="cl-text">רישום כל המשתתפים לחשבון Claude — <strong>Pro או Team</strong></div>
+        </li>
+        <li class="cl-item" onclick="toggle(this)">
+          <div class="cl-box"><span class="cl-check">✓</span></div>
+          <div class="cl-text">קבלת <strong>אישור IT</strong> לגישה ל-claude.ai מרשת החברה</div>
+        </li>
+        <li class="cl-item" onclick="toggle(this)">
+          <div class="cl-box"><span class="cl-check">✓</span></div>
+          <div class="cl-text">הזמנת חדר עם <strong>מקרן / מסך גדול</strong> ולוח כתיבה</div>
+        </li>
+        <li class="cl-item" onclick="toggle(this)">
+          <div class="cl-box"><span class="cl-check">✓</span></div>
+          <div class="cl-text">וידוא <strong>WiFi יציב</strong> לכל המשתתפים בחדר</div>
+        </li>
+        <li class="cl-item" onclick="toggle(this)">
+          <div class="cl-box"><span class="cl-check">✓</span></div>
+          <div class="cl-text">שליחת צ׳קליסט זה לכל המשתתפים</div>
+        </li>
+      </ul>
+    </div>
+
+    <!-- STEP 2 -->
+    <div class="cl-card">
+      <div class="cl-card-head">
+        <div class="cl-icon">💻</div>
+        <div>
+          <div class="cl-card-title">יום לפני</div>
+          <div class="cl-card-who">כל משתתף בנפרד</div>
+        </div>
+      </div>
+      <ul class="cl-items">
+        <li class="cl-item" onclick="toggle(this)">
+          <div class="cl-box"><span class="cl-check">✓</span></div>
+          <div class="cl-text">כניסה ל-<strong>claude.ai</strong> ווידוא שהחשבון פעיל ועובד</div>
+        </li>
+        <li class="cl-item" onclick="toggle(this)">
+          <div class="cl-box"><span class="cl-check">✓</span></div>
+          <div class="cl-text"><strong>Excel ו-PowerPoint</strong> מותקנים ועובדים על המחשב</div>
+        </li>
+        <li class="cl-item" onclick="toggle(this)">
+          <div class="cl-box"><span class="cl-check">✓</span></div>
+          <div class="cl-text">הורדת <strong>Claude Add-in</strong> ל-Excel ו-PowerPoint מ-Insert → Add-ins</div>
+        </li>
+        <li class="cl-item" onclick="toggle(this)">
+          <div class="cl-box"><span class="cl-check">✓</span></div>
+          <div class="cl-text">הכנת קובץ Excel אחד מהעבודה לתרגיל <strong>(מומלץ — לא חובה)</strong></div>
+        </li>
+        <li class="cl-item" onclick="toggle(this)">
+          <div class="cl-box"><span class="cl-check">✓</span></div>
+          <div class="cl-text">וידוא שהמחשב <strong>מחובר לחשמל</strong> — יום הדרכה ארוך</div>
+        </li>
+      </ul>
+    </div>
+
+    <!-- STEP 3 -->
+    <div class="cl-card">
+      <div class="cl-card-head">
+        <div class="cl-icon">🚀</div>
+        <div>
+          <div class="cl-card-title">ביום ההדרכה</div>
+          <div class="cl-card-who">כל משתתף</div>
+        </div>
+      </div>
+      <ul class="cl-items">
+        <li class="cl-item" onclick="toggle(this)">
+          <div class="cl-box"><span class="cl-check">✓</span></div>
+          <div class="cl-text">להגיע עם <strong>לפטופ / מחשב אישי</strong></div>
+        </li>
+        <li class="cl-item" onclick="toggle(this)">
+          <div class="cl-box"><span class="cl-check">✓</span></div>
+          <div class="cl-text">להגיע <strong>10 דקות לפני</strong> לוידוא התחברות</div>
+        </li>
+        <li class="cl-item" onclick="toggle(this)">
+          <div class="cl-box"><span class="cl-check">✓</span></div>
+          <div class="cl-text">לפתוח <strong>claude.ai</strong> ולהיכנס לחשבון</div>
+        </li>
+        <li class="cl-item" onclick="toggle(this)">
+          <div class="cl-box"><span class="cl-check">✓</span></div>
+          <div class="cl-text">להביא את קובץ ה-Excel שהכנתם לתרגיל</div>
+        </li>
+        <li class="cl-item" onclick="toggle(this)">
+          <div class="cl-box"><span class="cl-check">✓</span></div>
+          <div class="cl-text">להביא <strong>סקרנות</strong> — שאר הכלים כבר כאן ✦</div>
+        </li>
+      </ul>
+    </div>
+
+  </div>
+
+  <!-- TIP -->
+  <div class="tip-box">
+    <div style="font-size:1.2rem;flex-shrink:0;margin-top:2px;">⚠️</div>
+    <div class="tip-text"><strong>הדבר שהכי נפוץ שעוצר הדרכות:</strong> IT שחוסמת גישה ל-claude.ai ביום עצמו. חשוב לטפל בזה שבוע לפני — לא ביום ההדרכה. אם דרוש הסבר טכני לצורך האישור, רונן זמין לעזור.</div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="page-footer">
+    <div class="footer-brand">RONEN AMOS CPA · AI FINANCE TRANSFORMATION · 2025</div>
+    <div class="footer-contact">
+      <a href="mailto:ronenamos@gmail.com">ronenamos@gmail.com</a> ·
+      <a href="https://wa.me/972505500344" target="_blank">050-550-0344</a> ·
+      <a href="https://ronenamoscpa.co.il" target="_blank">ronenamoscpa.co.il</a>
+    </div>
+  </div>
+
+</div>
+
+<script>
+const TOTAL = 15;
+
+function toggle(item) {
+  const box = item.querySelector('.cl-box');
+  box.classList.toggle('checked');
+  item.classList.toggle('done');
+  updateProgress();
+}
+
+function updateProgress() {
+  const checked = document.querySelectorAll('.cl-box.checked').length;
+  const pct = Math.round((checked / TOTAL) * 100);
+  document.getElementById('progress-fill').style.width = pct + '%';
+  document.getElementById('progress-text').textContent = checked + ' / ' + TOTAL + ' סעיפים';
+}
+</script>
+</body>
+</html>
