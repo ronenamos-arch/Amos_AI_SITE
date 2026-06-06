@@ -1215,6 +1215,14 @@ function buildLearnMoreBlock(pageId) {
   const guides = MY_GUIDES[pageId] || [];
   const ctaCardsHtml = CTA_LINKS.map(renderCard).join('');
   let html = '<div class="link-section-title">למידע נוסף</div>';
+
+  // Add embedded video for Models and Artifacts sections
+  if (pageId === 'models') {
+    html += '<div style="margin-bottom: 28px; border-radius: var(--radius-lg); overflow: hidden; box-shadow: 0 8px 32px rgba(184,196,90,0.08);"><div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; background: #000;"><iframe style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;" src="https://www.youtube.com/embed/7Hla7UzgSd0" title="מודלים של Claude" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div></div>';
+  } else if (pageId === 'artifacts') {
+    html += '<div style="margin-bottom: 28px; border-radius: var(--radius-lg); overflow: hidden; box-shadow: 0 8px 32px rgba(184,196,90,0.08);"><div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; background: #000;"><iframe style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;" src="https://www.youtube.com/embed/QMETtbRYUEQ" title="Claude Artifacts" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div></div>';
+  }
+
   if (guides.length) {
     const guideCardsHtml = guides.map(renderCard).join('');
     html += '<div class="link-section-sub">המדריכים שלי בנושא</div>';
