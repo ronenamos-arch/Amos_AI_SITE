@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Claude לצוות הכספים — הדרכה ארגונית | רונן עמוס CPA</title>
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;700;800;900&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg: #0b0d10;
+  --surface: #12161a;
+  --surface2: #1a1f26;
+  --accent: #b8c45a;
+  --accent-strong: #d6e36a;
+  --accent-dim: rgba(184,196,90,0.12);
+  --accent-mid: rgba(184,196,90,0.25);
+  --text: #fafbfc;
+  --text-muted: #c2cad2;
+  --text-faint: #7a8694;
+  --border: rgba(255,255,255,0.07);
+  --border-strong: rgba(255,255,255,0.12);
+  --radius-sm: 10px;
+  --radius-md: 18px;
+  --radius-lg: 28px;
+  --font: Heebo, system-ui, sans-serif;
+  --mono: "IBM Plex Mono", monospace;
+}
+html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; font-size: 17px; }
+body {
+  font-family: var(--font);
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.7;
+  direction: rtl;
+}
+
+/* TOPBAR */
+.topbar {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(11,13,16,0.93);
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--border);
+  height: 56px;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 2rem;
+}
+.topbar-brand { font-family: var(--mono); font-size: 0.75rem; color: var(--accent); letter-spacing: 0.06em; }
+.topbar-nav { display: flex; gap: 1.4rem; }
+.topbar-nav a { color: var(--text-faint); font-size: 0.78rem; text-decoration: none; transition: color 0.2s; }
+.topbar-nav a:hover { color: var(--accent); }
+
+/* INNER */
+.inner { max-width: 960px; margin: 0 auto; padding: 0 2rem; }
+
+/* HERO */
+.hero { padding: 96px 2rem 72px; text-align: center; }
+.eyebrow {
+  display: inline-block;
+  font-family: var(--mono); font-size: 0.65rem;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--accent);
+  border: 1px solid rgba(184,196,90,0.3);
+  padding: 0.32rem 1rem; border-radius: 99px;
+  margin-bottom: 1.6rem;
+}
+.hero h1 { font-size: clamp(2rem, 5vw, 3.1rem); font-weight: 900; line-height: 1.15; margin-bottom: 1.2rem; }
+.hero h1 span { color: var(--accent); }
+.hero-desc { font-size: 1.08rem; color: var(--text-muted); max-width: 640px; margin: 0 auto 1.8rem; line-height: 1.75; }
+.hero-bullets { display: flex; flex-wrap: wrap; gap: 0.6rem; justify-content: center; margin-bottom: 2rem; }
+.pill {
+  display: flex; align-items: center; gap: 0.45rem;
+  font-size: 0.85rem; color: var(--text-muted);
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 99px; padding: 0.35rem 0.9rem;
+}
+.pill .dot { width: 6px; height: 6px; background: var(--accent); border-radius: 50%; flex-shrink: 0; }
+.btn-primary {
+  display: inline-block; background: var(--accent); color: #0b0d10;
+  font-weight: 800; font-size: 0.95rem;
+  padding: 0.8rem 2rem; border-radius: var(--radius-sm);
+  text-decoration: none; transition: background 0.2s, transform 0.2s;
+}
+.btn-primary:hover { background: var(--accent-strong); transform: translateY(-2px); }
+
+/* SECTION */
+.section { padding: 5rem 2rem; }
+.section-label {
+  font-family: var(--mono); font-size: 0.65rem; font-weight: 600;
+  color: var(--accent); letter-spacing: 0.18em; text-transform: uppercase;
+  margin-bottom: 0.75rem;
+}
+.section h2 { font-size: clamp(1.5rem, 3vw, 2.1rem); font-weight: 800; margin-bottom: 1rem; line-height: 1.25; }
+.section h2 span { color: var(--accent); }
+.section .lead { font-size: 1.05rem; color: var(--text-muted); margin-bottom: 2.5rem; max-width: 700px; line-height: 1.75; }
+.divider { border: none; border-top: 1px solid var(--border); margin: 0; }
+
+/* OPTIONS GRID */
+.options-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 1.4rem;
+  margin-bottom: 2rem;
+}
+.option-card {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--radius-md); overflow: hidden;
+  transition: border-color 0.2s, transform 0.22s, box-shadow 0.22s;
+  display: flex; flex-direction: column;
+}
+.option-card:hover { border-color: rgba(184,196,90,0.3); transform: translateY(-3px); box-shadow: 0 14px 40px rgba(0,0,0,0.3); }
+.option-card.recommended { border-color: var(--accent); }
+.option-header { padding: 1.8rem 1.8rem 1.4rem; }
+.option-tag {
+  font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--text-faint);
+  display: flex; align-items: center; gap: 0.5rem;
+  margin-bottom: 0.9rem;
+}
+.rec-badge {
+  background: var(--accent); color: #0b0d10;
+  font-size: 0.55rem; font-weight: 700; letter-spacing: 0.08em;
+  padding: 0.15rem 0.55rem; border-radius: 99px;
+}
+.option-title { font-size: 1.4rem; font-weight: 800; margin-bottom: 0.5rem; }
+.option-price {
+  font-family: var(--mono); font-size: 1.5rem; font-weight: 600;
+  color: var(--accent); margin-bottom: 0.9rem;
+}
+.option-price span { font-size: 0.78rem; color: var(--text-faint); font-weight: 400; margin-right: 0.3rem; }
+.option-desc { font-size: 0.9rem; color: var(--text-muted); line-height: 1.65; margin-bottom: 1.2rem; }
+
+/* TOGGLE BUTTON */
+.toggle-btn {
+  width: 100%; background: var(--accent-dim);
+  border: 1px solid rgba(184,196,90,0.2); border-radius: var(--radius-sm);
+  padding: 0.7rem 1rem;
+  font-family: var(--font); font-size: 0.88rem; font-weight: 600;
+  color: var(--accent); cursor: pointer;
+  display: flex; align-items: center; justify-content: space-between;
+  transition: background 0.2s;
+}
+.toggle-btn:hover { background: rgba(184,196,90,0.2); }
+.toggle-arrow { transition: transform 0.25s; font-size: 0.75rem; }
+.toggle-btn.open .toggle-arrow { transform: rotate(180deg); }
+
+/* AGENDA CONTENT */
+.agenda-content {
+  display: none; padding: 1.4rem 1.8rem 1.8rem;
+  border-top: 1px solid var(--border);
+  background: var(--surface2);
+}
+.agenda-content.open { display: block; }
+.agenda-block { margin-bottom: 1.4rem; }
+.agenda-block:last-child { margin-bottom: 0; }
+.agenda-block-title {
+  font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.12em;
+  text-transform: uppercase; color: var(--accent);
+  margin-bottom: 0.7rem; font-weight: 600;
+  display: flex; align-items: center; gap: 0.5rem;
+}
+.agenda-block-title::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+.agenda-list { list-style: none; }
+.agenda-list li {
+  display: flex; align-items: flex-start; gap: 0.6rem;
+  padding: 0.4rem 0; font-size: 0.88rem; color: var(--text-muted);
+  border-bottom: 1px solid rgba(255,255,255,0.04); line-height: 1.55;
+}
+.agenda-list li:last-child { border-bottom: none; }
+.agenda-list li::before { content: '◆'; color: var(--accent); font-size: 0.45rem; margin-top: 7px; flex-shrink: 0; }
+.option-footer { padding: 1.4rem 1.8rem; margin-top: auto; }
+
+/* WHAT YOU GET */
+.get-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem;
+}
+.get-card {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--radius-md); padding: 1.6rem;
+  border-right: 3px solid var(--accent);
+}
+.get-card-title { font-size: 1rem; font-weight: 700; color: var(--text); margin-bottom: 1rem; }
+.get-list { list-style: none; }
+.get-list li {
+  display: flex; align-items: flex-start; gap: 0.6rem;
+  padding: 0.45rem 0; font-size: 0.88rem; color: var(--text-muted);
+  border-bottom: 1px solid var(--border);
+}
+.get-list li:last-child { border-bottom: none; }
+.get-list li::before { content: '✦'; color: var(--accent); font-size: 0.65rem; flex-shrink: 0; margin-top: 3px; }
+
+/* WHO */
+.who-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.2rem; }
+.who-card {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--radius-md); padding: 1.5rem;
+  transition: border-color 0.2s, transform 0.2s;
+}
+.who-card:hover { border-color: rgba(184,196,90,0.3); transform: translateY(-3px); }
+.who-icon { font-size: 1.8rem; margin-bottom: 0.8rem; }
+.who-title { font-size: 0.95rem; font-weight: 700; margin-bottom: 0.5rem; }
+.who-desc { font-size: 0.85rem; color: var(--text-muted); line-height: 1.6; }
+
+/* IMAGES */
+.img-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.2rem; }
+.img-placeholder {
+  background: var(--surface2);
+  border: 2px dashed rgba(184,196,90,0.25);
+  border-radius: var(--radius-md);
+  padding: 2.5rem 1.5rem; text-align: center;
+  transition: border-color 0.2s;
+}
+.img-placeholder:hover { border-color: rgba(184,196,90,0.5); }
+.img-ph-icon { font-size: 2.2rem; margin-bottom: 0.6rem; opacity: 0.5; }
+.img-ph-label { font-family: var(--mono); font-size: 0.6rem; color: var(--text-faint); letter-spacing: 0.1em; margin-bottom: 0.4rem; }
+.img-ph-desc { font-size: 0.82rem; color: var(--text-muted); line-height: 1.5; }
+
+/* FAQ */
+.faq-item { border-bottom: 1px solid var(--border); }
+.faq-btn {
+  width: 100%; background: none; border: none;
+  padding: 1.1rem 0;
+  display: flex; align-items: center; justify-content: space-between;
+  font-family: var(--font); font-size: 0.95rem; font-weight: 700;
+  color: var(--text); cursor: pointer; text-align: right;
+  transition: color 0.2s;
+}
+.faq-btn:hover { color: var(--accent); }
+.faq-arrow { color: var(--accent); font-size: 0.75rem; transition: transform 0.25s; flex-shrink: 0; margin-right: 1rem; }
+.faq-btn.open { color: var(--accent); }
+.faq-btn.open .faq-arrow { transform: rotate(180deg); }
+.faq-answer {
+  display: none; padding: 0 0 1.1rem;
+  font-size: 0.9rem; color: var(--text-muted); line-height: 1.75;
+}
+.faq-answer.open { display: block; }
+
+/* CTA */
+.cta-section {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--radius-lg); padding: 3.5rem 2rem;
+  text-align: center; margin: 0 2rem;
+  position: relative; overflow: hidden;
+}
+.cta-section::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+}
+.cta-section h2 { font-size: 1.8rem; font-weight: 800; margin-bottom: 0.8rem; }
+.cta-section p { color: var(--text-muted); margin-bottom: 0.4rem; font-size: 0.95rem; }
+.cta-section .cta-sub { font-size: 0.82rem; color: var(--text-faint); margin-bottom: 2rem; }
+.cta-btns { display: flex; flex-wrap: wrap; gap: 0.8rem; justify-content: center; }
+.cta-btn {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  padding: 0.75rem 1.5rem; border-radius: var(--radius-sm);
+  text-decoration: none; font-size: 0.9rem; font-weight: 700;
+  transition: all 0.2s;
+}
+.cta-btn.primary { background: var(--accent); color: #0b0d10; }
+.cta-btn.primary:hover { background: var(--accent-strong); transform: translateY(-2px); }
+.cta-btn.secondary {
+  background: var(--surface2); border: 1px solid var(--border-strong);
+  color: var(--text);
+}
+.cta-btn.secondary:hover { border-color: var(--accent); color: var(--accent); }
+
+footer {
+  border-top: 1px solid var(--border); padding: 2rem;
+  text-align: center; font-family: var(--mono);
+  font-size: 0.7rem; color: var(--text-faint);
+  margin-top: 4rem;
+}
+
+@media (max-width: 760px) {
+  .options-grid, .get-grid, .who-grid, .img-grid { grid-template-columns: 1fr; }
+  .topbar-nav { display: none; }
+  .hero { padding: 72px 1rem 52px; }
+  .section { padding: 3.5rem 1rem; }
+  .cta-section { margin: 0 1rem; }
+}
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-brand">RONEN AMOS // AI FINANCE TRANSFORMATION</div>
+  <nav class="topbar-nav">
+    <a href="#options">אפשרויות</a>
+    <a href="#get">מה לוקחים</a>
+    <a href="#who">למי מתאים</a>
+    <a href="#faq">שאלות</a>
+    <a href="#cta">צור קשר</a>
+  </nav>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <span class="eyebrow">§ CORPORATE TRAINING · AI FINANCE</span>
+  <h1>Claude לצוות הכספים שלכם —<br><span>הדרכה מעשית שמשנה את דרך העבודה</span></h1>
+  <p class="hero-desc">צוותי FP&A, חשבים ומנהלי כספים שעובדים עם Claude עושים יותר, מהר יותר. ההדרכה הזו לא עוסקת בתיאוריה — יוצאים ממנה עם כלים, Skills מוכנים, ויכולת עצמאית לעבוד עם Claude בפועל.</p>
+  <div class="hero-bullets">
+    <span class="pill"><span class="dot"></span>עד 15 משתתפים</span>
+    <span class="pill"><span class="dot"></span>יום אחד או יומיים</span>
+    <span class="pill"><span class="dot"></span>Skills ותבניות — לוקחים הביתה</span>
+    <span class="pill"><span class="dot"></span>הדרכה באתר החברה</span>
+  </div>
+  <a href="#options" class="btn-primary">ראו את האפשרויות ↓</a>
+</section>
+
+<hr class="divider">
+
+<!-- OPTIONS -->
+<section class="section inner" id="options">
+  <div class="section-label">§ TRAINING OPTIONS</div>
+  <h2>בחרו את האפשרות <span>שמתאימה לכם</span></h2>
+  <p class="lead">שתי אפשרויות הדרכה, שתי רמות עומק. בשתיהן — יוצאים עם יכולת אמיתית לעבוד עם Claude למחרת.</p>
+
+  <div class="options-grid">
+
+    <!-- OPTION A -->
+    <div class="option-card">
+      <div class="option-header">
+        <div class="option-tag">OPTION A</div>
+        <div class="option-title">יום הדרכה מרוכז</div>
+        <div class="option-price">₪6,000 <span>לקבוצה עד 15 איש</span></div>
+        <div class="option-desc">כיסוי מקיף של סביבת Claude וכלי העבודה המרכזיים. מתאים לצוותים שרוצים להתחיל לעבוד מיידית — בלי להשקיע יומיים.</div>
+        <button class="toggle-btn" onclick="toggleAgenda('a')">
+          <span>ראו את האג׳נדה המלאה</span>
+          <span class="toggle-arrow">▼</span>
+        </button>
+      </div>
+      <div class="agenda-content" id="agenda-a">
+        <div class="agenda-block">
+          <div class="agenda-block-title">בוקר — סביבת העבודה של Claude</div>
+          <ul class="agenda-list">
+            <li>המודלים של Claude — Haiku, Sonnet, Opus: מה מתאים לאיזו משימה ומתי</li>
+            <li>Artifacts — בניית תוצרים חיים ישירות מה-chat: דשבורדים, טבלאות, ניתוחים</li>
+            <li>Skills — שמירת דרך העבודה של הצוות פעם אחת לתמיד</li>
+            <li>Projects — סביבת עבודה ייעודית לכל תהליך: סגירת חודש, דירקטוריון, תקציב</li>
+          </ul>
+        </div>
+        <div class="agenda-block">
+          <div class="agenda-block-title">אחר צהריים — Claude בכלים שלכם</div>
+          <ul class="agenda-list">
+            <li>Claude ב-Excel: ניתוח סטיות, מודלים פיננסיים, נוסחאות מורכבות — כולל תרגיל חי</li>
+            <li>Claude ב-PowerPoint: ממצגת גנרית למצגת ממותגת — בפקודה אחת — כולל תרגיל חי</li>
+            <li>סיום: "מה עושים מחר בבוקר" — 3 פעולות קונקרטיות לשבוע הראשון</li>
+          </ul>
+        </div>
+      </div>
+      <div class="option-footer">
+        <a href="#cta" class="btn-primary" style="display:block;text-align:center;">בואו נדבר ←</a>
+      </div>
+    </div>
+
+    <!-- OPTION B -->
+    <div class="option-card recommended">
+      <div class="option-header">
+        <div class="option-tag">OPTION B <span class="rec-badge">RECOMMENDED</span></div>
+        <div class="option-title">שני ימי הדרכה מלאים</div>
+        <div class="option-price">₪10,000 <span>לקבוצה עד 15 איש</span></div>
+        <div class="option-desc">תוכנית מלאה לשליטה מעמיקה ב-Claude. מתאים לצוותים שרוצים לצאת עם יכולת עצמאית מלאה — ולא להזדקק להדרכה נוספת.</div>
+        <button class="toggle-btn" onclick="toggleAgenda('b')">
+          <span>ראו את האג׳נדה המלאה</span>
+          <span class="toggle-arrow">▼</span>
+        </button>
+      </div>
+      <div class="agenda-content" id="agenda-b">
+        <div class="agenda-block">
+          <div class="agenda-block-title">יום 1 — סביבת העבודה של Claude</div>
+          <ul class="agenda-list">
+            <li>המודלים של Claude — מה מתאים לאיזו משימה: ניתוח, כתיבה, קוד, אסטרטגיה</li>
+            <li>Artifacts ו-Live Dashboards — בונים דשבורד פיננסי חי בחדר</li>
+            <li>Skills — בונים יחד Skill מותאם לתהליכי המחלקה</li>
+            <li>Projects — מקימים Project חי לתהליך אמיתי של הצוות</li>
+            <li>תרגיל סיום יום: כל משתתף יוצא עם Project ו-Skill פעילים משלו</li>
+          </ul>
+        </div>
+        <div class="agenda-block">
+          <div class="agenda-block-title">יום 2 — Claude בכלים שלכם</div>
+          <ul class="agenda-list">
+            <li>Claude ב-Excel לעומק: schedules, ניתוח סטיות, commentary אוטומטי — כולל תרגיל</li>
+            <li>Claude ב-PowerPoint: מהדאטה למצגת ממותגת בפקודה אחת — כולל תרגיל</li>
+            <li>Connectors — חיבור ל-Google Drive ומערכות קיימות</li>
+            <li>סיום: תוכנית יישום ל-30 יום הראשונים — מותאמת לצוות</li>
+          </ul>
+        </div>
+      </div>
+      <div class="option-footer">
+        <a href="#cta" class="btn-primary" style="display:block;text-align:center;">בואו נדבר ←</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- WHAT YOU GET -->
+<section class="section inner" id="get">
+  <div class="section-label">§ WHAT YOU GET</div>
+  <h2>מה <span>לוקחים הביתה</span></h2>
+  <p class="lead">לא רק ידע — גם כלים שאפשר להשתמש בהם למחרת.</p>
+
+  <div class="get-grid">
+    <div class="get-card">
+      <div class="get-card-title">אפשרות א׳ — יום אחד</div>
+      <ul class="get-list">
+        <li>גישה ל-Claude Playbook המלא — מדריך reference לכל פיצ׳ר</li>
+        <li>מדריך Claude ב-Excel — step-by-step לעבודה עם הדאטה שלכם</li>
+        <li>מדריך Claude ב-PowerPoint — מהדאטה למצגת ממותגת</li>
+        <li>Skills מוכנים לשימוש מיידי</li>
+        <li>הקלטות הוובינרים לחזרה בקצב שלכם</li>
+      </ul>
+    </div>
+    <div class="get-card">
+      <div class="get-card-title">אפשרות ב׳ — יומיים · כולל הכל מא׳ ובנוסף:</div>
+      <ul class="get-list">
+        <li>Skills מותאמים לתהליכי המחלקה שלכם — נבנים יחד בהדרכה</li>
+        <li>Project templates מוכנים לעבודה שוטפת</li>
+        <li>30 יום גישה לקבוצת WhatsApp עם רונן לשאלות</li>
+        <li>תוכנית יישום ל-30 יום הראשונים</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- WHO -->
+<section class="section inner" id="who">
+  <div class="section-label">§ WHO IT'S FOR</div>
+  <h2>למי <span>ההדרכה מתאימה</span></h2>
+  <p class="lead">לכל מי שעובד בפיננסים ורוצה לשלב AI בעבודה השוטפת — גם אם לא נגע ב-Claude מעולם.</p>
+
+  <div class="who-grid">
+    <div class="who-card">
+      <div class="who-icon">📊</div>
+      <div class="who-title">מחלקות FP&A</div>
+      <div class="who-desc">ניתוח סטיות, בניית מודלים פיננסיים, commentary אוטומטי, דוחות חודשיים לדירקטוריון.</div>
+    </div>
+    <div class="who-card">
+      <div class="who-icon">🧾</div>
+      <div class="who-title">חשבים ומנהלי כספים</div>
+      <div class="who-desc">סגירת חודש מהירה יותר, דוחות ללקוחות, ניהול תהליכים חוזרים — פחות ידני, יותר חכם.</div>
+    </div>
+    <div class="who-card">
+      <div class="who-icon">💡</div>
+      <div class="who-title">צוותי כספים בהייטק</div>
+      <div class="who-desc">שילוב AI בתהליכי עבודה יומיומיים — Excel, PowerPoint, דוחות לדירקטוריון ולמשקיעים.</div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- IMAGES -->
+<section class="section inner" id="examples">
+  <div class="section-label">§ EXAMPLES</div>
+  <h2>דוגמאות <span>לתוצרים</span></h2>
+  <p class="lead">כמה דוגמאות לתוצרים שהצוות שלכם יוכל לייצר עצמאית אחרי ההדרכה.</p>
+
+  <style>
+    .media-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1.2rem; }
+    .media-item { display:flex; flex-direction:column; gap:0.6rem; }
+    .media-label { display:flex; align-items:center; gap:0.5rem; font-size:0.82rem; color:var(--text-muted); }
+    .media-tag { font-family:var(--mono); font-size:0.6rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--accent); background:var(--accent-dim); border:1px solid rgba(184,196,90,0.2); border-radius:99px; padding:0.15rem 0.55rem; flex-shrink:0; }
+    .video-wrap { position:relative; padding-bottom:56.25%; border-radius:var(--radius-md); overflow:hidden; background:var(--surface2); border:1px solid var(--border); }
+    .video-wrap iframe { position:absolute; top:0; right:0; width:100%; height:100%; border:none; }
+    .media-img { width:100%; border-radius:var(--radius-md); border:1px solid var(--border); object-fit:cover; display:block; transition:transform 0.2s; }
+    .media-img:hover { transform:scale(1.02); }
+    .img-err { background:var(--surface2); border:1px dashed rgba(184,196,90,0.25); border-radius:var(--radius-md); padding:2rem; text-align:center; font-size:0.82rem; color:var(--text-faint); }
+    @media(max-width:760px){ .media-grid{ grid-template-columns:1fr; } }
+  </style>
+
+  <div class="media-grid">
+
+    <div class="media-item">
+      <div class="media-label"><span class="media-tag">▶ VIDEO</span>דוח רווח והפסד — סקירת CFO</div>
+      <div class="video-wrap">
+        <iframe src="https://www.youtube.com/embed/UvbfAEV26z8"
+          title="דוח רווח והפסד גולמי לסקירת CFO"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen></iframe>
+      </div>
+    </div>
+
+    <div class="media-item">
+      <div class="media-label"><span class="media-tag">📊 EXAMPLE</span>ניתוח לפי יחידה עסקית</div>
+      <img src="media/Business Unit.jpg" alt="Business Unit Analysis" class="media-img" onerror="this.outerHTML='<div class=img-err>⚠️ לא ניתן לטעון — ודא שהקבצים בתיקיית media קיימים</div>'">
+    </div>
+
+    <div class="media-item">
+      <div class="media-label"><span class="media-tag">🖥️ EXAMPLE</span>מ-Excel לשקופיות — בפקודה אחת</div>
+      <img src="media/Revenue growth.jpg" alt="Excel to PowerPoint" class="media-img" onerror="this.outerHTML='<div class=img-err>⚠️ לא ניתן לטעון — ודא שהקבצים בתיקיית media קיימים</div>'">
+    </div>
+
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- FAQ -->
+<section class="section inner" id="faq">
+  <div class="section-label">§ FAQ</div>
+  <h2>שאלות <span>נפוצות</span></h2>
+  <p class="lead">כל מה שכדאי לדעת לפני שמתאמים.</p>
+
+  <div class="faq-item">
+    <button class="faq-btn" onclick="toggleFaq(this)">
+      מה צריך להכין לפני ההדרכה?
+      <span class="faq-arrow">▼</span>
+    </button>
+    <div class="faq-answer">כל משתתף צריך חשבון Claude פעיל — מומלץ Pro או Team. נשלח אליכם checklist מסודר שבוע לפני יום ההדרכה, כולל הגדרת חשבונות ומה להביא. נדאג שהכל מוכן לפני שמגיעים.</div>
+  </div>
+
+  <div class="faq-item">
+    <button class="faq-btn" onclick="toggleFaq(this)">
+      האם ההדרכה מתאימה למי שמעולם לא עבד עם Claude?
+      <span class="faq-arrow">▼</span>
+    </button>
+    <div class="faq-answer">בדיוק לשם כך היא נבנתה. מתחילים מאפס, מסבירים כל מושג, ומתקדמים בקצב שמתאים לצוות. אין צורך בידע קודם — רק בסקרנות ורצון ללמוד.</div>
+  </div>
+
+  <div class="faq-item">
+    <button class="faq-btn" onclick="toggleFaq(this)">
+      כמה משתתפים אפשר להביא?
+      <span class="faq-arrow">▼</span>
+    </button>
+    <div class="faq-answer">עד 15 משתתפים במחיר הקבוצתי. מעבר ל-15 — נדון במחיר פר ראש. ההדרכה מתקיימת באתר החברה שלכם.</div>
+  </div>
+
+  <div class="faq-item">
+    <button class="faq-btn" onclick="toggleFaq(this)">
+      האם אפשר להתאים את התוכן לצרכי המחלקה שלנו?
+      <span class="faq-arrow">▼</span>
+    </button>
+    <div class="faq-answer">כן. לפני כל הדרכה יש שיחת תיאום קצרה כדי להבין את התהליכים הרלוונטיים — ומתאימים את הדגשים בהתאם. אם יש תהליך ספציפי שחשוב לכם לכסות, נכניס אותו.</div>
+  </div>
+
+  <div class="faq-item">
+    <button class="faq-btn" onclick="toggleFaq(this)">
+      מה קורה אחרי ההדרכה?
+      <span class="faq-arrow">▼</span>
+    </button>
+    <div class="faq-answer">כל המשתתפים מקבלים את חומרי ההדרכה וגישה לוובינרים לחזרה. באפשרות ב׳ — 30 יום גישה לקבוצת WhatsApp לשאלות. יש גם אפשרות ליום המשך מתקדם, בניית Skills מותאמים למחלקה, ותמיכה שוטפת — נדון בזה בסוף ההדרכה.</div>
+  </div>
+
+  <div class="faq-item">
+    <button class="faq-btn" onclick="toggleFaq(this)">
+      האם אפשר לבקש הדרכה ליום אחד ולהמשיך ליום שני בתאריך נפרד?
+      <span class="faq-arrow">▼</span>
+    </button>
+    <div class="faq-answer">כן, בתיאום מראש. אפשר לפצל את שני הימים לתאריכים שונים לפי נוחות הצוות.</div>
+  </div>
+</section>
+
+<hr class="divider" style="margin-bottom: 4rem;">
+
+<!-- CTA -->
+<div class="cta-section" id="cta">
+  <h2>מוכנים להתחיל?</h2>
+  <p>השאירו פרטים ונחזור אליכם תוך יום עסקים.</p>
+  <p class="cta-sub">רונן עמוס CPA · ronenamos@gmail.com · ronenamoscpa.co.il</p>
+  <div class="cta-btns">
+    <a class="cta-btn primary" href="mailto:ronenamos@gmail.com?subject=הדרכת Claude לצוות הכספים">📧 שלחו מייל</a>
+    <a class="cta-btn secondary" href="https://wa.me/972505500344?text=היי רונן, אני מעוניין בהדרכת Claude לצוות הכספים שלנו" target="_blank">💬 WhatsApp</a>
+    <a class="cta-btn secondary" href="https://ronenamoscpa.co.il" target="_blank">🌐 האתר שלי</a>
+    <a class="cta-btn secondary" href="checklist.html" target="_blank">📋 צ׳קליסט הכנה למשתתפים</a>
+  </div>
+</div>
+
+<footer>
+  <span>© 2025 רונן עמוס CPA | AI Finance Transformation</span><br>
+  <span>ronenamoscpa.co.il · ronenamos@gmail.com · +972-50-550-0344</span>
+</footer>
+
+<script>
+function toggleAgenda(id) {
+  const content = document.getElementById('agenda-' + id);
+  const btn = content.previousElementSibling;
+  const isOpen = content.classList.contains('open');
+  content.classList.toggle('open', !isOpen);
+  btn.classList.toggle('open', !isOpen);
+}
+
+function toggleFaq(btn) {
+  const answer = btn.nextElementSibling;
+  const isOpen = answer.classList.contains('open');
+  answer.classList.toggle('open', !isOpen);
+  btn.classList.toggle('open', !isOpen);
+}
+</script>
+</body>
+</html>
