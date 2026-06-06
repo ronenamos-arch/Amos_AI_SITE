@@ -18,7 +18,7 @@
 
 **קרא תחילה את 2 הפוסטים האחרונים** כטמפלט:
 - `content/posts/agent-skills-financial-audit.md`
-- `content/posts/netsuite-claude-ai-connector-2026.md`
+- `content/posts/מדריך-claude-לסמנכלי-כספים-90-יום.md`
 
 **צור slug מהכותרת:**
 - עברית בלבד → slug עברי (לדוגמה: `ניקוי-נתונים-עם-ai`)

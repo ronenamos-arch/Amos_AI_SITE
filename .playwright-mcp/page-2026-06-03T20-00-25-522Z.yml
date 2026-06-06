@@ -1,0 +1,304 @@
+- generic [active] [ref=e1]:
+  - banner [ref=e2]:
+    - generic [ref=e4]:
+      - link "רונן עמוס רו\"ח | יועץ טכנולוגי" [ref=e5] [cursor=pointer]:
+        - /url: /
+        - generic [ref=e6]: רונן עמוס
+        - generic [ref=e7]: רו"ח | יועץ טכנולוגי
+      - navigation [ref=e8]:
+        - link "בית" [ref=e9] [cursor=pointer]:
+          - /url: /
+        - link "אודות" [ref=e10] [cursor=pointer]:
+          - /url: /about
+        - link "שירותים" [ref=e11] [cursor=pointer]:
+          - /url: /services
+        - link "הכשרות" [ref=e12] [cursor=pointer]:
+          - /url: /training
+        - link "קורסים" [ref=e13] [cursor=pointer]:
+          - /url: /courses
+        - link "מנוי פרימיום" [ref=e14] [cursor=pointer]:
+          - /url: /pricing
+        - link "Skill Vault" [ref=e15] [cursor=pointer]:
+          - /url: /skill-vault
+        - link "מדריכים" [ref=e16] [cursor=pointer]:
+          - /url: /guides
+        - link "כלים" [ref=e17] [cursor=pointer]:
+          - /url: /tools
+        - link "בלוג" [ref=e18] [cursor=pointer]:
+          - /url: /blog
+        - link "צור קשר" [ref=e19] [cursor=pointer]:
+          - /url: /contact
+        - link "התחבר" [ref=e21] [cursor=pointer]:
+          - /url: /login
+  - main [ref=e22]:
+    - article [ref=e24]:
+      - generic [ref=e25]:
+        - heading "איך מחלקת הכספים של Anthropic חסכה 20 שעות שבועיות עם Claude" [level=1] [ref=e26]
+        - generic [ref=e27]:
+          - generic [ref=e28]: מאת רונן עמוס, רו"ח
+          - time [ref=e29]: 2 ביוני 2026
+        - paragraph [ref=e30]: Alice Fong, אנליסטית פיננסית ב-Anthropic, חושפת איך Claude שומר על עקביות הנרטיב בדוחות הדירקטוריון, מייצר טיוטות ראשוניות לסקירות חודשיות, ומאבחן מודלים פיננסיים — וחוסך לה 10–20 שעות בשבוע.
+      - generic [ref=e31]:
+        - paragraph [ref=e32]:
+          - img "מחלקת כספים עובדת עם Claude AI" [ref=e33]
+        - paragraph [ref=e34]: "בעבודה פיננסית, המשימה האמיתית שלכם היא לספר את הסיפור מאחורי המספרים: להסביר למה מדד מפתח השתנה, לקשר בין תוצאות לאסטרטגיה, ולהכין נרטיב שהדירקטוריון מבין. אבל בפועל? רוב הזמן עובר על לוודא שהמספרים נכונים — לקרוא את הפרזנטציה בפעם הרביעית אחרי שהנתונים התרעננו שוב."
+        - paragraph [ref=e35]: Alice Fong, מצוות הפיננסים והאסטרטגיה של Anthropic, תיארה לאחרונה איך שינתה את שגרת העבודה שלה עם Claude. הממצאים רלוונטיים לכל CFO, בקר וסמנכ"ל כספים שמוצא את עצמו שקוע בבדיקות עקביות במקום בניתוח אמיתי.
+        - separator [ref=e36]
+        - 'heading "הבעיה שכולם מכירים: הנרטיב שמתפרק עם כל רענון" [level=2] [ref=e37]'
+        - paragraph [ref=e38]: "דמיינו מצגת לדירקטוריון שעובדת בשיתוף של כמה אנשים. כל אחד מעדכן את השקפים שלו, המספרים מתרעננים עד הבוקר שהיא יוצאת — ועכשיו צריך לוודא: האם הפירוש בשקף 4 עדיין מתיישב עם הנתון בשקף 17? האם מישהו הכניס מדד בלי להגדיר אותו? האם הסיפור עדיין עקבי מהתחלה ועד הסוף?"
+        - paragraph [ref=e39]: "Alice מנהלת בדיוק את זה ברבעון: ה-deck של ה-CFO לדירקטוריון. לפני Claude, היא הייתה צריכה לקרוא את כל המצגת מחדש עם כל רענון נתונים. עכשיו:"
+        - blockquote [ref=e40]:
+          - paragraph [ref=e41]: "\"Claude עושה את כל זה בשבילי. הוא שומר על שכבת העקביות מתחת לעבודה, כדי שהזמן שלי ילך לנרטיב שמעל.\""
+        - separator [ref=e42]
+        - heading "3 תהליכי עבודה שבהם Claude שינה את כל הכללים" [level=2] [ref=e43]
+        - heading "1. מצגת הדירקטוריון — רבעוני" [level=3] [ref=e44]
+        - paragraph [ref=e45]: "Alice מעלה את הקובץ ל-Claude Cowork ומבקשת ממנו לוודא שכל מספר וטענה מתיישבים עם מקור נתונים יחיד. היא גם מבקשת ממנו לקרוא את הנרטיב כמו שחבר דירקטוריון יקרא אותו: לסמן סתירות, להצביע על הנחות שהקורא לא מכיר."
+        - paragraph [ref=e46]:
+          - text: Claude תופס דברים שהיא הייתה מפספסת — וחשוב מכך, הוא עושה את זה
+          - strong [ref=e47]: בכל פעם שהמספרים זזים
+          - text: ", לא רק פעם אחת."
+        - heading "2. סקירה חודשית — ניתוח סטיות" [level=3] [ref=e48]
+        - paragraph [ref=e49]: "מסמך Google עם טאב לכל חודש — ניתוח סטיות מול תחזית. כשמגיע הזמן לכתוב את החודש, היא מעתיקה לתוך המסמך את הטבלה הפיננסית הרלוונטית, מקשרת הקשר תומך, ומבקשת מ-Claude Cowork לכתוב טיוטה ראשונה בסגנון הקבוע:"
+        - paragraph [ref=e50]:
+          - emphasis [ref=e51]: "\"ההכנסות עמדו על A לעומת B, סטייה של C%, מונעת על ידי D.\""
+        - paragraph [ref=e52]:
+          - text: היא עורכת מכאן.
+          - strong [ref=e53]: עקביות בסגנון
+          - text: — חודש אחרי חודש — חשובה לא פחות מדיוק המספרים.
+        - heading "3. אבחון מודלים פיננסיים — לפי צורך" [level=3] [ref=e54]
+        - paragraph [ref=e55]: כשפותחים מודל שמישהו אחר בנה, Claude for Excel יכול לאבחן אותו לפני שמשקיעים שעות בהבנתו. הוא עוקב אחרי הפניות בין טאבים, מוצא את שורש הבעיה כשמאזן לא מסתדר, ומסכם את מנועי המפתח של המודל.
+        - separator [ref=e56]
+        - 'heading "מה גורם לזה לעבוד: זיכרון ההקשר" [level=2] [ref=e57]'
+        - paragraph [ref=e58]:
+          - text: הכלי שמאפשר את כל זה הוא
+          - strong [ref=e59]: project memory
+          - text: — Claude שומר הקשר לאורך זמן. Alice מוסיפה מסמכים חשובים לזיכרון הפרויקט, ומייד שהתקבלה החלטה בשרשור ארוך היא מבקשת מ-Claude לחלץ את המסקנה ואת ההנמקה.
+        - paragraph [ref=e60]:
+          - text: היא גם מחזיקה
+          - strong [ref=e61]: פרויקטים נפרדים
+          - text: לקהלים שונים — אחד לסקירה החודשית, אחד ל-deck של הדירקטוריון. הטון והמוסכמות שונים, ולכן גם הזיכרון שונה.
+        - separator [ref=e62]
+        - heading "מה עושה שאר מחלקת הכספים של Anthropic?" [level=2] [ref=e63]
+        - table [ref=e64]:
+          - rowgroup [ref=e65]:
+            - row "תחום שימוש ב-Claude" [ref=e66]:
+              - columnheader "תחום" [ref=e67]
+              - columnheader "שימוש ב-Claude" [ref=e68]
+          - rowgroup [ref=e69]:
+            - row "פיננסים ואסטרטגיה דשבורדי תחזיות ולוחות נתונים — ישירות מפרומפט, ללא SQL" [ref=e70]:
+              - cell "פיננסים ואסטרטגיה" [ref=e71]
+              - cell "דשבורדי תחזיות ולוחות נתונים — ישירות מפרומפט, ללא SQL" [ref=e72]
+            - row "חשבונאות התאמות בנק ו-GL, ניתוח סטיות על 3 דוחות כספיים" [ref=e73]:
+              - cell "חשבונאות" [ref=e74]
+              - cell "התאמות בנק ו-GL, ניתוח סטיות על 3 דוחות כספיים" [ref=e75]
+            - row "פיתוח עסקי סינון ומיון עסקאות M&A — 3-4 יעדים ביום" [ref=e76]:
+              - cell "פיתוח עסקי" [ref=e77]
+              - cell "סינון ומיון עסקאות M&A — 3-4 יעדים ביום" [ref=e78]
+            - row "מס ואוצר מענה על שאלות מיסוי עם ציטוטים ממקורות ראשוניים" [ref=e79]:
+              - cell "מס ואוצר" [ref=e80]
+              - cell "מענה על שאלות מיסוי עם ציטוטים ממקורות ראשוניים" [ref=e81]
+        - separator [ref=e82]
+        - heading "3 עצות ליישום מיידי" [level=2] [ref=e83]
+        - paragraph [ref=e84]:
+          - strong [ref=e85]: "1. התחילו פשוט:"
+          - text: בקשו מ-Claude לקרוא מסמך ולסכם אותו. אחרי שזה עובד — הרחיבו.
+        - paragraph [ref=e86]:
+          - strong [ref=e87]: "2. השקיעו בתהליכים חוזרים:"
+          - text: ה-ROI הגדול ביותר הוא על עבודה שחוזרת — סקירות חודשיות, דוחות דירקטוריון. הזיכרון מצטבר עם כל מחזור.
+        - paragraph [ref=e88]:
+          - strong [ref=e89]: "3. לא צריך מחסנית מורכבת:"
+          - text: Alice עובדת עם Claude Cowork, Claude for Excel, ו-Google Workspace Connector. זה הכל.
+        - blockquote [ref=e90]:
+          - paragraph [ref=e91]: "\"עם Claude בלולאה, אני מצליחה לעמוד בקצב השינויים מתחת לעבודה. אני מגיעה לתובנות מהר יותר, עם פחות הפתעות — ויכולה להקדיש יותר זמן לניסוח ולניתוח צופה פני עתיד.\""
+        - separator [ref=e92]
+        - heading "מה הצעד הבא שלכם?" [level=2] [ref=e93]
+        - paragraph [ref=e94]:
+          - strong [ref=e95]: "אפשרות 1:"
+          - link "הצטרפו לקורס AI Finance Mastery" [ref=e96] [cursor=pointer]:
+            - /url: https://www.ronenamoscpa.co.il/courses/ai-mastery
+          - text: והתחילו ליישם AI במחלקת הכספים שלכם.
+        - paragraph [ref=e97]:
+          - strong [ref=e98]: "אפשרות 2:"
+          - link "Mastering NotebookLM — קורס מעשי לאנשי פיננסים" [ref=e99] [cursor=pointer]:
+            - /url: https://www.ronenamoscpa.co.il/courses/notebook-master
+          - text: — כלי ה-AI שמארגן את הידע שלכם.
+        - paragraph [ref=e100]:
+          - strong [ref=e101]: "אפשרות 3:"
+          - link "הזמינו אותי להרצאה או סדנה מעשית" [ref=e102] [cursor=pointer]:
+            - /url: https://www.ronenamoscpa.co.il/contact
+          - text: לצוות שלכם בנושא שילוב AI ו-ERP.
+      - generic [ref=e103]:
+        - generic [ref=e104]: "שתף:"
+        - link "שתף ב-LinkedIn" [ref=e105] [cursor=pointer]:
+          - /url: https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fwww.ronenamoscpa.co.il%2Fblog%2Fclaude-finance-narrative
+          - img [ref=e106]
+          - text: LinkedIn
+        - link "שתף ב-Facebook" [ref=e108] [cursor=pointer]:
+          - /url: https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fwww.ronenamoscpa.co.il%2Fblog%2Fclaude-finance-narrative
+          - img [ref=e109]
+          - text: Facebook
+        - link "שתף ב-WhatsApp" [ref=e111] [cursor=pointer]:
+          - /url: https://wa.me/?text=%D7%90%D7%99%D7%9A%20%D7%9E%D7%97%D7%9C%D7%A7%D7%AA%20%D7%94%D7%9B%D7%A1%D7%A4%D7%99%D7%9D%20%D7%A9%D7%9C%20Anthropic%20%D7%97%D7%A1%D7%9B%D7%94%2020%20%D7%A9%D7%A2%D7%95%D7%AA%20%D7%A9%D7%91%D7%95%D7%A2%D7%99%D7%95%D7%AA%20%D7%A2%D7%9D%20Claude%20https%3A%2F%2Fwww.ronenamoscpa.co.il%2Fblog%2Fclaude-finance-narrative
+          - img [ref=e112]
+          - text: WhatsApp
+        - button "העתק קישור" [ref=e114]:
+          - img [ref=e115]
+          - text: העתק קישור
+      - generic [ref=e118]:
+        - generic [ref=e119]: "תגיות:"
+        - generic [ref=e120]:
+          - generic [ref=e121]: Claude
+          - generic [ref=e122]: AI
+          - generic [ref=e123]: דירקטוריון
+          - generic [ref=e124]: CFO
+          - generic [ref=e125]: ניהול פיננסי
+      - generic [ref=e126]:
+        - heading "פוסטים קשורים" [level=2] [ref=e127]
+        - generic [ref=e128]:
+          - link "איך להשתמש ב-AI באקסל לניהול תזרים מזומנים — מדריך מלא לסמנכ״ל כספים (2026) תזרים מזומנים AI איך להשתמש ב-AI באקסל לניהול תזרים מזומנים — מדריך מלא לסמנכ״ל כספים (2026)" [ref=e129] [cursor=pointer]:
+            - /url: /blog/איך-להשתמש-ב-ai-באקסל-לניהול-תזרים-מזומנים
+            - generic [ref=e130]:
+              - img "איך להשתמש ב-AI באקסל לניהול תזרים מזומנים — מדריך מלא לסמנכ״ל כספים (2026)" [ref=e132]
+              - generic [ref=e133]:
+                - generic [ref=e134]: תזרים מזומנים
+                - generic [ref=e135]: AI
+              - paragraph [ref=e136]: איך להשתמש ב-AI באקסל לניהול תזרים מזומנים — מדריך מלא לסמנכ״ל כספים (2026)
+          - link "3 המדדים שישמרו על תקציב ה-AI שלכם בישיבת הדירקטוריון הבאה AI ROI 3 המדדים שישמרו על תקציב ה-AI שלכם בישיבת הדירקטוריון הבאה" [ref=e137] [cursor=pointer]:
+            - /url: /blog/3-מדדים-roi-ai-דירקטוריון
+            - generic [ref=e138]:
+              - img "3 המדדים שישמרו על תקציב ה-AI שלכם בישיבת הדירקטוריון הבאה" [ref=e140]
+              - generic [ref=e141]:
+                - generic [ref=e142]: AI
+                - generic [ref=e143]: ROI
+              - paragraph [ref=e144]: 3 המדדים שישמרו על תקציב ה-AI שלכם בישיבת הדירקטוריון הבאה
+          - link "Genspark Speakly vs Whisper Flow – כל CFO צריך לדעת את ההבדל AI כלים פיננסיים Genspark Speakly vs Whisper Flow – כל CFO צריך לדעת את ההבדל" [ref=e145] [cursor=pointer]:
+            - /url: /blog/speakly-whisper-comparison
+            - generic [ref=e146]:
+              - img "Genspark Speakly vs Whisper Flow – כל CFO צריך לדעת את ההבדל" [ref=e148]
+              - generic [ref=e149]:
+                - generic [ref=e150]: AI
+                - generic [ref=e151]: כלים פיננסיים
+              - paragraph [ref=e152]: Genspark Speakly vs Whisper Flow – כל CFO צריך לדעת את ההבדל
+      - generic [ref=e153]:
+        - heading "רוצה לשמוע עוד?" [level=2] [ref=e154]
+        - paragraph [ref=e155]: הזמן פגישת ייעוץ חינמית או הירשם לניוזלטר כדי לקבל עוד תכנים כאלו.
+        - generic [ref=e156]:
+          - link "ייעוץ חינם" [ref=e157] [cursor=pointer]:
+            - /url: /contact
+          - link "חזרה לבלוג" [ref=e158] [cursor=pointer]:
+            - /url: /blog
+  - generic:
+    - generic:
+      - generic:
+        - generic:
+          - generic:
+            - img "רונן עמוס AI"
+          - generic:
+            - heading "עמוס Intelligence" [level=3]
+            - generic:
+              - generic: מחובר כרגע
+        - button:
+          - img
+      - generic:
+        - generic:
+          - generic: שלום! אני עמוס Intelligence. איך אני יכול לעזור לך לייעל את מחלקת הכספים שלך היום?
+      - generic:
+        - generic:
+          - textbox "שאל אותי משהו..."
+          - button [disabled]:
+            - img
+        - generic:
+          - img
+          - text: מופעל ע"י Gemini 2.5 Flash • רונן עמוס AI
+  - button "פתח צ'אט" [ref=e159]:
+    - img "רונן עמוס AI" [ref=e161]
+  - link "צור קשר בוואטסאפ" [ref=e165] [cursor=pointer]:
+    - /url: https://wa.me/972505500344?text=%D7%A9%D7%9C%D7%95%D7%9D%20%D7%A8%D7%95%D7%A0%D7%9F%2C%20%D7%94%D7%92%D7%A2%D7%AA%D7%99%20%D7%93%D7%A8%D7%9A%20%D7%94%D7%90%D7%AA%D7%A8%20%D7%95%D7%90%D7%A9%D7%9E%D7%97%20%D7%9C%D7%94%D7%AA%D7%99%D7%99%D7%A2%D7%A5%20%D7%90%D7%99%D7%AA%D7%9A%20%D7%91%D7%A0%D7%95%D7%92%D7%A2%20%D7%9C-
+    - img [ref=e166]
+    - generic: דבר איתי בוואטסאפ
+  - contentinfo [ref=e169]:
+    - generic [ref=e170]:
+      - generic [ref=e171]:
+        - generic [ref=e172]:
+          - link "רונן עמוס" [ref=e173] [cursor=pointer]:
+            - /url: /
+          - paragraph [ref=e174]: רואה חשבון ויועץ טכנולוגי פיננסי. הופך מחלקות כספים לחכמות, מהירות ויעילות באמצעות כלי AI ואוטומציות מתקדמים.
+          - generic [ref=e175]:
+            - link [ref=e176] [cursor=pointer]:
+              - /url: https://www.linkedin.com/in/ronenamoscpa
+              - img [ref=e177]
+            - link [ref=e181] [cursor=pointer]:
+              - /url: "#"
+              - img [ref=e182]
+        - generic [ref=e185]:
+          - heading "ניווט מהיר" [level=4] [ref=e186]
+          - list [ref=e187]:
+            - listitem [ref=e188]:
+              - link "דף הבית" [ref=e189] [cursor=pointer]:
+                - /url: /
+            - listitem [ref=e190]:
+              - link "קורסי AI" [ref=e191] [cursor=pointer]:
+                - /url: /courses
+            - listitem [ref=e192]:
+              - link "בלוג פרימיום" [ref=e193] [cursor=pointer]:
+                - /url: /blog
+            - listitem [ref=e194]:
+              - link "מסלולי מנוי" [ref=e195] [cursor=pointer]:
+                - /url: /pricing
+            - listitem [ref=e196]:
+              - link "אזור אישי" [ref=e197] [cursor=pointer]:
+                - /url: /dashboard
+            - listitem [ref=e198]:
+              - link "צור קשר" [ref=e199] [cursor=pointer]:
+                - /url: /contact
+        - generic [ref=e200]:
+          - heading "שירותים" [level=4] [ref=e201]
+          - list [ref=e202]:
+            - listitem [ref=e203]:
+              - link "ייעוץ טכנולוגי פיננסי" [ref=e204] [cursor=pointer]:
+                - /url: /services
+            - listitem [ref=e205]:
+              - link "הכשרות צוותי כספים" [ref=e206] [cursor=pointer]:
+                - /url: /training
+            - listitem [ref=e207]:
+              - link "אוטומציות Power BI" [ref=e208] [cursor=pointer]:
+                - /url: /services
+            - listitem [ref=e209]:
+              - link "מדיניות פרטיות ותנאי שימוש" [ref=e210] [cursor=pointer]:
+                - /url: /legal
+        - generic [ref=e211]:
+          - heading "צור קשר" [level=4] [ref=e212]
+          - list [ref=e213]:
+            - listitem [ref=e214]:
+              - img [ref=e215]
+              - link "050-5500344" [ref=e217] [cursor=pointer]:
+                - /url: tel:0505500344
+            - listitem [ref=e218]:
+              - img [ref=e219]
+              - link "ronenamos@gmail.com" [ref=e222] [cursor=pointer]:
+                - /url: mailto:ronenamos@gmail.com
+            - listitem [ref=e223]:
+              - img [ref=e224]
+              - generic [ref=e227]: ישראל - פריסה ארצית
+      - generic [ref=e229]:
+        - generic [ref=e230]:
+          - heading "הישאר מעודכן" [level=4] [ref=e231]
+          - paragraph [ref=e232]: טיפים על AI וכספים, פעם בשבוע
+        - generic [ref=e234]:
+          - textbox "הכנס את כתובת האימייל שלך" [ref=e237]
+          - button "הרשמה" [ref=e238]:
+            - img [ref=e239]
+            - text: הרשמה
+      - generic [ref=e242]:
+        - paragraph [ref=e243]: © 2026 רונן עמוס - AI FINANCE. כל הזכויות שמורות.
+        - paragraph [ref=e244]: "בנייה ועיצוב: Antigravity AI Engine"
+  - alert [ref=e245]
+  - dialog "הסכמה לעוגיות" [ref=e246]:
+    - generic [ref=e247]:
+      - generic [ref=e248]:
+        - text: אנו משתמשים בעוגיות לצורך ניתוח תנועה באתר (Google Analytics) ושיפור חוויית המשתמש. לא נשתמש בעוגיות לפרסום.
+        - link "מדיניות עוגיות" [ref=e249] [cursor=pointer]:
+          - /url: /legal#cookies
+      - generic [ref=e250]:
+        - button "דחייה" [ref=e251]
+        - button "אני מסכים" [ref=e252]

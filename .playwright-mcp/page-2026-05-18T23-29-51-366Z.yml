@@ -1,0 +1,401 @@
+- generic [active] [ref=e1]:
+  - banner [ref=e2]:
+    - generic [ref=e3]:
+      - generic [ref=e4]:
+        - generic [ref=e5]: AI
+        - generic [ref=e6]: AI Finance Transformation
+      - navigation [ref=e7]:
+        - link "פתיחה" [ref=e8] [cursor=pointer]:
+          - /url: "#hero"
+        - link "הבעיה" [ref=e9] [cursor=pointer]:
+          - /url: "#problem"
+        - link "אג'נדה" [ref=e10] [cursor=pointer]:
+          - /url: "#agenda"
+        - link "למה קלוד" [ref=e11] [cursor=pointer]:
+          - /url: "#why-claude"
+        - link "Artifact" [ref=e12] [cursor=pointer]:
+          - /url: "#artifact"
+        - link "מקרה בוחן" [ref=e13] [cursor=pointer]:
+          - /url: "#case-study"
+        - link "הדגמה" [ref=e14] [cursor=pointer]:
+          - /url: "#demo"
+      - link "← לאתר הראשי" [ref=e15] [cursor=pointer]:
+        - /url: https://www.ronenamoscpa.co.il
+  - main [ref=e16]:
+    - generic [ref=e18]:
+      - generic [ref=e19]:
+        - generic [ref=e20]:
+          - generic [ref=e21]: וובינר · AI for Finance
+          - heading "יציאה מ‑\"Excel Hell\"" [level=1] [ref=e22]
+          - heading "אוטומציה למחלקות כספים" [level=1] [ref=e23]
+          - paragraph [ref=e24]: תרגיל מחלקתי יחיד שמשנה את הדרך בה אתם עובדים עם גיליונות, דוחות והתאמות. אין צורך לדעת קוד — ללא DevOps — ללא השקעה ארוכת טווח.
+          - paragraph [ref=e25]: 20 דקות של הדגמה חיה.
+        - img "Ronen Amos" [ref=e26]
+      - complementary [ref=e27]:
+        - img "לפני ואחרי עם קלוד AI" [ref=e28]
+    - generic [ref=e30]:
+      - generic [ref=e31]:
+        - generic [ref=e32]: מפת הדרך
+        - heading "מה אנחנו נעשה היום" [level=2] [ref=e33]
+        - paragraph [ref=e34]: "25 דקות: ארבע שלבים, סוף סוף אתם רואים איך קלוד מנקה נתונים בשבילכם."
+      - generic [ref=e35]:
+        - article [ref=e36]:
+          - generic [ref=e37]: 0:00 — 3:00
+          - generic [ref=e38]:
+            - heading "למה עדיין אתה עושה את זה?" [level=3] [ref=e39]
+            - paragraph [ref=e40]: "הבעיה העסקית: סגירת חודש לוקחת ימים. ההזדמנות: להפוך את זה לדקות."
+        - article [ref=e41]:
+          - generic [ref=e42]: 3:00 — 8:00
+          - generic [ref=e43]:
+            - heading "זה לא Magic — זה מבנה." [level=3] [ref=e44]
+            - paragraph [ref=e45]: מה זה Claude, למה הוא טוב בניקוי נתונים, ואיך Artifacts הופכים ניסוי ל‑כלי מחלקתי קבוע.
+        - article [ref=e46]:
+          - generic [ref=e47]: 8:00 — 18:00
+          - generic [ref=e48]:
+            - 'heading "הדגמה חיה: P&L מ‑4 מדינות" [level=3] [ref=e49]'
+            - paragraph [ref=e50]: קובץ מבולגן → קלוד → קוד Python → דוח נקי. כל משלב תראו בדיוק מה קרה.
+        - article [ref=e51]:
+          - generic [ref=e52]: 18:00 — 25:00
+          - generic [ref=e53]:
+            - heading "איך משתמשים בזה החודש הבא?" [level=3] [ref=e54]
+            - paragraph [ref=e55]: Artifact, עלייה קובץ חדש, ודוח נקי כבר בחודש הבא — כל פעם שאתה צריך.
+        - article [ref=e56]:
+          - generic [ref=e57]: 25:00 — 60:00
+          - generic [ref=e58]:
+            - heading "Live demo" [level=3] [ref=e59]
+            - paragraph [ref=e60]: 35 דקות של הדגמה אינטראקטיבית עם קלוד.
+    - generic [ref=e62]:
+      - generic [ref=e63]:
+        - generic [ref=e64]: בעיית הביצוע
+        - generic [ref=e65]: 70%
+        - generic [ref=e66]: מהזמן הולך על עבודה ידנית, בדיקות והעתקות.
+        - generic [ref=e67]: סגירת חודש = 3 ימים של שורות, Copy-Paste וטעויות.
+      - generic [ref=e68]:
+        - generic [ref=e69]: בואו נדבר על הבעיה
+        - heading "הרבה מאד עבודה, מעט מאד ערך" [level=2] [ref=e70]
+        - generic [ref=e71]:
+          - generic [ref=e72]:
+            - text: •
+            - generic [ref=e73]: דוחות מ‑4 ממקורות שונים — הנתונים מבולגנים, עם הערות, שורות ריקות ופורמטים לא עקביים.
+          - generic [ref=e74]:
+            - text: •
+            - generic [ref=e75]: בדיקות ידניות — שורה אחר שורה, כי אי אפשר להאמין לחישובים אוטומטיים לפני שהם הפכו אמינים.
+          - generic [ref=e76]:
+            - text: •
+            - generic [ref=e77]: העתקות וטעויות — רבע מהדוחות שמגיעים צריכים תיקון. זה לא טכנולוגיה, זה טעות אנושית בקנה מידה.
+          - generic [ref=e78]:
+            - text: •
+            - generic [ref=e79]: תלות אדם — רק מנהל אחד בצוות יודע איפה מסתתר כל ערך. אם הוא חולה — כל דבר עומד.
+    - generic [ref=e81]:
+      - generic [ref=e82]:
+        - generic [ref=e83]: האפשרויות
+        - heading "למה קלוד? ולא ChatGPT או כלי אחר?" [level=2] [ref=e84]
+        - paragraph [ref=e85]: תועלות לשימוש בקלוד
+      - generic [ref=e86]:
+        - generic [ref=e87]:
+          - generic [ref=e88]: כושר
+          - heading "Sonnet 4.6" [level=3] [ref=e89]
+          - paragraph [ref=e90]: "הוא מודל חזק וורסטילי ליום‑יום, שמחבר אינטליגנציה גבוהה עם מהירות ותמיכה מעולה בקוד, אוטומציה ומשימות אנליטיות מורכבות. הוא מתוכנן לעבודה שוטפת במחלקת כספים: ניווט בין גיליונות, טפסים ומערכות, ניתוח מסמכים ארוכים ותכנון תרחישים."
+        - generic [ref=e91]:
+          - generic [ref=e92]: דיוק
+          - heading "Haiku 4.5" [level=3] [ref=e93]
+          - paragraph [ref=e94]: "הוא המודל המהיר ביותר במשפחה – נבנה לביצועים גבוהים, לטיפול בכמויות גדולות של נתונים ולטפסי‑רוטינה בלי להקריב יותר מדי אינטליגנציה. הוא מצטיין באוטומציה: ניקוי קבצי אקסל, עיבוד מסמכים ותמונות, ושאילתות קצרות שחוזרות על עצמן."
+        - generic [ref=e95]:
+          - generic [ref=e96]: אינטגרציה
+          - heading "Artifacts" [level=3] [ref=e97]
+          - paragraph [ref=e98]: Claude בונה עבורכם מיני‑אפליקציה שיהיה ניתן להשתמש בה חודש אחרי חודש. לא צריך DevOps.
+        - generic [ref=e99]:
+          - generic [ref=e100]: בטיחות
+          - heading "לא שמים נתונים רגישים" [level=3] [ref=e101]
+          - paragraph [ref=e102]: משתמשים בפרומפטים מובנים שמתארים את מבנה הנתונים, לא את המספרים עצמם. קלוד לא יראה נתונים רגישים.
+      - generic [ref=e103]:
+        - generic [ref=e104]: Sonnet vs Haiku — איזה לבחור?
+        - generic [ref=e105]:
+          - generic [ref=e106]:
+            - heading "Sonnet 4.6" [level=3] [ref=e107]
+            - list [ref=e108]:
+              - listitem [ref=e109]: כשחשוב לך “יועץ בכיר” שיודע לבנות היגיון ומודלים .
+              - listitem [ref=e110]: קריאה של קבצים כבדים (מתחת לגיגה בייט)
+              - listitem [ref=e111]: יצירת קוד שחוזר
+              - listitem [ref=e112]: אם אתה לא בטוח — בחר את זה
+          - generic [ref=e113]:
+            - heading "Haiku 4.5" [level=3] [ref=e114]
+            - list [ref=e115]:
+              - listitem [ref=e116]: אוטומציה על נתונים בכמויות גדולות
+              - listitem [ref=e117]: כאשר אתה יודע בדיוק מה אתה צריך
+              - listitem [ref=e118]: לפעמים מהיר יותר מ Sonnet
+              - listitem [ref=e119]: מהיר וזול למשימות חוזרות
+      - img "Sonnet vs Haiku" [ref=e121]
+    - generic [ref=e123]:
+      - generic [ref=e124]:
+        - generic [ref=e125]: קפיצת מדרגה
+        - heading "מ\"שיחה בצאט\" לכלי מחלקתי" [level=2] [ref=e126]
+        - paragraph [ref=e127]: זה הדבר היחיד שמשנה הכל.
+      - generic [ref=e128]:
+        - generic [ref=e129]: מה זה Artifact?
+        - generic [ref=e130]:
+          - heading "מיני‑אפליקציה שקלוד בנה בשבילכם" [level=3] [ref=e131]
+          - paragraph [ref=e132]: לא קוד שאתם צריכים להריץ. לא סקריפט שצריך IDE או Python. בנוי בקלוד — כפתור "Upload", קובץ יוצא, דוח מעודכן.
+          - paragraph [ref=e133]: גיליון P&L אחד כל חודש? בחודש הבא תגררו את הקובץ החדש פנימה וזהו. כל הניקוי קורה אוטומטית.
+      - generic [ref=e136] [cursor=pointer]:
+        - text: "דוגמה: איך בנוי הקוד באמצע"
+        - generic [ref=e137]: ▼
+      - generic [ref=e138]:
+        - generic [ref=e139]: זכרו את זה
+        - generic [ref=e140]:
+          - blockquote [ref=e141]: אנחנו לא מבקשים מקלוד לפתור בעיה חד פעמית. אנחנו בונים כלי עבודה שישרת אתכם לחודשים הבאים.
+          - paragraph [ref=e142]: זו הנקודה שמשנה הכל.
+      - img "Claude Artifact" [ref=e144]
+    - generic [ref=e146]:
+      - generic [ref=e147]:
+        - generic [ref=e148]: מקרה בוחן אמיתי
+        - heading "איחוד דוחות P&L מ‑4 מדינות" [level=2] [ref=e149]
+        - paragraph [ref=e150]: קובץ מבולגן, ארבע גיליונות, שורות ריקות וטקסט בעמודות שצריכות להיות מספרים.
+        - paragraph [ref=e151]: תכירו את ארז, האחראי על ה-P&L האזורי במחלקת ה-FP&A, שנאלץ להתמודד מדי חודש עם איחוד דוחות מבוזרים המגיעים בפורמטים שונים, עם נתונים חסרים והערות ידניות. במקום לבזבז ימים על עבודה סיזיפית של ניקוי וסידור נתונים לפני הניתוח עצמו, ארז רותם היום את היכולות של Claude Artifact כדי להפוך את תהליך ה-Review והאיחוד לאוטומטי לחלוטין, מה שמאפשר לו לעבור ישירות לשלב הפקת המסקנות.
+      - img "Erez from FP&A team" [ref=e153]
+      - generic [ref=e154]:
+        - strong [ref=e155]: 📊 הקובץ המקורי — לפני הניקוי
+        - img "Excel לפני ניקוי" [ref=e156]
+      - generic [ref=e157]:
+        - generic [ref=e158]: מה שגוי בקובץ הזה? (ממצאים אמיתיים מהקובץ)
+        - list [ref=e160]:
+          - listitem [ref=e161]: "! 4 שורות מטא-דאטה בראש הגיליון לפני הנתונים — \"SYNTHETIC DATA\", תאריך עדכון עמום, פרטי קשר ו-הנחות FX"
+          - listitem [ref=e162]: "! שורת כותרת \"North America Revenue Report\" מוטמעת בתוך הנתונים — לא חלק מהכותרות"
+          - listitem [ref=e163]: "! כותרות עמודות לא עקביות — \"Q1 ($000s)\" עם אות גדולה, \"q3 ($000s)\" עם אות קטנה, וסוגריים ביחידות"
+          - listitem [ref=e164]: "! ערכי \"N/A\" ו-\"CHECK\" בעמודות שאמורות להכיל מספרים בלבד"
+          - listitem [ref=e165]: "! שורת סיכום ידנית \"*** SUBTOTAL US ONLY (manual) ***\" מעורבת בתוך שורות הנתונים"
+          - listitem [ref=e166]: "! חסרה עמודת מטבע — USD / CAD / MXN מוזכרים רק בהערות, לא בעמודה נפרדת"
+          - listitem [ref=e167]: "! שורות ריקות מרובות בין הנתונים"
+          - listitem [ref=e168]: "! הגיליון מכיל רק נתוני USA — EMEA, APAC ו-LATAM נמצאים בגיליונות נפרדים עם מבנה שונה"
+    - generic [ref=e170]:
+      - generic [ref=e171]:
+        - generic [ref=e172]: שלב 1 של 4
+        - heading "מגדירים את הבעיה" [level=2] [ref=e173]
+        - paragraph [ref=e174]: לפני שקלוד עושה משהו, אנחנו אומרים לו בדיוק מה הוא רואה וגם מה הוא צריך לעשות.
+        - paragraph [ref=e175]: פרומפט טוב = תיאור המבנה של הקובץ + הבעיה + הפלט הרצוי. ככל שנהיה ספציפיים יותר — כך הקוד שיצא יהיה מדויק יותר.
+      - img "הפרומפט שנשלח לקלוד" [ref=e177]
+      - generic [ref=e178]:
+        - generic [ref=e179]: איך נשלחים הנתונים לקלוד?
+        - generic [ref=e180]:
+          - paragraph [ref=e181]:
+            - strong [ref=e182]: לא שולחים את הקובץ עצמו.
+            - text: "שולחים תיאור:"
+          - paragraph [ref=e183]:
+            - text: • שמות העמודות שראינו (בכל גיליון)
+            - text: • סוג הנתונים (תאריך, מטבע, טקסט)
+            - text: • הבעיות שזיהינו (שרשרים, ריקים, פורמטים)
+            - text: • מה צריך להיות Output (טבלה אחת, עמודות נקיות, מטבע יחיד)
+    - generic [ref=e185]:
+      - generic [ref=e186]:
+        - generic [ref=e187]: שלב 2 של 4
+        - heading "קלוד כותב ומריץ קוד" [level=2] [ref=e188]
+        - paragraph [ref=e189]: עכשיו רואים אותו כותב Python — ו‑זה עובד בפעם הראשונה.
+      - img "Claude IDE - Python" [ref=e191]
+      - generic [ref=e193] [cursor=pointer]:
+        - text: הקוד שקלוד בנה (בעיצום)
+        - generic [ref=e194]: ▼
+    - generic [ref=e196]:
+      - generic [ref=e197]:
+        - generic [ref=e198]: שלב 3 של 4
+        - heading "לפני ואחרי" [level=2] [ref=e199]
+        - paragraph [ref=e200]: "זה הבלוק שמדבר להנהלה: שינוי מיידי, מדיד וחוזר כל חודש."
+      - generic [ref=e201]:
+        - strong [ref=e202]: 📊 הנתונים לפני הניקוי
+        - img "Excel לפני ניקוי" [ref=e203]
+      - generic [ref=e204]:
+        - strong [ref=e205]: ✅ הנתונים אחרי הניקוי
+        - img "Excel אחרי ניקוי" [ref=e206]
+      - generic [ref=e207]:
+        - generic [ref=e208]: ההשפעה העסקית
+        - generic [ref=e209]:
+          - generic [ref=e210]:
+            - heading "לפני" [level=3] [ref=e211]
+            - list [ref=e212]:
+              - listitem [ref=e213]: סגירה חודשית = 3 ימים עבודה
+              - listitem [ref=e214]: "טעויות: 1 לכל 4 דוחות"
+              - listitem [ref=e215]: עבודה ידנית על כל שורה
+          - generic [ref=e216]:
+            - heading "אחרי" [level=3] [ref=e217]
+            - list [ref=e218]:
+              - listitem [ref=e219]: סגירה חודשית = 30 דקות
+              - listitem [ref=e220]: "טעויות: 0 (בדקנו אחת לאחת)"
+              - listitem [ref=e221]: עבודה אוטומטית וברורה
+      - generic [ref=e222]:
+        - generic [ref=e223]: הגדלים שחשובים
+        - list [ref=e225]:
+          - listitem [ref=e226]:
+            - text: ✓
+            - strong [ref=e227]: "חיסכון בזמן:"
+            - text: 70% של עבודה ידנית נעלמת
+          - listitem [ref=e228]:
+            - text: ✓
+            - strong [ref=e229]: "דיוק:"
+            - text: 98% של שגיאות מבוטלות
+          - listitem [ref=e230]:
+            - text: ✓
+            - strong [ref=e231]: "עמידות:"
+            - text: תהליך ברור שאפשר להעביר ולשחזר
+          - listitem [ref=e232]:
+            - text: ✓
+            - strong [ref=e233]: "מהירות:"
+            - text: דוח סופי בתוך שעות, לא ימים
+    - generic [ref=e235]:
+      - generic [ref=e236]:
+        - generic [ref=e237]: שלב 4 של 4
+        - heading "ארוז את זה כ‑Artifact" [level=2] [ref=e238]
+        - paragraph [ref=e239]: עכשיו קלוד בונה מיני‑אפליקציה שהצוות שלכם משתמש בה כל חודש.
+      - img "Excel Data Cleaner Artifact" [ref=e241]
+      - generic [ref=e242]:
+        - generic [ref=e243]: איך משתמשים בArtifact בחודש הבא
+        - list [ref=e245]:
+          - listitem [ref=e246]: ✓ פותחים את הArtifact שקלוד בנה
+          - listitem [ref=e247]: ✓ עולים את הקובץ החדש של הודש הבא
+          - listitem [ref=e248]: ✓ מקבלים דוח נקי בתוך שניות
+          - listitem [ref=e249]: ✓ אם צריך שינוי — שולחים הודעה לקלוד, הוא מעדכן את הקוד
+      - generic [ref=e250]:
+        - generic [ref=e251]: השינוי התפיסתי
+        - generic [ref=e252]:
+          - blockquote [ref=e253]: לא בנינו פה פתרון חד‑פעמי, אלא עכשיו יש לנו כלי שמשרת אותנו כל חודש.
+          - paragraph [ref=e254]: וזה בנוי בקלוד. אין DevOps. אין נהלים למרחוק. רק עלייה קובץ וקבלת דוח נקי.
+    - generic [ref=e257]:
+      - heading "ממשיכים להדגמה חיה! 🚀" [level=2] [ref=e258]
+      - paragraph [ref=e259]: עכשיו אפתח את Claude בצד שלי ונראה את זה בפעולה ביחד אתכם — תרשמו שאלות והערות .
+      - button "בואו נתחיל" [ref=e261] [cursor=pointer]
+      - img "AI Finance Transformation" [ref=e263]
+    - generic [ref=e265]:
+      - generic [ref=e266]:
+        - generic [ref=e267]: עכשיו בואו נעשה את זה
+        - heading "משימה אחת למחר בבוקר" [level=2] [ref=e268]
+        - paragraph [ref=e269]: בחרו תהליך אחד שחוזר על עצמו, כל חודש או כל שבוע. זה הקנבס שלנו.
+      - generic [ref=e270]:
+        - generic [ref=e271]:
+          - generic [ref=e272]: אפשרות 1
+          - heading "סגירת חודש" [level=3] [ref=e273]
+          - paragraph [ref=e274]: איחוד דוחות P&L, בדיקת יתרות, יישור חשבונות. זה מה שראינו היום — אבל שלכם.
+        - generic [ref=e275]:
+          - generic [ref=e276]: אפשרות 2
+          - heading "התאמה יומיומית" [level=3] [ref=e277]
+          - paragraph [ref=e278]: חשבוניות vs תשלומים, זיהוי פערים, תיוג חריגים. תהליך שחוזר כל יום וצריך אוטומציה.
+        - generic [ref=e279]:
+          - generic [ref=e280]: אפשרות 3
+          - heading "דוח מנהלים" [level=3] [ref=e281]
+          - paragraph [ref=e282]: קחו 5 קבצים שונים, איחדו, פלחו לפי מחלקה, הפיקו דוח קריא בתוך דקות.
+        - generic [ref=e283]:
+          - generic [ref=e284]: אפשרות 4
+          - heading "משהו שלכם" [level=3] [ref=e285]
+          - paragraph [ref=e286]: יש לכם תהליך אחר שחוזר על עצמו וגם אתם יודעים שזה קורה מדי חודש? תגידו.
+    - generic [ref=e288]:
+      - generic [ref=e289]:
+        - generic [ref=e290]: ה-20% שיהפכו אותך למקצוען
+        - heading "החוק הזהב של ארטיפקטים" [level=2] [ref=e291]
+        - paragraph [ref=e292]:
+          - text: לפני הכל, חשוב להבין
+          - strong [ref=e293]: מתי
+          - text: כדאי לבקש מקלוד ליצור ארטיפקט — ומתי לא.
+      - generic [ref=e294]:
+        - generic [ref=e295]:
+          - generic [ref=e296]: "✅ תמיד צור ארטיפקט כאשר:"
+          - list [ref=e298]:
+            - listitem [ref=e299]: ✓ משהו ארוך יותר מ-20 שורות קוד
+            - listitem [ref=e300]: ✓ תוכן שתרצה לשמור, להעתיק, להוריד — דוחות, מצגות, מאמרים
+            - listitem [ref=e301]: ✓ דשבורדים אינטראקטיביים ומחשבונים פיננסיים
+            - listitem [ref=e302]: ✓ כלים שתחזור אליהם כל חודש — תזרים מזומנים, ניתוח רווחיות
+        - generic [ref=e303]:
+          - generic [ref=e304]: "❌ אף פעם לא תיצור ארטיפקט עבור:"
+          - list [ref=e306]:
+            - listitem [ref=e307]: "! קוד קצר (פחות מ-20 שורות) או דוגמאות חד-פעמיות"
+            - listitem [ref=e308]: "! שיחה רגילה, עצות או הסברים"
+            - listitem [ref=e309]: "! רשימות וטבלאות Markdown קצרות"
+            - listitem [ref=e310]: "! מתכון בודד או לוח זמנים יומי"
+    - generic [ref=e312]:
+      - generic [ref=e313]:
+        - generic [ref=e314]: מעבר לארטיפקטים
+        - heading "זה לא נגמר כאן — ארטיפקטים מתחברים לכלים שלך" [level=2] [ref=e315]
+        - paragraph [ref=e316]: ארטיפקטים הם רק ההתחלה. Claude יכול להתחבר ישירות ל-Google Sheets שלך, לאימייל, ולכלים נוספים — ולהפוך כל תהליך ידני לאוטומציה שרצה לבד.
+      - generic [ref=e317]:
+        - generic [ref=e318]:
+          - generic [ref=e319]: 📊 Google Drive Connector
+          - paragraph [ref=e320]: מחבר את Claude ישירות לגיליונות Google Sheets שלך – יתרות בנקים, טבלאות גבייה, דוחות תזרים.
+          - generic [ref=e321]:
+            - generic [ref=e322]: כיצד לחבר
+            - paragraph [ref=e323]: פתחו את Claude → Settings → Integrations → חברו Google Drive. ודאו שהגיליונות הרלוונטיים משותפים עם החשבון המחובר.
+        - generic [ref=e324]:
+          - generic [ref=e325]: ✉️ Gmail Connector
+          - paragraph [ref=e326]: מאפשר ל-Claude לקרוא מיילים מרשות המיסים, ביטוח לאומי, וספקים.
+          - generic [ref=e327]:
+            - generic [ref=e328]: כיצד לחבר
+            - paragraph [ref=e329]: Settings → Integrations → Gmail → אשרו גישה לקריאת מיילים. מומלץ ליצור תגיות (Labels) ייעודיות כמו "מס הכנסה" ו"מע"מ" לסינון מדויק.
+        - generic [ref=e330]:
+          - generic [ref=e331]: 📋 Notion Connector
+          - paragraph [ref=e332]: מחבר את Claude למסדי הנתונים של Notion – לקוחות, חשבוניות, משימות.
+          - generic [ref=e333]:
+            - generic [ref=e334]: כיצד לחבר
+            - paragraph [ref=e335]: Settings → Integrations → Notion → בחרו את ה-Workspace ואשרו גישה לדפים הרלוונטיים. מצוין לניהול פרויקטים ולקוחות לצד הנתונים הפיננסיים.
+      - link "📖 המדריך המלא לארטיפקטים חיים רוצים להמשיך לתרגל לבד? המדריך המלא לבניית ארטיפקטים חיים עם Claude — צעד אחרי צעד, עם דוגמאות מהשטח. הנה המדריך ←" [ref=e337] [cursor=pointer]:
+        - /url: https://www.ronenamoscpa.co.il/guides/live-artifacts-claude
+        - generic [ref=e338]:
+          - generic [ref=e339]: 📖 המדריך המלא לארטיפקטים חיים
+          - generic [ref=e340]:
+            - generic [ref=e341]:
+              - heading "רוצים להמשיך לתרגל לבד?" [level=3] [ref=e342]
+              - paragraph [ref=e343]: המדריך המלא לבניית ארטיפקטים חיים עם Claude — צעד אחרי צעד, עם דוגמאות מהשטח.
+            - generic [ref=e344]: הנה המדריך ←
+      - link "📊 הורדת קובץ ה-Excel לתרגול לקבלת הקובץ אקסל שעבדנו עליו קובץ ה-Excel עם הדאטה הגולמי לפני ואחרי ניקוי — בצעו את זה בעצמכם ובדקו עם Claude. הורדה ↓" [ref=e346] [cursor=pointer]:
+        - /url: https://docs.google.com/spreadsheets/d/1ct5RoljKO44g7eFljDVq01C0RFEGqxN6/edit?usp=sharing&ouid=113209169108500009079&rtpof=true&sd=true
+        - generic [ref=e347]:
+          - generic [ref=e348]: 📊 הורדת קובץ ה-Excel לתרגול
+          - generic [ref=e349]:
+            - generic [ref=e350]:
+              - heading "לקבלת הקובץ אקסל שעבדנו עליו" [level=3] [ref=e351]
+              - paragraph [ref=e352]: קובץ ה-Excel עם הדאטה הגולמי לפני ואחרי ניקוי — בצעו את זה בעצמכם ובדקו עם Claude.
+            - generic [ref=e353]: הורדה ↓
+    - generic [ref=e354]:
+      - generic [ref=e355]: § 06 — המשך
+      - heading "למדריכים ותוכן נוסף" [level=2] [ref=e356]
+      - paragraph [ref=e357]: כל הכלים, הקהילה והמשאבים — במקום אחד.
+      - generic [ref=e358]:
+        - link "01 COMMUNITY קהילת AI Finance מעל 800 אנשי פיננסים שחולקים כלים ו-prompts בזמן אמת. ↗ chat.whatsapp.com" [ref=e359] [cursor=pointer]:
+          - /url: https://chat.whatsapp.com/CS6dgqnK45Q9XAMqScNr6R
+          - generic [ref=e360]: 01 COMMUNITY
+          - generic [ref=e361]: קהילת AI Finance
+          - generic [ref=e362]: מעל 800 אנשי פיננסים שחולקים כלים ו-prompts בזמן אמת.
+          - generic [ref=e363]: ↗ chat.whatsapp.com
+        - link "02 YOUTUBE AI for Finance דוגמאות מעשיות, walkthroughs ו-playbooks שמאחורי הפרקטיקה. ↗ AIFinanceTransformation@" [ref=e364] [cursor=pointer]:
+          - /url: https://www.youtube.com/@AIFinanceTransformation
+          - generic [ref=e365]: 02 YOUTUBE
+          - generic [ref=e366]: AI for Finance
+          - generic [ref=e367]: דוגמאות מעשיות, walkthroughs ו-playbooks שמאחורי הפרקטיקה.
+          - generic [ref=e368]: ↗ AIFinanceTransformation@
+        - link "03 NEWSLETTER הניוזלטר השבועי תובנות AI לפיננסים ישר למייל שלך — נכתב על ידי איש פיננסים. ↗ ronenamoscpa.co.il" [ref=e369] [cursor=pointer]:
+          - /url: https://www.ronenamoscpa.co.il
+          - generic [ref=e370]: 03 NEWSLETTER
+          - generic [ref=e371]: הניוזלטר השבועי
+          - generic [ref=e372]: תובנות AI לפיננסים ישר למייל שלך — נכתב על ידי איש פיננסים.
+          - generic [ref=e373]: ↗ ronenamoscpa.co.il
+        - link "04 PROMPT HUB Skill Vault ספריית ה-prompts שלי — מוכנים לשימוש מיידי בצוות הפיננסים שלך. ↗ ronenamoscpa.co.il/skill-vault" [ref=e374] [cursor=pointer]:
+          - /url: https://www.ronenamoscpa.co.il/skill-vault
+          - generic [ref=e375]: 04 PROMPT HUB
+          - generic [ref=e376]: Skill Vault
+          - generic [ref=e377]: ספריית ה-prompts שלי — מוכנים לשימוש מיידי בצוות הפיננסים שלך.
+          - generic [ref=e378]: ↗ ronenamoscpa.co.il/skill-vault
+        - link "05 THE BOOK Claude Playbook הספר המלא — frameworks, case studies ומדריכי יישום לצוותי פיננסים. ↗ רכישה מאובטחת" [ref=e379] [cursor=pointer]:
+          - /url: https://www.paypal.com/ncp/payment/E36KBLHK8MDPN
+          - generic [ref=e380]: 05 THE BOOK
+          - generic [ref=e381]: Claude Playbook
+          - generic [ref=e382]: הספר המלא — frameworks, case studies ומדריכי יישום לצוותי פיננסים.
+          - generic [ref=e383]: ↗ רכישה מאובטחת
+        - link "06 COURSE קורס AI Finance תוכנית מובנית להטמעת חשיבה AI-First בצוות הפיננסים שלך. ↗ ronenamoscpa.co.il/courses" [ref=e384] [cursor=pointer]:
+          - /url: https://www.ronenamoscpa.co.il/courses
+          - generic [ref=e385]: 06 COURSE
+          - generic [ref=e386]: קורס AI Finance
+          - generic [ref=e387]: תוכנית מובנית להטמעת חשיבה AI-First בצוות הפיננסים שלך.
+          - generic [ref=e388]: ↗ ronenamoscpa.co.il/courses
+  - contentinfo [ref=e389]:
+    - generic [ref=e390]:
+      - paragraph [ref=e391]:
+        - strong [ref=e392]: "יציאה מ‑Excel Hell:"
+        - text: וובינר על אוטומציה פיננסית עם Claude AI. 25 דקות של הדגמה חיה, ללא קוד, ללא DevOps, רק AI ותהליך.
+      - paragraph [ref=e393]:
+        - text: "© 2025 רונן עמוס, CPA. לשאלות:"
+        - link "ronenamos@gmail.com" [ref=e394] [cursor=pointer]:
+          - /url: mailto:ronenamos@gmail.com
