@@ -8,6 +8,9 @@ export const metadata: Metadata = {
   title: "הכשרות מעשיות למחלקות כספים",
   description:
     "ימי הכשרה מעשיים: Power BI, AI ואוטומציה, הכשרת מנהלים. ROI מדיד וכלים מוכנים לשימוש.",
+  alternates: {
+    canonical: "https://www.ronenamoscpa.co.il/training",
+  },
 };
 
 const tracks = [
