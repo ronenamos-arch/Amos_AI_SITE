@@ -3,7 +3,7 @@ import { getAllPosts } from '@/lib/blog'
 import { getDBPosts } from '@/lib/blog-supabase'
 import { getAllGuides } from '@/lib/guides-data'
 
-export const dynamic = 'force-dynamic'
+export const revalidate = 3600
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     const baseUrl = 'https://www.ronenamoscpa.co.il'
