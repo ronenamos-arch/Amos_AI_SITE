@@ -804,6 +804,89 @@ details.faq .faq-body {
   box-shadow: 0 8px 32px rgba(0,201,167,0.45);
 }
 .course-btn svg { flex-shrink: 0; }
+
+/* ============================================
+   AGENTS GLOWING CTA BUTTON
+   ============================================ */
+@keyframes glow-pulse {
+  0%, 100% { box-shadow: 0 0 20px rgba(0,201,167,0.4), 0 0 40px rgba(0,201,167,0.2), 0 0 60px rgba(0,201,167,0.1); }
+  50% { box-shadow: 0 0 30px rgba(0,201,167,0.6), 0 0 60px rgba(0,201,167,0.3), 0 0 100px rgba(0,201,167,0.15); }
+}
+
+@keyframes float-up {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+.agents-cta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  text-decoration: none;
+  margin: 40px 0;
+  padding: 56px 48px;
+  background: linear-gradient(135deg, rgba(0,201,167,0.15) 0%, rgba(0,201,167,0.05) 100%);
+  border: 2px solid var(--teal);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  animation: glow-pulse 3s ease-in-out infinite, float-up 4s ease-in-out infinite;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.agents-cta:hover {
+  padding: 56px 48px;
+  background: linear-gradient(135deg, rgba(0,201,167,0.25) 0%, rgba(0,201,167,0.1) 100%);
+  border-color: #00e3bd;
+  animation: glow-pulse 1.5s ease-in-out infinite, float-up 2s ease-in-out infinite;
+  box-shadow: 0 0 40px rgba(0,201,167,0.8), 0 0 80px rgba(0,201,167,0.4);
+}
+
+.agents-glow {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 80% 80% at 50% 50%, rgba(0,201,167,0.2), transparent 70%);
+  pointer-events: none;
+}
+
+.agents-content {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+}
+
+.agents-text {
+  font-size: clamp(28px, 4vw, 42px);
+  font-weight: 800;
+  font-family: var(--font-display);
+  background: linear-gradient(120deg, var(--teal) 0%, #7ee0c8 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  letter-spacing: -0.01em;
+  margin-bottom: 8px;
+}
+
+.agents-subtext {
+  font-size: 16px;
+  color: var(--text-1);
+  font-weight: 500;
+  letter-spacing: 0.02em;
+}
+
+@media (max-width: 640px) {
+  .agents-cta {
+    padding: 40px 28px;
+    margin: 30px 0;
+  }
+  .agents-text {
+    font-size: 24px;
+  }
+  .agents-subtext {
+    font-size: 14px;
+  }
+}
 .repo-card {
   background: var(--bg-2);
   border: 1px solid var(--line-strong);
@@ -2046,6 +2129,14 @@ claude mcp add --transport http my-server https://example.com/mcp</pre>
       לקורס הגיט החינמי ←
     </a>
   </div>
+
+  <a href="https://agents.sabrina.dev/#" target="_blank" rel="noopener" class="agents-cta">
+    <div class="agents-glow"></div>
+    <div class="agents-content">
+      <div class="agents-text">ספריית של סוכני AI ואוטומציות</div>
+      <div class="agents-subtext">עוברים לעולם הסוכנים</div>
+    </div>
+  </a>
 
   <a href="https://github.com/ronenamos-arch/claude-code-history-search" target="_blank" rel="noopener" class="repo-card">
     <div class="repo-icon">
