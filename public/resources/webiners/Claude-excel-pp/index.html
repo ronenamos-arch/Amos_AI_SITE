@@ -827,27 +827,45 @@
     </p>
     <div class="agenda-grid">
       <div class="agenda-block">
-        <div class="agenda-time">00–15</div>
+        <div class="agenda-time">00–05</div>
         <div>
-          <div class="agenda-block-title">The Problem: למה צוותי כספים מבזבזים זמן על translation</div>
+          <div class="agenda-block-title">למה צוותי כספים מבזבזים 80% מהזמן על translation במקום analysis</div>
         </div>
       </div>
       <div class="agenda-block">
-        <div class="agenda-time">15–30</div>
+        <div class="agenda-time">12–20</div>
         <div>
-          <div class="agenda-block-title">Finance AI Workflow: שיטה מ-raw data עד מצגת הנהלה</div>
+          <div class="agenda-block-title">Before vs After: הדרך הידנית מול Claude Workflow</div>
         </div>
       </div>
       <div class="agenda-block">
-        <div class="agenda-time">30–45</div>
+        <div class="agenda-time">20–30</div>
         <div>
-          <div class="agenda-block-title">Prompt Architecture: איך בונים prompts שחוזרים כל חודש</div>
+          <div class="agenda-block-title">Finance AI Workflow: Operating Model לצוות כספים</div>
         </div>
       </div>
       <div class="agenda-block">
-        <div class="agenda-time">45–60</div>
+        <div class="agenda-time">30–40</div>
         <div>
-          <div class="agenda-block-title">Live Demo + גבולות ו-human review</div>
+          <div class="agenda-block-title">Prompt Architecture: איך בונים prompts repeatable לעבודה פיננסית</div>
+        </div>
+      </div>
+      <div class="agenda-block">
+        <div class="agenda-time">40–48</div>
+        <div>
+          <div class="agenda-block-title">איך הופכים variance analysis לסיפור הנהלה ברור</div>
+        </div>
+      </div>
+      <div class="agenda-block">
+        <div class="agenda-time">48–55</div>
+        <div>
+          <div class="agenda-block-title">בניית storyline למצגת הנהלה — לא רק שקפים</div>
+        </div>
+      </div>
+      <div class="agenda-block">
+        <div class="agenda-time">55–60</div>
+        <div>
+          <div class="agenda-block-title">דמו חי על קובץ messy + גבולות ו-human review</div>
         </div>
       </div>
     </div>
@@ -860,10 +878,17 @@
     <div class="section-label">FINANCE AI WORKFLOW</div>
     <h2 class="section-title">שיטת העבודה החדשה<br />של צוות כספים</h2>
     <p class="section-desc">
-      זו לא הדגמה של יכולות. זו מתודולוגיה מסודרת שהופכת כל קובץ גולמי לתוצר מוכן להנהלה.
+      זו לא הדגמה של יכולות. זו מתודולוגיה: 8 שלבים מסודרים שהופכים כל קובץ גולמי לתוצר מוכן להנהלה.
     </p>
-    <div class="live-demo-logo" style="margin-top: 2.5rem;">
-      <img src="media/workflow.png" alt="Finance AI Workflow — 8 שלבים" style="width: 120%; border-radius: var(--radius-md); border: 1px solid var(--border);">
+    <div class="flow-steps">
+      <div class="flow-step"><div class="flow-step-dot"></div><div class="flow-step-text">Raw Data — קובץ Excel, GL export, מידע לא מסודר</div></div>
+      <div class="flow-step"><div class="flow-step-dot"></div><div class="flow-step-text">Validation — בדיקת מבנה, כותרות, שלמות</div></div>
+      <div class="flow-step highlight"><div class="flow-step-dot"></div><div class="flow-step-text">Prompt Framework — context, role, constraints, output format</div></div>
+      <div class="flow-step highlight"><div class="flow-step-dot"></div><div class="flow-step-text">Insight Extraction — חריגות, טרנדים, anomalies</div></div>
+      <div class="flow-step highlight"><div class="flow-step-dot"></div><div class="flow-step-text">Narrative Draft — טיוטת הסבר בשפה ניהולית</div></div>
+      <div class="flow-step"><div class="flow-step-dot"></div><div class="flow-step-text">Management Tone — התאמה לרמת הבורד</div></div>
+      <div class="flow-step"><div class="flow-step-dot"></div><div class="flow-step-text">Final Human Review — שיקול דעת, בקרת מספרים, אישור</div></div>
+      <div class="flow-step"><div class="flow-step-dot"></div><div class="flow-step-text">Presentation — דוח, מצגת, board pack מוכן</div></div>
     </div>
   </div>
 </section>
@@ -1098,6 +1123,38 @@ File: [Filename] | Report type: Management P&amp;L
 </section>
 
 
+<!-- ─── USE CASES ─── -->
+<section id="usecases">
+  <div class="inner">
+    <div class="section-label">FINANCE WORKFLOWS</div>
+    <h2 class="section-title">4 Use Cases שכל איש כספים צריך להכיר</h2>
+    <p class="section-desc">ארבעה תרחישים אמיתיים שבהם Claude + Excel מייצרים ערך מיידי — בלי לחכות לפרויקט ארוך.</p>
+    <div class="uc-grid">
+      <div class="uc-card">
+        <div class="uc-num">USE CASE 01</div>
+        <div class="uc-title">Variance Analysis לסיפור הנהלה</div>
+        <div class="uc-desc">מטבלת שונות חודשית — לנרטיב קצר, ברור ומדויק למנהלים. עם הפרדה בין עובדות לפרשנות.</div>
+      </div>
+      <div class="uc-card">
+        <div class="uc-num">USE CASE 02</div>
+        <div class="uc-title">Board Summary מ-GL Export</div>
+        <div class="uc-desc">מ-export גולמי ל-board pack מוכן: executive summary, 5 תובנות מרכזיות, המלצות לפעולה.</div>
+      </div>
+      <div class="uc-card">
+        <div class="uc-num">USE CASE 03</div>
+        <div class="uc-title">Monthly Review Deck</div>
+        <div class="uc-desc">מקובץ Excel חודשי למצגת מנהלים: storyline, slide logic, executive tone — בלי formatting ידני.</div>
+      </div>
+      <div class="uc-card">
+        <div class="uc-num">USE CASE 04</div>
+        <div class="uc-title">Budget vs Actual Narrative</div>
+        <div class="uc-desc">השוואת תקציב לביצוע — עם הסבר מה השתנה, למה, ומה המשמעות לתחזית הרבעון.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
 <section id="live-demo-cta">
   <div class="inner">
 
@@ -1219,37 +1276,6 @@ File: [Filename] | Report type: Management P&amp;L
   </div>
 </section>
 
-<!-- ─── USE CASES ─── -->
-<section id="usecases">
-  <div class="inner">
-    <div class="section-label">FINANCE WORKFLOWS</div>
-    <h2 class="section-title">4 Use Cases שכל איש כספים צריך להכיר</h2>
-    <p class="section-desc">ארבעה תרחישים אמיתיים שבהם Claude + Excel מייצרים ערך מיידי — בלי לחכות לפרויקט ארוך.</p>
-    <div class="uc-grid">
-      <div class="uc-card">
-        <div class="uc-num">USE CASE 01</div>
-        <div class="uc-title">Variance Analysis לסיפור הנהלה</div>
-        <div class="uc-desc">מטבלת שונות חודשית — לנרטיב קצר, ברור ומדויק למנהלים. עם הפרדה בין עובדות לפרשנות.</div>
-      </div>
-      <div class="uc-card">
-        <div class="uc-num">USE CASE 02</div>
-        <div class="uc-title">Board Summary מ-GL Export</div>
-        <div class="uc-desc">מ-export גולמי ל-board pack מוכן: executive summary, 5 תובנות מרכזיות, המלצות לפעולה.</div>
-      </div>
-      <div class="uc-card">
-        <div class="uc-num">USE CASE 03</div>
-        <div class="uc-title">Monthly Review Deck</div>
-        <div class="uc-desc">מקובץ Excel חודשי למצגת מנהלים: storyline, slide logic, executive tone — בלי formatting ידני.</div>
-      </div>
-      <div class="uc-card">
-        <div class="uc-num">USE CASE 04</div>
-        <div class="uc-title">Budget vs Actual Narrative</div>
-        <div class="uc-desc">השוואת תקציב לביצוע — עם הסבר מה השתנה, למה, ומה המשמעות לתחזית הרבעון.</div>
-      </div>
-    </div>
-  </div>
-</section>
-
 <!-- ─── NEXT WEBINAR ─── -->
 <section id="next">
   <div class="inner">
@@ -1267,25 +1293,6 @@ File: [Filename] | Report type: Management P&amp;L
   </div>
 </section>
 
-<!-- ─── RECORDING SECTION ─── -->
-<section id="recording" style="border-bottom: 1px solid var(--border);">
-  <div class="inner">
-    <div class="section-label">WEBINAR RECORDING</div>
-    <h2 class="section-title">צפייה בהקלטה</h2>
-    <p class="section-desc">
-      לא הספקתם להשתתף בשידור החי? לא נורא — הקלטת וובינר מלאה זמינה כאן.
-    </p>
-    <div style="margin-top: 2.5rem; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 3rem 2rem; text-align: center;">
-      <p style="color: var(--text-muted); font-size: 1.1rem; margin-bottom: 1.5rem;">
-        🎬 <strong>כאן תיהיה ההקלטה</strong>
-      </p>
-      <p style="color: var(--text-faint); font-size: 0.95rem;">
-        PLACE HOLDER — Recording URL יעודכן בקרוב
-      </p>
-    </div>
-  </div>
-</section>
-
 <!-- ─── CTA ─── -->
 <section id="cta">
   <div class="inner">
@@ -1299,6 +1306,28 @@ File: [Filename] | Report type: Management P&amp;L
     <a href="https://popup.fm/ronenamoscpa/events/G9g9e7OtFnhtgYhkwSy4" target="_blank" class="cta-btn">להרשמה לוובינר 1 ←</a>
     <br><br>
     <a href="https://popup.fm/ronenamoscpa/events" target="_blank" class="cta-btn">לראות את כל הוובינרים ←</a>
+  </div>
+</section>
+
+<!-- ─── WEBINAR RECORDING ─── -->
+<section id="webinar-recording" style="background: var(--surface); border-bottom: 1px solid var(--border); padding: 5rem 2rem;">
+  <div class="inner">
+    <div class="section-label">WEBINAR RECORDING</div>
+    <h2 class="section-title">צפייה בהקלטה המלאה</h2>
+    <p class="section-desc">
+      הוובינר המלא — כל הדמוים, השאלות והתשובות — זמין לצפייה בתאריך שלך.
+    </p>
+    <div class="video-wrapper" style="max-width: 900px; margin: 2rem auto;">
+      <iframe
+        width="100%"
+        height="600"
+        src="https://www.youtube.com/embed/FM-rSCaCaps"
+        title="Claude Excel PP Webinar Recording"
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen>
+      </iframe>
+    </div>
   </div>
 </section>
 
