@@ -161,7 +161,7 @@ export const guides: Guide[] = [
     gammaUrl: 'https://gamma.app/embed/wq6xfw8y29upt2y',
     thumbnail: '/guides/automation.png',
     duration: "20 דק'",
-    isPremium: true,
+    isPremium: false,
     publishedAt: '2026-05-11',
   },
   {
@@ -173,7 +173,7 @@ export const guides: Guide[] = [
     gammaUrl: 'https://gamma.app/embed/binzzaidm00b3s1',
     thumbnail: '/guides/excel-ai.png',
     duration: "16 דק'",
-    isPremium: true,
+    isPremium: false,
     publishedAt: '2026-05-11',
   },
   {
