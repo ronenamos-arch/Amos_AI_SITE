@@ -72,6 +72,14 @@ Claude תופס דברים שהיא הייתה מפספסת — וחשוב מכ�
 
 ---
 
+<div style="background: linear-gradient(135deg, #1a2744 0%, #1e3a5f 100%); border: 1px solid #3b82f6; border-radius: 12px; padding: 24px; margin: 24px 0; text-align: center; direction: rtl;">
+  <div style="font-size: 1rem; font-weight: 700; color: #e2e8f0; margin-bottom: 8px;">Claude Cowork — המדריך המלא</div>
+  <div style="font-size: 0.875rem; color: #94a3b8; margin-bottom: 16px;">לימדו את כל עקרונות ה-80/20 של עבודה שיתופית עם Claude Cowork — מעקרונות בסיסיים ועד אסטרטגיות מתקדמות</div>
+  <a href="https://www.ronenamoscpa.co.il/guides/claude-cowork" target="_blank" rel="noopener noreferrer" style="display: inline-block; background: #3b82f6; color: white; padding: 12px 28px; border-radius: 8px; font-weight: 600; text-decoration: none; font-size: 1rem;">CLAUDE COWORK — the full guide</a>
+</div>
+
+---
+
 ## 3 עצות ליישום מיידי
 
 **1. התחילו פשוט:** בקשו מ-Claude לקרוא מסמך ולסכם אותו. אחרי שזה עובד — הרחיבו.
