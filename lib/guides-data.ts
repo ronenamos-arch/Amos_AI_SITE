@@ -182,7 +182,7 @@ export const guides: Guide[] = [
     description: 'המדריך בנוי על עיקרון ה-80/20: רוב התוצאות מגיעות ממיעוט הפעולות. לכן חילקנו אותו כך שתדעו בדיוק מה חשוב ללמוד קודם — ומה שמור למקצוענים.',
     category: 'Claude',
     tags: ['Claude', 'Claude Cowork', 'Collaboration', 'Productivity'],
-    gammaUrl: 'https://gamma.app/embed/rosbrjjrbzh51l3',
+    gammaUrl: 'https://gamma.app/docs/Claude-Cowork-gkvc6xn43v3htzd',
     thumbnail: '/guides/claude-cowork.png',
     duration: "15 דק'",
     isPremium: true,
