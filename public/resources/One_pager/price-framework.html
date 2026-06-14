@@ -1,0 +1,1127 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>מסגרת PRICE — ארטיפקטים עם Claude לאנשי כספים | AI Finance Transformation</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800;900&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+:root {
+  --bg: #0b0d10;
+  --surface: #12161a;
+  --surface2: #1a1f26;
+  --accent: #b8c45a;
+  --accent-strong: #d6e36a;
+  --accent-dim: rgba(184,196,90,0.12);
+  --text: #fafbfc;
+  --text-muted: #c2cad2;
+  --text-faint: #7a8694;
+  --border: rgba(255,255,255,0.07);
+  --radius-sm: 10px;
+  --radius-md: 18px;
+  --radius-lg: 28px;
+  --font: Heebo, system-ui, sans-serif;
+  --mono: "IBM Plex Mono", monospace;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font);
+  line-height: 1.65;
+  overflow-x: hidden;
+}
+a { color: inherit; text-decoration: none; }
+
+.inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+/* ── TOPBAR ── */
+#topbar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(11,13,16,0.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  padding: 0.85rem 2rem;
+}
+.topbar-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+.topbar-brand {
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  color: var(--accent);
+  letter-spacing: 0.06em;
+  font-weight: 600;
+  white-space: nowrap;
+}
+.topbar-nav {
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+.topbar-nav a {
+  font-size: 0.78rem;
+  color: var(--text-faint);
+  font-family: var(--mono);
+  letter-spacing: 0.04em;
+  transition: color 0.2s;
+}
+.topbar-nav a:hover { color: var(--accent); }
+@media (max-width: 600px) {
+  .topbar-nav { display: none; }
+}
+
+/* ── SECTION LABEL ── */
+.section-label {
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 1rem;
+}
+
+/* ── HERO ── */
+#hero {
+  padding: 6rem 2rem 5rem;
+  text-align: center;
+  position: relative;
+  background: radial-gradient(ellipse at 50% 0%, rgba(184,196,90,0.07) 0%, transparent 65%);
+}
+.hero-eyebrow {
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 1.5rem;
+  font-weight: 600;
+}
+.hero-title {
+  font-size: clamp(2.4rem, 6vw, 4.5rem);
+  font-weight: 900;
+  line-height: 1.12;
+  margin-bottom: 1.5rem;
+  letter-spacing: -0.01em;
+}
+.hero-title em {
+  color: var(--accent);
+  font-style: normal;
+}
+.hero-desc {
+  font-size: clamp(1rem, 2vw, 1.2rem);
+  color: var(--text-muted);
+  max-width: 640px;
+  margin: 0 auto 2.5rem;
+  font-weight: 300;
+  line-height: 1.7;
+}
+.hero-stats {
+  display: flex;
+  justify-content: center;
+  gap: 3rem;
+  flex-wrap: wrap;
+  margin-bottom: 3rem;
+}
+.stat {
+  text-align: center;
+}
+.stat-num {
+  font-size: 2.6rem;
+  font-weight: 900;
+  color: var(--accent);
+  font-family: var(--mono);
+  line-height: 1;
+}
+.stat-label {
+  font-size: 0.7rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+  margin-top: 0.35rem;
+}
+.hero-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: var(--accent);
+  color: #0b0d10;
+  font-weight: 700;
+  font-size: 0.9rem;
+  padding: 0.85rem 2.2rem;
+  border-radius: var(--radius-sm);
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.2s;
+  font-family: var(--font);
+  letter-spacing: 0.02em;
+}
+.hero-cta:hover {
+  background: var(--accent-strong);
+  transform: translateY(-2px);
+}
+
+/* ── FRAMEWORK SECTION ── */
+#framework {
+  padding: 5rem 2rem;
+}
+.fw-header {
+  text-align: center;
+  margin-bottom: 3.5rem;
+}
+.fw-header h2 {
+  font-size: clamp(1.6rem, 3.5vw, 2.6rem);
+  font-weight: 800;
+  line-height: 1.2;
+}
+
+/* ── PRICE CARDS ── */
+.price-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.price-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  cursor: pointer;
+  transition: border-color 0.25s, transform 0.25s;
+  position: relative;
+}
+.price-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 3px;
+  height: 100%;
+  background: var(--accent);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.price-card:hover { border-color: rgba(184,196,90,0.3); }
+.price-card.open { border-color: rgba(184,196,90,0.35); }
+.price-card.open::before { opacity: 1; }
+
+.card-head {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  padding: 1.5rem 1.8rem;
+}
+.card-letter {
+  font-size: 2.6rem;
+  font-weight: 900;
+  color: var(--accent);
+  font-family: var(--mono);
+  line-height: 1;
+  min-width: 44px;
+  text-align: center;
+}
+.card-meta { flex: 1; }
+.card-title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  margin-bottom: 0.15rem;
+}
+.card-tagline {
+  font-size: 0.82rem;
+  color: var(--text-faint);
+}
+.card-toggle {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--accent);
+  font-size: 1.1rem;
+  font-family: var(--mono);
+  transition: all 0.3s;
+  flex-shrink: 0;
+  background: transparent;
+  cursor: pointer;
+}
+.price-card.open .card-toggle {
+  background: var(--accent);
+  color: #0b0d10;
+  transform: rotate(45deg);
+  border-color: var(--accent);
+}
+
+.card-body {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.45s cubic-bezier(0.23,1,0.32,1);
+}
+.price-card.open .card-body { max-height: 700px; }
+
+.card-content {
+  padding: 0 1.8rem 1.8rem;
+  padding-right: 5rem;
+}
+@media (max-width: 500px) {
+  .card-content { padding-right: 1.8rem; }
+}
+
+.card-content p {
+  font-size: 0.92rem;
+  line-height: 1.75;
+  color: var(--text-muted);
+  margin-bottom: 1rem;
+}
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.8rem;
+}
+.tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.4rem 0.85rem;
+  background: var(--accent-dim);
+  border: 1px solid rgba(184,196,90,0.15);
+  border-radius: 6px;
+  font-size: 0.75rem;
+  color: var(--accent);
+  font-weight: 500;
+}
+
+/* ── EXAMPLES SECTION ── */
+#examples {
+  padding: 5rem 2rem;
+  background: linear-gradient(180deg, var(--bg) 0%, var(--surface) 50%, var(--bg) 100%);
+}
+.ex-header {
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+.ex-header h2 {
+  font-size: clamp(1.5rem, 3vw, 2.4rem);
+  font-weight: 800;
+  line-height: 1.2;
+}
+
+/* Use-case selector */
+.uc-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.75rem;
+  margin-bottom: 1.8rem;
+}
+@media (min-width: 700px) {
+  .uc-grid { grid-template-columns: repeat(4, 1fr); }
+}
+.uc-btn {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 1.1rem 0.8rem 0.9rem;
+  cursor: pointer;
+  transition: border-color 0.2s, transform 0.2s, background 0.2s;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font);
+  color: var(--text-faint);
+}
+.uc-btn:hover { border-color: rgba(184,196,90,0.3); color: var(--text); transform: translateY(-2px); }
+.uc-btn.active { border-color: var(--accent); background: var(--accent-dim); color: var(--text); }
+.uc-icon { font-size: 1.5rem; }
+.uc-name {
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-align: center;
+  line-height: 1.3;
+}
+.uc-level {
+  font-family: var(--mono);
+  font-size: 0.58rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent);
+  padding: 0.2rem 0.6rem;
+  background: var(--accent-dim);
+  border-radius: 20px;
+}
+
+/* Flow demo */
+.flow-demo {
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+.flow-tabs {
+  display: flex;
+  border-bottom: 1px solid var(--border);
+  overflow-x: auto;
+}
+.flow-tab {
+  flex: 1;
+  padding: 1rem;
+  background: transparent;
+  border: none;
+  color: var(--text-faint);
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: color 0.2s;
+  position: relative;
+  white-space: nowrap;
+  font-size: 0.72rem;
+}
+.flow-tab::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  right: 20%;
+  width: 60%;
+  height: 2px;
+  background: var(--accent);
+  opacity: 0;
+  transition: opacity 0.25s;
+}
+.flow-tab.active { color: var(--accent); }
+.flow-tab.active::after { opacity: 1; }
+.flow-tab:hover { color: var(--text); }
+
+.flow-panel {
+  padding: 2rem 2.2rem;
+  min-height: 280px;
+  display: none;
+}
+.flow-panel.active { display: block; }
+.flow-panel .step-label {
+  font-family: var(--mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--accent);
+  font-weight: 600;
+  display: block;
+  margin-bottom: 0.5rem;
+}
+.flow-panel h3 {
+  font-size: 1.15rem;
+  font-weight: 700;
+  margin-bottom: 0.8rem;
+}
+.flow-panel p {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  line-height: 1.75;
+  margin-bottom: 0.8rem;
+}
+
+.prompt-block {
+  background: #0d1117;
+  border-right: 3px solid var(--accent);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  padding: 1.1rem 1.3rem;
+  margin-top: 0.8rem;
+  direction: ltr;
+  text-align: left;
+}
+.prompt-block .pb-label {
+  font-family: var(--mono);
+  font-size: 0.58rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+  margin-bottom: 0.6rem;
+}
+.prompt-block pre {
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  line-height: 1.65;
+  color: #c9d1d9;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.check-list {
+  list-style: none;
+  padding: 0;
+  margin-top: 0.5rem;
+}
+.check-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+  padding: 0.5rem 0;
+  font-size: 0.87rem;
+  color: var(--text-muted);
+  line-height: 1.55;
+}
+.check-list li::before {
+  content: '✓';
+  color: var(--accent);
+  font-weight: 700;
+  flex-shrink: 0;
+  margin-top: 0.05rem;
+  font-family: var(--mono);
+}
+
+/* ── WHY SECTION ── */
+#why {
+  padding: 5rem 2rem;
+  text-align: center;
+}
+.why-quote {
+  font-size: clamp(1.05rem, 2.2vw, 1.4rem);
+  font-weight: 300;
+  color: var(--text-muted);
+  line-height: 1.7;
+  max-width: 780px;
+  margin: 0 auto 3rem;
+}
+.why-quote em { color: var(--accent); font-style: normal; font-weight: 600; }
+.why-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  max-width: 900px;
+  margin: 0 auto;
+}
+@media (min-width: 500px) { .why-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 900px) { .why-grid { grid-template-columns: repeat(4, 1fr); } }
+.why-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 1.8rem 1.5rem;
+  text-align: right;
+  transition: border-color 0.2s, transform 0.22s;
+}
+.why-card:hover { border-color: rgba(184,196,90,0.25); transform: translateY(-4px); }
+.why-icon { font-size: 1.6rem; margin-bottom: 0.8rem; }
+.why-card h4 { font-size: 0.92rem; font-weight: 700; color: var(--accent); margin-bottom: 0.4rem; }
+.why-card p { font-size: 0.78rem; color: var(--text-faint); line-height: 1.6; }
+
+/* ── FOOTER CTA ── */
+#footer { padding: 5rem 2rem 3rem; }
+.footer-title { font-size: clamp(1.3rem, 2.5vw, 1.8rem); font-weight: 800; margin-bottom: 0.5rem; }
+.footer-sub { font-size: 0.88rem; color: var(--text-muted); margin-bottom: 2.5rem; }
+.footer-grid { display: grid; grid-template-columns: 1fr; gap: 1rem; }
+@media (min-width: 500px) { .footer-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 900px) { .footer-grid { grid-template-columns: repeat(3, 1fr); } }
+.footer-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 1.3rem 1.5rem;
+  transition: border-color 0.2s, transform 0.22s;
+  display: block;
+}
+.footer-card:hover { border-color: var(--accent); transform: translateY(-4px); }
+.footer-card-num { font-family: var(--mono); font-size: 0.62rem; color: var(--text-faint); letter-spacing: 0.1em; margin-bottom: 0.4rem; }
+.footer-card-title { font-size: 0.9rem; font-weight: 700; margin-bottom: 0.3rem; }
+.footer-card-desc { font-size: 0.78rem; color: var(--text-muted); line-height: 1.5; margin-bottom: 0.5rem; }
+.footer-card-link { font-size: 0.72rem; color: var(--accent); font-family: var(--mono); }
+.footer-copy { margin-top: 3rem; text-align: center; font-size: 0.75rem; color: var(--text-faint); font-family: var(--mono); letter-spacing: 0.05em; }
+
+/* divider */
+.divider { border: none; border-top: 1px solid var(--border); margin: 0; }
+</style>
+</head>
+<body>
+
+<!-- ── TOPBAR ── -->
+<nav id="topbar">
+  <div class="topbar-inner">
+    <span class="topbar-brand">AI Finance Transformation</span>
+    <div class="topbar-nav">
+      <a href="#framework">המסגרת</a>
+      <a href="#examples">דוגמאות חיות</a>
+      <a href="#why">למה זה עובד</a>
+      <a href="#footer">משאבים</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ── HERO ── -->
+<section id="hero">
+  <div class="inner">
+    <div class="hero-eyebrow">מסגרת עבודה לאנשי כספים</div>
+    <h1 class="hero-title">מסגרת <em>PRICE</em></h1>
+    <p class="hero-desc">5 שלבים שהופכים כל CFO, Controller או FP&A מנהל ליוצר כלים — בלי קוד, בלי IT, ישר מ-Claude.</p>
+    <div class="hero-stats">
+      <div class="stat">
+        <div class="stat-num">5</div>
+        <div class="stat-label">שלבים</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">∞</div>
+        <div class="stat-label">שימושים</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">0</div>
+        <div class="stat-label">שורות קוד</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">1</div>
+        <div class="stat-label">כלי: Claude</div>
+      </div>
+    </div>
+    <button class="hero-cta" onclick="document.getElementById('framework').scrollIntoView({behavior:'smooth'})">
+      לצלול לתוך המסגרת ↓
+    </button>
+  </div>
+</section>
+
+<hr class="divider" />
+
+<!-- ── FRAMEWORK ── -->
+<section id="framework">
+  <div class="inner">
+    <div class="fw-header">
+      <div class="section-label">המתודולוגיה</div>
+      <h2>חמש אותיות. חמישה שלבים.<br/>פרקטיקה שעובדת.</h2>
+    </div>
+
+    <div class="price-list">
+
+      <!-- P -->
+      <div class="price-card" onclick="toggleCard(this)">
+        <div class="card-head">
+          <div class="card-letter">P</div>
+          <div class="card-meta">
+            <div class="card-title">Problem — הגדרת הבעיה</div>
+            <div class="card-tagline">תן שם לכאב. תהיה ספציפי.</div>
+          </div>
+          <button class="card-toggle" onclick="event.stopPropagation(); toggleCard(this.closest('.price-card'))">+</button>
+        </div>
+        <div class="card-body">
+          <div class="card-content">
+            <p>התחל בתיאור מדויק של מה שכואב בתהליך הנוכחי. לא "אני צריך עזרה עם Excel" — אלא: "אני מבזבז 3 שעות בסוף כל חודש על מיזוג 12 קבצי P&L אזוריים לדוח מאוחד אחד."</p>
+            <p>ככל שתהיה ספציפי יותר, כך הפתרון של Claude יהיה מדויק יותר. שאל את עצמך: מה גורם למשימה הזו? כמה פעמים בחודש? מה נשבר בה?</p>
+            <div class="tags">
+              <span class="tag">→ מיזוג 12 קבצי Excel חודשית</span>
+              <span class="tag">→ חילוץ חשבוניות PDF לטבלה</span>
+              <span class="tag">→ בניית תרחישי תחזית הכנסות</span>
+              <span class="tag">→ Monte Carlo לתקצוב</span>
+              <span class="tag">→ ניתוח Variance אוטומטי</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- R -->
+      <div class="price-card" onclick="toggleCard(this)">
+        <div class="card-head">
+          <div class="card-letter">R</div>
+          <div class="card-meta">
+            <div class="card-title">Relevant Context — הקשר רלוונטי</div>
+            <div class="card-tagline">תן ל-Claude את ה"למה" מאחורי ה"מה".</div>
+          </div>
+          <button class="card-toggle" onclick="event.stopPropagation(); toggleCard(this.closest('.price-card'))">+</button>
+        </div>
+        <div class="card-body">
+          <div class="card-content">
+            <p>למשימות פשוטות כמו מיזוג קבצים — לא צריך להסביר הרבה. אבל לעבודה מקצועית עמוקה, ההקשר הוא הכול.</p>
+            <p>ספר ל-Claude על הענף שלך, מבנה הנתונים, דרישות רגולטוריות, קצב הדיווח, ומגבלות שישפיעו על הפתרון. CFO בחברת SaaS צריך תצוגת ARR/MRR. Controller ייצור צריך פירוט מרכזי עלות. ההקשר מתאים את הכלי למציאות שלך.</p>
+            <div class="tags">
+              <span class="tag">→ נתונים מ-SAP בפורמט .csv</span>
+              <span class="tag">→ דיווח רבעוני לדירקטוריון</span>
+              <span class="tag">→ Chart of accounts פנימי</span>
+              <span class="tag">→ IFRS / US GAAP</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- I -->
+      <div class="price-card" onclick="toggleCard(this)">
+        <div class="card-head">
+          <div class="card-letter">I</div>
+          <div class="card-meta">
+            <div class="card-title">Iterate — חזרה על האיטרציה</div>
+            <div class="card-tagline">הפעל. שבור. תקן. חזור.</div>
+          </div>
+          <button class="card-toggle" onclick="event.stopPropagation(); toggleCard(this.closest('.price-card'))">+</button>
+        </div>
+        <div class="card-body">
+          <div class="card-content">
+            <p>Claude יבנה artifact — כלי עובד, dashboard, או סקריפט — ישירות בצ'אט. הפעל אותו מיד. עבד? מצוין. נשבר? עדיף — עכשיו יש לך בדיוק מה להגיד ל-Claude לתקן.</p>
+            <p>זו שיחה, לא ניסיון חד-פעמי. אמור: "עמודת התאריך לא מתפרסת נכון" או "אפשר להוסיף dropdown לשנת תקציב?" רוב הכלים מגיעים לנקודה טובה אחרי 2–4 סיבובים.</p>
+            <div class="tags">
+              <span class="tag">→ 2–4 איטרציות בממוצע</span>
+              <span class="tag">→ תאר מה לא עבד</span>
+              <span class="tag">→ בקש פיצ'רים חדשים</span>
+              <span class="tag">→ שוחח, אל תנחש</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- C -->
+      <div class="price-card" onclick="toggleCard(this)">
+        <div class="card-head">
+          <div class="card-letter">C</div>
+          <div class="card-meta">
+            <div class="card-title">Confirm — אישור תוצאות</div>
+            <div class="card-tagline">סמוך — אבל בדוק.</div>
+          </div>
+          <button class="card-toggle" onclick="event.stopPropagation(); toggleCard(this.closest('.price-card'))">+</button>
+        </div>
+        <div class="card-body">
+          <div class="card-content">
+            <p>לפני שמשתפים כלום, מאמתים. בדוק עם נתונים אמיתיים — לא רק הדוגמה. הפעל edge cases: מה קורה עם שורות ריקות? מספרים שליליים? חודש חסר? האם הפלט תואם לחישוב ידני?</p>
+            <p>כאן הידע הפיננסי שלך הוא המפתח. Claude בנה את הכלי — אתה מאשר שהוא אמין. תעד מה עובד כדי שתוכל לשחזר תוצאות באופן עקבי.</p>
+            <div class="tags">
+              <span class="tag">→ בדוק עם נתוני אמת</span>
+              <span class="tag">→ בדוק מקרי קצה</span>
+              <span class="tag">→ צלב עם חישוב ידני</span>
+              <span class="tag">→ תעד מה עובד</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- E -->
+      <div class="price-card" onclick="toggleCard(this)">
+        <div class="card-head">
+          <div class="card-letter">E</div>
+          <div class="card-meta">
+            <div class="card-title">Extend — הרחבה ושיתוף</div>
+            <div class="card-tagline">הפתרון שלך הוא עכשיו הפתרון של הצוות.</div>
+          </div>
+          <button class="card-toggle" onclick="event.stopPropagation(); toggleCard(this.closest('.price-card'))">+</button>
+        </div>
+        <div class="card-body">
+          <div class="card-content">
+            <p>כאן הקסם מתרחיל. ה-artifact שבנית? שתף אותו עם הצוות. האנליסט שמבלה כל יום שישי על consolidation ידני? תן לו את הכלי. Controller שסובל מסוף חודש? תן לו את ה-workflow.</p>
+            <p>אתה לא רק פותר את הכאב שלך — אתה יוצר מינוף מוסדי. כל artifact שמשותף הוא תהליך שמשתפר בכל הארגון. אסוף פידבק, חזור על האיטרציה, וצפה בפונקציית הכספים שלך עולה ברמה.</p>
+            <div class="tags">
+              <span class="tag">→ שתף עם הצוות</span>
+              <span class="tag">→ אסוף פידבק</span>
+              <span class="tag">→ בנה ספריית כלים</span>
+              <span class="tag">→ סקייל לכלל הארגון</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<hr class="divider" />
+
+<!-- ── LIVE EXAMPLES ── -->
+<section id="examples">
+  <div class="inner">
+    <div class="ex-header">
+      <div class="section-label">דוגמאות חיות</div>
+      <h2>PRICE בפעולה —<br/>כאבים אמיתיים מעולם הכספים</h2>
+    </div>
+
+    <div class="uc-grid" id="ucGrid">
+      <button class="uc-btn active" onclick="switchUC(0)">
+        <span class="uc-icon">📊</span>
+        <span class="uc-name">איחוד P&L אזורי</span>
+        <span class="uc-level">בסיסי</span>
+      </button>
+      <button class="uc-btn" onclick="switchUC(1)">
+        <span class="uc-icon">📄</span>
+        <span class="uc-name">PDF חשבוניות → Excel</span>
+        <span class="uc-level">בסיסי</span>
+      </button>
+      <button class="uc-btn" onclick="switchUC(2)">
+        <span class="uc-icon">🎲</span>
+        <span class="uc-name">Monte Carlo לתקצוב</span>
+        <span class="uc-level">מתקדם</span>
+      </button>
+      <button class="uc-btn" onclick="switchUC(3)">
+        <span class="uc-icon">📈</span>
+        <span class="uc-name">תחזית משתמשי SaaS</span>
+        <span class="uc-level">מתקדם</span>
+      </button>
+    </div>
+
+    <div class="flow-demo">
+      <div class="flow-tabs">
+        <button class="flow-tab active" onclick="switchTab(0)">P — בעיה</button>
+        <button class="flow-tab" onclick="switchTab(1)">R — הקשר</button>
+        <button class="flow-tab" onclick="switchTab(2)">I — איטרציה</button>
+        <button class="flow-tab" onclick="switchTab(3)">C — אישור</button>
+        <button class="flow-tab" onclick="switchTab(4)">E — הרחבה</button>
+      </div>
+      <div id="flowPanels"></div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider" />
+
+<!-- ── WHY ── -->
+<section id="why">
+  <div class="inner">
+    <div class="section-label" style="text-align:center;">למה זה עובד</div>
+    <p class="why-quote">
+      "PRICE הופך workarounds מפוזרים ל<em>כלים חוזרים</em>. אתה לא בונה תוכנה — אתה <em>ממכן את הבעיות שלך</em>. וברגע שזה עובד, יצרת משהו שכל הצוות הפיננסי יכול להשתמש בו."
+    </p>
+    <div class="why-grid">
+      <div class="why-card">
+        <div class="why-icon">💰</div>
+        <h4>זכיר</h4>
+        <p>אנשי כספים משתמשים ב"price" מדי יום. ראשי התיבות נדבקים כי הם שייכים לשפה שלך.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">⚡</div>
+        <h4>מיידי</h4>
+        <p>כל אות היא צעד קונקרטי שאפשר לבצע עכשיו — לא תיאוריה, לא mindset, פשוט פעולה.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">📐</div>
+        <h4>סקייל</h4>
+        <p>עובד למיזוג קבצים של 5 דקות וגם לסימולציית Monte Carlo מורכבת. אותה מסגרת, כל רמת מורכבות.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">🔓</div>
+        <h4>משחרר</h4>
+        <p>משנה את ה-mindset מ"אני צריך IT לבנות לי את זה" ל"אני יכול לפתור את זה בעצמי, עכשיו."</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider" />
+
+<!-- ── FOOTER CTA ── -->
+<section id="footer">
+  <div class="inner">
+    <div class="section-label">המשך</div>
+    <h2 class="footer-title">למדריכים ותוכן נוסף</h2>
+    <p class="footer-sub">כל הכלים, הקהילה והמשאבים — במקום אחד.</p>
+    <div class="footer-grid">
+      <a href="https://chat.whatsapp.com/CS6dgqnK45Q9XAMqScNr6R" target="_blank" class="footer-card">
+        <div class="footer-card-num">01 · COMMUNITY</div>
+        <div class="footer-card-title">קהילת AI Finance</div>
+        <div class="footer-card-desc">מעל 800 אנשי פיננסים שחולקים כלים ו-prompts בזמן אמת.</div>
+        <div class="footer-card-link">chat.whatsapp.com ↗</div>
+      </a>
+      <a href="https://www.youtube.com/@AIFinanceTransformation" target="_blank" class="footer-card">
+        <div class="footer-card-num">02 · YOUTUBE</div>
+        <div class="footer-card-title">AI for Finance</div>
+        <div class="footer-card-desc">הדגמות מעשיות, walkthroughs ו-playbooks שמאחורי הפרקטיקה.</div>
+        <div class="footer-card-link">@AIFinanceTransformation ↗</div>
+      </a>
+      <a href="https://www.ronenamoscpa.co.il/" target="_blank" class="footer-card">
+        <div class="footer-card-num">03 · NEWSLETTER</div>
+        <div class="footer-card-title">הניוזלטר השבועי</div>
+        <div class="footer-card-desc">תובנות AI לפיננסים ישר למייל שלך — כתוב על ידי איש פיננסים.</div>
+        <div class="footer-card-link">ronenamoscpa.co.il ↗</div>
+      </a>
+      <a href="https://www.ronenamoscpa.co.il/skill-vault" target="_blank" class="footer-card">
+        <div class="footer-card-num">04 · PROMPT HUB</div>
+        <div class="footer-card-title">Skill Vault</div>
+        <div class="footer-card-desc">ספריית ה-prompts שלי — מוכנים לשימוש מיידי בצוות הפיננסים שלך.</div>
+        <div class="footer-card-link">ronenamoscpa.co.il/skill-vault ↗</div>
+      </a>
+      <a href="https://www.paypal.com/ncp/payment/E36KBLHK8MDPN" target="_blank" class="footer-card">
+        <div class="footer-card-num">05 · THE BOOK</div>
+        <div class="footer-card-title">Claude Playbook</div>
+        <div class="footer-card-desc">הספר המלא — frameworks, case studies ומדריכי יישום לצוותי פיננסים.</div>
+        <div class="footer-card-link">רכישה מאובטחת ↗</div>
+      </a>
+      <a href="https://www.ronenamoscpa.co.il/courses" target="_blank" class="footer-card">
+        <div class="footer-card-num">06 · COURSE</div>
+        <div class="footer-card-title">קורס AI Finance</div>
+        <div class="footer-card-desc">תוכנית מובנית להטמעת חשיבה AI-First בצוות הפיננסים שלך.</div>
+        <div class="footer-card-link">ronenamoscpa.co.il/courses ↗</div>
+      </a>
+    </div>
+    <div class="footer-copy">Ronen Amos · AI Finance Transformation</div>
+  </div>
+</section>
+
+<script>
+// ── DATA ──
+const DATA = [
+  {
+    title: "איחוד P&L אזורי",
+    steps: [
+      {
+        label: "שלב 1 — בעיה",
+        heading: "הגדר את נקודת הכאב",
+        html: `<p>אתה מבזבז שעות בכל חודש על מיזוג קבצי P&L אזוריים לדוח מאוחד. הפורמטים נשברים, הנוסחאות לא עוברות, ויש טעויות.</p>
+          <div class="prompt-block">
+            <div class="pb-label">הפרומפט שלך ל-Claude</div>
+            <pre>"I need an app that lets me upload multiple Excel files (one per region), then merges them into a single consolidated P&L with a summary sheet. Each file has the same column structure: Account, Jan–Dec, and YTD."</pre>
+          </div>`
+      },
+      {
+        label: "שלב 2 — הקשר",
+        heading: "הוסף פרטים שמשנים",
+        html: `<p>למשימת מיזוג פשוטה — ההקשר מינימלי. אבל כמה פרטים ספציפיים מעצבים את הפלט:</p>
+          <div class="prompt-block">
+            <div class="pb-label">הקשר שכדאי להוסיף</div>
+            <pre>"We have 8 regions. Account codes follow our SAP chart of accounts. I need subtotals for Revenue, COGS, OpEx, and a Net Income line. Output should be board-deck ready — clean headers, no raw data."</pre>
+          </div>`
+      },
+      {
+        label: "שלב 3 — איטרציה",
+        heading: "הפעל ועדן",
+        html: `<p>Claude בנה את ה-artifact. הפעלת אותו — עמודת YTD לא מחשבת נכון, ואין תווית לאזורים. שולחים פידבק:</p>
+          <div class="prompt-block">
+            <div class="pb-label">ההמשך שלך ל-Claude</div>
+            <pre>"The merge works but the YTD column shows last month's value instead of the sum. Also, can you add a dropdown to filter which regions to include in the consolidation?"</pre>
+          </div>`
+      },
+      {
+        label: "שלב 4 — אישור",
+        heading: "ודא שהמספרים נכונים",
+        html: `<ul class="check-list">
+          <li>העלה את 8 קבצי האזורים האמיתיים ובדוק שהסכומים תואמים לאיחוד הידני שלך</li>
+          <li>בדוק קובץ עם שורות ריקות או חודש חסר</li>
+          <li>ודא שהגיון ה-subtotals (Revenue, COGS, OpEx, Net Income) נכון</li>
+          <li>בדוק שהפלט נפתח בצורה נאה ב-Excel</li>
+          <li>שמור את הפרומפט הסופי לחודש הבא</li>
+        </ul>`
+      },
+      {
+        label: "שלב 5 — הרחבה",
+        heading: "שתף והכפל את ההשפעה",
+        html: `<ul class="check-list">
+          <li>שתף את הכלי עם הצוות — כל אחד יכול להשתמש בו ל-consolidation שלו</li>
+          <li>בקש מה-Controller לבדוק אותו בסייקל רבעוני</li>
+          <li>בקש מ-Claude להוסיף עמודת Variance-to-Budget באיטרציה הבאה</li>
+          <li>בנה ספריית artifacts שכל הצוות הפיננסי יכול לגשת אליה</li>
+        </ul>`
+      }
+    ]
+  },
+  {
+    title: "PDF חשבוניות → Excel",
+    steps: [
+      {
+        label: "שלב 1 — בעיה",
+        heading: "העתקה ידנית שגוזלת שעות",
+        html: `<p>מדי שבוע מגיעות עשרות חשבוניות PDF. מישהו פותח כל אחת, מעתיק ידנית לגיליון: שם ספק, מס' חשבונית, תאריך, שורות. זה לוקח שעות, יש טעויות, וריפוק חשבונות בסוף חודש הופך לסיוט.</p>
+          <div class="prompt-block">
+            <div class="pb-label">הפרומפט שלך ל-Claude</div>
+            <pre>"I need an app where I can upload PDF invoices and it extracts: vendor name, invoice number, date, line item descriptions, quantities, unit prices, and totals — into a clean table I can download as .csv."</pre>
+          </div>`
+      },
+      {
+        label: "שלב 2 — הקשר",
+        heading: "כאן פחות זה יותר",
+        html: `<p>זו משימת חילוץ ישירה. אין צורך לספר ל-Claude על הענף שלך או על ה-ERP. הפרומפט המדויק כבר מספיק.</p>
+          <p>היופי של PRICE הוא לדעת <em>מתי לא</em> להסביר יותר מדי. תיאור הבעיה הוא 90% מהעבודה. אם כן רוצה להוסיף:</p>
+          <div class="prompt-block">
+            <div class="pb-label">הקשר אופציונלי</div>
+            <pre>"Our invoices come from different vendors with different layouts. Some include tax breakdowns, some don't. Always include a tax column — put 0 if not listed."</pre>
+          </div>`
+      },
+      {
+        label: "שלב 3 — איטרציה",
+        heading: "עדן את החילוץ",
+        html: `<p>Claude בנה את הכלי. העלית כמה חשבוניות. רוב השדות עובדים, אבל מס' הזמנת רכש (PO) לא נקלט, ושתי שורות פריטים מתמזגות לאחת.</p>
+          <div class="prompt-block">
+            <div class="pb-label">ההמשך שלך ל-Claude</div>
+            <pre>"Extraction works well for most invoices but it's not picking up the PO reference number (usually top-right corner). Also, please split multi-line item descriptions into separate rows instead of merging them."</pre>
+          </div>`
+      },
+      {
+        label: "שלב 4 — אישור",
+        heading: "בדוק מול המקור",
+        html: `<ul class="check-list">
+          <li>העלה 10 חשבוניות אמיתיות ממספר ספקים — השווה את הטבלה לחשבוניות שורה-שורה</li>
+          <li>ודא שסמלי מטבע וספרות עשרוניות מטופלים נכון</li>
+          <li>בדוק: סכום שורות הפריטים = סכום כולל בחשבונית?</li>
+          <li>נסה PDF סרוק (image-based) — האם OCR עובד?</li>
+          <li>ודא ש-.csv נפתח ב-Excel בלי בעיות encoding</li>
+        </ul>`
+      },
+      {
+        label: "שלב 5 — הרחבה",
+        heading: "תן לצוות AP את הכלי",
+        html: `<ul class="check-list">
+          <li>שתף עם צוות חשבונות לשלם — כל אחד יכול להעלות PDF ולקבל נתונים מובנים</li>
+          <li>בקש מ-Claude להוסיף דגל לחשבוניות כפולות לפי מס' חשבונית</li>
+          <li>הרחב לקידוד אוטומטי של הוצאות לפי GL בהתבסס על שם ספק</li>
+          <li>בנה artifact משלים שמרפק חשבוניות מול הזמנות רכש</li>
+        </ul>`
+      }
+    ]
+  },
+  {
+    title: "Monte Carlo לתקצוב",
+    steps: [
+      {
+        label: "שלב 1 — בעיה",
+        heading: "כמה נמכור — באמת?",
+        html: `<p>אתה CFO בחברת ייצור. כל רבעון צריך לאשר הזמנות חומרי גלם שבועות לפני שיש ביקוש ממשי. מזמין יותר מדי — רניון. מזמין פחות מדי — אבד מכירות. צריך לראות <em>טווח</em> של תרחישים, לא מספר יחיד ממוצע.</p>
+          <div class="prompt-block">
+            <div class="pb-label">הפרומפט שלך ל-Claude</div>
+            <pre>"Build me a Monte Carlo simulation app for demand forecasting. I input expected units sold per month plus a variability range (min/max). The simulation runs 10,000 scenarios and shows the probability distribution of total quarterly demand, then converts demand into raw material requirements I'll provide (units per recipe)."</pre>
+          </div>`
+      },
+      {
+        label: "שלב 2 — הקשר",
+        heading: "ביקוש עונתי ותלוי-תנאים",
+        html: `<p>כאן ההקשר קריטי. המוצר שלך לא נמכר באחידות — יש עונתיות, חגים, ואירועים. Claude צריך לדעת את המציאות שלך:</p>
+          <div class="prompt-block">
+            <div class="pb-label">הקשר שנותן ל-Claude את התמונה</div>
+            <pre>"Summer months (Jun–Aug) see 2.5x the volume of winter. Each unit requires: 0.5L milk, 0.08kg sugar, 0.15L cream, 1 packaging unit. Milk and cream are perishable (7-day shelf), ordered weekly. Sugar and packaging ordered monthly. I need P10/P50/P90 confidence intervals so I can set order quantities at P75 to balance waste vs. stockouts."</pre>
+          </div>`
+      },
+      {
+        label: "שלב 3 — איטרציה",
+        heading: "כיוון המודל",
+        html: `<p>Claude בנה סימולציה עם sliders ותרשימים. הפעלת — הפיזור נראה צר מדי בקיץ, ולא מביא בחשבון תנאי מזג אוויר. שולחים פידבק:</p>
+          <div class="prompt-block">
+            <div class="pb-label">ההמשך שלך ל-Claude</div>
+            <pre>"A few things: 1) Variability should be wider in summer — demand swings ±40% in July vs ±15% in January. Make variability seasonal. 2) Add a temperature input: for every degree above 25°C, increase demand by 3%. 3) Separate perishable (weekly order) vs non-perishable (monthly order) in the materials chart. 4) Add a cost column — I'll input price per unit of each material. Show total procurement cost at each confidence level."</pre>
+          </div>`
+      },
+      {
+        label: "שלב 4 — אישור",
+        heading: "Back-test מול שנה שעברה",
+        html: `<ul class="check-list">
+          <li>הפעל עם input של שנה שעברה — האם ה-P50 קרוב למכירות בפועל?</li>
+          <li>בדוק אם ה-P90 היה מכסה את שיא הביקוש הקיצי בפועל</li>
+          <li>ודא המרת חומרי גלם: 10,000 יחידות = 5,000 ליטר חלב בדיוק</li>
+          <li>בדוק תרחיש קיצוני: ביקוש קיצי כפול — האם המודל מגיב בהיגיון?</li>
+          <li>ודא שחישובי העלות תואמים למחיר ספק בפועל</li>
+        </ul>`
+      },
+      {
+        label: "שלב 5 — הרחבה",
+        heading: "מהשולחן שלך לשרשרת האספקה",
+        html: `<ul class="check-list">
+          <li>שתף עם מנהל הרכש — הוא יפעיל את הסימולציה שבועית עם תחזיות מעודכנות</li>
+          <li>תן למנהלים אזוריים להזין גורמי ביקוש מקומיים (אירועים, חום)</li>
+          <li>בקש מ-Claude להוסיף מצב "what-if": מה אם ספק לא מסוגל לספק וצריך מקור גיבוי ב-1.8x מחיר?</li>
+          <li>בנה artifact מעקב שמשווה תחזית vs. ביקוש בפועל לשיפור רציף של ההערכות</li>
+        </ul>`
+      }
+    ]
+  },
+  {
+    title: "תחזית משתמשי SaaS",
+    steps: [
+      {
+        label: "שלב 1 — בעיה",
+        heading: "האם קמפיין השיווק ישנה משהו?",
+        html: `<p>אתה CFO בחברת SaaS. השיווק רוצה להגדיל תקציב ל-3 קמפיינים ומציג "תחזית" של קפיצה במשתמשים — מספר יחיד בשקף, בלי הנחות, בלי רגישויות. אתה צריך כלי תכנון אמיתי עם sliders שמאפשר לך לשנות הנחה ולראות מיד את ההשפעה.</p>
+          <div class="prompt-block">
+            <div class="pb-label">הפרומפט שלך ל-Claude</div>
+            <pre>"Build me an interactive SaaS user acquisition forecast app. For each campaign I input: monthly ad spend, expected CPC, landing page conversion rate, and trial-to-paid conversion rate. The app calculates projected new users per month for the next 6 months, shows a chart, and lets me change any assumption with a slider to instantly see the impact."</pre>
+          </div>`
+      },
+      {
+        label: "שלב 2 — הקשר",
+        heading: "מדדי SaaS שמשנים הכול",
+        html: `<p>זה use case כבד-דומיין. Claude צריך להבין את עולם ה-SaaS שלך כדי לבנות משהו שימושי:</p>
+          <div class="prompt-block">
+            <div class="pb-label">הקשר שנותן ל-Claude את המציאות</div>
+            <pre>"B2B SaaS (project management tool), 12,000 active users. We run 3 campaign types: Google Ads (CPC ~₪9, landing conv. 4.5%, trial-to-paid 18%), LinkedIn Ads (CPC ~₪22, conv. 2.8%, trial-to-paid 25%), Content/SEO (8,000 organic visits/month, conv. 2.2%, trial-to-paid 15%). Monthly churn: 3.5%. ARPU: ₪165/month. Board wants to see what happens if we double LinkedIn spend but cut Google Ads by 30%."</pre>
+          </div>`
+      },
+      {
+        label: "שלב 3 — איטרציה",
+        heading: "הפוך אותו לכלי תכנון",
+        html: `<p>Claude בנה dashboard ראשוני. עכשיו מוסיפים את מה שהופך אותו לכלי דירקטוריון:</p>
+          <div class="prompt-block">
+            <div class="pb-label">ההמשך שלך ל-Claude</div>
+            <pre>"Refinements: 1) Add 'Scenario Comparison' — save a baseline, change assumptions, see both lines on same chart. 2) Churn slider must compound over 6 months, not a flat deduction. 3) Add MRR and ARR projection rows based on ARPU. 4) Add summary table: total spend, total new users, blended CAC, and LTV/CAC ratio per channel (LTV = ARPU / monthly churn)."</pre>
+          </div>`
+      },
+      {
+        label: "שלב 4 — אישור",
+        heading: "ולידציה מול נתוני אמת",
+        html: `<ul class="check-list">
+          <li>הכנס את הוצאות וה-conversion rates של הרבעון האחרון — האם המודל מוציא מספרי משתמשים קרובים לביצוע?</li>
+          <li>בדוק stress test: הורד conversion rates ב-50% — האם המודל מגיב בהיגיון?</li>
+          <li>ודא חישוב LTV: ב-ARPU ₪165 ו-churn 3.5% לחודש — LTV צריך להיות ~₪4,714</li>
+          <li>בדוק compounding churn: 1,000 משתמשים × 3.5% churn = ~807 אחרי 6 חודשים</li>
+          <li>ודא שהשוואת תרחישים מציגה שתי שורות ברורות על אותו גרף</li>
+        </ul>`
+      },
+      {
+        label: "שלב 5 — הרחבה",
+        heading: "כלי תכנון לדירקטוריון",
+        html: `<ul class="check-list">
+          <li>הצג את השוואת התרחישים בפגישת הדירקטוריון הבאה — תן לדירקטוריון לשחק עם ה-sliders בזמן אמת</li>
+          <li>שתף עם ה-VP Marketing כדי שיוכל לסמלץ שינויי קמפיין לפני אישור תקציב</li>
+          <li>בקש מ-Claude להוסיף "budget optimizer" — מה האלוקציה האופטימלית לכמות משתמשים יעד?</li>
+          <li>בנה artifact מעקב חודשי שמשווה תחזית vs. ביצוע ומשפר את הנחות ה-conversion</li>
+        </ul>`
+      }
+    ]
+  }
+];
+
+let activeUC = 0;
+let activeTab = 0;
+
+function renderPanels() {
+  const uc = DATA[activeUC];
+  const container = document.getElementById('flowPanels');
+  container.innerHTML = uc.steps.map((s, i) => `
+    <div class="flow-panel ${i === activeTab ? 'active' : ''}">
+      <span class="step-label">${s.label}</span>
+      <h3>${s.heading}</h3>
+      ${s.html}
+    </div>
+  `).join('');
+}
+
+function switchUC(i) {
+  activeUC = i;
+  activeTab = 0;
+  document.querySelectorAll('.uc-btn').forEach((b, j) => b.classList.toggle('active', j === i));
+  document.querySelectorAll('.flow-tab').forEach((t, j) => t.classList.toggle('active', j === 0));
+  renderPanels();
+}
+
+function switchTab(i) {
+  activeTab = i;
+  document.querySelectorAll('.flow-tab').forEach((t, j) => t.classList.toggle('active', j === i));
+  document.querySelectorAll('.flow-panel').forEach((p, j) => p.classList.toggle('active', j === i));
+}
+
+function toggleCard(card) {
+  const isOpen = card.classList.contains('open');
+  document.querySelectorAll('.price-card').forEach(c => c.classList.remove('open'));
+  if (!isOpen) card.classList.add('open');
+}
+
+// Init
+renderPanels();
+setTimeout(() => {
+  const first = document.querySelector('.price-card');
+  if (first) first.classList.add('open');
+}, 800);
+</script>
+</body>
+</html>
