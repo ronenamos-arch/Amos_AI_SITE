@@ -33,6 +33,18 @@ export interface Guide {
 
 export const guides: Guide[] = [
   {
+    slug: 'ai-excel-dashboard',
+    title: 'איך להשתמש ב-AI לתכנון Dashboard ב-Excel לפני שבונים אותו',
+    description: 'מדריך שמראה איך להשתמש ב-AI לפני שמתחילים לבנות Dashboard ב-Excel — להגדיר מטרות, לבחור KPIs, ולתכנן את המבנה הנכון מראש, כדי לחסוך שעות של עבודה מחדש.',
+    category: 'Excel',
+    tags: ['Excel', 'Dashboard', 'Finance Ops'],
+    gammaUrl: 'https://gamma.app/embed/aed5t2ktymrc0dj',
+    thumbnail: '/guides/ai-excel-dashboard.png',
+    duration: "5 דק'",
+    isPremium: true,
+    publishedAt: '2026-06-14',
+  },
+  {
     slug: 'claude-finance-guide',
     title: 'מדריך Claude לפיננסים: 5 תהליכי AI שכל CFO ואנליסט חייב להכיר',
     description: 'מדריך מעשי לאנשי כספים, FP&A ו-CFOs שמציג 5 שימושים מתקדמים ב-Claude, כולל עבודה מתוך Excel, בניית מודלי תחזית ו-Scenario Planning, יצירת דשבורדים אינטראקטיביים וחיבור לנתונים פיננסיים באמצעות MCP.',

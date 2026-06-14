@@ -18,6 +18,7 @@
 ## Guides Library
 
 - [מדריכי AI לאנשי כספים — Guides Library](https://www.ronenamoscpa.co.il/guides): Curated library of practical Hebrew guides on Claude, ChatGPT, automation, Excel, Power BI, and AI-driven finance departments. Filterable by category and tag, with search. Free to access — actionable steps you can implement this week, no theory.
+- /guides/ai-excel-dashboard — איך להשתמש ב-AI לתכנון Dashboard ב-Excel לפני שבונים אותו
 - /guides/claude-finance-guide — מדריך Claude לפיננסים: 5 תהליכי AI שכל CFO ואנליסט חייב להכיר
 - /guides/copilot-guide — Copilot המדריך המלא
 - /guides/projects — Projects ב-AI: מכפיל הכוח שאנשי הכספים עוד לא מנצלים מספיק
