@@ -105,7 +105,7 @@ export default function AIMasteryPage() {
                                         rel="noopener noreferrer"
                                         className="inline-block bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-lg text-lg transition-colors"
                                     >
-                                        רכוש גישה עכשיו — ₪700
+                                        רכוש גישה עכשיו — ₪299
                                     </a>
                                 </div>
                                 <Button size="lg" variant="ghost" href="#curriculum" className="px-10 py-7 text-xl border-white/10 hover:bg-white/5 h-fit">
@@ -265,7 +265,7 @@ export default function AIMasteryPage() {
 
                                     <div className="text-xl font-bold text-text-muted mb-4">מחיר הקורס המלא</div>
                                     <div className="flex justify-center items-end gap-3 mb-10">
-                                        <span className="text-8xl font-black text-white leading-none">700</span>
+                                        <span className="text-8xl font-black text-white leading-none">299</span>
                                         <span className="text-3xl font-bold text-teal-400 mb-2">₪</span>
                                     </div>
 
@@ -291,7 +291,7 @@ export default function AIMasteryPage() {
                                             rel="noopener noreferrer"
                                             className="inline-block bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-lg text-lg transition-colors"
                                         >
-                                            רכוש גישה עכשיו — ₪700
+                                            רכוש גישה עכשיו — ₪299
                                         </a>
                                     </div>
 
