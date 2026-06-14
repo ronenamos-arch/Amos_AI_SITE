@@ -33,6 +33,18 @@ export interface Guide {
 
 export const guides: Guide[] = [
   {
+    slug: 'claude-finance-guide',
+    title: 'מדריך Claude לפיננסים: 5 תהליכי AI שכל CFO ואנליסט חייב להכיר',
+    description: 'מדריך מעשי לאנשי כספים, FP&A ו-CFOs שמציג 5 שימושים מתקדמים ב-Claude, כולל עבודה מתוך Excel, בניית מודלי תחזית ו-Scenario Planning, יצירת דשבורדים אינטראקטיביים וחיבור לנתונים פיננסיים באמצעות MCP.',
+    category: 'Claude',
+    tags: ['Claude', 'CFO', 'Finance Ops'],
+    gammaUrl: 'https://gamma.app/embed/epui6myeydf7vj5',
+    thumbnail: '/guides/claude-finance-guide.png',
+    duration: "12 דק'",
+    isPremium: true,
+    publishedAt: '2026-06-14',
+  },
+  {
     slug: 'copilot-guide',
     title: 'Copilot המדריך המלא',
     description: 'המדריך הפרקטי: 5 תכונות שישנו את עבודתכם',
