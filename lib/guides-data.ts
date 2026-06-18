@@ -33,6 +33,18 @@ export interface Guide {
 
 export const guides: Guide[] = [
   {
+    slug: 'html-slide-deck',
+    title: 'HTML Slide Deck — מדריך התקנה',
+    description: 'מדריך להתקנה ושימוש בתבנית שקפי HTML שניתן לערוך בקלות גם אחרי העיצוב — עם מראה מקצועי ונקי ללינקדאין, וחיסכון משמעותי בזמן עיצוב.',
+    category: 'Claude',
+    tags: ['Claude Code', 'HTML', 'Productivity'],
+    gammaUrl: 'https://gamma.app/embed/z753o6h976gsa3c',
+    thumbnail: '/guides/html-slide-deck.png',
+    duration: "4 דק'",
+    isPremium: false,
+    publishedAt: '2026-06-18',
+  },
+  {
     slug: 'ai-excel-dashboard',
     title: 'איך להשתמש ב-AI לתכנון Dashboard ב-Excel לפני שבונים אותו',
     description: 'מדריך שמראה איך להשתמש ב-AI לפני שמתחילים לבנות Dashboard ב-Excel — להגדיר מטרות, לבחור KPIs, ולתכנן את המבנה הנכון מראש, כדי לחסוך שעות של עבודה מחדש.',
