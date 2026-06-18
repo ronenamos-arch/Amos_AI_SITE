@@ -33,6 +33,18 @@ export interface Guide {
 
 export const guides: Guide[] = [
   {
+    slug: 'antigravity-guide',
+    title: 'מדריך ANTIGRAVITY — השיטה המקצועית להקמה והפעלה של עובדי AI דיגיטליים',
+    description: 'השיטה המקצועית להקמה והפעלה של עובדי AI דיגיטליים שעובדים עבורך 24/7 — מאוטומציה מלאה ועד לתשתית ה-AI הראשונה שלך.',
+    category: 'אוטומציה',
+    tags: ['Automation', 'Workflow', 'Strategy'],
+    gammaUrl: 'https://gamma.app/embed/xtf47mjvb8z7t5k',
+    thumbnail: '/guides/antigravity-guide.png',
+    duration: "10 דק'",
+    isPremium: false,
+    publishedAt: '2026-06-18',
+  },
+  {
     slug: 'html-slide-deck',
     title: 'HTML Slide Deck — מדריך התקנה',
     description: 'מדריך להתקנה ושימוש בתבנית שקפי HTML שניתן לערוך בקלות גם אחרי העיצוב — עם מראה מקצועי ונקי ללינקדאין, וחיסכון משמעותי בזמן עיצוב.',
