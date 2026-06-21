@@ -33,6 +33,18 @@ export interface Guide {
 
 export const guides: Guide[] = [
   {
+    slug: 'command-center',
+    title: 'Copilot Command Center Dashboard — לוח שליטה מחובר לאימייל, קלנדר וטימס',
+    description: 'מדריך לבניית דשבורד Command Center עם Copilot — מחובר לאימייל, קלנדר, Teams וקבצים שלך, ומציג תמונת מצב מלאה על כל יום העבודה במקום אחד.',
+    category: 'אוטומציה',
+    tags: ['Automation', 'Workflow', 'Productivity'],
+    gammaUrl: 'https://gamma.app/embed/hutv76czk3ei003',
+    thumbnail: '/guides/command-center.png',
+    duration: "10 דק'",
+    isPremium: true,
+    publishedAt: '2026-06-21',
+  },
+  {
     slug: 'antigravity-guide',
     title: 'מדריך ANTIGRAVITY — השיטה המקצועית להקמה והפעלה של עובדי AI דיגיטליים',
     description: 'השיטה המקצועית להקמה והפעלה של עובדי AI דיגיטליים שעובדים עבורך 24/7 — מאוטומציה מלאה ועד לתשתית ה-AI הראשונה שלך.',
