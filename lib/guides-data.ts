@@ -33,6 +33,18 @@ export interface Guide {
 
 export const guides: Guide[] = [
   {
+    slug: 'copilot-cowork',
+    title: 'Microsoft 365 Copilot Cowork — המדריך המעשי לאנשי כספים',
+    description: 'מדריך מעשי לאנשי כספים שרוצים לעבוד חכם יותר עם Microsoft 365 Copilot — שליחת מיילים, יצירת מסמכים, תזמון פגישות וחיפוש מידע ארגוני בתוך הכלים שכבר יש לך.',
+    category: 'אוטומציה',
+    tags: ['Automation', 'Workflow', 'Productivity'],
+    gammaUrl: 'https://gamma.app/embed/d0vabco7inqzb98',
+    thumbnail: '/guides/copilot-cowork.png',
+    duration: "10 דק'",
+    isPremium: false,
+    publishedAt: '2026-06-23',
+  },
+  {
     slug: 'command-center',
     title: 'Copilot Command Center Dashboard — לוח שליטה מחובר לאימייל, קלנדר וטימס',
     description: 'מדריך לבניית דשבורד Command Center עם Copilot — מחובר לאימייל, קלנדר, Teams וקבצים שלך, ומציג תמונת מצב מלאה על כל יום העבודה במקום אחד.',
