@@ -1,0 +1,2242 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<base href="/resources/webiners/webinar-03-live-artifacts/" />
+<title>Claude לרואי חשבון — Live Artifacts ואינטגרציות | WEBINAR 03</title>
+<meta name="description" content="איך הופכים תשובת צ'אט חכמה ל-Output חי שמתרענן לבד. Live Artifacts, Connectors, Scheduling — וובינר 3 בסדרת Claude לאנשי כספים מאת רונן עמוס, CPA." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800;900&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg: #0b0d10;
+    --surface: #12161a;
+    --surface2: #1a1f26;
+    --accent: #b8c45a;
+    --accent-strong: #d6e36a;
+    --accent-dim: rgba(184,196,90,0.12);
+    --text: #ffffff;
+    --text-muted: #e0e6ed;
+    --text-faint: #a8b3bf;
+    --border: rgba(255,255,255,0.07);
+    --radius-sm: 10px;
+    --radius-md: 18px;
+    --radius-lg: 28px;
+    --font: Heebo, system-ui, sans-serif;
+    --mono: "IBM Plex Mono", monospace;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font);
+    font-size: 17.6px;
+    line-height: 1.7;
+    direction: rtl;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  a { color: inherit; text-decoration: none; }
+
+  /* ─── TOPBAR ─── */
+  .topbar {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(11,13,16,0.92);
+    backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 2rem;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 58px;
+  }
+  .topbar-brand {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    color: var(--accent);
+    text-transform: uppercase;
+  }
+  .topbar-nav { display: flex; gap: 1.6rem; flex-wrap: wrap; }
+  .topbar-nav a {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    transition: color 0.2s;
+  }
+  .topbar-nav a:hover { color: var(--accent); }
+  @media (max-width: 720px) {
+    .topbar-nav { display: none; }
+  }
+
+  /* ─── SERIES BANNER ─── */
+  .series-banner {
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    padding: 2.4rem 2rem;
+  }
+  .series-banner-inner { max-width: 1100px; margin: 0 auto; }
+  .series-label {
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.14em;
+    color: var(--text-faint);
+    text-transform: uppercase;
+    margin-bottom: 0.6rem;
+  }
+  .series-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--text-muted);
+    margin-bottom: 0.4rem;
+  }
+  .series-sub {
+    font-size: 0.82rem;
+    color: var(--text-faint);
+    margin-bottom: 1.6rem;
+  }
+  .series-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.9rem;
+  }
+  @media (min-width: 700px) {
+    .series-grid { grid-template-columns: repeat(3, 1fr); }
+  }
+  @media (min-width: 1000px) {
+    .series-grid { grid-template-columns: repeat(5, 1fr); }
+  }
+  .series-card {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 1rem 1.1rem;
+    transition: transform 0.22s, box-shadow 0.22s;
+    cursor: default;
+  }
+  .series-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 36px rgba(0,0,0,0.4);
+  }
+  .series-card.active {
+    border-color: var(--accent);
+    background: var(--accent-dim);
+  }
+  .series-card-num {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    color: var(--text-faint);
+    margin-bottom: 0.35rem;
+  }
+  .series-card.active .series-card-num { color: var(--accent); }
+  .series-card-title {
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: var(--text-muted);
+    margin-bottom: 0.3rem;
+    line-height: 1.4;
+  }
+  .series-card.active .series-card-title { color: var(--text); }
+  .series-card-tags {
+    font-size: 0.7rem;
+    color: var(--text-faint);
+    line-height: 1.5;
+  }
+  .series-card.active .series-card-tags { color: var(--accent); }
+
+  /* ─── HERO ─── */
+  #hero {
+    padding: 5.5rem 2rem 4rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .hero-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+    align-items: center;
+  }
+  @media (min-width: 900px) {
+    .hero-inner {
+      grid-template-columns: 1.15fr 1fr;
+      gap: 3.5rem;
+    }
+  }
+  .hero-text { min-width: 0; }
+  .hero-eyebrow {
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    letter-spacing: 0.14em;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 1.2rem;
+  }
+  .hero-title {
+    font-size: clamp(2.2rem, 5vw, 3.6rem);
+    font-weight: 900;
+    line-height: 1.15;
+    margin-bottom: 1.2rem;
+    color: var(--text);
+  }
+  .hero-title span { color: var(--accent); }
+  .hero-desc {
+    font-size: 1.15rem;
+    color: var(--text-muted);
+    max-width: 680px;
+    margin-bottom: 2.2rem;
+    line-height: 1.8;
+  }
+  .hero-bullets { list-style: none; display: flex; flex-direction: column; gap: 0.7rem; }
+  .hero-bullets li {
+    font-size: 0.98rem;
+    color: var(--text-muted);
+    padding-right: 1.3rem;
+    position: relative;
+  }
+  .hero-bullets li::before {
+    content: "•";
+    color: var(--accent);
+    position: absolute;
+    right: 0;
+    font-size: 1.2rem;
+    line-height: 1.4;
+  }
+  .hero-visual {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 1rem;
+    box-shadow: 0 18px 48px rgba(0,0,0,0.35);
+    aspect-ratio: 4/3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+  .hero-visual img {
+    max-width: 100%;
+    max-height: 100%;
+    height: auto;
+    object-fit: contain;
+    border-radius: var(--radius-sm);
+  }
+  .hero-visual-placeholder {
+    width: 100%;
+    height: 100%;
+    border: 2px dashed rgba(184,196,90,0.4);
+    border-radius: var(--radius-sm);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 2rem;
+    color: var(--text-faint);
+    font-family: var(--mono);
+    font-size: 0.85rem;
+    letter-spacing: 0.06em;
+  }
+  .hero-visual-placeholder strong {
+    color: var(--accent);
+    font-weight: 600;
+    margin-bottom: 0.6rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+  }
+
+  /* ─── SECTION SHARED ─── */
+  section { padding: 5rem 2rem; }
+  .inner { max-width: 1100px; margin: 0 auto; }
+  .section-label {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.16em;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 0.8rem;
+  }
+  .section-title {
+    font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+    font-weight: 800;
+    line-height: 1.25;
+    margin-bottom: 1rem;
+    color: var(--text);
+  }
+  .section-desc {
+    font-size: 1.08rem;
+    color: var(--text-muted);
+    max-width: 720px;
+    line-height: 1.8;
+  }
+.hero-visual img,
+.hero-image {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  display: block;
+  border-radius: 16px;
+}
+
+  /* ─── PROBLEM ─── */
+  #problem { background: var(--surface); border-bottom: 1px solid var(--border); }
+  .problem-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    margin-top: 2.5rem;
+  }
+  @media (min-width: 700px) {
+    .problem-grid { grid-template-columns: 1fr 1fr; }
+  }
+  .problem-stat {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 1.8rem;
+    transition: border-color 0.2s, transform 0.22s;
+  }
+  .problem-stat:hover { border-color: var(--accent); transform: translateY(-3px); }
+  .problem-stat-num {
+    font-family: var(--font);
+    font-size: clamp(1.5rem, 2.6vw, 2rem);
+    font-weight: 800;
+    color: var(--accent);
+    line-height: 1.15;
+    margin-bottom: 0.8rem;
+    letter-spacing: -0.01em;
+  }
+  .problem-stat-text {
+    font-size: 0.98rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+  }
+  .problem-conclusion {
+    margin-top: 2rem;
+    padding: 1.4rem 1.6rem;
+    background: rgba(184,196,90,0.08);
+    border-right: 3px solid var(--accent);
+    border-radius: var(--radius-sm);
+    font-size: 1.05rem;
+    color: var(--text);
+    line-height: 1.65;
+  }
+  .problem-conclusion strong {
+    color: var(--accent);
+    font-weight: 800;
+  }
+  .problem-list { list-style: none; display: flex; flex-direction: column; gap: 0.8rem; margin-top: 2rem; }
+  .problem-list li {
+    font-size: 1rem;
+    color: var(--text-muted);
+    padding-right: 1.4rem;
+    position: relative;
+  }
+  .problem-list li::before {
+    content: "•";
+    color: var(--accent);
+    position: absolute;
+    right: 0;
+    font-size: 1.3rem;
+    line-height: 1.3;
+  }
+
+  /* ─── WHAT IS LIVE ARTIFACT ─── */
+  #what { border-bottom: 1px solid var(--border); }
+  .what-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+    margin-top: 2.5rem;
+    align-items: start;
+  }
+  @media (min-width: 900px) {
+    .what-grid { grid-template-columns: 1.1fr 1fr; gap: 3rem; }
+  }
+  .what-features {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  @media (min-width: 500px) {
+    .what-features { grid-template-columns: repeat(2, 1fr); }
+  }
+  .what-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 1.4rem;
+    transition: border-color 0.2s, transform 0.22s;
+  }
+  .what-card:hover { border-color: var(--accent); transform: translateY(-4px); }
+  .what-card-num {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    color: var(--accent);
+    letter-spacing: 0.12em;
+    margin-bottom: 0.5rem;
+  }
+  .what-card-title {
+    font-size: 1.05rem;
+    font-weight: 700;
+    margin-bottom: 0.4rem;
+    color: var(--text);
+  }
+  .what-card-desc {
+    font-size: 0.92rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+  }
+  .what-image {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 1rem;
+    aspect-ratio: 4/3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 18px 48px rgba(0,0,0,0.3);
+  }
+  .what-image img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    border-radius: var(--radius-sm);
+  }
+  .what-image-placeholder {
+    width: 100%;
+    height: 100%;
+    border: 2px dashed rgba(184,196,90,0.4);
+    border-radius: var(--radius-sm);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 1.5rem;
+    color: var(--text-faint);
+    font-family: var(--mono);
+    font-size: 0.88rem;
+  }
+  .what-image-placeholder strong {
+    color: var(--accent);
+    font-weight: 600;
+    margin-bottom: 0.6rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+  }
+
+  /* ─── AGENDA ─── */
+  #agenda { background: var(--surface); border-bottom: 1px solid var(--border); }
+  .agenda-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.2rem;
+    margin-top: 2.5rem;
+  }
+  @media (min-width: 700px) {
+    .agenda-grid { grid-template-columns: 1fr 1fr; }
+  }
+  .agenda-block {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 1.4rem 1.6rem;
+    display: flex;
+    gap: 1.2rem;
+    align-items: flex-start;
+    transition: border-color 0.2s, transform 0.22s;
+  }
+  .agenda-block:hover { border-color: var(--accent); transform: translateY(-3px); }
+  .agenda-time {
+    font-family: var(--mono);
+    font-size: 0.82rem;
+    color: var(--accent);
+    white-space: nowrap;
+    padding-top: 0.15rem;
+    min-width: 56px;
+    font-weight: 600;
+  }
+  .agenda-block-title {
+    font-size: 1.04rem;
+    font-weight: 700;
+    margin-bottom: 0.4rem;
+    color: var(--text);
+  }
+  .agenda-block-desc {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+  }
+
+  /* ─── USE CASES ─── */
+  #usecases { border-bottom: 1px solid var(--border); }
+  .uc-banner {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    margin-top: 2rem;
+    aspect-ratio: 16/5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+  }
+  .uc-banner-placeholder {
+    width: 100%;
+    height: 100%;
+    border: 2px dashed rgba(184,196,90,0.35);
+    border-radius: var(--radius-sm);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: var(--text-faint);
+    font-family: var(--mono);
+    font-size: 0.88rem;
+  }
+  .uc-banner-placeholder strong {
+    color: var(--accent);
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+  }
+  .uc-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.2rem;
+    margin-top: 2rem;
+  }
+  @media (min-width: 700px) { .uc-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (min-width: 1000px) { .uc-grid { grid-template-columns: repeat(3, 1fr); } }
+  .uc-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 1.5rem;
+    transition: transform 0.22s, box-shadow 0.22s, border-color 0.2s;
+    display: flex;
+    flex-direction: column;
+  }
+  .uc-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.35);
+    border-color: var(--accent);
+  }
+  .uc-num {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    color: var(--accent);
+    letter-spacing: 0.12em;
+    margin-bottom: 0.7rem;
+  }
+  .uc-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 0.7rem;
+    color: var(--text);
+    line-height: 1.4;
+  }
+  .uc-pain {
+    font-size: 0.9rem;
+    color: var(--text-faint);
+    margin-bottom: 0.6rem;
+    line-height: 1.5;
+  }
+  .uc-pain strong {
+    color: var(--text-muted);
+    font-weight: 600;
+  }
+  .uc-outcome {
+    font-size: 0.92rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+    margin-top: auto;
+    padding-top: 0.9rem;
+    border-top: 1px solid var(--border);
+  }
+  .uc-outcome::before {
+    content: "→ ";
+    color: var(--accent);
+    font-weight: 700;
+  }
+
+  /* ─── PROMPTS LIBRARY (Excel CTA) ─── */
+  #prompts { background: var(--surface); border-bottom: 1px solid var(--border); }
+  .prompts-card {
+    background: linear-gradient(135deg, rgba(184,196,90,0.12) 0%, rgba(184,196,90,0.03) 100%);
+    border: 2px solid var(--accent);
+    border-radius: var(--radius-lg);
+    padding: 2.5rem;
+    margin-top: 2.5rem;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.35);
+  }
+  @media (min-width: 800px) {
+    .prompts-card { padding: 3rem; }
+  }
+  .prompts-icon {
+    width: 64px;
+    height: 64px;
+    background: var(--accent);
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #0b0d10;
+    font-family: var(--mono);
+    font-weight: 700;
+    font-size: 1rem;
+    margin-bottom: 1.4rem;
+    letter-spacing: 0.04em;
+  }
+  .prompts-eyebrow {
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.14em;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 0.7rem;
+  }
+  .prompts-title {
+    font-size: clamp(1.4rem, 2.5vw, 2rem);
+    font-weight: 800;
+    color: var(--text);
+    margin-bottom: 0.8rem;
+    line-height: 1.25;
+  }
+  .prompts-desc {
+    font-size: 1.02rem;
+    color: var(--text-muted);
+    line-height: 1.7;
+    margin-bottom: 1.4rem;
+    max-width: 760px;
+  }
+  .prompts-bullets {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.55rem;
+    margin-bottom: 1.8rem;
+  }
+  .prompts-bullets li {
+    font-size: 0.96rem;
+    color: var(--text-muted);
+    padding-right: 1.6rem;
+    position: relative;
+    line-height: 1.5;
+  }
+  .prompts-bullets li::before {
+    content: "✓";
+    color: var(--accent);
+    position: absolute;
+    right: 0;
+    font-weight: 700;
+    font-size: 1.05rem;
+  }
+  .prompts-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    background: var(--accent);
+    color: #0b0d10;
+    font-weight: 700;
+    font-size: 1rem;
+    padding: 1rem 2.2rem;
+    border-radius: var(--radius-sm);
+    transition: background 0.2s, transform 0.2s;
+    white-space: nowrap;
+  }
+  .prompts-cta:hover {
+    background: var(--accent-strong);
+    transform: translateY(-2px);
+  }
+  .prompts-cta::before {
+    content: "↓";
+    font-size: 1.15rem;
+    font-weight: 700;
+  }
+
+  /* ─── CONNECTORS ─── */
+  #connectors { border-bottom: 1px solid var(--border); }
+  .conn-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    margin-top: 2.5rem;
+  }
+  @media (min-width: 700px) { .conn-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (min-width: 1000px) { .conn-grid { grid-template-columns: repeat(5, 1fr); } }
+  .conn-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 1.3rem;
+    transition: border-color 0.2s, transform 0.22s;
+  }
+  .conn-card:hover { border-color: var(--accent); transform: translateY(-4px); }
+  .conn-name {
+    font-family: var(--mono);
+    font-size: 0.82rem;
+    color: var(--accent);
+    letter-spacing: 0.06em;
+    margin-bottom: 0.7rem;
+    font-weight: 600;
+  }
+  .conn-desc {
+    font-size: 0.88rem;
+    color: var(--text-muted);
+    line-height: 1.55;
+  }
+  .conn-criteria {
+    margin-top: 2.5rem;
+    background: var(--surface);
+    border-right: 3px solid var(--accent);
+    border-radius: var(--radius-sm);
+    padding: 1.6rem 1.8rem;
+  }
+  .conn-criteria-title {
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    margin-bottom: 0.9rem;
+  }
+  .conn-criteria-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.55rem;
+  }
+  .conn-criteria-list li {
+    font-size: 0.98rem;
+    color: var(--text-muted);
+    padding-right: 1.4rem;
+    position: relative;
+    line-height: 1.55;
+  }
+  .conn-criteria-list li::before {
+    content: "→";
+    color: var(--accent);
+    position: absolute;
+    right: 0;
+    font-weight: 700;
+  }
+  .conn-criteria-list li strong { color: var(--text); font-weight: 600; }
+
+  /* ─── SCHEDULING ─── */
+  #scheduling { background: var(--surface); border-bottom: 1px solid var(--border); }
+  .sched-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+    margin-top: 2.5rem;
+    align-items: start;
+  }
+  @media (min-width: 900px) {
+    .sched-grid { grid-template-columns: 1.1fr 1fr; gap: 3rem; }
+  }
+  .sched-examples {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  .sched-example {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 1.3rem 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1.2rem;
+    transition: border-color 0.2s, transform 0.22s;
+  }
+  .sched-example:hover { border-color: var(--accent); transform: translateX(-4px); }
+  .sched-time {
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    color: var(--accent);
+    white-space: nowrap;
+    letter-spacing: 0.04em;
+    font-weight: 600;
+    min-width: 130px;
+  }
+  .sched-desc {
+    font-size: 0.96rem;
+    color: var(--text-muted);
+    line-height: 1.5;
+  }
+  .sched-desc strong { color: var(--text); font-weight: 700; }
+  .sched-image {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 1rem;
+    aspect-ratio: 4/3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 18px 48px rgba(0,0,0,0.3);
+  }
+  .sched-image-placeholder {
+    width: 100%;
+    height: 100%;
+    border: 2px dashed rgba(184,196,90,0.4);
+    border-radius: var(--radius-sm);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 1.5rem;
+    color: var(--text-faint);
+    font-family: var(--mono);
+    font-size: 0.88rem;
+  }
+  .sched-image-placeholder strong {
+    color: var(--accent);
+    font-weight: 600;
+    margin-bottom: 0.6rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+  }
+  .sched-setup {
+    margin-top: 1.5rem;
+    padding: 1.2rem 1.5rem;
+    background: var(--bg);
+    border-right: 3px solid var(--accent);
+    border-radius: var(--radius-sm);
+    font-size: 0.96rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+  }
+  .sched-setup strong {
+    color: var(--accent);
+    font-family: var(--mono);
+    font-weight: 600;
+    font-size: 0.85rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  /* ─── MANAGING ARTIFACTS ─── */
+  #managing { border-bottom: 1px solid var(--border); }
+  .mng-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.2rem;
+    margin-top: 2.5rem;
+  }
+  @media (min-width: 700px) { .mng-grid { grid-template-columns: repeat(3, 1fr); } }
+  .mng-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 1.8rem;
+    transition: border-color 0.2s, transform 0.22s;
+    display: flex;
+    flex-direction: column;
+  }
+  .mng-card:hover { border-color: var(--accent); transform: translateY(-5px); }
+  .mng-num {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    color: var(--accent);
+    letter-spacing: 0.12em;
+    margin-bottom: 0.9rem;
+  }
+  .mng-title {
+    font-size: 1.15rem;
+    font-weight: 700;
+    margin-bottom: 0.7rem;
+    color: var(--text);
+  }
+  .mng-desc {
+    font-size: 0.96rem;
+    color: var(--text-muted);
+    line-height: 1.65;
+    margin-bottom: 1rem;
+  }
+  .mng-example {
+    margin-top: auto;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border);
+    font-size: 0.86rem;
+    color: var(--text-faint);
+    font-style: italic;
+    line-height: 1.55;
+  }
+  .mng-example strong {
+    font-style: normal;
+    color: var(--accent);
+    font-family: var(--mono);
+    font-weight: 600;
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    display: inline-block;
+    margin-left: 0.3em;
+  }
+
+  /* ─── DEMO ─── */
+  #demo { background: var(--surface); border-bottom: 1px solid var(--border); }
+  .demo-steps {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.2rem;
+    margin-top: 2.5rem;
+  }
+  @media (min-width: 800px) { .demo-steps { grid-template-columns: repeat(3, 1fr); } }
+  .demo-step {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 1.5rem;
+    transition: border-color 0.2s, transform 0.22s;
+  }
+  .demo-step:hover { border-color: var(--accent); transform: translateY(-4px); }
+  .demo-step-num {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    color: var(--accent);
+    letter-spacing: 0.12em;
+    margin-bottom: 0.8rem;
+  }
+  .demo-step-title {
+    font-size: 1.05rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    color: var(--text);
+  }
+  .demo-step-desc {
+    font-size: 0.92rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+  }
+  .demo-prompt-label {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.14em;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 0.7rem;
+    margin-top: 2.5rem;
+  }
+  .demo-prompt {
+    background: #0d1117;
+    border: 1px solid var(--border);
+    border-right: 3px solid var(--accent);
+    border-radius: var(--radius-sm);
+    padding: 1.5rem 1.7rem;
+    font-family: var(--mono);
+    font-size: 0.84rem;
+    color: #c9d1d9;
+    line-height: 1.8;
+    overflow-x: auto;
+    direction: ltr;
+    text-align: left;
+    white-space: pre-wrap;
+  }
+  .demo-warning {
+    margin-top: 2rem;
+    padding: 1.4rem 1.6rem;
+    background: rgba(220, 70, 70, 0.10);
+    border-right: 3px solid #e05a5a;
+    border-radius: var(--radius-sm);
+    display: flex;
+    align-items: flex-start;
+    gap: 0.9rem;
+  }
+  .demo-warning-icon {
+    color: #e05a5a;
+    font-size: 1.5rem;
+    flex-shrink: 0;
+    line-height: 1;
+    margin-top: 0.1rem;
+  }
+  .demo-warning-text {
+    font-size: 0.98rem;
+    color: var(--text-muted);
+    line-height: 1.65;
+  }
+  .demo-warning-text strong {
+    color: #ff7575;
+    font-weight: 700;
+  }
+  .demo-images {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-top: 2.5rem;
+  }
+  @media (min-width: 700px) { .demo-images { grid-template-columns: repeat(4, 1fr); } }
+  .demo-image {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    aspect-ratio: 4/3;
+    padding: 0.6rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .demo-image-placeholder {
+    width: 100%;
+    height: 100%;
+    border: 2px dashed rgba(184,196,90,0.4);
+    border-radius: var(--radius-sm);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 1rem;
+    color: var(--text-faint);
+    font-family: var(--mono);
+    font-size: 0.78rem;
+  }
+  .demo-image-placeholder strong {
+    color: var(--accent);
+    font-weight: 600;
+    margin-bottom: 0.4rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-size: 0.7rem;
+  }
+
+  /* ─── TIPS ─── */
+  #tips { border-bottom: 1px solid var(--border); }
+  .tips-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.2rem;
+    margin-top: 2.5rem;
+  }
+  @media (min-width: 700px) { .tips-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (min-width: 1000px) { .tips-grid { grid-template-columns: repeat(3, 1fr); } }
+  .tip-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 1.5rem;
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+    transition: border-color 0.2s, transform 0.22s;
+  }
+  .tip-card:hover { border-color: var(--accent); transform: translateY(-4px); }
+  .tip-num {
+    font-family: var(--mono);
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--accent);
+    line-height: 1;
+    flex-shrink: 0;
+    min-width: 32px;
+  }
+  .tip-title {
+    font-size: 1.02rem;
+    font-weight: 700;
+    margin-bottom: 0.4rem;
+    color: var(--text);
+  }
+  .tip-desc {
+    font-size: 0.92rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+  }
+
+  /* ─── TAKEAWAYS ─── */
+  #takeaways { background: var(--surface); border-bottom: 1px solid var(--border); }
+  .takeaways-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.2rem;
+    margin-top: 2.5rem;
+  }
+  @media (min-width: 700px) { .takeaways-grid { grid-template-columns: repeat(2, 1fr); } }
+  .takeaway-block {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 1.8rem;
+    transition: border-color 0.2s, transform 0.22s;
+  }
+  .takeaway-block:hover { border-color: var(--accent); transform: translateY(-4px); }
+  .takeaway-label {
+    font-family: var(--mono);
+    font-size: 0.74rem;
+    color: var(--accent);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 1.1rem;
+  }
+  .takeaway-list { list-style: none; display: flex; flex-direction: column; gap: 0.7rem; }
+  .takeaway-list li {
+    font-size: 0.98rem;
+    color: var(--text-muted);
+    padding-right: 1.6rem;
+    position: relative;
+    line-height: 1.55;
+  }
+  .takeaway-list li::before {
+    content: "✓";
+    color: var(--accent);
+    position: absolute;
+    right: 0;
+    font-weight: 700;
+    font-size: 1.05rem;
+  }
+
+  /* ─── CTA (Next Webinar) ─── */
+  #cta { border-bottom: 1px solid var(--border); }
+  .cta-eyebrow {
+    font-family: var(--mono);
+    font-size: 0.74rem;
+    letter-spacing: 0.16em;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+  }
+  .cta-title {
+    font-size: clamp(1.7rem, 3vw, 2.4rem);
+    font-weight: 800;
+    margin-bottom: 0.9rem;
+    color: var(--text);
+    line-height: 1.25;
+  }
+  .cta-desc {
+    font-size: 1.08rem;
+    color: var(--text-muted);
+    max-width: 720px;
+    margin-bottom: 2.2rem;
+    line-height: 1.7;
+  }
+  .cta-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+  .cta-btn {
+    display: inline-block;
+    font-weight: 700;
+    font-size: 1rem;
+    padding: 1rem 2.2rem;
+    border-radius: var(--radius-sm);
+    transition: background 0.2s, transform 0.2s, color 0.2s, border-color 0.2s;
+    border: 2px solid var(--accent);
+    white-space: nowrap;
+  }
+  .cta-btn-primary {
+    background: var(--accent);
+    color: #0b0d10;
+  }
+  .cta-btn-primary:hover {
+    background: var(--accent-strong);
+    border-color: var(--accent-strong);
+    transform: translateY(-2px);
+  }
+  .cta-btn-secondary {
+    background: transparent;
+    color: var(--accent);
+  }
+  .cta-btn-secondary:hover {
+    background: var(--accent-dim);
+    transform: translateY(-2px);
+  }
+
+  /* ─── FOOTER / RESOURCES ─── */
+  #footer { padding: 5rem 2rem 3rem; }
+  .footer-title {
+    font-size: clamp(1.4rem, 2.5vw, 1.9rem);
+    font-weight: 800;
+    margin-bottom: 0.5rem;
+    color: var(--text);
+  }
+  .footer-sub { font-size: 0.94rem; color: var(--text-muted); margin-bottom: 2.5rem; }
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  @media (min-width: 500px) { .footer-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (min-width: 900px) { .footer-grid { grid-template-columns: repeat(3, 1fr); } }
+  .footer-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 1.3rem 1.5rem;
+    transition: border-color 0.2s, transform 0.22s;
+    display: block;
+  }
+  .footer-card:hover { border-color: var(--accent); transform: translateY(-4px); }
+  .footer-card-num {
+    font-family: var(--mono);
+    font-size: 0.66rem;
+    color: var(--text-faint);
+    letter-spacing: 0.1em;
+    margin-bottom: 0.5rem;
+  }
+  .footer-card-title { font-size: 0.96rem; font-weight: 700; margin-bottom: 0.3rem; color: var(--text); }
+  .footer-card-desc { font-size: 0.84rem; color: var(--text-muted); line-height: 1.5; margin-bottom: 0.6rem; }
+  .footer-card-link { font-size: 0.76rem; color: var(--accent); font-family: var(--mono); }
+  .footer-copy {
+    margin-top: 3rem;
+    text-align: center;
+    font-size: 0.78rem;
+    color: var(--text-faint);
+    font-family: var(--mono);
+    letter-spacing: 0.05em;
+  }
+
+  /* ─── VIDEO ─── */
+  #video { border-bottom: 1px solid var(--border); }
+  .video-wrap {
+    position: relative;
+    margin-top: 2.5rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    padding-top: 56.25%; /* 16:9 aspect ratio */
+    box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+  }
+  .video-wrap iframe {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+  }
+
+  /* ─── CONNECTOR IMAGES ─── */
+  .conn-images {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.2rem;
+    margin-top: 2rem;
+  }
+  @media (min-width: 700px) { .conn-images { grid-template-columns: 1fr 1fr; } }
+  .conn-image {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    aspect-ratio: 16/10;
+    padding: 0.8rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .conn-image-placeholder {
+    width: 100%;
+    height: 100%;
+    border: 2px dashed rgba(184,196,90,0.4);
+    border-radius: var(--radius-sm);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 1rem;
+    color: var(--text-faint);
+    font-family: var(--mono);
+    font-size: 0.85rem;
+  }
+  .conn-image-placeholder strong {
+    color: var(--accent);
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-size: 0.72rem;
+  }
+
+  /* ─── UNIVERSAL IMG-IN-SLOT (real screenshots replacing placeholders) ─── */
+  .conn-image img, .demo-image img, .sched-image img, .uc-banner img, .what-image-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: var(--radius-sm);
+    display: block;
+  }
+  .what-image-img { aspect-ratio: 4/3; }
+
+  /* ─── RECORDING PLACEHOLDER ─── */
+  #recording { background: var(--surface); border-bottom: 1px solid var(--border); }
+  .recording-wrap {
+    position: relative;
+    margin-top: 2.5rem;
+    background: var(--bg);
+    border: 2px dashed rgba(184,196,90,0.5);
+    border-radius: var(--radius-md);
+    padding-top: 56.25%; /* 16:9 */
+    box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+  }
+  .recording-inner {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 2rem;
+    gap: 1rem;
+  }
+  .recording-play {
+    width: 84px;
+    height: 84px;
+    border-radius: 50%;
+    background: var(--accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #0b0d10;
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 0.4rem;
+    box-shadow: 0 10px 30px rgba(184,196,90,0.4);
+  }
+  .recording-label {
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    letter-spacing: 0.14em;
+    color: var(--accent);
+    text-transform: uppercase;
+  }
+  .recording-text {
+    font-size: 1.15rem;
+    color: var(--text-muted);
+    font-weight: 600;
+  }
+
+  /* ─── CONN TIERS IMAGE (moved from Use Cases) ─── */
+  .conn-tiers {
+    margin-top: 2rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 1rem;
+    box-shadow: 0 18px 48px rgba(0,0,0,0.3);
+  }
+  .conn-tiers img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: var(--radius-sm);
+  }
+
+  /* ─── PROMPT BLOCK with toggle + copy buttons ─── */
+  .prompt-block {
+    margin-top: 2.5rem;
+  }
+  .prompt-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 0.8rem;
+    flex-wrap: wrap;
+  }
+  .prompt-header .demo-prompt-label {
+    margin: 0 !important;
+  }
+  .prompt-actions {
+    display: flex;
+    gap: 0.6rem;
+  }
+  .prompt-btn {
+    background: var(--accent);
+    color: #0b0d10;
+    font-family: var(--font);
+    font-size: 0.84rem;
+    font-weight: 700;
+    padding: 0.55rem 1.2rem;
+    border-radius: var(--radius-sm);
+    border: none;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.15s;
+    white-space: nowrap;
+  }
+  .prompt-btn:hover {
+    background: var(--accent-strong);
+    transform: translateY(-1px);
+  }
+  .prompt-btn.is-copied {
+    background: #b2f2bb;
+  }
+  .demo-prompt[hidden] {
+    display: none;
+  }
+
+  /* ─── MANAGING SECTION BANNER (turn-to-skill image) — 40% smaller than before ─── */
+  .mng-banner {
+    margin: 2.5rem auto 0;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 0.8rem;
+    box-shadow: 0 18px 48px rgba(0,0,0,0.3);
+    max-width: 42%;
+  }
+  @media (max-width: 700px) {
+    .mng-banner { max-width: 75%; }
+  }
+  .mng-banner img {
+    width: 100%;
+    height: auto;
+    border-radius: var(--radius-sm);
+    display: block;
+  }
+
+  /* ─── DEMO IMAGES — 2-COL with HEADLINES (override) ─── */
+  .demo-images {
+    grid-template-columns: 1fr !important;
+    gap: 1.8rem !important;
+  }
+  @media (min-width: 700px) {
+    .demo-images { grid-template-columns: repeat(2, 1fr) !important; }
+  }
+  .demo-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+  }
+  .demo-item-title {
+    font-family: var(--mono);
+    font-size: 0.85rem;
+    color: var(--accent);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-weight: 600;
+    margin: 0;
+    padding-right: 0.3rem;
+  }
+  .demo-item .demo-image {
+    aspect-ratio: 16/10;
+  }
+  /* Use contain (not cover) for demo screenshots so nothing is cropped */
+  .demo-item .demo-image img {
+    object-fit: contain !important;
+    background: var(--bg);
+  }
+  /* uc-banner: let the image natural height drive the box (tiers.png is ~1.9 ratio) */
+  .uc-banner {
+    aspect-ratio: auto !important;
+    height: auto !important;
+  }
+  .uc-banner img {
+    width: 100%;
+    height: auto !important;
+    object-fit: contain !important;
+  }
+
+  /* ─── SCHEDULE IMAGE — full-width below "How to schedule" ─── */
+  .sched-image-wide {
+    margin-top: 2rem;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 0.8rem;
+    box-shadow: 0 18px 48px rgba(0,0,0,0.3);
+  }
+  .sched-image-wide img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: var(--radius-sm);
+  }
+  /* Single-column override for sched-grid */
+  #scheduling .sched-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* ─── DEMO ITEM WIDE (Dashboard image standalone, spans full width) ─── */
+  .demo-item.demo-item-wide {
+    grid-column: 1 / -1;
+  }
+  .demo-item.demo-item-wide .demo-image {
+    aspect-ratio: auto;
+    padding: 1rem;
+  }
+  .demo-item.demo-item-wide .demo-image img {
+    width: 100%;
+    height: auto;
+    max-height: 75vh;
+    object-fit: contain !important;
+  }
+
+  /* ─── TIPS COMPARE BIG IMAGE (end of PRACTICAL WISDOM) ─── */
+  .tips-compare {
+    margin-top: 3.5rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 1rem;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+  }
+  .tips-compare-label {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.14em;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 0.8rem;
+    text-align: center;
+    padding: 0.4rem;
+  }
+  .tips-compare img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: var(--radius-sm);
+  }
+</style>
+</head>
+<body>
+
+<!-- ─── TOPBAR ─── -->
+<header class="topbar">
+  <span class="topbar-brand">AI Finance Transformation</span>
+  <nav class="topbar-nav">
+    <a href="#hero">פתיחה</a>
+    <a href="#what">מה זה Live Artifact</a>
+    <a href="#agenda">אג'נדה</a>
+    <a href="#video">סרטון</a>
+    <a href="#usecases">Use Cases</a>
+    <a href="#connectors">Connectors</a>
+    <a href="#prompts">ספריית Prompts</a>
+    <a href="#demo">דמו</a>
+  </nav>
+</header>
+
+<!-- ─── SERIES BANNER ─── -->
+<div class="series-banner">
+  <div class="series-banner-inner">
+    <div class="series-label">AI FINANCE TRANSFORMATION — WEBINAR SERIES</div>
+    <div class="series-title">סדרת וובינרים: Claude לאנשי כספים</div>
+    <div class="series-sub">5 מפגשים | מהיכרות ועד אוטומציה מלאה</div>
+    <div class="series-grid">
+      <div class="series-card">
+        <div class="series-card-num">WEBINAR 01 — הושלם</div>
+        <div class="series-card-title">סביבת העבודה של Claude — המדריך המלא לאיש הכספים</div>
+        <div class="series-card-tags">Projects · Files · Artifacts · Chrome · Excel</div>
+      </div>
+      <div class="series-card">
+        <div class="series-card-num">WEBINAR 02 — הושלם</div>
+        <div class="series-card-title">Excel ו־PowerPoint עם Claude — מנתונים גולמיים לתוצר מוכן</div>
+        <div class="series-card-tags">Excel · PowerPoint · דוחות · מצגות</div>
+      </div>
+      <div class="series-card active">
+        <div class="series-card-num">WEBINAR 03 — עכשיו</div>
+        <div class="series-card-title">Live Artifacts ואינטגרציות — מתשובה ל-Output שממשיך לעבוד</div>
+        <div class="series-card-tags">Artifacts · Connectors · Scheduling · Skills</div>
+      </div>
+      <div class="series-card">
+        <div class="series-card-num">WEBINAR 04 — בקרוב</div>
+        <div class="series-card-title">Projects ואוטומציה — בניית סביבת עבודה חכמה לצוות הכספים</div>
+        <div class="series-card-tags">Projects · Automation · Workflows</div>
+      </div>
+      <div class="series-card">
+        <div class="series-card-num">WEBINAR 05 — בקרוב</div>
+        <div class="series-card-title">Claude Code &amp; Cowork — בניית כלים מקומיים לצוות הכספים</div>
+        <div class="series-card-tags">Claude Code · Cowork · Local Tools · Custom Skills</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ─── HERO ─── -->
+<section id="hero">
+  <div class="hero-inner">
+    <div class="hero-text">
+      <div class="hero-eyebrow">AI FINANCE TRANSFORMATION · WEBINAR 03</div>
+      <h1 class="hero-title">
+        Live Artifacts<br /><span>ואינטגרציות</span><br />
+        מתשובה ל-Output שממשיך לעבוד
+      </h1>
+      <p class="hero-desc">
+        איך הופכים תשובת צ'אט חכמה לדף אינטראקטיבי שנשמר בין סשנים, שואב נתונים עדכניים מ-Google drive, Netsuite ו-Gmail/outlook — ומתרענן לבד. בלי לפתח מערכת, בלי להעביר את החברה לפלטפורמה אחרת.
+      </p>
+      <ul class="hero-bullets">
+        <li>מיועד לרואי חשבון, Controllers, CFOs ואנשי FP&A שעדיין עובדים עם דוחות סטטיים ומייל-attachments — וכבר רוצים יותר.</li>
+        <li>המטרה היום: לבנות מאפס Live Artifact אחד שמחליף שאלה שאתם שואלים שבועית — ולתזמן אותו שירוץ לבד.</li>
+        <li>זה לא הדגמת פיצ'רים — זו שיטה לבנות סביבת דאטה חיה בתוך Claude, עם 5 Use Cases אמיתיים מעולם הכספים.</li>
+      </ul>
+    </div>
+<div class="hero-visual">
+  <img src="images/hero/dashboard-expensehub.png" alt="Headline Dashboard" class="hero-image" />
+</div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── PROBLEM ─── -->
+<section id="problem">
+  <div class="inner">
+    <div class="section-label">THE GAP</div>
+    <h2 class="section-title">המידע קיים —<br />אבל הדרך אליו עדיין ידנית</h2>
+    <p class="section-desc">
+      האתגר של מחלקות כספים כיום אינו מחסור במידע. האתגר הוא שכל תשובה דורשת חיפוש, איסוף ובדיקות מחדש — גם כשאותה עבודה כבר בוצעה עשרות פעמים בעבר.
+    </p>
+    <div class="problem-grid">
+      <div class="problem-stat">
+        <div class="problem-stat-num">10+ קבצים</div>
+        <div class="problem-stat-text">מספר הקבצים והמערכות שמעורבים לעיתים בבדיקת שכר, התאמת יתרות או הכנת דוח הנהלה אחד.</div>
+      </div>
+      <div class="problem-stat">
+        <div class="problem-stat-num">כל בוקר מחדש</div>
+        <div class="problem-stat-text">בדיקות יתרות מזומנים, חריגות, התאמות ודוחות בקרה שמתחילות מאותה שרשרת פעולות ידנית.</div>
+      </div>
+    </div>
+    <ul class="problem-list">
+      <li>בדיקות שכר חודש מול חודש מבוצעות באמצעות Excel ולא באמצעות תהליך חי.</li>
+      <li>התאמות בין מאגרי נתונים דורשות ייצוא קבצים והשוואות ידניות.</li>
+      <li>דוחות הנהלה נוצרים מחדש במקום להתעדכן אוטומטית.</li>
+      <li>יתרות מזומנים מתקבלות ממספר מקורות ללא Dashboard מרכזי אחד.</li>
+      <li>שינויים קטנים במבנה הקובץ שוברים תהליכים שלמים ויוצרים עבודה חוזרת.</li>
+    </ul>
+    <div class="problem-conclusion">
+      <strong>התוצאה:</strong> פחות זמן לניתוח וקבלת החלטות, ויותר זמן לאיסוף, התאמות ובקרות ידניות.
+    </div>
+  </div>
+</section>
+
+<!-- ─── WHAT IS LIVE ARTIFACT ─── -->
+<section id="what">
+  <div class="inner">
+    <div class="section-label">DEFINITION</div>
+    <h2 class="section-title">מה זה Live Artifact —<br />ולמה זה משנה ל-Finance</h2>
+    <p class="section-desc">
+      Live Artifact הוא דף אינטרנט אינטראקטיבי וקבוע שגר ב-Sidebar של ה-Cowork שלך. בשונה מתשובת צ'אט חד-פעמית, הוא נשמר בין סשנים, שואב נתונים עדכניים בכל פתיחה, ומחליף שאלות חוזרות בדף שתמיד מעודכן.
+    </p>
+    <div class="what-grid">
+      <div class="what-features">
+        <div class="what-card">
+          <div class="what-card-num">01</div>
+          <div class="what-card-title">נשמר בין סשנים</div>
+          <div class="what-card-desc">נשאר פתוח בטאב משלו, נגיש מכל מכשיר, בכל עת — לא עוד תשובה שנעלמת כשסוגרים את החלון.</div>
+        </div>
+        <div class="what-card">
+          <div class="what-card-num">02</div>
+          <div class="what-card-title">שואב נתונים עדכניים</div>
+          <div class="what-card-desc">קורא ל-MCP Connectors שלך בכל פעם שפותחים אותו — Google Sheets, Slack, Gmail, NetSuite — תמיד עדכני.</div>
+        </div>
+        <div class="what-card">
+          <div class="what-card-num">03</div>
+          <div class="what-card-title">אינטראקטיבי</div>
+          <div class="what-card-desc">סינון, חיפוש, ניווט לפרטי שורות, ובעיקר — פעולות שמבצעים ישירות מהדף בלי לחזור לצ'אט.</div>
+        </div>
+        <div class="what-card">
+          <div class="what-card-num">04</div>
+          <div class="what-card-title">מחליף שאלות חוזרות</div>
+          <div class="what-card-desc">במקום לשאול מחדש "מה ה-MRR?" כל יום שני — פותחים את ה-Artifact והנתון העדכני שם, אוטומטית.</div>
+        </div>
+      </div>
+<div class="what-image">
+  <img src="images/content/live-artifact.png" alt="Live Artifact" class="what-image-img" />
+</div>
+      
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── VIDEO ─── -->
+<section id="video">
+  <div class="inner">
+    <div class="section-label">REAL EXAMPLE · 1 MIN</div>
+    <h2 class="section-title">איך זה נראה במציאות —<br />דשבורד אמיתי, 60 שניות</h2>
+    <p class="section-desc">
+      לפני שצוללים ל-Use Cases ולאג'נדה, סרטון קצר שמראה איך נראה Live Artifact עובד בפועל — עם נתונים אמיתיים שמתעדכנים בזמן אמת. שווה דקה.
+    </p>
+    <div class="video-wrap">
+      <iframe
+        src="https://www.youtube-nocookie.com/embed/INVesZvMuEw?rel=0&amp;modestbranding=1&amp;playsinline=1"
+        title="Live Dashboard Demo · AI Finance Transformation"
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        referrerpolicy="strict-origin-when-cross-origin"
+        loading="lazy"
+        allowfullscreen></iframe>
+    </div>
+  </div>
+</section>
+
+<!-- ─── AGENDA ─── -->
+<section id="agenda">
+  <div class="inner">
+    <div class="section-label">FLOW</div>
+    <h2 class="section-title">מה נעשה היום</h2>
+    <p class="section-desc">
+      מהיכרות עם Live Artifacts ו-5 Use Cases מעולם הכספים, עד דמו חי על Google Sheet אמיתי וקביעת רענון אוטומטי. כל בלוק — תכלית עסקית, לא הצגת פיצ'ר.
+    </p>
+    <div class="agenda-grid">
+      <div class="agenda-block">
+        <div>
+          <div class="agenda-block-title">Connectors — מה אפשר לחבר ואיך</div>
+          <div class="agenda-block-desc">NetSuite, QuickBooks, Google Sheets/Excel, Slack, Gmail — קריטריונים לבחירת Connector ובדיקת Tool Scopes.</div>
+        </div>
+      </div>
+      <div class="agenda-block">
+        <div>
+          <div class="agenda-block-title">Scheduling — מ-Artifact לתהליך אוטומטי</div>
+          <div class="agenda-block-desc">איך הופכים Artifact חי לדוח שרץ לבד — AR Aging שבועי, P&L חודשי, Cash Runway יומי.</div>
+        </div>
+      </div>
+      <div class="agenda-block">
+        <div>
+          <div class="agenda-block-title">ניהול Artifacts — Skills, Pin, Archive</div>
+          <div class="agenda-block-desc">מתי הופכים Artifact אישי ל-Skill צוותי, איך מסדרים את הספרייה, ומתי לארכב.</div>
+        </div>
+      </div>
+      <div class="agenda-block">
+        <div>
+          <div class="agenda-block-title">דמו חי — בניית Live Artifact מאפס</div>
+          <div class="agenda-block-desc">מ-Google Sheet אמיתי לדשבורד FP&A חי — Prompt, בחירת Connector, התוצאה, ורענון בזמן אמת.</div>
+        </div>
+      </div>
+      <div class="agenda-block">
+        <div>
+          <div class="agenda-block-title">5 Use Cases שמחליפים עבודה יומית</div>
+          <div class="agenda-block-desc">Treasury Dashboard, SaaS Metrics, Slack Deal Monitor, Gmail CFO Briefing, Contract Analyzer — מה מחליפים ואיך.</div>
+        </div>
+      </div>
+      <div class="agenda-block">
+        <div>
+          <div class="agenda-block-title">6 טיפים מעשיים שעובדים</div>
+          <div class="agenda-block-desc">משאלה שבועית אמיתית, גרסה ראשונה קטנה, ספי התראות מפורשים, Skills לפני Bookmarks.</div>
+        </div>
+      </div>
+      <div class="agenda-block">
+        <div>
+          <div class="agenda-block-title">סיכום וצעדים הבאים</div>
+          <div class="agenda-block-desc">מה ראינו, מה לעשות כבר מחר, והקדמה ל-Webinar 04: Projects ואוטומציה לצוות.</div>
+        </div>
+      </div>
+      <div class="agenda-block">
+        <div>
+          <div class="agenda-block-title">שאלות ותשובות</div>
+          <div class="agenda-block-desc">שאלות בזמן אמת, הפניה לקישור הקלטה + קובץ ה-Prompts המלא.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ─── CONNECTORS ─── -->
+<section id="connectors">
+  <div class="inner">
+    <div class="section-label">INTEGRATIONS</div>
+    <h2 class="section-title">Connectors —<br />מה אפשר לחבר ואיך</h2>
+    <p class="section-desc">
+      Connector הוא הגשר בין Claude לנתונים האמיתיים שלכם. הנה ה-Connectors הכי רלוונטיים לצוות כספים — וקריטריונים לבחירה נכונה לפני שמחברים.
+    </p>
+    <div class="conn-grid">
+      <div class="conn-card">
+        <div class="conn-name">NetSuite</div>
+        <div class="conn-desc">קריאה וכתיבה ברמת רשומה, Saved Searches, דוחות — הכלי הכי עוצמתי ל-ERP נטיב.</div>
+      </div>
+      <div class="conn-card">
+        <div class="conn-name">QuickBooks</div>
+        <div class="conn-desc">חשבוניות, ספקים, לקוחות, יתרות. מושלם לעסקים קטנים ובינוניים.</div>
+      </div>
+      <div class="conn-card">
+        <div class="conn-name">Google Sheets / Excel</div>
+        <div class="conn-desc">הכי נפוץ, הכי גמיש — נקודת הכניסה הקלה ביותר ל-Live Artifacts.</div>
+      </div>
+      <div class="conn-card">
+        <div class="conn-name">Slack</div>
+        <div class="conn-desc">מעקב אחרי ערוצים פיננסיים — Deals, Approvals, Vendor Issues, AR Updates.</div>
+      </div>
+      <div class="conn-card">
+        <div class="conn-name">Gmail / Outlook</div>
+        <div class="conn-desc">ניהול תיקים, אישורים, התראות — תיוג ומיון אוטומטי לפי דחיפות.</div>
+      </div>
+    </div>
+    <div class="conn-tiers">
+      <img src="images/content/tiers.png" alt="Connector tiers — 5 use cases overview" />
+    </div>
+    <div class="conn-criteria">
+      <div class="conn-criteria-title">איך בוחרים Connector נכון</div>
+      <ul class="conn-criteria-list">
+        <li>בדקו את <strong>Tool Scopes</strong> — אילו כלים ה-Connector חושף ומה הוא מסוגל לעשות</li>
+        <li>קראו אילו <strong>הרשאות</strong> הוא מבקש — וודאו שלא מקבל יותר ממה שצריך</li>
+        <li>בדקו אם יש <strong>גבול שאילתות</strong> — חשוב במיוחד ל-Connectors שרצים אוטומטית</li>
+      </ul>
+    </div>
+    <div class="conn-images">
+      <div class="conn-image">
+        <img src="images/content/connectors.png" alt="Connector Selection — Cowork" />
+      </div>
+      <div class="conn-image">
+        <img src="images/content/netsuite1.png" alt="NetSuite Connector · Tool Scopes" />
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── SCHEDULING ─── -->
+<section id="scheduling">
+  <div class="inner">
+    <div class="section-label">AUTOMATION</div>
+    <h2 class="section-title">Scheduling —<br />מ-Artifact לתהליך אוטומטי</h2>
+    <p class="section-desc">
+      גם Live Artifact הכי מוצלח דורש שמישהו יפתח אותו. עם Scheduling, ה-Artifact רץ לבד בזמן שאתם עוד שותים קפה — והנתונים מחכים מוכנים, בכל פעם.
+    </p>
+    <div class="sched-grid">
+      <div class="sched-examples">
+        <div class="sched-example">
+          <div class="sched-time">כל יום שני · 08:00</div>
+          <div class="sched-desc"><strong>AR Aging Report</strong> — רץ אוטומטית, מחכה במייל בבוקר.</div>
+        </div>
+        <div class="sched-example">
+          <div class="sched-time">ב-1 לכל חודש</div>
+          <div class="sched-desc"><strong>דוח P&L מנהלים</strong> — בנוי, מנותח, מוכן לסקירה.</div>
+        </div>
+        <div class="sched-example">
+          <div class="sched-time">כל יום חמישי · 16:00</div>
+          <div class="sched-desc"><strong>Cash Runway Alert</strong> — מתעדכן ומתריע אם יורד מסף.</div>
+        </div>
+      </div>
+      <div class="sched-setup">
+        <strong>איך מגדירים:</strong><br />
+        Options → Schedule → בחירת תדירות + זמן + יעד (מייל, Slack, או רענון Artifact בלבד).
+      </div>
+    </div>
+    <div class="sched-image-wide">
+      <img src="images/content/schedule.png" alt="Schedule Setup — Cowork" />
+    </div>
+  </div>
+</section>
+
+<!-- ─── MANAGING ARTIFACTS ─── -->
+<section id="managing">
+  <div class="inner">
+    <div class="section-label">LIBRARY HYGIENE</div>
+    <h2 class="section-title">ניהול Artifacts —<br />Skills, Pin, Archive</h2>
+    <p class="section-desc">
+      Artifact אחד זו התחלה. אחרי 20 Artifacts צריך שיטה — מתי הופכים אישי לצוותי, איך מסדרים את הספרייה, ומתי מארכבים.
+    </p>
+    <div class="mng-grid">
+      <div class="mng-card">
+        <div class="mng-num">01 · SKILL</div>
+        <div class="mng-title">Turn into Skill</div>
+        <div class="mng-desc">כש-3+ אנשים בצוות יכולים להפיק ערך מאותו Logic — הופכים את ה-Artifact ל-Skill צוותי. ההגיון נשמר, ההפעלה ב-Prompt אחד.</div>
+        <div class="mng-example"><strong>דוגמה:</strong> "AR Aging Skill" שכל אנשי הגבייה מפעילים על ה-Sheet שלהם.</div>
+      </div>
+      <div class="mng-card">
+        <div class="mng-num">02 · ORGANIZE</div>
+        <div class="mng-title">Pin · Rename · Move</div>
+        <div class="mng-desc">מה שפותחים יום-יום מקבל Pin. שמות ברורים = שימוש גבוה יותר. ארגון לפי Project — קלסר דיגיטלי שעובד.</div>
+        <div class="mng-example"><strong>דוגמה:</strong> Project "Monthly Close" עם 4 Artifacts מוצמדים בסדר עבודה.</div>
+      </div>
+      <div class="mng-card">
+        <div class="mng-num">03 · ARCHIVE</div>
+        <div class="mng-title">Archive ומחיקה</div>
+        <div class="mng-desc">Artifact שלא נפתח 30 יום — כנראה לא צריכים. ארכוב מסיר מהרשימה הראשית בלי למחוק, ושומר על ספרייה נקייה ומקצועית.</div>
+        <div class="mng-example"><strong>דוגמה:</strong> דוח Q1 שעבר עידן — לא מוחקים, מארכבים. אפשר לחזור בכל רגע.</div>
+      </div>
+    </div>
+    <div class="mng-banner">
+      <img src="images/content/turn-to-skill.png" alt="Turn Artifact into Skill — Cowork" />
+    </div>
+  </div>
+</section>
+
+<!-- ─── PROMPTS LIBRARY (Excel CTA) ─── -->
+<section id="prompts">
+  <div class="inner">
+    <div class="section-label">RESOURCE · DOWNLOAD</div>
+    <h2 class="section-title">לפני שנכנסים לדמו —<br />כל ה-Prompts מחכים לכם בקובץ</h2>
+    <p class="section-desc">
+      כל ה-Use Cases שראיתם — Treasury, SaaS, Slack, Gmail, Drive — מחכים לכם בקובץ Excel מסודר עם הניסוח המלא, הדוגמאות, וההתאמות לחברות SaaS / מסחר / שירותים. הורידו עכשיו, ועקבו עם הקובץ בזמן הדמו.
+    </p>
+    <div class="prompts-card">
+      <div class="prompts-icon">XLSX</div>
+      <div class="prompts-eyebrow">PROMPT LIBRARY · BY RONEN AMOS, CPA</div>
+      <h3 class="prompts-title">How to Create Claude Artifacts<br />for Finance & FP&A</h3>
+      <p class="prompts-desc">
+        קובץ Excel עם Prompts מוכנים, דוגמאות מלאות, וקטגוריות לפי Use Case — בדיוק מה שצריך כדי לבנות Live Artifact אמיתי כבר היום, בלי לכתוב Prompt מאפס.
+      </p>
+      <ul class="prompts-bullets">
+        <li>Prompts מלאים לכל 5 ה-Use Cases — מוכנים להעתקה ולשימוש מיידי</li>
+        <li>דוגמאות תוצרים אמיתיים שתראו בדמו הבא — כולל ה-Outputs המלאים</li>
+        <li>טמפלטים להתאמה לחברה שלכם — לפי גודל, ענף ומבנה נתונים</li>
+      </ul>
+      <a href="https://docs.google.com/spreadsheets/d/1LNXMonscyLLtHeW9QQXGT4_JOIHy81oR/edit?usp=sharing&amp;ouid=113209169108500009079&amp;rtpof=true&amp;sd=true" target="_blank" rel="noopener" class="prompts-cta">פתח את הקובץ ב-Google Sheets</a>
+    </div>
+  </div>
+</section>
+
+<!-- ─── DEMO ─── -->
+<section id="demo">
+  <div class="inner">
+    <div class="section-label">LIVE DEMO</div>
+    <h2 class="section-title">דמו חי —<br />בניית Live Artifact מאפס</h2>
+    <p class="section-desc">
+      לוקחים Google Sheet אמיתי, מחברים Connector, ובונים דשבורד FP&A חי תוך דקות. הדגמה בזמן אמת — לא הקלטה, לא Slides.
+    </p>
+
+    <div class="demo-steps">
+      <div class="demo-step">
+        <div class="demo-step-num">STEP 01</div>
+        <div class="demo-step-title">התחלה מ-Google Sheet אמיתי</div>
+        <div class="demo-step-desc">פותחים את Cowork, New Artifact, ומדביקים את הקישור ל-Sheet — בלי לפתוח מראש, בלי הכנות מוקדמות.</div>
+      </div>
+      <div class="demo-step">
+        <div class="demo-step-num">STEP 02</div>
+        <div class="demo-step-title">חיבור ל-Google Drive Connector</div>
+        <div class="demo-step-desc">בוחרים Connector, מאשרים הרשאות, ו-Claude קורא את הנתונים מהמקור — בזמן אמת מול ה-API.</div>
+      </div>
+      <div class="demo-step">
+        <div class="demo-step-num">STEP 03</div>
+        <div class="demo-step-title">התוצאה — דשבורד חי</div>
+        <div class="demo-step-desc">KPIs, גרפים, טבלאות — נבנים אוטומטית. משנים נתון ב-Sheet, ורואים שזה משתנה ב-Artifact מיד.</div>
+      </div>
+    </div>
+
+    <div class="prompt-block">
+      <div class="prompt-header">
+        <div class="demo-prompt-label">PROMPT לדוגמה — להעתקה ושימוש</div>
+        <div class="prompt-actions">
+          <button type="button" class="prompt-btn js-toggle-prompt" data-target="demoPrompt1">הצג Prompt</button>
+          <button type="button" class="prompt-btn js-copy-prompt" data-target="demoPrompt1">העתק</button>
+        </div>
+      </div>
+    <div class="demo-prompt" id="demoPrompt1" hidden>Build a live FP&amp;A Analytics Hub from my Google Sheet [link].
+Use these tabs only:
+- Monthly_Summary
+- Revenue_By_Segment
+- Bridge_Budget_to_LE
+- PL_Variance
+
+Dashboard requirements:
+- KPI cards for Revenue, Gross Margin, EBITDA, and Cash Runway using the latest month from Monthly_Summary
+- Show Actual, Budget, and Variance vs Budget for each KPI
+- Monthly Revenue vs Budget trend line chart using Month, Revenue_Actual, and Revenue_Budget from Monthly_Summary
+- Revenue mix donut chart by segment using the latest available month from Revenue_By_Segment
+- Budget-to-LE waterfall chart using Bridge_Budget_to_LE
+- P&L variance table using PL_Variance with columns Budget, LE, and Variance
+
+Layout:
+- Left sidebar with Performance, Forecasting, Operations
+- Clean modern finance dashboard design
+- Arctic Frost color theme
+
+Data behavior:
+- Refresh automatically when the Google Sheet updates
+- Do not infer missing fields
+- Use only the tab and column names exactly as provided
+- Treat Month as a monthly date field
+- Format currency with commas and no decimals
+- Format Cash Runway in months with 1 decimal place</div>
+    </div>
+
+    <div class="demo-warning">
+      <div class="demo-warning-icon">⚠</div>
+      <div class="demo-warning-text">
+        <strong>אזהרה חשובה לפני כל חיבור Connector:</strong> תמיד קוראים את <strong>Tool Scopes</strong> וההרשאות שה-Connector מבקש. נתונים פיננסיים = רגישות גבוהה. עדיף Connector מצומצם שעובד מ-Connector "פתוח" שאתם לא ממש יודעים מה הוא רואה.
+      </div>
+    </div>
+
+    <div class="demo-images">
+      <div class="demo-item">
+        <div class="demo-item-title">01 · בחירת Connector</div>
+        <div class="demo-image">
+          <img src="images/content/netsuite2.png" alt="בחירת Connector ב-Cowork" />
+        </div>
+      </div>
+      <div class="demo-item">
+        <div class="demo-item-title">02 · הרשאות &amp; Tool Scopes</div>
+        <div class="demo-image">
+          <img src="images/content/image5 toolscop.png" alt="Tool Scopes &amp; הרשאות" />
+        </div>
+      </div>
+      <div class="demo-item demo-item-wide">
+        <div class="demo-item-title">03 · דשבורד התוצאה — Live FP&amp;A</div>
+        <div class="demo-image">
+          <img src="images/hero/headline-dashboard.png" alt="דשבורד התוצאה — Live FP&A" />
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── USE CASES ─── -->
+<section id="usecases">
+  <div class="inner">
+    <div class="section-label">FINANCE WORKFLOWS</div>
+    <h2 class="section-title">5 Use Cases<br />שמחליפים עבודה יומית</h2>
+    <p class="section-desc">
+      חמישה תרחישים אמיתיים שבהם Live Artifact + Connector מייצרים ערך מיידי במחלקת הכספים — מ-Cash Flow Dashboard ועד מעקב חוזים אוטומטי. כל use case מתחיל מכאב יומי אמיתי, לא מפיצ'ר טכני.
+    </p>
+    <div class="uc-grid">
+      <div class="uc-card">
+        <div class="uc-num">USE CASE 01</div>
+        <div class="uc-title">Cash Flow & Treasury Dashboard</div>
+        <div class="uc-pain"><strong>מחליף:</strong> Excel קפוא ששולחים ב-WhatsApp כל בוקר.</div>
+        <div class="uc-outcome">KPIs של Cash Balance, Burn Rate ו-Runway · 13-week forecast · AP/AR Aging — מתעדכן מ-Google Sheet אוטומטית.</div>
+      </div>
+      <div class="uc-card">
+        <div class="uc-num">USE CASE 02</div>
+        <div class="uc-title">SaaS Metrics Monitor</div>
+        <div class="uc-pain"><strong>מתאים ל:</strong> חברות SaaS / Subscription שצריכות ARR ו-Churn חי.</div>
+        <div class="uc-outcome">ARR · MRR · Churn · NRR · Cohort retention heatmap · MRR movement waterfall — בכל פתיחה הנתון העדכני.</div>
+      </div>
+      <div class="uc-card">
+        <div class="uc-num">USE CASE 03</div>
+        <div class="uc-title">Slack Deal Monitor</div>
+        <div class="uc-pain"><strong>הבעיה:</strong> עסקאות מתעכבות ב-#deals בלי שאף אחד שם לב.</div>
+        <div class="uc-outcome">Artifact שסורק את הערוץ, ממיין לפי דחיפות, מציג owner ו-value, ומסמן באדום עסקה ללא עדכון 5+ ימים.</div>
+      </div>
+      <div class="uc-card">
+        <div class="uc-num">USE CASE 04</div>
+        <div class="uc-title">Gmail Executive Briefing</div>
+        <div class="uc-pain"><strong>תרחיש:</strong> CFO נכנס בבוקר ורוצה לדעת מה דחוף — בלי לקרוא 80 מיילים.</div>
+        <div class="uc-outcome">סורק 24 שעות אחרונות · מסכם דחופים, מספרים פיננסיים מרכזיים, ואישורים ממתינים — לפי עדיפות.</div>
+      </div>
+      <div class="uc-card">
+        <div class="uc-num">USE CASE 05</div>
+        <div class="uc-title">Google Drive Contract Analyzer</div>
+        <div class="uc-pain"><strong>הבעיה:</strong> חוזים מתחדשים אוטומטית בלי שמישהו עוקב.</div>
+        <div class="uc-outcome">סורק תיקיית חוזים, בונה טבלה: ספק · ערך · תאריך חידוש · תנאי תשלום — ומסמן צהוב חוזים שמסתיימים תוך 90 יום.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ─── TIPS ─── -->
+<section id="tips">
+  <div class="inner">
+    <div class="section-label">PRACTICAL WISDOM</div>
+    <h2 class="section-title">6 טיפים מעשיים<br />שעובדים באמת</h2>
+    <p class="section-desc">
+      ההבדל בין Artifact שמוצמד ל-Sidebar ופותחים אותו כל יום, לבין Artifact שנעלם אחרי שבוע — הוא כמעט תמיד אחד מששת הטיפים האלה.
+    </p>
+    <div class="tips-grid">
+      <div class="tip-card">
+        <div class="tip-num">1</div>
+        <div>
+          <div class="tip-title">התחילו משאלה שבועית אמיתית</div>
+          <div class="tip-desc">אם לא תפתחו את ה-Artifact ביום שני, לא תפתחו אותו גם ביום שלישי. בחרו שאלה שאתם באמת שואלים שבועית.</div>
+        </div>
+      </div>
+      <div class="tip-card">
+        <div class="tip-num">2</div>
+        <div>
+          <div class="tip-title">גרסה ראשונה קטנה</div>
+          <div class="tip-desc">טייל אחד, מקור אחד, שאלה אחת. אל תנסו לבנות "מערכת" מההתחלה — תרחיבו אחרי שעובדת.</div>
+        </div>
+      </div>
+      <div class="tip-card">
+        <div class="tip-num">3</div>
+        <div>
+          <div class="tip-title">סף התראות מפורש</div>
+          <div class="tip-desc">"Variance &gt; 5%" עדיף מ-"show variance". מספרים ברורים בונים Artifact שמתריע באמת.</div>
+        </div>
+      </div>
+      <div class="tip-card">
+        <div class="tip-num">4</div>
+        <div>
+          <div class="tip-title">Pin מה שפותחים, Archive מה שלא</div>
+          <div class="tip-desc">רשימה עמוסה = אפס שימוש. מי שלא בודק את הסביבה אחת לשבוע — מאבד את כולה.</div>
+        </div>
+      </div>
+      <div class="tip-card">
+        <div class="tip-num">5</div>
+        <div>
+          <div class="tip-title">Skills לפני Bookmarks</div>
+          <div class="tip-desc">אם 3+ אנשים בצוות צריכים את אותו דבר — זה Skill. Bookmark הוא לאדם אחד בלבד.</div>
+        </div>
+      </div>
+      <div class="tip-card">
+        <div class="tip-num">6</div>
+        <div>
+          <div class="tip-title">בדקו Tool Scopes תמיד</div>
+          <div class="tip-desc">לכל דבר שנוגע בנתונים פיננסיים, קראו מה ה-Connector קורא ומה הוא יכול לעשות. תמיד.</div>
+        </div>
+      </div>
+    </div>
+    <div class="tips-compare">
+      <div class="tips-compare-label">STATIC EXCEL  vs  LIVE ARTIFACT — ↓</div>
+      <img src="images/hero/compare.png" alt="Static Excel vs Live Artifact comparison" />
+    </div>
+  </div>
+</section>
+
+<!-- ─── TAKEAWAYS ─── -->
+<section id="takeaways">
+  <div class="inner">
+    <div class="section-label">WHAT TO TAKE FROM THIS</div>
+    <h2 class="section-title">מה לוקחים מהוובינר —<br />ומה לעשות כבר מחר</h2>
+    <p class="section-desc">
+      המטרה של המפגש הזה היא לא ללמוד עוד פיצ'ר — אלא לצאת עם שיטה אחת ברורה, ולהתחיל להשתמש בה כבר בשבוע הקרוב.
+    </p>
+    <div class="takeaways-grid">
+      <div class="takeaway-block">
+        <div class="takeaway-label">מה ראינו היום</div>
+        <ul class="takeaway-list">
+          <li>Live Artifacts הופכים תשובה חד-פעמית ל-Output שממשיך לעבוד.</li>
+          <li>Connectors הם הגשר בין Claude לנתונים אמיתיים — תמיד עם בדיקת Tool Scopes.</li>
+          <li>Scheduling מפעיל את ה-Artifact אוטומטית — בלי לפתוח ידנית כל יום.</li>
+          <li>Skills הופכים Artifact אישי לכלי צוותי שמשתמשים בו רבים.</li>
+        </ul>
+      </div>
+      <div class="takeaway-block">
+        <div class="takeaway-label">מה לעשות מחר</div>
+        <ul class="takeaway-list">
+          <li>זהו שאלה אחת שאתם שואלים שבועית — "מה ה-X?".</li>
+          <li>בנו לה Live Artifact ראשון — קטן, ממוקד, על מקור נתונים אחד.</li>
+          <li>תזמנו רענון אוטומטי — יום ושעה קבועים.</li>
+          <li>אחרי שעובד שבוע — שתפו עם הצוות והפכו ל-Skill.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── WEBINAR RECORDING ─── -->
+<section id="recording">
+  <div class="inner">
+    <div class="section-label">WATCH ON-DEMAND</div>
+    <h2 class="section-title">הקלטת הוובינר המלא</h2>
+    <p class="section-desc">
+      פספסתם בשידור חי? כל הוובינר — Use Cases, דמו, Q&amp;A — זמין כאן לצפייה חוזרת. שמרו את הדף, ותחזרו בכל עת.
+    </p>
+    <div class="recording-wrap">
+      <div class="recording-inner">
+        <div class="recording-play">▶</div>
+        <div class="recording-label">PLACEHOLDER</div>
+        <div class="recording-text">Here would be the recording.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── CTA / NEXT WEBINAR ─── -->
+<section id="cta">
+  <div class="inner">
+    <div class="cta-eyebrow">WEBINAR 04 — בקרוב</div>
+    <h2 class="cta-title">הוובינר הבא בסדרה:<br />Projects ואוטומציה לצוות הכספים</h2>
+    <p class="cta-desc">
+      בוובינר 4 נראה איך הופכים את Cowork לסביבת עבודה מלאה לצוות פיננסים — Projects, אוטומציה בין צוותים, וניהול workflow חודשי מקצה לקצה. ההמשך הטבעי של הוובינר היום.
+    </p>
+    <div class="cta-buttons">
+      <a href="https://popup.fm/ronenamoscpa/events/1nyCZJXSccPldGCxqWQY" class="cta-btn cta-btn-primary" target="_blank" rel="noopener">להרשמה לוובינר 4 ←</a>
+      <a href="https://popup.fm/ronenamoscpa" class="cta-btn cta-btn-secondary" target="_blank" rel="noopener">כל הוובינרים בסדרה</a>
+    </div>
+  </div>
+</section>
+
+<!-- ─── FOOTER / RESOURCES ─── -->
+<section id="footer">
+  <div class="inner">
+    <div class="section-label">המשך</div>
+    <h2 class="footer-title">למדריכים ותוכן נוסף</h2>
+    <p class="footer-sub">כל הכלים, הקהילה והמשאבים — במקום אחד.</p>
+    <div class="footer-grid">
+      <a href="https://chat.whatsapp.com/CS6dgqnK45Q9XAMqScNr6R" target="_blank" class="footer-card">
+        <div class="footer-card-num">01 · COMMUNITY</div>
+        <div class="footer-card-title">קהילת AI Finance</div>
+        <div class="footer-card-desc">מעל 800 אנשי פיננסים שחולקים כלים ו-prompts בזמן אמת.</div>
+        <div class="footer-card-link">chat.whatsapp.com ↗</div>
+      </a>
+      <a href="https://www.youtube.com/@AIFinanceTransformation" target="_blank" class="footer-card">
+        <div class="footer-card-num">02 · YOUTUBE</div>
+        <div class="footer-card-title">AI for Finance</div>
+        <div class="footer-card-desc">הדגמות מעשיות, walkthroughs ו-playbooks שמאחורי הפרקטיקה.</div>
+        <div class="footer-card-link">@AIFinanceTransformation ↗</div>
+      </a>
+      <a href="https://www.ronenamoscpa.co.il/" target="_blank" class="footer-card">
+        <div class="footer-card-num">03 · NEWSLETTER</div>
+        <div class="footer-card-title">הניוזלטר השבועי</div>
+        <div class="footer-card-desc">תובנות AI לפיננסים ישר למייל שלך — כתוב על ידי איש פיננסים.</div>
+        <div class="footer-card-link">ronenamoscpa.co.il ↗</div>
+      </a>
+      <a href="https://www.ronenamoscpa.co.il/skill-vault" target="_blank" class="footer-card">
+        <div class="footer-card-num">04 · PROMPT HUB</div>
+        <div class="footer-card-title">Skill Vault</div>
+        <div class="footer-card-desc">ספריית ה-prompts שלי — מוכנים לשימוש מיידי בצוות הפיננסים שלך.</div>
+        <div class="footer-card-link">ronenamoscpa.co.il/skill-vault ↗</div>
+      </a>
+      <a href="https://www.paypal.com/ncp/payment/E36KBLHK8MDPN" target="_blank" class="footer-card">
+        <div class="footer-card-num">05 · THE BOOK</div>
+        <div class="footer-card-title">Claude Playbook</div>
+        <div class="footer-card-desc">הספר המלא — frameworks, case studies ומדריכי יישום לצוותי פיננסים.</div>
+        <div class="footer-card-link">רכישה מאובטחת ↗</div>
+      </a>
+      <a href="https://www.ronenamoscpa.co.il/courses" target="_blank" class="footer-card">
+        <div class="footer-card-num">06 · COURSE</div>
+        <div class="footer-card-title">קורס AI Finance</div>
+        <div class="footer-card-desc">תוכנית מובנית להטמעת חשיבה AI-First בצוות הפיננסים שלך.</div>
+        <div class="footer-card-link">ronenamoscpa.co.il/courses ↗</div>
+      </a>
+    </div>
+    <div class="footer-copy">
+      Ronen Amos · AI Finance Transformation · Claude for Finance Webinar Series · Webinar 03
+    </div>
+  </div>
+</section>
+
+<script>
+  // Toggle prompt visibility (show/hide)
+  document.querySelectorAll('.js-toggle-prompt').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var target = document.getElementById(btn.dataset.target);
+      if(!target) return;
+      if(target.hasAttribute('hidden')){
+        target.removeAttribute('hidden');
+        btn.textContent = 'הסתר Prompt';
+      } else {
+        target.setAttribute('hidden','');
+        btn.textContent = 'הצג Prompt';
+      }
+    });
+  });
+
+  // Copy prompt content to clipboard
+  document.querySelectorAll('.js-copy-prompt').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var target = document.getElementById(btn.dataset.target);
+      if(!target) return;
+      var text = target.innerText || target.textContent || '';
+      var done = function(){
+        var orig = 'העתק';
+        btn.textContent = '✓ הועתק';
+        btn.classList.add('is-copied');
+        setTimeout(function(){
+          btn.textContent = orig;
+          btn.classList.remove('is-copied');
+        }, 2000);
+      };
+      if(navigator.clipboard && navigator.clipboard.writeText){
+        navigator.clipboard.writeText(text).then(done, function(){
+          // fallback
+          var ta = document.createElement('textarea');
+          ta.value = text; document.body.appendChild(ta); ta.select();
+          try { document.execCommand('copy'); done(); } catch(e){}
+          document.body.removeChild(ta);
+        });
+      } else {
+        var ta = document.createElement('textarea');
+        ta.value = text; document.body.appendChild(ta); ta.select();
+        try { document.execCommand('copy'); done(); } catch(e){}
+        document.body.removeChild(ta);
+      }
+    });
+  });
+</script>
+
+</body>
+</html>
