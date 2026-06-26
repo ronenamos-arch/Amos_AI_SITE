@@ -1,0 +1,2674 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>102 דרכים להשתמש ב-ב AI לעבודת לרואי חשבון ומחלקות כספים | AI Finance Transformation</title>
+<meta name="description" content="102 use-cases מוכנים לשימוש לאנשי כספים, CFOs, Controllers ו-FP&A — עם prompts מפורטים לכל אחד.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800;900&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0b0d10;
+  --surface: #12161a;
+  --surface2: #1a1f26;
+  --accent: #b8c45a;
+  --accent-strong: #d6e36a;
+  --accent-dim: rgba(184,196,90,0.12);
+  --text: #fafbfc;
+  --text-muted: #c2cad2;
+  --text-faint: #7a8694;
+  --border: rgba(255,255,255,0.07);
+  --radius-sm: 10px;
+  --radius-md: 18px;
+  --radius-lg: 28px;
+  --font: Heebo, system-ui, sans-serif;
+  --mono: "IBM Plex Mono", monospace;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text);font-family:var(--font);line-height:1.65;-webkit-font-smoothing:antialiased;}
+a{color:inherit;text-decoration:none;}
+
+/* ── TOPBAR ── */
+.topbar{position:sticky;top:0;z-index:200;background:rgba(11,13,16,0.92);backdrop-filter:blur(14px);border-bottom:1px solid var(--border);padding:0 2rem;display:flex;align-items:center;justify-content:space-between;height:52px;}
+.topbar-brand{font-family:var(--mono);font-size:0.78rem;color:var(--accent);letter-spacing:0.06em;font-weight:500;}
+.topbar-nav{display:flex;gap:1.4rem;}
+.topbar-nav a{font-size:0.72rem;color:var(--text-faint);font-family:var(--mono);letter-spacing:0.04em;transition:color 0.2s;}
+.topbar-nav a:hover{color:var(--accent);}
+@media(max-width:600px){.topbar-nav{display:none;}}
+
+/* ── INNER ── */
+.inner{max-width:1100px;margin:0 auto;width:100%;}
+
+/* ── SECTION LABEL ── */
+.section-label{font-family:var(--mono);font-size:0.62rem;color:var(--accent);letter-spacing:0.2em;text-transform:uppercase;margin-bottom:0.85rem;font-weight:500;}
+
+/* ── HERO ── */
+#hero{padding:5rem 2rem 4rem;}
+.hero-eyebrow{font-family:var(--mono);font-size:0.7rem;color:var(--accent);letter-spacing:0.2em;text-transform:uppercase;margin-bottom:1.2rem;}
+.hero-title{font-size:clamp(2rem,5vw,3.4rem);font-weight:900;line-height:1.15;margin-bottom:1.2rem;}
+.hero-title span{color:var(--accent);}
+.hero-sub{font-size:1rem;color:var(--text-muted);max-width:640px;margin-bottom:2.2rem;line-height:1.75;}
+.stats-row{display:flex;flex-wrap:wrap;gap:1.5rem;margin-bottom:2.5rem;}
+.stat-pill{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);padding:0.8rem 1.4rem;text-align:center;}
+.stat-pill .num{font-size:1.8rem;font-weight:900;color:var(--accent);line-height:1;display:block;}
+.stat-pill .lbl{font-family:var(--mono);font-size:0.6rem;color:var(--text-faint);letter-spacing:0.12em;text-transform:uppercase;margin-top:0.2rem;display:block;}
+
+/* ── CONTROLS ── */
+#controls{background:var(--surface);border-bottom:1px solid var(--border);padding:1rem 2rem;position:sticky;top:52px;z-index:150;}
+.ctrl-inner{max-width:1100px;margin:0 auto;display:flex;flex-direction:column;gap:0.85rem;}
+.search-row{display:flex;align-items:center;gap:0.75rem;}
+.search-wrap{position:relative;flex:1;max-width:340px;}
+.search-wrap svg{position:absolute;right:12px;top:50%;transform:translateY(-50%);color:var(--text-faint);}
+.search-input{width:100%;padding:0.6rem 2.2rem 0.6rem 0.85rem;background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius-sm);font-family:var(--font);font-size:0.82rem;color:var(--text);outline:none;transition:border-color 0.2s;direction:rtl;}
+.search-input:focus{border-color:var(--accent);}
+.search-input::placeholder{color:var(--text-faint);}
+#rcount{font-family:var(--mono);font-size:0.65rem;color:var(--text-faint);letter-spacing:0.06em;}
+.tab-row{display:flex;flex-wrap:wrap;gap:0.5rem;}
+.lvl-row{display:flex;gap:0.5rem;}
+.tab-btn,.lvl-btn{padding:0.35rem 0.85rem;font-family:var(--mono);font-size:0.63rem;letter-spacing:0.1em;text-transform:uppercase;border:1px solid var(--border);border-radius:var(--radius-sm);cursor:pointer;background:transparent;color:var(--text-faint);transition:all 0.2s;white-space:nowrap;min-height:36px;display:inline-flex;align-items:center;}
+.tab-btn:hover,.lvl-btn:hover{color:var(--accent);border-color:var(--accent);}
+.tab-btn.active{background:var(--accent);color:var(--bg);border-color:var(--accent);font-weight:600;}
+.lvl-btn.active{background:var(--accent-dim);color:var(--accent);border-color:var(--accent);}
+
+/* ── MAIN ── */
+#main{padding:2.5rem 2rem 5rem;}
+.empty-state{text-align:center;padding:4rem 1rem;color:var(--text-faint);font-size:0.9rem;display:none;}
+
+/* ── SECTION ── */
+.sec{margin-bottom:3.5rem;}
+.sec-header{display:flex;align-items:center;gap:0.85rem;margin-bottom:1.5rem;padding-bottom:0.85rem;border-bottom:1px solid var(--border);}
+.sec-icon{width:30px;height:30px;background:var(--accent-dim);border:1px solid rgba(184,196,90,0.25);border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center;flex-shrink:0;color:var(--accent);}
+.sec-name{font-size:1rem;font-weight:700;color:var(--text);}
+.sec-tag{font-family:var(--mono);font-size:0.58rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--accent);background:var(--accent-dim);padding:0.2rem 0.55rem;border-radius:4px;}
+.sec-desc{font-size:0.75rem;color:var(--text-faint);margin-right:auto;}
+.sec-desc-mobile{display:none;}
+
+/* ── GRID ── */
+.card-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:1rem;}
+
+/* ── CARD ── */
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-md);overflow:hidden;cursor:pointer;transition:border-color 0.2s,transform 0.22s,box-shadow 0.22s;position:relative;}
+.card:hover{border-color:var(--accent);transform:translateY(-3px);box-shadow:0 8px 28px rgba(0,0,0,0.35);}
+.card.open{border-color:rgba(184,196,90,0.45);}
+.card-top{padding:1.1rem 1.2rem 0.85rem;}
+.card-num{font-family:var(--mono);font-size:0.62rem;color:var(--accent);letter-spacing:0.1em;margin-bottom:0.55rem;display:flex;align-items:center;gap:0.6rem;}
+.card-num::before{content:'';flex:1;height:1px;background:var(--border);}
+.card-text{font-size:0.95rem;font-weight:600;color:var(--text);line-height:1.4;margin-bottom:0.85rem;}
+.card-foot{display:flex;align-items:center;justify-content:space-between;}
+.card-cat{font-family:var(--mono);font-size:0.58rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-faint);background:var(--surface2);padding:0.22rem 0.55rem;border-radius:4px;}
+.card-lvl{font-family:var(--mono);font-size:0.58rem;letter-spacing:0.08em;text-transform:uppercase;padding:0.22rem 0.55rem;border-radius:4px;}
+.card-lvl.Beginner{background:rgba(184,196,90,0.12);color:var(--accent);}
+.card-lvl.Intermediate{background:rgba(255,180,50,0.1);color:#f0b84a;}
+.card-lvl.Advanced{background:rgba(220,70,70,0.1);color:#e06060;}
+.toggle-bar{display:flex;align-items:center;justify-content:center;gap:0.4rem;height:34px;border-top:1px solid var(--border);font-family:var(--mono);font-size:0.6rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-faint);transition:background 0.2s,color 0.2s;}
+.toggle-bar svg{transition:transform 0.3s;}
+.card.open .toggle-bar svg{transform:rotate(180deg);}
+.card:hover .toggle-bar,.card.open .toggle-bar{color:var(--accent);background:var(--accent-dim);}
+
+/* ── DRAWER ── */
+.drawer{max-height:0;overflow:hidden;transition:max-height 0.4s cubic-bezier(0.4,0,0.2,1);background:#0d1117;}
+.drawer.open{max-height:9999px;}
+.drawer-inner{padding:1.2rem 1.3rem 1.1rem;border-top:2px solid var(--accent-dim);}
+.drawer-label{font-family:var(--mono);font-size:0.6rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--text-faint);margin-bottom:0.75rem;display:flex;align-items:center;justify-content:space-between;}
+.close-btn{background:transparent;border:1px solid var(--border);border-radius:4px;color:var(--text-faint);font-family:var(--mono);font-size:0.6rem;letter-spacing:0.06em;padding:0.2rem 0.6rem;cursor:pointer;transition:all 0.2s;}
+.close-btn:hover{color:var(--accent);border-color:var(--accent);}
+.prompt-block{background:#0b0e12;border-right:3px solid var(--accent);border-radius:var(--radius-sm);padding:1rem 1.1rem;font-family:var(--mono);font-size:0.72rem;color:#a8b8c8;line-height:1.75;white-space:pre-wrap;word-break:break-word;direction:ltr;text-align:left;overflow-x:auto;}
+.copy-btn{margin-top:0.85rem;width:100%;padding:0.65rem;background:var(--accent-dim);border:1px solid rgba(184,196,90,0.3);border-radius:var(--radius-sm);font-family:var(--mono);font-size:0.65rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--accent);cursor:pointer;transition:all 0.2s;display:flex;align-items:center;justify-content:center;gap:0.5rem;}
+.copy-btn:hover{background:rgba(184,196,90,0.22);border-color:var(--accent);}
+.copy-btn.copied{color:var(--accent-strong);border-color:var(--accent-strong);}
+
+/* ── DEMO SECTION ── */
+.sec-demo .sec-icon{background:rgba(100,160,220,0.12);border-color:rgba(100,160,220,0.25);color:#6ab0dc;}
+.sec-demo .sec-name{color:#aaccee;}
+.sec-demo .sec-tag{background:rgba(100,160,220,0.1);color:#7abde8;}
+.sec-demo .card{background:#0f1620;border-color:rgba(100,160,220,0.12);}
+.sec-demo .card:hover{border-color:#4a9fd4;box-shadow:0 8px 28px rgba(26,58,110,0.35);}
+.sec-demo .card-num{color:#6ab0dc;}
+.sec-demo .card-lvl.Advanced{background:rgba(100,160,220,0.1);color:#6ab0dc;}
+.sec-demo .drawer{background:#080d14;}
+.sec-demo .prompt-block{border-right-color:#4a9fd4;}
+.sec-demo .copy-btn{color:#6ab0dc;border-color:rgba(100,160,220,0.3);background:rgba(100,160,220,0.08);}
+.sec-demo .copy-btn:hover{background:rgba(100,160,220,0.18);border-color:#6ab0dc;}
+.demo-note{font-size:0.82rem;color:var(--text-muted);font-style:italic;margin-bottom:1.5rem;padding:0.85rem 1rem;background:rgba(100,160,220,0.07);border-right:2px solid #4a9fd4;border-radius:0 var(--radius-sm) var(--radius-sm) 0;line-height:1.65;}
+
+/* ── FOOTER ── */
+#footer{padding:5rem 2rem 3rem;border-top:1px solid var(--border);}
+.footer-title{font-size:clamp(1.3rem,2.5vw,1.8rem);font-weight:800;margin-bottom:0.5rem;}
+.footer-sub{font-size:0.88rem;color:var(--text-muted);margin-bottom:2.5rem;}
+.footer-grid{display:grid;grid-template-columns:1fr;gap:1rem;}
+@media(min-width:500px){.footer-grid{grid-template-columns:repeat(2,1fr);}}
+@media(min-width:900px){.footer-grid{grid-template-columns:repeat(3,1fr);}}
+.footer-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-md);padding:1.3rem 1.5rem;transition:border-color 0.2s,transform 0.22s;display:block;}
+.footer-card:hover{border-color:var(--accent);transform:translateY(-4px);}
+.footer-card-num{font-family:var(--mono);font-size:0.62rem;color:var(--text-faint);letter-spacing:0.1em;margin-bottom:0.4rem;}
+.footer-card-title{font-size:0.9rem;font-weight:700;margin-bottom:0.3rem;}
+.footer-card-desc{font-size:0.78rem;color:var(--text-muted);line-height:1.5;margin-bottom:0.5rem;}
+.footer-card-link{font-size:0.72rem;color:var(--accent);font-family:var(--mono);}
+.footer-copy{margin-top:3rem;text-align:center;font-size:0.75rem;color:var(--text-faint);font-family:var(--mono);letter-spacing:0.05em;}
+
+@media(max-width:700px){
+  .card-grid{grid-template-columns:1fr;}
+  .sec-desc{display:none;}
+  .sec-desc-mobile{display:block;font-size:0.72rem;color:var(--text-faint);margin-top:0.3rem;}
+  #controls{padding:0.85rem 1rem;}
+}
+@media(max-width:400px){
+  #hero{padding:3rem 1rem 2.5rem;}
+  #main{padding:1.5rem 1rem 4rem;}
+  #footer{padding:3rem 1rem 2rem;}
+}
+</style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<nav class="topbar">
+  <div class="topbar-brand">AI Finance Transformation</div>
+  <div class="topbar-nav">
+    <a href="#controls">סינון</a>
+    <a href="#footer">משאבים</a>
+    <a href="https://www.ronenamoscpa.co.il/" target="_blank">ronenamoscpa.co.il ↗</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="inner">
+    <div class="hero-eyebrow">רונן עמוס, CPA · AI Finance Transformation</div>
+    <h1 class="hero-title">102 דרכים להשתמש ב-<span>AI</span><br>לרואי חשבון ומחלקות כספים</h1>
+    <p class="hero-sub">לחץ על כל כרטיס לצפייה ב-prompt המוכן לשימוש. מסודר לפי Surface, רמת קושי וקטגוריה — נבנה במיוחד לאנשי כספים.</p>
+    <div class="stats-row">
+      <div class="stat-pill"><span class="num">102</span><span class="lbl">Use Cases</span></div>
+      <div class="stat-pill"><span class="num">5</span><span class="lbl">Surfaces</span></div>
+      <div class="stat-pill"><span class="num">3</span><span class="lbl">רמות קושי</span></div>
+      <div class="stat-pill"><span class="num">17</span><span class="lbl">קטגוריות</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTROLS -->
+<div id="controls">
+  <div class="ctrl-inner">
+    <div class="search-row">
+      <div class="search-wrap">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        <input type="text" id="search" class="search-input" placeholder="חיפוש use case או prompt…">
+      </div>
+      <span id="rcount"></span>
+    </div>
+    <div class="tab-row">
+      <button class="tab-btn active" data-s="all">הכל</button>
+      <button class="tab-btn" data-s="Claude App">Claude App</button>
+      <button class="tab-btn" data-s="Claude in Excel">In Excel</button>
+      <button class="tab-btn" data-s="Artifacts">Artifacts</button>
+      <button class="tab-btn" data-s="Claude Code">Code</button>
+      <button class="tab-btn" data-s="Demo Apps">⚡ Demo Apps</button>
+    </div>
+    <div class="lvl-row">
+      <button class="lvl-btn active" data-l="all">כל הרמות</button>
+      <button class="lvl-btn" data-l="Beginner">Beginner</button>
+      <button class="lvl-btn" data-l="Intermediate">Intermediate</button>
+      <button class="lvl-btn" data-l="Advanced">Advanced</button>
+    </div>
+  </div>
+</div>
+
+<!-- MAIN -->
+<main id="main">
+  <div class="inner">
+    <div class="empty-state" id="empty">לא נמצאו use cases התואמים את החיפוש.</div>
+  </div>
+</main>
+
+<!-- FOOTER -->
+<section id="footer">
+  <div class="inner">
+    <div class="section-label">המשך</div>
+    <h2 class="footer-title">למדריכים ותוכן נוסף</h2>
+    <p class="footer-sub">כל הכלים, הקהילה והמשאבים — במקום אחד.</p>
+    <div class="footer-grid">
+      <a href="https://chat.whatsapp.com/CS6dgqnK45Q9XAMqScNr6R" target="_blank" class="footer-card">
+        <div class="footer-card-num">01 · COMMUNITY</div>
+        <div class="footer-card-title">קהילת AI Finance</div>
+        <div class="footer-card-desc">מעל 800 אנשי פיננסים שחולקים כלים ו-prompts בזמן אמת.</div>
+        <div class="footer-card-link">chat.whatsapp.com ↗</div>
+      </a>
+      <a href="https://www.youtube.com/@AIFinanceTransformation" target="_blank" class="footer-card">
+        <div class="footer-card-num">02 · YOUTUBE</div>
+        <div class="footer-card-title">AI for Finance</div>
+        <div class="footer-card-desc">הדגמות מעשיות, walkthroughs ו-playbooks שמאחורי הפרקטיקה.</div>
+        <div class="footer-card-link">@AIFinanceTransformation ↗</div>
+      </a>
+      <a href="https://www.ronenamoscpa.co.il/" target="_blank" class="footer-card">
+        <div class="footer-card-num">03 · NEWSLETTER</div>
+        <div class="footer-card-title">הניוזלטר השבועי</div>
+        <div class="footer-card-desc">תובנות AI לפיננסים ישר למייל שלך — כתוב על ידי איש פיננסים.</div>
+        <div class="footer-card-link">ronenamoscpa.co.il ↗</div>
+      </a>
+      <a href="https://www.ronenamoscpa.co.il/skill-vault" target="_blank" class="footer-card">
+        <div class="footer-card-num">04 · PROMPT HUB</div>
+        <div class="footer-card-title">Skill Vault</div>
+        <div class="footer-card-desc">ספריית ה-prompts שלי — מוכנים לשימוש מיידי בצוות הפיננסים שלך.</div>
+        <div class="footer-card-link">ronenamoscpa.co.il/skill-vault ↗</div>
+      </a>
+      <a href="https://www.paypal.com/ncp/payment/E36KBLHK8MDPN" target="_blank" class="footer-card">
+        <div class="footer-card-num">05 · THE BOOK</div>
+        <div class="footer-card-title">Claude Playbook</div>
+        <div class="footer-card-desc">הספר המלא — frameworks, case studies ומדריכי יישום לצוותי פיננסים.</div>
+        <div class="footer-card-link">רכישה מאובטחת ↗</div>
+      </a>
+      <a href="https://www.ronenamoscpa.co.il/courses" target="_blank" class="footer-card">
+        <div class="footer-card-num">06 · COURSE</div>
+        <div class="footer-card-title">קורס AI Finance</div>
+        <div class="footer-card-desc">תוכנית מובנית להטמעת חשיבה AI-First בצוות הפיננסים שלך.</div>
+        <div class="footer-card-link">ronenamoscpa.co.il/courses ↗</div>
+      </a>
+    </div>
+    <div class="footer-copy">Ronen Amos · AI Finance Transformation</div>
+  </div>
+</section>
+
+<script>
+const DATA = {
+"Claude App":{
+  label:"Claude App",
+  desc:"צ'אט, Projects וניתוח",
+  range:"01–25",
+  icon:`<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>`,
+  items:[
+    {num:1,cat:"ניתוח פיננסי",level:"Beginner",text:"ניסוח commentary לחריגות P&L מול תקציב — לדוח CFO חודשי",prompt:`You are an FP&A analyst writing variance commentary for our CFO's monthly board deck.
+
+For each P&L line item with a variance greater than 5% or $10K vs budget, write:
+- Dollar and % variance (favorable/unfavorable)
+- Likely root cause in 1-2 sentences
+- Whether this is a timing issue, structural change, or one-time item
+- An action note if the variance is unfavorable
+
+Format as a table: Line Item | Variance $ | Variance % | F/U | Root Cause | Classification | Action Required
+
+[Paste your actuals vs budget P&L here]`},
+    {num:2,cat:"ניתוח פיננסי",level:"Beginner",text:"סיכום Board Pack של 50 עמודים לעמוד CFO אחד",prompt:`You are an experienced CFO preparing a one-page executive brief from this board pack.
+
+Create a structured summary with these sections:
+1. Headline Performance (3 bullet points: revenue, EBITDA, cash)
+2. Top 3 Positive Developments
+3. Top 3 Risks or Concerns
+4. Key Decisions Required from the Board
+5. Forward-Looking Outlook (2-3 sentences)
+
+Use crisp, board-ready language. Avoid jargon. Flag any numbers that need verification.
+
+[Paste or attach your board pack here]`},
+    {num:3,cat:"ניתוח פיננסי",level:"Beginner",text:"איתור הזדמנויות חיסכון מדוח הוצאות",prompt:`Analyze this expense report and identify actionable cost-saving opportunities.
+
+For each opportunity found, provide:
+- Category and current spend
+- Estimated savings potential ($) and basis for that estimate
+- Ease of implementation: Easy / Medium / Hard
+- Recommended action
+
+Then rank the top 5 opportunities by effort-adjusted savings impact. Highlight any spend that appears duplicated, non-compliant with policy, or unusually high vs. industry benchmarks.
+
+[Paste your expense report data here]`},
+    {num:4,cat:"ניתוח פיננסי",level:"Intermediate",text:"כתיבת נרטיב EBITDA bridge לדוח למשקיעים",prompt:`Write an investor-grade EBITDA bridge narrative for our quarterly results.
+
+Structure the narrative as follows:
+1. Opening: State reported EBITDA and YoY change in one sentence
+2. Revenue contribution: Volume, price, and mix effects
+3. Gross margin walk: COGS drivers (include % margin change)
+4. OpEx movements: By category (S&M, R&D, G&A) - explain each material change
+5. One-time items: Clearly flag and exclude from recurring EBITDA
+6. Closing: State adjusted/recurring EBITDA and management outlook
+
+Tone: Clear, confident, investor-appropriate. Avoid defensive language.
+
+EBITDA Bridge Data:
+[Paste your prior period EBITDA, current period EBITDA, and bridge items here]`},
+    {num:5,cat:"ניתוח פיננסי",level:"Intermediate",text:"לחץ ניגודי על business case — מה עלול להשתבש?",prompt:`You are a skeptical CFO reviewing this business case before it goes to the board.
+
+For each major assumption, generate the strongest possible counter-argument. Rate each assumption on a Risk Scale of 1-5 (1 = well-supported, 5 = highly speculative).
+
+Structure your response:
+1. Summary of the business case in 3 sentences
+2. Assumption-by-assumption challenge table: Assumption | Our Claim | Counter-Argument | Risk Rating | Suggested Stress Test
+3. Top 3 "deal-killer" risks - scenarios where the case completely falls apart
+4. Recommended sensitivity analyses before board presentation
+
+[Paste your business case here]`},
+    {num:6,cat:"דיווח ותקשורת",level:"Beginner",text:"הכנת מסמך Q&A לדוחות כספיים רבעוניים",prompt:`Prepare a comprehensive IR Q&A document for our upcoming earnings call.
+
+Based on the financial results below, anticipate the 15 toughest analyst questions and draft clear, confident answers for each.
+
+For each Q&A:
+- Frame the question as a skeptical analyst would ask it
+- Answer with specific numbers and forward-looking context
+- Flag any "do not answer" topics (guidance, M&A, litigation)
+- Note if legal/IR review is recommended before using
+
+Cover: revenue performance, margin trends, guidance, competitive dynamics, balance sheet, and capital allocation.
+
+[Paste your earnings release or financial summary here]`},
+    {num:7,cat:"דיווח ותקשורת",level:"Beginner",text:"שכתוב ממצא ביקורת מורכב לשפה פשוטה לדירקטוריון",prompt:`Rewrite this audit finding for a board audience with no accounting background.
+
+Original finding: [paste here]
+
+Your rewrite should:
+- Open with a one-sentence plain-English summary of what went wrong
+- Explain the business risk in practical terms (not audit jargon)
+- State the financial exposure or potential impact in dollar terms if possible
+- Describe the proposed management action in simple steps
+- End with a recommended board resolution or motion if action is required
+
+Tone: Professional, clear, non-alarmist. Maximum 200 words.`},
+    {num:8,cat:"דיווח ותקשורת",level:"Beginner",text:"כתיבת סקריפט CFO לאסיפת עובדים על תוכנית צמצום עלויות",prompt:`Write a CFO town-hall script for a 10-minute cost transformation update to all employees.
+
+Context: [describe your company situation, e.g., cost reduction target, timeline, areas affected]
+
+Structure the script:
+1. Opening (1 min): Why we are doing this - market context, not blame
+2. What is changing (3 min): Specific initiatives with honest framing
+3. Impact on teams (2 min): Acknowledge difficulty, respect people's concerns
+4. What stays the same (1 min): Core commitments to employees
+5. Timeline and next steps (2 min): Clear milestones
+6. Q&A framing (1 min): Invite questions, state follow-up process
+
+Tone: Honest, empathetic, forward-looking. No corporate cliches.`},
+    {num:9,cat:"דיווח ותקשורת",level:"Intermediate",text:"מזכר מצב המאזן לCEO — עמוד אחד",prompt:`Prepare a one-page "State of the Balance Sheet" memo for our CEO.
+
+Use this structure:
+
+LIQUIDITY
+- Cash and equivalents: $X | Runway: X months at current burn
+- Available credit facilities: $X | Drawn: $X
+- Key covenant status: [pass/watch/breach]
+
+WORKING CAPITAL
+- DSO: X days (vs X days prior year) - [trend commentary]
+- DPO: X days - [commentary]
+- Net working capital: $X | Change vs prior quarter: $X
+
+DEBT & LEVERAGE
+- Total debt: $X | Net debt: $X
+- Net Debt/EBITDA: Xx (covenant limit: Xx)
+
+ACTION ITEMS
+[List 1-3 items requiring CEO attention]
+
+[Paste your balance sheet data here]`},
+    {num:10,cat:"דיווח ותקשורת",level:"Beginner",text:"תרגום שינוי מדיניות חשבונאית להודעה פנימית לעובדים",prompt:`Translate this accounting policy change into a plain-English staff notice suitable for non-finance employees.
+
+Policy change: [paste technical description here]
+
+Your notice should:
+- Explain in one paragraph what is changing and why
+- Describe in simple steps what employees need to do differently
+- State the effective date and any deadlines
+- List who to contact with questions
+- Include a one-sentence FAQ for the 3 most likely employee questions
+
+Tone: Friendly, clear, reassuring. Maximum 250 words. No accounting terminology without plain-English explanation.`},
+    {num:11,cat:"אסטרטגיה ומחקר",level:"Intermediate",text:"השוואת שלוש מבני מימון הון חוזר — יתרונות וחסרונות",prompt:`Compare these three working-capital financing structures for our business:
+1. Revolving credit facility
+2. Invoice/receivables factoring
+3. Supply chain finance (reverse factoring)
+
+For each structure, analyze:
+- How it works (2-3 sentences)
+- Cost of capital (typical range and how it compares)
+- Impact on our balance sheet (on vs. off balance sheet, leverage ratios)
+- Speed to access funds
+- Covenants and restrictions
+- Best fit: what type of business/situation it suits
+
+Our context: [describe your revenue, AR days, credit rating, and financing need]
+
+Finish with a recommendation with your reasoning.`},
+    {num:12,cat:"אסטרטגיה ומחקר",level:"Intermediate",text:"ניתוח דוחות 10-K של שלושה מתחרים — השוואת מרג'ינים",prompt:`Analyze these competitor 10-K filings and produce a benchmarking summary for our CFO.
+
+For each competitor, extract and standardize:
+- Revenue (3 years), revenue growth rate
+- Gross margin %, EBITDA margin %, net margin %
+- R&D as % of revenue, S&M as % of revenue, G&A as % of revenue
+- Headcount and revenue per employee
+- Key balance sheet metrics: cash, net debt, working capital days
+
+Then produce:
+1. A comparison table (our company vs. all three competitors)
+2. Commentary on where we lead, where we lag, and why it matters
+3. Top 3 margin improvement opportunities implied by the benchmark
+
+[Paste 10-K excerpts or financial tables here]`},
+    {num:13,cat:"אסטרטגיה ומחקר",level:"Advanced",text:"מיפוי סיכוני covenants בהלוואת מינוף",prompt:`You are a finance director reviewing our leveraged loan agreement for covenant risk.
+
+Review the covenant package and for each covenant:
+1. State the covenant definition and threshold
+2. Calculate our current headroom in $ and %
+3. Project headroom at end of each quarter for the next 4 quarters using our base case forecast
+4. Flag any covenant where projected headroom falls below 15% as a "Watch" item
+5. For Watch items: describe the specific business conditions that would trigger a breach
+6. Recommend proactive steps (renegotiation, cure rights, equity injection) for each Watch item
+
+Output: Covenant Summary Table + Watch Item Deep Dives
+
+[Paste your loan agreement covenants and financial forecast here]`},
+    {num:14,cat:"אסטרטגיה ומחקר",level:"Intermediate",text:"ניתוח SWOT לחברת מטרה בתהליך M&A",prompt:`Prepare a SWOT analysis of this potential acquisition target for our M&A committee.
+
+Target: [company name and description]
+
+For each SWOT quadrant, provide 4-6 specific, evidence-based points (not generic observations). Cite the source of each point (financial filing, news, management commentary).
+
+After the SWOT matrix, add:
+- Strategic Fit Assessment: How does this target complement our existing business?
+- Top 3 deal risks that could make this a value destroyer
+- Suggested due diligence priorities based on the weaknesses and threats identified
+- Preliminary view: Pursue / Investigate Further / Pass - with one-paragraph rationale
+
+[Paste target company information, financials, and any research here]`},
+    {num:15,cat:"אסטרטגיה ומחקר",level:"Beginner",text:"בניית Risk Register מותאם לדאגות CFO",prompt:`Build a comprehensive CFO risk register template for our organization.
+
+Create a risk register with 20 finance-specific risks covering: liquidity, FX, credit, interest rate, tax, compliance, reporting, M&A, and operational finance risks.
+
+For each risk, include columns for:
+- Risk ID and Name
+- Risk Description (2 sentences)
+- Category (Financial / Compliance / Operational / Strategic)
+- Likelihood (1-5) and Impact (1-5)
+- Inherent Risk Score (Likelihood x Impact)
+- Current Controls in Place
+- Residual Risk Score after controls
+- Risk Owner (role)
+- Mitigation Actions
+- Review Frequency
+
+Format as a table ready to paste into Excel. Sort by Inherent Risk Score descending.`},
+    {num:16,cat:"תהליכים ופרודוקטיביות",level:"Beginner",text:"ניסוח מחדש של מדיניות ארוכה ומסורבלת לנוהל תמציתי",prompt:`Redraft this policy document into a clean, concise two-page standard operating procedure.
+
+Original policy: [paste here]
+
+Your redraft should:
+- Reduce length by at least 50% without losing any mandatory requirements
+- Use plain language (aim for Grade 10 reading level)
+- Structure with clear headings: Purpose | Scope | Policy | Procedures | Responsibilities | Exceptions
+- Convert dense paragraphs into numbered steps or bullet lists
+- Bold all key requirements and deadlines
+- Add a "Quick Reference" box at the top with the 3-5 most important rules
+
+Flag anything you removed that may have been a legal/compliance requirement so it can be reviewed.`},
+    {num:17,cat:"תהליכים ופרודוקטיביות",level:"Beginner",text:"יצירת שאלות ראיון לגיוס FP&A בכיר",prompt:`Generate a comprehensive interview question bank for a Senior FP&A Analyst/Manager hire.
+
+Role context: [describe seniority level, team size, key responsibilities, and tools used]
+
+Create 30 questions organized into these categories:
+1. Technical Skills (8 questions): Financial modeling, Excel, variance analysis, forecasting methods
+2. Business Acumen (6 questions): P&L ownership, business partnering, commercial insight
+3. Process & Tools (4 questions): Close process, systems, automation experience
+4. Communication (4 questions): Presenting to executives, storytelling with data
+5. Problem-Solving (4 questions): Ambiguous situations, missed forecasts, data limitations
+6. Culture & Growth (4 questions): Development, feedback, cross-functional work
+
+For each question, include the ideal answer signals (what a strong candidate would say).`},
+    {num:18,cat:"תהליכים ופרודוקטיביות",level:"Beginner",text:"Post-mortem לתחזית שפספסה — תבנית מלאה",prompt:`Create a forecast post-mortem document for our missed Q[X] forecast.
+
+Actual vs. forecast miss: [describe the size and direction of the miss]
+
+Structure the post-mortem:
+1. Executive Summary: What we forecasted, what happened, size of miss (1 paragraph)
+2. Root Cause Analysis:
+   - Assumptions that were wrong (list each, with the actual vs. assumed value)
+   - Data or signal we had but underweighted
+   - External factors genuinely not foreseeable
+   - Process or model failures
+3. Early Warning Signs (in hindsight): What signals were available that we missed?
+4. Corrective Actions: Specific changes to our process, model, or data sources
+5. Accountability: Who owns each corrective action and by when
+
+Tone: Objective and improvement-focused. No blame. Include a lessons-learned summary.`},
+    {num:19,cat:"תהליכים ופרודוקטיביות",level:"Beginner",text:"Onboarding checklist ל-30/60/90 יום לאיש כספים חדש",prompt:`Create a comprehensive 30-60-90 day onboarding plan for a new [role] joining our finance team.
+
+Team context: [describe team size, key systems, reporting cadence, and main deliverables]
+
+For each phase, provide:
+
+DAY 1-5: Orientation
+- System access and tool setup checklist
+- Key documents to read (budget, org chart, COA, reporting templates)
+- Introductory meetings to schedule
+
+DAY 6-30: Learning
+- Core processes to shadow and understand
+- First independent deliverables (low-stakes)
+- Key stakeholders to meet
+
+DAY 31-60: Contributing
+- First owned deliverables
+- Process documentation to write
+
+DAY 61-90: Owning
+- Full ownership milestones
+- First performance review prep
+
+Format as a checklist table: Task | Owner | Due | Completed`},
+    {num:20,cat:"תהליכים ופרודוקטיביות",level:"Beginner",text:"סדר יום ומסמך pre-read לסקירה עסקית רבעונית (QBR)",prompt:`Draft a complete Quarterly Business Review (QBR) agenda and pre-read document for [business unit/company name].
+
+QBR context: [attendees, duration, key topics to cover]
+
+Pre-Read Document (to be sent 48 hours before):
+- 1-page financial scorecard: Revenue, Gross Profit, EBITDA, Cash vs. budget and prior year
+- Top 3 highlights and top 3 concerns
+- 3 decisions the meeting needs to make
+
+Meeting Agenda (90-minute format):
+- 0:00-0:10: Prior QBR actions review
+- 0:10-0:30: Financial performance review
+- 0:30-0:50: Business unit deep dives
+- 0:50-1:10: Forward-looking: reforecast, risks, opportunities
+- 1:10-1:25: Decisions and action items
+- 1:25-1:30: Close
+
+For each agenda item, include: presenter, materials needed, and desired outcome.`},
+    {num:21,cat:"ציות ומס",level:"Beginner",text:"סיכום כללי IFRS 16 — חכירות — בשפה פשוטה",prompt:`Explain IFRS 16 lease accounting to our finance team in plain language.
+
+Create a practical summary covering:
+1. Core principle: What IFRS 16 requires in 2-3 sentences
+2. What counts as a lease: Decision tree with 3-4 yes/no questions
+3. Balance sheet impact: Right-of-use asset and lease liability - what they are, how to calculate
+4. P&L impact: Depreciation vs. interest vs. old straight-line rent - numerical example with a $500K/year lease
+5. Exemptions: Short-term leases (<12 months) and low-value assets - what qualifies
+6. Disclosure requirements: Key disclosures needed in financial statements
+7. Common mistakes: Top 5 errors companies make
+
+Include a worked example showing a 5-year office lease before and after IFRS 16 treatment.`},
+    {num:22,cat:"ציות ומס",level:"Intermediate",text:"Disclosure checklist להכנת דוח שנתי",prompt:`Create a comprehensive annual report disclosure checklist for a [public/private] company reporting under [IFRS/US GAAP].
+
+Organize by financial statement section:
+
+1. Primary Statements: Income statement, balance sheet, cash flow, equity - line items required
+2. Notes Disclosures: List all mandatory notes with the specific standard reference (e.g., IFRS 7, ASC 820)
+3. Accounting Policies: Key policies that must be disclosed with any changes flagged
+4. Judgements & Estimates: Significant judgements and estimation uncertainty disclosures
+5. Related Party Transactions: What must be disclosed and by whom
+6. Post Balance Sheet Events: Review triggers and disclosure thresholds
+7. Going Concern: Assessment requirements and disclosure triggers
+
+For each item: Disclosure Required | Standard Reference | Preparer | Reviewer | Status
+
+Flag any new standards effective this year that require first-time disclosure.`},
+    {num:23,cat:"ציות ומס",level:"Intermediate",text:"שאלות מחדדות למבקר החיצוני בנושא going concern",prompt:`Prepare a list of probing questions for our CFO and Audit Committee to ask the external auditors regarding their going-concern assessment.
+
+Our context: [describe any financial pressures - cash burn, debt covenants, revenue decline, etc.]
+
+Generate 20 questions covering:
+1. Auditor's assessment process: How did they assess? What period did they look forward?
+2. Key assumptions challenged: Which management assumptions did they stress test?
+3. Covenant compliance: How did they assess headroom and probability of breach?
+4. Mitigating factors considered: What management actions were given credit?
+5. Disclosure adequacy: Is a going-concern disclosure required? What would trigger it?
+6. Communication of risks: What are auditors required to communicate to the Audit Committee?
+7. Comparison to prior year: How has the assessment changed?
+
+For each question, note what a concerning vs. reassuring auditor answer looks like.`},
+    {num:24,cat:"ציות ומס",level:"Advanced",text:"מטריצת דרישות תמחור העברות לפי מדינות",prompt:`Prepare a transfer-pricing documentation requirements matrix for our group operating in [list countries].
+
+For each jurisdiction, provide:
+1. Local File requirement: Threshold (revenue/transaction size), deadline, content requirements
+2. Master File requirement: OECD threshold applicability, local filing obligation
+3. Country-by-Country Report (CbCR): Threshold ($750M consolidated revenue), filing deadline, local filing vs. notification
+4. Penalty regime: Documentation penalty (amount or % of adjustment), strict liability vs. reasonable care standard
+5. Statute of limitations for transfer pricing adjustments
+6. Any local-specific requirements beyond OECD BEPS Action 13
+
+Also flag:
+- Jurisdictions where we currently have documentation gaps
+- Intercompany transactions that are highest risk for challenge
+- Recommended priority actions for this tax year`},
+    {num:25,cat:"ציות ומס",level:"Advanced",text:"מסגרת הערכת סיכון מס לכניסה לשוק חדש",prompt:`Build a tax risk assessment framework for our proposed entry into [target market/country].
+
+Assess the following tax risk dimensions on a 1-5 scale (1=low risk, 5=high risk):
+
+1. Corporate income tax: Rate, loss carryforward rules, thin-cap rules
+2. Withholding taxes: On dividends, interest, royalties - treaty availability
+3. VAT/GST: Registration threshold, compliance complexity, refund speed
+4. Transfer pricing: Enforcement aggressiveness, documentation requirements
+5. Permanent establishment risk: Our proposed operational model (digital/physical)
+6. Pillar Two (OECD): Top-up tax exposure, local implementation status
+7. Tax treaty access: Availability and risk of treaty shopping challenge
+8. Regulatory stability: Political risk, recent tax law changes
+
+Output: Risk matrix with scores + commentary + estimated tax cost range + recommended mitigation steps. Flag any showstoppers that would materially change the business case.`}
+  ]
+},
+"Claude in Excel":{
+  label:"Claude in Excel",
+  desc:"נוסחאות, מודלים וניתוח נתונים",
+  range:"26–50",
+  icon:`<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M3 15h18M9 3v18"/></svg>`,
+  items:[
+    {num:26,cat:"בניית מודלים",level:"Intermediate",text:"תחזית תזרים מזומנים שוטפת 13 שבועות עם כותרות שבועיות דינמיות",prompt:`Build a rolling 13-week cash flow forecast in this workbook.
+
+Assumptions tab inputs:
+- Starting cash balance: [X]
+- Weekly payroll (biweekly cycle): [X]
+- Monthly rent (split evenly): [X]
+- Monthly hosting costs: [X]
+- Quarterly capex: [X]
+- AR collection lag: [X] days
+- Monthly revenue run rate: [X]
+
+Forecast tab structure:
+- Row 1: Dynamic week-ending dates (formula-driven, auto-advance each week)
+- Section: Cash Receipts (AR collections using lag assumption)
+- Section: Cash Disbursements (payroll, rent, hosting, capex, debt service)
+- Section: Net Cash Flow and Cumulative Cash Balance
+- Conditional formatting: Red if ending cash < [minimum threshold], Yellow if < [warning threshold]
+
+Blue font for all input cells. Black for formula cells. Add a "Minimum Cash" reference line.`},
+    {num:27,cat:"בניית מודלים",level:"Advanced",text:"מודל תלת-דוחות מקושר (P&L, מאזן, תזרים) — self-balancing",prompt:`Build a fully linked 3-statement financial model in this Excel workbook.
+
+Tab structure:
+- Assumptions: All drivers in blue font, yellow background. Include: revenue growth %, gross margin %, OpEx as % of revenue by line, capex schedule, depreciation life, working capital days (DSO, DPO, DIO), debt schedule, tax rate
+- Income Statement: 3 years historical + 5 years projected. Every cell formula-driven from Assumptions
+- Balance Sheet: Fully linked - AR = revenue x DSO/365, AP = COGS x DPO/365, PP&E = prior + capex - depreciation. Balance check row (Assets - Liabilities - Equity = 0) with conditional formatting to flag imbalance
+- Cash Flow: Indirect method. Net Income + D&A +/- working capital changes - capex +/- debt changes. Ending cash feeds back to Balance Sheet
+- Output Dashboard: Revenue, EBITDA margin, FCF, net debt, key ratios - all linked, no hardcodes
+
+Add a model integrity check tab.`},
+    {num:28,cat:"בניית מודלים",level:"Intermediate",text:"Scenario Manager — מעבר בין Bear, Base, Bull עם dropdown אחד",prompt:`Build a scenario manager in this workbook that lets users toggle between Bear, Base, and Bull cases with a single dropdown.
+
+Setup:
+1. Scenarios tab: Three columns (Bear | Base | Bull) with different assumption values for: revenue growth, gross margin, key OpEx lines, churn rate, headcount growth
+2. Assumptions tab: Use INDEX/MATCH to pull the selected scenario's values
+   Formula: =INDEX(Scenarios!$C$2:$E$20, MATCH(A2, Scenarios!$B$2:$B$20, 0), MATCH($B$1, Scenarios!$C$1:$E$1, 0))
+3. Dropdown selector: Data validation dropdown in cell B1 of Assumptions tab with options: Bear | Base | Bull
+4. Scenario comparison table: A summary tab showing all three scenarios side by side - key metrics only (Revenue, EBITDA, FCF, cash runway)
+5. Conditional formatting: Color-code the dropdown cell green (Bull), yellow (Base), red (Bear)
+
+All forecast tabs should auto-update when the dropdown changes.`},
+    {num:29,cat:"בניית מודלים",level:"Advanced",text:"לוח פירעון חוב עם מעקב headroom לcovenant",prompt:`Build a debt schedule and covenant compliance tracker in this workbook.
+
+Debt Schedule tab:
+- List all debt tranches: Tranche name | Principal | Rate | Maturity | Payment frequency | Current balance
+- Calculate: Monthly interest expense by tranche, scheduled principal repayments, balloon payments
+- Waterfall chart data: Debt maturities by year (for the next 10 years), stacked by tranche
+- Total debt and net debt (debt minus cash) at each period
+
+Covenant Tracker tab:
+- List all financial covenants: Net Leverage, Interest Coverage, DSCR, Minimum Liquidity
+- For each covenant: Definition formula | Threshold | Current Value | Headroom $ | Headroom % | Status (RAG)
+- Pull financial inputs from the model
+- Conditional formatting: Green >20% headroom, Yellow 10-20%, Red <10%
+- Trend chart showing headroom over the next 8 quarters
+
+[Paste your debt terms and financial data here]`},
+    {num:30,cat:"בניית מודלים",level:"Intermediate",text:"לוח פחת פי-סוגי נכס עם הנחות לכל קטגוריה",prompt:`Build a capex and depreciation schedule for this workbook.
+
+Asset Register tab:
+- Columns: Asset ID | Asset Class | Description | Acquisition Date | Cost | Useful Life (years) | Salvage Value | Depreciation Method | Accumulated Depreciation | Net Book Value
+
+Depreciation Schedule tab:
+- Monthly depreciation by asset, summed by asset class
+- Year-end accumulated depreciation and net book value
+- Capex additions row (new assets entered in Asset Register auto-populate)
+
+Summary tab:
+- Total capex by quarter
+- Total depreciation charge by quarter (feeds P&L model)
+- Capex as % of revenue
+- Average asset age and remaining useful life
+
+Asset classes: IT Equipment (3yr SL), Leasehold Improvements (10yr SL), Vehicles (5yr DB 40%), Machinery (7yr SL), Software (3yr SL)
+
+[Paste your existing asset register or capex budget here]`},
+    {num:31,cat:"ניקוי נתונים",level:"Beginner",text:"כפילויות וסטנדרטיזציה ב-Vendor Master List",prompt:`Clean and standardize this vendor master list. The data has inconsistent vendor names (e.g., "AWS", "Amazon Web Services", "Amazon AWS", "AMZN").
+
+For this dataset:
+1. Identify all likely duplicate vendors (same company, different name formats)
+2. Propose a single canonical name for each vendor group
+3. Add a column: Canonical_Vendor_Name with the standardized name
+4. Add a column: Duplicate_Group_ID (same number for all records belonging to the same vendor)
+5. Add a column: Confidence (High/Medium/Low) for your deduplication match
+6. Flag any records where you are uncertain - do not auto-merge these
+
+Output a clean table and a separate "Review Required" table for uncertain matches.
+
+[Paste your vendor list here]`},
+    {num:32,cat:"ניקוי נתונים",level:"Beginner",text:"ניתוח ופיצול ייצוא GL מבולגן לעמודות מסודרות",prompt:`Parse this messy GL export into a clean, structured table.
+
+The current data has: [describe the format - e.g., date and description merged in one column, amounts with mixed positive/negative conventions, inconsistent account code formats]
+
+Clean the data by:
+1. Splitting concatenated fields into separate columns: Date | Account Code | Account Name | Department | Description | Debit | Credit | Net Amount
+2. Standardizing date format to YYYY-MM-DD
+3. Separating debits and credits into their own columns (flip sign if needed based on account type)
+4. Extracting department codes from the description field using the pattern: [describe pattern]
+5. Flagging rows where the account code doesn't match the expected format
+6. Adding a "Fiscal Period" column (YYYY-MM based on date)
+
+Output the clean table ready for pivot analysis.
+
+[Paste your GL export here]`},
+    {num:33,cat:"ניקוי נתונים",level:"Beginner",text:"נרמול עמודות מטבע מעורבות (מ-$1,000 עד 1000 USD)",prompt:`Normalize all currency values in this dataset to a consistent numeric format.
+
+The data contains mixed formats including: $1,234.56 | 1234.56 USD | 1,234 | (1,234.56) for negatives | 1.2K | $1.2M
+
+For each currency column:
+1. Convert all values to plain numeric format (no currency symbols, no commas)
+2. Convert shorthand (K = thousands, M = millions) to full numbers
+3. Convert parentheses notation (1,234) to negative numbers: -1234
+4. Add a new column: [ColumnName]_Currency identifying the currency if mixed currencies exist
+5. Flag any values you cannot parse with confidence
+
+Also add a data quality summary at the bottom:
+- Total records processed
+- Records successfully normalized
+- Records flagged for review
+- Sum check (total before vs. after normalization - should match)
+
+[Paste your dataset here]`},
+    {num:34,cat:"ניקוי נתונים",level:"Beginner",text:"סימון עסקאות מעל סף מהותיות אוטומטית",prompt:`Add materiality flagging to this transaction dataset.
+
+Materiality thresholds:
+- Individual transaction: Flag if > $[X]
+- Department monthly total: Flag if > $[X] or > [X]% of budget
+- Vendor total (trailing 3 months): Flag if > $[X]
+
+Add these columns to the dataset:
+1. Material_Flag: TRUE/FALSE based on individual transaction threshold
+2. Dept_Budget_Var: Transaction department's YTD spend vs. YTD budget (% over/under)
+3. Vendor_3M_Total: Rolling 3-month total for that vendor
+4. Review_Priority: High (>2x threshold) / Medium (1-2x) / Low (<threshold)
+5. Flag_Reason: Text explanation (e.g., "Transaction >$50K material threshold")
+
+Also produce a separate "Flagged Items" summary table with only High and Medium priority items, sorted by amount descending.
+
+[Paste your transaction data and budget data here]`},
+    {num:35,cat:"ניקוי נתונים",level:"Beginner",text:"הסרת שורות ריקות, תיקון תאריכים והוספת יתרה שוטפת",prompt:`Clean this financial dataset with the following operations:
+
+1. Remove blank rows: Delete any row where the Amount and Date columns are both empty. Keep rows with partial data and flag them.
+2. Fix date formats: Standardize all dates to YYYY-MM-DD. Handle these input formats: MM/DD/YYYY, DD-MMM-YY, DD/MM/YYYY, text dates like "Jan 5 2024"
+3. Sort: By Date ascending, then by Account Code ascending
+4. Add Running Balance column: Cumulative sum of Amount column. Reset at each new month (add a sub-total row at month end showing monthly total and cumulative YTD)
+5. Add Row Number column: Sequential numbers 1 to N after cleaning
+6. Summary at bottom: Total rows (original | after cleaning | removed), date range, sum of Amount
+
+[Paste your dataset here]`},
+    {num:36,cat:"נוסחאות ואוטומציה",level:"Beginner",text:"נוסחאות XLOOKUP / INDEX-MATCH לחיבור קודי GL למרכזי עלות",prompt:`Write the Excel formulas to join GL codes from our transactions table to our Chart of Accounts master.
+
+Transactions table (Tab: "Transactions"): Column A = GL Code, other columns = transaction details
+Chart of Accounts (Tab: "COA"): Column A = GL Code, Column B = Account Name, Column C = Cost Centre, Column D = Department, Column E = P&L Category
+
+Write these formulas for the Transactions tab:
+1. XLOOKUP formula to pull Account Name from COA (with error handling if GL code not found: show "UNMAPPED")
+2. XLOOKUP for Cost Centre
+3. XLOOKUP for Department
+4. INDEX/MATCH alternative for each (for compatibility with older Excel versions)
+5. A formula to flag any GL code in Transactions that does not exist in COA
+
+Also write a COUNTIF formula to count unmapped GL codes as a data quality check.
+
+My GL codes look like: [describe format, e.g., 4-digit numeric, alphanumeric]`},
+    {num:37,cat:"נוסחאות ואוטומציה",level:"Intermediate",text:"Named ranges דינמיים שמתרחבים עם הוספת נתונים",prompt:`Create dynamic named ranges for this workbook that automatically expand as new data is added.
+
+For each of these tables, write the OFFSET formula to create a dynamic named range:
+
+1. Revenue_Data: Starts at Sheet1!$A$2, expands down (unknown rows), 1 column wide
+   Formula: =OFFSET(Sheet1!$A$2,0,0,COUNTA(Sheet1!$A:$A)-1,1)
+
+2. Full_PL_Table: Starts at Sheet2!$A$1, expands both down and right
+   Formula: =OFFSET(Sheet2!$A$1,0,0,COUNTA(Sheet2!$A:$A),COUNTA(Sheet2!$1:$1))
+
+Also create named ranges using the Table method (Ctrl+T) for:
+3. Converting the GL export range to an Excel Table named "GL_Data"
+4. Converting the headcount range to a Table named "HC_Plan"
+
+Finally, write a SUMIFS formula using each dynamic named range that will auto-include new rows.
+
+Explain when to use OFFSET+COUNTA vs. Excel Tables and the pros/cons of each.`},
+    {num:38,cat:"נוסחאות ואוטומציה",level:"Beginner",text:"Conditional formatting RAG לדירוג ביצועי KPI",prompt:`Set up RAG (Red/Amber/Green) conditional formatting for this KPI scorecard.
+
+For each KPI, apply these rules (write the exact conditional formatting formulas):
+
+Revenue vs. Budget: Green if >=100%, Amber if 90-99%, Red if <90%
+Gross Margin %: Green if >= target, Amber if target minus 2pp, Red if more than 2pp below
+EBITDA vs. Budget: Green if >=100%, Amber if 85-99%, Red if <85%
+Cash Balance: Green if >3 months runway, Amber if 1-3 months, Red if <1 month
+Headcount vs. Plan: Green if within 5%, Amber if 5-10% over, Red if >10% over
+
+Also:
+- Add a trend arrow column: up arrow (green) if improving vs. prior month, down arrow (red) if declining, right arrow (amber) if flat (within 1%)
+- Create a summary cell that counts: Green: X | Amber: X | Red: X
+- Color the entire row for Red-rated KPIs
+
+Provide the exact conditional formatting rule formulas I need to enter in the "Manage Rules" dialog.`},
+    {num:39,cat:"נוסחאות ואוטומציה",level:"Intermediate",text:"נוסחה לחישוב DSO, DPO ו-DIO מנתונים גולמיים",prompt:`Write Excel formulas to calculate DSO, DPO, and DIO (the Cash Conversion Cycle) from this financial data.
+
+DSO (Days Sales Outstanding):
+= Accounts Receivable / (Revenue / Days in Period)
+Formula: =[AR cell] / ([Revenue cell] / [Days in period])
+
+DPO (Days Payable Outstanding):
+= Accounts Payable / (COGS / Days in Period)
+Formula: =[AP cell] / ([COGS cell] / [Days in period])
+
+DIO (Days Inventory Outstanding) - for non-SaaS:
+= Inventory / (COGS / Days in Period)
+
+Cash Conversion Cycle:
+= DSO + DIO - DPO
+
+Also write:
+- A 12-month trend table calculating each metric monthly
+- A YoY comparison formula showing improvement/deterioration in days
+- A cash impact formula: Change_in_DSO_Days x (Annual_Revenue/365) - this shows cash released or consumed by AR changes
+
+My data layout: [describe where your BS and P&L data sits]`},
+    {num:40,cat:"נוסחאות ואוטומציה",level:"Intermediate",text:"Dashboard לCFO מונחה נוסחאות — ללא hardcoding",prompt:`Build an executive dashboard summary tab that pulls KPIs from the raw data tabs using formulas only (no hardcoding).
+
+Dashboard layout with these formula-driven KPI cards:
+
+Row 1 - Revenue:
+- Current month actual: =INDEX(PL!$C:$C,MATCH("Total Revenue",PL!$A:$A,0))
+- vs. Budget: =actual/budget-1 (format as % with arrow)
+- vs. Prior Year: same structure
+- Trailing 12-month total: =SUMPRODUCT of last 12 months
+
+Row 2-4: Gross Profit, EBITDA, Cash (same structure)
+
+Row 5 - Headcount: =COUNTA(HC_Plan[Employee]) or from headcount tab
+
+For each metric add:
+- Sparkline (6-month trend)
+- Conditional formatting (RAG based on vs. budget)
+- YTD cumulative vs. YTD budget
+
+Also add a "Data as of" cell that auto-populates from the latest date in the source data.
+
+Describe my tab names and layout: [paste here]`},
+    {num:41,cat:"דיווח",level:"Intermediate",text:"עמודת commentary חריגות שנוצרת אוטומטית מנוסחאות Excel",prompt:`Add an auto-generated commentary column to this variance report using Excel formulas and IF logic.
+
+For each row in the P&L, generate a commentary text string using this formula structure:
+
+=IF(ABS(Var_Pct)>threshold,
+  IF(Var_Pct>0,
+    "Favorable: "&TEXT(Var_$,"$#,##0K")&" ("&TEXT(Var_Pct,"+0%")&") - "&[category-specific explanation],
+    "Unfavorable: "&TEXT(ABS(Var_$),"$#,##0K")&" ("&TEXT(Var_Pct,"0%")&") - "&[explanation]
+  ),
+  "Within threshold"
+)
+
+Build commentary templates for these P&L categories:
+- Revenue: Reference to volume/price/mix drivers
+- COGS: Reference to volume leverage or cost inflation
+- S&M: Reference to headcount or campaign timing
+- R&D: Reference to headcount or project phasing
+- G&A: Reference to professional fees or one-time items
+
+Threshold: Flag variances >5% or >$[X].
+
+My P&L structure: [describe columns - Actual, Budget, Variance $, Variance %]`},
+    {num:42,cat:"דיווח",level:"Beginner",text:"עיצוב דוח CFO מוכן להדפסה A4 — לנדסקייפ",prompt:`Format this worksheet as a print-ready CFO report for A4 landscape printing.
+
+Apply these formatting rules:
+1. Page setup: A4 landscape, margins 1.5cm all sides, fit to 1 page wide
+2. Header: Company name (left), Report title (center), "As of [date]" (right) - link date to cell
+3. Footer: "Confidential - [Company Name]", Page X of Y, print date
+4. Title row: Dark green background, white bold text, 11pt font
+5. Section headers: Light green background, dark text, 10pt bold
+6. Data rows: Alternating white/light beige, 9pt font
+7. Number formatting: Revenue/cost rows in $#,##0K, percentage rows in 0.0%, ratio rows in 0.0x
+8. Variance column: Conditional formatting - green text for favorable, red for unfavorable
+9. Freeze panes: Row 1 (header) and Column A (labels) frozen
+10. Print area: Set to exactly the data range (no empty rows/columns)
+
+Describe current layout: [paste]`},
+    {num:43,cat:"דיווח",level:"Intermediate",text:"מודל נתונים מוכן ל-Pivot עם Slicers לישות ותקופה",prompt:`Transform this raw data into a pivot-ready data model with interactive slicers.
+
+Step 1 - Normalize the data:
+- Ensure each row is one transaction/record (no merged cells, no subtotal rows)
+- Add columns if missing: Entity, Period (YYYY-MM), Fiscal Year, Fiscal Quarter, Month Name
+- Convert to an Excel Table (Ctrl+T) named "Financial_Data"
+
+Step 2 - Create PivotTable:
+- Insert PivotTable on new tab "Analysis"
+- Rows: Account Category > Account Name
+- Columns: Period (months as columns)
+- Values: Amount (Sum)
+- Add calculated field: Variance % = (Actual-Budget)/ABS(Budget)
+
+Step 3 - Add Slicers:
+- Entity slicer (multi-select enabled)
+- Period/Year slicer
+- Department slicer
+- Account Category slicer
+- Connect all slicers to the PivotTable
+
+Step 4 - Formatting:
+- Format as financial table ($ and % as appropriate)
+- Highlight negative variances in red using PivotTable conditional formatting
+
+[Paste your data structure here]`},
+    {num:44,cat:"דיווח",level:"Intermediate",text:"טבלת heatmap להוצאות לפי קטגוריה וחודש",prompt:`Build a spend heatmap table in Excel showing monthly spend by category.
+
+Table structure:
+- Rows: Expense categories (from GL data)
+- Columns: Jan through Dec (or the available months)
+- Values: Total spend per category per month
+
+Heatmap conditional formatting:
+- Apply a color scale: Dark red (highest spend) to White to Dark green (lowest spend)
+- Apply separately within each row (so each category shows its own relative high/low months)
+- This reveals seasonality patterns within each cost line
+
+Additional columns to add:
+- Total: Full-year sum per category
+- Average: Monthly average
+- Peak Month: =INDEX(month_headers, MATCH(MAX(row_range), row_range, 0))
+- YoY Change: vs. prior year same period
+
+Additional rows:
+- Total: Monthly column sum
+- % of Total: Each category as % of monthly total
+
+[Paste your GL or expense data here]`},
+    {num:45,cat:"דיווח",level:"Beginner",text:"הוספת Sparklines וחצי מגמה ל-KPI Scorecard",prompt:`Enhance this KPI scorecard with sparklines and trend indicators.
+
+For each KPI row, add:
+
+1. Sparkline (6-month trend line):
+   - Insert > Sparklines > Line
+   - Source data: the 6 most recent monthly values for that KPI
+   - Highlight: Mark high point (green dot) and low point (red dot)
+   - Show last point marker
+
+2. Trend Arrow column:
+   Formula: =IF(Latest>Prior_Month*1.01,"up","down" if <0.99, else "right")
+   Conditional formatting: up arrow = green font, down arrow = red font, right arrow = amber font
+
+3. MoM Change column:
+   Formula: =Latest/Prior_Month-1
+   Format: +0.0%;(0.0%)
+
+4. vs. Target column:
+   Formula: =Latest/Target-1
+   RAG formatting: Green >=0%, Amber -5% to 0%, Red <-5%
+
+KPIs in my scorecard: [list them]
+Data location: [describe where the 6-month history is]
+
+Also: Write the VBA macro to refresh all sparklines when the data updates.`},
+    {num:46,cat:"אנליטיקס",level:"Intermediate",text:"ניתוח Pareto לזיהוי 20% הספקים שמייצגים 80% ההוצאה",prompt:`Perform a Pareto (80/20) analysis on this vendor spend dataset.
+
+Steps:
+1. Sort vendors by total spend descending
+2. Calculate: Cumulative spend, Cumulative % of total spend, Vendor count, Cumulative % of vendor count
+3. Identify the Pareto threshold: The minimum number of vendors that represent 80% of total spend
+4. Add a column: Pareto_Tier - "A" (top 20% of vendors by count), "B" (next 30%), "C" (bottom 50%)
+
+Output table columns:
+Rank | Vendor | Annual Spend | % of Total | Cumulative % | Pareto Tier | YoY Change | Category
+
+Summary statistics:
+- How many vendors = 80% of spend?
+- What % of vendor count do they represent?
+- Top 5 vendors: names, spend, % of total
+- Categories with highest concentration risk (one vendor >50% of category spend)
+
+Also flag: Any vendor with >$[X] spend and no active contract on file.
+
+[Paste your vendor spend data here]`},
+    {num:47,cat:"אנליטיקס",level:"Beginner",text:"חישוב שיעורי צמיחה MoM ו-YoY על כל השורות",prompt:`Add MoM and YoY growth rate columns to this financial dataset.
+
+For each row in the dataset, add these formula columns:
+
+Month-on-Month (MoM):
+=IF(Prior_Month=0,"N/M",IF(Prior_Month<0,"N/M",(Current-Prior_Month)/ABS(Prior_Month)))
+- Format as +0.0%;(0.0%)
+- Show N/M (not meaningful) when prior period is zero or negative
+
+Year-on-Year (YoY):
+=IF(Prior_Year=0,"N/M",IF(Prior_Year<0,"N/M",(Current-Prior_Year)/ABS(Prior_Year)))
+
+Sequential quarterly growth (QoQ):
+=(Q_current - Q_prior) / ABS(Q_prior)
+
+Also calculate:
+- 3-month rolling average for smoothing
+- Trailing 12-month (TTM) total for each metric
+- CAGR from first to last period: =(Last/First)^(1/Years)-1
+
+Add a color scale to growth rate columns: Dark green = highest growth, Red = most negative
+
+My data layout: [describe columns - rows are line items, columns are months/quarters]`},
+    {num:48,cat:"אנליטיקס",level:"Advanced",text:"Revenue Bridge — פירוק לאפקט מחיר, נפח ומיקס",prompt:`Build a price/volume/mix revenue bridge analysis in Excel.
+
+Inputs needed:
+- Prior period: Revenue, units/customers by segment, ARPU by segment, segment mix %
+- Current period: Same data
+
+Calculate each bridge component:
+
+1. VOLUME EFFECT: (Current Volume - Prior Volume) x Prior Period ARPU
+   = Change in customer count x old price
+
+2. PRICE EFFECT: (Current ARPU - Prior ARPU) x Prior Period Volume
+   = Price change x old volume (pure pricing impact)
+
+3. MIX EFFECT: Total variance - Volume Effect - Price Effect
+   = Revenue impact from customers shifting between higher/lower ARPU segments
+
+Waterfall chart data table:
+Starting Revenue | +Volume Effect | +Price Effect | +Mix Effect | Ending Revenue
+
+For the waterfall chart:
+- Starting and ending bars: solid green
+- Positive effects: green | Negative effects: red
+- Use the Excel waterfall chart type
+
+Also: Decompose mix effect by segment to show which segments drove the shift.
+
+[Paste your segment revenue data here]`},
+    {num:49,cat:"אנליטיקס",level:"Advanced",text:"זיהוי חריגים סטטיסטיים בנתוני עלות עם IQR",prompt:`Add statistical outlier detection to this cost/transaction dataset using IQR methodology.
+
+For each cost category, calculate:
+1. Q1 (25th percentile): =QUARTILE(range, 1)
+2. Q3 (75th percentile): =QUARTILE(range, 3)
+3. IQR: Q3 - Q1
+4. Lower fence: Q1 - 1.5 x IQR
+5. Upper fence: Q3 + 1.5 x IQR
+6. Extreme outlier upper: Q3 + 3.0 x IQR
+
+Add columns to each transaction:
+- Is_Outlier: TRUE if amount < Lower Fence OR > Upper Fence
+- Outlier_Severity: "Extreme" if beyond 3xIQR, "Moderate" if 1.5-3xIQR, "Normal" otherwise
+- Z_Score: =(Amount - AVERAGE(range)) / STDEV(range)
+- Percentile_Rank: =PERCENTRANK(range, Amount)
+
+Outlier Summary table:
+- Count of outliers by category
+- Total value of outliers
+- Outliers as % of total spend
+- Top 10 outlier transactions (highest Z-score)
+
+Visualization: Box-and-whisker chart showing distribution by category with outliers plotted.
+
+[Paste your cost data here]`},
+    {num:50,cat:"אנליטיקס",level:"Advanced",text:"סימולציית Monte Carlo לתחזית הכנסות ב-Excel",prompt:`Build a Monte Carlo simulation for our annual revenue forecast in Excel.
+
+Simulation inputs (Assumptions tab):
+- Number of simulations: 10,000 (use Data Table method)
+- Key stochastic variables with distributions:
+  * Revenue Growth Rate: Normal(mean=[X]%, stddev=[X]%)
+  * Gross Churn Rate: Normal(mean=[X]%, stddev=[X]%)
+  * New Customer Adds: Normal(mean=[X], stddev=[X])
+  * ARPU: Normal(mean=$[X], stddev=$[X])
+
+Simulation engine (one row = one scenario):
+=NORMINV(RAND(), mean, stddev) for each stochastic variable
+Annual Revenue = f(growth, churn, new customers, ARPU)
+
+Results table (from 10,000 runs using Data Table):
+- P10, P25, P50, P75, P90 revenue outcomes
+- Probability of hitting budget: =COUNTIF(results,">"&budget)/10000
+- Mean and standard deviation of outcomes
+
+Histogram: Frequency distribution of revenue outcomes (20 buckets)
+Tornado chart: Rank variables by their impact on output variance (use CORREL)
+
+Step-by-step instructions: [describe your base forecast inputs]`}
+  ]
+},
+"Artifacts":{
+  label:"Artifacts",
+  desc:"כלים אינטראקטיביים ודשבורדים",
+  range:"51–75",
+  icon:`<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>`,
+  items:[
+    {num:51,cat:"דשבורד CFO",level:"Intermediate",text:"דשבורד CFO אינטראקטיבי עם גרפים ו-KPI cards חיים",prompt:`Build an interactive CFO dashboard as an HTML artifact with these components:
+
+1. KPI Banner (top row, 6 cards):
+   Revenue, Gross Profit %, EBITDA, Cash Balance, Headcount, Revenue per Employee
+   Each card: current value | vs. target (% with colored arrow) | sparkline (6 months)
+
+2. Revenue Section:
+   - Line chart: 12-month actuals + 3-month forecast + budget line
+   - Revenue mix donut: Subscription vs. Services vs. Usage
+
+3. Profitability Section:
+   - Bar chart: Monthly gross margin % and EBITDA margin % (dual axis)
+   - Waterfall: Current month EBITDA bridge vs. budget
+
+4. Cash Section:
+   - Area chart: Cash balance trend with minimum threshold line
+   - Runway indicator: "X months at current burn rate"
+
+5. Controls:
+   - Period selector (month/quarter/year)
+   - Entity filter dropdown
+
+Design: Dark background (#0d1f17), green gradient accents, premium finance aesthetic.
+
+Sample data: [paste your KPI data or use realistic placeholder values]`},
+    {num:52,cat:"מחשבונים",level:"Intermediate",text:"ויזואליזציית Cash Conversion Cycle עם sliders",prompt:`Build an interactive Cash Conversion Cycle (CCC) visualiser as an HTML artifact.
+
+Input sliders (adjustable by user):
+- DSO: Days Sales Outstanding (range: 15-90 days, default: [X])
+- DPO: Days Payable Outstanding (range: 15-60 days, default: [X])
+- DIO: Days Inventory Outstanding (range: 0-60 days, default: [X] - set to 0 for SaaS)
+- Annual Revenue ($M): slider or input field
+
+Live calculations (update instantly as sliders move):
+- CCC = DSO + DIO - DPO (displayed prominently)
+- Cash trapped in working capital = CCC x (Annual Revenue / 365)
+- Cash released if DSO improves by 5 days
+- Cash released if DPO extends by 5 days
+
+Visualisation:
+- Timeline diagram showing the cash cycle (order to invoice to collect to pay suppliers)
+- Industry benchmark overlays: "SaaS median: DSO 45d, DPO 30d"
+- Color coding: Red if CCC > benchmark, Green if better
+
+Design: Clean, beige/green palette, large readable numbers.`},
+    {num:53,cat:"מחשבונים",level:"Intermediate",text:"Burn Rate Tracker עם runway ניתן להתאמה",prompt:`Build an interactive burn rate and runway calculator as an HTML artifact.
+
+Inputs (all adjustable):
+- Current cash balance: $[X]M
+- Monthly gross burn: $[X]M (breakdown: headcount | hosting | marketing | other)
+- Monthly revenue: $[X]M
+- Monthly revenue growth rate: [X]%
+- One-time upcoming payments: (add/remove items with date and amount)
+
+Outputs (live calculation):
+- Net burn rate (current and trend)
+- Runway: Exact date cash hits zero + months remaining (large, prominent)
+- "Zero Cash Date" with countdown
+
+Scenario toggle:
+- Base, Conservative (burn +20%), Emergency (cut non-essential spend 30%)
+- Show runway for all 3 scenarios simultaneously
+
+Chart: Area chart with cash balance declining over time, colored zones (Green >12mo, Yellow 6-12mo, Red <6mo), vertical line at today
+
+Also show: Monthly cash flow waterfall for the next 12 months.
+
+Design: Dark mode with urgent red/green color signaling.`},
+    {num:54,cat:"ויזואליזציה",level:"Intermediate",text:"Waterfall chart אינטראקטיבי ל-EBITDA bridge",prompt:`Build an interactive EBITDA bridge waterfall chart as an HTML artifact.
+
+Waterfall components (editable values):
+- Budget EBITDA: $[X]M (starting bar)
+- Revenue variance: +/- $[X]M
+- Gross margin variance: +/- $[X]M
+- S&M variance: +/- $[X]M
+- R&D variance: +/- $[X]M
+- G&A variance: +/- $[X]M
+- One-time items: +/- $[X]M (labeled separately)
+- Actual EBITDA: $[X]M (ending bar)
+
+Interactive features:
+- Click any bar to see a tooltip: "What drove this?" with editable commentary field
+- Toggle to exclude one-time items (shows "adjusted" EBITDA)
+- Comparison mode: Show prior month bridge side-by-side
+- Export button: Download as PNG
+
+Design:
+- Positive bars: Forest green | Negative bars: Deep red | Start/end bars: Dark navy
+- Labels: Value + % of Budget EBITDA
+
+Sample bridge data: [paste your actuals vs budget P&L]`},
+    {num:55,cat:"ויזואליזציה",level:"Advanced",text:"P&L רב-מטבעי עם toggle לשערי FX",prompt:`Build an interactive multi-currency P&L viewer as an HTML artifact.
+
+Functionality:
+1. Upload/paste P&L data in local currencies by region:
+   NA: USD | EMEA: GBP, EUR | APAC: JPY, AUD | LATAM: BRL
+
+2. FX Rate Controls:
+   - Spot rate inputs for each currency pair (editable)
+   - Toggle: "Spot" vs. "Budget Rate" vs. "Prior Year Rate"
+   - The toggle instantly recalculates the entire P&L in USD
+
+3. FX Impact Display:
+   - Side-by-side: P&L at budget rate vs. spot rate
+   - FX impact column: Shows dollar impact of rate movement
+
+4. P&L in reporting currency (USD):
+   - Full consolidated P&L
+   - Gross margin, EBITDA margin shown at each FX scenario
+
+5. Sensitivity table:
+   - Shows EBITDA at +/-5%, +/-10% moves in each major currency
+
+Design: Clean table with currency flags, toggle switches styled professionally.
+
+[Paste your regional P&L data and current FX rates]`},
+    {num:56,cat:"תכנון תרחישים",level:"Intermediate",text:"כלי תכנון תרחישים — השוואת שלוש אסטרטגיות צמיחה",prompt:`Build an interactive scenario planning tool as an HTML artifact comparing three strategic growth options.
+
+Three scenarios (with editable assumptions):
+1. Organic Growth: Invest in existing product and GTM
+2. Geographic Expansion: Enter 2 new markets
+3. M&A Acceleration: Acquire a bolt-on and integrate
+
+For each scenario, user can adjust:
+- Revenue growth rate (year 1, 2, 3)
+- Gross margin %
+- Required investment ($M) - one-time and recurring
+- Time to breakeven (months)
+- Risk rating (Low/Medium/High)
+
+Output panel:
+- 3-year NPV for each scenario (using editable discount rate)
+- IRR for each scenario
+- Payback period
+- Revenue and EBITDA at year 3
+
+Visualization:
+- Grouped bar chart: Year 1/2/3 Revenue by scenario
+- Bubble chart: NPV (x-axis) vs. Risk (y-axis) vs. Investment size (bubble size)
+
+Design: Premium dark background, scenario cards with distinct accent colors (green/amber/blue).`},
+    {num:57,cat:"מחשבונים",level:"Intermediate",text:"מחשבון covenant headroom עם sliders",prompt:`Build a covenant headroom calculator as an interactive HTML artifact.
+
+Input panel (all adjustable with sliders):
+- EBITDA (trailing 12 months): $[X]M
+- Total Net Debt: $[X]M
+- Interest Expense (annual): $[X]M
+- Capex (annual): $[X]M
+- Cash: $[X]M
+
+Covenants (editable thresholds):
+1. Net Leverage: Net Debt / EBITDA <= [X]x
+2. Interest Coverage: EBITDA / Interest >= [X]x
+3. DSCR: (EBITDA - Capex) / Debt Service >= [X]x
+4. Minimum Liquidity: Cash >= $[X]M
+
+Live calculations for each covenant:
+- Current value (calculated from inputs)
+- Threshold
+- Headroom: value - threshold
+- "EBITDA can decline by $[X]M before breach"
+- Status: PASS / WATCH / BREACH (color coded)
+
+Stress test panel:
+- "What if EBITDA drops 10%/20%/30%?" - shows all covenants at each stress level
+
+Design: Dashboard style, large status indicators, red/amber/green.`},
+    {num:58,cat:"מודלים פיננסיים",level:"Advanced",text:"מודל Accretion/Dilution בעסקת M&A — פלט EPS אינטראקטיבי",prompt:`Build an M&A accretion/dilution model as an interactive HTML artifact.
+
+Acquirer inputs (editable):
+- Revenue, EBITDA, Net Income, EPS
+- Shares outstanding, share price
+- Tax rate
+
+Target inputs (editable):
+- Revenue, EBITDA, Net Income
+- Purchase price ($M)
+- Synergies: Revenue ($M) and Cost ($M) - with year 1/2/3 ramp
+
+Transaction structure (toggle):
+- % Cash vs. % Stock consideration
+- Debt financing: amount, interest rate
+- Deal fees ($M)
+
+Pro forma calculations (live):
+- Combined revenue, EBITDA, net income
+- Incremental interest expense (from acquisition debt)
+- Tax shield from interest
+- New share count (if stock consideration)
+- Pro forma EPS
+- Accretion / Dilution: (PF EPS - Standalone EPS) / Standalone EPS
+
+Break-even analysis:
+- "Deal is accretive when synergies exceed $[X]M"
+- "Payback period: [X] years"
+
+Design: Side-by-side acquirer | target | combined columns, accretion shown in large green text.`},
+    {num:59,cat:"מודלים פיננסיים",level:"Advanced",text:"טבלת רגישות IRR מול מכפיל כניסה — LBO",prompt:`Build an LBO / investment returns sensitivity tool as an HTML artifact.
+
+Base case inputs (editable):
+- Entry revenue: $[X]M
+- Entry EBITDA margin: [X]%
+- Entry multiple (EV/EBITDA): [X]x
+- Hold period: [X] years
+- Revenue CAGR assumption: [X]%
+- EBITDA margin at exit: [X]%
+- Leverage: [X]x EBITDA, at [X]% interest
+- Exit multiple: [X]x
+
+Sensitivity tables (2-way, instantly updated):
+
+Table 1 - IRR by Entry Multiple vs. Exit Multiple:
+- Rows: Entry multiple (e.g., 8x to 14x in 0.5x steps)
+- Columns: Exit multiple (e.g., 8x to 16x in 1x steps)
+- Color: Green >25% IRR, Yellow 15-25%, Red <15%
+
+Table 2 - IRR by Revenue CAGR vs. Margin at Exit:
+- Same color logic
+
+Table 3 - MOIC vs. Hold Period
+
+Design: Spreadsheet-like sensitivity tables with heat-map coloring, inputs panel on left.`},
+    {num:60,cat:"תכנון תרחישים",level:"Advanced",text:"סימולטור אופטימיזציית הון חוזר",prompt:`Build a working capital optimisation simulator as an HTML artifact.
+
+Current state inputs:
+- Annual revenue: $[X]M
+- DSO: [X] days | DPO: [X] days | DIO: [X] days
+- CCC: auto-calculated
+
+Optimization levers (sliders with realistic ranges):
+- DSO improvement: 0 to -20 days (e.g., better collections, dynamic discounting)
+- DPO extension: 0 to +30 days (e.g., supply chain finance)
+- DIO reduction: 0 to -15 days (N/A for SaaS)
+
+Live impact calculations:
+- Cash released per lever ($M)
+- Total cash release opportunity ($M)
+- New CCC
+- Interest saving at [X]% cost of capital
+
+Implementation effort rating for each lever:
+- Easy / Medium / Hard with estimated timeline
+
+Peer benchmarks panel:
+- Your CCC vs. industry median and best-in-class
+- Gap to best-in-class in $ terms
+
+Priority matrix chart:
+- X-axis: Cash release ($M) | Y-axis: Implementation effort | Bubble = time to implement
+
+Design: Clean simulator with prominent dollar impact numbers.`},
+    {num:61,cat:"ויזואליזציה",level:"Beginner",text:"Timeline הכנסות מונפש להצגה לדירקטוריון",prompt:`Build an animated revenue growth timeline as an HTML artifact suitable for a board presentation.
+
+Data to animate:
+- Monthly revenue for the past 24 months
+- Budget line
+- Key milestones (e.g., product launches, market entries, acquisitions) - labeled on the chart
+
+Animation sequence:
+1. Chart loads empty, title fades in
+2. Historical revenue line draws from left to right (1.5 second animation)
+3. Budget line appears as dashed overlay
+4. Milestone markers pop in sequentially with labels
+5. Key callout box slides in: "[X]% revenue growth over [period]"
+
+Chart features:
+- Clean line chart, no chart junk
+- Revenue axis in $M
+- Hover tooltips: exact amount, vs. budget, YoY growth
+- "Play" button to restart animation
+
+Design: Dark premium background, green gradient line, gold milestone markers, board-presentation quality.
+
+Revenue data: [paste your 24-month history and milestone dates]`},
+    {num:62,cat:"ויזואליזציה",level:"Intermediate",text:"Bubble Chart — השוואת חברות-בנות לפי הכנסות, מרג'ין וצמיחה",prompt:`Build an interactive subsidiary comparison bubble chart as an HTML artifact.
+
+Data structure (one bubble per subsidiary/BU):
+- X-axis: Revenue ($M)
+- Y-axis: EBITDA Margin %
+- Bubble size: Revenue Growth Rate (YoY %)
+- Color: Performance tier (Green = above targets, Yellow = on track, Red = below targets)
+- Label: BU/subsidiary name
+
+Interactive features:
+- Hover: Tooltip with full metrics (revenue, margin, growth, headcount, market)
+- Click: Drills to a mini P&L card for that entity
+- Toggle: Switch X-axis between Revenue / ARR / Headcount
+- Toggle: Switch Y-axis between EBITDA Margin / Gross Margin / FCF Margin
+- Reference lines: Company average margin (horizontal), company average growth (vertical) - creates 4 quadrants
+
+Quadrant labels:
+- Top right: "Stars" | Bottom right: "Cash Cows" | Top left: "Question Marks" | Bottom left: "Dogs"
+
+Data: [paste your BU performance data]`},
+    {num:63,cat:"ויזואליזציה",level:"Advanced",text:"דיאגרמת Sankey של זרימת עלויות P&L",prompt:`Build a Sankey diagram of our P&L cost structure as an HTML artifact using D3.js.
+
+Flow structure:
+- Source: Total Revenue ($[X]M)
+- Level 1 split: Gross Profit vs. COGS
+- Level 2 (COGS): Hosting | PS Delivery | Support Staff
+- Level 2 (Gross Profit): flows to EBITDA and OpEx
+- Level 3 (OpEx): S&M | R&D | G&A
+- Level 4: EBITDA flows to Interest | Tax | Net Income | Reinvestment
+
+Design requirements:
+- Node width proportional to dollar amount
+- Flow width proportional to amount
+- Color coding:
+  * Revenue: Dark green | COGS flows: Red gradient | GP: Forest green | OpEx flows: Amber | EBITDA/Net Income: Bright green
+- Hover: Show amount ($M) and % of revenue
+- Labels: Name + $M + % of revenue
+
+P&L data: Revenue $[X]M, COGS breakdown: [X], OpEx breakdown: [X]
+
+[Paste your P&L here]`},
+    {num:64,cat:"ויזואליזציה",level:"Intermediate",text:"מפת חום Risk Register — סבירות מול השפעה",prompt:`Build an interactive risk heat-map as an HTML artifact for our risk register.
+
+Heat-map grid:
+- X-axis: Likelihood (1=Rare, 2=Unlikely, 3=Possible, 4=Likely, 5=Almost Certain)
+- Y-axis: Impact (1=Negligible, 2=Minor, 3=Moderate, 4=Major, 5=Catastrophic)
+- Color zones: Red (score 15-25), Amber (8-14), Yellow (4-7), Green (1-3)
+- Each risk plotted as a labeled circle at its likelihood x impact coordinates
+
+Interactive features:
+- Hover any risk circle: Show full risk details (name, description, owner, current controls, mitigation)
+- Click: Opens a detail panel with full risk card
+- Toggle: Inherent risk vs. Residual risk (after controls) - shows movement arrows
+- Filter by: Risk category | Owner | Business unit
+
+Risk list panel (below chart):
+- Sorted by risk score descending
+- Color coded by zone
+
+Risk data: [paste your risk register - columns: Risk Name | Likelihood | Impact | Category | Owner | Controls]`},
+    {num:65,cat:"ויזואליזציה",level:"Intermediate",text:"מפה גיאוגרפית של הכנסות עם דירוג ביצועים",prompt:`Build an interactive geographic revenue map as an HTML artifact.
+
+Map requirements:
+- World map using SVG
+- Each country/region colored by performance tier:
+  * Dark green: Revenue >110% of target
+  * Light green: 100-110% of target
+  * Amber: 90-100% of target
+  * Red: <90% of target
+  * Gray: No operations
+
+Interactive features:
+- Hover any country: Tooltip showing Revenue ($M), vs. Target (%), YoY Growth (%), key metrics
+- Click any country: Opens a detail card with full P&L summary
+- Toggle views: Revenue ($M) | % of Target | YoY Growth % | Margin %
+
+Summary panel (side bar):
+- Top 5 regions by revenue
+- 3 regions furthest below target
+- Total global revenue and % of plan
+
+Design: Dark background, premium financial map aesthetic.
+
+Revenue data by region: [paste your data]`},
+    {num:66,cat:"מחשבונים",level:"Intermediate",text:"מחשבון Lease vs. Buy עם פלט NPV",prompt:`Build a lease vs. buy decision calculator as an HTML artifact.
+
+Asset details (editable):
+- Asset cost (purchase price): $[X]
+- Useful life: [X] years
+- Residual value at end of life: $[X] (as % of cost)
+
+BUY scenario inputs:
+- Down payment: $[X] or [X]%
+- Loan amount and interest rate: [X]%
+- Loan term: [X] years
+- Annual maintenance cost: $[X]
+- Depreciation: Straight-line or declining balance
+- Tax rate (for depreciation shield): [X]%
+
+LEASE scenario inputs:
+- Monthly lease payment: $[X]
+- Lease term: [X] years
+- Annual lease escalation: [X]%
+- End-of-lease options: Return | Buyout at $[X]
+
+Output calculations (live):
+- NPV of total cost: Buy vs. Lease (at discount rate: [X]%)
+- After-tax cost comparison
+- Year-by-year cash flow comparison chart
+- Break-even: "Leasing is cheaper if you plan to replace in < [X] years"
+- Recommendation with one-sentence rationale
+
+Design: Side-by-side comparison, clean financial calculator UI.`},
+    {num:67,cat:"מחשבונים",level:"Advanced",text:"מחשבון דיבידנד יעיל-מס לאוצר קבוצתי",prompt:`Build an interactive group treasury dividend calculator as an HTML artifact.
+
+Group structure inputs:
+- Parent company jurisdiction: [X] (with corporate tax rate)
+- Subsidiary jurisdictions (add up to 10): Country | Subsidiary profit ($M) | Local tax rate | WHT rate on dividends
+
+Calculations for each subsidiary:
+- Pre-tax profit
+- Local corporate tax
+- Post-tax profit available for distribution
+- Withholding tax on dividend upstream
+- Net amount received by parent
+- Effective tax rate on the full distribution
+- Participation exemption: Does the parent country exempt this dividend? (Yes/No toggle)
+
+Optimization output:
+- Total cash available to repatriate ($M)
+- Total tax cost of full repatriation ($M)
+- Most tax-efficient extraction sequence (rank subsidiaries by lowest effective tax rate)
+- Treaty benefits applied (if applicable)
+- Comparison: Full distribution vs. partial distribution vs. intercompany loan
+
+Design: Hierarchical group structure diagram + financial summary table.`},
+    {num:68,cat:"מחשבונים",level:"Advanced",text:"מחשבון Diluted EPS כולל אופציות ואיגרות להמרה",prompt:`Build a diluted EPS calculator as an HTML artifact using the treasury stock method and if-converted method.
+
+Basic EPS inputs:
+- Net income available to common shareholders: $[X]M
+- Basic weighted average shares outstanding: [X]M
+
+Dilutive securities (add/remove items):
+
+Stock Options/Warrants (Treasury Stock Method):
+- Tranche: Shares | Strike price | Average market price
+- Dilutive shares = Options x (1 - Strike/Market Price)
+- Anti-dilutive test: Only include if in-the-money
+
+Convertible Notes (If-Converted Method):
+- Principal: $[X]M | Coupon: [X]% | Conversion ratio: [X] shares per $1,000
+- Add back: After-tax interest expense if converted
+- Additional shares: Principal/1000 x Conversion ratio
+
+RSUs/PSUs: [X] shares at 100% vesting
+
+Output:
+- Basic EPS | Diluted EPS
+- Dilution impact: [X]% reduction from basic to diluted
+- Table showing each security's contribution to dilution
+- Anti-dilutive securities excluded (listed separately)
+
+Design: Step-by-step calculation display showing the math clearly.`},
+    {num:69,cat:"מודלים פיננסיים",level:"Advanced",text:"מחשבון תשואות LBO עם רגישות למכפיל יציאה",prompt:`Build an LBO returns calculator as an HTML artifact.
+
+Transaction inputs (editable):
+- Target EBITDA (year 0): $[X]M
+- Entry multiple (EV/EBITDA): [X]x -> Enterprise Value = $[X]M
+- Transaction fees: [X]% of EV
+- Debt: [X]% of EV at [X]% interest rate
+- Equity check: EV x (1 - debt%) + fees
+
+Operating assumptions (years 1-5):
+- Revenue CAGR: [X]%
+- EBITDA margin at exit: [X]%
+- Capex as % of revenue: [X]%
+- Working capital change: [X]% of revenue growth
+- Tax rate: [X]%
+
+Debt schedule:
+- Mandatory amortization: [X]% per year
+- Cash sweep: [X]% of excess FCF to debt paydown
+
+Exit assumptions:
+- Exit year: [X] (toggle 3/4/5)
+- Exit multiple: [X]x EBITDA
+
+Output:
+- Exit equity value
+- MOIC: [X]x | IRR: [X]%
+- Sensitivity table: IRR by Entry Multiple x Exit Multiple (heat-mapped)
+- Equity bridge: Entry equity -> + FCF generated -> - Fees -> Exit equity
+
+Design: Deal tearsheet aesthetic, prominent MOIC/IRR display.`},
+    {num:70,cat:"מחשבונים",level:"Advanced",text:"מחשבון מרג'ין תמחור העברות — Cost-Plus",prompt:`Build a transfer pricing margin calculator for our cost-plus intercompany transactions as an HTML artifact.
+
+Group structure inputs:
+- Add up to 8 entities (name, country, function: manufacturer | distributor | service provider | IP holding company)
+
+For each cost-plus entity:
+- Annual operating costs: $[X]M (breakdown: headcount | facilities | other)
+- Cost-plus markup applied: [X]%
+- Resulting intercompany charge: Cost x (1 + markup)
+- Arm's length range: Low [X]% - Median [X]% - High [X]% (from benchmarking study)
+- In-range test: Is our markup within the arm's length range? GREEN/AMBER/RED
+
+P&L impact calculator:
+- Show profit allocation by entity at: current markup | arm's length median | low end | high end
+- Tax at each jurisdiction for each scenario
+- Group effective tax rate for each markup scenario
+- Minimum tax (Pillar Two) exposure flag
+
+Sensitivity analysis:
+- Slider: Move markup across the range, see real-time tax impact
+
+Design: Entity diagram showing intercompany flows, clean table UI.`},
+    {num:71,cat:"מצגות",level:"Intermediate",text:"Board Pack HTML עם ניווט בין סקשנים",prompt:`Build a self-contained HTML board pack as an artifact with full slide navigation.
+
+Slide structure (use left/right arrow navigation + slide counter):
+
+Slide 1 - Cover: Company name, "Board Meeting - [Quarter] [Year]", date
+Slide 2 - Agenda: Clickable list linking to each section
+Slide 3 - Executive Summary: 3-column layout (Highlights | Concerns | Decisions Required)
+Slides 4-6 - Financial Performance: P&L summary, revenue bridge, margin trend chart
+Slides 7-8 - Business Update: KPI scorecard, operational highlights by BU
+Slide 9 - Forward Outlook: Reforecast vs. budget, key assumptions
+Slide 10 - Risks & Opportunities: Traffic light risk register, top 3 opportunities
+Slide 11 - Decisions Required: Each decision as a clear "Resolution" with Y/N vote prompt
+Slide 12 - Appendix index
+
+Design requirements:
+- Premium look: dark green/beige palette, Serif headings, clean data tables
+- Each slide: full-screen, print-optimized layout
+- Keyboard navigation (left/right arrows)
+- Progress bar at bottom
+
+[Paste your financial data and board pack content]`},
+    {num:72,cat:"מצגות",level:"Intermediate",text:"סיכום דוח שנתי אינטראקטיבי — עמוד אחד",prompt:`Build a one-page interactive annual report summary as an HTML artifact.
+
+Layout (single scrolling page, print-optimized):
+
+HEADER: Company name, year, tagline, logo placeholder
+
+ROW 1 - FINANCIAL HIGHLIGHTS (4 metric cards):
+Revenue | Gross Profit | EBITDA | Cash Generated
+Each with: value, YoY change, small trend arrow
+
+ROW 2 - PERFORMANCE CHARTS (side by side):
+Left: 5-year revenue and EBITDA margin trend
+Right: Revenue mix by segment (stacked bar, 3 years)
+
+ROW 3 - STRATEGIC HIGHLIGHTS:
+3 columns: Growth Initiatives | Operational Excellence | ESG/Governance
+3 bullet points each, with icons
+
+ROW 4 - KEY METRICS TABLE:
+Rule of 40, NRR, CAC Payback, DSO, Headcount - vs. prior year
+
+FOOTER: Auditor sign-off placeholder, IR contact, legal disclaimer
+
+Design: Premium annual report aesthetic - typography, green/cream palette, subtle textures. Print-ready at A4.
+
+[Paste your annual financial data]`},
+    {num:73,cat:"מצגות",level:"Beginner",text:"תוכנית 100 ימים ויזואלית לCFO חדש",prompt:`Build a visual 100-day CFO onboarding plan as an HTML artifact.
+
+Timeline structure (horizontal swimlane by workstream):
+
+Workstreams:
+1. Financial Close & Reporting
+2. Team Assessment & Structure
+3. Systems & Data
+4. Business Partnering
+5. Board & Investor Relations
+6. Strategic Finance
+
+Phases:
+- Days 1-30: Listen, Learn, Assess
+- Days 31-60: Diagnose, Prioritize, Quick Wins
+- Days 61-100: Execute, Build, Influence
+
+For each workstream, add 3-4 milestone markers at specific days with:
+- Task description
+- Owner (CFO | Team | CEO | Board)
+- Deliverable (e.g., "First close completed", "Finance team structure presented")
+
+Interactive features:
+- Click any milestone to see full task details
+- Toggle: View by phase or by workstream
+- Progress tracker: Mark milestones complete (checkbox)
+
+Design: Gantt-style timeline, green color scheme, professional and clean.
+
+[Describe your specific context and priorities for customization]`},
+    {num:74,cat:"מצגות",level:"Beginner",text:"Org Chart אינטראקטיבי לפונקציית הכספים",prompt:`Build an interactive finance function org chart as an HTML artifact.
+
+Org chart structure (hierarchical):
+- CFO (top)
+- Direct reports: FP&A Director | Controller | Treasury | Tax | IR
+- Each function with their teams below
+
+For each role node, include (visible on hover/click):
+- Name and title
+- Direct reports count
+- Key responsibilities (3 bullet points)
+- Open headcount (if any) - flagged with a "Hiring" badge
+
+Interactive features:
+- Collapse/expand each branch
+- Click any node: Open detail panel with full role description
+- Filter by: Direct vs. indirect reports from any node
+- Toggle: Current state vs. "Future state" org (show planned roles in dashed outline)
+
+Summary stats panel:
+- Total headcount
+- Ratio: Finance HC as % of company HC
+- Revenue per finance employee
+- Open roles count
+
+Design: Clean hierarchy diagram, green/cream palette, rounded node cards.
+
+[Provide your org structure: names, titles, and reporting lines]`},
+    {num:75,cat:"דשבורד CFO",level:"Intermediate",text:"KPI Ticker חי לתצוגה על מסך צוות הכספים",prompt:`Build a live KPI ticker dashboard as an HTML artifact designed for always-on display on a finance team TV/monitor.
+
+Layout (full-screen, dark background):
+
+TOP SECTION - Large KPI tiles (2x3 grid):
+- Revenue MTD vs. Plan | Gross Margin % | EBITDA | Cash | Open AR | Pipeline
+- Each tile: Metric name, large value, vs. target, trend arrow
+- Color: Green (on/above target), Amber (within 5% below), Red (>5% below target)
+
+MIDDLE SECTION - Scrolling ticker bar:
+- Horizontal auto-scrolling ticker: "Revenue MTD: $X.XM (+2.3% vs budget) | Cash: $XM | DSO: XX days | ..."
+- Refreshes every 30 seconds (simulated with setInterval)
+
+BOTTOM SECTION - 4 small charts:
+- Revenue trend (sparkline 30 days)
+- Gross margin trend
+- Cash balance trend
+- Pipeline trend
+
+Clock and date - top right corner
+"Last updated: [time]" - updates every 30 seconds
+
+Design: Dark mode, crisp white/green data, Bloomberg terminal aesthetic.
+
+[Paste your current KPI values to pre-populate]`}
+  ]
+},
+"Claude Code":{
+  label:"Claude Code",
+  desc:"Python, APIs ואוטומציה",
+  range:"76–100",
+  icon:`<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>`,
+  items:[
+    {num:76,cat:"אוטומציה",level:"Advanced",text:"סקריפט Python — שליפת נתוני ERP ושליחת P&L יומי במייל",prompt:`Write a Python script that:
+
+1. PULLS DATA from our ERP API:
+   - Endpoint: [your ERP API endpoint]
+   - Auth: Bearer token from environment variable ERP_API_KEY
+   - Pull: Today's actuals for all P&L line items (revenue, COGS, OpEx)
+   - Error handling: retry 3x with exponential backoff, log failures
+
+2. CALCULATES KEY METRICS:
+   - Revenue vs. daily budget (budget/working days in month)
+   - Gross margin %
+   - EBITDA (running MTD)
+   - Variance vs. MTD budget
+
+3. FORMATS EMAIL:
+   - Subject: "Daily P&L - [Date] - Revenue $[X]M ([+/-X]% vs budget)"
+   - HTML body: Clean P&L table with RAG coloring (green favorable, red unfavorable)
+   - Attach: Excel file with full P&L detail (using openpyxl)
+
+4. SENDS EMAIL via SMTP:
+   - Recipients: list from config file
+   - SMTP credentials from environment variables
+
+5. SCHEDULING:
+   - Add cron job instructions for 7:00 AM daily
+   - Add retry logic if market data not yet available
+
+Requirements: pandas, requests, smtplib, openpyxl, logging`},
+    {num:77,cat:"אוטומציה",level:"Advanced",text:"סקריפט פיוס אוטומטי — בנק מול GL",prompt:`Write a Python bank reconciliation script:
+
+INPUTS:
+- Bank statement: CSV export from [bank] - columns: Date, Description, Amount, Reference
+- GL export: CSV from [ERP] - columns: Date, Account, Description, Amount, Journal Reference
+
+RECONCILIATION LOGIC:
+1. Match transactions by: Amount (exact) + Date (within 3 business days) + fuzzy description match
+   - Use rapidfuzz library for description matching (threshold: 80% similarity)
+2. For matched items: mark as RECONCILED
+3. For unmatched bank items: mark as IN_BANK_NOT_GL
+4. For unmatched GL items: mark as IN_GL_NOT_BANK
+5. Handle duplicates: Flag if same amount appears multiple times within 5 days
+
+OUTPUTS:
+1. reconciliation_report.xlsx with 3 tabs:
+   - "Matched": All reconciled items
+   - "Bank Only": Unmatched bank items (likely missing GL entries)
+   - "GL Only": Unmatched GL items (likely outstanding/timing)
+2. Summary stats: Total bank | Total GL | Matched | Unmatched | Reconciliation %
+3. PDF summary report using reportlab
+
+Requirements: pandas, rapidfuzz, openpyxl, reportlab`},
+    {num:78,cat:"אוטומציה",level:"Advanced",text:"אוטומציית יצירת Journal Entries מתבנית CSV מבוססת כללים",prompt:`Write a Python script to automate month-end journal entry creation from a rules-based template.
+
+INPUT: journal_rules.csv with columns:
+JE_ID | Description | Debit_Account | Credit_Account | Amount_Source | Amount_Formula | Frequency | Preparer | Reviewer
+
+Amount_Source: either a hardcoded value OR a reference like "PL!Revenue*0.02" (accrual % of revenue)
+
+PROCESSING:
+1. Load the rules file
+2. For each rule, evaluate the amount:
+   - If hardcoded: use directly
+   - If formula: parse and calculate from source data (load from data files)
+3. Validate:
+   - Debits = Credits for each journal
+   - Account codes exist in COA
+   - Amounts are within reasonable range (flag if >2x prior month)
+4. Generate journal entry output file in [ERP] import format
+5. Create a preparer review package: Excel with each journal, amount calculation shown, and a sign-off column
+
+OUTPUT: je_batch_[date].csv (ERP import format) + je_review_package.xlsx
+
+Email the review package to each Preparer for sign-off before import.
+
+Requirements: pandas, openpyxl, smtplib`},
+    {num:79,cat:"אוטומציה",level:"Advanced",text:"שערוך FX אוטומטי + דיווח ל-Slack",prompt:`Write a Python FX revaluation script with Slack notification:
+
+1. PULL LIVE FX RATES:
+   - Source: Open Exchange Rates API (or frankfurter.app for free)
+   - Pull rates for: EUR, GBP, JPY, AUD, BRL, CAD vs. USD
+   - Store rates with timestamp in rates_history.csv
+
+2. RUN REVALUATION:
+   - Load open foreign currency balances from balance_sheet.csv
+   - Apply current spot rates to all non-USD balances
+   - Calculate revaluation gain/loss: (current rate - book rate) x balance
+   - Summarize by: Currency | Balance (LC) | Book Rate | Spot Rate | Revaluation Gain/Loss ($)
+
+3. GENERATE JOURNAL ENTRY:
+   - Debit/Credit FX revaluation balance sheet account
+   - Offset to FX Gain/Loss income statement account
+   - Format for ERP import
+
+4. POST TO SLACK:
+   - Use Slack webhook (from env variable SLACK_WEBHOOK_URL)
+   - Message format:
+     "FX Revaluation - [Date]
+     Total exposure: $[X]M
+     Net revaluation: [+/-$X]
+     Largest move: [Currency] [+/-X]%"
+   - Attach full breakdown as formatted table
+
+Requirements: requests, pandas, slack-sdk`},
+    {num:80,cat:"אוטומציה",level:"Advanced",text:"סקריפט שממלא Deck PowerPoint אוטומטית מקובץ Excel",prompt:`Write a Python script to auto-populate a PowerPoint board deck from an Excel data file.
+
+INPUTS:
+- template.pptx: PowerPoint template with placeholder shapes named: REVENUE_MTD, GM_PCT, EBITDA, VARIANCE_PCT, etc.
+- data.xlsx: Monthly data feed with named cells/ranges matching placeholder names
+
+PROCESSING (using python-pptx):
+1. Load the template
+2. Load the Excel data feed with openpyxl
+3. For each slide, scan all text boxes for placeholder patterns like <<PLACEHOLDER>>
+4. Replace each placeholder with the corresponding value from Excel
+5. Apply formatting:
+   - Numbers: Format according to type (currency, %, whole number)
+   - Variance cells: Color red if negative, green if positive
+6. Update chart data sources:
+   - For each chart in the deck, update the underlying data table
+7. Save as: board_deck_[YYYY_MM].pptx
+
+Chart update logic:
+- Revenue trend chart: Pull 12-month history from Excel
+- Variance waterfall: Pull bridge components
+
+OUTPUT: Auto-populated deck + change log showing every replaced value
+
+Requirements: python-pptx, openpyxl, re`},
+    {num:81,cat:"Data Pipelines",level:"Advanced",text:"ETL Pipeline — קונסולידציה של Trial Balances מריבוי ישויות",prompt:`Build a Python ETL pipeline to consolidate trial balances from multiple entities.
+
+INPUT STRUCTURE:
+- /data/raw/entity_[name]_tb_[YYYYMM].csv for each entity
+- Each file has: Account_Code | Account_Name | Debit | Credit (varying formats by entity)
+
+ETL PIPELINE STEPS:
+
+1. EXTRACT:
+   - Scan /data/raw/ for all TB files matching naming pattern
+   - Parse each file, handling: different column names, different date formats, merged debit/credit columns
+   - Log each file loaded with row counts
+
+2. TRANSFORM:
+   a. Standardize: Map each entity's account codes to Group COA using mapping table
+   b. Normalize: Convert all to Net Amount = Debit - Credit (with sign convention)
+   c. Add metadata: Entity, Period, Fiscal Year, BU, Currency
+   d. FX conversion: Convert to USD using rates from fx_rates.csv
+   e. Intercompany elimination: Zero out matching IC balances between entities
+   f. Validation: Assets = Liabilities + Equity check per entity
+
+3. LOAD:
+   - Output: consolidated_tb_[YYYYMM].csv
+   - Output: elimination_log_[YYYYMM].csv
+   - Output: data_quality_report.xlsx with: unmapped accounts, out-of-balance entities, FX rate flags
+
+Requirements: pandas, glob, logging`},
+    {num:82,cat:"Data Pipelines",level:"Advanced",text:"Pipeline שמעשיר נתוני ספקים מנתוני רשם החברות",prompt:`Build a Python pipeline to enrich our vendor master list with Companies House data.
+
+INPUT: vendor_master.csv with columns: Vendor_Name | Registration_Number (optional) | Country
+
+PIPELINE:
+
+1. COMPANIES HOUSE API LOOKUP (UK vendors):
+   - Endpoint: https://api.company-information.service.gov.uk/search/companies
+   - For each vendor: search by name if no reg number, or direct lookup if reg number exists
+   - Rate limit: 600 calls/5 minutes - implement throttling
+   - Pull: Company status, incorporation date, SIC codes, registered address, filing status
+
+2. DATA ENRICHMENT:
+   - Add fields: Reg_Number, Status, Incorporated_Date, SIC_Code, SIC_Description, Reg_Address
+   - Flag: Dissolved companies (HIGH RISK)
+   - Flag: Dormant companies
+   - Flag: Last accounts >18 months overdue (financial health concern)
+   - Flag: No match found (manual review needed)
+
+3. CREDIT RISK SCORING:
+   - Simple score 1-5 based on: company age, filing status, active/dissolved
+
+4. OUTPUT:
+   - vendor_enriched.csv: All vendors with new fields
+   - risk_flags.csv: Vendors flagged for review
+
+Requirements: requests, pandas, time, logging`},
+    {num:83,cat:"Data Pipelines",level:"Advanced",text:"בדיקת איכות נתוני GL לפני סגירה חודשית",prompt:`Write a Python data quality checker that validates the GL before month-end close.
+
+INPUT: gl_export_[YYYYMM].csv - columns: Date | Account_Code | Account_Name | Department | Amount | Description | Posted_By | Journal_Ref
+
+VALIDATION RULES (configurable in rules.yaml):
+
+1. ACCOUNT CODE RULES:
+   - All account codes must exist in COA master list
+   - Revenue codes (4xxx) must only post to Sales/Marketing departments
+   - Payroll codes (6100-6199) must match headcount report totals within 2%
+
+2. AMOUNT RULES:
+   - Flag any single debit/credit > $[threshold] (materiality check)
+   - Flag any round-number transaction > $100K (possible estimate/accrual without support)
+   - Flag credit entries to revenue accounts (unusual)
+
+3. PERIOD RULES:
+   - Flag any entries dated outside the current month (cutoff check)
+   - Flag entries posted in last 3 days of month with description containing "accrual" > $50K
+
+4. BALANCE CHECKS:
+   - Each journal reference must balance (debits = credits)
+   - Total GL net movement must equal prior month close balance change
+
+OUTPUT:
+- data_quality_report.xlsx: One tab per rule category, flagged items highlighted
+- Summary: Errors (must fix) | Warnings (review) | Passes
+- Email to close manager if any Errors exist
+
+Requirements: pandas, pyyaml, openpyxl`},
+    {num:84,cat:"Data Pipelines",level:"Advanced",text:"Pipeline להמרת XBRL filings ל-DataFrames מובנים",prompt:`Build a Python pipeline to extract and structure financial data from XBRL filings.
+
+INPUT: XBRL .xml or .zip filing (SEC EDGAR or Companies House format)
+
+PIPELINE:
+
+1. PARSE XBRL:
+   - Use arelle or xbrl.us API to parse the XBRL instance document
+   - Extract all tagged facts with: concept (element name), value, unit, period, context
+   - Handle: instant vs. duration facts, dimensional data (segments), footnotes
+
+2. MAP TO STANDARD SCHEMA:
+   - Income Statement: Map XBRL tags to standardized rows (Revenue, COGS, GrossProfit, SGA, RD, EBIT, NetIncome)
+   - Balance Sheet: Assets, Liabilities, Equity sections
+   - Cash Flow: Operating, Investing, Financing, Net change
+
+3. BUILD DataFrames:
+   - df_income_statement: rows = line items, columns = periods (3 years)
+   - df_balance_sheet: same structure
+   - df_cash_flow: same structure
+   - df_metadata: filing date, filer, CIK, fiscal year end
+
+4. QUALITY CHECKS:
+   - Income statement: Revenue - COGS = GrossProfit (check within 1%)
+   - Balance sheet: Assets = Liabilities + Equity
+
+OUTPUT: Excel with one tab per statement + raw_facts.csv
+
+Requirements: arelle (or sec-api), pandas, openpyxl`},
+    {num:85,cat:"Data Pipelines",level:"Advanced",text:"מנוע אלימינציות Intercompany אוטומטי",prompt:`Build a Python intercompany elimination engine for group consolidation.
+
+INPUT:
+- consolidated_tb.csv: Group trial balance with Entity column
+- ic_matrix.csv: Intercompany transaction log - From_Entity | To_Entity | Account | Amount | IC_Reference
+
+ELIMINATION ENGINE:
+
+1. IDENTIFY IC TRANSACTIONS:
+   - Match each IC payable against corresponding IC receivable by reference number
+   - Match IC revenue against IC cost (management charges, dividends, etc.)
+   - Flag any IC imbalances (IC receivable != IC payable) - these need manual reconciliation
+
+2. ELIMINATION JOURNALS:
+   - For each matched pair, generate elimination journal:
+     * Dr: IC Payable | Cr: IC Receivable (balance sheet)
+     * Dr: IC Revenue | Cr: IC Cost (P&L)
+   - Assign journal reference: ELIM_[IC_Ref]_[YYYYMM]
+
+3. UNREALISED PROFIT ELIMINATION:
+   - If IC sales include an internal margin (from ic_matrix: Margin_Pct column)
+   - Calculate: Unrealised profit in inventory = IC sales x margin %
+   - Post elimination entry
+
+4. VALIDATION:
+   - Post-elimination: All IC accounts should net to zero
+   - Report any residual IC balances as exceptions
+
+OUTPUT: elimination_journals.csv + exceptions_report.xlsx + consolidated_post_elim.csv
+
+Requirements: pandas, openpyxl`},
+    {num:86,cat:"APIs ואינטגרציות",level:"Advanced",text:"חיבור ל-Xero API — שליפת AP Ageing לדשבורד",prompt:`Write a Python script to extract AP ageing data from Xero API and output to a dashboard.
+
+1. XERO AUTHENTICATION (OAuth 2.0):
+   - Use xero-python SDK
+   - Implement token refresh flow
+   - Store tokens securely in .env file
+
+2. EXTRACT DATA:
+   - Get all outstanding bills: GET /api.xro/2.0/Invoices?Type=ACCPAY&Status=AUTHORISED,OVERDUE
+   - For each invoice: InvoiceNumber, Contact, Date, DueDate, AmountDue, CurrencyCode
+   - Get contact details for each supplier
+
+3. CALCULATE AGEING BUCKETS:
+   - Current (not yet due)
+   - 1-30 days overdue
+   - 31-60 days overdue
+   - 61-90 days overdue
+   - 90+ days overdue
+   - Calculate DPO: Total AP / (Annual COGS / 365)
+
+4. OUTPUT:
+   - Excel: ap_ageing_[date].xlsx with:
+     * Tab 1: Ageing summary by bucket ($M and count)
+     * Tab 2: Detail by supplier (sorted by oldest first)
+     * Tab 3: Suppliers with invoices >90 days (escalation list)
+   - Optional: Create HTML dashboard using plotly
+
+Requirements: xero-python, pandas, openpyxl, python-dotenv`},
+    {num:87,cat:"APIs ואינטגרציות",level:"Intermediate",text:"שליפת שערי FX חיים ועדכון מודל קונסולידציה",prompt:`Write a Python script to pull live FX rates and update our consolidation model.
+
+1. FETCH FX RATES:
+   - Source: https://api.frankfurter.app/latest?from=USD (free, no API key)
+   - Pull rates for: EUR, GBP, JPY, AUD, CAD, BRL, CHF, SGD vs. USD
+   - Also pull: Historical rates for the 1st of each month (for average rate calculations)
+
+2. CALCULATE RATE TYPES:
+   - Spot rate: Today's closing rate
+   - Month-to-date average: Average of daily rates this month
+   - Budget rate: From budget_rates.csv (static file)
+   - Prior year average: From historical data
+
+3. UPDATE EXCEL MODEL:
+   - Using openpyxl, open consolidation_model.xlsx
+   - Navigate to "FX Rates" tab
+   - Update named ranges: USD_EUR_SPOT, USD_GBP_SPOT, etc.
+   - Update the rate table (rows = currencies, columns = Spot/Avg/Budget/PY)
+   - Trigger Excel recalculation (save the file - Excel will recalc on open)
+
+4. LOG AND ALERT:
+   - Log rate fetch with timestamp
+   - Alert via email if any rate moves >3% from yesterday
+
+Requirements: requests, pandas, openpyxl, smtplib`},
+    {num:88,cat:"APIs ואינטגרציות",level:"Advanced",text:"סריקת אשראי ספקים חדשים באמצעות API",prompt:`Build a Python supplier credit risk screening tool using Companies House API.
+
+TRIGGER: New supplier added to vendor master (watch a folder for new vendor_onboarding.csv files)
+
+SCREENING PIPELINE:
+
+1. COMPANY LOOKUP:
+   - Search Companies House API by company name + country
+   - URL: https://api.company-information.service.gov.uk/search/companies?q={name}
+   - Select best match (highest relevance score + correct country)
+
+2. PULL FINANCIAL SIGNALS:
+   - Company status: Active / Dissolved / Liquidation (auto-REJECT if not Active)
+   - Latest accounts: Date filed, accounts type
+   - Overdue filings: Confirmation statement, accounts
+   - Charges (secured creditors): Number of charges outstanding
+   - Directors: Number, recent changes (flag if >2 directors resigned in 12 months)
+
+3. CREDIT RISK SCORING (0-100):
+   - Base: 70 (Active company)
+   - Deductions: Overdue accounts (-20), overdue conf. statement (-10), charges (-5 each)
+   - Age bonus: >5 years old (+10), >10 years (+15)
+
+4. OUTPUT per supplier:
+   - Risk score | Risk tier (Low/Medium/High/Reject)
+   - Recommended credit limit ($)
+   - Flag reasons
+   - PDF report per supplier
+
+Requirements: requests, pandas, reportlab, watchdog`},
+    {num:89,cat:"APIs ואינטגרציות",level:"Advanced",text:"סנכרון נתוני תקציב מ-Excel ל-NetSuite",prompt:`Write a Python connector to sync budget data from Excel to NetSuite via REST API.
+
+1. READ BUDGET FROM EXCEL:
+   - Input: budget_[YYYY].xlsx with tabs per department
+   - Each tab: Account_Code | Jan | Feb | Mar | ... | Dec
+   - Validate: All account codes exist in COA, no blank amounts, totals balance
+
+2. NETSUITE API SETUP:
+   - Authentication: OAuth 1.0 with token-based auth
+   - Base URL: https://[account_id].suitetalk.api.netsuite.com
+   - Use SuiteQL or REST Records API
+
+3. BUDGET SYNC LOGIC:
+   a. Check if budget period already exists in NetSuite
+   b. For each account + period combination:
+      - If exists: PUT to update
+      - If new: POST to create
+      - Use NetSuite budget record endpoint: /rest/record/v1/budget
+   c. Map Excel account codes to NetSuite internal IDs using mapping table
+
+4. ERROR HANDLING:
+   - Log every API call (success/failure)
+   - On failure: rollback partial sync, report exactly which records failed
+   - Retry logic: 3 attempts with 5-second delay
+
+5. RECONCILIATION REPORT:
+   - Excel total budget vs. NetSuite post-sync total
+   - Line-by-line comparison
+
+Requirements: requests, pandas, openpyxl, logging, oauthlib`},
+    {num:90,cat:"APIs ואינטגרציות",level:"Intermediate",text:"Webhook שמפעיל התראה בתשלום חריג",prompt:`Build a Python webhook server that monitors payments and triggers alerts on large transactions.
+
+1. WEBHOOK ENDPOINT:
+   - Use Flask to create a webhook receiver: POST /webhook/payment
+   - Accept JSON payload from payment processor (Stripe/Xero/bank API format)
+   - Validate webhook signature (HMAC-SHA256) using shared secret
+   - Return 200 OK immediately, process asynchronously
+
+2. THRESHOLD LOGIC:
+   - Load thresholds from config.yaml:
+     * Individual payment: Alert if > $[X]
+     * Daily total per vendor: Alert if > $[X]
+     * Unusual time: Alert if payment posted outside business hours
+     * New payee: Alert if first payment to this bank account
+
+3. ALERT ROUTING:
+   - Slack: Post to #finance-alerts channel
+     Format: "Large Payment Alert: $[amount] to [payee] at [time]. Ref: [ref]. Approver: [name]"
+   - Email: CC to CFO if > $[major threshold]
+   - PagerDuty: If outside business hours AND > $[emergency threshold]
+
+4. AUDIT LOG:
+   - Store every alert in SQLite: timestamp, amount, payee, threshold triggered, notified_to
+
+Requirements: flask, hmac, requests, pyyaml, sqlite3`},
+    {num:91,cat:"אוטומציית דיווח",level:"Advanced",text:"יצירת PDF דוח דירקטוריון מ-Jinja2 ונתונים חיים",prompt:`Build a Python script to generate a PDF board report from a Jinja2 template and live financial data.
+
+1. DATA PREPARATION:
+   - Load financial data from Excel (openpyxl) or database
+   - Calculate all metrics: revenue, margins, variance vs. budget, key ratios
+   - Prepare chart images using matplotlib (save as PNG):
+     * Revenue trend (12-month bar chart)
+     * Margin progression (line chart)
+     * EBITDA bridge (waterfall chart)
+
+2. JINJA2 TEMPLATE (board_report_template.html):
+   - Professional HTML template with company branding
+   - Placeholders: {{ revenue_mtd }}, {{ gm_pct }}, {{ ebitda }}, {{ variance_pct }}
+   - Table loops: for item in pl_lines
+   - Conditional formatting: if variance < 0, apply "unfavorable" CSS class
+   - Chart image embeds: img src="{{ chart_revenue }}"
+
+3. RENDER AND CONVERT TO PDF:
+   - Render HTML with Jinja2: template.render(**data_dict)
+   - Convert to PDF using weasyprint or pdfkit
+   - Add page numbers, header/footer
+
+4. DISTRIBUTE:
+   - Email to board_list.csv with PDF attached
+   - Save to SharePoint/S3 (optional)
+
+Requirements: jinja2, weasyprint, matplotlib, openpyxl, smtplib`},
+    {num:92,cat:"אוטומציית דיווח",level:"Advanced",text:"יצירת 12 PDF של P&L לחברות-בנות מקובץ נתונים אחד",prompt:`Write a Python script to generate individual P&L PDF reports for each subsidiary from one consolidated data file.
+
+INPUT: subsidiary_pl_data.xlsx
+- One sheet per subsidiary (or a single sheet with Entity column)
+- Columns: Entity | Account | Jan | Feb | ... | Dec | Budget | Variance
+
+FOR EACH SUBSIDIARY (loop through all entities):
+
+1. EXTRACT entity-specific data
+2. CALCULATE summary metrics: Revenue, Gross Profit %, EBITDA, variance vs. budget
+3. BUILD visualizations:
+   - Revenue vs. budget bar chart (matplotlib)
+   - Margin trend line chart
+4. GENERATE PDF (using reportlab or weasyprint):
+   - Page 1: Cover (entity name, period, prepared by, confidential)
+   - Page 2: Executive summary (5-line snapshot with RAG indicators)
+   - Page 3: Full P&L table (actual | budget | variance $ | variance %)
+   - Page 4: Charts
+   - Footer: Page numbers, confidentiality notice, prepared date
+5. SAVE as: reports/[Entity_Name]_PL_[YYYYMM].pdf
+
+AFTER ALL ENTITIES:
+- Merge all 12 PDFs into one combined file using pypdf
+- Email each subsidiary CFO their individual report
+- Email group CFO the combined report
+
+Requirements: pandas, reportlab, matplotlib, pypdf, smtplib`},
+    {num:93,cat:"אוטומציית דיווח",level:"Advanced",text:"מילוי אוטומטי של ביאורים IFRS בתבניות Word",prompt:`Write a Python script to auto-populate IFRS disclosure notes in Word from financial data.
+
+INPUT:
+- disclosure_template.docx: Word document with placeholders TOTAL_REVENUE, NET_INCOME, TOTAL_ASSETS, etc.
+- financial_data.xlsx: All the financial figures needed for disclosures
+
+USING python-docx:
+
+1. LOAD TEMPLATE: Read the Word document
+
+2. POPULATE PLACEHOLDERS:
+   - Simple values: TOTAL_REVENUE, NET_INCOME, TOTAL_ASSETS
+   - Formatted numbers: Apply correct formatting ($M, thousands, %, x)
+   - Comparison values: PRIOR_YEAR_REVENUE from prior year tab
+
+3. POPULATE TABLES:
+   - Find each table in the document by its header row
+   - For note tables (e.g., PPE schedule, lease liability table): populate all cells from Excel
+   - Maintain table formatting (borders, shading) from template
+
+4. CONDITIONAL CONTENT:
+   - If going concern note required (flag in data): include the going concern paragraph
+   - If new standard adopted: insert first-time adoption note
+
+5. QUALITY CHECK:
+   - Scan output document for any remaining unfilled placeholders
+   - Cross-check: Total assets in notes = total assets in balance sheet (+-$1K rounding)
+
+OUTPUT: disclosure_notes_[YYYYMM].docx + population_log.csv
+
+Requirements: python-docx, pandas, openpyxl`},
+    {num:94,cat:"אוטומציית דיווח",level:"Advanced",text:"בדיקת Disclosures חסרים בדוח השנתי — סקריפט Python",prompt:`Build a Python tool that reads a draft annual report (PDF/Word) and checks for required disclosures.
+
+INPUT:
+- draft_annual_report.pdf or .docx
+- disclosure_checklist.yaml: List of required disclosures with:
+  disclosure_id | description | required_phrases | standard_reference | mandatory: true/false
+
+CHECKING LOGIC:
+
+1. EXTRACT TEXT from the report:
+   - PDF: use pdfplumber
+   - Word: use python-docx
+   - Preserve page numbers for citation
+
+2. FOR EACH REQUIRED DISCLOSURE:
+   - Search for key phrases (exact match + fuzzy match with threshold 85%)
+   - Check that minimum required content is present
+   - For quantitative disclosures: use regex to verify a number is present
+
+3. CLASSIFY EACH DISCLOSURE:
+   - FOUND: Located on page X
+   - PARTIAL: Key phrase found but may be incomplete
+   - MISSING: No matching content found
+   - NOT APPLICABLE: Flag for manual review
+
+4. OUTPUT:
+   - disclosure_check_report.xlsx: Disclosure | Status | Page Found | Confidence | Standard Ref
+   - Summary: X of Y mandatory disclosures found | X potentially missing
+   - Red-flag email to audit team if any mandatory disclosure MISSING
+
+Requirements: pdfplumber, python-docx, rapidfuzz, pandas, pyyaml`},
+    {num:95,cat:"אוטומציית דיווח",level:"Intermediate",text:"השוואת דוחות הוצאות אוטומטית מול מדיניות החברה",prompt:`Write a Python script to automatically check submitted expenses against company policy.
+
+INPUT:
+- expense_submissions.csv: Employee | Date | Category | Merchant | Amount | Receipt_Attached | Business_Purpose
+- expense_policy.yaml: Policy rules by category
+
+POLICY RULES (from YAML):
+- Meals (per person): Daily limit $75, single meal limit $150, alcohol requires manager approval
+- Hotels: City-specific limits (e.g., London $350, NYC $400, other $250)
+- Flights: Economy class only unless >6 hours, must book 14+ days in advance
+- Client Entertainment: Limit $200 per head, requires client name and business purpose
+- Home Office: Monthly limit $50 for broadband/equipment
+
+CHECKING LOGIC:
+1. Load each expense line
+2. Apply relevant policy rules
+3. Classify: APPROVED | OVER_POLICY | REQUIRES_APPROVAL | MISSING_RECEIPT | FLAGGED
+
+FLAGGING:
+- No receipt attached for amounts > $25
+- Duplicate submissions (same merchant, same amount, within 7 days, same employee)
+- Weekend expenses without business justification
+- Round-dollar amounts > $100 (possible estimate)
+
+OUTPUT:
+- approved_expenses.csv: Clean for payment
+- flagged_expenses.xlsx: With violation reason and policy reference
+- Employee summary email: "Your expense report: X items approved ($X), X items flagged (details below)"
+
+Requirements: pandas, pyyaml, smtplib, openpyxl`},
+    {num:96,cat:"AI ואנליטיקס",level:"Advanced",text:"מודל Regression לתחזית הכנסות ממדדים מובילים",prompt:`Build a Python revenue forecasting model using leading indicators and regression.
+
+DATA INPUTS:
+- revenue_history.csv: Monthly revenue (36+ months)
+- leading_indicators.csv: Monthly values for leading indicators:
+  * Pipeline_Value (2-month lag to revenue)
+  * Win_Rate (1-month lag)
+  * Website_Traffic (2-month lag)
+  * Job_Postings_Count (3-month lag - economic leading indicator)
+  * NPS_Score (1-month lag to churn)
+
+MODEL BUILDING:
+
+1. FEATURE ENGINEERING:
+   - Create lagged features: indicator_t-1, indicator_t-2, indicator_t-3
+   - Add seasonality: month dummies or Fourier terms
+   - Add trend: t (time index)
+
+2. MODEL TRAINING (use 80% train / 20% test split):
+   - Model 1: OLS Linear Regression (statsmodels) - interpretable, use for base
+   - Model 2: Ridge Regression (sklearn) - handles multicollinearity
+   - Model 3: XGBoost (if data allows) - captures non-linearity
+
+3. EVALUATION:
+   - RMSE, MAPE, R-squared for each model on test set
+   - Feature importance (coefficients or SHAP values)
+   - Plot: Actual vs. predicted (last 12 months)
+
+4. FORECAST OUTPUT:
+   - 3-month ahead forecast with 80% confidence interval
+   - Sensitivity: Which indicator has the biggest impact?
+
+OUTPUT: forecast_model.pkl + forecast_output.xlsx + model_report.pdf
+
+Requirements: pandas, statsmodels, sklearn, xgboost, shap, matplotlib`},
+    {num:97,cat:"AI ואנליטיקס",level:"Advanced",text:"מודל Clustering לסיגמנטציית לקוחות לפי רווחיות",prompt:`Build a Python customer profitability segmentation model.
+
+INPUT: customer_data.csv - Customer_ID | ARR | Gross_Margin_Pct | Support_Tickets | NPS | Contract_Length | Segment | Region | Churn_Flag | Months_Active
+
+FEATURE ENGINEERING:
+- Customer lifetime value (CLV): ARR x Gross_Margin_Pct / Monthly_Churn_Rate
+- Support cost per $ ARR: (Support_Tickets x avg_ticket_cost) / ARR
+- Net revenue contribution: ARR x GM% - Support_Cost
+- Engagement score: NPS normalized 0-1
+
+CLUSTERING PIPELINE:
+
+1. PREPROCESSING:
+   - Scale features: StandardScaler
+   - Handle missing values
+
+2. OPTIMAL CLUSTER COUNT:
+   - Elbow method (inertia vs. k)
+   - Silhouette score
+   - Recommend k (typically 3-5 for customer segments)
+
+3. K-MEANS CLUSTERING:
+   - Fit model
+   - Assign cluster labels to each customer
+
+4. SEGMENT PROFILING:
+   For each cluster, calculate mean values and label:
+   - "Strategic Accounts": High ARR, high margin, low support
+   - "Growth Customers": Medium ARR, expanding, low churn risk
+   - "At-Risk": Low NPS, high support, declining ARR
+   - "Long Tail": Low ARR, high support cost ratio
+
+5. OUTPUT:
+   - customer_segments.csv: Customer_ID + Cluster + Segment_Label
+   - segment_summary.xlsx: Profile of each segment
+   - Visualization: 2D scatter plot (PCA reduced) colored by segment
+   - Revenue at risk: ARR of At-Risk segment
+
+Requirements: pandas, sklearn, matplotlib, seaborn`},
+    {num:98,cat:"AI ואנליטיקס",level:"Advanced",text:"NLP לסיווג ותיוג תיאורי GL אוטומטית",prompt:`Build a Python NLP script to automatically classify GL transaction descriptions.
+
+INPUT: gl_transactions.csv - Date | Description | Amount | Account_Code
+Descriptions are free-text and inconsistent (e.g., "AWS Invoice 2024-01", "AMZN WEB SERVICES", "Amazon AWS - Jan")
+
+CLASSIFICATION TARGETS:
+- Category: SaaS_Software | Cloud_Infrastructure | Travel | Payroll | Marketing | Professional_Services | Facilities | Other
+- Vendor (canonical name): AWS | Salesforce | Google | etc.
+- Tax treatment: Fully_Deductible | Capital | Exempt | Review_Required
+
+APPROACH:
+
+1. RULE-BASED BASELINE:
+   - Create a rules dictionary: keyword patterns mapped to category/vendor
+   - Example: "aws|amazon web|amzn" maps to vendor=AWS, category=Cloud_Infrastructure
+   - Apply regex matching (case-insensitive)
+   - Classify ~70-80% of transactions this way
+
+2. ML MODEL for unmatched transactions:
+   - Use sentence-transformers to embed descriptions
+   - Train a simple classifier on your labeled transactions
+   - Or: Zero-shot classification using a pre-trained model
+
+3. ANTHROPIC API FALLBACK for very low confidence:
+   - Send unclassified descriptions to Claude API in batches
+   - Prompt: "Classify these GL descriptions into [categories]. Return JSON."
+   - Cost-effective: Only for truly ambiguous items
+
+4. OUTPUT:
+   - gl_classified.csv: Original + Category + Vendor + Tax_Treatment + Confidence + Method_Used
+   - Training feedback loop: Flag low-confidence items for human review
+
+Requirements: pandas, re, sentence-transformers, anthropic`},
+    {num:99,cat:"AI ואנליטיקס",level:"Advanced",text:"גלאי חריגות הוצאות — Z-Score על נתוני עסקאות",prompt:`Build a Python spend anomaly detector using statistical methods.
+
+INPUT: transactions.csv - Date | Vendor | Category | Department | Amount | Posted_By
+
+ANOMALY DETECTION METHODS:
+
+1. Z-SCORE BY CATEGORY x DEPARTMENT:
+   - For each Category+Department combination:
+     * Calculate mean and std of monthly spend (using rolling 12-month history)
+     * Z-score = (current_month - mean) / std
+     * Flag: |Z| > 2.5 as anomaly, |Z| > 3.5 as severe anomaly
+
+2. ISOLATION FOREST (ML-based):
+   - Features: Amount, day_of_week, day_of_month, is_round_number, vendor_frequency
+   - Train on historical data (last 24 months)
+   - Predict anomaly score for new transactions
+   - contamination parameter: 0.05 (expect ~5% anomalies)
+
+3. PEER COMPARISON:
+   - Flag vendors where our spend > 2x the department's other vendors in same category
+
+4. TEMPORAL ANOMALIES:
+   - Transactions on weekends/holidays (flag, don't auto-reject)
+   - Large transactions in last 3 days of month (accrual gaming risk)
+
+OUTPUT per anomaly:
+- Transaction details
+- Anomaly type and method that caught it
+- Severity: High / Medium / Low
+- Context: "This vendor's spend is 3.2x the 12-month average for this department"
+
+Dashboard: Interactive HTML showing anomaly timeline and top flagged items
+
+Requirements: pandas, sklearn, plotly, scipy`},
+    {num:100,cat:"AI ואנליטיקס",level:"Advanced",text:"מודל Churn Prediction — כימות Revenue-at-Risk לCFO",prompt:`Build a Python customer churn prediction model to quantify revenue at risk.
+
+INPUT: customer_features.csv - Customer_ID | ARR | Tenure_Months | NPS | Support_Tickets_3M | Login_Frequency | Contract_End_Date | Seats_Used_Pct | Last_Upsell_Date | Churn_Label (historical)
+
+MODEL PIPELINE:
+
+1. FEATURE ENGINEERING:
+   - days_to_contract_end: (Contract_End_Date - today).days
+   - support_ticket_trend: tickets last 90 days vs. prior 90 days
+   - seat_utilization: Seats_Used / Seats_Purchased
+   - months_since_upsell: months since Last_Upsell_Date
+   - Interaction features: NPS x support_tickets, ARR x seat_utilization
+
+2. MODEL TRAINING:
+   - Split: 80% train, 20% test (time-based split - no data leakage)
+   - Models to compare: Logistic Regression, XGBoost, LightGBM
+   - Handle class imbalance: SMOTE oversampling or class_weight parameter
+
+3. EVALUATION:
+   - AUC-ROC (target >0.80)
+   - Precision-Recall curve (focus on recall)
+   - Optimal threshold: Maximize F1 or use cost-benefit analysis
+
+4. CHURN SCORE OUTPUT:
+   - Predict churn probability for all active customers
+   - Segments: High Risk (>70%), Medium Risk (40-70%), Low Risk (<40%)
+
+5. CFO REVENUE-AT-RISK REPORT:
+   - ARR at risk by segment (High/Medium/Low)
+   - Top 20 customers by: churn probability x ARR (biggest dollar risk)
+   - "If we retain top 10 at-risk accounts, we protect $[X]M ARR"
+   - Time-to-renewal distribution for high-risk accounts
+
+OUTPUT: churn_scores.csv + revenue_at_risk_report.xlsx + model_card.pdf
+
+Requirements: pandas, sklearn, xgboost, imbalanced-learn, shap, matplotlib`}
+  ]
+},
+"Demo Apps":{
+  label:"Demo Apps",
+  desc:"אפליקציות מלאות עם Claude Code",
+  range:"101–102",
+  isDemo:true,
+  icon:`<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>`,
+  items:[
+    {num:101,cat:"Demo App",level:"Advanced",text:"Cohort Analysis Mini App — Heatmap אינטראקטיבי עם commentary לCFO",prompt:`Create a mini app interactive that has a cohort analysis heatmap, commentary for my CFO. UI looks really aesthetic in AI gradient blue.
+
+Dataset: Cohort_Analysis_Dataset_w_Outliers.xlsx
+Columns: Date, Customer_ID, Product, Invoice
+Time period: 2022-2025 (13,493 transactions)
+
+Requirements:
+
+1. Interactive cohort analysis heatmap
+   - Rows: Customer acquisition month cohorts
+   - Columns: Months since acquisition
+   - Values: Revenue per cohort
+   - Color coded with heat gradient
+
+2. CFO commentary section
+   - Executive summary of cohort health
+   - Key insights about performance trends
+   - Product tier analysis
+   - Actionable recommendations
+   - 300-400 words
+
+3. Design
+   - Aesthetic AI gradient blue color scheme
+   - Modern, professional dashboard look
+   - Fully interactive and responsive
+   - Executive presentation ready
+
+Load the dataset, perform cohort analysis, generate the heatmap visualization, write compelling CFO insights, and present everything in a beautiful interactive app.`},
+    {num:102,cat:"Demo App",level:"Advanced",text:"Monte Carlo Simulation Mini App — מנוע FP&A עם נתוני דמו",prompt:`Create a mini app that can do Monte Carlo simulations for FP&A. Fill it with dummy data.
+
+The app should include:
+
+1. Simulation inputs panel
+   - Revenue growth rate: min / most likely / max (triangular distribution)
+   - Gross margin %: min / most likely / max
+   - OpEx growth rate: min / most likely / max
+   - New customer adds per month: min / most likely / max
+   - Churn rate: min / most likely / max
+   - Number of simulations: slider (1,000 to 50,000)
+   - Discount rate for NPV: input
+
+2. Simulation engine
+   - Run Monte Carlo using triangular distributions for each input
+   - Calculate for each simulation run: Annual Revenue, Gross Profit, EBITDA, FCF, 3-Year NPV
+   - Pre-fill with realistic SaaS company dummy data
+
+3. Results dashboard
+   - Histogram: distribution of EBITDA outcomes with P10 / P50 / P90 lines marked
+   - Tornado chart: sensitivity ranking — which input drives the most variance?
+   - Summary stats table: Mean, Median, Std Dev, P10, P25, P50, P75, P90 for each output
+   - Probability gauge: "Probability of hitting EBITDA target" — user sets the target
+   - Key insight callout: plain-English summary of the simulation results
+
+4. Design
+   - AI gradient blue aesthetic — dark navy to electric blue
+   - Clean dashboard layout, professional and modern
+   - Fully interactive: re-runs simulation on input change
+   - Responsive and presentation-ready`}
+  ]
+}
+};
+
+function escHtml(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+
+let activeTab='all',activeLevel='all',searchQ='';
+
+function render(){
+  const main=document.getElementById('main').querySelector('.inner');
+  main.querySelectorAll('.sec').forEach(s=>s.remove());
+  let total=0;
+  for(const[key,info] of Object.entries(DATA)){
+    if(activeTab!=='all'&&activeTab!==key)continue;
+    const filtered=info.items.filter(it=>{
+      if(activeLevel!=='all'&&it.level!==activeLevel)return false;
+      if(searchQ){const q=searchQ.toLowerCase();return it.text.toLowerCase().includes(q)||it.cat.toLowerCase().includes(q)||it.prompt.toLowerCase().includes(q);}
+      return true;
+    });
+    if(!filtered.length)continue;
+    total+=filtered.length;
+    const sec=document.createElement('div');
+    sec.className='sec'+(info.isDemo?' sec-demo':'');
+    sec.innerHTML=`
+      <div class="sec-header">
+        <div class="sec-icon">${info.icon}</div>
+        <span class="sec-name">${info.label}</span>
+        <span class="sec-tag">${info.range}</span>
+        <span class="sec-desc">${info.desc}</span>
+      </div>
+      ${info.isDemo?`<div class="demo-note">אלה prompts מלאים ל-Claude Code — הדבק ישירות ל-Claude Code עם הדאטאסט המצורף, והאפליקציה תיבנה אוטומטית.</div>`:''}
+      <div class="card-grid">
+        ${filtered.map(it=>`
+          <div class="card" data-id="${it.num}">
+            <div class="card-top">
+              <div class="card-num">${String(it.num).padStart(2,'0')}</div>
+              <div class="card-text">${escHtml(it.text)}</div>
+              <div class="card-foot">
+                <span class="card-cat">${escHtml(it.cat)}</span>
+                <span class="card-lvl ${it.level}">${it.level}</span>
+              </div>
+            </div>
+            <div class="toggle-bar">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+              לחץ לצפייה ב-prompt
+            </div>
+            <div class="drawer">
+              <div class="drawer-inner">
+                <div class="drawer-label">
+                  <span>Prompt</span>
+                  <button class="close-btn" onclick="closeCard(event)">סגור ✕</button>
+                </div>
+                <div class="prompt-block">${escHtml(it.prompt)}</div>
+                <button class="copy-btn" onclick="copyPrompt(event,${it.num})">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                  העתק Prompt
+                </button>
+              </div>
+            </div>
+          </div>`).join('')}
+      </div>`;
+    main.insertBefore(sec,document.getElementById('empty'));
+  }
+  document.getElementById('empty').style.display=total===0?'block':'none';
+  document.getElementById('rcount').textContent=total===102?'':total+' מוצגים';
+}
+
+function getAllItems(){return Object.values(DATA).flatMap(s=>s.items);}
+
+function copyPrompt(e,num){
+  e.stopPropagation();
+  const it=getAllItems().find(i=>i.num===num);
+  if(!it)return;
+  navigator.clipboard.writeText(it.prompt).then(()=>{
+    const btn=e.currentTarget;
+    btn.textContent='✓ הועתק!';
+    btn.classList.add('copied');
+    setTimeout(()=>{btn.innerHTML=`<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> העתק Prompt`;btn.classList.remove('copied');},2000);
+  });
+}
+
+document.addEventListener('click',e=>{
+  const card=e.target.closest('.card');
+  if(!card||e.target.closest('.copy-btn')||e.target.closest('.close-btn'))return;
+  const drawer=card.querySelector('.drawer');
+  const isOpen=drawer.classList.contains('open');
+  drawer.classList.toggle('open',!isOpen);
+  card.classList.toggle('open',!isOpen);
+  if(!isOpen)setTimeout(()=>card.scrollIntoView({behavior:'smooth',block:'nearest'}),50);
+});
+
+function closeCard(e){
+  e.stopPropagation();
+  const card=e.target.closest('.card');
+  if(!card)return;
+  card.querySelector('.drawer').classList.remove('open');
+  card.classList.remove('open');
+}
+
+document.querySelectorAll('.tab-btn').forEach(b=>{
+  b.addEventListener('click',()=>{
+    document.querySelectorAll('.tab-btn').forEach(t=>t.classList.remove('active'));
+    b.classList.add('active');activeTab=b.dataset.s;render();
+  });
+});
+
+document.querySelectorAll('.lvl-btn').forEach(b=>{
+  b.addEventListener('click',()=>{
+    document.querySelectorAll('.lvl-btn').forEach(t=>t.classList.remove('active'));
+    b.classList.add('active');activeLevel=b.dataset.l;render();
+  });
+});
+
+document.getElementById('search').addEventListener('input',e=>{searchQ=e.target.value.trim();render();});
+
+render();
+</script>
+</body>
+</html>
