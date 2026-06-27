@@ -662,7 +662,26 @@
     font-size: 1.15rem;
     font-weight: 700;
   }
+.recording-wrap {
+  width: 100%;
+}
 
+.recording-inner {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  border-radius: 16px;
+  background: #000;
+}
+
+.recording-inner iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
   /* ─── CONNECTORS ─── */
   #connectors { border-bottom: 1px solid var(--border); }
   .conn-grid {
@@ -2114,11 +2133,17 @@ Data behavior:
     <p class="section-desc">
       פספסתם בשידור חי? כל הוובינר — Use Cases, דמו, Q&amp;A — זמין כאן לצפייה חוזרת. שמרו את הדף, ותחזרו בכל עת.
     </p>
+
     <div class="recording-wrap">
       <div class="recording-inner">
-        <div class="recording-play">▶</div>
-        <div class="recording-label">PLACEHOLDER</div>
-        <div class="recording-text">Here would be the recording.</div>
+        <iframe
+          src="https://www.youtube-nocookie.com/embed/7Hla7UzgSd0?rel=0&playsinline=1"
+          title="הקלטת הוובינר המלא"
+          loading="lazy"
+          referrerpolicy="strict-origin-when-cross-origin"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowfullscreen>
+        </iframe>
       </div>
     </div>
   </div>
