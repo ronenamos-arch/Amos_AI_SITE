@@ -4,7 +4,7 @@ date: "2026-06-30"
 excerpt: "שלומי ניהל קבוצה ב-4 מדינות, החשב הבינלאומי שלו עמד לפרוש — ולפני כמה שנים זה היה פרויקט של 6 חודשים. הוא פתח כלי AI אחד, ואחרי 10 דקות קיבל תוכנית מלאה."
 image: "/images/blog/cfo-strategic-plan-1.png"
 tags: ["CFO", "AI", "FP&A", "תכנון אסטרטגי", "אוטומציה"]
-premium: "false"
+premium: "true"
 ---
 
 ![איך CFO בנה תוכנית אסטרטגית ל-3 שנים עם AI](/images/blog/cfo-strategic-plan-1.png)
@@ -103,9 +103,9 @@ Prompt שני הוסיף את מפת הדרכים הטכנולוגית:
 
 כנראה שכן. כנראה שהכלי כבר מותקן אצלך. מה שחסר הוא רק **brief אחד טוב**.
 
-## הצעד הבא — תכנון אסטרטגי עם AI
+## הצעד הבא
 
-רוצה לבנות תוכנית אסטרטגית לפונקציית הכספים שלך — עם כלי AI, workflows מותאמים, ובלי להמתין 6 חודשים?
+הצעד הבא שלך הוא לעוד מידע, תוכן ומדריכים לפני כולם. הירשם לבלוג שלי.
 
 <div style="display: flex; justify-content: center; margin: 3rem 0;">
   <a href="https://www.ronenamoscpa.co.il/pricing" style="
@@ -123,6 +123,6 @@ Prompt שני הוסיף את מפת הדרכים הטכנולוגית:
     box-shadow: 0 0 30px rgba(20, 184, 166, 0.5), 0 10px 25px rgba(20, 184, 166, 0.3);
     border: 1px solid rgba(20, 184, 166, 0.3);
   " onmouseover="this.style.boxShadow='0 0 40px rgba(20, 184, 166, 0.8), 0 15px 35px rgba(20, 184, 166, 0.5)'; this.style.transform='translateY(-2px)';" onmouseout="this.style.boxShadow='0 0 30px rgba(20, 184, 166, 0.5), 0 10px 25px rgba(20, 184, 166, 0.3)'; this.style.transform='translateY(0)';">
-    בואו נתכנן יחד →
+    לתוכן פרימיום נוסף — הצטרף עכשיו →
   </a>
 </div>

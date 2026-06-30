@@ -53,14 +53,38 @@ premium: "<true/false>"
 
 **CTA קבוע בסוף כל פוסט — עם כפתור זוהר:**
 
-1. **כתוב כותרת וטקסט מקדים** (המשתמש יכול לנסח זאת):
-```markdown
-## הצעד הבא — [כותרת מקצועית]
+הכותרת והטקסט המקדים **תמיד זהים** לכל הפוסטים:
 
-[טקסט קצר שמסביר את הערך של המנוי]
+```markdown
+## הצעד הבא
+
+הצעד הבא שלך הוא לעוד מידע, תוכן ומדריכים לפני כולם. הירשם לבלוג שלי.
 ```
 
-2. **הוסף כפתור זוהר (תמיד בפורמט זה):**
+**כפתור לפוסט חינמי** (`premium: "false"`) — קישור לבלוג להרשמה:
+```html
+<div style="display: flex; justify-content: center; margin: 3rem 0;">
+  <a href="https://www.ronenamoscpa.co.il/blog" style="
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem 2.5rem;
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: white;
+    background: linear-gradient(135deg, rgb(20, 184, 166) 0%, rgb(14, 165, 233) 100%);
+    border-radius: 0.75rem;
+    text-decoration: none;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 0 30px rgba(20, 184, 166, 0.5), 0 10px 25px rgba(20, 184, 166, 0.3);
+    border: 1px solid rgba(20, 184, 166, 0.3);
+  " onmouseover="this.style.boxShadow='0 0 40px rgba(20, 184, 166, 0.8), 0 15px 35px rgba(20, 184, 166, 0.5)'; this.style.transform='translateY(-2px)';" onmouseout="this.style.boxShadow='0 0 30px rgba(20, 184, 166, 0.5), 0 10px 25px rgba(20, 184, 166, 0.3)'; this.style.transform='translateY(0)';">
+    הירשם לבלוג וקבל תוכן לפני כולם →
+  </a>
+</div>
+```
+
+**כפתור לפוסט פרימיום** (`premium: "true"`) — קישור לעמוד המנוי:
 ```html
 <div style="display: flex; justify-content: center; margin: 3rem 0;">
   <a href="https://www.ronenamoscpa.co.il/pricing" style="
@@ -78,7 +102,7 @@ premium: "<true/false>"
     box-shadow: 0 0 30px rgba(20, 184, 166, 0.5), 0 10px 25px rgba(20, 184, 166, 0.3);
     border: 1px solid rgba(20, 184, 166, 0.3);
   " onmouseover="this.style.boxShadow='0 0 40px rgba(20, 184, 166, 0.8), 0 15px 35px rgba(20, 184, 166, 0.5)'; this.style.transform='translateY(-2px)';" onmouseout="this.style.boxShadow='0 0 30px rgba(20, 184, 166, 0.5), 0 10px 25px rgba(20, 184, 166, 0.3)'; this.style.transform='translateY(0)';">
-    [טקסט הכפתור]
+    לתוכן פרימיום נוסף — הצטרף עכשיו →
   </a>
 </div>
 ```
