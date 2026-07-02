@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Module 01 — שלושת המודלים | קורס Claude</title>
+  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800;900&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg:      #0b0d10;
+      --bg2:     #111318;
+      --bg3:     #181c22;
+      --border:  #232830;
+      --border2: #2e3540;
+      --accent:  #b8c45a;
+      --text:    #e8eaf0;
+      --muted:   #7a8499;
+      --muted2:  #5a6278;
+      --green:   #65c466;
+      --yellow:  #f5b340;
+      --red:     #e05555;
+      --blue:    #60a5fa;
+      --mono:    'IBM Plex Mono', monospace;
+      --sans:    'Heebo', sans-serif;
+      /* Model colours */
+      --haiku:   #4aaed9;
+      --sonnet:  #b8c45a;
+      --opus:    #c084fc;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: var(--bg); color: var(--text); font-family: var(--sans); font-size: 15px; line-height: 1.7; }
+    a { color: inherit; text-decoration: none; }
+
+    /* ── NAV ── */
+    .topnav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(11,13,16,.94); backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 2rem; height: 56px;
+    }
+    .topnav-brand { font-size: 13px; font-weight: 700; color: var(--accent); letter-spacing: .04em; text-transform: uppercase; }
+    .topnav-right { display: flex; align-items: center; gap: 1.4rem; }
+    .topnav-back { font-size: 13px; color: var(--muted); font-weight: 500; transition: color .18s; }
+    .topnav-back:hover { color: var(--accent); }
+    .topnav-module { font-size: 12px; color: var(--muted2); font-family: var(--mono); }
+
+    /* ── HERO ── */
+    .module-hero {
+      border-bottom: 1px solid var(--border);
+      padding: 56px 2rem 48px; max-width: 860px; margin: 0 auto;
+    }
+    .module-eyebrow { display: flex; align-items: center; gap: 10px; margin-bottom: 20px; }
+    .eyebrow-num {
+      font-family: var(--mono); font-size: 12px; color: var(--accent);
+      background: rgba(184,196,90,.1); border: 1px solid rgba(184,196,90,.25);
+      padding: 3px 10px; border-radius: 4px;
+    }
+    .eyebrow-part { font-size: 12px; color: var(--muted2); }
+    .eyebrow-sep { color: var(--border2); }
+    .eyebrow-level {
+      font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 4px;
+      background: rgba(101,196,102,.12); color: var(--green); border: 1px solid rgba(101,196,102,.25);
+    }
+    .module-hero h1 { font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 900; line-height: 1.15; margin-bottom: 10px; }
+    .module-hero h1 span { color: var(--accent); }
+    .module-en { font-size: 14px; color: var(--muted2); font-family: var(--mono); direction: ltr; margin-bottom: 20px; }
+    .module-meta { display: flex; gap: 20px; flex-wrap: wrap; }
+    .meta-item { display: flex; align-items: center; gap: 6px; font-size: 13px; color: var(--muted); }
+    .meta-item svg { width: 14px; height: 14px; opacity: .6; }
+
+    /* ── LAYOUT ── */
+    .content { max-width: 860px; margin: 0 auto; padding: 0 2rem 80px; }
+    .sec-label {
+      font-size: 10px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase;
+      color: var(--accent); margin: 52px 0 16px; display: flex; align-items: center; gap: 8px;
+    }
+    .sec-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+    h2 { font-size: 1.3rem; font-weight: 800; color: var(--text); margin-bottom: 12px; }
+    p { color: var(--muted); margin-bottom: 16px; font-size: 15px; }
+    p strong { color: var(--text); font-weight: 700; }
+
+    /* ── MODEL CARDS ── */
+    .model-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 14px; margin-bottom: 40px;
+    }
+    @media (max-width: 680px) { .model-grid { grid-template-columns: 1fr; } }
+
+    .model-card {
+      background: var(--bg2); border: 1px solid var(--border);
+      border-radius: 12px; padding: 22px; display: flex; flex-direction: column; gap: 12px;
+      position: relative; overflow: hidden; transition: transform .2s, box-shadow .2s;
+    }
+    .model-card:hover { transform: translateY(-3px); box-shadow: 0 10px 36px rgba(0,0,0,.4); }
+    .model-card::before {
+      content: ''; position: absolute;
+      top: 0; left: 0; right: 0; height: 3px;
+    }
+    .model-card.haiku::before  { background: var(--haiku); }
+    .model-card.sonnet::before { background: var(--sonnet); }
+    .model-card.opus::before   { background: var(--opus); }
+
+    .model-tag {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 10px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
+      padding: 3px 10px; border-radius: 4px; width: fit-content;
+      font-family: var(--mono);
+    }
+    .model-tag.haiku  { background: rgba(74,174,217,.12); color: var(--haiku);  border: 1px solid rgba(74,174,217,.25); }
+    .model-tag.sonnet { background: rgba(184,196,90,.12); color: var(--sonnet); border: 1px solid rgba(184,196,90,.25); }
+    .model-tag.opus   { background: rgba(192,132,252,.12); color: var(--opus); border: 1px solid rgba(192,132,252,.25); }
+
+    .model-name { font-size: 1.4rem; font-weight: 900; }
+    .model-card.haiku  .model-name { color: var(--haiku); }
+    .model-card.sonnet .model-name { color: var(--sonnet); }
+    .model-card.opus   .model-name { color: var(--opus); }
+
+    .model-tagline { font-size: 13px; color: var(--muted); line-height: 1.5; }
+    .model-divider { border: none; border-top: 1px solid var(--border); margin: 4px 0; }
+
+    .model-attrs { display: flex; flex-direction: column; gap: 6px; }
+    .model-attr { display: flex; justify-content: space-between; align-items: center; font-size: 12px; }
+    .attr-label { color: var(--muted2); }
+    .attr-val { font-weight: 700; font-family: var(--mono); }
+    .attr-val.fast   { color: var(--green); }
+    .attr-val.mid    { color: var(--yellow); }
+    .attr-val.slow   { color: var(--opus); }
+
+    .model-uses { margin-top: 8px; }
+    .model-uses-label { font-size: 10px; font-weight: 700; color: var(--muted2); text-transform: uppercase; letter-spacing: .08em; margin-bottom: 8px; }
+    .use-item { font-size: 12px; color: var(--muted); padding: 4px 0; border-bottom: 1px solid var(--border); display: flex; gap: 8px; }
+    .use-item:last-child { border-bottom: none; }
+    .use-dot { width: 4px; height: 4px; border-radius: 50%; background: currentColor; margin-top: 8px; flex-shrink: 0; }
+    .model-card.haiku  .use-dot { color: var(--haiku); }
+    .model-card.sonnet .use-dot { color: var(--sonnet); }
+    .model-card.opus   .use-dot { color: var(--opus); }
+
+    /* ── DECISION GUIDE ── */
+    .decision-wrap { background: var(--bg2); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; margin-bottom: 32px; }
+    .decision-header { background: var(--bg3); padding: 14px 20px; border-bottom: 1px solid var(--border); font-weight: 800; font-size: .95rem; }
+    .decision-row {
+      display: grid; grid-template-columns: 2fr 1fr 1.2fr;
+      border-bottom: 1px solid var(--border); align-items: center;
+    }
+    .decision-row:last-child { border-bottom: none; }
+    .decision-row.thead { background: var(--bg3); }
+    .d-cell { padding: 10px 16px; font-size: 13px; }
+    .d-cell.task { color: var(--text); }
+    .d-cell.model-rec { font-weight: 800; font-family: var(--mono); font-size: 12px; }
+    .d-cell.model-rec.h { color: var(--haiku); }
+    .d-cell.model-rec.s { color: var(--sonnet); }
+    .d-cell.model-rec.o { color: var(--opus); }
+    .d-cell.why { color: var(--muted); font-size: 12px; }
+    .d-cell.thead-label { color: var(--muted2); font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; }
+
+    /* ── OPUS 4.8 HIGHLIGHT ── */
+    .opus-box {
+      background: rgba(192,132,252,.05); border: 1px solid rgba(192,132,252,.2);
+      border-radius: 12px; padding: 24px; margin-bottom: 32px;
+    }
+    .opus-box-header { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; }
+    .opus-chip {
+      background: rgba(192,132,252,.15); color: var(--opus);
+      font-size: 10px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase;
+      padding: 3px 10px; border-radius: 4px; font-family: var(--mono);
+    }
+    .opus-box h3 { font-size: 1.1rem; font-weight: 800; color: var(--text); }
+    .opus-features { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    @media (max-width: 600px) { .opus-features { grid-template-columns: 1fr; } }
+    .opus-feat {
+      background: rgba(192,132,252,.06); border: 1px solid rgba(192,132,252,.12);
+      border-radius: 8px; padding: 14px;
+    }
+    .opus-feat-title { font-weight: 800; font-size: .88rem; color: var(--opus); margin-bottom: 4px; }
+    .opus-feat-desc { font-size: 12px; color: var(--muted); line-height: 1.55; }
+
+    /* ── EFFORT LEVELS ── */
+    .effort-grid { display: flex; flex-direction: column; gap: 10px; margin-bottom: 32px; }
+    .effort-row {
+      background: var(--bg2); border: 1px solid var(--border); border-radius: 8px;
+      padding: 14px 18px; display: grid; grid-template-columns: 120px 1fr auto; align-items: center; gap: 16px;
+    }
+    .effort-name { font-weight: 800; font-size: .9rem; }
+    .effort-row.fast-mode .effort-name { color: var(--haiku); }
+    .effort-row.normal-mode .effort-name { color: var(--sonnet); }
+    .effort-row.think-mode .effort-name { color: var(--opus); }
+    .effort-desc { font-size: 13px; color: var(--muted); }
+    .effort-when { font-size: 11px; color: var(--muted2); font-family: var(--mono); white-space: nowrap; }
+
+    /* ── CALLOUT ── */
+    .callout {
+      background: rgba(184,196,90,.06); border: 1px solid rgba(184,196,90,.2);
+      border-radius: 10px; padding: 20px 22px; margin-bottom: 24px;
+    }
+    .callout-label { font-size: 10px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; color: var(--accent); margin-bottom: 6px; }
+    .callout p { color: var(--text); margin: 0; font-size: 14px; }
+
+    /* ── EXERCISE ── */
+    .exercise { background: var(--bg3); border: 1px solid var(--border2); border-radius: 12px; overflow: hidden; margin-top: 48px; }
+    .exercise-header { background: var(--bg2); border-bottom: 1px solid var(--border); padding: 16px 22px; display: flex; align-items: center; gap: 12px; }
+    .exercise-badge { background: var(--accent); color: var(--bg); font-size: 10px; font-weight: 900; letter-spacing: .1em; text-transform: uppercase; padding: 3px 10px; border-radius: 4px; }
+    .exercise-title { font-weight: 800; font-size: 1rem; color: var(--text); }
+    .exercise-body { padding: 22px; }
+    .exercise-context { font-size: 13px; color: var(--muted); margin-bottom: 20px; }
+
+    .steps-list { display: flex; flex-direction: column; gap: 8px; margin-bottom: 20px; }
+    .step-item { display: flex; gap: 12px; align-items: flex-start; }
+    .step-num {
+      width: 22px; height: 22px; border-radius: 50%; flex-shrink: 0;
+      background: rgba(184,196,90,.15); border: 1px solid rgba(184,196,90,.3);
+      color: var(--accent); font-size: 11px; font-weight: 800; font-family: var(--mono);
+      display: flex; align-items: center; justify-content: center; margin-top: 2px;
+    }
+    .step-text { font-size: 13px; color: var(--muted); }
+    .step-text strong { color: var(--text); }
+
+    .prompt-box { background: var(--bg); border: 1px solid var(--border2); border-radius: 8px; padding: 16px 18px; margin-bottom: 16px; }
+    .prompt-label { font-size: 10px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--accent); margin-bottom: 8px; font-family: var(--mono); }
+    .prompt-label.sonnet-label { color: var(--sonnet); }
+    .prompt-label.opus-label   { color: var(--opus); }
+    .prompt-text { font-family: var(--mono); font-size: 13px; color: var(--text); direction: rtl; line-height: 1.7; white-space: pre-wrap; }
+    .copy-btn { background: var(--bg2); border: 1px solid var(--border2); color: var(--muted); font-size: 12px; font-family: var(--sans); padding: 5px 14px; border-radius: 5px; cursor: pointer; transition: border-color .18s, color .18s; margin-top: 8px; }
+    .copy-btn:hover { border-color: var(--accent); color: var(--accent); }
+
+    .compare-note {
+      background: var(--bg2); border: 1px solid var(--border);
+      border-radius: 8px; padding: 14px 18px;
+      font-size: 13px; color: var(--muted); margin-top: 16px;
+    }
+    .compare-note strong { color: var(--text); }
+
+    .exercise-tip { font-size: 12px; color: var(--muted2); border-top: 1px solid var(--border); margin-top: 20px; padding-top: 14px; }
+    .exercise-tip strong { color: var(--muted); }
+
+    /* ── NEXT MODULE ── */
+    .next-module { margin-top: 56px; padding-top: 32px; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
+    .prev-btn { background: var(--bg2); border: 1px solid var(--border2); color: var(--muted); font-size: 13px; font-weight: 700; padding: 8px 20px; border-radius: 8px; cursor: pointer; transition: border-color .18s, color .18s; font-family: var(--sans); }
+    .prev-btn:hover { border-color: var(--accent); color: var(--accent); }
+    .next-label { font-size: 11px; color: var(--muted2); text-transform: uppercase; letter-spacing: .1em; margin-bottom: 4px; }
+    .next-title { font-weight: 800; color: var(--text); font-size: 1rem; }
+    .next-btn { background: var(--accent); color: var(--bg); font-size: 14px; font-weight: 800; padding: 10px 24px; border-radius: 8px; cursor: pointer; white-space: nowrap; transition: background .18s, transform .15s; border: none; font-family: var(--sans); }
+    .next-btn:hover { background: #cad86a; transform: translateX(-3px); }
+
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 3px; }
+  </style>
+</head>
+<body>
+<!-- AFX-SIDEBAR START (static always-on rail — active item set by JS) -->
+<style>
+  body{padding-right:252px}
+  .afx-rail{position:fixed;top:0;right:0;width:252px;height:100vh;background:#111318;border-left:1px solid #2e3540;z-index:150;display:flex;flex-direction:column;direction:rtl;font-family:'Heebo',sans-serif}
+  .afx-rail-head{height:56px;flex-shrink:0;display:flex;align-items:center;gap:8px;padding:0 18px;border-bottom:1px solid #232830}
+  .afx-rail-head b{font-size:12px;font-weight:800;letter-spacing:.1em;color:#b8c45a;text-transform:uppercase}
+  .afx-rail-head span{font-size:10px;color:#5a6278;font-family:'IBM Plex Mono',monospace}
+  .afx-list{flex:1;overflow-y:auto;padding:8px 0 28px}
+  .afx-sep{font-size:10px;font-weight:800;letter-spacing:.1em;color:#aeb6c6;padding:14px 18px 6px}
+  .afx-link{display:flex;gap:10px;align-items:baseline;padding:8px 18px;color:#ffffff;font-size:13px;text-decoration:none;border-right:3px solid transparent;transition:background .15s,color .15s}
+  .afx-link:hover{background:#181c22;color:#ffffff}
+  .afx-link.active{color:#b8c45a;background:rgba(184,196,90,.08);border-right-color:#b8c45a;font-weight:700}
+  .afx-num{font-family:'IBM Plex Mono',monospace;font-size:11px;color:#cfd5e0;min-width:26px}
+  .afx-link.active .afx-num{color:#b8c45a}
+  .afx-list::-webkit-scrollbar{width:6px}
+  .afx-list::-webkit-scrollbar-thumb{background:#2e3540;border-radius:3px}
+  @media (max-width:900px){body{padding-right:0}.afx-rail{display:none}}
+  @media print{body{padding-right:0}.afx-rail{display:none}}
+</style>
+<nav class="afx-rail" aria-label="ניווט מודולים">
+  <div class="afx-rail-head"><b>תוכן הקורס</b><span>16 מודולים</span></div>
+  <div class="afx-list">
+    <a class="afx-link" href="course-index.html" data-file="course-index.html"><span class="afx-num">⌂</span> דף הבית — כל המודולים</a>
+    <div class="afx-sep">חלק 0 — מבוא</div>
+    <a class="afx-link" href="module-00.html" data-file="module-00.html"><span class="afx-num">00</span> ברוכים הבאים</a>
+    <a class="afx-link" href="module-01.html" data-file="module-01.html"><span class="afx-num">01</span> שלושת המודלים</a>
+    <div class="afx-sep">חלק 1 — הבסיס</div>
+    <a class="afx-link" href="module-02.html" data-file="module-02.html"><span class="afx-num">02</span> השיחה הפיננסית הראשונה</a>
+    <a class="afx-link" href="module-03.html" data-file="module-03.html"><span class="afx-num">03</span> מסגרת PRICE</a>
+    <div class="afx-sep">חלק 2 — הפיצ׳רים</div>
+    <a class="afx-link" href="module-04.html" data-file="module-04.html"><span class="afx-num">04</span> Artifacts — הקנבס</a>
+    <a class="afx-link" href="module-05.html" data-file="module-05.html"><span class="afx-num">05</span> Skills — זיכרון מוסדי</a>
+    <a class="afx-link" href="module-06.html" data-file="module-06.html"><span class="afx-num">06</span> Projects — סביבת עבודה</a>
+    <a class="afx-link" href="module-07.html" data-file="module-07.html"><span class="afx-num">07</span> Connectors — Claude מחובר</a>
+    <div class="afx-sep">חלק 3 — כלים</div>
+    <a class="afx-link" href="module-08.html" data-file="module-08.html"><span class="afx-num">08</span> Claude ב-Excel</a>
+    <a class="afx-link" href="module-09.html" data-file="module-09.html"><span class="afx-num">09</span> Claude ב-PowerPoint</a>
+    <a class="afx-link" href="module-10.html" data-file="module-10.html"><span class="afx-num">10</span> Design &amp; Cowork</a>
+    <div class="afx-sep">חלק 4 — מתקדם</div>
+    <a class="afx-link" href="module-11.html" data-file="module-11.html"><span class="afx-num">11</span> 10 עקרונות Prompting</a>
+    <a class="afx-link" href="module-12.html" data-file="module-12.html"><span class="afx-num">12</span> 102 Use Cases</a>
+    <div class="afx-sep">חלק 5 — פרויקטים</div>
+    <a class="afx-link" href="module-13.html" data-file="module-13.html"><span class="afx-num">13</span> סגירת חודש</a>
+    <a class="afx-link" href="module-14.html" data-file="module-14.html"><span class="afx-num">14</span> דשבורד CFO (Capstone)</a>
+    <div class="afx-sep">בונוס</div>
+    <a class="afx-link" href="module-15.html" data-file="module-15.html"><span class="afx-num">15</span> Skills מוכנות (Bonus)</a>
+  </div>
+</nav>
+<script>
+  (function(){var f=(location.pathname.split('/').pop()||'').toLowerCase();document.querySelectorAll('.afx-link').forEach(function(a){if((a.getAttribute('data-file')||'').toLowerCase()===f)a.classList.add('active');});})();
+</script>
+<!-- AFX-SIDEBAR END -->
+
+<!-- NAV -->
+<nav class="topnav">
+  <span class="topnav-brand">AI Finance Transformation</span>
+  <div class="topnav-right">
+    <a href="course-index.html" class="topnav-back">← כל המודולים</a>
+    <span class="topnav-module">MODULE 01 / 16</span>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="module-hero">
+  <div class="module-eyebrow">
+    <span class="eyebrow-num">MODULE 01</span>
+    <span class="eyebrow-sep">·</span>
+    <span class="eyebrow-part">חלק 0 — מבוא</span>
+    <span class="eyebrow-sep">·</span>
+    <span class="eyebrow-level">מתחיל</span>
+  </div>
+  <h1>שלושת<br><span>המודלים של Claude</span></h1>
+  <div class="module-en">Choosing the Right Model</div>
+  <div class="module-meta">
+    <span class="meta-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+      20–25 דקות
+    </span>
+    <span class="meta-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+      Claude App · Opus 4.8
+    </span>
+  </div>
+</header>
+
+<!-- CONTENT -->
+<main class="content">
+
+  <!-- INTRO -->
+  <div class="sec-label">Intelligence Tiers</div>
+  <h2>לא מודל אחד — שלושה. ולכל אחד זמנו.</h2>
+  <p>
+    Claude לא מודל אחד שעושה הכל. זו <strong>משפחה של שלושה מודלים</strong>, כל אחד עם מאפיינים שונים — מהירות, עמוק, מחיר. הבחירה הנכונה חוסכת כסף ומשפרת את איכות התשובה.
+  </p>
+  <p>
+    הכלל הפשוט: <strong>80% מהעבודה — Sonnet. כשצריך עמוק — Opus. כשצריך מהיר ופשוט — Haiku.</strong>
+  </p>
+
+  <!-- MODEL CARDS -->
+  <div class="model-grid">
+
+    <!-- HAIKU -->
+    <div class="model-card haiku">
+      <span class="model-tag haiku">⚡ Haiku 4.5</span>
+      <div class="model-name">Haiku</div>
+      <div class="model-tagline">המהיר. הזול. לשגרה.</div>
+      <hr class="model-divider">
+      <div class="model-attrs">
+        <div class="model-attr">
+          <span class="attr-label">מהירות</span>
+          <span class="attr-val fast">מאוד מהיר</span>
+        </div>
+        <div class="model-attr">
+          <span class="attr-label">עלות</span>
+          <span class="attr-val fast">הנמוכה ביותר</span>
+        </div>
+        <div class="model-attr">
+          <span class="attr-label">עומק ניתוח</span>
+          <span class="attr-val mid">בסיסי–בינוני</span>
+        </div>
+      </div>
+      <div class="model-uses">
+        <div class="model-uses-label">מתאים ל:</div>
+        <div class="use-item"><span class="use-dot"></span>סיכום אימיילים ופגישות</div>
+        <div class="use-item"><span class="use-dot"></span>עיצוב מחדש של טקסט קיים</div>
+        <div class="use-item"><span class="use-dot"></span>תרגום מסמכים פשוטים</div>
+        <div class="use-item"><span class="use-dot"></span>סינון ומיון נתונים</div>
+      </div>
+    </div>
+
+    <!-- SONNET -->
+    <div class="model-card sonnet">
+      <span class="model-tag sonnet">✦ Sonnet 4.6</span>
+      <div class="model-name">Sonnet</div>
+      <div class="model-tagline">המאוזן. ה-80%. ברירת המחדל.</div>
+      <hr class="model-divider">
+      <div class="model-attrs">
+        <div class="model-attr">
+          <span class="attr-label">מהירות</span>
+          <span class="attr-val mid">מהיר–בינוני</span>
+        </div>
+        <div class="model-attr">
+          <span class="attr-label">עלות</span>
+          <span class="attr-val mid">בינוני</span>
+        </div>
+        <div class="model-attr">
+          <span class="attr-label">עומק ניתוח</span>
+          <span class="attr-val mid">גבוה</span>
+        </div>
+      </div>
+      <div class="model-uses">
+        <div class="model-uses-label">מתאים ל:</div>
+        <div class="use-item"><span class="use-dot"></span>Variance Commentary</div>
+        <div class="use-item"><span class="use-dot"></span>ניתוח P&L ו-Budget</div>
+        <div class="use-item"><span class="use-dot"></span>בניית Artifacts ו-Dashboards</div>
+        <div class="use-item"><span class="use-dot"></span>רוב עבודת ה-FP&A היומית</div>
+      </div>
+    </div>
+
+    <!-- OPUS -->
+    <div class="model-card opus">
+      <span class="model-tag opus">◈ Opus 4.8</span>
+      <div class="model-name">Opus</div>
+      <div class="model-tagline">העמוק. לניתוחים קריטיים.</div>
+      <hr class="model-divider">
+      <div class="model-attrs">
+        <div class="model-attr">
+          <span class="attr-label">מהירות</span>
+          <span class="attr-val slow">איטי יותר</span>
+        </div>
+        <div class="model-attr">
+          <span class="attr-label">עלות</span>
+          <span class="attr-val slow">הגבוהה ביותר</span>
+        </div>
+        <div class="model-attr">
+          <span class="attr-label">עומק ניתוח</span>
+          <span class="attr-val fast">הגבוה ביותר</span>
+        </div>
+      </div>
+      <div class="model-uses">
+        <div class="model-uses-label">מתאים ל:</div>
+        <div class="use-item"><span class="use-dot"></span>ניתוח M&A ו-Due Diligence</div>
+        <div class="use-item"><span class="use-dot"></span>מודלי תרחישים מורכבים</div>
+        <div class="use-item"><span class="use-dot"></span>CFO Narrative לדירקטוריון</div>
+        <div class="use-item"><span class="use-dot"></span>בעיות אסטרטגיות מרובות משתנים</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- OPTIONAL-IMAGE: Remove this block if not needed -->
+  <!-- ADDED-IMAGE: section="Module 01 — Models" topic="Claude chat interface showing Haiku, Sonnet, Opus model selector with extended thinking" — delete this <img> tag to remove -->
+  <img src="Images\Haiku_Sonnet.png"" alt="ממשק Claude — בחירת מודלים ורמות חשיבה" style="width:100%;max-width:780px;border-radius:10px;border:1px solid var(--border2);display:block;margin-bottom:24px;">
+
+  <!-- DECISION TABLE -->
+  <div class="sec-label">מדריך הבחירה</div>
+  <h2>איזה מודל לכל משימה פיננסית?</h2>
+  <p>המדריך מכסה 80% מהמשימות של CFO, Controller ו-FP&A. ברירת המחדל תמיד Sonnet — שנה רק כשיש סיבה טובה.</p>
+
+  <div class="decision-wrap">
+    <div class="decision-row thead">
+      <div class="d-cell thead-label">משימה</div>
+      <div class="d-cell thead-label">מומלץ</div>
+      <div class="d-cell thead-label">למה?</div>
+    </div>
+    <div class="decision-row">
+      <div class="d-cell task">סיכום פגישת Board</div>
+      <div class="d-cell model-rec h">Haiku</div>
+      <div class="d-cell why">תמלול פשוט — לא צריך עמוק</div>
+    </div>
+    <div class="decision-row">
+      <div class="d-cell task">Variance Commentary חודשי</div>
+      <div class="d-cell model-rec s">Sonnet</div>
+      <div class="d-cell why">ניתוח בינוני — מהיר ומדויק</div>
+    </div>
+    <div class="decision-row">
+      <div class="d-cell task">Revenue Forecast 12 חודש</div>
+      <div class="d-cell model-rec s">Sonnet</div>
+      <div class="d-cell why">עבודת FP&A סטנדרטית</div>
+    </div>
+    <div class="decision-row">
+      <div class="d-cell task">בניית CFO Dashboard (Artifact)</div>
+      <div class="d-cell model-rec s">Sonnet</div>
+      <div class="d-cell why">HTML/JavaScript — Sonnet מצוין</div>
+    </div>
+    <div class="decision-row">
+      <div class="d-cell task">ניקוי Trial Balance ו-GL</div>
+      <div class="d-cell model-rec h">Haiku</div>
+      <div class="d-cell why">עיבוד נתונים חוזר — Haiku מהיר</div>
+    </div>
+    <div class="decision-row">
+      <div class="d-cell task">Due Diligence M&A — ניתוח סיכונים</div>
+      <div class="d-cell model-rec o">Opus</div>
+      <div class="d-cell why">מורכבות גבוהה, החלטה קריטית</div>
+    </div>
+    <div class="decision-row">
+      <div class="d-cell task">CFO Narrative לדירקטוריון</div>
+      <div class="d-cell model-rec o">Opus</div>
+      <div class="d-cell why">דיוק ועומק אסטרטגי נדרש</div>
+    </div>
+    <div class="decision-row">
+      <div class="d-cell task">Monte Carlo Scenario Analysis</div>
+      <div class="d-cell model-rec o">Opus</div>
+      <div class="d-cell why">ריבוי משתנים ואופטימיזציה</div>
+    </div>
+    <div class="decision-row">
+      <div class="d-cell task">תרגום מסמך פיננסי אנגלית←עברית</div>
+      <div class="d-cell model-rec h">Haiku</div>
+      <div class="d-cell why">משימה פשוטה — חסכו בעלות</div>
+    </div>
+    <div class="decision-row">
+      <div class="d-cell task">FP&A Board Deck (8 שקופיות)</div>
+      <div class="d-cell model-rec s">Sonnet</div>
+      <div class="d-cell why">ניתוח ועיצוב — Sonnet עוזר מצוין</div>
+    </div>
+    <div class="decision-row">
+      <div class="d-cell task">Series B Financial Model Review</div>
+      <div class="d-cell model-rec o">Opus</div>
+      <div class="d-cell why">משקיעים בוחנים — דיוק מקסימלי</div>
+    </div>
+    <div class="decision-row">
+      <div class="d-cell task">Commentary חוזר על סטיות שבועיות</div>
+      <div class="d-cell model-rec h">Haiku</div>
+      <div class="d-cell why">תבנית קבועה — לא צריך חשיבה עמוקה</div>
+    </div>
+  </div>
+
+  <!-- OPUS 4.8 -->
+  <div class="sec-label">מה חדש?</div>
+  <h2>Opus 4.8 — מה השתנה לאנשי כספים</h2>
+
+  <div class="opus-box">
+    <div class="opus-box-header">
+      <span class="opus-chip">Opus 4.8</span>
+      <h3>ארבעה שיפורים שמשנים את משחק הפיננסים</h3>
+    </div>
+    <div class="opus-features">
+      <div class="opus-feat">
+        <div class="opus-feat-title">🎯 Effort Control</div>
+        <div class="opus-feat-desc">עכשיו אפשר להגיד ל-Opus "חשוב לעומק" או "תן תשובה מהירה" — Claude מתאים את משאבי החשיבה בהתאם. פחות בזבוז, יותר דיוק כשצריך.</div>
+      </div>
+      <div class="opus-feat">
+        <div class="opus-feat-title">✅ Honesty Flagging</div>
+        <div class="opus-feat-desc">Opus 4.8 מציין מתי הוא לא בטוח. אם שאלת על נתוני שוק שהוא לא מכיר — הוא יגיד זאת במפורש, במקום להמציא מספרים. קריטי לפיננסים.</div>
+      </div>
+      <div class="opus-feat">
+        <div class="opus-feat-title">🔗 Dynamic Workflows</div>
+        <div class="opus-feat-desc">Opus יכול לתכנן ולבצע משימות מרובות שלבים באופן עצמאי — לסגור חודש ב-6 שלבים, לבנות דשבורד, לבדוק עצמו ולשפר. לא צריך להנחות כל שלב.</div>
+      </div>
+      <div class="opus-feat">
+        <div class="opus-feat-title">🧠 Reasoning Quality</div>
+        <div class="opus-feat-desc">שיפור משמעותי בניתוח רב-שלבי — Revenue Growth עם ירידת Margin, FX Impact על תרחישים, ואסטרטגיה פיננסית לטווח ארוך. חשיבה כלכלנית אמיתית.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- EFFORT LEVELS -->
+  <div class="sec-label">Effort Settings</div>
+  <h2>שלוש רמות חשיבה — אתה שולט</h2>
+  <p>ב-Opus 4.8 אפשר לפתוח את השיחה עם הנחיה על רמת המאמץ. זה משפיע ישירות על איכות התשובה ועל הזמן שלוקח.</p>
+
+  <div class="effort-grid">
+    <div class="effort-row fast-mode">
+      <div class="effort-name">⚡ Fast Mode</div>
+      <div class="effort-desc">תשובה מהירה, חשיבה קצרה. לשאלות ישירות שלא דורשות ניתוח עמוק.</div>
+      <div class="effort-when">Haiku-level speed</div>
+    </div>
+    <div class="effort-row normal-mode">
+      <div class="effort-name">✦ Normal</div>
+      <div class="effort-desc">ברירת המחדל. מאזן בין מהירות לעומק. מתאים ל-FP&A יומי.</div>
+      <div class="effort-when">Standard Opus</div>
+    </div>
+    <div class="effort-row think-mode">
+      <div class="effort-name">◈ Think Mode</div>
+      <div class="effort-desc">"חשוב לעומק לפני שתענה." Opus מגייס יותר חשיבה. לניתוחים קריטיים ו-M&A.</div>
+      <div class="effort-when">Max reasoning</div>
+    </div>
+  </div>
+
+  <div class="callout">
+    <div class="callout-label">טיפ מעשי</div>
+    <p>כשאתה שואל Opus שאלה מורכבת, הוסף בסוף: <strong>"חשוב לעומק לפני שתענה"</strong> — תראה הבדל ברמת הניתוח מיד.</p>
+  </div>
+
+  <!-- ═══ WEBINAR BLOCK — Update placeholders: VIDEO_ID_HERE → YouTube ID, WEBINAR_PAGE_URL_HERE → live page URL, WEBINAR_DESCRIPTION_HERE → 1-2 sentence description ═══ -->
+  <!-- ADDED-IMAGE: section="Module 01 — Webinar" topic="Live webinar — Claude models and thinking levels for finance teams" — remove this entire block to hide -->
+  <div style="background:linear-gradient(135deg,var(--bg2) 0%,var(--bg3) 100%);border:1px solid var(--border2);border-radius:14px;padding:28px 30px;margin-bottom:32px;">
+    <div style="font-family:var(--mono);font-size:0.62rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--accent);margin-bottom:10px;">// Live Session Recording</div>
+    <div style="font-size:1.1rem;font-weight:800;color:#ffffff;margin-bottom:10px;">וובינר מלא: סביבת העבודה החדשה של רואה החשבון עם Claude</div>
+    <p style="font-size:0.9rem;color:#ffffff;line-height:1.7;margin-bottom:20px;">בהקלטת הוובינר אני עובר על כל היכולות של Claude לאנשי כספים — איך נראית סביבת העבודה החדשה של רואה החשבון עם Claude, ומה בדיוק Claude יכול לעשות בשבילך ביום-יום. סקירה מקיפה של הפיצ׳רים והשימושים הפרקטיים, צעד אחר צעד.</p>
+    <a href="https://www.ronenamoscpa.co.il/resources/webiners/claude-accountant" target="_blank"
+      style="display:inline-flex;align-items:center;gap:10px;background:linear-gradient(135deg,var(--accent),var(--accent-light,#d6e36a));color:#0b0d10;font-family:var(--mono);font-size:0.78rem;font-weight:900;letter-spacing:0.08em;padding:13px 26px;border-radius:8px;text-decoration:none;border:none;box-shadow:0 4px 18px rgba(184,196,90,0.35);transition:all 0.2s;"
+      onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 8px 28px rgba(184,196,90,0.5)'"
+      onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='0 4px 18px rgba(184,196,90,0.35)'">
+      ▶&nbsp;&nbsp;לעמוד הוובינר המלא
+    </a>
+    <div style="margin-top:24px;position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:10px;border:1px solid var(--border2);">
+      <iframe
+        src="https://www.youtube.com/embed/7Hla7UzgSd0?rel=0"
+        title="Live Session — מפת האפשרויות של Claude ורמות חשיבה"
+        frameborder="0"
+        referrerpolicy="strict-origin-when-cross-origin"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        allowfullscreen
+        style="position:absolute;top:0;right:0;width:100%;height:100%;">
+      </iframe>
+    </div>
+  </div>
+
+  <!-- EXERCISE -->
+  <div class="exercise">
+    <div class="exercise-header">
+      <span class="exercise-badge">תרגיל 01</span>
+      <span class="exercise-title">Sonnet מול Opus — אותה שאלה, שני עולמות</span>
+    </div>
+    <div class="exercise-body">
+      <p class="exercise-context">
+        הדרך הכי טובה להבין את ההבדל בין המודלים — לשאול אותם את אותה שאלה ולהשוות.
+        פתח שתי שיחות נפרדות ב-Claude.ai — אחת עם Sonnet, אחת עם Opus. הדבק את אותו Prompt בשתיהן.
+      </p>
+
+      <div class="steps-list">
+        <div class="step-item">
+          <div class="step-num">1</div>
+          <div class="step-text">כנס ל-<strong>Claude.ai</strong> → פתח שיחה חדשה → בחר <strong>Sonnet</strong></div>
+        </div>
+        <div class="step-item">
+          <div class="step-num">2</div>
+          <div class="step-text">הדבק את ה-Prompt ← קבל תשובה → <strong>שמור אותה</strong></div>
+        </div>
+        <div class="step-item">
+          <div class="step-num">3</div>
+          <div class="step-text">פתח שיחה חדשה → בחר <strong>Opus</strong> → הדבק את אותו Prompt</div>
+        </div>
+        <div class="step-item">
+          <div class="step-num">4</div>
+          <div class="step-text">השווה: <strong>מה ראית בתשובת Opus שלא היה ב-Sonnet?</strong></div>
+        </div>
+      </div>
+
+      <div class="prompt-box">
+        <div class="prompt-label">Prompt — הדבק בשני המודלים</div>
+        <div class="prompt-text">Revenue של החברה גדל ב-18% YoY ל-$22.4M, אבל Gross Margin ירד מ-68% ל-63.2%.
+
+מה הסיכונים הפיננסיים שאני צריך לדווח לדירקטוריון?
+מה השאלות שהם ישאלו?
+ומה ההמלצה שלך לפעולה?</div>
+        <button class="copy-btn" onclick="copyPrompt(this, 'Revenue של החברה גדל ב-18% YoY ל-$22.4M, אבל Gross Margin ירד מ-68% ל-63.2%.\n\nמה הסיכונים הפיננסיים שאני צריך לדווח לדירקטוריון?\nמה השאלות שהם ישאלו?\nומה ההמלצה שלך לפעולה?')">העתק Prompt</button>
+      </div>
+
+      <div class="compare-note">
+        <strong>מה לחפש בהשוואה:</strong> האם Opus ציין יותר קשרים? האם הוא שאל שאלות הבהרה? האם הוא זיהה סיכונים שSonnet פספס? רשום הבדל אחד שהכי הפתיע אותך.
+      </div>
+
+      <div class="prompt-box" style="margin-top:16px">
+        <div class="prompt-label opus-label">Advanced — הוסף Effort Directive ל-Opus</div>
+        <div class="prompt-text">חשוב לעומק לפני שתענה.
+
+Revenue של החברה גדל ב-18% YoY ל-$22.4M, אבל Gross Margin ירד מ-68% ל-63.2%.
+
+מה הסיכונים הפיננסיים שאני צריך לדווח לדירקטוריון?
+מה השאלות שהם ישאלו?
+מה ההמלצה שלך לפעולה?
+
+תבנה את התשובה: 1) ניתוח סיבות אפשריות לירידת GM, 2) רשימת סיכונים לפי חומרה, 3) שאלות Board צפויות, 4) המלצה אסטרטגית ב-3 שורות.</div>
+        <button class="copy-btn" onclick="copyPrompt(this, 'חשוב לעומק לפני שתענה.\n\nRevenue של החברה גדל ב-18% YoY ל-$22.4M, אבל Gross Margin ירד מ-68% ל-63.2%.\n\nמה הסיכונים הפיננסיים שאני צריך לדווח לדירקטוריון?\nמה השאלות שהם ישאלו?\nמה ההמלצה שלך לפעולה?\n\nתבנה את התשובה: 1) ניתוח סיבות אפשריות לירידת GM, 2) רשימת סיכונים לפי חומרה, 3) שאלות Board צפויות, 4) המלצה אסטרטגית ב-3 שורות.')">העתק Prompt</button>
+      </div>
+
+      <div class="exercise-tip">
+        <strong>מה לצפות:</strong> ה-Advanced Prompt עם Effort Directive אמור לייצר תשובה שונה בבירור מה-Basic — ניתוח עמוק יותר, יותר שאלות רלוונטיות, והמלצה אסטרטגית ממוקדת יותר. זה מה-Opus 4.8 חדש.
+      </div>
+    </div>
+  </div>
+
+  <!-- NEXT MODULE -->
+  <div class="next-module">
+    <button class="prev-btn" onclick="window.location.href='module-00.html'">→ Module 00</button>
+    <div style="text-align:right">
+      <div class="next-label">המודול הבא</div>
+      <div class="next-title">Module 02 — השיחה הפיננסית הראשונה</div>
+    </div>
+    <button class="next-btn" onclick="window.location.href='module-02.html'">המשך ←</button>
+  </div>
+
+</main>
+
+<script>
+  function copyPrompt(btn, text) {
+    navigator.clipboard.writeText(text).then(() => {
+      btn.textContent = '✓ הועתק!';
+      btn.style.color = 'var(--green)';
+      btn.style.borderColor = 'var(--green)';
+      setTimeout(() => { btn.textContent = 'העתק Prompt'; btn.style.color = ''; btn.style.borderColor = ''; }, 2000);
+    });
+  }
+  try {
+    const p = JSON.parse(localStorage.getItem('claude-course-progress')) || {};
+    p['module-01'] = true;
+    localStorage.setItem('claude-course-progress', JSON.stringify(p));
+  } catch(e) {}
+</script>
+</body>
+</html>

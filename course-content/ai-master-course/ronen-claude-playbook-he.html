@@ -1,0 +1,1404 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Finance Transformation — Claude Playbook | רונן עמוס CPA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800;900&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+<!--
+═══════════════════════════════════════════════════════════════════════════════
+  PLACEHOLDER LEGEND
+═══════════════════════════════════════════════════════════════════════════════
+  #TODO_DOWNLOAD_* → File download URLs (currently triggers CSV download)
+  CTA links (WhatsApp, YouTube, Newsletter, Courses, LinkedIn, Skill Vault,
+  Website, Email) are LIVE and identical across every section's "למידע נוסף" block.
+═══════════════════════════════════════════════════════════════════════════════
+-->
+
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg: #0b0d10;
+  --bg2: #111318;
+  --bg3: #181c22;
+  --bg4: #1f2433;
+  --border: #232830;
+  --border-strong: #2a3347;
+  --accent: #b8c45a;
+  --accent-light: #d6e36a;
+  --accent-dim: rgba(184,196,90,0.12);
+  --accent-mid: rgba(184,196,90,0.25);
+  --text: #e8eaf0;
+  --text-muted: #a0aac0;
+  --text-dim: #7a8299;
+  --text-faint: #4a5268;
+  --mono: 'IBM Plex Mono', monospace;
+  --sans: 'Heebo', sans-serif;
+  --nav-w: 250px;
+}
+html, body { height: 100%; }
+body {
+  font-family: var(--sans);
+  background: var(--bg);
+  color: var(--text);
+  font-size: 15px;
+  direction: rtl;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
+}
+.app { display: flex; flex: 1; overflow: hidden; }
+
+/* NAV — right side for RTL */
+nav {
+  width: var(--nav-w);
+  min-width: var(--nav-w);
+  background: var(--bg2);
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  border-left: 1px solid var(--border);
+  scrollbar-width: thin;
+  scrollbar-color: var(--border-strong) transparent;
+}
+nav::-webkit-scrollbar { width: 4px; }
+nav::-webkit-scrollbar-thumb { background: var(--border-strong); }
+.nav-brand { padding: 24px 22px 20px; border-bottom: 1px solid var(--border); flex-shrink: 0; }
+.nav-logo {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  color: var(--accent);
+  letter-spacing: 0.08em;
+  margin-bottom: 10px;
+}
+.nav-title {
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: var(--text);
+  line-height: 1.35;
+  margin-bottom: 6px;
+}
+.nav-title .accent { color: var(--accent); }
+.nav-sub {
+  font-size: 0.72rem;
+  color: var(--text-dim);
+  font-weight: 400;
+}
+.nav-section { padding: 14px 0 6px; }
+.nav-section-label {
+  font-family: var(--mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+  padding: 0 22px 8px;
+  font-weight: 500;
+}
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 22px;
+  cursor: pointer;
+  font-size: 0.88rem;
+  color: var(--text-dim);
+  transition: all 0.15s;
+  border-right: 2px solid transparent;
+  font-weight: 400;
+  user-select: none;
+}
+.nav-item:hover {
+  color: var(--accent-light);
+  background: var(--accent-dim);
+}
+.nav-item.active {
+  color: var(--accent-light);
+  background: var(--accent-dim);
+  border-right-color: var(--accent);
+  font-weight: 600;
+}
+.nav-icon {
+  font-size: 0.9rem;
+  opacity: 0.75;
+  width: 16px;
+  text-align: center;
+  flex-shrink: 0;
+}
+.nav-item.active .nav-icon { opacity: 1; }
+.nav-footer {
+  margin-top: auto;
+  padding: 16px 22px 20px;
+  border-top: 1px solid var(--border);
+  flex-shrink: 0;
+}
+.nav-footer-name {
+  font-size: 0.85rem;
+  color: var(--accent-light);
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+.nav-footer-yt {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  color: var(--text-dim);
+  font-size: 0.75rem;
+  font-weight: 400;
+  transition: color 0.15s;
+}
+.nav-footer-yt:hover { color: var(--accent-light); }
+
+/* MAIN */
+main {
+  flex: 1;
+  overflow-y: auto;
+  background: var(--bg);
+  scrollbar-width: thin;
+  scrollbar-color: var(--border-strong) transparent;
+}
+main::-webkit-scrollbar { width: 5px; }
+main::-webkit-scrollbar-thumb { background: var(--border-strong); border-radius: 2px; }
+.page {
+  display: none;
+  padding: 42px 52px;
+  max-width: 900px;
+  animation: fadeIn 0.25s ease;
+}
+.page.active { display: block; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+
+/* PAGE HEADER */
+.page-header {
+  margin-bottom: 32px;
+  padding-bottom: 26px;
+  border-bottom: 1px solid var(--border);
+}
+.page-eyebrow {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent);
+  font-weight: 500;
+  margin-bottom: 12px;
+}
+.page-title {
+  font-size: 2.1rem;
+  font-weight: 800;
+  color: var(--text);
+  line-height: 1.2;
+  margin-bottom: 14px;
+}
+.page-desc {
+  font-size: 1.02rem;
+  color: var(--text-muted);
+  line-height: 1.65;
+  max-width: 640px;
+}
+
+/* CARDS */
+.what-card {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 24px 28px;
+  margin-bottom: 22px;
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.2s;
+}
+.what-card:hover { border-color: var(--accent-mid); }
+.what-card::before {
+  content: '';
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: var(--accent);
+}
+.card-label {
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+  font-weight: 500;
+  margin-bottom: 10px;
+}
+.card-title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 12px;
+}
+.card-body {
+  font-size: 0.92rem;
+  color: var(--text-muted);
+  line-height: 1.75;
+}
+.card-body strong { color: var(--accent-light); font-weight: 600; }
+
+/* EXERCISE CARD */
+.exercise-card {
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 22px 26px;
+  margin-bottom: 22px;
+  border-right: 3px solid var(--accent);
+}
+.exercise-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 13px;
+  flex-wrap: wrap;
+}
+.exercise-badge {
+  background: var(--accent);
+  color: var(--bg);
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-weight: 700;
+}
+.exercise-badge.adv-badge {
+  background: var(--accent-dim);
+  color: var(--accent-light);
+  border: 1px solid var(--accent-mid);
+}
+.exercise-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text);
+}
+.exercise-body {
+  font-size: 0.92rem;
+  color: var(--text-muted);
+  line-height: 1.7;
+  margin-bottom: 14px;
+}
+
+/* PROMPT BOX */
+.prompt-box {
+  background: var(--bg);
+  border: 1px solid var(--border-strong);
+  border-radius: 8px;
+  padding: 14px 18px;
+  font-size: 0.88rem;
+  color: var(--text);
+  line-height: 1.65;
+  border-right: 2px solid var(--accent);
+  margin-top: 12px;
+  direction: ltr;
+  text-align: left;
+  font-family: var(--mono);
+}
+.prompt-box.adv { border-right-color: var(--accent-light); }
+.prompt-label {
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 8px;
+  font-weight: 600;
+  direction: rtl;
+  text-align: right;
+}
+.prompt-label.adv { color: var(--accent-light); }
+
+/* INFO ROWS */
+.info-row {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  margin-bottom: 10px;
+}
+.info-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--accent);
+  margin-top: 9px;
+  flex-shrink: 0;
+}
+.info-text {
+  font-size: 0.92rem;
+  color: var(--text-muted);
+  line-height: 1.65;
+}
+.info-text strong { color: var(--accent-light); font-weight: 600; }
+
+/* BUTTONS */
+.btn-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 16px;
+}
+.btn-download {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--accent);
+  color: var(--bg);
+  border: none;
+  padding: 11px 20px;
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.06em;
+  font-weight: 700;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: all 0.15s;
+  direction: ltr;
+}
+.btn-download:hover {
+  background: var(--accent-light);
+  transform: translateY(-1px);
+}
+.btn-download svg { width: 14px; height: 14px; }
+
+/* LEARN MORE — CTA SECTION */
+.link-section { margin-top: 36px; }
+.link-section-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.link-section-title::before {
+  content: '';
+  width: 24px;
+  height: 2px;
+  background: var(--accent);
+}
+.link-section-sub {
+  font-size: 0.88rem;
+  color: var(--text-dim);
+  margin-bottom: 18px;
+  padding-right: 38px;
+}
+.cta-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 12px;
+}
+.cta-card {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 18px 20px;
+  text-decoration: none;
+  display: block;
+  transition: all 0.18s;
+  color: inherit;
+  border-right: 3px solid var(--accent);
+}
+.cta-card:hover {
+  background: var(--bg3);
+  border-color: var(--accent-mid);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(184,196,90,0.08);
+}
+.cta-icon {
+  font-size: 1.4rem;
+  margin-bottom: 8px;
+}
+.cta-label {
+  font-family: var(--mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+.cta-name {
+  font-size: 0.88rem;
+  color: var(--text);
+  line-height: 1.4;
+  font-weight: 500;
+}
+
+/* MODEL CARDS */
+.model-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  margin-bottom: 26px;
+}
+.model-card {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 22px 20px;
+  transition: all 0.2s;
+}
+.model-card:hover {
+  border-color: var(--accent-mid);
+  transform: translateY(-2px);
+}
+.model-card.featured {
+  border-color: var(--accent);
+  background: linear-gradient(160deg, var(--bg2) 70%, var(--accent-dim) 100%);
+}
+.model-name {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--accent-light);
+  margin-bottom: 4px;
+}
+.model-tier {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent);
+  font-weight: 500;
+  margin-bottom: 14px;
+}
+.model-desc {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  line-height: 1.7;
+  margin-bottom: 14px;
+}
+.model-use {
+  font-size: 0.8rem;
+  color: var(--text-dim);
+  font-style: italic;
+  border-top: 1px solid var(--border);
+  padding-top: 10px;
+}
+
+/* ABOUT PAGE */
+.about-hero {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 36px 36px 30px;
+  margin-bottom: 24px;
+  position: relative;
+  overflow: hidden;
+}
+.about-hero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--accent) 0%, var(--accent-light) 50%, var(--accent) 100%);
+}
+.about-initials {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: var(--accent-dim);
+  border: 1px solid var(--accent-mid);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: var(--accent-light);
+  margin-bottom: 20px;
+}
+.about-name {
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: var(--accent-light);
+  margin-bottom: 8px;
+}
+.about-role {
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  color: var(--accent);
+  margin-bottom: 20px;
+}
+.about-bio {
+  font-size: 1rem;
+  color: var(--text-muted);
+  line-height: 1.85;
+}
+.about-stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-bottom: 24px;
+}
+.stat-card {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 20px 14px;
+  text-align: center;
+  transition: all 0.2s;
+}
+.stat-card:hover {
+  border-color: var(--accent-mid);
+  transform: translateY(-2px);
+}
+.stat-num {
+  font-family: var(--mono);
+  font-size: 1.9rem;
+  font-weight: 700;
+  color: var(--accent-light);
+  line-height: 1;
+  margin-bottom: 8px;
+}
+.stat-label {
+  font-size: 0.78rem;
+  color: var(--text-dim);
+  line-height: 1.4;
+}
+.about-creds {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 26px;
+}
+.cred-tag {
+  background: var(--accent-dim);
+  border: 1px solid var(--accent-mid);
+  color: var(--accent-light);
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  padding: 6px 12px;
+  border-radius: 4px;
+  letter-spacing: 0.04em;
+  font-weight: 500;
+}
+
+/* SECTION IMAGES — optional supplementary visuals */
+.section-image {
+  width: 100%;
+  max-width: 780px;
+  height: auto;
+  border-radius: 10px;
+  display: block;
+  margin: 0 0 26px;
+  object-fit: cover;
+  border: 1px solid var(--border);
+}
+
+@media (max-width: 768px) {
+  .page { padding: 24px 20px; }
+  .model-grid { grid-template-columns: 1fr; }
+  .about-stats { grid-template-columns: repeat(2, 1fr); }
+}
+</style>
+</head>
+<body>
+<div class="app">
+
+<!-- NAV (right side for RTL) -->
+<nav>
+  <div class="nav-brand">
+    <div class="nav-logo">// AI_FINANCE_TRANSFORMATION</div>
+    <div class="nav-title">Claude <span class="accent">Playbook</span></div>
+    <div class="nav-sub">מאת רונן עמוס CPA</div>
+  </div>
+
+  <div class="nav-section">
+    <div class="nav-section-label">// MODELS</div>
+    <div class="nav-item active" onclick="show('models', this)"><span class="nav-icon">◆</span>מודלים של Claude</div>
+  </div>
+
+  <div class="nav-section">
+    <div class="nav-section-label">// FEATURES</div>
+    <div class="nav-item" onclick="show('artifacts', this)"><span class="nav-icon">⬡</span>Artifacts</div>
+    <div class="nav-item" onclick="show('skills', this)"><span class="nav-icon">✦</span>Skills</div>
+    <div class="nav-item" onclick="show('projects', this)"><span class="nav-icon">▣</span>Projects</div>
+    <div class="nav-item" onclick="show('connectors', this)"><span class="nav-icon">⟡</span>Connectors</div>
+  </div>
+
+  <div class="nav-section">
+    <div class="nav-section-label">// PRODUCTS</div>
+    <div class="nav-item" onclick="show('design', this)"><span class="nav-icon">◈</span>Claude Design</div>
+    <div class="nav-item" onclick="show('code', this)"><span class="nav-icon">⌥</span>Claude Code</div>
+    <div class="nav-item" onclick="show('cowork', this)"><span class="nav-icon">⊞</span>Claude Cowork</div>
+    <div class="nav-item" onclick="show('excel', this)"><span class="nav-icon">⊟</span>Claude ב-Excel</div>
+    <div class="nav-item" onclick="show('powerpoint', this)"><span class="nav-icon">⊠</span>Claude ב-PowerPoint</div>
+  </div>
+
+  <div class="nav-section">
+    <div class="nav-section-label">// ABOUT</div>
+    <div class="nav-item" onclick="show('about', this)"><span class="nav-icon">◎</span>אודות רונן</div>
+  </div>
+
+  <div class="nav-footer">
+    <div class="nav-footer-name">רונן עמוס CPA</div>
+    <a class="nav-footer-yt" href="https://www.youtube.com/@AIFinanceTransformation" target="_blank">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2C0 8.1 0 12 0 12s0 3.9.5 5.8a3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1C24 15.9 24 12 24 12s0-3.9-.5-5.8zM9.7 15.5V8.5l6.3 3.5-6.3 3.5z"/></svg>
+      AI Finance Transformation
+    </a>
+  </div>
+</nav>
+
+<main>
+
+<!-- ═══════════════ MODELS ═══════════════ -->
+<div class="page active" id="page-models">
+  <div class="page-header">
+    <div class="page-eyebrow">§ 01 — Intelligence Tiers</div>
+    <div class="page-title">המודלים של Claude</div>
+    <div class="page-desc">שלושה מודלים, החלטה אחת — איך לבחור את רמת האינטליגנציה הנכונה למשימה הפיננסית שלך.</div>
+  </div>
+
+  <div class="model-grid">
+    <div class="model-card">
+      <div class="model-name">Haiku 4.5</div>
+      <div class="model-tier">// FAST · EFFICIENT</div>
+      <div class="model-desc">סוס העבודה היומיומי של האנליסט. תגובות מהירות למשימות שגרתיות — סיווג תנועות, ניסוח מהיר של מזכרים, עזרה בנוסחאות אקסל ושאילתות נתונים.</div>
+      <div class="model-use">מתאים ל: משימות חוזרות, שאלות מהירות, תהליכים בזמן אמת</div>
+    </div>
+    <div class="model-card featured">
+      <div class="model-name">Sonnet 4.6</div>
+      <div class="model-tier">// BALANCED · RECOMMENDED ✦</div>
+      <div class="model-desc">המודל המועדף של ה-CFO. עומק יוצא דופן למידול פיננסי, ניתוח סטיות, מצגות לדירקטוריון וחשיבה אסטרטגית — בקצב שמכבד את הלו"ז שלך.</div>
+      <div class="model-use">מתאים ל: FP&A, דיווח, ניתוחים, סטוריטלינג</div>
+    </div>
+    <div class="model-card">
+      <div class="model-name">Opus 4.7</div>
+      <div class="model-tier">// PINNACLE · DEEP REASONING</div>
+      <div class="model-desc">חשיבה מורחבת לבעיות פיננסיות מורכבות. מידול M&A, תכנון רב-תרחישי, סינתזה רגולטורית, והחלטות שדורשות ניתוח מעמיק לעומק.</div>
+      <div class="model-use">מתאים ל: מודלים מורכבים, M&A, תכנון אסטרטגי</div>
+    </div>
+  </div>
+
+  <!-- OPTIONAL-IMAGE: Remove this block if not needed -->
+  <!-- ADDED-IMAGE: section="Models — Intelligence Tiers" topic="AI intelligence tiers, Claude models comparison, professional finance AI" — delete this <img> tag to remove -->
+  <img src="" alt="Claude AI Models — Haiku, Sonnet, Opus intelligence tiers for finance teams" class="section-image" style="display:none;">
+
+  <div class="what-card">
+    <div class="card-label">// FOR FINANCE LEADERS</div>
+    <div class="card-title">איזה מודל כדאי לי להשתמש?</div>
+    <div class="card-body">
+      <div class="info-row"><div class="info-dot"></div><div class="info-text"><strong>חשבים ורואי חשבון:</strong> Haiku להתאמות והשוואות, Sonnet לניתוחי סגירת חודש ו-commentary</div></div>
+      <div class="info-row"><div class="info-dot"></div><div class="info-text"><strong>FP&A ו-VP Finance:</strong> Sonnet לתקצוב וניתוח סטיות, Opus לתכנון ארוך טווח</div></div>
+      <div class="info-row"><div class="info-dot"></div><div class="info-text"><strong>CFOs ומנהלי כספים:</strong> Sonnet לאינטליגנציה יומיומית, Opus לאסטרטגיה ול-M&A</div></div>
+    </div>
+  </div>
+
+  <div class="exercise-card">
+    <div class="exercise-header">
+      <div class="exercise-badge">Starter Prompt</div>
+      <div class="exercise-title">השוואת מודלים בפועל</div>
+    </div>
+    <div class="exercise-body">שאל את אותה שאלה פיננסית גם ל-Sonnet 4.6 וגם ל-Opus 4.7 — שים לב להבדל בעומק החשיבה ובמבנה הניתוח.</div>
+    <div class="prompt-box">
+      <div class="prompt-label">// STARTER</div>
+"Analyze the key risks in a company where revenue grew 18% but gross margin declined 400bps. What are the five most likely root causes, and which KPIs would you investigate first as CFO?"
+    </div>
+    <div class="prompt-box adv" style="margin-top: 10px;">
+      <div class="prompt-label adv">// ADVANCED — Use with Opus 4.7 + dataset below</div>
+"You are the CFO of a B2B SaaS company. Using the data I will paste: revenue grew 18% YoY to $94M but gross margin fell from 68% to 64%. COGS drivers: hosting +$2.1M, third-party APIs +$1.8M, CS headcount +$1.4M, implementation services +$0.9M. Enterprise customers +40%, SMB churn 22%. Use extended thinking to: (1) diagnose margin compression with root-cause weighting, (2) model the impact of three strategic responses over 18 months, (3) produce a sequenced action plan with expected margin recovery per quarter and owner accountability."
+    </div>
+    <div class="btn-row">
+      <button class="btn-download" onclick="downloadCSV('models')">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 2v8M5 7l3 3 3-3M2 12h12v2H2z"/></svg>
+        Download SaaS P&L Dataset (.csv)
+      </button>
+    </div>
+  </div>
+
+  <div class="link-section" id="cta-models"></div>
+</div>
+
+<!-- ═══════════════ ARTIFACTS ═══════════════ -->
+<div class="page" id="page-artifacts">
+  <div class="page-header">
+    <div class="page-eyebrow">§ 02 — Deliverables Intelligence</div>
+    <div class="page-title">Artifacts</div>
+    <div class="page-desc">הקנבס של Claude — פלטי תוצר אינטראקטיביים שעוברים מ-conversation לתוצרים פיננסיים חיים שניתן לשתף ולהורדה.</div>
+  </div>
+
+  <div class="what-card">
+    <div class="card-label">// WHAT IS IT?</div>
+    <div class="card-title">Artifacts הם הקנבס של Claude ליצירת תוצרים</div>
+    <div class="card-body">כשClaude בונה משהו — דשבורד, מודל פיננסי, דוח, מחשבון — הוא מופיע כ-<strong>Artifact</strong> עצמאי ואינטראקטיבי לצד השיחה. תחשוב על זה כמו ש-Claude מעביר לך תוצר מוגמר. Artifacts יכולים להיות דשבורדי HTML, טבלאות מוכנות ל-Excel, מודלים ב-Python או מצגות מלוטשות — כולם מרונדרים חי, מוכנים להורדה ולשיתוף.</div>
+  </div>
+
+  <div class="exercise-card">
+    <div class="exercise-header">
+      <div class="exercise-badge">Starter Prompt</div>
+      <div class="exercise-title">בנייה של דשבורד CFO ב-60 שניות</div>
+    </div>
+    <div class="exercise-body">בקש מClaude ליצור דשבורד KPI לסגירת החודש שלך, באמצעות הדאטהסט המצורף למטה.</div>
+    <div class="prompt-box">
+      <div class="prompt-label">// STARTER</div>
+"Create an interactive HTML dashboard for a CFO monthly close review. Include cards for Revenue, Gross Margin %, EBITDA, Cash Position, DSO, and Budget Variance. Use professional green/red for performance vs. budget. Add placeholder numbers."
+    </div>
+    <div class="prompt-box adv" style="margin-top: 10px;">
+      <div class="prompt-label adv">// ADVANCED — Full Interactive Board Pack Artifact</div>
+"Using the data I paste below, build a fully interactive HTML artifact: (1) KPI header bar — 6 metrics with RAG status indicators and sparklines, (2) EBITDA bridge waterfall chart vs prior year with labeled drivers, (3) Department variance table with sortable columns and conditional formatting, (4) 12-month revenue trend by segment, (5) Auto-generated CFO executive summary. Make it self-contained, print-ready at A4 landscape, with a toggle between Board View (simplified) and Management View (detailed)."
+    </div>
+    <div class="btn-row">
+      <button class="btn-download" onclick="downloadCSV('boardpack')">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 2v8M5 7l3 3 3-3M2 12h12v2H2z"/></svg>
+        Download CFO Dashboard Dataset (.csv)
+      </button>
+    </div>
+  </div>
+
+  <div class="what-card">
+    <div class="card-label">// FINANCE USE CASES</div>
+    <div class="card-title">מה מנהלי פיננסים בונים עם Artifacts</div>
+    <div class="card-body">
+      <div class="info-row"><div class="info-dot"></div><div class="info-text">דוחות ניתוח סטיות עם <strong>commentary אוטומטי</strong> מבוסס AI</div></div>
+      <div class="info-row"><div class="info-dot"></div><div class="info-text">מודלי תרחישים אינטראקטיביים (Base / Upside / Downside)</div></div>
+      <div class="info-row"><div class="info-dot"></div><div class="info-text">סיכומי דירקטוריון מוכנים עם גרפים מובנים</div></div>
+      <div class="info-row"><div class="info-dot"></div><div class="info-text">ויזואליזציות תזרים מזומנים ומעקב הון חוזר</div></div>
+      <div class="info-row"><div class="info-dot"></div><div class="info-text">מחשבונים פיננסיים מותאמים אישית לניתוח עסקאות וסינון M&A</div></div>
+    </div>
+  </div>
+
+  <!-- OPTIONAL-IMAGE: Remove this block if not needed -->
+  <!-- ADDED-IMAGE: section="Artifacts — Deliverables Intelligence" topic="CFO dashboard, interactive financial artifact, HTML dashboard screenshot" — delete this <img> tag to remove -->
+  <img src="" alt="Claude Artifact — interactive CFO dashboard with KPIs, charts and variance analysis" class="section-image" style="display:none;">
+
+  <div class="link-section" id="cta-artifacts"></div>
+</div>
+
+<!-- ═══════════════ SKILLS ═══════════════ -->
+<div class="page" id="page-skills">
+  <div class="page-header">
+    <div class="page-eyebrow">§ 03 — Persistent Intelligence</div>
+    <div class="page-title">Skills</div>
+    <div class="page-desc">למד את Claude את המתודולוגיה של החברה שלך פעם אחת — והוא יבצע אותה בעקביות מוסדית בכל פעם.</div>
+  </div>
+
+  <div class="what-card">
+    <div class="card-label">// WHAT IS IT?</div>
+    <div class="card-title">Skills הם הוראות שמורות לשימוש חוזר</div>
+    <div class="card-body">Skill הוא סט הוראות שמורות שנותן ל-Claude ידע מומחה או דרך עבודה סטנדרטית — מדיניות ה-revenue recognition של החברה שלך, סגנון ה-commentary לסטיות, מבנה תרשים החשבונות. במקום להסביר את ההקשר מחדש בכל סשן, Skills נותנים ל-Claude <strong>זיכרון מוסדי</strong> כך שכל פלט עוקב אחר אותו סטנדרט מקצועי.</div>
+  </div>
+
+  <div class="exercise-card">
+    <div class="exercise-header">
+      <div class="exercise-badge">Starter Prompt</div>
+      <div class="exercise-title">יצירת Skill ל-Variance Commentary</div>
+    </div>
+    <div class="exercise-body">הגדר Skill שיורה ל-Claude לכתוב commentary תמיד בפורמט של החברה שלך. השתמש בדאטהסט למטה כדי לבדוק אותו מיד.</div>
+    <div class="prompt-box">
+      <div class="prompt-label">// STARTER — Paste into Skills Definition</div>
+"You are a senior FP&A analyst. When writing variance commentary: 1) Lead with the variance amount and direction, 2) Identify the primary driver, 3) Note if one-time or recurring, 4) State the recommended action. Keep each comment under 60 words. Avoid passive voice."
+    </div>
+    <div class="prompt-box adv" style="margin-top: 10px;">
+      <div class="prompt-label adv">// ADVANCED — Full Institutional FP&A Skill</div>
+"You are the AI FP&A Analyst for [Company Name]. Fiscal year Jan–Dec, reporting USD, three segments (Americas, EMEA, APAC), four business lines (Platform, Professional Services, Support, Marketplace). When I share financial data: (1) produce a structured variance table — Actual / Budget / Variance $ / Variance % / RAG Status, (2) write management commentary per line using: [Driver] → [Impact] → [Action], max 45 words, (3) flag variances >10% or >$25K as 'Requires CFO Attention', (4) close with a 3-bullet executive summary for the board pack. Maintain this structure in every session."
+    </div>
+    <div class="btn-row">
+      <button class="btn-download" onclick="downloadCSV('variance')">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 2v8M5 7l3 3 3-3M2 12h12v2H2z"/></svg>
+        Download Variance Dataset to Practice (.csv)
+      </button>
+    </div>
+  </div>
+
+  <div class="link-section" id="cta-skills"></div>
+</div>
+
+<!-- ═══════════════ PROJECTS ═══════════════ -->
+<div class="page" id="page-projects">
+  <div class="page-header">
+    <div class="page-eyebrow">§ 04 — Contextual Workspaces</div>
+    <div class="page-title">Projects</div>
+    <div class="page-desc">סביבות עבודה ייעודיות שבהן Claude שומר את כל ההקשר — הדאטה הפיננסית שלך, המסמכים וההוראות נשמרים בכל שיחה.</div>
+  </div>
+
+  <div class="what-card">
+    <div class="card-label">// WHAT IS IT?</div>
+    <div class="card-title">Projects הם סביבות עבודה עם זיכרון ארוך טווח</div>
+    <div class="card-body">Project הוא סביבת עבודה קבועה ב-Claude שבה אתה מעלה מסמכים, מגדיר הוראות, ומקיים שיחות מתמשכות — הכל עם <strong>זיכרון מלא</strong>. Claude זוכר את הדוחות הכספיים שלך, את הקונטקסט של החברה ואת הקונבנציות. צוותי פיננסים בונים Projects ל: תקציב שנתי, סגירת חודש, דיווח לדירקטוריון, הכנה לביקורת, וניתוח M&A. כל Project הופך לאנליסט AI שמכיר את העסק שלך לעומק.</div>
+  </div>
+
+  <div class="exercise-card">
+    <div class="exercise-header">
+      <div class="exercise-badge">Starter Prompt</div>
+      <div class="exercise-title">הקמת Project לתקציב 2026</div>
+    </div>
+    <div class="exercise-body">צור Claude Project בשם "FY2026 Budget", העלה את הדאטהסט למטה והגדר את ההוראות הבאות. Claude ישתמש בדאטה שלך כקונטקסט בכל שיחה בתוך הפרויקט.</div>
+    <div class="prompt-box">
+      <div class="prompt-label">// STARTER — Project Instructions</div>
+"This project is for FY2026 budget planning. Fiscal year: January–December. Currency: USD. Segments: Americas, EMEA, APAC. Show segment breakdowns always. Flag assumptions that differ by more than 15% from prior year."
+    </div>
+    <div class="prompt-box adv" style="margin-top: 10px;">
+      <div class="prompt-label adv">// ADVANCED — Full Project System Prompt</div>
+"You are the AI FP&A Director for [Company Name]. This project contains all budget, forecast, and actuals data for FY2026. Rules: (1) Never state a conclusion without referencing the uploaded data, (2) When assumptions are missing, state them explicitly before proceeding, (3) Always produce two formats: a detailed analyst view and a one-page executive summary, (4) For headcount planning, always link to revenue productivity ratios from prior year data, (5) Flag any budget line where YoY growth exceeds 20% or where we invest ahead of revenue — these require a written business case. Every session starts by confirming which uploaded files you can access."
+    </div>
+    <div class="btn-row">
+      <button class="btn-download" onclick="downloadCSV('budget')">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 2v8M5 7l3 3 3-3M2 12h12v2H2z"/></svg>
+        Download FY2026 Budget Template (.csv)
+      </button>
+    </div>
+  </div>
+
+  <div class="link-section" id="cta-projects"></div>
+</div>
+
+<!-- ═══════════════ CONNECTORS ═══════════════ -->
+<div class="page" id="page-connectors">
+  <div class="page-header">
+    <div class="page-eyebrow">§ 05 — System Integration</div>
+    <div class="page-title">Connectors</div>
+    <div class="page-desc">Claude נפגש עם ה-tech stack שלך — מתחבר ישירות ל-ERPs, אקסל, מסדי נתונים וכלי BI בזמן אמת.</div>
+  </div>
+
+  <div class="what-card">
+    <div class="card-label">// WHAT IS IT?</div>
+    <div class="card-title">Connectors מחברים את Claude למערכות החיות שלך</div>
+    <div class="card-body">Connectors (דרך <strong>MCP — Model Context Protocol</strong>) מאפשרים ל-Claude לגשת בצורה מאובטחת לדאטה חיה מהכלים הקיימים שלך: Google Drive, קבצי Excel, Slack, מסדי נתונים ופלטפורמות פיננסיות. במקום להעתיק ולהדביק דאטה לClaude, אתה מחבר את המערכות שלך ישירות. Claude יכול לנתח את הדוחות הפיננסיים החיים שלך, למשוך מה-ERP, או לסכם מסמכים מהדרייב המשותף — בזמן אמת, ללא ייצוא ידני.</div>
+  </div>
+
+  <div class="exercise-card">
+    <div class="exercise-header">
+      <div class="exercise-badge">Starter Prompt</div>
+      <div class="exercise-title">חיבור Google Drive ל-Claude</div>
+    </div>
+    <div class="exercise-body">הפעל את ה-Connector של Google Drive ב-Claude Settings. אחר כך השתמש ב-prompt למטה — ללא צורך בהעלאת קבצים.</div>
+    <div class="prompt-box">
+      <div class="prompt-label">// STARTER</div>
+"Access 'Q3 2025 Board Pack' from my Google Drive. Summarize the key financial highlights, flag any metrics below target, and draft three talking points for the CFO presentation."
+    </div>
+    <div class="prompt-box adv" style="margin-top: 10px;">
+      <div class="prompt-label adv">// ADVANCED — Multi-File Monthly Close Workflow</div>
+"Access from my Google Drive: 'October Actuals.xlsx', 'FY2025 Budget.xlsx', and 'September Variance Report.pdf'. Compare October actuals to budget line by line. For each variance over $20K or 8%, write root-cause commentary. Compare October vs September and identify worsening trends. Produce: (1) a variance table ready to paste into PowerPoint, (2) a three-paragraph CFO narrative for the board pack, (3) five questions the CFO should be prepared to answer from the board."
+    </div>
+    <div class="btn-row">
+      <button class="btn-download" onclick="downloadCSV('variance')">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 2v8M5 7l3 3 3-3M2 12h12v2H2z"/></svg>
+        Download Monthly Actuals Dataset (.csv)
+      </button>
+    </div>
+  </div>
+
+  <div class="what-card">
+    <div class="card-label">// FINANCE CONNECTOR USE CASES</div>
+    <div class="card-title">איך צוותי פיננסים משתמשים ב-Connectors</div>
+    <div class="card-body">
+      <div class="info-row"><div class="info-dot"></div><div class="info-text">משיכת P&L חודשי מ-Google Drive ויצירה אוטומטית של commentary לסטיות</div></div>
+      <div class="info-row"><div class="info-dot"></div><div class="info-text">חיבור Slack לסיכום שיחות והחלטות של צוות הפיננסים</div></div>
+      <div class="info-row"><div class="info-dot"></div><div class="info-text">גישה למודלי Excel חיים <strong>ללא צורך להעלות מחדש</strong> בכל סשן</div></div>
+      <div class="info-row"><div class="info-dot"></div><div class="info-text">משיכת PDFs של חוזים לחילוץ אוטומטי של התחייבויות פיננסיות</div></div>
+    </div>
+  </div>
+
+  <!-- OPTIONAL-IMAGE: Remove this block if not needed -->
+  <!-- ADDED-IMAGE: section="Connectors — System Integration" topic="MCP connectors, Google Drive, ERP integration, finance tech stack diagram" — delete this <img> tag to remove -->
+  <img src="" alt="Claude Connectors — real-time system integration with cloud storage, ERP and financial platforms" class="section-image" style="display:none;">
+
+  <div class="link-section" id="cta-connectors"></div>
+</div>
+
+<!-- ═══════════════ DESIGN ═══════════════ -->
+<div class="page" id="page-design">
+  <div class="page-header">
+    <div class="page-eyebrow">§ 06 — Visual · Slides · Video Intelligence</div>
+    <div class="page-title">Claude Design</div>
+    <div class="page-desc">מגרפים ועד מצגות מלאות ועד וידאו מקריין — Claude Design הוא סטודיו ההפקה הויזואלי המלא שלך לפיננסים.</div>
+  </div>
+
+  <div class="what-card">
+    <div class="card-label">// WHAT IS IT?</div>
+    <div class="card-title">Claude Design הולך הרבה מעבר לויזואליזציה</div>
+    <div class="card-body">Claude Design הוא סוויטת הפקה יצירתית מלאה לאנשי פיננסים. הוא לא רק יוצר גרפים — הוא בונה <strong>דשבורדים אינטראקטיביים</strong> מלאים, מייצר <strong>מצגות slide decks</strong> מלוטשות עם נרטיב פיננסי מובנה, ומפיק <strong>תוכן וידאו מוכן</strong> כולל data stories מונפשים ותסריטי עדכון CFO מקריינים. תאר מה אתה צריך, הדבק את המספרים שלך, ו-Claude מפיק תוצרים ברמת חדר ישיבות דרך שיחה טבעית.</div>
+  </div>
+
+  <div class="what-card">
+    <div class="card-label">// THREE OUTPUT TIERS</div>
+    <div class="card-title">Dashboards, Slides ו-Video — הכל מ-Claude</div>
+    <div class="card-body">
+      <div class="info-row"><div class="info-dot"></div><div class="info-text"><strong>Dashboards:</strong> דשבורדים פיננסיים HTML/SVG אינטראקטיביים עם גרפים חיים, KPI cards, סטטוסי RAG ו-toggle תרחישים — שיתופיים וניתנים להטמעה בכל מקום</div></div>
+      <div class="info-row"><div class="info-dot"></div><div class="info-text"><strong>Slides &amp; Presentations:</strong> מצגות לדירקטוריון עם נרטיבים פיננסיים מובנים, טבלאות מוכנות לגרפים, סיכומי הנהלה ו-speaker notes — מוכן לייצוא ל-PowerPoint או PDF</div></div>
+      <div class="info-row"><div class="info-dot"></div><div class="info-text"><strong>Video &amp; Animation:</strong> תסריטים מקריינים לעדכוני וידאו של CFO, walk-throughs של נתונים מונפשים, ו-storyboards לתקשורת משקיעים או הדרכת צוות פיננסים</div></div>
+    </div>
+  </div>
+
+  <div class="exercise-card">
+    <div class="exercise-header">
+      <div class="exercise-badge">Starter Prompt</div>
+      <div class="exercise-title">בניית גרף Revenue Bridge</div>
+    </div>
+    <div class="exercise-body">השתמש בדאטהסט הניתן להורדה למטה ובקש מ-Claude Design ליצור גרף waterfall bridge ממנו.</div>
+    <div class="prompt-box">
+      <div class="prompt-label">// STARTER</div>
+"Create a waterfall bridge chart showing revenue movement from FY2024 ($85M) to FY2025 ($94M). Drivers: Volume +$12M, Price +$4M, New Products +$3M, FX headwind -$6M, Customer churn -$4M. Professional finance colors, board-presentation ready."
+    </div>
+    <div class="prompt-box adv" style="margin-top: 10px;">
+      <div class="prompt-label adv">// ADVANCED — Full Board Pack Visual Suite + CFO Video Script</div>
+"Using the data I paste, create two outputs: (1) A complete HTML board pack artifact — KPI header with sparklines, EBITDA bridge waterfall, revenue by segment stacked bar (8 quarters), gross margin walk, and an auto-generated CFO commentary box. Print-ready A4 landscape with Board / Management view toggle. (2) A 3-minute CFO video script narrating the same data — written for verbal delivery, with slide cues, pauses, and three key messages structured for a non-finance audience."
+    </div>
+    <div class="btn-row">
+      <button class="btn-download" onclick="downloadCSV('viz')">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 2v8M5 7l3 3 3-3M2 12h12v2H2z"/></svg>
+        Download Chart &amp; Bridge Dataset (.csv)
+      </button>
+    </div>
+  </div>
+
+  <div class="link-section" id="cta-design"></div>
+</div>
+
+<!-- ═══════════════ CODE ═══════════════ -->
+<div class="page" id="page-code">
+  <div class="page-header">
+    <div class="page-eyebrow">§ 07 — Automation &amp; Engineering</div>
+    <div class="page-title">Claude Code</div>
+    <div class="page-desc">השותף ההנדסי שלך — אוטומציה של תהליכי פיננסים, בניית סקריפטים ויצירת כלים בלי מפתח על חיוג מהיר.</div>
+  </div>
+
+  <div class="what-card">
+    <div class="card-label">// WHAT IS IT?</div>
+    <div class="card-title">Claude Code הוא מהנדס האוטומציה הפיננסית שלך</div>
+    <div class="card-body">Claude Code הוא כלי קידוד agentic — נגיש דרך terminal או IDE — שבו Claude כותב, מריץ ומבצע debug לקוד באופן עצמאי. לצוותי פיננסים: אוטומציה של משיכות דאטה בסוף חודש, בניית סקריפטים ב-Python לניקוי ולהתאמה של דאטהסטים גדולים, יצירת pipelines דיווח אוטומטיים, פיתוח מאקרו ל-Excel. <strong>לא צריך תואר בהנדסה</strong> — תאר את הבעיה באנגלית פשוטה, Claude בונה את הפתרון.</div>
+  </div>
+
+  <div class="exercise-card">
+    <div class="exercise-header">
+      <div class="exercise-badge">Starter Prompt</div>
+      <div class="exercise-title">אוטומציה של התאמת GL</div>
+    </div>
+    <div class="exercise-body">הורד את הדאטה לדוגמה של GL ובנק למטה, ואז תן ל-Claude Code את ה-prompt הזה כדי לבנות סקריפט התאמה עובד.</div>
+    <div class="prompt-box">
+      <div class="prompt-label">// STARTER</div>
+"Build a Python script that: 1) Reads 'gl_export.csv' and 'bank_statement.csv', 2) Matches transactions by amount and date (±2 days tolerance), 3) Outputs 'reconciliation_report.csv' with: Matched items, Unmatched GL items, Unmatched Bank items, Summary with match rate %."
+    </div>
+    <div class="prompt-box adv" style="margin-top: 10px;">
+      <div class="prompt-label adv">// ADVANCED — Full Month-End Automation Pipeline</div>
+"Build a complete Python month-end close pipeline: (1) Read the GL trial balance CSV and classify each line to our standard P&L structure using a mapping table I provide, (2) Calculate actuals vs budget variance per line and segment, (3) Apply commentary rules: flag variances >8% or >$15K, generate one-sentence draft commentary using template '[Account] was [above/below] budget by [$X / X%] driven by [inferred driver]', (4) Export three outputs: formatted Excel variance report, PowerPoint-ready data table, and JSON for our BI dashboard. Add error handling for missing accounts and log unmapped GL codes to an exceptions file."
+    </div>
+    <div class="btn-row">
+      <button class="btn-download" onclick="downloadCSV('recon')">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 2v8M5 7l3 3 3-3M2 12h12v2H2z"/></svg>
+        Download GL &amp; Bank Sample Data (.csv)
+      </button>
+    </div>
+  </div>
+
+  <div class="link-section" id="cta-code"></div>
+</div>
+
+<!-- ═══════════════ COWORK ═══════════════ -->
+<div class="page" id="page-cowork">
+  <div class="page-header">
+    <div class="page-eyebrow">§ 08 — Desktop Intelligence</div>
+    <div class="page-title">Claude Cowork</div>
+    <div class="page-desc">Claude על שולחן העבודה שלך — צופה במסך, מודע לקבצים, פועל בכל האפליקציות כדי להשלים משימות פיננסיות באופן עצמאי.</div>
+  </div>
+
+  <div class="what-card">
+    <div class="card-label">// WHAT IS IT?</div>
+    <div class="card-title">Claude Cowork הוא ה-AI co-pilot שלך בשולחן העבודה</div>
+    <div class="card-body">Claude Cowork היא אפליקציית desktop שנותנת ל-Claude נראות אל המסך ומערכת הקבצים שלך — מאפשרת לו לעבוד על כמה אפליקציות במקביל. לאנשי פיננסים, Claude יכול לצפות בך עובד ב-Excel, לקרוא PDF על המסך, להצליב דאטה בין כמה קבצים פתוחים, ולבצע פעולות — מילוי תאים, שינוי שמות קבצים, העברת דאטה — בלי שתעבור בין הקשרים. <strong>ההבדל בין לשאול את Claude שאלה לבין להפוך אותו לפרטנר עבודה.</strong></div>
+  </div>
+
+  <div class="exercise-card">
+    <div class="exercise-header">
+      <div class="exercise-badge">Starter Prompt</div>
+      <div class="exercise-title">ניתוח Cross-File לסגירת חודש</div>
+    </div>
+    <div class="exercise-body">פתח את קובץ התקציב והאקטואלס במקביל. הורד את הדאטהסט למטה כנקודת התחלה, ואז נסה את ה-prompt הזה.</div>
+    <div class="prompt-box">
+      <div class="prompt-label">// STARTER</div>
+"I have Budget.xlsx and Actuals_October.xlsx both open. Read both files, calculate the variance for each P&L line item, and populate the Variance tab in my reporting template. Flag any line where variance exceeds 10% or $50K."
+    </div>
+    <div class="prompt-box adv" style="margin-top: 10px;">
+      <div class="prompt-label adv">// ADVANCED — Full Close Week Autonomous Workflow</div>
+"I have four files open: Budget_FY2025.xlsx, October_Actuals.xlsx, September_Report.pdf, and Board_Template.pptx. Complete my close week workflow: (1) Extract October actuals and map to our standard P&L structure, (2) Calculate variances vs budget and vs September from the PDF, (3) Identify the top 5 variances by absolute dollar and draft one-sentence commentary for each, (4) Open the PowerPoint template and populate slides 3 (KPI summary), 4 (variance table), and 5 (CFO narrative) with the generated data and commentary. Flag any slide where data is missing and tell me what input you need."
+    </div>
+    <div class="btn-row">
+      <button class="btn-download" onclick="downloadCSV('variance')">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 2v8M5 7l3 3 3-3M2 12h12v2H2z"/></svg>
+        Download Multi-File Close Dataset (.csv)
+      </button>
+    </div>
+  </div>
+
+  <div class="link-section" id="cta-cowork"></div>
+</div>
+
+<!-- ═══════════════ EXCEL ═══════════════ -->
+<div class="page" id="page-excel">
+  <div class="page-header">
+    <div class="page-eyebrow">§ 09 — Spreadsheet Intelligence</div>
+    <div class="page-title">Claude ב-Excel</div>
+    <div class="page-desc">הכלי הפיננסי החזק בעולם פוגש את ה-AI היכולתי ביותר — Claude חי בתוך Excel, ומשנה את האופן שצוותי פיננסים מודלים, מנתחים ומדווחים.</div>
+  </div>
+
+  <div class="what-card">
+    <div class="card-label">// WHAT IS IT?</div>
+    <div class="card-title">Claude מוטמע ישירות ב-Microsoft Excel</div>
+    <div class="card-body">Claude in Excel הוא add-in נטיב שמביא את האינטליגנציה של Claude לסביבת הספרדשיט שלך. בחר טווח, תאר מה אתה צריך, ו-Claude קורא את הדאטה שלך, כותב נוסחאות, מייצר ניתוח, מוסיף commentary או מנקה דאטהסטים — הכל בלי לעזוב את Excel. לצוותי פיננסים, זה <strong>מבטל את ה-workflow של העתק-הדבק</strong>. Claude רואה את מבנה הספרדשיט שלך ופועל עליו ישירות.</div>
+  </div>
+
+  <div class="exercise-card">
+    <div class="exercise-header">
+      <div class="exercise-badge">Starter Prompt</div>
+      <div class="exercise-title">ייצור Commentary אוטומטי לסטיות</div>
+    </div>
+    <div class="exercise-body">הורד את דאטהסט הסטיות למטה, פתח אותו ב-Excel עם ה-add-in של Claude מותקן, בחר את טווח הדאטה, והרץ את ה-prompt הזה.</div>
+    <div class="prompt-box">
+      <div class="prompt-label">// STARTER</div>
+"Review the selected variance table (Actual vs. Budget by department). For each row with a variance over $10K or 5%, write one sentence of management commentary explaining the likely driver. Keep language professional and concise."
+    </div>
+    <div class="prompt-box adv" style="margin-top: 10px;">
+      <div class="prompt-label adv">// ADVANCED — Intelligent Trial Balance to Management P&L</div>
+"I have selected my raw trial balance data (columns: Account Code, Account Name, Department, Actual MTD, Actual YTD, Budget MTD, Budget YTD). Do the following: (1) Map each account to our standard P&L hierarchy: Revenue → Gross Profit → Operating Expenses → EBITDA → Net Income, (2) Create a new tab 'Management P&L' with the hierarchy, calculated subtotals, and % of revenue columns, (3) Add conditional formatting: green if Actual > Budget >5%, red if Actual < Budget >5%, amber within 5%, (4) Write management commentary in column H for every line with a variance over $15K — format: '[Account] was [above/below] budget by $X / Z% driven by [driver]', (5) Create a summary tab ranking the top 10 variances by absolute dollar impact with a Recommendation column."
+    </div>
+    <div class="btn-row">
+      <button class="btn-download" onclick="downloadCSV('variance')">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 2v8M5 7l3 3 3-3M2 12h12v2H2z"/></svg>
+        Download Trial Balance &amp; Variance Dataset (.csv)
+      </button>
+    </div>
+  </div>
+
+  <div class="what-card">
+    <div class="card-label">// FINANCE USE CASES</div>
+    <div class="card-title">מה צוותי פיננסים עושים עם Claude ב-Excel</div>
+    <div class="card-body">
+      <div class="info-row"><div class="info-dot"></div><div class="info-text">כתיבת נוסחאות מורכבות של <strong>XLOOKUP, INDEX/MATCH</strong> ו-dynamic arrays לפי דרישה</div></div>
+      <div class="info-row"><div class="info-dot"></div><div class="info-text">ניקוי וסטנדרטיזציה של ייצואי trial balance מבולגנים מ-ERPs</div></div>
+      <div class="info-row"><div class="info-dot"></div><div class="info-text">ייצור commentary לסטיות לדירקטוריון בצורה אוטומטית</div></div>
+      <div class="info-row"><div class="info-dot"></div><div class="info-text">בניית מודלים פיננסיים בשלושה דוחות מאפס בעזרת AI</div></div>
+      <div class="info-row"><div class="info-dot"></div><div class="info-text">סיכום דאטהסטים גדולים לתובנות ברמת הנהלה בו זמנית</div></div>
+    </div>
+  </div>
+
+  <!-- OPTIONAL-IMAGE: Remove this block if not needed -->
+  <!-- ADDED-IMAGE: section="Claude ב-Excel — Spreadsheet Intelligence" topic="Claude AI working inside Microsoft Excel, finance spreadsheet automation" — delete this <img> tag to remove -->
+  <img src="" alt="Claude in Spreadsheets — AI-powered variance commentary and formula generation inside finance workbooks" class="section-image" style="display:none;">
+
+  <div class="link-section" id="cta-excel"></div>
+</div>
+
+<!-- ═══════════════ POWERPOINT ═══════════════ -->
+<div class="page" id="page-powerpoint">
+  <div class="page-header">
+    <div class="page-eyebrow">§ 10 — Presentation Intelligence</div>
+    <div class="page-title">Claude ב-PowerPoint</div>
+    <div class="page-desc">מדאטה ועד מצגת לדירקטוריון תוך דקות — Claude כותב, מובנה ומשפר את המצגות הפיננסיות שלך בתוך PowerPoint.</div>
+  </div>
+
+  <div class="what-card">
+    <div class="card-label">// WHAT IS IT?</div>
+    <div class="card-title">Claude כאסטרטג מצגות שלך ב-PowerPoint</div>
+    <div class="card-body">Claude in PowerPoint הוא add-in נטיב שמביא את Claude אל ה-workflow של המצגות שלך. בחר שקופית, תיבת טקסט או מצגת שלמה ובקש מ-Claude לשכתב תוכן, לשפר נרטיבים פיננסיים, להוסיף סיכומי הנהלה, לארגן מחדש לוגיקת שקופיות או לייצר speaker notes. צוותי פיננסים משתמשים בזה כדי <strong>להפוך ייצואי דאטה גולמיים למצגות CFO מלוטשות</strong> תוך הפחתה דרמטית של זמן הכנת דירקטוריון.</div>
+  </div>
+
+  <div class="exercise-card">
+    <div class="exercise-header">
+      <div class="exercise-badge">Starter Prompt</div>
+      <div class="exercise-title">העברת הנרטיב של מצגת הדירקטוריון</div>
+    </div>
+    <div class="exercise-body">הורד את דאטהסט הדירקטוריון למטה, ואז השתמש ב-prompt הזה ב-PowerPoint עם ה-add-in של Claude כדי לייצר תוכן שקופית מוכן להנהלה.</div>
+    <div class="prompt-box">
+      <div class="prompt-label">// STARTER</div>
+"Rewrite this slide for a CFO board presentation. Transform the bullet points into a three-sentence executive insight. First: key financial result. Second: primary driver. Third: outlook or recommended action. Use confident, direct language."
+    </div>
+    <div class="prompt-box adv" style="margin-top: 10px;">
+      <div class="prompt-label adv">// ADVANCED — Full 8-Slide Board Pack Generation</div>
+"Using the data I paste, generate a complete 8-slide board pack. For each slide provide: insight-led title (max 8 words), three talking points in CFO voice, and speaker notes with the top two anticipated board questions. Slides: (1) Executive Summary — 3 headlines + CFO action; (2) P&L Summary table vs budget and prior year; (3) Revenue bridge narrative; (4) Gross margin walk and commentary; (5) OpEx analysis by department; (6) Cash flow and balance sheet highlights; (7) Revised FY guidance and assumptions; (8) Risks and mitigations. Format for direct paste into PowerPoint."
+    </div>
+    <div class="btn-row">
+      <button class="btn-download" onclick="downloadCSV('boardpack')">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 2v8M5 7l3 3 3-3M2 12h12v2H2z"/></svg>
+        Download Board Pack Dataset (.csv)
+      </button>
+    </div>
+  </div>
+
+  <div class="what-card">
+    <div class="card-label">// FINANCE USE CASES</div>
+    <div class="card-title">מה מנהלי פיננסים בונים עם Claude ב-PowerPoint</div>
+    <div class="card-body">
+      <div class="info-row"><div class="info-dot"></div><div class="info-text">נרטיבי מצגת דירקטוריון ומשקיעים מדאטה פיננסי גולמי</div></div>
+      <div class="info-row"><div class="info-dot"></div><div class="info-text">סיכומי הנהלה לסקירת חודש ורבעון</div></div>
+      <div class="info-row"><div class="info-dot"></div><div class="info-text">סיכומי עסקאות M&A ושקופיות של אופציות אסטרטגיות</div></div>
+      <div class="info-row"><div class="info-dot"></div><div class="info-text">מצגות אישור תקציב מובנות לקהל לא-פיננסי</div></div>
+      <div class="info-row"><div class="info-dot"></div><div class="info-text"><strong>Speaker notes</strong> שצופים את שאלות הדירקטוריון</div></div>
+    </div>
+  </div>
+
+  <div class="link-section" id="cta-powerpoint"></div>
+</div>
+
+<!-- ═══════════════ ABOUT ═══════════════ -->
+<div class="page" id="page-about">
+  <div class="page-header">
+    <div class="page-eyebrow">§ 11 — The Author</div>
+    <div class="page-title">רונן עמוס CPA</div>
+    <div class="page-desc">רואה חשבון, יועץ פיננסי, CFO חיצוני ומומחה AI לפיננסים — במשימה להפוך כל איש פיננסים בישראל לשוטף ב-AI.</div>
+  </div>
+
+  <div class="about-hero">
+    <!-- OPTIONAL-IMAGE: Remove this block if not needed -->
+    <!-- ADDED-IMAGE: section="About — Ronen Amos" topic="Professional headshot of Ronen Amos CPA, AI Finance Transformation" — delete this <img> tag to remove -->
+    <img src="" alt="רונן עמוס CPA — AI Finance Transformation" style="display:none;width:80px;height:80px;border-radius:50%;object-fit:cover;border:2px solid var(--accent);margin-bottom:16px;">
+    <div class="about-initials">ר.ע</div>
+    <div class="about-name">רונן עמוס CPA</div>
+    <div class="about-role">// CPA · EXTERNAL CFO · AI FINANCE TRANSFORMATION</div>
+    <div class="about-bio">רונן הוא רואה חשבון, יועץ פיננסי ו-CFO חיצוני לסטארטאפים וחברות B2B בישראל. הוא מלמד צוותי פיננסים בחברות הייטק לעבוד חכם יותר עם AI — מ-NotebookLM ו-Gemini ועד Excel ודשבורדים אוטומטיים. רונן צבר מעל 10 שנות ניסיון בעולמות הפיננסים, כולל תפקיד של Financial Controller ב-Airobotics, ומפעיל כיום קהילה של מעל 800 אנשי פיננסים בקבוצת WhatsApp פעילה, ערוץ YouTube ייעודי, ניוזלטר שבועי, וקורסים מקוונים בעברית.</div>
+  </div>
+
+  <div class="about-stats">
+    <div class="stat-card">
+      <div class="stat-num">800+</div>
+      <div class="stat-label">חברי קהילת WhatsApp</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num">70%+</div>
+      <div class="stat-label">חיסכון בזמן<br>לצוותי פיננסים</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num">98%+</div>
+      <div class="stat-label">דיוק בדשבורדים<br>אוטומטיים</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num">10+</div>
+      <div class="stat-label">שנות ניסיון<br>בפיננסים</div>
+    </div>
+  </div>
+
+  <div class="about-creds">
+    <div class="cred-tag">CPA מוסמך</div>
+    <div class="cred-tag">External CFO</div>
+    <div class="cred-tag">Financial Controller, Airobotics</div>
+    <div class="cred-tag">מומחה AI לפיננסים</div>
+    <div class="cred-tag">מרצה ומכשיר צוותי פיננסים</div>
+    <div class="cred-tag">LinkedIn 7,000+ עוקבים</div>
+    <div class="cred-tag">יוצר תוכן בעברית</div>
+  </div>
+
+  <div class="link-section" id="cta-about"></div>
+</div>
+
+</main>
+</div>
+
+<script>
+// ═══════════════ SHARED CTA BLOCK — identical across all sections ═══════════════
+const CTA_LINKS = [
+  { icon: '💬', label: '// COMMUNITY', name: 'קהילת WhatsApp — AI Finance Transformation', href: 'https://chat.whatsapp.com/CS6dgqnK45Q9XAMqScNr6R' },
+  { icon: '▶',  label: '// YOUTUBE',   name: 'ערוץ YouTube — AI for Finance',            href: 'https://www.youtube.com/@AIFinanceTransformation' },
+  { icon: '✉',  label: '// NEWSLETTER', name: 'הניוזלטר השבועי',                         href: 'https://ronenamoscpa.co.il/blog' },
+  { icon: '🎓', label: '// COURSES',    name: 'קורסי AI Finance בעברית',                 href: 'https://ronenamoscpa.co.il/courses' },
+  { icon: '🔗', label: '// LINKEDIN',   name: 'פרופיל LinkedIn',                         href: 'https://www.linkedin.com/in/ronenamoscpa' },
+  { icon: '📚', label: '// PROMPT HUB', name: 'Skill Vault — ספריית Prompts',            href: 'https://ronenamoscpa.co.il/skill-vault' },
+  { icon: '🌐', label: '// WEBSITE',    name: 'האתר הראשי',                              href: 'https://ronenamoscpa.co.il' },
+  { icon: '📧', label: '// CONTACT',    name: 'צור קשר ישיר',                            href: 'mailto:ronenamos@gmail.com' }
+];
+
+// ═══ Page-specific guides by Ronen ═══
+const MY_GUIDES = {
+  models: [
+    { icon: '🎬', label: '// LIVE SESSION', name: 'Live Session — מפת האפשרויות של Claude וכל הפיצ\'רים', href: 'https://popup.fm/ronenamoscpa/events/G9g9e7OtFnhtgYhkwSy4' }
+  ],
+  artifacts: [
+    { icon: '📘', label: '// GUIDE',        name: 'המדריך השלם ל-Live Artifacts',                href: 'https://www.ronenamoscpa.co.il/guides/live-artifacts-claude' },
+    { icon: '🎬', label: '// LIVE SESSION', name: 'Live Session — Live Artifacts בפעולה',        href: 'https://popup.fm/ronenamoscpa/events/hiuWNSyTFccLU0Z6pMF6' }
+  ],
+  cowork: [
+    { icon: '📘', label: '// GUIDE', name: 'המדריך השלם ל-Claude Cowork', href: 'https://www.ronenamoscpa.co.il/guides/claude-cowork' }
+  ],
+  code: [
+    { icon: '📘', label: '// GUIDE', name: 'המדריך המלא ל-Claude Code', href: 'https://www.ronenamoscpa.co.il/resources/claude-code' }
+  ],
+  excel: [
+    { icon: '▶',  label: '// VIDEO',        name: 'Claude ב-Excel — סרטון YouTube',              href: 'https://youtu.be/EWGXpJnu0Ug' },
+    { icon: '🎬', label: '// LIVE SESSION', name: 'Live Session — Excel ו-PowerPoint עם Claude', href: 'https://popup.fm/ronenamoscpa/events/R1qdnUtoOhMUZQVRnITM' }
+  ],
+  powerpoint: [
+    { icon: '▶',  label: '// VIDEO',        name: 'Claude ב-PowerPoint — סרטון YouTube',          href: 'https://youtu.be/11qZZQXbcp8' },
+    { icon: '🎬', label: '// LIVE SESSION', name: 'Live Session — Excel ו-PowerPoint עם Claude',  href: 'https://popup.fm/ronenamoscpa/events/R1qdnUtoOhMUZQVRnITM' }
+  ]
+};
+
+function renderCard(item) {
+  const isMail = item.href.indexOf('mailto:') === 0;
+  const target = isMail ? '' : ' target="_blank"';
+  return `<a class="cta-card" href="${item.href}"${target}>
+      <div class="cta-icon">${item.icon}</div>
+      <div class="cta-label">${item.label}</div>
+      <div class="cta-name">${item.name}</div>
+    </a>`;
+}
+
+function buildLearnMoreBlock(pageId) {
+  const guides = MY_GUIDES[pageId] || [];
+  const ctaCardsHtml = CTA_LINKS.map(renderCard).join('');
+  let html = '<div class="link-section-title">למידע נוסף</div>';
+  if (guides.length) {
+    const guideCardsHtml = guides.map(renderCard).join('');
+    html += '<div class="link-section-sub">המדריכים שלי בנושא</div>';
+    html += `<div class="cta-grid" style="margin-bottom:26px;">${guideCardsHtml}</div>`;
+    html += '<div class="link-section-sub">הכלים, הקהילה והמשאבים שלי</div>';
+  } else {
+    html += '<div class="link-section-sub">הכלים, הקהילה והמשאבים שלי — הכל במקום אחד.</div>';
+  }
+  html += `<div class="cta-grid">${ctaCardsHtml}</div>`;
+  return html;
+}
+
+// Inject the "למידע נוסף" block into every section EXCEPT About
+['models','artifacts','skills','projects','connectors','design','code','cowork','excel','powerpoint']
+  .forEach(id => {
+    const el = document.getElementById('cta-' + id);
+    if (el) el.innerHTML = buildLearnMoreBlock(id);
+  });
+
+// About page keeps its own "התחבר וקרא עוד" CTA block (same links, different title)
+(function () {
+  const about = document.getElementById('cta-about');
+  if (about) {
+    const cards = CTA_LINKS.map(l => {
+      const isMail = l.href.indexOf('mailto:') === 0;
+      const target = isMail ? '' : ' target="_blank"';
+      return `<a class="cta-card" href="${l.href}"${target}>
+        <div class="cta-icon">${l.icon}</div>
+        <div class="cta-label">${l.label}</div>
+        <div class="cta-name">${l.name}</div>
+      </a>`;
+    }).join('');
+    about.innerHTML = `<div class="link-section-title">התחבר וקרא עוד</div><div class="cta-grid">${cards}</div>`;
+  }
+})();
+
+function show(id, el) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  document.getElementById('page-' + id).classList.add('active');
+  el.classList.add('active');
+  document.querySelector('main').scrollTop = 0;
+}
+
+function downloadCSV(type) {
+  const data = {
+    models: {
+      name: 'SaaS_PL_Dataset_RonenAmos.csv',
+      content: `Metric,Q1 2024,Q2 2024,Q3 2024,Q4 2024,Q1 2025,Q2 2025,Q3 2025,Q4 2025 (F)
+Revenue ($K),20500,21800,22100,20600,22400,23500,24200,24900
+- Platform,13200,14100,14400,13500,14800,15600,16100,16700
+- Professional Services,4800,5000,5000,4700,5000,5200,5300,5400
+- Support,2500,2700,2700,2400,2600,2700,2800,2800
+COGS ($K),-7790,-7980,-8197,-7936,-8232,-8460,-8714,-8714
+- Hosting,-2100,-2200,-2300,-2150,-2400,-2500,-2600,-2700
+- Third-party APIs,-1800,-1900,-1950,-1850,-2000,-2100,-2200,-2200
+- CS Headcount,-2400,-2400,-2450,-2450,-2450,-2450,-2500,-2500
+- Implementation,-1490,-1480,-1497,-1486,-1382,-1410,-1414,-1314
+Gross Profit ($K),12710,13820,13903,12664,14168,15040,15486,16186
+Gross Margin %,62.0%,63.4%,62.9%,61.5%,63.2%,64.0%,64.0%,65.0%
+Sales & Marketing ($K),-4100,-4360,-4420,-4120,-4480,-4700,-4840,-4980
+R&D ($K),-3280,-3488,-3536,-3296,-3584,-3760,-3872,-3984
+G&A ($K),-2050,-2180,-2210,-2060,-2240,-2350,-2420,-2490
+EBITDA ($K),3280,3792,3737,3188,3864,4230,4354,4732
+EBITDA Margin %,16.0%,17.4%,16.9%,15.5%,17.2%,18.0%,18.0%,19.0%`
+    },
+    budget: {
+      name: 'FY2026_Budget_Template_RonenAmos.csv',
+      content: `Account,Department,FY2024 Actual,FY2025 Budget,FY2025 Forecast,FY2026 Budget,YoY Growth %,Notes
+Revenue - Product,Americas,850000,920000,910000,1020000,,
+Revenue - Services,Americas,320000,350000,360000,400000,,
+Revenue - Product,EMEA,620000,680000,670000,750000,,
+Revenue - Services,EMEA,180000,200000,195000,225000,,
+Revenue - Product,APAC,410000,460000,450000,520000,,
+Cost of Goods Sold,Americas,-480000,-520000,-515000,-575000,,
+Cost of Goods Sold,EMEA,-350000,-385000,-380000,-425000,,
+Gross Profit,Total,1550000,1705000,1690000,1915000,,
+Sales & Marketing,Americas,-180000,-195000,-192000,-215000,,
+R&D,Global,-220000,-240000,-238000,-265000,,
+G&A,Global,-140000,-155000,-152000,-168000,,
+EBITDA,Total,1010000,1115000,1108000,1267000,,`
+    },
+    variance: {
+      name: 'Variance_Analysis_Dataset_RonenAmos.csv',
+      content: `Line Item,Department,Actual ($),Budget ($),Variance $,Variance %,RAG,Management Commentary
+Revenue,Americas,1820000,1750000,70000,4.0%,Green,
+Revenue,EMEA,1240000,1280000,-40000,-3.1%,Amber,
+Revenue,APAC,890000,920000,-30000,-3.3%,Amber,
+Total Revenue,Total,3950000,3950000,0,0.0%,Green,
+Cost of Sales,Americas,-1040000,-980000,-60000,-6.1%,Red,
+Cost of Sales,EMEA,-690000,-710000,20000,2.8%,Green,
+Gross Profit,Total,2220000,2260000,-40000,-1.8%,Amber,
+Sales & Marketing,Americas,-520000,-480000,-40000,-8.3%,Red,
+Research & Development,Global,-415000,-390000,-25000,-6.4%,Red,
+General & Administrative,Corporate,-285000,-265000,-20000,-7.5%,Amber,
+EBITDA,Total,690000,830000,-140000,-16.9%,Red,
+Cash Position,Balance Sheet,8200000,7500000,700000,9.3%,Green,
+DSO (days),Balance Sheet,42,38,-4,-10.5%,Red,`
+    },
+    viz: {
+      name: 'Chart_Bridge_Dataset_RonenAmos.csv',
+      content: `Revenue Bridge FY2024 to FY2025,,,
+Bridge Item,Category,Amount ($000s),Cumulative ($000s)
+FY2024 Revenue,Starting Point,85000,85000
+Volume Growth,Positive Driver,12000,97000
+Price Realization,Positive Driver,4000,101000
+New Products Launch,Positive Driver,3000,104000
+FX Headwind,Negative Driver,-6000,98000
+Customer Churn - SMB,Negative Driver,-4000,94000
+FY2025 Revenue,Ending Point,94000,94000`
+    },
+    recon: {
+      name: 'GL_Bank_Reconciliation_RonenAmos.csv',
+      content: `Source,Date,Description,Reference,Amount ($),Matched,Notes
+GL,2025-10-01,Customer Payment - Acme Corp,INV-2341,45200,,
+GL,2025-10-03,Vendor Payment - Office Supplies,PO-8821,-1250,,
+GL,2025-10-05,Payroll Run October W1,PAY-1042,-87500,,
+GL,2025-10-08,Customer Payment - Beta Ltd,INV-2298,28900,,
+GL,2025-10-10,Rent Payment Q4,RENT-Q4,-32000,,
+Bank,2025-10-01,ACH Credit ACME CORP,REF-44201,45200,,
+Bank,2025-10-03,ACH Debit OFFICE SUPPLIES CO,REF-44209,-1250,,
+Bank,2025-10-05,PAYROLL OCTOBER 1ST,REF-44215,-87500,,
+Bank,2025-10-08,ACH Credit BETA LTD,REF-44228,28900,,
+Bank,2025-10-14,WIRE TRANSFER RECD,REF-44251,5000,,Unmatched - investigate
+Bank,2025-10-24,BANK CHARGES OCTOBER,REF-44301,-325,,Unmatched - bank fee`
+    },
+    boardpack: {
+      name: 'Board_Pack_CFO_Dataset_RonenAmos.csv',
+      content: `CFO Board Pack Q3 2025 Results,,,,,
+Metric,Prior Year (Q3 2024),Current (Q3 2025),YoY Change,YoY %,vs Budget,RAG
+Revenue ($M),22.1,24.2,+2.1,+9.5%,+1.7%,Green
+Gross Profit ($M),13.9,15.5,+1.6,+11.5%,+0.9%,Green
+EBITDA ($M),3.7,4.4,+0.7,+18.9%,+8.1%,Green
+EBITDA Margin %,16.9%,18.0%,+1.1pp,,At target,Green
+Free Cash Flow ($M),2.9,3.6,+0.7,+24.1%,,Green
+Net Cash ($M),21.4,28.6,+7.2,+33.6%,,Green
+Headcount (FTE),140,152,+12,+8.6%,,Amber
+Enterprise Customers,98,138,+40,+40.8%,,Green
+NRR %,112%,114%,+2pp,,,Green
+ARR ($M),48.2,61.4,+13.2,+27.4%,,Green`
+    }
+  };
+  const d = data[type];
+  if (!d) return;
+  const blob = new Blob([d.content], { type: 'text/csv;charset=utf-8;' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = d.name;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
+</script>
+</body>
+</html>

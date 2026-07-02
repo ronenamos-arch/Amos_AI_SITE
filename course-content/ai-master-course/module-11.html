@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Module 11 — 10 עקרונות Prompting מתקדם | קורס Claude</title>
+  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800;900&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg:      #0b0d10;
+      --bg2:     #111318;
+      --bg3:     #181c22;
+      --border:  #232830;
+      --border2: #2e3540;
+      --accent:  #b8c45a;
+      --text:    #e8eaf0;
+      --muted:   #7a8499;
+      --muted2:  #5a6278;
+      --green:   #65c466;
+      --yellow:  #f5b340;
+      --red:     #e05555;
+      --mono:    'IBM Plex Mono', monospace;
+      --sans:    'Heebo', sans-serif;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: var(--bg); color: var(--text); font-family: var(--sans); font-size: 15px; line-height: 1.7; }
+    a { color: inherit; text-decoration: none; }
+
+    .topnav { position: sticky; top: 0; z-index: 100; background: rgba(11,13,16,.94); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; padding: 0 2rem; height: 56px; }
+    .topnav-brand { font-size: 13px; font-weight: 700; color: var(--accent); letter-spacing: .04em; text-transform: uppercase; }
+    .topnav-right { display: flex; align-items: center; gap: 1.4rem; }
+    .topnav-back { font-size: 13px; color: var(--muted); font-weight: 500; transition: color .18s; }
+    .topnav-back:hover { color: var(--accent); }
+    .topnav-module { font-size: 12px; color: var(--muted2); font-family: var(--mono); }
+
+    .module-hero { border-bottom: 1px solid var(--border); padding: 56px 2rem 48px; max-width: 880px; margin: 0 auto; }
+    .module-eyebrow { display: flex; align-items: center; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; }
+    .eyebrow-num { font-family: var(--mono); font-size: 12px; color: var(--accent); background: rgba(184,196,90,.1); border: 1px solid rgba(184,196,90,.25); padding: 3px 10px; border-radius: 4px; }
+    .eyebrow-part { font-size: 12px; color: var(--muted2); }
+    .eyebrow-sep { color: var(--border2); }
+    .eyebrow-level { font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 4px; background: rgba(224,85,85,.12); color: var(--red); border: 1px solid rgba(224,85,85,.25); }
+    .module-hero h1 { font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 900; line-height: 1.15; margin-bottom: 10px; }
+    .module-hero h1 span { color: var(--accent); }
+    .module-en { font-size: 14px; color: var(--muted2); font-family: var(--mono); direction: ltr; margin-bottom: 20px; }
+    .module-meta { display: flex; gap: 20px; flex-wrap: wrap; }
+    .meta-item { display: flex; align-items: center; gap: 6px; font-size: 13px; color: var(--muted); }
+    .meta-item svg { width: 14px; height: 14px; opacity: .6; }
+
+    .content { max-width: 880px; margin: 0 auto; padding: 0 2rem 80px; }
+    .sec-label { font-size: 10px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; color: var(--accent); margin: 52px 0 16px; display: flex; align-items: center; gap: 8px; }
+    .sec-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+    h2 { font-size: 1.3rem; font-weight: 800; color: var(--text); margin-bottom: 12px; }
+    p { color: var(--muted); margin-bottom: 16px; font-size: 15px; }
+    p strong { color: var(--text); font-weight: 700; }
+
+    /* PRINCIPLE CARD */
+    .principle { background: var(--bg2); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; margin-bottom: 18px; }
+    .principle-head { display: flex; align-items: center; gap: 14px; padding: 16px 20px; background: var(--bg3); border-bottom: 1px solid var(--border); }
+    .principle-num { width: 34px; height: 34px; border-radius: 9px; background: rgba(184,196,90,.12); border: 1px solid rgba(184,196,90,.3); color: var(--accent); font-size: 14px; font-weight: 900; font-family: var(--mono); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .principle-titles { flex: 1; }
+    .principle-name { font-weight: 800; font-size: 1rem; color: var(--text); }
+    .principle-en { font-family: var(--mono); font-size: 11px; color: var(--muted2); direction: ltr; }
+    .principle-body { padding: 18px 20px; }
+    .principle-rule { font-size: 13.5px; color: var(--text); margin-bottom: 12px; }
+    .principle-rule strong { color: var(--accent); }
+    .principle-ex { font-size: 12.5px; color: var(--muted); background: var(--bg3); border-radius: 6px; padding: 10px 12px; margin-bottom: 14px; border-right: 2px solid var(--accent); }
+    .ba-split { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    @media (max-width: 600px) { .ba-split { grid-template-columns: 1fr; } }
+    .ba-cell { border-radius: 7px; padding: 10px 12px; font-family: var(--mono); font-size: 11.5px; line-height: 1.55; direction: rtl; }
+    .ba-cell.before { background: rgba(224,85,85,.06); border: 1px solid rgba(224,85,85,.22); color: var(--text); }
+    .ba-cell.after { background: rgba(101,196,102,.06); border: 1px solid rgba(101,196,102,.22); color: var(--text); }
+    .ba-cell-lbl { font-size: 9.5px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; margin-bottom: 6px; display: block; }
+    .ba-cell.before .ba-cell-lbl { color: var(--red); }
+    .ba-cell.after .ba-cell-lbl { color: var(--green); }
+
+    /* MEGA TOGGLE */
+    .toggle-bar { display: flex; gap: 6px; background: var(--bg2); border: 1px solid var(--border2); border-radius: 9px; padding: 5px; margin-bottom: 16px; width: fit-content; }
+    .toggle-btn { background: transparent; border: none; color: var(--muted); font-family: var(--sans); font-size: 13px; font-weight: 700; padding: 7px 18px; border-radius: 6px; cursor: pointer; transition: background .18s, color .18s; }
+    .toggle-btn.active { background: var(--accent); color: var(--bg); }
+    .toggle-panel { display: none; }
+    .toggle-panel.active { display: block; }
+    .mega-box { background: var(--bg); border: 1px solid var(--border2); border-radius: 10px; padding: 18px 20px; }
+    .mega-text { font-family: var(--mono); font-size: 12.5px; color: var(--text); direction: rtl; line-height: 1.7; white-space: pre-wrap; }
+    .mega-meta { font-size: 11px; color: var(--muted2); margin-top: 10px; padding-top: 10px; border-top: 1px solid var(--border); }
+
+    .callout { background: rgba(184,196,90,.06); border: 1px solid rgba(184,196,90,.2); border-radius: 10px; padding: 20px 22px; margin-bottom: 24px; }
+    .callout-label { font-size: 10px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; color: var(--accent); margin-bottom: 6px; }
+    .callout p { color: var(--text); margin: 0; font-size: 14px; }
+
+    .exercise { background: var(--bg3); border: 1px solid var(--border2); border-radius: 12px; overflow: hidden; margin-top: 48px; }
+    .exercise-header { background: var(--bg2); border-bottom: 1px solid var(--border); padding: 16px 22px; display: flex; align-items: center; gap: 12px; }
+    .exercise-badge { background: var(--accent); color: var(--bg); font-size: 10px; font-weight: 900; letter-spacing: .1em; text-transform: uppercase; padding: 3px 10px; border-radius: 4px; }
+    .exercise-title { font-weight: 800; font-size: 1rem; color: var(--text); }
+    .exercise-body { padding: 22px; }
+    .exercise-context { font-size: 13px; color: var(--muted); margin-bottom: 20px; }
+    .prompt-box { background: var(--bg); border: 1px solid var(--border2); border-radius: 8px; padding: 16px 18px; margin-bottom: 16px; }
+    .prompt-label { font-size: 10px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--accent); margin-bottom: 8px; font-family: var(--mono); }
+    .prompt-text { font-family: var(--mono); font-size: 13px; color: var(--text); direction: rtl; line-height: 1.7; white-space: pre-wrap; }
+    .copy-btn { background: var(--bg2); border: 1px solid var(--border2); color: var(--muted); font-size: 12px; font-family: var(--sans); padding: 5px 14px; border-radius: 5px; cursor: pointer; transition: border-color .18s, color .18s; margin-top: 8px; }
+    .copy-btn:hover { border-color: var(--accent); color: var(--accent); }
+    .exercise-tip { font-size: 12px; color: var(--muted2); border-top: 1px solid var(--border); margin-top: 20px; padding-top: 14px; }
+    .exercise-tip strong { color: var(--muted); }
+
+    .checklist { background: var(--bg2); border: 1px solid var(--border); border-radius: 10px; padding: 18px 20px; margin-top: 16px; }
+    .checklist-title { font-weight: 800; font-size: .9rem; color: var(--text); margin-bottom: 12px; }
+    .check-item { display: flex; align-items: flex-start; gap: 10px; font-size: 13px; color: var(--muted); padding: 5px 0; border-bottom: 1px solid var(--border); }
+    .check-item:last-child { border-bottom: none; }
+    .check-box { width: 16px; height: 16px; border: 1px solid var(--border2); border-radius: 3px; flex-shrink: 0; margin-top: 3px; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 10px; transition: background .15s, border-color .15s; }
+    .check-box.checked { background: var(--accent); border-color: var(--accent); color: var(--bg); }
+
+    .next-module { margin-top: 56px; padding-top: 32px; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
+    .prev-btn { background: var(--bg2); border: 1px solid var(--border2); color: var(--muted); font-size: 13px; font-weight: 700; padding: 8px 20px; border-radius: 8px; cursor: pointer; transition: border-color .18s, color .18s; font-family: var(--sans); }
+    .prev-btn:hover { border-color: var(--accent); color: var(--accent); }
+    .next-label { font-size: 11px; color: var(--muted2); text-transform: uppercase; letter-spacing: .1em; margin-bottom: 4px; }
+    .next-title { font-weight: 800; color: var(--text); font-size: 1rem; }
+    .next-btn { background: var(--accent); color: var(--bg); font-size: 14px; font-weight: 800; padding: 10px 24px; border-radius: 8px; cursor: pointer; white-space: nowrap; transition: background .18s, transform .15s; border: none; font-family: var(--sans); }
+    .next-btn:hover { background: #cad86a; transform: translateX(-3px); }
+
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 3px; }
+  </style>
+</head>
+<body>
+<!-- AFX-SIDEBAR START (static always-on rail — active item set by JS) -->
+<style>
+  body{padding-right:252px}
+  .afx-rail{position:fixed;top:0;right:0;width:252px;height:100vh;background:#111318;border-left:1px solid #2e3540;z-index:150;display:flex;flex-direction:column;direction:rtl;font-family:'Heebo',sans-serif}
+  .afx-rail-head{height:56px;flex-shrink:0;display:flex;align-items:center;gap:8px;padding:0 18px;border-bottom:1px solid #232830}
+  .afx-rail-head b{font-size:12px;font-weight:800;letter-spacing:.1em;color:#b8c45a;text-transform:uppercase}
+  .afx-rail-head span{font-size:10px;color:#5a6278;font-family:'IBM Plex Mono',monospace}
+  .afx-list{flex:1;overflow-y:auto;padding:8px 0 28px}
+  .afx-sep{font-size:10px;font-weight:800;letter-spacing:.1em;color:#aeb6c6;padding:14px 18px 6px}
+  .afx-link{display:flex;gap:10px;align-items:baseline;padding:8px 18px;color:#ffffff;font-size:13px;text-decoration:none;border-right:3px solid transparent;transition:background .15s,color .15s}
+  .afx-link:hover{background:#181c22;color:#ffffff}
+  .afx-link.active{color:#b8c45a;background:rgba(184,196,90,.08);border-right-color:#b8c45a;font-weight:700}
+  .afx-num{font-family:'IBM Plex Mono',monospace;font-size:11px;color:#cfd5e0;min-width:26px}
+  .afx-link.active .afx-num{color:#b8c45a}
+  .afx-list::-webkit-scrollbar{width:6px}
+  .afx-list::-webkit-scrollbar-thumb{background:#2e3540;border-radius:3px}
+  @media (max-width:900px){body{padding-right:0}.afx-rail{display:none}}
+  @media print{body{padding-right:0}.afx-rail{display:none}}
+</style>
+<nav class="afx-rail" aria-label="ניווט מודולים">
+  <div class="afx-rail-head"><b>תוכן הקורס</b><span>16 מודולים</span></div>
+  <div class="afx-list">
+    <a class="afx-link" href="course-index.html" data-file="course-index.html"><span class="afx-num">⌂</span> דף הבית — כל המודולים</a>
+    <div class="afx-sep">חלק 0 — מבוא</div>
+    <a class="afx-link" href="module-00.html" data-file="module-00.html"><span class="afx-num">00</span> ברוכים הבאים</a>
+    <a class="afx-link" href="module-01.html" data-file="module-01.html"><span class="afx-num">01</span> שלושת המודלים</a>
+    <div class="afx-sep">חלק 1 — הבסיס</div>
+    <a class="afx-link" href="module-02.html" data-file="module-02.html"><span class="afx-num">02</span> השיחה הפיננסית הראשונה</a>
+    <a class="afx-link" href="module-03.html" data-file="module-03.html"><span class="afx-num">03</span> מסגרת PRICE</a>
+    <div class="afx-sep">חלק 2 — הפיצ׳רים</div>
+    <a class="afx-link" href="module-04.html" data-file="module-04.html"><span class="afx-num">04</span> Artifacts — הקנבס</a>
+    <a class="afx-link" href="module-05.html" data-file="module-05.html"><span class="afx-num">05</span> Skills — זיכרון מוסדי</a>
+    <a class="afx-link" href="module-06.html" data-file="module-06.html"><span class="afx-num">06</span> Projects — סביבת עבודה</a>
+    <a class="afx-link" href="module-07.html" data-file="module-07.html"><span class="afx-num">07</span> Connectors — Claude מחובר</a>
+    <div class="afx-sep">חלק 3 — כלים</div>
+    <a class="afx-link" href="module-08.html" data-file="module-08.html"><span class="afx-num">08</span> Claude ב-Excel</a>
+    <a class="afx-link" href="module-09.html" data-file="module-09.html"><span class="afx-num">09</span> Claude ב-PowerPoint</a>
+    <a class="afx-link" href="module-10.html" data-file="module-10.html"><span class="afx-num">10</span> Design &amp; Cowork</a>
+    <div class="afx-sep">חלק 4 — מתקדם</div>
+    <a class="afx-link" href="module-11.html" data-file="module-11.html"><span class="afx-num">11</span> 10 עקרונות Prompting</a>
+    <a class="afx-link" href="module-12.html" data-file="module-12.html"><span class="afx-num">12</span> 102 Use Cases</a>
+    <div class="afx-sep">חלק 5 — פרויקטים</div>
+    <a class="afx-link" href="module-13.html" data-file="module-13.html"><span class="afx-num">13</span> סגירת חודש</a>
+    <a class="afx-link" href="module-14.html" data-file="module-14.html"><span class="afx-num">14</span> דשבורד CFO (Capstone)</a>
+    <div class="afx-sep">בונוס</div>
+    <a class="afx-link" href="module-15.html" data-file="module-15.html"><span class="afx-num">15</span> Skills מוכנות (Bonus)</a>
+  </div>
+</nav>
+<script>
+  (function(){var f=(location.pathname.split('/').pop()||'').toLowerCase();document.querySelectorAll('.afx-link').forEach(function(a){if((a.getAttribute('data-file')||'').toLowerCase()===f)a.classList.add('active');});})();
+</script>
+<!-- AFX-SIDEBAR END -->
+
+
+<nav class="topnav">
+  <span class="topnav-brand">AI Finance Transformation</span>
+  <div class="topnav-right">
+    <a href="course-index.html" class="topnav-back">← כל המודולים</a>
+    <span class="topnav-module">MODULE 11 / 16</span>
+  </div>
+</nav>
+
+<header class="module-hero">
+  <div class="module-eyebrow">
+    <span class="eyebrow-num">MODULE 11</span>
+    <span class="eyebrow-sep">·</span>
+    <span class="eyebrow-part">חלק 4 — מתקדם</span>
+    <span class="eyebrow-sep">·</span>
+    <span class="eyebrow-level">מתקדם</span>
+  </div>
+  <h1>10 עקרונות לשליפת<br><span>המקסימום מ-Claude</span></h1>
+  <div class="module-en">10 Principles for Advanced Prompting</div>
+  <div class="module-meta">
+    <span class="meta-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+      60–75 דקות
+    </span>
+    <span class="meta-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+      Claude App / Projects
+    </span>
+  </div>
+</header>
+
+<main class="content">
+
+  <!-- INTRO -->
+  <div class="sec-label">למה זה קיים</div>
+  <h2>הפער בין "טוב" ל"מצוין" הוא 10 עקרונות</h2>
+  <p>
+    אחרי מסגרת PRICE (Module 03) אתה כבר מקבל תשובות טובות. אבל יש פער שקט בין פלט <strong>טוב</strong> לפלט <strong>מצוין</strong> — והוא לא נסגר בכתיבת prompt ארוך יותר. הוא נסגר בעשרה עקרונות ספציפיים שכל אחד מהם דוחף את האיכות צעד אחד קדימה.
+  </p>
+  <p>
+    כל עקרון מוצג עם <strong>כלל אחד</strong>, <strong>דוגמה פיננסית</strong>, וצמד <strong>לפני/אחרי</strong>. העקרון העשירי, ה-Mega Prompt, מאחד את כל התשעה הקודמים לכלי אחד. נשתמש בנתוני <strong>TechFlow Ltd</strong> לאורך כל הדרך.
+  </p>
+
+  <!-- 10 PRINCIPLES -->
+  <div class="sec-label">10 העקרונות</div>
+  <h2>כרטיס לכל עקרון — כלל, דוגמה, לפני/אחרי</h2>
+
+  <!-- 1 -->
+  <div class="principle">
+    <div class="principle-head">
+      <div class="principle-num">1</div>
+      <div class="principle-titles">
+        <div class="principle-name">רמת מאמץ</div>
+        <div class="principle-en">Effort Level</div>
+      </div>
+    </div>
+    <div class="principle-body">
+      <div class="principle-rule"><strong>הכלל:</strong> תגיד ל-Claude כמה לעומק לחשוב. "תשובה מהירה" שונה מהותית מ-"חשוב לעומק ובחן כל זווית".</div>
+      <div class="principle-ex">💼 פיננסי: ניתוח סטיית EBITDA לדירקטוריון דורש "think deeply" — לא תשובה אינסטינקטיבית.</div>
+      <div class="ba-split">
+        <div class="ba-cell before"><span class="ba-cell-lbl">✗ לפני</span>למה ה-EBITDA ירד?</div>
+        <div class="ba-cell after"><span class="ba-cell-lbl">✓ אחרי</span>חשוב לעומק על ירידת ה-EBITDA. בחן את כל הדרייברים לפני שתסיק.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2 -->
+  <div class="principle">
+    <div class="principle-head">
+      <div class="principle-num">2</div>
+      <div class="principle-titles">
+        <div class="principle-name">ספציפיות</div>
+        <div class="principle-en">Specificity</div>
+      </div>
+    </div>
+    <div class="principle-body">
+      <div class="principle-rule"><strong>הכלל:</strong> מספרים, שמות ותאריכים מדויקים — לא תיאורים מעורפלים. "ירד הרבה" הוא חסר ערך; "ירד מ-$1.2M ל-$690K" עובד.</div>
+      <div class="principle-ex">💼 פיננסי: במקום "ההוצאות עלו" → "OpEx עלה ב-22% YoY מ-$8.4M ל-$10.3M".</div>
+      <div class="ba-split">
+        <div class="ba-cell before"><span class="ba-cell-lbl">✗ לפני</span>ה-Revenue שלנו לא עמד ביעד</div>
+        <div class="ba-cell after"><span class="ba-cell-lbl">✓ אחרי</span>Revenue $22.4M מול Budget $23.0M, סטייה -$600K (-2.6%)</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3 -->
+  <div class="principle">
+    <div class="principle-head">
+      <div class="principle-num">3</div>
+      <div class="principle-titles">
+        <div class="principle-name">תגיות XML</div>
+        <div class="principle-en">XML Tags</div>
+      </div>
+    </div>
+    <div class="principle-body">
+      <div class="principle-rule"><strong>הכלל:</strong> עטוף כל חלק בתגית — &lt;context&gt;, &lt;task&gt;, &lt;format&gt;, &lt;example&gt;. Claude מפריד בין הקשר למשימה בצורה הרבה יותר נקייה.</div>
+      <div class="principle-ex">💼 פיננסי: ניתוח עם הקשר חברה, משימה ופורמט מופרדים — Claude לא מבלבל בין נתון להוראה.</div>
+      <div class="ba-split">
+        <div class="ba-cell before"><span class="ba-cell-lbl">✗ לפני</span>TechFlow SaaS נתח EBITDA ותחזיר טבלה</div>
+        <div class="ba-cell after"><span class="ba-cell-lbl">✓ אחרי</span>&lt;context&gt;TechFlow SaaS&lt;/context&gt;
+&lt;task&gt;נתח EBITDA&lt;/task&gt;
+&lt;format&gt;טבלה&lt;/format&gt;</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4 -->
+  <div class="principle">
+    <div class="principle-head">
+      <div class="principle-num">4</div>
+      <div class="principle-titles">
+        <div class="principle-name">דוגמאות</div>
+        <div class="principle-en">Examples</div>
+      </div>
+    </div>
+    <div class="principle-body">
+      <div class="principle-rule"><strong>הכלל:</strong> הראה ל-Claude איך נראה פלט טוב. דוגמה אחת = פלט טוב פי 10. הוא לומד את הטון, הפורמט והרמה מהדוגמה.</div>
+      <div class="principle-ex">💼 פיננסי: צרף דוגמת commentary אחת מאושרת ב-CFO, וכל ה-commentary הבא יישמע זהה.</div>
+      <div class="ba-split">
+        <div class="ba-cell before"><span class="ba-cell-lbl">✗ לפני</span>כתוב commentary על הסטייה</div>
+        <div class="ba-cell after"><span class="ba-cell-lbl">✓ אחרי</span>כתוב commentary בסגנון הזה:
+"Revenue -2.6% below budget, driven by Enterprise underperformance..."</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 5 -->
+  <div class="principle">
+    <div class="principle-head">
+      <div class="principle-num">5</div>
+      <div class="principle-titles">
+        <div class="principle-name">שלבי חשיבה</div>
+        <div class="principle-en">Reasoning Steps</div>
+      </div>
+    </div>
+    <div class="principle-body">
+      <div class="principle-rule"><strong>הכלל:</strong> "חשוב צעד-אחר-צעד לפני שתענה". Claude מפרק את הבעיה, מקטין טעויות חישוב ומגיע למסקנות מבוססות יותר.</div>
+      <div class="principle-ex">💼 פיננסי: בחישוב bridge מורכב, "show your steps" מונע שגיאות הצטברות.</div>
+      <div class="ba-split">
+        <div class="ba-cell before"><span class="ba-cell-lbl">✗ לפני</span>מה ה-EBITDA bridge?</div>
+        <div class="ba-cell after"><span class="ba-cell-lbl">✓ אחרי</span>חשב את ה-EBITDA bridge צעד-אחר-צעד, הצג כל שלב לפני התוצאה.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 6 -->
+  <div class="principle">
+    <div class="principle-head">
+      <div class="principle-num">6</div>
+      <div class="principle-titles">
+        <div class="principle-name">הקשר עשיר</div>
+        <div class="principle-en">Rich Context</div>
+      </div>
+    </div>
+    <div class="principle-body">
+      <div class="principle-rule"><strong>הכלל:</strong> חברה, ענף, קהל וקונסטרינטים — הכל בבלוק אחד. ככל שהקשר עשיר יותר, התשובה מותאמת יותר.</div>
+      <div class="principle-ex">💼 פיננסי: "SaaS ישראלית, USD, 150 עובדים, ARR $18M, הקהל = דירקטוריון חיצוני".</div>
+      <div class="ba-split">
+        <div class="ba-cell before"><span class="ba-cell-lbl">✗ לפני</span>נתח את התוצאות</div>
+        <div class="ba-cell after"><span class="ba-cell-lbl">✓ אחרי</span>TechFlow, SaaS B2B ישראלית, USD, ARR $18M, Q2 2026, קהל: דירקטוריון. נתח את התוצאות.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 7 -->
+  <div class="principle">
+    <div class="principle-head">
+      <div class="principle-num">7</div>
+      <div class="principle-titles">
+        <div class="principle-name">פורמט פלט</div>
+        <div class="principle-en">Output Format</div>
+      </div>
+    </div>
+    <div class="principle-body">
+      <div class="principle-rule"><strong>הכלל:</strong> ציין במפורש — טבלה / JSON / Markdown / נקודות / רשימה ממוספרת. בלי זה Claude בוחר בעצמו, ולא תמיד נכון.</div>
+      <div class="principle-ex">💼 פיננסי: "טבלת Markdown, עמודות: Line | Budget | Actual | $ Var | % Var".</div>
+      <div class="ba-split">
+        <div class="ba-cell before"><span class="ba-cell-lbl">✗ לפני</span>תן לי את הסטיות</div>
+        <div class="ba-cell after"><span class="ba-cell-lbl">✓ אחרי</span>החזר טבלת Markdown: Line | Budget | Actual | $ Var | % Var</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 8 -->
+  <div class="principle">
+    <div class="principle-head">
+      <div class="principle-num">8</div>
+      <div class="principle-titles">
+        <div class="principle-name">קונסטרינטים</div>
+        <div class="principle-en">Constraints</div>
+      </div>
+    </div>
+    <div class="principle-body">
+      <div class="principle-rule"><strong>הכלל:</strong> מגבלות מילים, שפה, טון, ומה <em>לא</em> לכלול. קונסטרינט הוא לא הגבלה — הוא מיקוד.</div>
+      <div class="principle-ex">💼 פיננסי: "אנגלית עסקית, מקסימום 80 מילה, בלי jargon, שפה מתאימה לדירקטוריון".</div>
+      <div class="ba-split">
+        <div class="ba-cell before"><span class="ba-cell-lbl">✗ לפני</span>כתוב סיכום ל-CFO</div>
+        <div class="ba-cell after"><span class="ba-cell-lbl">✓ אחרי</span>כתוב סיכום ל-CFO: אנגלית, עד 80 מילה, ללא jargon, board-ready.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 9 -->
+  <div class="principle">
+    <div class="principle-head">
+      <div class="principle-num">9</div>
+      <div class="principle-titles">
+        <div class="principle-name">מילוליות</div>
+        <div class="principle-en">Verbosity</div>
+      </div>
+    </div>
+    <div class="principle-body">
+      <div class="principle-rule"><strong>הכלל:</strong> "be concise" או "be thorough" — Claude מתאים את עצמו משמעותית. תגיד לו כמה רחב לכתוב.</div>
+      <div class="principle-ex">💼 פיננסי: ל-Board slide בקש "concise"; ל-memo פנימי מעמיק בקש "thorough".</div>
+      <div class="ba-split">
+        <div class="ba-cell before"><span class="ba-cell-lbl">✗ לפני</span>הסבר את הסטייה</div>
+        <div class="ba-cell after"><span class="ba-cell-lbl">✓ אחרי</span>הסבר את הסטייה — be concise, משפט אחד לכל שורה.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 10 -->
+  <div class="principle">
+    <div class="principle-head">
+      <div class="principle-num">10</div>
+      <div class="principle-titles">
+        <div class="principle-name">Mega Prompt</div>
+        <div class="principle-en">Mega Prompt</div>
+      </div>
+    </div>
+    <div class="principle-body">
+      <div class="principle-rule"><strong>הכלל:</strong> אחד את 9 העקרונות הקודמים ל-prompt אחד מובנה. זה ההבדל בין שיחה מקרית לכלי עבודה חוזר.</div>
+      <div class="principle-ex">💼 פיננסי: prompt אחד מובנה שמייצר CFO Board narrative ברמת ייעוץ — שוב ושוב.</div>
+      <div class="ba-split">
+        <div class="ba-cell before"><span class="ba-cell-lbl">✗ לפני</span>9 prompts נפרדים, תוצאה לא עקבית</div>
+        <div class="ba-cell after"><span class="ba-cell-lbl">✓ אחרי</span>prompt אחד מובנה עם כל 5 הסקשנים → פלט עקבי ברמה גבוהה</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MEGA PROMPT + TOGGLE -->
+  <div class="sec-label">Mega Prompt</div>
+  <h2>אותו prompt — גרסה פשוטה מול גרסת Mega</h2>
+  <p>לחץ בין שתי הגרסאות. שתיהן מבקשות ניתוח סטיית EBITDA זהה — אבל גרסת ה-Mega מפעילה את כל 10 העקרונות יחד.</p>
+
+  <div class="toggle-bar">
+    <button class="toggle-btn active" id="tb-simple" onclick="showPanel('simple')">גרסה פשוטה</button>
+    <button class="toggle-btn" id="tb-mega" onclick="showPanel('mega')">גרסת Mega</button>
+  </div>
+
+  <div class="toggle-panel active" id="panel-simple">
+    <div class="mega-box">
+      <div class="mega-text">נתח למה ה-EBITDA של TechFlow ירד ותן לי את הסיבות העיקריות.</div>
+      <div class="mega-meta">עקרונות פעילים: 0 / 10 — מעורפל, בלי מספרים, בלי פורמט, בלי קהל. Claude יחזיר תשובה גנרית או ישאל שאלות הבהרה.</div>
+    </div>
+  </div>
+
+  <div class="toggle-panel" id="panel-mega">
+    <div class="mega-box">
+      <div class="mega-text">&lt;effort&gt;חשוב לעומק לפני שתסיק&lt;/effort&gt;
+&lt;context&gt;TechFlow Ltd, SaaS B2B ישראלית, USD, ARR $18M, 150 עובדים, Q2 2026 close. הקהל: דירקטוריון חיצוני.&lt;/context&gt;
+&lt;task&gt;נתח את ירידת ה-EBITDA מ-$1.2M ל-$690K YoY. זהה 3 דרייברים מרכזיים. חשב צעד-אחר-צעד.&lt;/task&gt;
+&lt;example&gt;Driver סגנון: "COGS scaled +18% while Enterprise mix shrank, compressing margin by 220bps."&lt;/example&gt;
+&lt;format&gt;טבלת Markdown: Driver | $ Impact | % of Decline | Recommended Action&lt;/format&gt;
+&lt;constraints&gt;אנגלית, מקסימום 4 שורות, ללא jargon, board-ready. be concise.&lt;/constraints&gt;</div>
+      <div class="mega-meta">עקרונות פעילים: 10 / 10 — Effort, Context, Task, Reasoning, Example, Format, Constraints, Verbosity, Specificity, XML. פלט עקבי ברמת ייעוץ.</div>
+    </div>
+  </div>
+
+  <div class="callout">
+    <div class="callout-label">ה-Insight המרכזי</div>
+    <p>אותו רעיון, אותם נתונים — אבל גרסת ה-Mega מייצרת פלט שאפשר להדביק <strong>ישירות ב-Board Deck</strong> בלי עריכה. זה ההבדל בין "טוב" ל"מצוין".</p>
+  </div>
+
+  <!-- EXERCISE -->
+  <div class="exercise">
+    <div class="exercise-header">
+      <span class="exercise-badge">תרגיל 11</span>
+      <span class="exercise-title">שדרג prompt חלש עם עקרונות 2, 3, 4, 7, 8</span>
+    </div>
+    <div class="exercise-body">
+      <p class="exercise-context">
+        קח את ה-prompt החלש ממודול 02 ("נתח את ה-Revenue שלנו ותגיד לי מה לשפר") ושדרג אותו עם 5 עקרונות: ספציפיות, XML Tags, דוגמאות, פורמט פלט וקונסטרינטים. ה-Starter Prompt למטה כבר בנוי ב-XML. ה-Advanced הוא ה-Mega Prompt המלא.
+      </p>
+
+      <div class="prompt-box">
+        <div class="prompt-label">Starter Prompt — עקרון 3 (XML Tags)</div>
+        <div class="prompt-text">&lt;context&gt;TechFlow Ltd, SaaS B2B, USD, ARR $18M, Q2 2026 close&lt;/context&gt;
+&lt;task&gt;Analyze EBITDA decline from $1.2M to $690K YoY. Identify top 3 drivers.&lt;/task&gt;
+&lt;format&gt;Table: Driver | $ Impact | % of Decline | Recommended Action&lt;/format&gt;
+&lt;constraints&gt;English, max 4 rows, no jargon, board-ready language&lt;/constraints&gt;</div>
+        <button class="copy-btn" onclick="copyPrompt(this, '<context>TechFlow Ltd, SaaS B2B, USD, ARR $18M, Q2 2026 close</context>\n<task>Analyze EBITDA decline from $1.2M to $690K YoY. Identify top 3 drivers.</task>\n<format>Table: Driver | $ Impact | % of Decline | Recommended Action</format>\n<constraints>English, max 4 rows, no jargon, board-ready language</constraints>')">העתק Prompt</button>
+      </div>
+
+      <div class="prompt-box">
+        <div class="prompt-label">Advanced / Mega Prompt — כל 10 העקרונות</div>
+        <div class="prompt-text">&lt;effort&gt;Think deeply and examine every driver before concluding.&lt;/effort&gt;
+&lt;context&gt;
+TechFlow Ltd — Israeli SaaS B2B, USD, ARR $18M, 150 employees, Q2 2026 close.
+Audience: external Board of Directors. Tone: CFO professional.
+&lt;/context&gt;
+&lt;task&gt;
+Build the CFO Board narrative for Q2 2026. Step by step:
+1) Analyze EBITDA decline $1.2M → $690K YoY, top 3 drivers.
+2) Quantify each driver's $ and % impact.
+3) Recommend one action per driver.
+4) Write a 60-word executive summary paragraph.
+&lt;/task&gt;
+&lt;example&gt;
+Driver style: "COGS scaled +18% while Enterprise mix shrank, compressing margin by ~220bps; targeted vendor renegotiation could recover ~$120K in H2."
+&lt;/example&gt;
+&lt;format&gt;
+Section 1: Markdown table — Driver | $ Impact | % of Decline | Action
+Section 2: One executive summary paragraph.
+&lt;/format&gt;
+&lt;constraints&gt;
+English. Max 4 table rows. Summary max 60 words. No jargon. Board-ready. Be concise.
+&lt;/constraints&gt;</div>
+        <button class="copy-btn" onclick="copyPrompt(this, '<effort>Think deeply and examine every driver before concluding.</effort>\n<context>\nTechFlow Ltd — Israeli SaaS B2B, USD, ARR $18M, 150 employees, Q2 2026 close.\nAudience: external Board of Directors. Tone: CFO professional.\n</context>\n<task>\nBuild the CFO Board narrative for Q2 2026. Step by step:\n1) Analyze EBITDA decline $1.2M -> $690K YoY, top 3 drivers.\n2) Quantify each driver\'s $ and % impact.\n3) Recommend one action per driver.\n4) Write a 60-word executive summary paragraph.\n</task>\n<example>\nDriver style: \'COGS scaled +18% while Enterprise mix shrank, compressing margin by ~220bps; targeted vendor renegotiation could recover ~$120K in H2.\'\n</example>\n<format>\nSection 1: Markdown table — Driver | $ Impact | % of Decline | Action\nSection 2: One executive summary paragraph.\n</format>\n<constraints>\nEnglish. Max 4 table rows. Summary max 60 words. No jargon. Board-ready. Be concise.\n</constraints>')">העתק Prompt</button>
+      </div>
+
+      <div class="checklist">
+        <div class="checklist-title">✓ רשימת בדיקה לאחר התרגיל</div>
+        <div class="check-item"><div class="check-box" onclick="toggleCheck(this)"></div>הרצתי את ה-Starter והשוויתי ל-prompt החלש ממודול 02</div>
+        <div class="check-item"><div class="check-box" onclick="toggleCheck(this)"></div>זיהיתי בפלט את 5 העקרונות בפעולה</div>
+        <div class="check-item"><div class="check-box" onclick="toggleCheck(this)"></div>הרצתי את ה-Mega Prompt וקיבלתי טבלה + פסקה</div>
+        <div class="check-item"><div class="check-box" onclick="toggleCheck(this)"></div>הפלט מוכן להדבקה ישירה ב-Board Deck</div>
+        <div class="check-item"><div class="check-box" onclick="toggleCheck(this)"></div>שיחקתי עם ה-toggle פשוט/Mega למעלה</div>
+        <div class="check-item"><div class="check-box" onclick="toggleCheck(this)"></div>שמרתי את ה-Mega Prompt כ-template לשימוש חוזר</div>
+      </div>
+
+      <div class="exercise-tip">
+        <strong>המשך מומלץ:</strong> הפוך את ה-Mega Prompt ל-<span style="font-family:var(--mono);color:var(--accent)">Skill</span> (Module 05) כדי שלא תצטרך לכתוב אותו מחדש לעולם — רק להזין נתונים חדשים.
+      </div>
+    </div>
+  </div>
+
+  <!-- NEXT MODULE -->
+  <div class="next-module">
+    <button class="prev-btn" onclick="window.location.href='module-10.html'">→ Module 10</button>
+    <div style="text-align:right">
+      <div class="next-label">המודול הבא</div>
+      <div class="next-title">Module 12 — 102 Use Cases Library</div>
+    </div>
+    <button class="next-btn" onclick="window.location.href='module-12.html'">המשך ←</button>
+  </div>
+
+</main>
+
+<script>
+  function copyPrompt(btn, text) {
+    navigator.clipboard.writeText(text).then(() => {
+      btn.textContent = '✓ הועתק!';
+      btn.style.color = 'var(--green)';
+      btn.style.borderColor = 'var(--green)';
+      setTimeout(() => { btn.textContent = 'העתק Prompt'; btn.style.color = ''; btn.style.borderColor = ''; }, 2000);
+    });
+  }
+  function toggleCheck(el) {
+    el.classList.toggle('checked');
+    el.textContent = el.classList.contains('checked') ? '✓' : '';
+  }
+  function showPanel(which) {
+    document.getElementById('panel-simple').classList.toggle('active', which === 'simple');
+    document.getElementById('panel-mega').classList.toggle('active', which === 'mega');
+    document.getElementById('tb-simple').classList.toggle('active', which === 'simple');
+    document.getElementById('tb-mega').classList.toggle('active', which === 'mega');
+  }
+  try {
+    const p = JSON.parse(localStorage.getItem('claude-course-progress')) || {};
+    p['module-11'] = true;
+    localStorage.setItem('claude-course-progress', JSON.stringify(p));
+  } catch(e) {}
+</script>
+</body>
+</html>
