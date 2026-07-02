@@ -1,0 +1,1520 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>50 דרכים להשתמש ב-AI לסגירת חודש | רונן עמוס CPA · AI Finance Transformation</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800;900&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg: #0b0d10;
+    --surface: #12161a;
+    --surface2: #1a1f26;
+    --accent: #b8c45a;
+    --accent-strong: #d6e36a;
+    --accent-dim: rgba(184,196,90,0.12);
+    --text: #fafbfc;
+    --text-muted: #c2cad2;
+    --text-faint: #7a8694;
+    --border: rgba(255,255,255,0.07);
+    --radius-sm: 10px;
+    --radius-md: 18px;
+    --radius-lg: 28px;
+    --font: Heebo, system-ui, sans-serif;
+    --mono: "IBM Plex Mono", monospace;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font);
+    font-size: 15px;
+    line-height: 1.65;
+    overflow-x: hidden;
+  }
+
+  .inner { max-width: 1100px; margin: 0 auto; padding: 0 1.5rem; }
+
+  /* ─── TOPBAR ─── */
+  .topbar {
+    position: sticky; top: 0; z-index: 50;
+    background: rgba(11,13,16,0.88);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border);
+    padding: 0.9rem 1.5rem;
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 1rem;
+  }
+  .topbar-brand {
+    font-family: var(--mono); font-size: 0.78rem; letter-spacing: 0.08em;
+    color: var(--accent); font-weight: 500; white-space: nowrap;
+  }
+  .topbar-actions { display: flex; align-items: center; gap: 0.6rem; }
+  .topbar-cta {
+    font-family: var(--font); font-size: 0.78rem; font-weight: 700;
+    background: var(--accent); color: var(--bg);
+    padding: 0.5rem 1.1rem; border-radius: 100px; text-decoration: none;
+    white-space: nowrap; transition: background 0.2s, transform 0.2s;
+  }
+  .topbar-cta:hover { background: var(--accent-strong); transform: translateY(-1px); }
+  .topbar-cta-outline {
+    font-family: var(--font); font-size: 0.78rem; font-weight: 600;
+    background: transparent; color: var(--text);
+    border: 1px solid rgba(255,255,255,0.25);
+    padding: 0.5rem 1.1rem; border-radius: 100px; text-decoration: none;
+    white-space: nowrap; transition: all 0.2s;
+  }
+  .topbar-cta-outline:hover { border-color: var(--accent); color: var(--accent-strong); transform: translateY(-1px); }
+  @media (max-width: 480px) {
+    .topbar-cta-outline { display: none; }
+  }
+
+  /* ─── HERO ─── */
+  .hero {
+    padding: 5.5rem 1.5rem 4rem;
+    text-align: center;
+    position: relative;
+    background:
+      radial-gradient(ellipse 70% 55% at 50% 0%, var(--accent-dim) 0%, transparent 70%);
+  }
+  .hero .inner { max-width: 760px; }
+  .eyebrow {
+    display: inline-block;
+    font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.18em;
+    text-transform: uppercase; color: var(--accent);
+    border: 1px solid rgba(184,196,90,0.35);
+    background: var(--accent-dim);
+    padding: 0.4rem 1rem; border-radius: 100px; margin-bottom: 1.8rem;
+  }
+  .hero-title {
+    font-size: clamp(2rem, 5.5vw, 3.4rem);
+    font-weight: 900; line-height: 1.2; letter-spacing: -0.01em;
+  }
+  .hero-title .accent { color: var(--accent-strong); }
+  .hero-sub {
+    font-size: 1.02rem; color: var(--text-muted); font-weight: 300;
+    margin-top: 1.3rem; max-width: 540px; margin-inline: auto;
+  }
+  .hero-bullets {
+    display: flex; flex-wrap: wrap; justify-content: center; gap: 1.6rem;
+    margin-top: 2.1rem; font-size: 0.85rem; color: var(--text-muted);
+  }
+  .hero-bullets span { position: relative; padding-right: 1.5em; }
+  .hero-bullets span::before {
+    content: "✓"; position: absolute; right: 0; top: 0;
+    color: var(--accent); font-weight: 700;
+  }
+  .hero-credit {
+    margin-top: 2.6rem; font-size: 0.85rem; color: var(--text-faint);
+    display: flex; align-items: center; justify-content: center; gap: 0.7rem;
+  }
+  .hero-credit a { color: var(--text); text-decoration: none; font-weight: 600; }
+  .hero-credit a:hover { color: var(--accent); }
+  .hero-credit-dot { width: 22px; height: 1px; background: var(--accent); opacity: 0.5; }
+
+  /* ─── FILTERS ─── */
+  .filters-section { padding: 0 1.5rem 0; }
+  .filters-label {
+    font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.18em;
+    text-transform: uppercase; color: var(--text-faint); margin-bottom: 0.9rem;
+  }
+  .filters { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+  .filter-btn {
+    font-family: var(--mono); font-size: 0.75rem; letter-spacing: 0.02em;
+    padding: 0.5rem 1rem; border-radius: var(--radius-sm);
+    border: 1px solid var(--border); background: transparent;
+    color: var(--text-muted); cursor: pointer; transition: all 0.18s;
+  }
+  .filter-btn:hover, .filter-btn.active {
+    background: var(--accent); border-color: var(--accent); color: var(--bg); font-weight: 600;
+  }
+
+  /* ─── MAIN / SECTIONS ─── */
+  .main { padding: 3rem 1.5rem 2rem; }
+
+  .cat-divider {
+    display: flex; align-items: center; gap: 1rem; margin: 3.4rem 0 1.6rem;
+    cursor: pointer; user-select: none; padding: 0.4rem 0; transition: opacity 0.15s;
+  }
+  .cat-divider:hover { opacity: 0.85; }
+  .cat-divider:first-child { margin-top: 0; }
+  .cat-divider-line { flex: 1; height: 1px; background: var(--border); }
+  .cat-divider-label {
+    font-size: 1rem; font-weight: 800; color: var(--accent); white-space: nowrap;
+    display: flex; align-items: center; gap: 0.6rem;
+  }
+  .cat-divider-count {
+    font-family: var(--mono); font-size: 0.62rem; color: var(--text-faint);
+    background: var(--surface); border: 1px solid var(--border);
+    padding: 0.15rem 0.5rem; border-radius: 100px; font-weight: 400;
+  }
+  .cat-divider-icon {
+    width: 16px; height: 16px; flex-shrink: 0; color: var(--accent);
+    transition: transform 0.25s ease;
+  }
+  .cat-divider.open .cat-divider-icon { transform: rotate(180deg); }
+  .cat-section-body {
+    max-height: 0; overflow: hidden; transition: max-height 0.35s ease;
+  }
+  .cat-section-body.open { max-height: none; }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 1.1rem;
+    padding-top: 0.3rem;
+  }
+
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    position: relative;
+    display: flex; flex-direction: column;
+    transition: transform 0.22s ease, border-color 0.22s ease, box-shadow 0.22s ease;
+  }
+  .card:hover {
+    transform: translateY(-4px);
+    border-color: var(--accent);
+    box-shadow: 0 16px 36px rgba(0,0,0,0.35), 0 0 0 1px var(--accent-dim);
+  }
+  .card-num {
+    position: absolute; top: 14px; left: 16px;
+    font-family: var(--mono); font-size: 0.62rem; color: var(--text-faint); opacity: 0.5;
+  }
+  .card-header { padding: 1.3rem 1.3rem 0; display: flex; align-items: flex-start; gap: 0.8rem; }
+  .card-icon {
+    width: 38px; height: 38px; border-radius: var(--radius-sm);
+    display: flex; align-items: center; justify-content: center; font-size: 1.1rem;
+    flex-shrink: 0; background: var(--accent-dim); border: 1px solid rgba(184,196,90,0.25);
+  }
+  .card-tag {
+    display: inline-block; font-family: var(--mono); font-size: 0.6rem;
+    letter-spacing: 0.08em; color: var(--accent);
+    background: var(--accent-dim); border: 1px solid rgba(184,196,90,0.25);
+    padding: 0.18rem 0.55rem; border-radius: var(--radius-sm); margin-bottom: 0.4rem;
+  }
+  .card-title { font-size: 1rem; font-weight: 700; line-height: 1.35; color: var(--text); }
+  .card-body { padding: 0.6rem 1.3rem 0; flex: 1; }
+  .card-desc { font-size: 0.86rem; color: var(--text-muted); line-height: 1.65; font-weight: 300; }
+
+  /* ─── COLLAPSIBLE PROMPT ─── */
+  .prompt-wrap {
+    margin: 1rem 1.3rem 1.3rem;
+    border-radius: var(--radius-sm); overflow: hidden;
+    border: 1px solid var(--border); border-right: 3px solid var(--accent);
+    background: #0d1117;
+  }
+  .prompt-toggle {
+    width: 100%; display: flex; align-items: center; justify-content: space-between;
+    padding: 0.65rem 0.85rem; background: rgba(255,255,255,0.03);
+    border: none; cursor: pointer; transition: background 0.15s;
+    font-family: var(--font); color: var(--text); direction: rtl;
+  }
+  .prompt-toggle:hover { background: rgba(255,255,255,0.06); }
+  .prompt-toggle-label { font-size: 0.8rem; font-weight: 600; display: flex; align-items: center; gap: 0.55rem; }
+  .prompt-toggle-label .prompt-tool {
+    font-family: var(--mono); font-size: 0.58rem; letter-spacing: 0.04em;
+    color: var(--accent); opacity: 0.85; direction: ltr;
+  }
+  .prompt-toggle-icon {
+    width: 16px; height: 16px; flex-shrink: 0; color: var(--accent);
+    transition: transform 0.25s ease;
+  }
+  .prompt-wrap.open .prompt-toggle-icon { transform: rotate(180deg); }
+  .prompt-content { max-height: 0; overflow: hidden; transition: max-height 0.3s ease; }
+  .prompt-wrap.open .prompt-content { max-height: 600px; }
+  .prompt-header {
+    display: flex; align-items: center; justify-content: flex-end;
+    padding: 0.4rem 0.75rem; border-bottom: 1px solid rgba(255,255,255,0.05);
+    direction: ltr;
+  }
+  .copy-btn {
+    font-family: var(--font); font-size: 0.68rem; letter-spacing: 0.02em;
+    color: var(--text-faint); background: none; border: none; cursor: pointer;
+    padding: 2px 6px; border-radius: 4px; transition: all 0.15s; direction: rtl;
+  }
+  .copy-btn:hover { color: var(--text); background: rgba(255,255,255,0.06); }
+  .copy-btn.copied { color: var(--accent-strong); }
+  .prompt-text {
+    padding: 0.8rem 0.9rem;
+    font-family: var(--mono); font-size: 0.74rem; line-height: 1.65;
+    color: rgba(240,242,255,0.75);
+    direction: ltr; text-align: left; white-space: pre-wrap; word-break: break-word;
+  }
+
+  .reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.5s ease, transform 0.5s ease; }
+  .reveal.visible { opacity: 1; transform: none; }
+
+  /* ─── FOOTER ─── */
+  #footer { padding: 5rem 1.5rem 3rem; border-top: 1px solid var(--border); margin-top: 2rem; }
+  .section-label {
+    font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.18em;
+    text-transform: uppercase; color: var(--accent); margin-bottom: 0.6rem;
+  }
+  .footer-title { font-size: clamp(1.3rem, 2.5vw, 1.8rem); font-weight: 800; margin-bottom: 0.5rem; }
+  .footer-sub { font-size: 0.88rem; color: var(--text-muted); margin-bottom: 2.5rem; }
+  .footer-grid { display: grid; grid-template-columns: 1fr; gap: 1rem; }
+  @media (min-width: 500px) { .footer-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (min-width: 900px) { .footer-grid { grid-template-columns: repeat(3, 1fr); } }
+  .footer-card {
+    background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-md);
+    padding: 1.3rem 1.5rem; transition: border-color 0.2s, transform 0.22s; display: block;
+    text-decoration: none; color: var(--text);
+  }
+  .footer-card:hover { border-color: var(--accent); transform: translateY(-4px); }
+  .footer-card-num { font-family: var(--mono); font-size: 0.62rem; color: var(--text-faint); letter-spacing: 0.1em; margin-bottom: 0.4rem; direction: ltr; text-align: right; }
+  .footer-card-title { font-size: 0.9rem; font-weight: 700; margin-bottom: 0.3rem; }
+  .footer-card-desc { font-size: 0.78rem; color: var(--text-muted); line-height: 1.5; margin-bottom: 0.5rem; }
+  .footer-card-link { font-size: 0.72rem; color: var(--accent); font-family: var(--mono); direction: ltr; text-align: right; display: block; }
+  .footer-copy { margin-top: 3rem; text-align: center; font-size: 0.75rem; color: var(--text-faint); font-family: var(--mono); letter-spacing: 0.05em; direction: ltr; }
+
+  @media (max-width: 600px) {
+    .grid { grid-template-columns: 1fr; }
+    .hero { padding: 4rem 1.2rem 3rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<div class="topbar">
+  <div class="topbar-brand">AI FINANCE TRANSFORMATION</div>
+  <div class="topbar-actions">
+    <a class="topbar-cta-outline" href="https://www.ronenamoscpa.co.il/" target="_blank">האתר שלי ↗</a>
+    <a class="topbar-cta" href="https://chat.whatsapp.com/CS6dgqnK45Q9XAMqScNr6R" target="_blank">קהילת WhatsApp</a>
+  </div>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="inner">
+    <div class="eyebrow">FP&A · הנהלת חשבונות · סגירת חודש</div>
+    <h1 class="hero-title">50 דרכים להשתמש ב-<span class="accent">AI</span> לסגירת חודש</h1>
+    <p class="hero-sub">פרומפטים מוכנים, אוטומציות וקוד שמייצרים סדר בתהליך הסגירה — בנויים על פרקטיקה אמיתית של רואה חשבון, לא תיאוריה.</p>
+    <div class="hero-bullets">
+      <span>50 פרומפטים מוכנים להעתקה</span>
+      <span>מסודר ב-8 קטגוריות</span>
+      <span>מתאים ל-Claude, ChatGPT ו-Copilot</span>
+    </div>
+    <div class="hero-credit">
+      <div class="hero-credit-dot"></div>
+      <span>מאת <a href="https://www.ronenamoscpa.co.il/" target="_blank">רונן עמוס, CPA</a></span>
+      <div class="hero-credit-dot"></div>
+    </div>
+  </div>
+</section>
+
+<!-- FILTERS -->
+<div class="filters-section inner">
+  <div class="filters-label">סינון לפי קטגוריה</div>
+  <div class="filters" id="filters">
+    <button class="filter-btn active" data-cat="all">הכל · 50</button>
+    <button class="filter-btn" data-cat="automation">🤖 אוטומציה</button>
+    <button class="filter-btn" data-cat="reconciliation">🔍 התאמות</button>
+    <button class="filter-btn" data-cat="reporting">📊 דיווח</button>
+    <button class="filter-btn" data-cat="analysis">📈 ניתוח</button>
+    <button class="filter-btn" data-cat="code">💻 קוד / APIs</button>
+    <button class="filter-btn" data-cat="communication">✉️ תקשורת</button>
+    <button class="filter-btn" data-cat="audit">✅ ביקורת ובקרות</button>
+  </div>
+</div>
+
+<!-- MAIN -->
+<main class="main inner" id="cards-container">
+
+  <!-- אוטומציה וקוד -->
+  <div class="cat-divider reveal" onclick="toggleSection(this)">
+    <div class="cat-divider-line"></div>
+    <div class="cat-divider-label">🤖 אוטומציה וקוד <span class="cat-divider-count">6</span>
+      <svg class="cat-divider-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+    </div>
+    <div class="cat-divider-line"></div>
+  </div>
+  <div class="cat-section-body">
+  <div class="grid">
+
+    <div class="card reveal" data-cat="automation code">
+      <div class="card-num">#01</div>
+      <div class="card-header">
+        <div class="card-icon">🐍</div>
+        <div><div class="card-tag">אוטומציה בפייתון</div><div class="card-title">ייבוא אוטומטי של מאזן בוחן מה-ERP</div></div>
+      </div>
+      <div class="card-body"><p class="card-desc">ליצור קוד פייתון שמייבא מאזן בוחן מה-ERP באמצעות API או קובץ CSV, מנקה אותו וטוען אותו אוטומטית ל-Excel או למסד נתונים.</p></div>
+      <div class="prompt-wrap">
+        <button class="prompt-toggle" onclick="togglePrompt(event,this)">
+          <span class="prompt-toggle-label">הצג פרומפט <span class="prompt-tool">Claude / ChatGPT / Copilot</span></span>
+          <svg class="prompt-toggle-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="prompt-content">
+          <div class="prompt-header"><button class="copy-btn" onclick="copyPrompt(event,this)">העתק</button></div>
+          <div class="prompt-text">Generate Python code to automatically import a trial balance CSV exported from [ERP name, e.g. SAP / NetSuite / Xero]. The script should: clean column headers, remove blank rows, map account codes to a chart of accounts in a separate Excel file, and output a formatted XLSX file with totals per category. Include error handling for missing accounts.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card reveal" data-cat="automation code">
+      <div class="card-num">#02</div>
+      <div class="card-header">
+        <div class="card-icon">🔗</div>
+        <div><div class="card-tag">אינטגרציית API</div><div class="card-title">חיבור ל-API של Xero לתנועות יומן</div></div>
+      </div>
+      <div class="card-body"><p class="card-desc">לבנות סקריפט פייתון שמתחבר ל-API של Xero, שולף את כל פקודות היומן הידניות לתקופה, מסמן חריגות ומייצא אותן לבדיקה.</p></div>
+      <div class="prompt-wrap">
+        <button class="prompt-toggle" onclick="togglePrompt(event,this)">
+          <span class="prompt-toggle-label">הצג פרומפט <span class="prompt-tool">Claude / ChatGPT</span></span>
+          <svg class="prompt-toggle-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="prompt-content">
+          <div class="prompt-header"><button class="copy-btn" onclick="copyPrompt(event,this)">העתק</button></div>
+          <div class="prompt-text">Write Python code to connect to the Xero API using OAuth 2.0. The script should: authenticate with client_id and client_secret, fetch all manual journal entries for the current month, export them to a pandas DataFrame, flag any entries over £[X] or posted outside business hours, and save the results to a CSV. Include rate limit handling.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card reveal" data-cat="automation code">
+      <div class="card-num">#03</div>
+      <div class="card-header">
+        <div class="card-icon">📋</div>
+        <div><div class="card-tag">אוטומציה באקסל</div><div class="card-title">מאקרו VBA לרישומי יומן חזרתיים</div></div>
+      </div>
+      <div class="card-body"><p class="card-desc">ליצור מאקרו VBA שממלא אוטומטית תבניות חזרתיות (הפרשות), עם תאריכי התקופה הנכונים, סכומים מתאי ייחוס, וגיליון סיכום רישום.</p></div>
+      <div class="prompt-wrap">
+        <button class="prompt-toggle" onclick="togglePrompt(event,this)">
+          <span class="prompt-toggle-label">הצג פרומפט <span class="prompt-tool">Copilot / ChatGPT / Claude</span></span>
+          <svg class="prompt-toggle-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="prompt-content">
+          <div class="prompt-header"><button class="copy-btn" onclick="copyPrompt(event,this)">העתק</button></div>
+          <div class="prompt-text">Write an Excel VBA macro that automates recurring monthly accruals. It should: read from a "Recurring Entries" template sheet with columns (Description, Account Code, Debit/Credit, Amount), update the posting date to the last day of the current month, copy rows to a new "Journal" sheet, calculate totals, and highlight rows where Debit ≠ Credit in red.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card reveal" data-cat="automation code">
+      <div class="card-num">#04</div>
+      <div class="card-header">
+        <div class="card-icon">📧</div>
+        <div><div class="card-tag">אוטומציית מייל</div><div class="card-title">סקריפט לשליחת עדכוני סטטוס סגירה</div></div>
+      </div>
+      <div class="card-body"><p class="card-desc">לתזמן שליחה אוטומטית של מייל יומי עם סטטוס הסגירה, כולל טבלת סיכום שנשלפת מגיליון מעקב משותף — וחוסך עדכונים ידניים.</p></div>
+      <div class="prompt-wrap">
+        <button class="prompt-toggle" onclick="togglePrompt(event,this)">
+          <span class="prompt-toggle-label">הצג פרומפט <span class="prompt-tool">Claude / ChatGPT</span></span>
+          <svg class="prompt-toggle-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="prompt-content">
+          <div class="prompt-header"><button class="copy-btn" onclick="copyPrompt(event,this)">העתק</button></div>
+          <div class="prompt-text">Write a Python script using smtplib to automate daily month-end close status emails. Read a CSV with columns: Task, Owner, Status (Open/In Progress/Done), Due Date. Generate an HTML email with a color-coded status table (green=Done, orange=In Progress, red=Overdue) and send it to a list of recipients. Schedule it to run at 8am via cron.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card reveal" data-cat="automation code">
+      <div class="card-num">#05</div>
+      <div class="card-header">
+        <div class="card-icon">🗂️</div>
+        <div><div class="card-tag">Power Automate</div><div class="card-title">אוטומציה לתהליך אישור הפרשות</div></div>
+      </div>
+      <div class="card-body"><p class="card-desc">לתכנן זרימת Power Automate שמנתבת רישומי הפרשה מעל סף מסוים לאישור מנהל הכספים, עם התראות ב-Teams.</p></div>
+      <div class="prompt-wrap">
+        <button class="prompt-toggle" onclick="togglePrompt(event,this)">
+          <span class="prompt-toggle-label">הצג פרומפט <span class="prompt-tool">Copilot / Claude</span></span>
+          <svg class="prompt-toggle-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="prompt-content">
+          <div class="prompt-header"><button class="copy-btn" onclick="copyPrompt(event,this)">העתק</button></div>
+          <div class="prompt-text">Design a Microsoft Power Automate flow for accrual journal approvals. When a new row is added to a SharePoint list (Accrual Journal Register) with Amount > £[threshold], the flow should: send a Teams approval card to [Finance Manager], wait for approve/reject, update the SharePoint status column, and send a confirmation email to the preparer. Write the full JSON flow definition I can import into Power Automate.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card reveal" data-cat="automation code">
+      <div class="card-num">#06</div>
+      <div class="card-header">
+        <div class="card-icon">⚡</div>
+        <div><div class="card-tag">אוטומציה בפייתון</div><div class="card-title">אוטומציה לחישוב פחת חודשי</div></div>
+      </div>
+      <div class="card-body"><p class="card-desc">ליצור סקריפט פייתון שקורא את כרטסת הרכוש הקבוע, מחשב פחת חודשי לכל נכס בשיטת קו ישר או יתרה פוחתת, ומפיק רישומי יומן.</p></div>
+      <div class="prompt-wrap">
+        <button class="prompt-toggle" onclick="togglePrompt(event,this)">
+          <span class="prompt-toggle-label">הצג פרומפט <span class="prompt-tool">Claude / ChatGPT</span></span>
+          <svg class="prompt-toggle-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="prompt-content">
+          <div class="prompt-header"><button class="copy-btn" onclick="copyPrompt(event,this)">העתק</button></div>
+          <div class="prompt-text">Generate Python code to automate monthly depreciation calculations from a fixed asset register CSV with columns: Asset ID, Description, Purchase Date, Cost, Residual Value, Useful Life (months), Method (SL/RB). Calculate monthly depreciation for each asset, check if fully depreciated, and output a journal entry CSV with debit (Depreciation Expense) and credit (Accumulated Depreciation) lines, formatted for import into [ERP name].</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  </div>
+
+  <!-- התאמות וניתוח סטיות -->
+  <div class="cat-divider reveal" onclick="toggleSection(this)">
+    <div class="cat-divider-line"></div>
+    <div class="cat-divider-label">🔍 התאמות וניתוח סטיות <span class="cat-divider-count">6</span>
+      <svg class="cat-divider-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+    </div>
+    <div class="cat-divider-line"></div>
+  </div>
+  <div class="cat-section-body">
+  <div class="grid">
+
+    <div class="card reveal" data-cat="reconciliation code">
+      <div class="card-num">#07</div>
+      <div class="card-header">
+        <div class="card-icon">🔄</div>
+        <div><div class="card-tag">התאמת בנקים</div><div class="card-title">מנוע התאמה אוטומטי לתנועות בנק</div></div>
+      </div>
+      <div class="card-body"><p class="card-desc">לבנות סקריפט עם fuzzy matching שמשווה תנועות מתדפיס הבנק לכרטסת, מתאים אוטומטית לפי סכום ותאריך, ומסמן פריטים שלא הותאמו.</p></div>
+      <div class="prompt-wrap">
+        <button class="prompt-toggle" onclick="togglePrompt(event,this)">
+          <span class="prompt-toggle-label">הצג פרומפט <span class="prompt-tool">Claude / ChatGPT</span></span>
+          <svg class="prompt-toggle-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="prompt-content">
+          <div class="prompt-header"><button class="copy-btn" onclick="copyPrompt(event,this)">העתק</button></div>
+          <div class="prompt-text">Write Python code for automated bank reconciliation. Load two CSVs: bank_statement.csv (Date, Description, Amount) and general_ledger.csv (Date, Narration, Debit, Credit). Use fuzzy matching on descriptions (fuzzywuzzy library) and exact matching on amounts to auto-match transactions within a 3-day date window. Output three sheets: Matched, Unmatched Bank, Unmatched GL. Highlight items over 30 days old as high priority.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card reveal" data-cat="reconciliation">
+      <div class="card-num">#08</div>
+      <div class="card-header">
+        <div class="card-icon">💬</div>
+        <div><div class="card-tag">ניתוח סטיות</div><div class="card-title">הסבר סטיות במאזן בשפה ברורה</div></div>
+      </div>
+      <div class="card-body"><p class="card-desc">להדביק את טבלת הסטיות ולקבל הסברים ברורים ומוכנים ל-Board, שמסבירים מה הוביל לכל תזוזה — חוסך שעות של ניסוח.</p></div>
+      <div class="prompt-wrap">
+        <button class="prompt-toggle" onclick="togglePrompt(event,this)">
+          <span class="prompt-toggle-label">הצג פרומפט <span class="prompt-tool">Claude / ChatGPT / Gemini</span></span>
+          <svg class="prompt-toggle-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="prompt-content">
+          <div class="prompt-header"><button class="copy-btn" onclick="copyPrompt(event,this)">העתק</button></div>
+          <div class="prompt-text">You are a senior FP&A analyst. I'll paste a balance sheet variance table (current month vs prior month, vs budget). For each line with a variance > 5% or > £[X], write a 1-2 sentence explanation suitable for a CFO pack. Use plain business language, avoid jargon. Flag anything that may indicate an error or requires follow-up. Table: [paste data here]</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card reveal" data-cat="reconciliation code">
+      <div class="card-num">#09</div>
+      <div class="card-header">
+        <div class="card-icon">🧮</div>
+        <div><div class="card-tag">התאמות בין-חברתיות</div><div class="card-title">גילוי פערים בין-חברתיים</div></div>
+      </div>
+      <div class="card-body"><p class="card-desc">ליצור כלי פייתון שטוען יתרות בין-חברתיות ממספר חברות בקבוצה ומאתר אי-התאמות שדורשות טיפול לפני איחוד.</p></div>
+      <div class="prompt-wrap">
+        <button class="prompt-toggle" onclick="togglePrompt(event,this)">
+          <span class="prompt-toggle-label">הצג פרומפט <span class="prompt-tool">Claude / ChatGPT</span></span>
+          <svg class="prompt-toggle-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="prompt-content">
+          <div class="prompt-header"><button class="copy-btn" onclick="copyPrompt(event,this)">העתק</button></div>
+          <div class="prompt-text">Write Python code to automate intercompany reconciliation. Load a CSV with columns: Entity, Counterparty, Account, Balance. For each pair of entities (A owes B, B owes A), compare balances and calculate the difference. Output a summary showing matched pairs, mismatches with the difference amount, and FX-adjusted values if a rates CSV is provided. Flag mismatches over £[threshold] as critical.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card reveal" data-cat="reconciliation">
+      <div class="card-num">#10</div>
+      <div class="card-header">
+        <div class="card-icon">🏦</div>
+        <div><div class="card-tag">התאמת לקוחות/ספקים</div><div class="card-title">איתור אוטומטי של פריטים ישנים בגיל חוב</div></div>
+      </div>
+      <div class="card-body"><p class="card-desc">להשתמש ב-AI לניתוח דוח גיול חובות/זכויות, להפיק רשימת מעקב מתועדפת, ולקבל הצעת ניסוח להודעת תזכורת לכל לקוח.</p></div>
+      <div class="prompt-wrap">
+        <button class="prompt-toggle" onclick="togglePrompt(event,this)">
+          <span class="prompt-toggle-label">הצג פרומפט <span class="prompt-tool">Claude / Copilot / Gemini</span></span>
+          <svg class="prompt-toggle-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="prompt-content">
+          <div class="prompt-header"><button class="copy-btn" onclick="copyPrompt(event,this)">העתק</button></div>
+          <div class="prompt-text">Analyze this aged debtors report [paste data]. Identify: all items over 60 days, items over £[X] regardless of age, any customers with deteriorating payment patterns vs last month. Rank them by priority. For the top 5 items, draft a short, professional chaser email I can send to each customer. Today's date: [date].</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card reveal" data-cat="reconciliation code">
+      <div class="card-num">#11</div>
+      <div class="card-header">
+        <div class="card-icon">📦</div>
+        <div><div class="card-tag">התאמת מלאי</div><div class="card-title">דוח סטיות בין ספירת מלאי לרישום במערכת</div></div>
+      </div>
+      <div class="card-body"><p class="card-desc">קוד שמשווה ספירת מלאי פיזית לכמויות במערכת, מחשב את שווי הסטייה, ומפיק דוח לחקירה.</p></div>
+      <div class="prompt-wrap">
+        <button class="prompt-toggle" onclick="togglePrompt(event,this)">
+          <span class="prompt-toggle-label">הצג פרומפט <span class="prompt-tool">Claude / ChatGPT</span></span>
+          <svg class="prompt-toggle-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="prompt-content">
+          <div class="prompt-header"><button class="copy-btn" onclick="copyPrompt(event,this)">העתק</button></div>
+          <div class="prompt-text">Write Python code to reconcile inventory. Load two CSVs: physical_count.csv (SKU, Counted Qty) and system_stock.csv (SKU, System Qty, Unit Cost). Join on SKU, calculate quantity variance and value variance (qty diff × unit cost). Output a ranked report by absolute value variance, flag items with > 5% or > £[X] variance, and generate an XLSX with a summary sheet and detail sheet.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card reveal" data-cat="reconciliation">
+      <div class="card-num">#12</div>
+      <div class="card-header">
+        <div class="card-icon">🔎</div>
+        <div><div class="card-tag">בדיקת רוו"ה</div><div class="card-title">איתור תזוזות חריגות ברוו"ה באמצעות AI</div></div>
+      </div>
+      <div class="card-body"><p class="card-desc">להזין את הרוו"ה למודל AI ולבקש לאתר סעיפים עם תזוזה חריגה, שינוי במגמת העונתיות, או חריגות סטטיסטיות לעומת תקופות קודמות.</p></div>
+      <div class="prompt-wrap">
+        <button class="prompt-toggle" onclick="togglePrompt(event,this)">
+          <span class="prompt-toggle-label">הצג פרומפט <span class="prompt-tool">Claude / Gemini / ChatGPT</span></span>
+          <svg class="prompt-toggle-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="prompt-content">
+          <div class="prompt-header"><button class="copy-btn" onclick="copyPrompt(event,this)">העתק</button></div>
+          <div class="prompt-text">You are an FP&A analyst reviewing a P&L for anomalies. I'll provide 12 months of P&L data by account. For each account line, identify: (1) any month with a movement > 2 standard deviations from the monthly average, (2) directional reversals vs trend, (3) zero balances where activity is normally expected. Present findings as a table with Account, Month, Actual, Expected Range, and a brief note. P&L data: [paste here]</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  </div>
+
+  <!-- דשבורדים ודיווח -->
+  <div class="cat-divider reveal" onclick="toggleSection(this)">
+    <div class="cat-divider-line"></div>
+    <div class="cat-divider-label">📊 דשבורדים ודיווח <span class="cat-divider-count">6</span>
+      <svg class="cat-divider-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+    </div>
+    <div class="cat-divider-line"></div>
+  </div>
+  <div class="cat-section-body">
+  <div class="grid">
+
+    <div class="card reveal" data-cat="reporting code">
+      <div class="card-num">#13</div>
+      <div class="card-header">
+        <div class="card-icon">🖥️</div>
+        <div><div class="card-tag">דשבורד HTML</div><div class="card-title">בניית דשבורד מעקב סגירה ב-HTML</div></div>
+      </div>
+      <div class="card-body"><p class="card-desc">להפיק דשבורד HTML מעוצב שמציג סטטוס משימות סגירת חודש, בעלי משימה, ומדדי "ימים מאז סוף החודש" — קובץ אחד, אפשר לשתף בלי שום תוכנה.</p></div>
+      <div class="prompt-wrap">
+        <button class="prompt-toggle" onclick="togglePrompt(event,this)">
+          <span class="prompt-toggle-label">הצג פרומפט <span class="prompt-tool">Claude / ChatGPT</span></span>
+          <svg class="prompt-toggle-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="prompt-content">
+          <div class="prompt-header"><button class="copy-btn" onclick="copyPrompt(event,this)">העתק</button></div>
+          <div class="prompt-text">Give me HTML/CSS/JS code for a month-end close tracker dashboard. It should include: a progress bar showing % of tasks complete, a table with Task, Owner, Due Date, Status (color-coded), a donut chart of status breakdown (Chart.js), and a "Days Since Month End" counter. Data should be editable from a JSON array at the top of the script. Make it professional, dark theme, suitable for sharing with the Finance team.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card reveal" data-cat="reporting code">
+      <div class="card-num">#14</div>
+      <div class="card-header">
+        <div class="card-icon">📉</div>
+        <div><div class="card-tag">דשבורד בפייתון</div><div class="card-title">דשבורד רוו"ה עם Plotly</div></div>
+      </div>
+      <div class="card-body"><p class="card-desc">קוד פייתון עם Plotly Dash לדשבורד רוו"ה אינטראקטיבי, עם גרף Waterfall, מגמות, והשוואת תקציב לביצוע בפועל.</p></div>
+      <div class="prompt-wrap">
+        <button class="prompt-toggle" onclick="togglePrompt(event,this)">
+          <span class="prompt-toggle-label">הצג פרומפט <span class="prompt-tool">Claude / ChatGPT</span></span>
+          <svg class="prompt-toggle-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="prompt-content">
+          <div class="prompt-header"><button class="copy-btn" onclick="copyPrompt(event,this)">העתק</button></div>
+          <div class="prompt-text">Generate Python code using Plotly Dash for an interactive P&L dashboard. Load data from a CSV with columns: Account, Category (Revenue/COGS/OpEx), Month, Actual, Budget. Include: (1) a waterfall chart from Revenue to Net Profit, (2) a budget vs actual bar chart by month, (3) a dropdown to filter by Category, (4) a data table with conditional formatting. Use a dark corporate theme.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card reveal" data-cat="reporting">
+      <div class="card-num">#15</div>
+      <div class="card-header">
+        <div class="card-icon">📝</div>
+        <div><div class="card-tag">דיווח להנהלה</div><div class="card-title">ניסוח אוטומטי לדוח דירקטוריון</div></div>
+      </div>
+      <div class="card-body"><p class="card-desc">להדביק את ה-KPI-ים והסטיות ולקבל ניסוח מוכן לדירקטוריון שמסביר את התוצאות בשפה עסקית ברורה.</p></div>
+      <div class="prompt-wrap">
+        <button class="prompt-toggle" onclick="togglePrompt(event,this)">
+          <span class="prompt-toggle-label">הצג פרומפט <span class="prompt-tool">Claude / Gemini / Copilot</span></span>
+          <svg class="prompt-toggle-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="prompt-content">
+          <div class="prompt-header"><button class="copy-btn" onclick="copyPrompt(event,this)">העתק</button></div>
+          <div class="prompt-text">Write a 200-word CFO commentary for the month of [month/year] using the data below. Focus on: revenue performance vs budget, gross margin movement, key cost variances, and cash position. Use a professional but accessible tone. Start with the key headline, then explain the main drivers, and end with a forward-looking statement. Data: [paste KPIs and variances here]</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card reveal" data-cat="reporting code">
+      <div class="card-num">#16</div>
+      <div class="card-header">
+        <div class="card-icon">💹</div>
+        <div><div class="card-tag">Power BI</div><div class="card-title">יצירת מדדי DAX למדדי סגירה</div></div>
+      </div>
+      <div class="card-body"><p class="card-desc">לתאר את המדדים הדרושים לדוח Power BI ולקבל את קוד ה-DAX המדויק לכל מדד, מוכן להדבקה במודל.</p></div>
+      <div class="prompt-wrap">
+        <button class="prompt-toggle" onclick="togglePrompt(event,this)">
+          <span class="prompt-toggle-label">הצג פרומפט <span class="prompt-tool">Copilot / ChatGPT / Claude</span></span>
+          <svg class="prompt-toggle-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="prompt-content">
+          <div class="prompt-header"><button class="copy-btn" onclick="copyPrompt(event,this)">העתק</button></div>
+          <div class="prompt-text">Write Power BI DAX measures for these month-end KPIs: (1) Gross Margin % = Gross Profit / Revenue, (2) Budget Variance % = (Actual - Budget) / ABS(Budget), (3) YTD Revenue = TOTALYTD([Revenue], Dates[Date]), (4) Revenue vs Prior Year % change, (5) Days Sales Outstanding = AR Balance / (Revenue / Days in Month). My table names are: Financials, Dates, Customers. Include a brief comment for each measure.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card reveal" data-cat="reporting code">
+      <div class="card-num">#17</div>
+      <div class="card-header">
+        <div class="card-icon">🗄️</div>
+        <div><div class="card-tag">דיווח ב-SQL</div><div class="card-title">שאילתות SQL ל-Views דיווח פיננסיים</div></div>
+      </div>
+      <div class="card-body"><p class="card-desc">ליצור שאילתות SQL שמייצרות Views חודשיים של רוו"ה ומאזן ישירות מטבלות ה-ERP, מוכנים לשימוש בכלי ה-BI.</p></div>
+      <div class="prompt-wrap">
+        <button class="prompt-toggle" onclick="togglePrompt(event,this)">
+          <span class="prompt-toggle-label">הצג פרומפט <span class="prompt-tool">Claude / ChatGPT / Gemini</span></span>
+          <svg class="prompt-toggle-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="prompt-content">
+          <div class="prompt-header"><button class="copy-btn" onclick="copyPrompt(event,this)">העתק</button></div>
+          <div class="prompt-text">Write SQL queries for a PostgreSQL database to create financial reporting views. Tables: gl_transactions (id, date, account_code, debit, credit, entity), chart_of_accounts (account_code, account_name, category, subcategory). Create: (1) a monthly P&L view summarizing revenue and expense categories by month and entity, (2) a balance sheet view with assets, liabilities, equity as at month-end, (3) a budget vs actual comparison view joining to a budgets table.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card reveal" data-cat="reporting">
+      <div class="card-num">#18</div>
+      <div class="card-header">
+        <div class="card-icon">📊</div>
+        <div><div class="card-tag">יצירת נרטיב</div><div class="card-title">נרטיב אוטומטי לדוח חודשי להנהלה</div></div>
+      </div>
+      <div class="card-body"><p class="card-desc">להפוך טבלת תוצאות לנרטיב מלא ומסודר עם כותרות, ניתוח והקשר — מוכן לשליחה להנהלה.</p></div>
+      <div class="prompt-wrap">
+        <button class="prompt-toggle" onclick="togglePrompt(event,this)">
+          <span class="prompt-toggle-label">הצג פרומפט <span class="prompt-tool">Claude / Gemini</span></span>
+          <svg class="prompt-toggle-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="prompt-content">
+          <div class="prompt-header"><button class="copy-btn" onclick="copyPrompt(event,this)">העתק</button></div>
+          <div class="prompt-text">Act as a Finance Business Partner. Using the data I provide, write a complete management accounts narrative for [month]. Structure it with these sections: Executive Summary, Revenue Analysis, Cost of Sales, Operating Costs, EBITDA, Cash & Working Capital, Risks & Opportunities. Each section should be 2-4 sentences. Tone: professional, concise, suitable for non-finance senior managers. Data: [paste financials]</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  </div>
+
+  <!-- ניתוח פיננסי -->
+  <div class="cat-divider reveal" onclick="toggleSection(this)">
+    <div class="cat-divider-line"></div>
+    <div class="cat-divider-label">📈 ניתוח פיננסי <span class="cat-divider-count">6</span>
+      <svg class="cat-divider-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+    </div>
+    <div class="cat-divider-line"></div>
+  </div>
+  <div class="cat-section-body">
+  <div class="grid">
+
+    <div class="card reveal" data-cat="analysis">
+      <div class="card-num">#19</div>
+      <div class="card-header">
+        <div class="card-icon">🧠</div>
+        <div><div class="card-tag">ניתוח FP&A</div><div class="card-title">ניתוח שורש לחריגה מתקציב</div></div>
+      </div>
+      <div class="card-body"><p class="card-desc">להזין נתוני עלות ל-AI ולקבל ניתוח שורש מובנה לחריגה מהתקציב, מפורט לפי קטגוריה, צוות ותזמון.</p></div>
+      <div class="prompt-wrap">
+        <button class="prompt-toggle" onclick="togglePrompt(event,this)">
+          <span class="prompt-toggle-label">הצג פרומפט <span class="prompt-tool">Claude / Gemini / Copilot</span></span>
+          <svg class="prompt-toggle-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="prompt-content">
+          <div class="prompt-header"><button class="copy-btn" onclick="copyPrompt(event,this)">העתק</button></div>
+          <div class="prompt-text">Perform a root cause analysis of this operating cost overspend. Data: [paste actuals vs budget by cost category and department]. Identify: (1) the top 3 categories/departments driving the overspend, (2) whether it's a volume, price, or timing variance, (3) any one-off items vs recurring issues, (4) recommended management actions. Present as a structured report with an executive summary, findings, and recommendations.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card reveal" data-cat="analysis code">
+      <div class="card-num">#20</div>
+      <div class="card-header">
+        <div class="card-icon">📡</div>
+        <div><div class="card-tag">תחזית גלגלית</div><div class="card-title">מודל תחזית גלגלית בפייתון</div></div>
+      </div>
+      <div class="card-body"><p class="card-desc">סקריפט פייתון שמשלב ביצוע בפועל YTD עם תקציב לחודשים שנותרו, ומפיק תחזית גלגלית ל-12 חודשים עם ניתוח תרחישים.</p></div>
+      <div class="prompt-wrap">
+        <button class="prompt-toggle" onclick="togglePrompt(event,this)">
+          <span class="prompt-toggle-label">הצג פרומפט <span class="prompt-tool">Claude / ChatGPT</span></span>
+          <svg class="prompt-toggle-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="prompt-content">
+          <div class="prompt-header"><button class="copy-btn" onclick="copyPrompt(event,this)">העתק</button></div>
+          <div class="prompt-text">Write Python code for a rolling 12-month forecast model. Input: actuals CSV (Month, Account, Actual) and budget CSV (Month, Account, Budget). For completed months, use actuals. For remaining months, use budget × a growth factor (adjustable per category). Output: a 12-month forecast table, a waterfall chart comparing budget vs forecast vs prior year, and a best/base/worst case scenario table. Use openpyxl to save as XLSX.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card reveal" data-cat="analysis">
+      <div class="card-num">#21</div>
+      <div class="card-header">
+        <div class="card-icon">💡</div>
+        <div><div class="card-tag">הפרשות</div><div class="card-title">הצעת הפרשות מהזמנות רכש פתוחות</div></div>
+      </div>
+      <div class="card-body"><p class="card-desc">להעלות רשימת הזמנות רכש פתוחות ולבקש מ-AI לזהות אילו סחורות/שירותים כבר התקבלו אך לא חויבו, ולהציע סכום וחשבון הפרשה.</p></div>
+      <div class="prompt-wrap">
+        <button class="prompt-toggle" onclick="togglePrompt(event,this)">
+          <span class="prompt-toggle-label">הצג פרומפט <span class="prompt-tool">Claude / Gemini / Copilot</span></span>
+          <svg class="prompt-toggle-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="prompt-content">
+          <div class="prompt-header"><button class="copy-btn" onclick="copyPrompt(event,this)">העתק</button></div>
+          <div class="prompt-text">Review this open purchase order list [paste PO data with columns: PO Number, Supplier, Description, PO Date, Expected Delivery, PO Value, Invoiced to Date]. Identify items where: delivery was expected before month-end, value is not yet fully invoiced, and suggest an accrual amount. For each, suggest the appropriate P&L account to post to. Output a table: PO#, Supplier, Description, Suggested Accrual, Account Code, Reason.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card reveal" data-cat="analysis">
+      <div class="card-num">#22</div>
+      <div class="card-header">
+        <div class="card-icon">💰</div>
+        <div><div class="card-tag">תחזית מזומנים</div><div class="card-title">בניית תחזית מזומנים ל-13 שבועות</div></div>
+      </div>
+      <div class="card-body"><p class="card-desc">לתאר את נתוני הקלט ולקבל מודל פייתון מלא או תבנית אקסל לתחזית מזומנים גלגלית ל-13 שבועות, עם מעקב סטיות.</p></div>
+      <div class="prompt-wrap">
+        <button class="prompt-toggle" onclick="togglePrompt(event,this)">
+          <span class="prompt-toggle-label">הצג פרומפט <span class="prompt-tool">Claude / ChatGPT / Gemini</span></span>
+          <svg class="prompt-toggle-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="prompt-content">
+          <div class="prompt-header"><button class="copy-btn" onclick="copyPrompt(event,this)">העתק</button></div>
+          <div class="prompt-text">Create an Excel template for a 13-week rolling cash flow forecast for a [company type, e.g. SaaS / manufacturing / retail] business. Include: opening cash, cash receipts (by customer segment), cash payments (payroll, suppliers, tax, capex, other), closing cash, cumulative cash position. Add a weekly variance vs last week's forecast. Include formulas and conditional formatting to highlight weeks where cash drops below £[X]. Describe each section with clear input vs formula cells.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card reveal" data-cat="analysis code">
+      <div class="card-num">#23</div>
+      <div class="card-header">
+        <div class="card-icon">🎯</div>
+        <div><div class="card-tag">ניתוח KPI</div><div class="card-title">חישוב והשוואת KPI מול בנצ'מארק</div></div>
+      </div>
+      <div class="card-body"><p class="card-desc">סקריפט שמחשב יחסים פיננסיים מרכזיים ממאזן הבוחן ומשווה אותם לבנצ'מארק ענפי.</p></div>
+      <div class="prompt-wrap">
+        <button class="prompt-toggle" onclick="togglePrompt(event,this)">
+          <span class="prompt-toggle-label">הצג פרומפט <span class="prompt-tool">Claude / ChatGPT</span></span>
+          <svg class="prompt-toggle-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="prompt-content">
+          <div class="prompt-header"><button class="copy-btn" onclick="copyPrompt(event,this)">העתק</button></div>
+          <div class="prompt-text">Write Python code to calculate financial KPIs from a trial balance CSV. Calculate: Gross Margin %, EBITDA Margin %, Current Ratio, Quick Ratio, DSO, DPO, DIO, Net Debt/EBITDA, Revenue Growth %. For each KPI, compare to industry benchmarks (provide hardcoded benchmarks for [industry]) and flag as Green/Amber/Red. Output a KPI scorecard as a styled HTML file with a traffic light table.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card reveal" data-cat="analysis">
+      <div class="card-num">#24</div>
+      <div class="card-header">
+        <div class="card-icon">📐</div>
+        <div><div class="card-tag">הוצאות מראש</div><div class="card-title">בדיקה ושחרור נכון של הוצאות מראש</div></div>
+      </div>
+      <div class="card-body"><p class="card-desc">להעלות לוח הוצאות מראש ולבקש מ-AI לחשב כמה צריך לשחרר בכל חודש, לזהות פריטים שהסתיימו, ולסמן חריגות.</p></div>
+      <div class="prompt-wrap">
+        <button class="prompt-toggle" onclick="togglePrompt(event,this)">
+          <span class="prompt-toggle-label">הצג פרומפט <span class="prompt-tool">Claude / Copilot / Gemini</span></span>
+          <svg class="prompt-toggle-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="prompt-content">
+          <div class="prompt-header"><button class="copy-btn" onclick="copyPrompt(event,this)">העתק</button></div>
+          <div class="prompt-text">Review this prepayment schedule [paste data: Supplier, Description, Invoice Date, Total Amount, Start Date, End Date, Monthly Release, Released to Date]. For each item: calculate how much should have been released by [month end date], compare to "Released to Date", flag any over- or under-releases, identify any items where the release period has expired but balance remains. Output a reconciled schedule with an action column.</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  </div>
+
+  <!-- קוד, APIs ואינטגרציות -->
+  <div class="cat-divider reveal" onclick="toggleSection(this)">
+    <div class="cat-divider-line"></div>
+    <div class="cat-divider-label">💻 קוד, APIs ואינטגרציות <span class="cat-divider-count">6</span>
+      <svg class="cat-divider-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+    </div>
+    <div class="cat-divider-line"></div>
+  </div>
+  <div class="cat-section-body">
+  <div class="grid">
+
+    <div class="card reveal" data-cat="code">
+      <div class="card-num">#25</div>
+      <div class="card-header">
+        <div class="card-icon">🌐</div>
+        <div><div class="card-tag">אינטגרציית API</div><div class="card-title">חיבור ל-API של QuickBooks ושליפת תנועות</div></div>
+      </div>
+      <div class="card-body"><p class="card-desc">קוד פייתון מלא להתחברות ל-API של QuickBooks Online ושליפת תנועות לתקופת הסגירה.</p></div>
+      <div class="prompt-wrap">
+        <button class="prompt-toggle" onclick="togglePrompt(event,this)">
+          <span class="prompt-toggle-label">הצג פרומפט <span class="prompt-tool">Claude / ChatGPT</span></span>
+          <svg class="prompt-toggle-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="prompt-content">
+          <div class="prompt-header"><button class="copy-btn" onclick="copyPrompt(event,this)">העתק</button></div>
+          <div class="prompt-text">Write Python code to connect to the QuickBooks Online API using OAuth 2.0. The script should: authenticate using client_id, client_secret, and refresh_token stored in environment variables; query all transactions for [start_date] to [end_date]; parse the JSON response into a pandas DataFrame with columns: Date, Type, Account, Amount, Memo, Entity; and export to CSV. Include token refresh logic and error handling for API rate limits.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card reveal" data-cat="code">
+      <div class="card-num">#26</div>
+      <div class="card-header">
+        <div class="card-icon">🔌</div>
+        <div><div class="card-tag">אינטגרציית API</div><div class="card-title">רישום יומן אוטומטי ב-Sage Intacct</div></div>
+      </div>
+      <div class="card-body"><p class="card-desc">קוד פייתון שקורא קובץ רישומי יומן ומשתמש ב-API של Sage Intacct לרישום אוטומטי, עם טיפול מלא בשגיאות.</p></div>
+      <div class="prompt-wrap">
+        <button class="prompt-toggle" onclick="togglePrompt(event,this)">
+          <span class="prompt-toggle-label">הצג פרומפט <span class="prompt-tool">Claude / ChatGPT</span></span>
+          <svg class="prompt-toggle-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="prompt-content">
+          <div class="prompt-header"><button class="copy-btn" onclick="copyPrompt(event,this)">העתק</button></div>
+          <div class="prompt-text">Write Python code to post journal entries to Sage Intacct via their XML API. Read journal entries from a CSV (Journal ID, Date, Account, Department, Amount, Memo). For each journal, construct the XML request body, authenticate using company_id, user_id, and password, post via requests library, and capture the response. Log successes and failures to a file. Handle the case where a journal is already posted (duplicate check).</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card reveal" data-cat="code">
+      <div class="card-num">#27</div>
+      <div class="card-header">
+        <div class="card-icon">🏗️</div>
+        <div><div class="card-tag">צנרת נתונים</div><div class="card-title">בניית צנרת ETL לסגירת חודש בפייתון</div></div>
+      </div>
+      <div class="card-body"><p class="card-desc">צנרת ETL מודולרית בפייתון ששולפת נתונים ממספר מקורות, מעבדת אותם לדיווח, וטוענת ל-Data Warehouse או לאקסל.</p></div>
+      <div class="prompt-wrap">
+        <button class="prompt-toggle" onclick="togglePrompt(event,this)">
+          <span class="prompt-toggle-label">הצג פרומפט <span class="prompt-tool">Claude / ChatGPT</span></span>
+          <svg class="prompt-toggle-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="prompt-content">
+          <div class="prompt-header"><button class="copy-btn" onclick="copyPrompt(event,this)">העתק</button></div>
+          <div class="prompt-text">Design a Python ETL pipeline for month-end close. The pipeline should: (1) Extract: pull CSVs from a SharePoint folder and transactions from a REST API; (2) Transform: clean data, apply chart of accounts mapping, calculate metrics, handle FX conversion using rates from an external API; (3) Load: write to a PostgreSQL database and generate a summary Excel workbook. Use pandas and SQLAlchemy. Structure as modular functions with logging at each step.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card reveal" data-cat="code">
+      <div class="card-num">#28</div>
+      <div class="card-header">
+        <div class="card-icon">🔧</div>
+        <div><div class="card-tag">אקסל / פייתון</div><div class="card-title">אוטומציה לאיחוד דוחות בין-חברתי</div></div>
+      </div>
+      <div class="card-body"><p class="card-desc">קוד פייתון שטוען מאזני בוחן מקבצי אקסל של מספר חברות, מבצע רישומי קיזוז, ומפיק רוו"ה ומאזן מאוחדים.</p></div>
+      <div class="prompt-wrap">
+        <button class="prompt-toggle" onclick="togglePrompt(event,this)">
+          <span class="prompt-toggle-label">הצג פרומפט <span class="prompt-tool">Claude / ChatGPT</span></span>
+          <svg class="prompt-toggle-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="prompt-content">
+          <div class="prompt-header"><button class="copy-btn" onclick="copyPrompt(event,this)">העתק</button></div>
+          <div class="prompt-text">Write Python code to automate multi-entity consolidation. Load trial balance XLSX files from a folder (one per entity), each with columns: Account Code, Account Name, Debit, Credit. Combine all entities, apply FX conversion using a rates dictionary, process elimination entries from an eliminations CSV (Debit Account, Credit Account, Amount, Description), then produce a consolidated P&L and balance sheet. Save as a formatted Excel file with an entity breakdown tab.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card reveal" data-cat="code">
+      <div class="card-num">#29</div>
+      <div class="card-header">
+        <div class="card-icon">⚙️</div>
+        <div><div class="card-tag">סקריפט פייתון</div><div class="card-title">כלי לחילוץ נתונים מחשבוניות PDF</div></div>
+      </div>
+      <div class="card-body"><p class="card-desc">כלי פייתון שמחלץ נתונים עיקריים מחשבוניות PDF (ספק, תאריך, סכום, מע"מ) באמצעות עיבוד מבוסס AI.</p></div>
+      <div class="prompt-wrap">
+        <button class="prompt-toggle" onclick="togglePrompt(event,this)">
+          <span class="prompt-toggle-label">הצג פרומפט <span class="prompt-tool">Claude / ChatGPT</span></span>
+          <svg class="prompt-toggle-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="prompt-content">
+          <div class="prompt-header"><button class="copy-btn" onclick="copyPrompt(event,this)">העתק</button></div>
+          <div class="prompt-text">Write Python code to extract structured data from PDF invoices using the pdfplumber library. For each PDF in a folder, extract: Vendor Name, Invoice Number, Invoice Date, Due Date, Net Amount, VAT Amount, Total Amount. Use regex patterns for standard fields and fall back to keyword-based extraction. Output all invoices to a CSV. Flag invoices where totals don't reconcile (Net + VAT ≠ Total) or where required fields are missing.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card reveal" data-cat="code">
+      <div class="card-num">#30</div>
+      <div class="card-header">
+        <div class="card-icon">🛠️</div>
+        <div><div class="card-tag">SharePoint / פייתון</div><div class="card-title">אוטומציה לאיסוף קבצים מ-SharePoint</div></div>
+      </div>
+      <div class="card-body"><p class="card-desc">סקריפט פייתון עם Microsoft Graph API שאוסף אוטומטית קבצי סגירת חודש שהועלו לתיקיית SharePoint משותפת.</p></div>
+      <div class="prompt-wrap">
+        <button class="prompt-toggle" onclick="togglePrompt(event,this)">
+          <span class="prompt-toggle-label">הצג פרומפט <span class="prompt-tool">Claude / ChatGPT / Copilot</span></span>
+          <svg class="prompt-toggle-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="prompt-content">
+          <div class="prompt-header"><button class="copy-btn" onclick="copyPrompt(event,this)">העתק</button></div>
+          <div class="prompt-text">Write Python code using the Microsoft Graph API to automate file collection for month-end. Authenticate using MSAL with client credentials. List all files in a SharePoint folder path (/sites/Finance/month-end/[month]). Download any XLSX files uploaded after [cutoff date]. Log file names, upload dates, and file sizes. Flag if expected submitters (from a list) have not uploaded their file. Save a collection status report as CSV.</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  </div>
+
+  <!-- תקשורת ותיעוד -->
+  <div class="cat-divider reveal" onclick="toggleSection(this)">
+    <div class="cat-divider-line"></div>
+    <div class="cat-divider-label">✉️ תקשורת ותיעוד <span class="cat-divider-count">6</span>
+      <svg class="cat-divider-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+    </div>
+    <div class="cat-divider-line"></div>
+  </div>
+  <div class="cat-section-body">
+  <div class="grid">
+
+    <div class="card reveal" data-cat="communication">
+      <div class="card-num">#31</div>
+      <div class="card-header">
+        <div class="card-icon">📣</div>
+        <div><div class="card-tag">תקשורת מחלקתית</div><div class="card-title">ניסוח מייל פתיחת תהליך סגירה</div></div>
+      </div>
+      <div class="card-body"><p class="card-desc">מייל ברור ומקצועי לכל בעלי העניין עם מועדי יעד, תוצרים נדרשים, וקישור לצ'ק-ליסט הסגירה.</p></div>
+      <div class="prompt-wrap">
+        <button class="prompt-toggle" onclick="togglePrompt(event,this)">
+          <span class="prompt-toggle-label">הצג פרומפט <span class="prompt-tool">Claude / Gemini / Copilot</span></span>
+          <svg class="prompt-toggle-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="prompt-content">
+          <div class="prompt-header"><button class="copy-btn" onclick="copyPrompt(event,this)">העתק</button></div>
+          <div class="prompt-text">Write a month-end close kick-off email for [month/year]. Recipients: Finance team, Department Heads. Key deadlines: [list your dates]. Deliverables required from departments: expense reports by [date], accrual submissions by [date], headcount confirmations by [date]. Tone: professional and action-oriented. Include a subject line, a brief reminder of why timely close matters, a clear deadline table, and a contact for queries.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card reveal" data-cat="communication">
+      <div class="card-num">#32</div>
+      <div class="card-header">
+        <div class="card-icon">📖</div>
+        <div><div class="card-tag">תיעוד תהליכים</div><div class="card-title">יצירת נהלי עבודה (SOP) למשימות סגירה</div></div>
+      </div>
+      <div class="card-body"><p class="card-desc">לתאר שלב בתהליך ולקבל מסמך נוהל עבודה מסודר עם שלבים, בקרות, ודרישות תיעוד.</p></div>
+      <div class="prompt-wrap">
+        <button class="prompt-toggle" onclick="togglePrompt(event,this)">
+          <span class="prompt-toggle-label">הצג פרומפט <span class="prompt-tool">Claude / Gemini / Copilot</span></span>
+          <svg class="prompt-toggle-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="prompt-content">
+          <div class="prompt-header"><button class="copy-btn" onclick="copyPrompt(event,this)">העתק</button></div>
+          <div class="prompt-text">Write a Standard Operating Procedure (SOP) for [task name, e.g. "Monthly Bank Reconciliation"]. Include: Purpose, Scope, Frequency, System Used, Step-by-step instructions (numbered), Key controls and checks, Who approves, What to do if errors are found, and document version/date. Write it clearly enough that a new team member could follow it independently. Use a professional, concise format suitable for a finance procedures manual.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card reveal" data-cat="communication">
+      <div class="card-num">#33</div>
+      <div class="card-header">
+        <div class="card-icon">🔔</div>
+        <div><div class="card-tag">הסלמה</div><div class="card-title">מייל הסלמה על אי-עמידה בלוח זמנים</div></div>
+      </div>
+      <div class="card-body"><p class="card-desc">מייל מקצועי אך תקיף לצוות שלא עמד במועד הסגירה, עם רמת התראה מתאימה וצעדים הבאים ברורים.</p></div>
+      <div class="prompt-wrap">
+        <button class="prompt-toggle" onclick="togglePrompt(event,this)">
+          <span class="prompt-toggle-label">הצג פרומפט <span class="prompt-tool">Claude / Copilot / Gemini</span></span>
+          <svg class="prompt-toggle-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="prompt-content">
+          <div class="prompt-header"><button class="copy-btn" onclick="copyPrompt(event,this)">העתק</button></div>
+          <div class="prompt-text">Write a professional escalation email for a department that has missed the month-end submission deadline. Context: [Department] was due to submit [deliverable] by [date] — it is now [X] days overdue, causing delays to the financial close. Recipients: Department Head (CC: their manager and Finance Director). Tone: firm but collaborative, not aggressive. Include: what is outstanding, the impact on close, the new hard deadline, and an offer to help resolve any blockers.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card reveal" data-cat="communication">
+      <div class="card-num">#34</div>
+      <div class="card-header">
+        <div class="card-icon">🗓️</div>
+        <div><div class="card-tag">תכנון</div><div class="card-title">בניית לוח שנה שנתי לסגירת חודש</div></div>
+      </div>
+      <div class="card-body"><p class="card-desc">לוח שנה מלא ל-12 חודשים עם כל המשימות, בעלי תפקיד, תלויות ומועדי יעד — מוכן להתאמה אישית.</p></div>
+      <div class="prompt-wrap">
+        <button class="prompt-toggle" onclick="togglePrompt(event,this)">
+          <span class="prompt-toggle-label">הצג פרומפט <span class="prompt-tool">Claude / ChatGPT / Gemini</span></span>
+          <svg class="prompt-toggle-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="prompt-content">
+          <div class="prompt-header"><button class="copy-btn" onclick="copyPrompt(event,this)">העתק</button></div>
+          <div class="prompt-text">Create a detailed month-end close calendar template for [company type]. For each month, list the key tasks (bank rec, accruals, depreciation, intercompany, prepayments, reporting, board pack), working day deadlines (e.g. WD+2, WD+5), responsible team members (Accountant, FP&A, FC), and dependencies. Output as a table I can import into Excel. Assume a 5-working-day close target. Include quarterly and year-end additional tasks.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card reveal" data-cat="communication">
+      <div class="card-num">#35</div>
+      <div class="card-header">
+        <div class="card-icon">🎓</div>
+        <div><div class="card-tag">הדרכה</div><div class="card-title">יצירת מדריך הדרכה לתהליך הסגירה</div></div>
+      </div>
+      <div class="card-body"><p class="card-desc">מדריך onboarding מסודר לחברי צוות חדשים, שמסביר את כל משימות הסגירה, המערכות, והציפיות.</p></div>
+      <div class="prompt-wrap">
+        <button class="prompt-toggle" onclick="togglePrompt(event,this)">
+          <span class="prompt-toggle-label">הצג פרומפט <span class="prompt-tool">Claude / Gemini</span></span>
+          <svg class="prompt-toggle-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="prompt-content">
+          <div class="prompt-header"><button class="copy-btn" onclick="copyPrompt(event,this)">העתק</button></div>
+          <div class="prompt-text">Write a month-end close onboarding guide for a new Management Accountant joining our team. Cover: overview of our close process and timeline, key systems used ([ERP, Excel, etc.]), their specific responsibilities, how to prepare accruals, depreciation, and prepayments, common mistakes to avoid, who to escalate issues to, and a week-1 checklist of things to do and learn. Make it friendly, practical, and under 2 pages.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card reveal" data-cat="communication">
+      <div class="card-num">#36</div>
+      <div class="card-header">
+        <div class="card-icon">🤝</div>
+        <div><div class="card-tag">שותפות עסקית</div><div class="card-title">תרגום תוצאות פיננסיות לבעלי תפקיד שאינם מכספים</div></div>
+      </div>
+      <div class="card-body"><p class="card-desc">להדביק את תוצאות הרוו"ה ולקבל ניסוח בשפה פשוטה למנהל מבצעי, מכירות או משאבי אנוש בלי ז'רגון חשבונאי.</p></div>
+      <div class="prompt-wrap">
+        <button class="prompt-toggle" onclick="togglePrompt(event,this)">
+          <span class="prompt-toggle-label">הצג פרומפט <span class="prompt-tool">Claude / Gemini / Copilot</span></span>
+          <svg class="prompt-toggle-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="prompt-content">
+          <div class="prompt-header"><button class="copy-btn" onclick="copyPrompt(event,this)">העתק</button></div>
+          <div class="prompt-text">Rewrite these monthly financial results in plain language for a non-finance audience (e.g. a Sales Director or Operations Manager). Avoid accounting jargon. Explain what the numbers mean in practical terms: are we making money, are costs under control, what do we need to focus on? Use analogies where helpful. Keep it under 200 words. Results: [paste P&L summary]</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  </div>
+
+  <!-- ביקורת, בקרות ורגולציה -->
+  <div class="cat-divider reveal" onclick="toggleSection(this)">
+    <div class="cat-divider-line"></div>
+    <div class="cat-divider-label">✅ ביקורת, בקרות ורגולציה <span class="cat-divider-count">6</span>
+      <svg class="cat-divider-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+    </div>
+    <div class="cat-divider-line"></div>
+  </div>
+  <div class="cat-section-body">
+  <div class="grid">
+
+    <div class="card reveal" data-cat="audit">
+      <div class="card-num">#37</div>
+      <div class="card-header">
+        <div class="card-icon">🛡️</div>
+        <div><div class="card-tag">בקרות</div><div class="card-title">בדיקת רישומי יומן לאיתור סיכוני ביקורת</div></div>
+      </div>
+      <div class="card-body"><p class="card-desc">להעלות יומן רישומים ולבקש מ-AI לסמן רישומים עם מאפיינים שמבקרים מחפשים: סכומים עגולים, חשבונות חריגים, רישום בסופי שבוע, ורישום יומן-ליומן.</p></div>
+      <div class="prompt-wrap">
+        <button class="prompt-toggle" onclick="togglePrompt(event,this)">
+          <span class="prompt-toggle-label">הצג פרומפט <span class="prompt-tool">Claude / Gemini / ChatGPT</span></span>
+          <svg class="prompt-toggle-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="prompt-content">
+          <div class="prompt-header"><button class="copy-btn" onclick="copyPrompt(event,this)">העתק</button></div>
+          <div class="prompt-text">Act as an internal auditor. Review this journal entry log [paste data: Date, Preparer, Account Dr, Account Cr, Amount, Description, Posting Time]. Flag entries that match high-risk patterns: (1) round number amounts, (2) posted outside business hours or on weekends, (3) journal-to-journal entries with no supporting narrative, (4) unusual account combinations, (5) end-of-period postings over £[X]. Output a prioritized exceptions list with risk level and explanation for each.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card reveal" data-cat="audit code">
+      <div class="card-num">#38</div>
+      <div class="card-header">
+        <div class="card-icon">🔐</div>
+        <div><div class="card-tag">אנליטיקת נתונים</div><div class="card-title">ניתוח חוק בנפורד לאיתור הונאות</div></div>
+      </div>
+      <div class="card-body"><p class="card-desc">קוד פייתון שמיישם את חוק בנפורד על נתונים פיננסיים לאיתור התפלגויות שעלולות להעיד על מניפולציה או שגיאות הקלדה.</p></div>
+      <div class="prompt-wrap">
+        <button class="prompt-toggle" onclick="togglePrompt(event,this)">
+          <span class="prompt-toggle-label">הצג פרומפט <span class="prompt-tool">Claude / ChatGPT</span></span>
+          <svg class="prompt-toggle-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="prompt-content">
+          <div class="prompt-header"><button class="copy-btn" onclick="copyPrompt(event,this)">העתק</button></div>
+          <div class="prompt-text">Write Python code to perform a Benford's Law analysis on financial transaction data. Load a CSV with a transaction amount column. Extract the first digit of each transaction, calculate the actual frequency distribution, compare to Benford's theoretical distribution, calculate chi-squared statistic and p-value, and plot the comparison as a bar chart (matplotlib). Flag if any digit deviates by more than 5 percentage points and assess overall risk as Low/Medium/High.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card reveal" data-cat="audit">
+      <div class="card-num">#39</div>
+      <div class="card-header">
+        <div class="card-icon">📋</div>
+        <div><div class="card-tag">בקרות</div><div class="card-title">עיצוב צ'ק-ליסט בקרות לסגירת חודש</div></div>
+      </div>
+      <div class="card-body"><p class="card-desc">צ'ק-ליסט בקרות פנימיות מקיף לסגירת חודש, שמכסה הפרדת תפקידים, אישורים, התאמות, ודרישות תיעוד.</p></div>
+      <div class="prompt-wrap">
+        <button class="prompt-toggle" onclick="togglePrompt(event,this)">
+          <span class="prompt-toggle-label">הצג פרומפט <span class="prompt-tool">Claude / Gemini / Copilot</span></span>
+          <svg class="prompt-toggle-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="prompt-content">
+          <div class="prompt-header"><button class="copy-btn" onclick="copyPrompt(event,this)">העתק</button></div>
+          <div class="prompt-text">Create a comprehensive month-end controls checklist for a [company size/type] business. For each area (bank rec, accruals, payroll, intercompany, fixed assets, revenue recognition, provisions), list: the key control, who performs it, who reviews/approves, what evidence should be retained, and the risk mitigated. Format as a table. Include a sign-off section for the Financial Controller. Reference relevant SOX/ICFR principles where applicable.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card reveal" data-cat="audit code">
+      <div class="card-num">#40</div>
+      <div class="card-header">
+        <div class="card-icon">⚖️</div>
+        <div><div class="card-tag">רגולציה</div><div class="card-title">סקריפט אימות נתוני דוח מע"מ</div></div>
+      </div>
+      <div class="card-body"><p class="card-desc">קוד פייתון שמאמת את נתוני דוח המע"מ לעומת התנועות הבסיסיות, ובודק שגיאות נפוצות לפני הגשה.</p></div>
+      <div class="prompt-wrap">
+        <button class="prompt-toggle" onclick="togglePrompt(event,this)">
+          <span class="prompt-toggle-label">הצג פרומפט <span class="prompt-tool">Claude / ChatGPT</span></span>
+          <svg class="prompt-toggle-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="prompt-content">
+          <div class="prompt-header"><button class="copy-btn" onclick="copyPrompt(event,this)">העתק</button></div>
+          <div class="prompt-text">Write Python code to validate a UK VAT return (MTD). Load a sales ledger CSV and purchase ledger CSV with columns: Date, Invoice No, Supplier/Customer, Net, VAT, Gross, VAT Code. Calculate Box 1 (VAT on sales), Box 4 (VAT on purchases), Box 6 (Net sales), Box 7 (Net purchases). Compare to the submitted return figures, flag any differences > £1, check for transactions with incorrect VAT codes, and list any transactions in the wrong period. Output a validation report.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card reveal" data-cat="audit">
+      <div class="card-num">#41</div>
+      <div class="card-header">
+        <div class="card-icon">🔍</div>
+        <div><div class="card-tag">תמיכת ביקורת</div><div class="card-title">הכנת לוח ראיות לביקורת</div></div>
+      </div>
+      <div class="card-body"><p class="card-desc">לוח ראיות מסודר למבקר החיצוני, שמכסה את היתרות המרכזיות בסוף השנה, מקושר להתאמות, מסמכים תומכים וחישובים.</p></div>
+      <div class="prompt-wrap">
+        <button class="prompt-toggle" onclick="togglePrompt(event,this)">
+          <span class="prompt-toggle-label">הצג פרומפט <span class="prompt-tool">Claude / Gemini</span></span>
+          <svg class="prompt-toggle-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="prompt-content">
+          <div class="prompt-header"><button class="copy-btn" onclick="copyPrompt(event,this)">העתק</button></div>
+          <div class="prompt-text">Create a year-end audit evidence schedule for [company name]. For each key balance sheet area (cash, receivables, payables, inventory, fixed assets, accruals, provisions, debt), list: the auditor's likely assertion being tested (Existence, Completeness, Valuation, Rights), the supporting schedules we'll provide, who is responsible for preparing each, and the file reference. Format as a table. Also include a list of key documents auditors typically request at year-end.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card reveal" data-cat="audit code">
+      <div class="card-num">#42</div>
+      <div class="card-header">
+        <div class="card-icon">🧾</div>
+        <div><div class="card-tag">זיהוי כפילויות</div><div class="card-title">איתור תשלומים כפולים בכרטסת ספקים</div></div>
+      </div>
+      <div class="card-body"><p class="card-desc">קוד פייתון שסורק את היסטוריית התשלומים לספקים לאיתור תשלומים כפולים, עם fuzzy matching על מספרי חשבונית, ספקים וסכומים.</p></div>
+      <div class="prompt-wrap">
+        <button class="prompt-toggle" onclick="togglePrompt(event,this)">
+          <span class="prompt-toggle-label">הצג פרומפט <span class="prompt-tool">Claude / ChatGPT</span></span>
+          <svg class="prompt-toggle-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="prompt-content">
+          <div class="prompt-header"><button class="copy-btn" onclick="copyPrompt(event,this)">העתק</button></div>
+          <div class="prompt-text">Write Python code to detect duplicate payments in an AP ledger. Load a CSV with: Payment Date, Supplier Name, Invoice Number, Payment Amount, Reference. Flag exact duplicates (same supplier + invoice + amount), near-duplicates (same amount + same supplier within 30 days, different invoice number), and suspicious patterns (same amount to same supplier multiple times in a month). Use fuzzywuzzy for supplier name matching. Output a prioritized exceptions list with risk level.</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  </div>
+
+  <!-- כלים מתקדמים ופרודוקטיביות -->
+  <div class="cat-divider reveal" onclick="toggleSection(this)">
+    <div class="cat-divider-line"></div>
+    <div class="cat-divider-label">🚀 כלים מתקדמים ופרודוקטיביות <span class="cat-divider-count">8</span>
+      <svg class="cat-divider-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+    </div>
+    <div class="cat-divider-line"></div>
+  </div>
+  <div class="cat-section-body">
+  <div class="grid">
+
+    <div class="card reveal" data-cat="analysis reporting">
+      <div class="card-num">#43</div>
+      <div class="card-header">
+        <div class="card-icon">🤖</div>
+        <div><div class="card-tag">ניתוח AI</div><div class="card-title">בדיקת הכרה בהכנסה באמצעות AI</div></div>
+      </div>
+      <div class="card-body"><p class="card-desc">להעלות סיכום חוזה ולוח הכרה בהכנסה ולבקש מ-AI לבדוק התאמה ל-IFRS 15 לפי מחויבויות הביצוע.</p></div>
+      <div class="prompt-wrap">
+        <button class="prompt-toggle" onclick="togglePrompt(event,this)">
+          <span class="prompt-toggle-label">הצג פרומפט <span class="prompt-tool">Claude / Gemini</span></span>
+          <svg class="prompt-toggle-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="prompt-content">
+          <div class="prompt-header"><button class="copy-btn" onclick="copyPrompt(event,this)">העתק</button></div>
+          <div class="prompt-text">Review this customer contract summary for revenue recognition compliance under IFRS 15. Contract details: [paste summary]. Identify: (1) distinct performance obligations, (2) transaction price and allocation, (3) timing of recognition (point in time vs over time), (4) any variable consideration or significant financing components, (5) any red flags or areas needing further review. Provide a concise technical memo with your analysis and conclusion.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card reveal" data-cat="code automation">
+      <div class="card-num">#44</div>
+      <div class="card-header">
+        <div class="card-icon">📤</div>
+        <div><div class="card-tag">אוטומציה</div><div class="card-title">יצירת תגי iXBRL לדיווח רגולטורי</div></div>
+      </div>
+      <div class="card-body"><p class="card-desc">פרומפטים מובנים שעוזרים למפות שורות בדוחות הכספיים לתגי טקסונומיית XBRL הנכונים, להגשה רגולטורית.</p></div>
+      <div class="prompt-wrap">
+        <button class="prompt-toggle" onclick="togglePrompt(event,this)">
+          <span class="prompt-toggle-label">הצג פרומפט <span class="prompt-tool">Claude / ChatGPT</span></span>
+          <svg class="prompt-toggle-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="prompt-content">
+          <div class="prompt-header"><button class="copy-btn" onclick="copyPrompt(event,this)">העתק</button></div>
+          <div class="prompt-text">Help me map these financial statement line items to the correct UK GAAP FRS 102 iXBRL taxonomy tags. For each line item I provide, give: the most appropriate XBRL element name, the namespace, whether it's a debit or credit concept, and any notes on applicability. Line items: [list your P&L and balance sheet labels]. Present as a mapping table. Highlight any items where there is ambiguity and explain the options.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card reveal" data-cat="analysis">
+      <div class="card-num">#45</div>
+      <div class="card-header">
+        <div class="card-icon">🌍</div>
+        <div><div class="card-tag">מטבע חוץ</div><div class="card-title">חישוב רישום הערכה מחדש למטבע חוץ</div></div>
+      </div>
+      <div class="card-body"><p class="card-desc">פרומפט לחישוב רישומי הערכה מחדש (FX) ליתרות מטבע חוץ בסוף החודש, לפי שער סגירה מול שער רישום.</p></div>
+      <div class="prompt-wrap">
+        <button class="prompt-toggle" onclick="togglePrompt(event,this)">
+          <span class="prompt-toggle-label">הצג פרומפט <span class="prompt-tool">Claude / Gemini / ChatGPT</span></span>
+          <svg class="prompt-toggle-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="prompt-content">
+          <div class="prompt-header"><button class="copy-btn" onclick="copyPrompt(event,this)">העתק</button></div>
+          <div class="prompt-text">Help me calculate month-end FX revaluation journals. I have the following foreign currency balances [paste: Account, Currency, FC Balance, Booking Rate, GBP Book Value]. The month-end closing rates are: [list rates]. For each balance: calculate the GBP value at closing rate, calculate the revaluation gain/loss, and create a journal entry (Dr/Cr FX Gain/Loss, Dr/Cr the balance sheet account). Summarize the net FX P&L impact and indicate which items are monetary vs non-monetary.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card reveal" data-cat="reporting code">
+      <div class="card-num">#46</div>
+      <div class="card-header">
+        <div class="card-icon">📱</div>
+        <div><div class="card-tag">דשבורד HTML</div><div class="card-title">עמוד KPI רספונסיבי למובייל</div></div>
+      </div>
+      <div class="card-body"><p class="card-desc">קוד HTML לכרטיס KPI רספונסיבי למובייל, שמציג ל-CFO מבט מהיר על המדדים העיקריים עם איתות צבע (אדום/צהוב/ירוק).</p></div>
+      <div class="prompt-wrap">
+        <button class="prompt-toggle" onclick="togglePrompt(event,this)">
+          <span class="prompt-toggle-label">הצג פרומפט <span class="prompt-tool">Claude / ChatGPT</span></span>
+          <svg class="prompt-toggle-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="prompt-content">
+          <div class="prompt-header"><button class="copy-btn" onclick="copyPrompt(event,this)">העתק</button></div>
+          <div class="prompt-text">Give me HTML/CSS code for a mobile-friendly finance KPI scorecard. Include these metrics: Revenue (actual vs budget), Gross Margin %, EBITDA, Cash Balance, DSO, Headcount. For each: show the current value, the target, a trend arrow (up/down), and a RAG status (green/amber/red circle). All data should be editable from a JSON object at the top. Use a clean, professional dark design. The page should work offline as a standalone file.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card reveal" data-cat="automation analysis">
+      <div class="card-num">#47</div>
+      <div class="card-header">
+        <div class="card-icon">🧩</div>
+        <div><div class="card-tag">זרימת עבודה AI</div><div class="card-title">בניית עוזר AI למשימות סגירה</div></div>
+      </div>
+      <div class="card-body"><p class="card-desc">לעצב עוזר AI מותאם (פרויקט ב-Claude או GPT מותאם) שמאומן על הנהלים, כרטסת החשבונות ולוח הסגירה שלך — ועונה לצוות בזמן אמת.</p></div>
+      <div class="prompt-wrap">
+        <button class="prompt-toggle" onclick="togglePrompt(event,this)">
+          <span class="prompt-toggle-label">הצג פרומפט <span class="prompt-tool">Claude Projects / ChatGPT GPTs</span></span>
+          <svg class="prompt-toggle-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="prompt-content">
+          <div class="prompt-header"><button class="copy-btn" onclick="copyPrompt(event,this)">העתק</button></div>
+          <div class="prompt-text">You are [Company Name]'s Month-End Close Assistant. You have been provided with our SOPs, chart of accounts, close calendar, and key contacts. Your role is to: answer questions about how to post specific journal entries, explain which accounts to use, confirm deadlines and owners, help troubleshoot reconciliation issues, and escalate complex items. Always refer to our specific account codes and processes. If unsure, say so and suggest who to ask. Be concise and practical.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card reveal" data-cat="analysis reporting">
+      <div class="card-num">#48</div>
+      <div class="card-header">
+        <div class="card-icon">🏆</div>
+        <div><div class="card-tag">בקרת ביצועים</div><div class="card-title">ניתוח רטרוספקטיבי לאחר הסגירה</div></div>
+      </div>
+      <div class="card-body"><p class="card-desc">לאחר הסגירה, להשתמש ב-AI לנתח מדדי ביצוע (ימי סגירה, שגיאות, פריטים שהתעכבו) ולקבל המלצות שיפור לחודש הבא.</p></div>
+      <div class="prompt-wrap">
+        <button class="prompt-toggle" onclick="togglePrompt(event,this)">
+          <span class="prompt-toggle-label">הצג פרומפט <span class="prompt-tool">Claude / Gemini / ChatGPT</span></span>
+          <svg class="prompt-toggle-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="prompt-content">
+          <div class="prompt-header"><button class="copy-btn" onclick="copyPrompt(event,this)">העתק</button></div>
+          <div class="prompt-text">Analyze this month's close performance data and generate a retrospective report. Data: [paste metrics: tasks completed on time, tasks late by how many days, errors found, journals reposted, who raised late items, time to close vs target]. Identify: top 3 bottlenecks, root causes (system, process, or people), specific tasks where performance deteriorated, and 3-5 actionable recommendations to improve next month. Format as a one-page retrospective memo.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card reveal" data-cat="code analysis">
+      <div class="card-num">#49</div>
+      <div class="card-header">
+        <div class="card-icon">🔢</div>
+        <div><div class="card-tag">פייתון</div><div class="card-title">לוחות חכירה לפי IFRS 16</div></div>
+      </div>
+      <div class="card-body"><p class="card-desc">קוד פייתון שמחשב התחייבות חכירה, נכס זכות שימוש, ורישומי יומן חודשיים אוטומטית מנתוני החכירה.</p></div>
+      <div class="prompt-wrap">
+        <button class="prompt-toggle" onclick="togglePrompt(event,this)">
+          <span class="prompt-toggle-label">הצג פרומפט <span class="prompt-tool">Claude / ChatGPT</span></span>
+          <svg class="prompt-toggle-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="prompt-content">
+          <div class="prompt-header"><button class="copy-btn" onclick="copyPrompt(event,this)">העתק</button></div>
+          <div class="prompt-text">Write Python code to automate IFRS 16 lease accounting. Input: a CSV with columns: Lease ID, Description, Commencement Date, Lease Term (months), Monthly Payment, Incremental Borrowing Rate %, Currency. For each lease: calculate the initial right-of-use asset and lease liability using present value of payments, generate a monthly amortization schedule (interest expense, principal repayment, closing liability), and calculate the monthly journal entries. Export to a multi-tab Excel workbook with one tab per lease and a summary tab.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card reveal" data-cat="reporting analysis">
+      <div class="card-num">#50</div>
+      <div class="card-header">
+        <div class="card-icon">🌟</div>
+        <div><div class="card-tag">אסטרטגיית AI</div><div class="card-title">בניית מפת דרכים לאימוץ AI בצוות הכספים</div></div>
+      </div>
+      <div class="card-body"><p class="card-desc">לבקש מ-AI לבנות מפת דרכים בשלבים להטמעת כלי AI בתהליך הסגירה — מ"ניצחונות מהירים" ועד אוטומציה מלאה.</p></div>
+      <div class="prompt-wrap">
+        <button class="prompt-toggle" onclick="togglePrompt(event,this)">
+          <span class="prompt-toggle-label">הצג פרומפט <span class="prompt-tool">Claude / Gemini / ChatGPT</span></span>
+          <svg class="prompt-toggle-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="prompt-content">
+          <div class="prompt-header"><button class="copy-btn" onclick="copyPrompt(event,this)">העתק</button></div>
+          <div class="prompt-text">Create a 12-month AI adoption roadmap for a finance team of [X] people at a [size] [industry] company. Current state: [describe tools used, level of automation, team AI literacy]. Phase it into: Quick Wins (Month 1-3): high-impact, low-effort AI tools for close tasks; Foundation Building (Month 4-6): process automation and data pipelines; Advanced Capability (Month 7-12): predictive analytics, self-service reporting. For each initiative include: tool/approach, time saving estimate, effort to implement, and success metrics.</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  </div>
+
+</main>
+
+<!-- FOOTER -->
+<section id="footer">
+  <div class="inner">
+    <div class="section-label">המשך</div>
+    <h2 class="footer-title">למדריכים ותוכן נוסף</h2>
+    <p class="footer-sub">כל הכלים, הקהילה והמשאבים — במקום אחד.</p>
+    <div class="footer-grid">
+      <a href="https://chat.whatsapp.com/CS6dgqnK45Q9XAMqScNr6R" target="_blank" class="footer-card">
+        <div class="footer-card-num">01 · COMMUNITY</div>
+        <div class="footer-card-title">קהילת AI Finance</div>
+        <div class="footer-card-desc">מעל 800 אנשי פיננסים שחולקים כלים ו-prompts בזמן אמת.</div>
+        <div class="footer-card-link">chat.whatsapp.com ↗</div>
+      </a>
+      <a href="https://www.youtube.com/@AIFinanceTransformation" target="_blank" class="footer-card">
+        <div class="footer-card-num">02 · YOUTUBE</div>
+        <div class="footer-card-title">AI for Finance</div>
+        <div class="footer-card-desc">הדגמות מעשיות, walkthroughs ו-playbooks שמאחורי הפרקטיקה.</div>
+        <div class="footer-card-link">@AIFinanceTransformation ↗</div>
+      </a>
+      <a href="https://www.ronenamoscpa.co.il/" target="_blank" class="footer-card">
+        <div class="footer-card-num">03 · NEWSLETTER</div>
+        <div class="footer-card-title">הניוזלטר השבועי</div>
+        <div class="footer-card-desc">תובנות AI לפיננסים ישר למייל שלך — כתוב על ידי איש פיננסים.</div>
+        <div class="footer-card-link">ronenamoscpa.co.il ↗</div>
+      </a>
+      <a href="https://www.ronenamoscpa.co.il/skill-vault" target="_blank" class="footer-card">
+        <div class="footer-card-num">04 · PROMPT HUB</div>
+        <div class="footer-card-title">Skill Vault</div>
+        <div class="footer-card-desc">ספריית ה-prompts שלי — מוכנים לשימוש מיידי בצוות הפיננסים שלך.</div>
+        <div class="footer-card-link">ronenamoscpa.co.il/skill-vault ↗</div>
+      </a>
+      <a href="https://www.paypal.com/ncp/payment/E36KBLHK8MDPN" target="_blank" class="footer-card">
+        <div class="footer-card-num">05 · THE BOOK</div>
+        <div class="footer-card-title">Claude Playbook</div>
+        <div class="footer-card-desc">הספר המלא — frameworks, case studies ומדריכי יישום לצוותי פיננסים.</div>
+        <div class="footer-card-link">רכישה מאובטחת ↗</div>
+      </a>
+      <a href="https://www.ronenamoscpa.co.il/courses" target="_blank" class="footer-card">
+        <div class="footer-card-num">06 · COURSE</div>
+        <div class="footer-card-title">קורס AI Finance</div>
+        <div class="footer-card-desc">תוכנית מובנית להטמעת חשיבה AI-First בצוות הפיננסים שלך.</div>
+        <div class="footer-card-link">ronenamoscpa.co.il/courses ↗</div>
+      </a>
+    </div>
+    <div class="footer-copy">Ronen Amos · AI Finance Transformation</div>
+  </div>
+</section>
+
+<script>
+  const filterBtns = document.querySelectorAll('.filter-btn');
+  const cards = document.querySelectorAll('.card');
+  const dividers = document.querySelectorAll('.cat-divider');
+
+  function toggleSection(divider) {
+    divider.classList.toggle('open');
+    const body = divider.nextElementSibling;
+    if (body && body.classList.contains('cat-section-body')) {
+      body.classList.toggle('open');
+    }
+  }
+
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      filterBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const cat = btn.dataset.cat;
+
+      cards.forEach(card => {
+        if (cat === 'all') { card.style.display = ''; }
+        else {
+          const cardCats = card.dataset.cat || '';
+          card.style.display = cardCats.includes(cat) ? '' : 'none';
+        }
+      });
+
+      dividers.forEach(div => {
+        const body = div.nextElementSibling;
+        if (cat === 'all') {
+          div.style.display = '';
+          return;
+        }
+        let hasVisible = false;
+        if (body && body.classList.contains('cat-section-body')) {
+          body.querySelectorAll('.card').forEach(c => {
+            if (c.style.display !== 'none') hasVisible = true;
+          });
+        }
+        div.style.display = hasVisible ? '' : 'none';
+        // auto-expand sections that contain matching cards when filtering
+        if (hasVisible && body) {
+          div.classList.add('open');
+          body.classList.add('open');
+        }
+      });
+    });
+  });
+
+  function copyPrompt(evt, btn) {
+    evt.stopPropagation();
+    const text = btn.closest('.prompt-wrap').querySelector('.prompt-text').innerText;
+    navigator.clipboard.writeText(text).then(() => {
+      btn.textContent = 'הועתק!';
+      btn.classList.add('copied');
+      setTimeout(() => { btn.textContent = 'העתק'; btn.classList.remove('copied'); }, 1800);
+    });
+  }
+
+  function togglePrompt(evt, btn) {
+    evt.stopPropagation();
+    const wrap = btn.closest('.prompt-wrap');
+    wrap.classList.toggle('open');
+  }
+
+  const revealEls = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => { entry.target.classList.add('visible'); }, 60 * (Array.from(revealEls).indexOf(entry.target) % 6));
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.08 });
+  revealEls.forEach(el => observer.observe(el));
+</script>
+</body>
+</html>

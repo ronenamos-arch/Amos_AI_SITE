@@ -1,0 +1,835 @@
+```html
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>AI Finance Transformation | מנתונים גולמיים להחלטות CFO</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+
+<style>
+
+:root{
+--primary:#D46F42;
+--dark:#1F2E36;
+--light:#F7F4F1;
+--card:#FFFFFF;
+--border:#E8E3DE;
+--text:#202020;
+--muted:#6B7280;
+--success:#4CAF50;
+}
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Heebo',sans-serif;
+}
+
+body{
+background:var(--light);
+color:var(--text);
+line-height:1.7;
+}
+
+.container{
+max-width:1450px;
+margin:auto;
+padding:40px;
+}
+
+.hero{
+text-align:center;
+margin-bottom:60px;
+}
+
+.brand{
+font-size:18px;
+font-weight:700;
+letter-spacing:3px;
+color:var(--primary);
+text-transform:uppercase;
+}
+
+.hero h1{
+font-size:64px;
+font-weight:800;
+margin-top:10px;
+line-height:1.2;
+}
+
+.hero h1 span{
+color:var(--primary);
+}
+
+.hero p{
+font-size:22px;
+color:var(--muted);
+margin-top:15px;
+}
+
+.section{
+margin-top:60px;
+}
+.step-image{
+    width:100%;
+    border-radius:20px;
+    margin-top:20px;
+    display:block;
+    box-shadow:0 6px 20px rgba(0,0,0,.08);
+}
+
+.card{
+background:white;
+border:1px solid var(--border);
+border-radius:24px;
+padding:28px;
+box-shadow:0 6px 20px rgba(0,0,0,.04);
+}
+
+.before-after{
+display:grid;
+grid-template-columns:1fr 80px 1fr;
+gap:20px;
+align-items:center;
+}
+
+.arrow{
+text-align:center;
+font-size:48px;
+color:var(--primary);
+font-weight:bold;
+}
+
+.badge{
+display:inline-block;
+padding:8px 16px;
+border-radius:30px;
+font-size:13px;
+font-weight:700;
+margin-bottom:15px;
+}
+
+.before-badge{
+background:#FFE3E3;
+color:#B42318;
+}
+
+.after-badge{
+background:#DDF7E3;
+color:#0E8A31;
+}
+
+h2{
+font-size:34px;
+margin-bottom:10px;
+}
+
+h3{
+font-size:26px;
+margin-bottom:10px;
+}
+
+p{
+margin-bottom:15px;
+}
+
+table{
+width:100%;
+border-collapse:collapse;
+margin-top:15px;
+font-size:14px;
+}
+
+th{
+background:#F4F4F4;
+padding:10px;
+border:1px solid #DDD;
+}
+
+td{
+padding:10px;
+border:1px solid #DDD;
+text-align:center;
+}
+
+.timeline{
+margin-top:60px;
+}
+
+.step{
+display:grid;
+grid-template-columns:90px 1fr;
+gap:25px;
+margin-bottom:35px;
+align-items:flex-start;
+}
+
+.number{
+width:70px;
+height:70px;
+border-radius:50%;
+background:var(--primary);
+color:white;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:28px;
+font-weight:700;
+}
+
+.step-content{
+display:grid;
+grid-template-columns:1fr 380px;
+gap:25px;
+margin-top:20px;
+}
+
+.side-card{
+background:#FAFAFA;
+border:1px solid var(--border);
+border-radius:18px;
+padding:18px;
+}
+
+.check{
+color:var(--success);
+font-weight:bold;
+margin-bottom:10px;
+}
+
+.placeholder{
+height:320px;
+border-radius:20px;
+border:3px dashed #C9C9C9;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:24px;
+font-weight:700;
+color:#888;
+background:#FBFBFB;
+margin-top:20px;
+}
+
+.dashboard-preview{
+background:var(--dark);
+color:white;
+padding:35px;
+border-radius:24px;
+margin-top:20px;
+}
+
+.kpis{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:20px;
+margin-bottom:25px;
+}
+
+.kpi{
+background:#30434D;
+padding:20px;
+border-radius:15px;
+}
+
+.kpi-title{
+font-size:13px;
+opacity:.8;
+}
+
+.kpi-value{
+font-size:34px;
+font-weight:800;
+}
+
+.bottom-flow{
+margin-top:60px;
+padding:40px;
+background:white;
+border-radius:24px;
+text-align:center;
+}
+
+.flow{
+display:flex;
+justify-content:center;
+gap:30px;
+flex-wrap:wrap;
+margin-top:25px;
+font-weight:700;
+}
+
+.flow div{
+background:#F6F6F6;
+padding:15px 25px;
+border-radius:14px;
+}
+
+.footer{
+text-align:center;
+margin-top:50px;
+font-size:22px;
+font-weight:800;
+color:var(--primary);
+}
+
+ul{
+padding-right:20px;
+}
+
+li{
+margin-bottom:8px;
+}
+
+@media(max-width:1000px){
+
+.before-after{
+grid-template-columns:1fr;
+}
+
+.arrow{
+transform:rotate(90deg);
+}
+
+.step-content{
+grid-template-columns:1fr;
+}
+
+.kpis{
+grid-template-columns:1fr 1fr;
+}
+
+.hero h1{
+font-size:42px;
+}
+
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<!-- HERO -->
+
+<section class="hero">
+
+<div class="brand">
+AI FINANCE TRANSFORMATION
+</div>
+
+<h1>
+מנתונים גולמיים ל
+<span>החלטות CFO</span>
+</h1>
+
+<p>
+תהליך עבודה מעשי המבוסס AI עבור מחלקות כספים, FP&A, בקרה וחשבונאות
+</p>
+
+</section>
+
+<!-- BEFORE AFTER -->
+
+<section class="section">
+
+<div class="before-after">
+
+<div class="card">
+
+<span class="badge before-badge">לפני</span>
+
+<h3>מערך נתונים פיננסי לא מסודר</h3>
+
+<p>
+המידע מגיע ממספר מערכות, בפורמטים שונים, עם חוסרים, כפילויות והגדרות לא עקביות. קשה לסמוך על הנתונים וקשה להפיק מהם תובנות.
+</p>
+
+<table>
+<tr>
+<th>Revenue</th>
+<th>Jan</th>
+<th>Feb</th>
+<th>Mar</th>
+<th>Apr</th>
+<th>May</th>
+<th>Jun</th>
+<th>Total</th>
+</tr>
+
+<tr>
+<td>Product A</td>
+<td>1,230</td>
+<td>1,200</td>
+<td>1,300</td>
+<td>1,250</td>
+<td>1,180</td>
+<td>1,310</td>
+<td>7,470</td>
+</tr>
+
+<tr>
+<td>Product B</td>
+<td>2,345</td>
+<td>1,900</td>
+<td>2,400</td>
+<td>2,500</td>
+<td>2,450</td>
+<td>2,600</td>
+<td>14,195</td>
+</tr>
+
+<tr>
+<td>Product C</td>
+<td>N/A</td>
+<td>-</td>
+<td>1,360</td>
+<td>-</td>
+<td>1,050</td>
+<td>1,260</td>
+<td>3,670</td>
+</tr>
+
+<tr>
+<td>Services</td>
+<td>1,100</td>
+<td>1,050</td>
+<td>1,160</td>
+<td>1,050</td>
+<td>1,050</td>
+<td>1,260</td>
+<td>6,670</td>
+</tr>
+
+<tr>
+<td>Other</td>
+<td>-</td>
+<td>1,660</td>
+<td>-</td>
+<td>1,050</td>
+<td>1,280</td>
+<td>1,260</td>
+<td>5,250</td>
+</tr>
+
+<tr>
+<td><b>Total Revenue</b></td>
+<td><b>4,675</b></td>
+<td><b>5,810</b></td>
+<td><b>6,220</b></td>
+<td><b>5,850</b></td>
+<td><b>7,010</b></td>
+<td><b>7,690</b></td>
+<td><b>37,255</b></td>
+</tr>
+
+</table>
+
+</div>
+
+<div class="arrow">←</div>
+
+<div class="card">
+
+<span class="badge after-badge">אחרי</span>
+
+<h3>נתונים נקיים ומוכנים לניתוח</h3>
+
+<p>
+ה-AI מנקה, מאחד ומתקנן את הנתונים, מטפל בערכים חסרים ומכין שכבת מידע אמינה לצורך דיווח, ניתוח וקבלת החלטות.
+</p>
+
+<table>
+<tr>
+<th>Metric</th>
+<th>Jan</th>
+<th>Feb</th>
+<th>Mar</th>
+<th>Apr</th>
+<th>May</th>
+<th>Jun</th>
+<th>Total</th>
+</tr>
+
+<tr>
+<td>Product A</td>
+<td>1,234</td>
+<td>1,200</td>
+<td>1,300</td>
+<td>1,250</td>
+<td>1,180</td>
+<td>1,310</td>
+<td>7,474</td>
+</tr>
+
+<tr>
+<td>Product B</td>
+<td>2,345</td>
+<td>2,300</td>
+<td>2,400</td>
+<td>2,500</td>
+<td>2,450</td>
+<td>2,600</td>
+<td>14,595</td>
+</tr>
+
+<tr>
+<td>Product C</td>
+<td>1,100</td>
+<td>1,050</td>
+<td>1,220</td>
+<td>1,280</td>
+<td>1,080</td>
+<td>1,280</td>
+<td>7,010</td>
+</tr>
+
+<tr>
+<td>Services</td>
+<td>1,100</td>
+<td>1,050</td>
+<td>1,220</td>
+<td>1,280</td>
+<td>1,080</td>
+<td>1,280</td>
+<td>7,010</td>
+</tr>
+
+<tr>
+<td>Other</td>
+<td>0</td>
+<td>400</td>
+<td>0</td>
+<td>250</td>
+<td>100</td>
+<td>0</td>
+<td>750</td>
+</tr>
+
+<tr>
+<td><b>Total Revenue</b></td>
+<td><b>5,779</b></td>
+<td><b>6,000</b></td>
+<td><b>6,140</b></td>
+<td><b>6,560</b></td>
+<td><b>5,890</b></td>
+<td><b>6,470</b></td>
+<td><b>36,839</b></td>
+</tr>
+
+</table>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- STEP 1 -->
+
+<section class="timeline">
+
+<div class="step">
+
+<div class="number">1</div>
+
+<div class="card">
+
+<h2>ניקוי ותקנון נתונים</h2>
+
+<p>
+טוענים קבצי Excel, ERP, CRM או מערכות פיננסיות אחרות. ה-AI מזהה חוסרים, כפילויות, בעיות פורמט והבדלים בהגדרות בין מערכות.
+</p>
+
+<p>
+התהליך כולל:
+</p>
+
+<ul>
+<li>תקנון שמות חשבונות</li>
+<li>טיפול בערכים חסרים</li>
+<li>הסרת כפילויות</li>
+<li>איחוד תקופות דיווח</li>
+<li>יצירת Audit Trail מלא</li>
+</ul>
+
+<div class="step-content">
+
+<div>
+
+<table>
+<tr>
+<th>Metric</th>
+<th>Jan</th>
+<th>Feb</th>
+<th>Mar</th>
+<th>Apr</th>
+<th>May</th>
+<th>Jun</th>
+</tr>
+
+<tr>
+<td>Revenue</td>
+<td>4,679</td>
+<td>4,550</td>
+<td>4,920</td>
+<td>5,030</td>
+<td>4,710</td>
+<td>5,190</td>
+</tr>
+
+<tr>
+<td>Gross Margin %</td>
+<td>62.1%</td>
+<td>62.3%</td>
+<td>61.8%</td>
+<td>62.4%</td>
+<td>62.3%</td>
+<td>62.1%</td>
+</tr>
+
+</table>
+
+</div>
+
+<div class="side-card">
+
+<div class="check">✓ Standardized Metrics</div>
+<div class="check">✓ Missing Values Fixed</div>
+<div class="check">✓ Duplicate Rows Removed</div>
+<div class="check">✓ Time Period Alignment</div>
+<div class="check">✓ Data Quality Verified</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- STEP 2 -->
+
+<div class="step">
+
+<div class="number">2</div>
+
+<div class="card">
+
+<h2>ניתוח פיננסי ותיקוף תובנות</h2>
+
+<p>
+לאחר ניקוי הנתונים מבוצעת שכבת ניתוח עסקי ופיננסי. מזהים מגמות, חריגות, מנועי צמיחה, השפעות על רווחיות וגורמי סיכון.
+</p>
+
+<div class="step-content">
+
+<div>
+
+<table>
+<tr>
+<th>Metric</th>
+<th>Q1</th>
+<th>Q2</th>
+<th>FY2025</th>
+</tr>
+
+<tr>
+<td>Revenue</td>
+<td>13.1M</td>
+<td>14.9M</td>
+<td>28.0M</td>
+</tr>
+
+<tr>
+<td>Gross Margin</td>
+<td>62.1%</td>
+<td>62.3%</td>
+<td>62.2%</td>
+</tr>
+
+<tr>
+<td>EBITDA</td>
+<td>2.6M</td>
+<td>3.3M</td>
+<td>5.9M</td>
+</tr>
+
+<tr>
+<td>Headcount</td>
+<td>128</td>
+<td>137</td>
+<td>137</td>
+</tr>
+
+</table>
+
+</div>
+
+<div class="side-card">
+
+<div class="check">✓ Revenue Drivers</div>
+<div class="check">✓ Margin Analysis</div>
+<div class="check">✓ Variance Review</div>
+<div class="check">✓ Forecast Validation</div>
+<div class="check">✓ Board Ready</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- STEP 3 -->
+
+<div class="step">
+
+<div class="number">3</div>
+
+<div class="card">
+
+<h2>בניית Dashboard להנהלה</h2>
+
+<p>
+הופכים את הניתוח לדשבורד ניהולי חי עם KPI מרכזיים, מגמות, תחזיות, השוואה לתקציב וניתוח חריגות.
+</p>
+
+<div class="dashboard-preview">
+
+<div class="kpis">
+
+<div class="kpi">
+<div class="kpi-title">Revenue</div>
+<div class="kpi-value">$29.1M</div>
+</div>
+
+<div class="kpi">
+<div class="kpi-title">Gross Margin</div>
+<div class="kpi-value">62.1%</div>
+</div>
+
+<div class="kpi">
+<div class="kpi-title">EBITDA</div>
+<div class="kpi-value">$6.2M</div>
+</div>
+
+<div class="kpi">
+<div class="kpi-title">Runway</div>
+<div class="kpi-value">18.6</div>
+</div>
+
+</div>
+
+<img src="dashboard.png"
+     alt="Executive Forecast Dashboard"
+     class="step-image">
+
+</div>
+
+</div>
+
+</div>
+
+<!-- STEP 4 -->
+
+<div class="step">
+
+<div class="number">4</div>
+
+<div class="card">
+
+<h2>יצירת מצגת הנהלה אוטומטית</h2>
+
+<p>
+באמצעות אותה שכבת ניתוח, המערכת יוצרת מצגת הנהלה מלאה הכוללת סיפור עסקי, גרפים, מסרים מרכזיים ופעולות מומלצות.
+</p>
+
+<ul>
+<li>Executive Summary</li>
+<li>Financial Performance</li>
+<li>Variance Drivers</li>
+<li>Risks & Actions</li>
+<li>Board Pack Ready</li>
+</ul>
+
+<img src="presentation.png"
+     alt="Board Presentation"
+     class="step-image">
+
+</div>
+
+</div>
+
+<!-- STEP 5 -->
+
+<div class="step">
+
+<div class="number">5</div>
+
+<div class="card">
+
+<h2>Executive AI Briefing</h2>
+
+<p>
+המרת הניתוח והמצגת לתדריך הנהלה קצר וברור. מתאים לעדכוני CFO, ישיבות הנהלה, ישיבות דירקטוריון וסיכומי ביצועים.
+</p>
+
+<ul>
+<li>What changed?</li>
+<li>Why it changed?</li>
+<li>Business impact</li>
+<li>Recommended actions</li>
+</ul>
+
+<img src="briefing.png"
+     alt="Executive Briefing"
+     class="step-image">
+
+</div>
+
+</div>
+
+</section>
+
+<!-- FINAL FLOW -->
+
+<section class="bottom-flow">
+
+<h2>
+ניתוח אחד. חמישה תוצרים להנהלה.
+</h2>
+
+<div class="flow">
+
+<div>נתונים פיננסיים</div>
+<div>ניתוח AI</div>
+<div>Dashboard</div>
+<div>Board Deck</div>
+<div>Executive Briefing</div>
+
+</div>
+
+<p style="margin-top:30px;font-size:22px;font-weight:700;">
+Analyze Once. Communicate Everywhere.
+</p>
+
+</section>
+
+<div class="footer">
+AI Finance Transformation | Ronen Amos CPA
+</div>
+
+</div>
+
+</body>
+</html>
+```

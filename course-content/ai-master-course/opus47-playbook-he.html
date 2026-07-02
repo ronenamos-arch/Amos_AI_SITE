@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Claude Opus 4.7 — Prompting Playbook | AI Finance Transformation</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800;900&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet"/>
+<style>
+:root{--bg:#0b0d10;--surface:#12161a;--surface2:#1a1f26;--accent:#b8c45a;--accent-strong:#d6e36a;--accent-dim:rgba(184,196,90,0.12);--text:#fafbfc;--text-muted:#c2cad2;--text-faint:#7a8694;--border:rgba(255,255,255,0.07);--radius-sm:10px;--radius-md:18px;--font:Heebo,system-ui,sans-serif;--mono:"IBM Plex Mono",monospace}
+*{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--font);line-height:1.6;-webkit-font-smoothing:antialiased}
+a{text-decoration:none;color:inherit}
+
+#topbar{position:sticky;top:0;z-index:100;background:rgba(11,13,16,0.94);backdrop-filter:blur(14px);border-bottom:1px solid var(--border);padding:0 2rem;height:56px;display:flex;align-items:center;justify-content:space-between}
+.topbar-brand{font-family:var(--mono);font-size:0.8rem;font-weight:600;color:var(--accent);letter-spacing:0.04em}
+.topbar-nav{display:flex;gap:1.4rem}
+.topbar-nav a{font-size:0.78rem;color:var(--text-faint);font-weight:500;transition:color 0.2s}
+.topbar-nav a:hover{color:var(--accent)}
+
+.inner{max-width:1100px;margin:0 auto;padding:0 2rem}
+.section-label{font-family:var(--mono);font-size:0.62rem;font-weight:600;color:var(--accent);letter-spacing:0.18em;text-transform:uppercase;margin-bottom:0.75rem}
+
+/* HERO */
+#hero{padding:5rem 2rem 4rem;border-bottom:1px solid var(--border)}
+.hero-eyebrow{display:inline-block;font-family:var(--mono);font-size:0.65rem;font-weight:600;color:var(--accent);letter-spacing:0.18em;text-transform:uppercase;background:var(--accent-dim);border:1px solid rgba(184,196,90,0.25);border-radius:99px;padding:0.3rem 0.9rem;margin-bottom:1.5rem}
+#hero h1{font-size:clamp(2rem,5vw,3.2rem);font-weight:900;line-height:1.15;margin-bottom:1.1rem}
+#hero h1 span{color:var(--accent)}
+.hero-desc{font-size:1rem;color:var(--text-muted);max-width:660px;line-height:1.75;margin-bottom:1.8rem;min-height:60px}
+.diff-chips{display:flex;flex-direction:column;gap:0.55rem;margin-bottom:2rem;max-width:640px}
+.diff-chip{display:flex;align-items:flex-start;gap:0.7rem;font-size:0.85rem;color:var(--text-muted);background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);padding:0.6rem 0.9rem;line-height:1.5}
+.diff-chip .dc-icon{color:var(--accent);flex-shrink:0;font-family:var(--mono);font-size:0.7rem;margin-top:2px}
+.hero-bullets{display:flex;flex-wrap:wrap;gap:0.65rem;margin-bottom:2.5rem}
+.hero-bullet{display:flex;align-items:center;gap:0.5rem;font-size:0.83rem;color:var(--text-muted);background:var(--surface);border:1px solid var(--border);border-radius:99px;padding:0.3rem 0.85rem}
+.hero-bullet .dot{width:6px;height:6px;background:var(--accent);border-radius:50%;flex-shrink:0}
+.cta-btn{display:inline-block;background:var(--accent);color:#0b0d10;font-weight:700;font-size:0.88rem;padding:0.75rem 1.8rem;border-radius:var(--radius-sm);transition:background 0.2s,transform 0.2s}
+.cta-btn:hover{background:var(--accent-strong);transform:translateY(-2px)}
+
+/* OVERVIEW */
+#overview{padding:3rem 2rem;border-bottom:1px solid var(--border);background:var(--surface)}
+.ov-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(155px,1fr));gap:0.65rem;margin-top:1.5rem}
+.ov-chip{background:var(--bg);border:1px solid var(--border);border-radius:var(--radius-sm);padding:0.8rem 1rem;transition:border-color 0.2s,transform 0.2s}
+.ov-chip:hover{border-color:var(--accent);transform:translateY(-2px)}
+.ov-chip.star{border-color:rgba(184,196,90,0.35)}
+.ov-num{font-family:var(--mono);font-size:0.58rem;color:var(--text-faint);letter-spacing:0.12em;margin-bottom:0.25rem}
+.ov-name{font-size:0.82rem;font-weight:700}
+
+/* STEP SECTIONS */
+.step-sec{padding:4.5rem 2rem;border-bottom:1px solid var(--border)}
+.step-sec.alt{background:var(--surface)}
+.step-title-el{font-size:clamp(1.35rem,3vw,2rem);font-weight:900;line-height:1.2;margin-bottom:0.55rem}
+.why-line{font-size:0.88rem;color:var(--text-faint);font-style:italic;line-height:1.6;max-width:700px;margin-bottom:1.1rem;padding-right:0.9rem;border-right:2px solid var(--border)}
+.step-body-el{font-size:0.93rem;color:var(--text-muted);line-height:1.75;max-width:700px;margin-bottom:1.2rem}
+.key-insight{background:var(--surface2);border:1px solid var(--border);border-right:3px solid var(--accent);border-radius:var(--radius-sm);padding:0.95rem 1.2rem;font-size:0.84rem;color:var(--text-muted);max-width:700px;margin-bottom:1.1rem;line-height:1.65}
+.key-insight strong{color:var(--accent);font-style:normal}
+.opus-note{display:flex;align-items:flex-start;gap:0.75rem;background:rgba(184,196,90,0.06);border:1px solid rgba(184,196,90,0.18);border-radius:var(--radius-sm);padding:0.9rem 1.1rem;max-width:700px;margin-bottom:1.1rem;font-size:0.83rem;color:var(--text-muted);line-height:1.6}
+.opus-badge{font-family:var(--mono);font-size:0.58rem;letter-spacing:0.08em;background:var(--accent);color:#0b0d10;font-weight:700;border-radius:4px;padding:0.22rem 0.6rem;flex-shrink:0;margin-top:2px;white-space:nowrap}
+
+/* BEFORE / AFTER */
+.before-after{display:grid;grid-template-columns:1fr 1fr;gap:1rem;max-width:700px;margin-bottom:1.2rem}
+@media(max-width:600px){.before-after{grid-template-columns:1fr}}
+.ba-box{border-radius:var(--radius-sm);padding:1rem 1.1rem}
+.ba-bad{background:rgba(220,50,50,0.07);border:1px solid rgba(220,50,50,0.22)}
+.ba-good{background:rgba(184,196,90,0.07);border:1px solid rgba(184,196,90,0.22)}
+.ba-label{font-family:var(--mono);font-size:0.58rem;letter-spacing:0.12em;text-transform:uppercase;margin-bottom:0.5rem}
+.ba-bad .ba-label{color:#e07070}
+.ba-good .ba-label{color:var(--accent)}
+.ba-text{font-size:0.78rem;color:var(--text-muted);line-height:1.6;direction:ltr;text-align:left;font-family:var(--mono)}
+
+/* TOGGLE + CODE */
+.toggle-btn{display:inline-flex;align-items:center;gap:0.5rem;font-family:var(--mono);font-size:0.63rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-faint);background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:0.45rem 1rem;cursor:pointer;transition:all 0.2s;margin-bottom:0.7rem}
+.toggle-btn:hover,.toggle-btn.on{color:var(--accent);border-color:var(--accent);background:var(--accent-dim)}
+.t-arrow{transition:transform 0.22s;display:inline-block}
+.toggle-btn.on .t-arrow{transform:rotate(180deg)}
+.code-wrap{display:none;max-width:700px}
+.code-wrap.open{display:block}
+.code-block{background:#0d1117;border:1px solid var(--border);border-right:3px solid var(--accent);border-radius:var(--radius-sm);padding:1.2rem 1.4rem;font-family:var(--mono);font-size:0.73rem;line-height:1.78;color:var(--text-muted);direction:ltr;text-align:left;white-space:pre;overflow-x:auto;margin-bottom:0.6rem}
+.cp-btn{display:inline-flex;align-items:center;gap:0.45rem;font-family:var(--mono);font-size:0.62rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--accent);background:var(--accent-dim);border:1px solid rgba(184,196,90,0.3);border-radius:var(--radius-sm);padding:0.45rem 1rem;cursor:pointer;transition:all 0.2s}
+.cp-btn:hover{background:rgba(184,196,90,0.2);border-color:var(--accent)}
+.cp-btn.ok{color:#7dd87d;border-color:#7dd87d;background:rgba(125,216,125,0.1)}
+
+/* MODEL CARDS */
+.model-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:1rem;margin-top:1.4rem}
+.model-card{background:var(--bg);border:1px solid var(--border);border-radius:var(--radius-md);padding:1.5rem;transition:border-color 0.2s,transform 0.22s}
+.model-card:hover{border-color:var(--accent);transform:translateY(-4px)}
+.model-card.flagship{border-color:rgba(184,196,90,0.38)}
+.m-name{font-family:var(--mono);font-size:0.78rem;font-weight:600;color:var(--accent);margin-bottom:0.3rem}
+.m-role{font-size:1rem;font-weight:800;margin-bottom:0.5rem}
+.m-desc{font-size:0.8rem;color:var(--text-muted);line-height:1.55;margin-bottom:0.8rem}
+.m-when{font-size:0.75rem;color:var(--text-faint);font-style:italic;padding-top:0.6rem;border-top:1px solid var(--border)}
+.m-when strong{color:var(--text-muted);font-style:normal}
+
+/* SKELETON */
+@keyframes shimmer{0%{background-position:-200% 0}100%{background-position:200% 0}}
+.sk{background:linear-gradient(90deg,var(--surface) 25%,var(--surface2) 50%,var(--surface) 75%);background-size:200% 100%;animation:shimmer 1.4s infinite;border-radius:6px;margin-bottom:0.5rem}
+.sk-h{height:34px;width:55%}.sk-p{height:14px;width:90%}.sk-p2{height:14px;width:68%}.sk-p3{height:14px;width:80%}
+
+/* FOOTER */
+#footer{padding:5rem 2rem 3rem}
+.footer-title{font-size:clamp(1.3rem,2.5vw,1.8rem);font-weight:800;margin-bottom:0.5rem}
+.footer-sub{font-size:0.88rem;color:var(--text-muted);margin-bottom:2.5rem}
+.footer-grid{display:grid;grid-template-columns:1fr;gap:1rem}
+@media(min-width:500px){.footer-grid{grid-template-columns:repeat(2,1fr)}}
+@media(min-width:900px){.footer-grid{grid-template-columns:repeat(3,1fr)}}
+.footer-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-md);padding:1.3rem 1.5rem;transition:border-color 0.2s,transform 0.22s;display:block}
+.footer-card:hover{border-color:var(--accent);transform:translateY(-4px)}
+.fc-num{font-family:var(--mono);font-size:0.62rem;color:var(--text-faint);letter-spacing:0.1em;margin-bottom:0.4rem}
+.fc-title{font-size:0.9rem;font-weight:700;margin-bottom:0.3rem}
+.fc-desc{font-size:0.78rem;color:var(--text-muted);line-height:1.5;margin-bottom:0.5rem}
+.fc-link{font-size:0.72rem;color:var(--accent);font-family:var(--mono)}
+.footer-copy{margin-top:3rem;text-align:center;font-size:0.75rem;color:var(--text-faint);font-family:var(--mono);letter-spacing:0.05em}
+</style>
+</head>
+<body>
+
+<div id="topbar">
+  <span class="topbar-brand">AI Finance Transformation</span>
+  <nav class="topbar-nav">
+    <a href="#step0">בחירת מודל</a>
+    <a href="#steps-wrap">10 עקרונות</a>
+    <a href="#megaprompt">Mega Prompt</a>
+    <a href="#footer">משאבים</a>
+  </nav>
+</div>
+
+<section id="hero">
+  <div class="inner">
+    <div class="hero-eyebrow">Claude Opus 4.7 · Prompting Playbook</div>
+    <h1>איך מוציאים את <span>המקסימום</span><br/>מ-Claude Opus 4.7</h1>
+    <p class="hero-desc" id="hero-desc"><span class="sk sk-p" style="display:block"></span><span class="sk sk-p2" style="display:block;margin-top:0.4rem"></span><span class="sk sk-p3" style="display:block;margin-top:0.4rem"></span></p>
+    <div class="diff-chips" id="diff-chips">
+      <div class="diff-chip"><span class="dc-icon">▸</span><span class="sk sk-p" style="flex:1"></span></div>
+      <div class="diff-chip"><span class="dc-icon">▸</span><span class="sk sk-p2" style="flex:1"></span></div>
+      <div class="diff-chip"><span class="dc-icon">▸</span><span class="sk sk-p3" style="flex:1"></span></div>
+    </div>
+    <div class="hero-bullets">
+      <div class="hero-bullet"><div class="dot"></div>Effort Parameter — הידית הכי חשובה</div>
+      <div class="hero-bullet"><div class="dot"></div>XML Structure — איך Claude חושב</div>
+      <div class="hero-bullet"><div class="dot"></div>10 עקרונות + Prompts מוכנים</div>
+      <div class="hero-bullet"><div class="dot"></div>מותאם ל-CFOs, Controllers, FP&A</div>
+    </div>
+    <a href="#step0" class="cta-btn">מתחילים ←</a>
+  </div>
+</section>
+
+<section id="overview">
+  <div class="inner">
+    <div class="section-label">FRAMEWORK OVERVIEW</div>
+    <h2 style="font-size:clamp(1.2rem,2.5vw,1.6rem);font-weight:800;margin-bottom:0.3rem">10 עקרונות — לפי סדר חשיבות</h2>
+    <p style="font-size:0.85rem;color:var(--text-muted)">רוב האנשים קופצים ישר לטכניקות מתקדמות ומדלגים על הבסיס. זו טעות. הסדר כאן חשוב.</p>
+    <div class="ov-grid">
+      <div class="ov-chip"><div class="ov-num">STEP 00</div><div class="ov-name">בחירת המודל</div></div>
+      <div class="ov-chip"><div class="ov-num">STEP 01</div><div class="ov-name">Effort Level</div></div>
+      <div class="ov-chip"><div class="ov-num">STEP 02</div><div class="ov-name">ספציפיות</div></div>
+      <div class="ov-chip"><div class="ov-num">STEP 03</div><div class="ov-name">XML Tags</div></div>
+      <div class="ov-chip"><div class="ov-num">STEP 04</div><div class="ov-name">דוגמאות</div></div>
+      <div class="ov-chip"><div class="ov-num">STEP 05</div><div class="ov-name">Reasoning</div></div>
+      <div class="ov-chip"><div class="ov-num">STEP 06</div><div class="ov-name">Context עשיר</div></div>
+      <div class="ov-chip"><div class="ov-num">STEP 07</div><div class="ov-name">פורמט פלט</div></div>
+      <div class="ov-chip"><div class="ov-num">STEP 08</div><div class="ov-name">Constraints</div></div>
+      <div class="ov-chip"><div class="ov-num">STEP 09</div><div class="ov-name">Verbosity</div></div>
+      <div class="ov-chip star"><div class="ov-num">STEP 10</div><div class="ov-name">Mega Prompt</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- STEP 0 -->
+<section id="step0" class="step-sec">
+  <div class="inner">
+    <div class="section-label">STEP 00 · MODEL SELECTION</div>
+    <div id="s0-hdr"><div class="sk sk-h"></div><div class="sk sk-p"></div><div class="sk sk-p2"></div></div>
+    <div class="model-grid" id="model-grid">
+      <div class="model-card flagship"><div class="sk sk-p" style="width:60%;margin-bottom:0.5rem"></div><div class="sk sk-h"></div><div class="sk sk-p"></div><div class="sk sk-p2"></div></div>
+      <div class="model-card"><div class="sk sk-p" style="width:60%;margin-bottom:0.5rem"></div><div class="sk sk-h"></div><div class="sk sk-p"></div><div class="sk sk-p2"></div></div>
+      <div class="model-card"><div class="sk sk-p" style="width:60%;margin-bottom:0.5rem"></div><div class="sk sk-h"></div><div class="sk sk-p"></div><div class="sk sk-p2"></div></div>
+    </div>
+    <div style="max-width:700px;margin-top:1.2rem"><div class="key-insight" id="s0-rule"><div class="sk sk-p"></div></div></div>
+  </div>
+</section>
+
+<!-- STEPS 1–9 -->
+<div id="steps-wrap"></div>
+
+<!-- STEP 10 MEGA PROMPT -->
+<section id="megaprompt" class="step-sec alt">
+  <div class="inner">
+    <div class="section-label">STEP 10 · PUTTING IT ALL TOGETHER</div>
+    <div id="s10-hdr"><div class="sk sk-h"></div><div class="sk sk-p"></div><div class="sk sk-p2"></div></div>
+    <div style="margin-top:1.5rem">
+      <button class="toggle-btn" onclick="tog('mega','הצג Mega Prompt','הסתר Mega Prompt',this)">
+        <span class="tb-lbl">הצג Mega Prompt</span><span class="t-arrow">▼</span>
+      </button>
+      <div class="code-wrap" id="mega">
+<div class="code-block"><context>
+I'm the CEO of a B2B fintech startup ($8M ARR, 45 employees).
+We're deciding whether to raise a Series B now or extend runway
+and raise in 18 months.
+Current runway: 14 months. Revenue growth: 12% MoM. CAC payback: 8 months.
+</context>
+
+<instructions>
+Analyze both timing options. Before giving your recommendation,
+work through the trade-offs in &lt;analysis&gt; tags, considering:
+- Current market conditions for fintech Series B rounds
+- Our specific metrics relative to typical Series B benchmarks
+- The risk/reward of raising now vs. in 18 months at better metrics
+- What we should use the 18 months to optimize if we extend
+Then provide a clear recommendation with a specific action plan.
+Apply your analysis to both options equally — don't weight one by default.
+</instructions>
+
+<constraints>
+- Be direct. Give me your honest read, not a balanced "it depends."
+- Use specific benchmarks from comparable fintech Series B raises.
+- Flag any assumptions you're making about market conditions.
+- Keep the total response under 700 words.
+</constraints>
+
+<output_format>
+1. Analysis (in &lt;analysis&gt; tags)
+2. Recommendation (2-3 sentences, clear and direct)
+3. 90-day action plan (5 specific actions, whether we raise now or extend)
+</output_format></div>
+        <button class="cp-btn" onclick="cpCode(this,'mega')">⬡ &nbsp;העתק Prompt</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<section id="footer">
+  <div class="inner">
+    <div class="section-label">המשך</div>
+    <h2 class="footer-title">למדריכים ותוכן נוסף</h2>
+    <p class="footer-sub">כל הכלים, הקהילה והמשאבים — במקום אחד.</p>
+    <div class="footer-grid">
+      <a href="https://chat.whatsapp.com/CS6dgqnK45Q9XAMqScNr6R" target="_blank" class="footer-card">
+        <div class="fc-num">01 · COMMUNITY</div><div class="fc-title">קהילת AI Finance</div>
+        <div class="fc-desc">מעל 800 אנשי פיננסים שחולקים כלים ו-Prompts בזמן אמת.</div>
+        <div class="fc-link">chat.whatsapp.com ↗</div>
+      </a>
+      <a href="https://www.youtube.com/@AIFinanceTransformation" target="_blank" class="footer-card">
+        <div class="fc-num">02 · YOUTUBE</div><div class="fc-title">AI for Finance</div>
+        <div class="fc-desc">הדגמות מעשיות, Walkthroughs ו-Playbooks שמאחורי הפרקטיקה.</div>
+        <div class="fc-link">@AIFinanceTransformation ↗</div>
+      </a>
+      <a href="https://www.ronenamoscpa.co.il/" target="_blank" class="footer-card">
+        <div class="fc-num">03 · NEWSLETTER</div><div class="fc-title">הניוזלטר השבועי</div>
+        <div class="fc-desc">תובנות AI לפיננסים ישר למייל שלך — כתוב על ידי איש פיננסים.</div>
+        <div class="fc-link">ronenamoscpa.co.il ↗</div>
+      </a>
+      <a href="https://www.ronenamoscpa.co.il/skill-vault" target="_blank" class="footer-card">
+        <div class="fc-num">04 · PROMPT HUB</div><div class="fc-title">Skill Vault</div>
+        <div class="fc-desc">ספריית ה-Prompts שלי — מוכנים לשימוש מיידי בצוות הפיננסים שלך.</div>
+        <div class="fc-link">ronenamoscpa.co.il/skill-vault ↗</div>
+      </a>
+      <a href="https://www.paypal.com/ncp/payment/E36KBLHK8MDPN" target="_blank" class="footer-card">
+        <div class="fc-num">05 · THE BOOK</div><div class="fc-title">Claude Playbook</div>
+        <div class="fc-desc">הספר המלא — Frameworks, Case Studies ומדריכי יישום לצוותי פיננסים.</div>
+        <div class="fc-link">רכישה מאובטחת ↗</div>
+      </a>
+      <a href="https://www.ronenamoscpa.co.il/courses" target="_blank" class="footer-card">
+        <div class="fc-num">06 · COURSE</div><div class="fc-title">קורס AI Finance</div>
+        <div class="fc-desc">תוכנית מובנית להטמעת חשיבה AI-First בצוות הפיננסים שלך.</div>
+        <div class="fc-link">ronenamoscpa.co.il/courses ↗</div>
+      </a>
+    </div>
+    <div class="footer-copy">רונן עמוס, CPA · AI Finance Transformation · ronenamoscpa.co.il</div>
+  </div>
+</section>
+
+<script>
+// ── DATA ──────────────────────────────────────────────────────────────
+const STEPS = [
+  { id:'s1', label:'STEP 01 · EFFORT LEVEL', alt:false,
+    why:`Most users don't know this parameter exists. Unlike earlier Claude versions that overperformed regardless of instructions, Opus 4.7 respects effort levels strictly — low-effort output is genuinely lower quality.`,
+    logic:`The effort parameter controls how much intelligence the model allocates to a task. Low-effort Opus 4.7 is roughly equivalent to medium-effort Opus 4.6 — set it deliberately for every use case. At max or xhigh, set max_tokens to at least 64k to give the model room to think, reason, and execute across tool calls.`,
+    opus47:`This parameter is new in its current form to Opus 4.7 and is the single most important thing in this guide — the model is the first Claude to respect effort levels this strictly.`,
+    rule:`If you see shallow reasoning on a complex task, raise the effort level before changing your prompt. That is almost always the correct fix.`,
+    code:`client.messages.create(\n    model="claude-opus-4-7",\n    max_tokens=64000,\n    thinking={"type": "adaptive"},\n    output_config={"effort": "xhigh"},\n    messages=[{"role": "user", "content": "..."}],\n)`,
+    ba: null },
+
+  { id:'s2', label:'STEP 02 · SPECIFICITY', alt:true,
+    why:`Vague prompts don't get generalized — they get scoped. If you write an instruction for one item, Opus 4.7 will not automatically apply it to all items. You have to say so explicitly.`,
+    logic:`The single highest-leverage prompting move is specificity. Think of your prompt as instructions to a brilliant but literal new hire on their first day — they will do exactly what you say, so say exactly what you mean. The difference between weak and strong prompts is not more words — it is more specificity, explicit scope, and a format directive at the end.`,
+    opus47:`Opus 4.7 is more literal than any previous Claude — it will not silently generalize an instruction you wrote for one item across all items in a list.`,
+    rule:`If you want something applied to all three sections, write it: "Apply this framework to all three — not just the first."`,
+    code: null,
+    ba: {
+      bad:`Write about market positioning`,
+      good:`Analyze the 3 most effective market positioning strategies for B2B SaaS companies targeting mid-market in a crowded category. For each strategy, explain what's driving its effectiveness, provide one specific company example, and assess whether it's likely to strengthen or weaken over the next 18 months. Apply this framework to all three strategies, not just the first.`
+    }},
+
+  { id:'s3', label:'STEP 03 · XML TAGS', alt:false,
+    why:`When your prompt has multiple components — context, instructions, data, constraints — Claude can mix them up. XML tags prevent this completely. Almost nobody uses this correctly.`,
+    logic:`Claude was specifically trained to recognize XML tags as structural markers. When it sees the tags, it immediately understands: context is background (not a task to respond to), instructions is the actual task, constraints are the guardrails. This is Claude's structural superpower — use it on every complex prompt.`,
+    opus47: null,
+    rule:`Tag names are flexible — there is no magic set of correct tags. Use whatever makes semantic sense: background, rules, examples, output_format. Consistency across your prompts matters more than the specific names you choose.`,
+    code:`<context>\nYou are helping me evaluate a potential Series A investment.\nThe company is a vertical SaaS targeting logistics operators,\nat $2.4M ARR growing 15% MoM.\n</context>\n\n<instructions>\nAnalyze the three key risks that most commonly derail\nvertical SaaS companies at this stage.\nFor each risk, explain the warning signs and what a founder\nshould be doing to mitigate them.\nApply this analysis to all three risks — not just the most obvious one.\n</instructions>\n\n<constraints>\n- Be direct. Give honest assessment, not a balanced "it depends."\n- Use specific examples from real companies where possible.\n- Flag any assumptions you're making.\n- Maximum 600 words.\n</constraints>`,
+    ba: null },
+
+  { id:'s4', label:'STEP 04 · EXAMPLES', alt:true,
+    why:`Describing the tone, format, or style you want in abstract terms rarely works well. If one technique consistently separates good outputs from great ones — it is showing Claude what good looks like.`,
+    logic:`Instead of describing what you want, show Claude a concrete example. Claude will pattern-match against examples far more reliably than it will follow descriptive instructions alone. Wrap examples in example tags so Claude distinguishes them from instructions. Anthropic recommends 3–5 examples for best results.`,
+    opus47: null,
+    rule:`You can also ask Claude to evaluate your examples for relevance and diversity, or to generate additional examples based on your initial set — this is an underused technique.`,
+    code:`<examples>\n  <example>\n    Input: "We need to cut 20% of the engineering budget"\n    Output: "Reducing engineering spend by 20% requires\n    prioritization across three areas: contractor headcount,\n    infrastructure costs, and tooling licenses. Here's a\n    phased approach that preserves our two highest-impact\n    product initiatives..."\n  </example>\n</examples>\n\nNow analyze this situation using the same approach:\n"We need to extend our runway by 6 months without reducing headcount"`,
+    ba: null },
+
+  { id:'s5', label:'STEP 05 · REASONING STEPS', alt:false,
+    why:`Without explicit reasoning instructions, Claude often pattern-matches to the most likely answer and then back-fills justification after the fact. This produces confident-sounding but shallow analysis.`,
+    logic:`For complex problems requiring analysis or strategic judgment, telling Claude to work through reasoning before producing a final answer dramatically improves accuracy. The simplest version: add "Think through this step by step before giving your final answer." The structured version uses analysis tags to make the reasoning visible and separate it from the final output.`,
+    opus47:`In Opus 4.7, adaptive thinking is the only mode — extended thinking with a fixed budget_tokens is no longer supported. At high and xhigh effort, deep reasoning is largely automatic. To guide reasoning explicitly: "After receiving results, carefully reflect on their quality and determine optimal next steps before proceeding."`,
+    rule:`Force visible reasoning before the answer — this prevents Claude from picking the most likely response and reverse-engineering a justification for it.`,
+    code:`<instructions>\nEvaluate whether we should expand into the Southeast Asian\nmarket this year.\n\nBefore giving your recommendation, work through the analysis\ninside <analysis> tags. Consider: market size and growth\ntrajectory, regulatory requirements by country, competitive\nlandscape, our current operational capacity, and capital\nrequirements vs. expected payback period.\n\nThen provide your final recommendation with a clear\nresource allocation suggestion.\n</instructions>`,
+    ba: null },
+
+  { id:'s6', label:'STEP 06 · RICH CONTEXT', alt:true,
+    why:`Claude can only work with what you give it. Every time you make Claude guess something you already know, you are leaving quality on the table.`,
+    logic:`Upload documents. Paste data. Provide company background. Share your goals. Explain your audience. The more relevant context you include, the more tailored and accurate the output becomes — do not make Claude guess what you already know. For long documents (20k+ tokens), put documents at the top of your prompt, above your instructions and query.`,
+    opus47: null,
+    rule:`Queries at the end of a prompt — after all document content — can improve response quality by up to 30% in complex, multi-document inputs. Structure matters: context first, instructions in the middle, query at the end.`,
+    code:`<background>\nOur company builds financial infrastructure for neobanks.\nWe're Series B, $12M ARR, primarily serving West Africa\nand Southeast Asia. We differentiate on compliance coverage\nand local payment rail integrations.\n</background>\n\n<data>\n[Paste your Q1 metrics, customer feedback, churn data,\nor any relevant financial information here]\n</data>\n\n<task>\nBased on this context, identify our three biggest growth\nopportunities for the next two quarters.\n</task>`,
+    ba: null },
+
+  { id:'s7', label:'STEP 07 · OUTPUT FORMAT', alt:false,
+    why:`The most common frustration with AI: getting a 2,000-word essay when you wanted a concise brief, or getting bullet points when you needed flowing analysis. This is entirely preventable.`,
+    logic:`Don't leave the structure of Claude's response to chance. If you want a table, ask for a table. If you want a specific word count, state it. If you want an executive brief with defined sections, describe each section. Explicit format specs eliminate the mismatch between what you expected and what you received.`,
+    opus47: null,
+    rule:`Define format in output_format tags placed at the end of your prompt — after context and instructions. Claude reads the full structure before responding.`,
+    code:`<output_format>\nRespond with:\n1. A one-paragraph executive summary (3-4 sentences max)\n2. A comparison table with columns:\n   Factor | Current State | Target State | Gap\n3. A "Recommended Actions" section with 3 specific\n   next steps, ranked by impact\n</output_format>`,
+    ba: null },
+
+  { id:'s8', label:'STEP 08 · CONSTRAINTS', alt:true,
+    why:`Without constraints, Claude defaults to its training patterns: overly formal, hedge-heavy output that sounds like a committee wrote it. Telling Claude what NOT to do is just as important as telling it what to do.`,
+    logic:`Explicit constraints eliminate the default behaviors you don't want — the hedging, the padding, the formal preambles. Use the constraints tag to control tone, length, format, and approach. Both sides of the constraint carry equal weight: the "do" and the "don't."`,
+    opus47:`Opus 4.7 is more direct and opinionated than 4.6 — it no longer defaults to warm, validating preambles like "Great question!" If you want a warmer tone, request it explicitly. If you want raw, direct output — you are already there by default.`,
+    rule:`Define your "Don'ts" as clearly as your "Do's" — both shape the output equally.`,
+    code:`<constraints>\n- Do NOT open with "In today's rapidly evolving landscape"\n  or any variant of that phrase\n- Skip the preamble. Start with the most important insight.\n- No bullet points — write in prose paragraphs\n- If you are uncertain about a claim, flag it explicitly\n  rather than hedging everything\n- Maximum 500 words\n- Be direct. I want your honest assessment, not "it depends."\n</constraints>`,
+    ba: null },
+
+  { id:'s9', label:'STEP 09 · VERBOSITY', alt:false,
+    why:`Opus 4.7 calibrates response length to how complex it judges the task — shorter on simple lookups, much longer on open-ended analysis. If your use case needs a specific length, you have to specify it.`,
+    logic:`Key insight from Anthropic: positive examples showing appropriate concision work better than negative instructions like "don't be verbose." Show Claude a response at the length and depth you want — it will match that pattern far more reliably than it will follow abstract length instructions. This applies in both directions: short and comprehensive.`,
+    opus47: null,
+    rule:`Don't say "be concise." Instead, show a response at the length you want, or specify it directly: "Maximum 400 words" or "Comprehensive, board-level detail — each section should stand alone as a complete argument."`,
+    code:`// For concise output:\nProvide concise, focused responses.\nSkip non-essential context and keep examples minimal.\n\n// For comprehensive output:\nThis analysis will be presented to our board of directors.\nProvide comprehensive coverage with supporting evidence,\nspecific data points, and detailed implementation steps.\nEach section should stand alone as a complete argument.`,
+    ba: null }
+];
+
+// ── HAIKU API ─────────────────────────────────────────────────────────
+const SYS = `You write Hebrew content for Israeli finance professionals (CFOs, FP&A managers, Controllers).
+Direct, professional Hebrew — no corporate fluff.
+Keep in English: Prompt, Effort, XML, Token, Context, Output, API, Claude, Reasoning, Constraints, Format, Adaptive, Pattern-match, Opus 4.7, Budget.
+Return ONLY valid JSON. No backticks, no explanation before or after.`;
+
+async function hk(prompt) {
+  try {
+    const r = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'claude-haiku-4-5-20251001',
+        max_tokens: 900,
+        messages: [{ role: 'user', content: SYS + '\n\n' + prompt }]
+      })
+    });
+    const d = await r.json();
+    const raw = d.content?.[0]?.text || '';
+    return JSON.parse(raw.replace(/```json\n?/g, '').replace(/```\n?/g, '').trim());
+  } catch { return null; }
+}
+
+// ── HELPERS ───────────────────────────────────────────────────────────
+function esc(s) {
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+function tog(id, show, hide, btn) {
+  const w = document.getElementById(id);
+  w.classList.toggle('open');
+  btn.classList.toggle('on');
+  btn.querySelector('.tb-lbl').textContent = w.classList.contains('open') ? hide : show;
+}
+
+function cpCode(btn, wrapId) {
+  const block = document.querySelector('#' + wrapId + ' .code-block');
+  if (!block) return;
+  navigator.clipboard.writeText(block.innerText).then(() => {
+    btn.classList.add('ok'); btn.innerHTML = '✓ &nbsp;הועתק!';
+    setTimeout(() => { btn.classList.remove('ok'); btn.innerHTML = '⬡ &nbsp;העתק Prompt'; }, 2200);
+  });
+}
+
+function skel(n) {
+  return Array(n).fill(0).map(() => '<div class="sk sk-p" style="margin-bottom:0.4rem"></div>').join('');
+}
+
+// ── BUILD STEP SECTION ────────────────────────────────────────────────
+function buildStep(step, c) {
+  const title = c?.title || step.label;
+  const why   = c?.why   || '';
+  const body  = c?.body  || '';
+  const o47   = c?.opus47 || null;
+  const rule  = c?.rule  || '';
+
+  let o47HTML = '';
+  if (o47) {
+    o47HTML = `<div class="opus-note"><span class="opus-badge">Opus 4.7</span>${o47}</div>`;
+  }
+
+  let baHTML = '';
+  if (step.ba) {
+    baHTML = `<div class="before-after">
+      <div class="ba-box ba-bad"><div class="ba-label">❌ Weak Prompt</div><div class="ba-text">${esc(step.ba.bad)}</div></div>
+      <div class="ba-box ba-good"><div class="ba-label">✓ Strong Prompt</div><div class="ba-text">${esc(step.ba.good)}</div></div>
+    </div>`;
+  }
+
+  let codeHTML = '';
+  if (step.code) {
+    const cid = step.id + '-code';
+    codeHTML = `
+      <button class="toggle-btn" onclick="tog('${cid}','הצג Prompt Example','הסתר Prompt Example',this)">
+        <span class="tb-lbl">הצג Prompt Example</span><span class="t-arrow">▼</span>
+      </button>
+      <div class="code-wrap" id="${cid}">
+        <div class="code-block">${esc(step.code)}</div>
+        <button class="cp-btn" onclick="cpCode(this,'${cid}')">⬡ &nbsp;העתק Prompt</button>
+      </div>`;
+  }
+
+  const sec = document.createElement('section');
+  sec.id = step.id;
+  sec.className = 'step-sec' + (step.alt ? ' alt' : '');
+  sec.innerHTML = `<div class="inner">
+    <div class="section-label">${step.label}</div>
+    <div class="step-title-el">${title}</div>
+    ${why ? `<div class="why-line">${why}</div>` : ''}
+    <div class="step-body-el">${body}</div>
+    ${o47HTML}
+    ${rule ? `<div class="key-insight"><strong>כלל פרקטי:</strong> ${rule}</div>` : ''}
+    ${baHTML}${codeHTML}
+  </div>`;
+  return sec;
+}
+
+// ── INIT ─────────────────────────────────────────────────────────────
+async function init() {
+  // Insert placeholders
+  const wrap = document.getElementById('steps-wrap');
+  STEPS.forEach(s => {
+    const ph = document.createElement('section');
+    ph.id = s.id;
+    ph.className = 'step-sec' + (s.alt ? ' alt' : '');
+    ph.innerHTML = `<div class="inner"><div class="section-label">${s.label}</div>${skel(4)}</div>`;
+    wrap.appendChild(ph);
+  });
+
+  // Build all prompts
+  const introPrompt = `
+Section: INTRO — Why most people fail with Claude Opus 4.7
+Source content:
+- Problem: Most users leave the majority of Opus 4.7's capability on the table — not because of model limits, but because of prompting
+- People copy ChatGPT prompts or carry over habits from Opus 4.6 that no longer apply
+- Opus 4.7 is more literal: it will NOT silently generalize an instruction to all items
+- The default tone is more direct and opinionated, with fewer warm hedging qualifiers
+- Design defaults, code review behavior, tool-use patterns — all shifted in ways that reward prompts specifically calibrated to this model
+
+Return JSON:
+{
+  "body": "Hebrew: 2-3 sentence paragraph explaining the problem (leaving capability on the table because of prompting, not model limits)",
+  "diff1": "Hebrew: Opus 4.7 is more literal — will not generalize instructions (1 sentence)",
+  "diff2": "Hebrew: More direct tone, fewer hedging qualifiers — different from what you're used to (1 sentence)",
+  "diff3": "Hebrew: Habits from ChatGPT and older Claude versions no longer apply — need to recalibrate (1 sentence)"
+}`;
+
+  const modelPrompt = `
+Section: STEP 00 — Choose the Right Model
+Source content:
+- Claude Opus 4.7: flagship — long-horizon agentic work, complex reasoning, knowledge work, high-resolution vision, memory-intensive tasks. Costs more and runs slower but nothing else matches it for real thinking.
+- Claude Sonnet 4.6: balanced workhorse — strong reasoning at faster speed and lower cost. Covers roughly 80% of everyday use cases.
+- Claude Haiku 4.5: speed specialist — fastest, cheapest, ideal for high-volume straightforward tasks: classification, extraction, summarization.
+- Rule of thumb: start with Sonnet. Move to Opus when you need genuine cognitive depth. Drop to Haiku when speed matters more than intelligence.
+
+Return JSON:
+{
+  "title": "Hebrew title for this section (5-7 words)",
+  "intro": "Hebrew: 2 sentence intro on why model choice matters before writing a single word",
+  "opus": {"role":"Hebrew flagship role (4-5 words)","desc":"Hebrew 2 sentence description of what Opus excels at","when":"Hebrew: when to switch to Opus (1 sentence)"},
+  "sonnet": {"role":"Hebrew balanced role (4-5 words)","desc":"Hebrew 2 sentence description","when":"Hebrew: when to use Sonnet (1 sentence)"},
+  "haiku": {"role":"Hebrew speed role (4-5 words)","desc":"Hebrew 2 sentence description","when":"Hebrew: when to drop to Haiku (1 sentence)"},
+  "rule": "Hebrew: the rule of thumb (1 direct sentence)"
+}`;
+
+  const step10Prompt = `
+Section: STEP 10 — Putting It All Together: The Mega Prompt
+Source content:
+- A properly structured Opus 4.7 prompt combines all 9 techniques: context, explicit instructions with reasoning steps, constraints, and output format.
+- The output from this kind of prompt is categorically different from asking a vague question.
+- "Should I raise a Series B now or wait?" vs. a fully structured prompt with context, analysis instructions, constraints, and output format — these are different universes of output.
+
+Return JSON:
+{
+  "title": "Hebrew title (5-7 words)",
+  "why": "Hebrew: why combining all techniques matters — it's categorically different from vague prompting (1 sentence)",
+  "body": "Hebrew: explanation of what makes the mega prompt structure effective — all layers working together (2 sentences)",
+  "rule": "Hebrew: the key takeaway — the difference between asking a question and engineering an instruction (1 sentence)"
+}`;
+
+  const stepPrompts = STEPS.map(s => `
+Section: ${s.label}
+
+Source content:
+WHY THIS MATTERS: ${s.why}
+HOW IT WORKS: ${s.logic}
+OPUS 4.7 SPECIFIC: ${s.opus47 || 'not applicable'}
+PRACTICAL RULE: ${s.rule}
+
+Return JSON:
+{
+  "title": "Hebrew title (4-7 words, strong and direct)",
+  "why": "Hebrew translation of WHY THIS MATTERS (1-2 sentences)",
+  "body": "Hebrew translation of HOW IT WORKS including the logic and mechanism (2-3 sentences)",
+  "opus47": ${s.opus47 ? '"Hebrew translation of OPUS 4.7 SPECIFIC (1 sentence)"' : 'null'},
+  "rule": "Hebrew translation of PRACTICAL RULE (1 sentence, direct, actionable)"
+}`);
+
+  // Fire all in parallel
+  const [introR, modelR, step10R, ...stepRs] = await Promise.allSettled([
+    hk(introPrompt),
+    hk(modelPrompt),
+    hk(step10Prompt),
+    ...stepPrompts.map(p => hk(p))
+  ]);
+
+  // ── HERO ──
+  const iD = introR.status === 'fulfilled' ? introR.value : null;
+  document.getElementById('hero-desc').textContent =
+    iD?.body || 'Claude Opus 4.7 הוא המודל המתקדם ביותר של Anthropic — ורוב המשתמשים לא מנצלים אפילו מחצית מהיכולות שלו. הבעיה לא במודל, אלא ב-Prompting. מדריך זה מתקן את זה.';
+  document.getElementById('diff-chips').innerHTML = [
+    iD?.diff1 || 'Opus 4.7 הוא literal יותר — לא יכליל הנחיה שכתבת לפריט אחד על כלל הפריטים',
+    iD?.diff2 || 'הטון ישיר ודעתני יותר — פחות validating preambles, פחות "Great question!"',
+    iD?.diff3 || 'הרגלים מ-ChatGPT ומגרסאות קודמות של Claude לא עובדים כאן — צריך לכוון מחדש'
+  ].map(t => `<div class="diff-chip"><span class="dc-icon">▸</span>${t}</div>`).join('');
+
+  // ── STEP 0 ──
+  const mD = modelR.status === 'fulfilled' ? modelR.value : null;
+  const fb = {
+    title:'בחר את המודל הנכון לפני שכותבים מילה',
+    intro:'הבחירה בין שלושת המודלים של Anthropic משפיעה על כל תוצאה שתקבל. שימוש במודל הלא-נכון — בין אם Opus על משימה פשוטה ובין אם Haiku על משימה מורכבת — מבטיח תוצאות מתחת לפוטנציאל.',
+    opus:{role:'הדגל — עומק מלא',desc:'מיועד לאנליזה אסטרטגית מורכבת, עבודה אוטונומית ממושכת, reasoning מעמיק וקוד מתקדם. כשהמשימה דורשת שיקול דעת אמיתי — אין תחליף.',when:'כשצריך עומק קוגניטיבי אמיתי — לא עבור כל משימה.'},
+    sonnet:{role:'עמוד השדרה — מאוזן',desc:'ביצועים חזקים, מהיר יחסית, עלות סבירה. מכסה 80% מהצרכים היומיומיים של CFOs ואנשי FP&A — דוחות, ניתוחים, כתיבה עסקית.',when:'נקודת ההתחלה לרוב המשימות השוטפות.'},
+    haiku:{role:'מהיר — נפח גבוה',desc:'הכי מהיר והכי זול. אידיאלי לסיווג, חילוץ נתונים, סיכומים פשוטים ומשימות חוזרות בכמות גדולה.',when:'כשמהירות ועלות חשובים יותר מעומק.'},
+    rule:'התחל ב-Sonnet. עבור ל-Opus כשצריך עומק קוגניטיבי אמיתי. ירד ל-Haiku כשמהירות ועלות קריטיים.'
+  };
+  const m = mD || fb;
+  document.getElementById('s0-hdr').innerHTML = `
+    <div class="step-title-el">${m.title || fb.title}</div>
+    <div class="step-body-el">${m.intro || fb.intro}</div>`;
+  document.getElementById('model-grid').innerHTML = ['opus','sonnet','haiku'].map((k,i) => `
+    <div class="model-card ${i===0?'flagship':''}">
+      <div class="m-name">${['claude-opus-4-7','claude-sonnet-4-6','claude-haiku-4-5'][i]}</div>
+      <div class="m-role">${(m[k]||fb[k]).role}</div>
+      <div class="m-desc">${(m[k]||fb[k]).desc}</div>
+      <div class="m-when"><strong>מתי:</strong> ${(m[k]||fb[k]).when}</div>
+    </div>`).join('');
+  document.getElementById('s0-rule').innerHTML = `<strong>כלל האצבע:</strong> ${m.rule || fb.rule}`;
+
+  // ── STEPS 1–9 ──
+  STEPS.forEach((step, i) => {
+    const c = stepRs[i]?.status === 'fulfilled' ? stepRs[i].value : null;
+    const newSec = buildStep(step, c);
+    document.getElementById(step.id)?.replaceWith(newSec);
+  });
+
+  // ── STEP 10 ──
+  const s10 = step10R.status === 'fulfilled' ? step10R.value : null;
+  document.getElementById('s10-hdr').innerHTML = `
+    <div class="step-title-el">${s10?.title || 'כל 9 העקרונות — Prompt מלא אחד'}</div>
+    ${s10?.why ? `<div class="why-line">${s10.why}</div>` : ''}
+    <div class="step-body-el">${s10?.body || 'כשמשלבים את כל הטכניקות יחד, התוצאה שונה מהותית. זה ההבדל בין לשאול שאלה לבין להנדס הנחיה.'}</div>
+    ${s10?.rule ? `<div class="key-insight"><strong>תובנת מפתח:</strong> ${s10.rule}</div>` : ''}`;
+}
+
+init();
+</script>
+</body>
+</html>

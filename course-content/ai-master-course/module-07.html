@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Module 07 — Connectors — Claude מחובר | קורס Claude</title>
+  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800;900&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg:      #0b0d10;
+      --bg2:     #111318;
+      --bg3:     #181c22;
+      --border:  #232830;
+      --border2: #2e3540;
+      --accent:  #b8c45a;
+      --text:    #e8eaf0;
+      --muted:   #7a8499;
+      --muted2:  #5a6278;
+      --green:   #65c466;
+      --yellow:  #f5b340;
+      --red:     #e05555;
+      --mono:    'IBM Plex Mono', monospace;
+      --sans:    'Heebo', sans-serif;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: var(--bg); color: var(--text); font-family: var(--sans); font-size: 15px; line-height: 1.7; }
+    a { color: inherit; text-decoration: none; }
+
+    /* NAV */
+    .topnav { position: sticky; top: 0; z-index: 100; background: rgba(11,13,16,.94); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; padding: 0 2rem; height: 56px; }
+    .topnav-brand { font-size: 13px; font-weight: 700; color: var(--accent); letter-spacing: .04em; text-transform: uppercase; }
+    .topnav-right { display: flex; align-items: center; gap: 1.4rem; }
+    .topnav-back { font-size: 13px; color: var(--muted); font-weight: 500; transition: color .18s; }
+    .topnav-back:hover { color: var(--accent); }
+    .topnav-module { font-size: 12px; color: var(--muted2); font-family: var(--mono); }
+
+    /* HERO */
+    .module-hero { border-bottom: 1px solid var(--border); padding: 56px 2rem 48px; max-width: 860px; margin: 0 auto; }
+    .module-eyebrow { display: flex; align-items: center; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; }
+    .eyebrow-num { font-family: var(--mono); font-size: 12px; color: var(--accent); background: rgba(184,196,90,.1); border: 1px solid rgba(184,196,90,.25); padding: 3px 10px; border-radius: 4px; }
+    .eyebrow-part { font-size: 12px; color: var(--muted2); }
+    .eyebrow-sep { color: var(--border2); }
+    .eyebrow-level { font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 4px; background: rgba(245,179,64,.12); color: var(--yellow); border: 1px solid rgba(245,179,64,.25); }
+    .module-hero h1 { font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 900; line-height: 1.15; margin-bottom: 10px; }
+    .module-hero h1 span { color: var(--accent); }
+    .module-en { font-size: 14px; color: var(--muted2); font-family: var(--mono); direction: ltr; margin-bottom: 20px; }
+    .module-meta { display: flex; gap: 20px; flex-wrap: wrap; }
+    .meta-item { display: flex; align-items: center; gap: 6px; font-size: 13px; color: var(--muted); }
+    .meta-item svg { width: 14px; height: 14px; opacity: .6; }
+
+    /* LAYOUT */
+    .content { max-width: 860px; margin: 0 auto; padding: 0 2rem 80px; }
+    .sec-label { font-size: 10px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; color: var(--accent); margin: 52px 0 16px; display: flex; align-items: center; gap: 8px; }
+    .sec-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+    h2 { font-size: 1.3rem; font-weight: 800; color: var(--text); margin-bottom: 12px; }
+    p { color: var(--muted); margin-bottom: 16px; font-size: 15px; }
+    p strong { color: var(--text); font-weight: 700; }
+
+    /* ANALOGY */
+    .analogy { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 32px; }
+    @media (max-width: 600px) { .analogy { grid-template-columns: 1fr; } }
+    .analogy-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 12px; padding: 20px; }
+    .analogy-card.old { border-top: 3px solid var(--muted2); }
+    .analogy-card.new { border-top: 3px solid var(--accent); }
+    .analogy-icon { font-size: 1.6rem; margin-bottom: 8px; }
+    .analogy-title { font-weight: 800; color: var(--text); margin-bottom: 4px; }
+    .analogy-desc { font-size: 13px; color: var(--muted); line-height: 1.6; }
+
+    /* CONNECTOR CARDS */
+    .conn-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 32px; }
+    @media (max-width: 640px) { .conn-grid { grid-template-columns: 1fr 1fr; } }
+    .conn-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 10px; padding: 16px; text-align: center; border-bottom: 3px solid var(--accent); }
+    .conn-logo { width: 40px; height: 40px; border-radius: 9px; margin: 0 auto 10px; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; font-weight: 800; }
+    .conn-logo.drive { background: rgba(101,196,102,.15); color: var(--green); }
+    .conn-logo.notion { background: rgba(232,234,240,.1); color: var(--text); }
+    .conn-logo.share { background: rgba(245,179,64,.15); color: var(--yellow); }
+    .conn-logo.slack { background: rgba(184,196,90,.15); color: var(--accent); }
+    .conn-name { font-weight: 800; font-size: .88rem; color: var(--text); margin-bottom: 4px; }
+    .conn-use { font-size: 11.5px; color: var(--muted); line-height: 1.45; }
+
+    /* UPLOAD vs CONNECT TABLE */
+    .cmp-table { width: 100%; border-collapse: collapse; margin-bottom: 32px; border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
+    .cmp-table th { background: var(--bg3); padding: 12px 14px; text-align: right; font-size: 12px; font-weight: 800; border-bottom: 1px solid var(--border); }
+    .cmp-table th.upl { color: var(--muted); }
+    .cmp-table th.con { color: var(--accent); }
+    .cmp-table th:first-child { color: var(--text); }
+    .cmp-table td { padding: 11px 14px; font-size: 13px; color: var(--muted); border-bottom: 1px solid var(--border); border-right: 1px solid var(--border); }
+    .cmp-table td:first-child { color: var(--text); font-weight: 700; border-right: none; }
+    .cmp-table tr:last-child td { border-bottom: none; }
+
+    /* PRIVACY CARDS */
+    .priv-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 32px; }
+    @media (max-width: 600px) { .priv-grid { grid-template-columns: 1fr; } }
+    .priv-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 10px; padding: 16px 18px; }
+    .priv-card.sees { border-right: 3px solid var(--yellow); }
+    .priv-card.local { border-right: 3px solid var(--green); }
+    .priv-head { font-weight: 800; font-size: .92rem; margin-bottom: 8px; }
+    .priv-card.sees .priv-head { color: var(--yellow); }
+    .priv-card.local .priv-head { color: var(--green); }
+    .priv-row { font-size: 13px; color: var(--muted); padding: 4px 0; }
+
+    /* STEPS */
+    .steps-list { display: flex; flex-direction: column; gap: 10px; margin-bottom: 32px; }
+    .step-item { display: flex; gap: 14px; align-items: flex-start; background: var(--bg2); border: 1px solid var(--border); border-radius: 8px; padding: 14px 16px; }
+    .step-num { width: 28px; height: 28px; border-radius: 50%; background: rgba(184,196,90,.12); border: 1px solid rgba(184,196,90,.3); color: var(--accent); font-size: 12px; font-weight: 800; font-family: var(--mono); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .step-content { flex: 1; }
+    .step-title { font-weight: 800; color: var(--text); margin-bottom: 3px; font-size: .92rem; }
+    .step-desc { font-size: 13px; color: var(--muted); }
+
+    /* SCREENSHOT PLACEHOLDER */
+    .shot { border-radius: 10px; border: 1px dashed var(--border2); background: linear-gradient(135deg, var(--bg3), var(--bg2)); display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 6px; color: var(--muted2); font-size: 12px; font-family: var(--mono); min-height: 150px; margin-bottom: 24px; text-align: center; padding: 16px; }
+    .shot .shot-icon { font-size: 1.6rem; opacity: .5; }
+    .shot .shot-label { color: var(--muted); font-weight: 600; }
+
+    /* CALLOUT */
+    .callout { background: rgba(184,196,90,.06); border: 1px solid rgba(184,196,90,.2); border-radius: 10px; padding: 20px 22px; margin-bottom: 24px; }
+    .callout-label { font-size: 10px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; color: var(--accent); margin-bottom: 6px; }
+    .callout p { color: var(--text); margin: 0; font-size: 14px; }
+
+    /* EXERCISE */
+    .exercise { background: var(--bg3); border: 1px solid var(--border2); border-radius: 12px; overflow: hidden; margin-top: 48px; }
+    .exercise-header { background: var(--bg2); border-bottom: 1px solid var(--border); padding: 16px 22px; display: flex; align-items: center; gap: 12px; }
+    .exercise-badge { background: var(--accent); color: var(--bg); font-size: 10px; font-weight: 900; letter-spacing: .1em; text-transform: uppercase; padding: 3px 10px; border-radius: 4px; }
+    .exercise-title { font-weight: 800; font-size: 1rem; color: var(--text); }
+    .exercise-body { padding: 22px; }
+    .exercise-context { font-size: 13px; color: var(--muted); margin-bottom: 20px; }
+    .prompt-box { background: var(--bg); border: 1px solid var(--border2); border-radius: 8px; padding: 16px 18px; margin-bottom: 16px; }
+    .prompt-label { font-size: 10px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--accent); margin-bottom: 8px; font-family: var(--mono); }
+    .prompt-text { font-family: var(--mono); font-size: 13px; color: var(--text); direction: rtl; line-height: 1.7; white-space: pre-wrap; }
+    .prompt-text.ltr { direction: ltr; text-align: left; }
+    .copy-btn { background: var(--bg2); border: 1px solid var(--border2); color: var(--muted); font-size: 12px; font-family: var(--sans); padding: 5px 14px; border-radius: 5px; cursor: pointer; transition: border-color .18s, color .18s; margin-top: 8px; }
+    .copy-btn:hover { border-color: var(--accent); color: var(--accent); }
+    .exercise-tip { font-size: 12px; color: var(--muted2); border-top: 1px solid var(--border); margin-top: 20px; padding-top: 14px; }
+    .exercise-tip strong { color: var(--muted); }
+
+    /* CHECKLIST */
+    .checklist { background: var(--bg2); border: 1px solid var(--border); border-radius: 10px; padding: 18px 20px; margin-top: 16px; }
+    .checklist-title { font-weight: 800; font-size: .9rem; color: var(--text); margin-bottom: 12px; }
+    .check-item { display: flex; align-items: flex-start; gap: 10px; font-size: 13px; color: var(--muted); padding: 5px 0; border-bottom: 1px solid var(--border); }
+    .check-item:last-child { border-bottom: none; }
+    .check-box { width: 16px; height: 16px; border: 1px solid var(--border2); border-radius: 3px; flex-shrink: 0; margin-top: 3px; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 10px; transition: background .15s, border-color .15s; }
+    .check-box.checked { background: var(--accent); border-color: var(--accent); color: var(--bg); }
+
+    /* NEXT */
+    .next-module { margin-top: 56px; padding-top: 32px; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
+    .prev-btn { background: var(--bg2); border: 1px solid var(--border2); color: var(--muted); font-size: 13px; font-weight: 700; padding: 8px 20px; border-radius: 8px; cursor: pointer; transition: border-color .18s, color .18s; font-family: var(--sans); }
+    .prev-btn:hover { border-color: var(--accent); color: var(--accent); }
+    .next-label { font-size: 11px; color: var(--muted2); text-transform: uppercase; letter-spacing: .1em; margin-bottom: 4px; }
+    .next-title { font-weight: 800; color: var(--text); font-size: 1rem; }
+    .next-btn { background: var(--accent); color: var(--bg); font-size: 14px; font-weight: 800; padding: 10px 24px; border-radius: 8px; cursor: pointer; white-space: nowrap; transition: background .18s, transform .15s; border: none; font-family: var(--sans); }
+    .next-btn:hover { background: #cad86a; transform: translateX(-3px); }
+
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 3px; }
+  </style>
+</head>
+<body>
+<!-- AFX-SIDEBAR START (static always-on rail — active item set by JS) -->
+<style>
+  body{padding-right:252px}
+  .afx-rail{position:fixed;top:0;right:0;width:252px;height:100vh;background:#111318;border-left:1px solid #2e3540;z-index:150;display:flex;flex-direction:column;direction:rtl;font-family:'Heebo',sans-serif}
+  .afx-rail-head{height:56px;flex-shrink:0;display:flex;align-items:center;gap:8px;padding:0 18px;border-bottom:1px solid #232830}
+  .afx-rail-head b{font-size:12px;font-weight:800;letter-spacing:.1em;color:#b8c45a;text-transform:uppercase}
+  .afx-rail-head span{font-size:10px;color:#5a6278;font-family:'IBM Plex Mono',monospace}
+  .afx-list{flex:1;overflow-y:auto;padding:8px 0 28px}
+  .afx-sep{font-size:10px;font-weight:800;letter-spacing:.1em;color:#aeb6c6;padding:14px 18px 6px}
+  .afx-link{display:flex;gap:10px;align-items:baseline;padding:8px 18px;color:#ffffff;font-size:13px;text-decoration:none;border-right:3px solid transparent;transition:background .15s,color .15s}
+  .afx-link:hover{background:#181c22;color:#ffffff}
+  .afx-link.active{color:#b8c45a;background:rgba(184,196,90,.08);border-right-color:#b8c45a;font-weight:700}
+  .afx-num{font-family:'IBM Plex Mono',monospace;font-size:11px;color:#cfd5e0;min-width:26px}
+  .afx-link.active .afx-num{color:#b8c45a}
+  .afx-list::-webkit-scrollbar{width:6px}
+  .afx-list::-webkit-scrollbar-thumb{background:#2e3540;border-radius:3px}
+  @media (max-width:900px){body{padding-right:0}.afx-rail{display:none}}
+  @media print{body{padding-right:0}.afx-rail{display:none}}
+</style>
+<nav class="afx-rail" aria-label="ניווט מודולים">
+  <div class="afx-rail-head"><b>תוכן הקורס</b><span>16 מודולים</span></div>
+  <div class="afx-list">
+    <a class="afx-link" href="course-index.html" data-file="course-index.html"><span class="afx-num">⌂</span> דף הבית — כל המודולים</a>
+    <div class="afx-sep">חלק 0 — מבוא</div>
+    <a class="afx-link" href="module-00.html" data-file="module-00.html"><span class="afx-num">00</span> ברוכים הבאים</a>
+    <a class="afx-link" href="module-01.html" data-file="module-01.html"><span class="afx-num">01</span> שלושת המודלים</a>
+    <div class="afx-sep">חלק 1 — הבסיס</div>
+    <a class="afx-link" href="module-02.html" data-file="module-02.html"><span class="afx-num">02</span> השיחה הפיננסית הראשונה</a>
+    <a class="afx-link" href="module-03.html" data-file="module-03.html"><span class="afx-num">03</span> מסגרת PRICE</a>
+    <div class="afx-sep">חלק 2 — הפיצ׳רים</div>
+    <a class="afx-link" href="module-04.html" data-file="module-04.html"><span class="afx-num">04</span> Artifacts — הקנבס</a>
+    <a class="afx-link" href="module-05.html" data-file="module-05.html"><span class="afx-num">05</span> Skills — זיכרון מוסדי</a>
+    <a class="afx-link" href="module-06.html" data-file="module-06.html"><span class="afx-num">06</span> Projects — סביבת עבודה</a>
+    <a class="afx-link" href="module-07.html" data-file="module-07.html"><span class="afx-num">07</span> Connectors — Claude מחובר</a>
+    <div class="afx-sep">חלק 3 — כלים</div>
+    <a class="afx-link" href="module-08.html" data-file="module-08.html"><span class="afx-num">08</span> Claude ב-Excel</a>
+    <a class="afx-link" href="module-09.html" data-file="module-09.html"><span class="afx-num">09</span> Claude ב-PowerPoint</a>
+    <a class="afx-link" href="module-10.html" data-file="module-10.html"><span class="afx-num">10</span> Design &amp; Cowork</a>
+    <div class="afx-sep">חלק 4 — מתקדם</div>
+    <a class="afx-link" href="module-11.html" data-file="module-11.html"><span class="afx-num">11</span> 10 עקרונות Prompting</a>
+    <a class="afx-link" href="module-12.html" data-file="module-12.html"><span class="afx-num">12</span> 102 Use Cases</a>
+    <div class="afx-sep">חלק 5 — פרויקטים</div>
+    <a class="afx-link" href="module-13.html" data-file="module-13.html"><span class="afx-num">13</span> סגירת חודש</a>
+    <a class="afx-link" href="module-14.html" data-file="module-14.html"><span class="afx-num">14</span> דשבורד CFO (Capstone)</a>
+    <div class="afx-sep">בונוס</div>
+    <a class="afx-link" href="module-15.html" data-file="module-15.html"><span class="afx-num">15</span> Skills מוכנות (Bonus)</a>
+  </div>
+</nav>
+<script>
+  (function(){var f=(location.pathname.split('/').pop()||'').toLowerCase();document.querySelectorAll('.afx-link').forEach(function(a){if((a.getAttribute('data-file')||'').toLowerCase()===f)a.classList.add('active');});})();
+</script>
+<!-- AFX-SIDEBAR END -->
+
+
+<nav class="topnav">
+  <span class="topnav-brand">AI Finance Transformation</span>
+  <div class="topnav-right">
+    <a href="course-index.html" class="topnav-back">← כל המודולים</a>
+    <span class="topnav-module">MODULE 07 / 16</span>
+  </div>
+</nav>
+
+<header class="module-hero">
+  <div class="module-eyebrow">
+    <span class="eyebrow-num">MODULE 07</span>
+    <span class="eyebrow-sep">·</span>
+    <span class="eyebrow-part">חלק 2 — הפיצ׳רים</span>
+    <span class="eyebrow-sep">·</span>
+    <span class="eyebrow-level">בינוני</span>
+  </div>
+  <h1>Connectors — Claude<br><span>מחובר למערכות שלך</span></h1>
+  <div class="module-en">Connecting Claude to Live Data</div>
+  <div class="module-meta">
+    <span class="meta-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+      25–35 דקות
+    </span>
+    <span class="meta-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7 0l3-3a5 5 0 0 0-7-7l-1 1"/><path d="M14 11a5 5 0 0 0-7 0l-3 3a5 5 0 0 0 7 7l1-1"/></svg>
+      Connectors / MCP
+    </span>
+  </div>
+</header>
+
+<main class="content">
+
+  <!-- INTRO / ANALOGY -->
+  <div class="sec-label">מה זה Connector?</div>
+  <h2>במקום להעלות קבצים — Claude מתחבר ישירות</h2>
+  <p>
+    עד עכשיו, כדי ש-Claude ינתח דוח, היית מוריד אותו, מעלה ל-Claude, ומדביק. עם <strong>Connector</strong> (המנגנון נקרא MCP) — Claude מתחבר ישירות ל-Google Drive, Notion או SharePoint שלך, וקורא את הקבצים בעצמו.
+  </p>
+
+  <div class="analogy">
+    <div class="analogy-card old">
+      <div class="analogy-icon">📋</div>
+      <div class="analogy-title">בלי Connector — Copy-Paste</div>
+      <div class="analogy-desc">מוריד קובץ → מעלה ידנית → מדביק נתונים. בכל פעם מחדש. כמו להעתיק מסמך ביד.</div>
+    </div>
+    <div class="analogy-card new">
+      <div class="analogy-icon">🔌</div>
+      <div class="analogy-title">עם Connector — כבל ישיר</div>
+      <div class="analogy-desc">Claude מחובר למקור ושולף את הקובץ העדכני לבד. כמו לחבר כבל — המידע זורם.</div>
+    </div>
+  </div>
+
+  <!-- AVAILABLE CONNECTORS -->
+  <div class="sec-label">Connectors זמינים</div>
+  <h2>למה כדאי לחבר כל אחד</h2>
+
+  <div class="conn-grid">
+    <div class="conn-card">
+      <div class="conn-logo drive">▲</div>
+      <div class="conn-name">Google Drive</div>
+      <div class="conn-use">דוחות, Board Packs, גיליונות Excel</div>
+    </div>
+    <div class="conn-card">
+      <div class="conn-logo notion">N</div>
+      <div class="conn-name">Notion</div>
+      <div class="conn-use">תיעוד תהליכים, רשימות בקרה, נהלים</div>
+    </div>
+    <div class="conn-card">
+      <div class="conn-logo share">S</div>
+      <div class="conn-name">SharePoint</div>
+      <div class="conn-use">קבצי ארגון, מסמכי ביקורת, ארכיון</div>
+    </div>
+    <div class="conn-card">
+      <div class="conn-logo slack">#</div>
+      <div class="conn-name">Slack</div>
+      <div class="conn-use">שיחות צוות, החלטות, עדכוני סטטוס</div>
+    </div>
+  </div>
+
+  <!-- UPLOAD vs CONNECT -->
+  <div class="sec-label">Upload מול Connect</div>
+  <h2>מתי להעלות ומתי לחבר</h2>
+  <p>שניהם עובדים — אבל Connector חוסך זמן כשהקבצים מתעדכנים תדיר.</p>
+
+  <table class="cmp-table">
+    <thead>
+      <tr><th>קריטריון</th><th class="upl">העלאה ידנית (Upload)</th><th class="con">חיבור (Connect)</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>עדכניות</td><td>תמונת מצב רגעית בלבד</td><td>תמיד הגרסה העדכנית</td></tr>
+      <tr><td>מאמץ</td><td>הורדה + העלאה בכל פעם</td><td>חיבור פעם אחת</td></tr>
+      <tr><td>מספר קבצים</td><td>נוח לקובץ בודד</td><td>מצוין לתיקיות שלמות</td></tr>
+      <tr><td>מתי מתאים</td><td>קובץ חד-פעמי / רגיש</td><td>תהליך חוזר (סגירה, דוחות)</td></tr>
+    </tbody>
+  </table>
+
+  <!-- PRIVACY -->
+  <div class="sec-label">פרטיות ואבטחה</div>
+  <h2>מה Claude רואה — ומה נשאר אצלך</h2>
+
+  <div class="priv-grid">
+    <div class="priv-card sees">
+      <div class="priv-head">👁️ מה Claude ניגש אליו</div>
+      <div class="priv-row">• רק הקבצים שאתה מבקש במפורש</div>
+      <div class="priv-row">• רק לאחר אישור הרשאה שלך</div>
+      <div class="priv-row">• רק בזמן השיחה הפעילה</div>
+    </div>
+    <div class="priv-card local">
+      <div class="priv-head">🔒 מה נשאר מוגן</div>
+      <div class="priv-row">• הסיסמאות שלך — לעולם לא נחשפות</div>
+      <div class="priv-row">• אתה שולט בהרשאות ומבטל בכל רגע</div>
+      <div class="priv-row">• קבצים שלא ביקשת — לא נקראים</div>
+    </div>
+  </div>
+
+  <!-- STEP BY STEP: connect Drive -->
+  <div class="sec-label">חיבור Google Drive</div>
+  <h2>4 שלבים לחיבור</h2>
+
+  <div class="steps-list">
+    <div class="step-item">
+      <div class="step-num">1</div>
+      <div class="step-content">
+        <div class="step-title">Settings → Connectors → Google Drive</div>
+        <div class="step-desc">פתח את הגדרות החשבון ובחר את Google Drive מרשימת ה-Connectors.</div>
+        <img src="Images/connectors.png" alt="מסך Connectors בהגדרות Claude — Settings → Connectors" style="display:block;width:100%;max-width:640px;margin-top:12px;border:1px solid var(--border2);border-radius:8px;">
+      </div>
+    </div>
+    <div class="step-item">
+      <div class="step-num">2</div>
+      <div class="step-content">
+        <div class="step-title">בדוק את ה-Tools של ה-Connector</div>
+        <div class="step-desc">לפני החיבור, ראה אילו פעולות (Tools) ה-Connector חושף — קריאה, חיפוש, יצירה. כך תדע בדיוק מה Claude יוכל לעשות.</div>
+        <img src="Images/netsuite1.png" alt="עמוד Connector עם רשימת ה-Tools הזמינים" style="display:block;width:100%;max-width:640px;margin-top:12px;border:1px solid var(--border2);border-radius:8px;">
+      </div>
+    </div>
+    <div class="step-item">
+      <div class="step-num">3</div>
+      <div class="step-content">
+        <div class="step-title">אשר הרשאות (Authorize)</div>
+        <div class="step-desc">התחבר לחשבון Google ואשר אילו Tools מותרים — Read-only או גם כתיבה. אתה בשליטה מלאה על כל פעולה.</div>
+        <img src="Images/image5%20toolscop.png" alt="מסך Tool permissions של ה-Connector — Read-only / Write tools" style="display:block;width:100%;max-width:640px;margin-top:12px;border:1px solid var(--border2);border-radius:8px;">
+      </div>
+    </div>
+    <div class="step-item">
+      <div class="step-num">4</div>
+      <div class="step-content">
+        <div class="step-title">בקש קובץ לפי שם בשיחה</div>
+        <div class="step-desc">פשוט כתוב "Access the file ... from my Drive" — Claude ישלוף ויקרא.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="callout">
+    <div class="callout-label">ה-Insight הכי חשוב</div>
+    <p>Connector הופך את Claude מ<strong>"כלי שמנתח מה שהדבקת"</strong> ל<strong>"עוזר שיודע איפה הקבצים שלך"</strong>. במקום לחפש את הדוח — פשוט מבקשים אותו בשם.</p>
+  </div>
+
+  <!-- EXERCISE -->
+  <div class="exercise">
+    <div class="exercise-header">
+      <span class="exercise-badge">תרגיל 07</span>
+      <span class="exercise-title">חבר את Drive ונתח Board Pack בלי להעלות אותו</span>
+    </div>
+    <div class="exercise-body">
+      <p class="exercise-context">
+        קודם חבר את Google Drive (לפי 3 השלבים למעלה). ודא שיש בו קובץ בשם "TechFlow Board Pack Q2 2026" (אפשר ליצור קובץ דמה). אז הרץ את ה-Prompt — Claude ישלוף ויסכם ישירות, בלי שתעלה כלום.
+      </p>
+
+      <div class="prompt-box">
+        <div class="prompt-label">Starter — סיכום Board Pack מ-Drive</div>
+        <div class="prompt-text ltr">Access the file "TechFlow Board Pack Q2 2026" from my Google Drive.
+Summarize: 1) Key financial highlights 2) Metrics below target 3) Top 3 risks mentioned.
+Format: 3 sections, bullet points, English.</div>
+        <button class="copy-btn" onclick="copyPrompt(this, 'Access the file \'TechFlow Board Pack Q2 2026\' from my Google Drive.\nSummarize: 1) Key financial highlights 2) Metrics below target 3) Top 3 risks mentioned.\nFormat: 3 sections, bullet points, English.')">העתק Prompt</button>
+      </div>
+
+      <div class="prompt-box">
+        <div class="prompt-label">Advanced — השוואה בין רבעונים מ-Drive</div>
+        <div class="prompt-text ltr">Compare the Q1 vs Q2 Board Packs from my Drive — what metrics are trending in the wrong direction?
+For each declining metric show: Metric | Q1 | Q2 | Change | Why it matters.
+Language: English, board-ready.</div>
+        <button class="copy-btn" onclick="copyPrompt(this, 'Compare the Q1 vs Q2 Board Packs from my Drive — what metrics are trending in the wrong direction?\nFor each declining metric show: Metric | Q1 | Q2 | Change | Why it matters.\nLanguage: English, board-ready.')">העתק Prompt</button>
+      </div>
+
+      <div class="checklist">
+        <div class="checklist-title">✓ רשימת בדיקה לאחר התרגיל</div>
+        <div class="check-item"><div class="check-box" onclick="toggleCheck(this)"></div>חיברתי את Google Drive ואישרתי הרשאות</div>
+        <div class="check-item"><div class="check-box" onclick="toggleCheck(this)"></div>Claude שלף את הקובץ בלי שהעליתי אותו ידנית</div>
+        <div class="check-item"><div class="check-box" onclick="toggleCheck(this)"></div>קיבלתי סיכום ב-3 חלקים (highlights / below target / risks)</div>
+        <div class="check-item"><div class="check-box" onclick="toggleCheck(this)"></div>הרצתי את ההשוואה בין Q1 ל-Q2</div>
+        <div class="check-item"><div class="check-box" onclick="toggleCheck(this)"></div>זיהיתי אילו מדדים במגמה שלילית</div>
+      </div>
+
+      <div class="exercise-tip" style="margin-top:14px">
+        <strong>טיפ אבטחה:</strong> אחרי שסיימת, אפשר לבטל את ההרשאה ב-<span style="font-family:var(--mono);color:var(--accent)">Settings → Connectors</span>. אתה תמיד בשליטה על מה Claude יכול לראות.
+      </div>
+    </div>
+  </div>
+
+  <!-- NEXT MODULE -->
+  <div class="next-module">
+    <button class="prev-btn" onclick="window.location.href='module-06.html'">→ Module 06</button>
+    <div style="text-align:right">
+      <div class="next-label">המודול הבא</div>
+      <div class="next-title">Module 08 — Claude ב-Excel</div>
+    </div>
+    <button class="next-btn" onclick="window.location.href='module-08.html'">המשך ←</button>
+  </div>
+
+</main>
+
+<script>
+  function copyPrompt(btn, text) {
+    navigator.clipboard.writeText(text).then(() => {
+      btn.textContent = '✓ הועתק!';
+      btn.style.color = 'var(--green)';
+      btn.style.borderColor = 'var(--green)';
+      setTimeout(() => { btn.textContent = 'העתק Prompt'; btn.style.color = ''; btn.style.borderColor = ''; }, 2000);
+    });
+  }
+  function toggleCheck(el) {
+    el.classList.toggle('checked');
+    el.textContent = el.classList.contains('checked') ? '✓' : '';
+  }
+  try {
+    const p = JSON.parse(localStorage.getItem('claude-course-progress')) || {};
+    p['module-07'] = true;
+    localStorage.setItem('claude-course-progress', JSON.stringify(p));
+  } catch(e) {}
+</script>
+</body>
+</html>

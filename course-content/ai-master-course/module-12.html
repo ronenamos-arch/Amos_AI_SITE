@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Module 12 — 102 Use Cases | קורס Claude</title>
+  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800;900&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg:      #0b0d10;
+      --bg2:     #111318;
+      --bg3:     #181c22;
+      --border:  #232830;
+      --border2: #2e3540;
+      --accent:  #b8c45a;
+      --text:    #e8eaf0;
+      --muted:   #7a8499;
+      --muted2:  #5a6278;
+      --green:   #65c466;
+      --yellow:  #f5b340;
+      --red:     #e05555;
+      --mono:    'IBM Plex Mono', monospace;
+      --sans:    'Heebo', sans-serif;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: var(--bg); color: var(--text); font-family: var(--sans); font-size: 15px; line-height: 1.7; }
+    a { color: inherit; text-decoration: none; }
+
+    /* NAV */
+    .topnav { position: sticky; top: 0; z-index: 100; background: rgba(11,13,16,.94); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; padding: 0 2rem; height: 56px; }
+    .topnav-brand { font-size: 13px; font-weight: 700; color: var(--accent); letter-spacing: .04em; text-transform: uppercase; }
+    .topnav-right { display: flex; align-items: center; gap: 1.4rem; }
+    .topnav-back { font-size: 13px; color: var(--muted); font-weight: 500; transition: color .18s; }
+    .topnav-back:hover { color: var(--accent); }
+    .topnav-module { font-size: 12px; color: var(--muted2); font-family: var(--mono); }
+
+    /* HERO */
+    .module-hero { border-bottom: 1px solid var(--border); padding: 56px 2rem 48px; max-width: 860px; margin: 0 auto; }
+    .module-eyebrow { display: flex; align-items: center; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; }
+    .eyebrow-num { font-family: var(--mono); font-size: 12px; color: var(--accent); background: rgba(184,196,90,.1); border: 1px solid rgba(184,196,90,.25); padding: 3px 10px; border-radius: 4px; }
+    .eyebrow-part { font-size: 12px; color: var(--muted2); }
+    .eyebrow-sep { color: var(--border2); }
+    .eyebrow-level { font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 4px; background: rgba(245,179,64,.12); color: var(--yellow); border: 1px solid rgba(245,179,64,.25); }
+    .module-hero h1 { font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 900; line-height: 1.15; margin-bottom: 10px; }
+    .module-hero h1 span { color: var(--accent); }
+    .module-en { font-size: 14px; color: var(--muted2); font-family: var(--mono); direction: ltr; margin-bottom: 20px; }
+    .module-meta { display: flex; gap: 20px; flex-wrap: wrap; }
+    .meta-item { display: flex; align-items: center; gap: 6px; font-size: 13px; color: var(--muted); }
+    .meta-item svg { width: 14px; height: 14px; opacity: .6; }
+
+    /* LAYOUT */
+    .content { max-width: 860px; margin: 0 auto; padding: 0 2rem 80px; }
+    .sec-label { font-size: 10px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; color: var(--accent); margin: 52px 0 16px; display: flex; align-items: center; gap: 8px; }
+    .sec-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+    h2 { font-size: 1.3rem; font-weight: 800; color: var(--text); margin-bottom: 12px; }
+    p { color: var(--muted); margin-bottom: 16px; font-size: 15px; }
+    p strong { color: var(--text); font-weight: 700; }
+
+    /* STAT STRIP */
+    .stat-strip { display: grid; grid-template-columns: repeat(4, 1fr); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; margin-bottom: 32px; }
+    @media (max-width: 640px) { .stat-strip { grid-template-columns: 1fr 1fr; } }
+    .stat-cell { padding: 18px 16px; border-left: 1px solid var(--border); text-align: center; }
+    .stat-cell:first-child { border-left: none; }
+    .stat-num { font-family: var(--mono); font-size: 1.7rem; font-weight: 700; color: var(--accent); margin-bottom: 4px; }
+    .stat-label { font-size: 12px; color: var(--muted); }
+
+    /* CATEGORY GRID */
+    .cat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 32px; }
+    @media (max-width: 700px) { .cat-grid { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 460px) { .cat-grid { grid-template-columns: 1fr; } }
+    .cat-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 8px; padding: 12px 14px; display: flex; align-items: center; justify-content: space-between; gap: 8px; transition: border-color .18s; }
+    .cat-card:hover { border-color: var(--accent); }
+    .cat-name { font-size: 13px; font-weight: 600; color: var(--text); }
+    .cat-badge { font-family: var(--mono); font-size: 11px; color: var(--accent); background: rgba(184,196,90,.1); border: 1px solid rgba(184,196,90,.25); padding: 1px 8px; border-radius: 10px; flex-shrink: 0; }
+
+    /* FEATURED CARD */
+    .feat-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 12px; padding: 18px 20px; margin-bottom: 14px; border-right: 3px solid var(--accent); }
+    .feat-head { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; flex-wrap: wrap; }
+    .feat-id { font-family: var(--mono); font-size: 11px; color: var(--bg); background: var(--accent); padding: 2px 8px; border-radius: 4px; font-weight: 700; }
+    .feat-title { font-weight: 800; font-size: 1rem; color: var(--text); }
+    .feat-tag { font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 4px; font-family: var(--mono); background: rgba(101,196,102,.12); color: var(--green); border: 1px solid rgba(101,196,102,.25); }
+    .feat-desc { font-size: 13.5px; color: var(--muted); margin: 0; }
+
+    /* STEPS */
+    .flow-steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 32px; }
+    @media (max-width: 640px) { .flow-steps { grid-template-columns: 1fr 1fr; } }
+    .flow-step { background: var(--bg2); border: 1px solid var(--border); border-radius: 10px; padding: 16px; }
+    .flow-num { width: 28px; height: 28px; border-radius: 50%; background: rgba(184,196,90,.12); border: 1px solid rgba(184,196,90,.3); color: var(--accent); font-size: 12px; font-weight: 800; font-family: var(--mono); display: flex; align-items: center; justify-content: center; margin-bottom: 10px; }
+    .flow-title { font-weight: 800; font-size: .9rem; color: var(--text); margin-bottom: 4px; }
+    .flow-desc { font-size: 12px; color: var(--muted); line-height: 1.5; }
+
+    /* CALLOUT */
+    .callout { background: rgba(184,196,90,.06); border: 1px solid rgba(184,196,90,.2); border-radius: 10px; padding: 20px 22px; margin-bottom: 24px; }
+    .callout-label { font-size: 10px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; color: var(--accent); margin-bottom: 6px; }
+    .callout p { color: var(--text); margin: 0; font-size: 14px; }
+    .callout a { color: var(--accent); font-weight: 700; text-decoration: underline; }
+
+    /* EXERCISE */
+    .exercise { background: var(--bg3); border: 1px solid var(--border2); border-radius: 12px; overflow: hidden; margin-top: 48px; }
+    .exercise-header { background: var(--bg2); border-bottom: 1px solid var(--border); padding: 16px 22px; display: flex; align-items: center; gap: 12px; }
+    .exercise-badge { background: var(--accent); color: var(--bg); font-size: 10px; font-weight: 900; letter-spacing: .1em; text-transform: uppercase; padding: 3px 10px; border-radius: 4px; }
+    .exercise-title { font-weight: 800; font-size: 1rem; color: var(--text); }
+    .exercise-body { padding: 22px; }
+    .exercise-context { font-size: 13px; color: var(--muted); margin-bottom: 20px; }
+    .prompt-box { background: var(--bg); border: 1px solid var(--border2); border-radius: 8px; padding: 16px 18px; margin-bottom: 16px; }
+    .prompt-label { font-size: 10px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--accent); margin-bottom: 8px; font-family: var(--mono); }
+    .prompt-text { font-family: var(--mono); font-size: 13px; color: var(--text); direction: rtl; line-height: 1.7; white-space: pre-wrap; }
+    .copy-btn { background: var(--bg2); border: 1px solid var(--border2); color: var(--muted); font-size: 12px; font-family: var(--sans); padding: 5px 14px; border-radius: 5px; cursor: pointer; transition: border-color .18s, color .18s; margin-top: 8px; }
+    .copy-btn:hover { border-color: var(--accent); color: var(--accent); }
+    .exercise-tip { font-size: 12px; color: var(--muted2); border-top: 1px solid var(--border); margin-top: 20px; padding-top: 14px; }
+    .exercise-tip strong { color: var(--muted); }
+
+    /* CHECKLIST */
+    .checklist { background: var(--bg2); border: 1px solid var(--border); border-radius: 10px; padding: 18px 20px; margin-top: 16px; }
+    .checklist-title { font-weight: 800; font-size: .9rem; color: var(--text); margin-bottom: 12px; }
+    .check-item { display: flex; align-items: flex-start; gap: 10px; font-size: 13px; color: var(--muted); padding: 5px 0; border-bottom: 1px solid var(--border); }
+    .check-item:last-child { border-bottom: none; }
+    .check-box { width: 16px; height: 16px; border: 1px solid var(--border2); border-radius: 3px; flex-shrink: 0; margin-top: 3px; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 10px; transition: background .15s, border-color .15s; }
+    .check-box.checked { background: var(--accent); border-color: var(--accent); color: var(--bg); }
+
+    /* NEXT */
+    .next-module { margin-top: 56px; padding-top: 32px; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
+    .prev-btn { background: var(--bg2); border: 1px solid var(--border2); color: var(--muted); font-size: 13px; font-weight: 700; padding: 8px 20px; border-radius: 8px; cursor: pointer; transition: border-color .18s, color .18s; font-family: var(--sans); }
+    .prev-btn:hover { border-color: var(--accent); color: var(--accent); }
+    .next-label { font-size: 11px; color: var(--muted2); text-transform: uppercase; letter-spacing: .1em; margin-bottom: 4px; }
+    .next-title { font-weight: 800; color: var(--text); font-size: 1rem; }
+    .next-btn { background: var(--accent); color: var(--bg); font-size: 14px; font-weight: 800; padding: 10px 24px; border-radius: 8px; cursor: pointer; white-space: nowrap; transition: background .18s, transform .15s; border: none; font-family: var(--sans); }
+    .next-btn:hover { background: #cad86a; transform: translateX(-3px); }
+
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 3px; }
+  </style>
+</head>
+<body>
+<!-- AFX-SIDEBAR START (static always-on rail — active item set by JS) -->
+<style>
+  body{padding-right:252px}
+  .afx-rail{position:fixed;top:0;right:0;width:252px;height:100vh;background:#111318;border-left:1px solid #2e3540;z-index:150;display:flex;flex-direction:column;direction:rtl;font-family:'Heebo',sans-serif}
+  .afx-rail-head{height:56px;flex-shrink:0;display:flex;align-items:center;gap:8px;padding:0 18px;border-bottom:1px solid #232830}
+  .afx-rail-head b{font-size:12px;font-weight:800;letter-spacing:.1em;color:#b8c45a;text-transform:uppercase}
+  .afx-rail-head span{font-size:10px;color:#5a6278;font-family:'IBM Plex Mono',monospace}
+  .afx-list{flex:1;overflow-y:auto;padding:8px 0 28px}
+  .afx-sep{font-size:10px;font-weight:800;letter-spacing:.1em;color:#aeb6c6;padding:14px 18px 6px}
+  .afx-link{display:flex;gap:10px;align-items:baseline;padding:8px 18px;color:#ffffff;font-size:13px;text-decoration:none;border-right:3px solid transparent;transition:background .15s,color .15s}
+  .afx-link:hover{background:#181c22;color:#ffffff}
+  .afx-link.active{color:#b8c45a;background:rgba(184,196,90,.08);border-right-color:#b8c45a;font-weight:700}
+  .afx-num{font-family:'IBM Plex Mono',monospace;font-size:11px;color:#cfd5e0;min-width:26px}
+  .afx-link.active .afx-num{color:#b8c45a}
+  .afx-list::-webkit-scrollbar{width:6px}
+  .afx-list::-webkit-scrollbar-thumb{background:#2e3540;border-radius:3px}
+  @media (max-width:900px){body{padding-right:0}.afx-rail{display:none}}
+  @media print{body{padding-right:0}.afx-rail{display:none}}
+</style>
+<nav class="afx-rail" aria-label="ניווט מודולים">
+  <div class="afx-rail-head"><b>תוכן הקורס</b><span>16 מודולים</span></div>
+  <div class="afx-list">
+    <a class="afx-link" href="course-index.html" data-file="course-index.html"><span class="afx-num">⌂</span> דף הבית — כל המודולים</a>
+    <div class="afx-sep">חלק 0 — מבוא</div>
+    <a class="afx-link" href="module-00.html" data-file="module-00.html"><span class="afx-num">00</span> ברוכים הבאים</a>
+    <a class="afx-link" href="module-01.html" data-file="module-01.html"><span class="afx-num">01</span> שלושת המודלים</a>
+    <div class="afx-sep">חלק 1 — הבסיס</div>
+    <a class="afx-link" href="module-02.html" data-file="module-02.html"><span class="afx-num">02</span> השיחה הפיננסית הראשונה</a>
+    <a class="afx-link" href="module-03.html" data-file="module-03.html"><span class="afx-num">03</span> מסגרת PRICE</a>
+    <div class="afx-sep">חלק 2 — הפיצ׳רים</div>
+    <a class="afx-link" href="module-04.html" data-file="module-04.html"><span class="afx-num">04</span> Artifacts — הקנבס</a>
+    <a class="afx-link" href="module-05.html" data-file="module-05.html"><span class="afx-num">05</span> Skills — זיכרון מוסדי</a>
+    <a class="afx-link" href="module-06.html" data-file="module-06.html"><span class="afx-num">06</span> Projects — סביבת עבודה</a>
+    <a class="afx-link" href="module-07.html" data-file="module-07.html"><span class="afx-num">07</span> Connectors — Claude מחובר</a>
+    <div class="afx-sep">חלק 3 — כלים</div>
+    <a class="afx-link" href="module-08.html" data-file="module-08.html"><span class="afx-num">08</span> Claude ב-Excel</a>
+    <a class="afx-link" href="module-09.html" data-file="module-09.html"><span class="afx-num">09</span> Claude ב-PowerPoint</a>
+    <a class="afx-link" href="module-10.html" data-file="module-10.html"><span class="afx-num">10</span> Design &amp; Cowork</a>
+    <div class="afx-sep">חלק 4 — מתקדם</div>
+    <a class="afx-link" href="module-11.html" data-file="module-11.html"><span class="afx-num">11</span> 10 עקרונות Prompting</a>
+    <a class="afx-link" href="module-12.html" data-file="module-12.html"><span class="afx-num">12</span> 102 Use Cases</a>
+    <div class="afx-sep">חלק 5 — פרויקטים</div>
+    <a class="afx-link" href="module-13.html" data-file="module-13.html"><span class="afx-num">13</span> סגירת חודש</a>
+    <a class="afx-link" href="module-14.html" data-file="module-14.html"><span class="afx-num">14</span> דשבורד CFO (Capstone)</a>
+    <div class="afx-sep">בונוס</div>
+    <a class="afx-link" href="module-15.html" data-file="module-15.html"><span class="afx-num">15</span> Skills מוכנות (Bonus)</a>
+  </div>
+</nav>
+<script>
+  (function(){var f=(location.pathname.split('/').pop()||'').toLowerCase();document.querySelectorAll('.afx-link').forEach(function(a){if((a.getAttribute('data-file')||'').toLowerCase()===f)a.classList.add('active');});})();
+</script>
+<!-- AFX-SIDEBAR END -->
+
+
+<nav class="topnav">
+  <span class="topnav-brand">AI Finance Transformation</span>
+  <div class="topnav-right">
+    <a href="course-index.html" class="topnav-back">← כל המודולים</a>
+    <span class="topnav-module">MODULE 12 / 16</span>
+  </div>
+</nav>
+
+<header class="module-hero">
+  <div class="module-eyebrow">
+    <span class="eyebrow-num">MODULE 12</span>
+    <span class="eyebrow-sep">·</span>
+    <span class="eyebrow-part">חלק 4 — מתקדם</span>
+    <span class="eyebrow-sep">·</span>
+    <span class="eyebrow-level">מתקדם</span>
+  </div>
+  <h1>102 Use Cases<br><span>ספריית הפיננסים</span></h1>
+  <div class="module-en">102 Finance Use Cases Library</div>
+  <div class="module-meta">
+    <span class="meta-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+      45–60 דקות + מאגר עזר מתמשך
+    </span>
+    <span class="meta-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+      Claude App + 102-Prompt Library
+    </span>
+  </div>
+</header>
+
+<main class="content">
+
+  <!-- INTRO -->
+  <div class="sec-label">סקירה</div>
+  <h2>ספרייה אחת — 102 שימושים מוכנים לעבודה הפיננסית</h2>
+  <p>
+    עד עכשיו למדת <strong>איך</strong> לדבר עם Claude. במודול הזה אתה מקבל את <strong>מה</strong> — מאגר של 102 שימושים פיננסיים מוכנים, מסודרים לפי קטגוריה, רמת קושי וכלי. כל use case הוא Prompt בנוי שאפשר להעתיק, להתאים לנתונים שלך ולהריץ תוך שניות.
+  </p>
+  <p>
+    המאגר המלא נמצא בקובץ <strong>102-Prompt.html</strong> שכבר נמצא בתיקייה. המודול הזה מלמד אותך לנווט בו ביעילות, ולעבור 5 מהשימושים החזקים ביותר לעומק על נתוני TechFlow Ltd.
+  </p>
+
+  <div class="stat-strip">
+    <div class="stat-cell"><div class="stat-num">102</div><div class="stat-label">Use Cases</div></div>
+    <div class="stat-cell"><div class="stat-num">22</div><div class="stat-label">קטגוריות</div></div>
+    <div class="stat-cell"><div class="stat-num">3</div><div class="stat-label">רמות קושי</div></div>
+    <div class="stat-cell"><div class="stat-num">4</div><div class="stat-label">פילטרים לפי כלי</div></div>
+  </div>
+
+  <div class="callout">
+    <div class="callout-label">המאגר המלא</div>
+    <p>כל 102 השימושים, עם Prompt מלא לכל אחד, נמצאים בקובץ <a href="102-Prompt.html">102-Prompt.html</a>. פתח אותו בכרטיסייה נפרדת והשתמש בו כמדריך עבודה יומיומי לצד הקורס.</p>
+  </div>
+
+  <!-- CATEGORIES -->
+  <div class="sec-label">22 הקטגוריות</div>
+  <h2>איפה למצוא את מה שאתה צריך</h2>
+  <p>המאגר מחולק ל-22 קטגוריות לפי תחום העבודה הפיננסי. המספר בכל כרטיס הוא כמות השימושים בקטגוריה.</p>
+
+  <div class="cat-grid">
+    <div class="cat-card"><span class="cat-name">Variance Analysis</span><span class="cat-badge">8</span></div>
+    <div class="cat-card"><span class="cat-name">Management Commentary</span><span class="cat-badge">7</span></div>
+    <div class="cat-card"><span class="cat-name">Month-End Close</span><span class="cat-badge">6</span></div>
+    <div class="cat-card"><span class="cat-name">Reconciliations</span><span class="cat-badge">5</span></div>
+    <div class="cat-card"><span class="cat-name">Budgeting & FP&A</span><span class="cat-badge">6</span></div>
+    <div class="cat-card"><span class="cat-name">Forecasting</span><span class="cat-badge">5</span></div>
+    <div class="cat-card"><span class="cat-name">Board Reporting</span><span class="cat-badge">6</span></div>
+    <div class="cat-card"><span class="cat-name">Cash & Treasury</span><span class="cat-badge">4</span></div>
+    <div class="cat-card"><span class="cat-name">Revenue Analytics</span><span class="cat-badge">5</span></div>
+    <div class="cat-card"><span class="cat-name">SaaS Metrics</span><span class="cat-badge">5</span></div>
+    <div class="cat-card"><span class="cat-name">Cost & OpEx</span><span class="cat-badge">4</span></div>
+    <div class="cat-card"><span class="cat-name">Data Cleanup</span><span class="cat-badge">5</span></div>
+    <div class="cat-card"><span class="cat-name">Trial Balance</span><span class="cat-badge">3</span></div>
+    <div class="cat-card"><span class="cat-name">FX & Multi-Currency</span><span class="cat-badge">4</span></div>
+    <div class="cat-card"><span class="cat-name">Audit Support</span><span class="cat-badge">4</span></div>
+    <div class="cat-card"><span class="cat-name">Tax & Compliance</span><span class="cat-badge">3</span></div>
+    <div class="cat-card"><span class="cat-name">Scenario Modeling</span><span class="cat-badge">4</span></div>
+    <div class="cat-card"><span class="cat-name">KPI Dashboards</span><span class="cat-badge">5</span></div>
+    <div class="cat-card"><span class="cat-name">Investor Relations</span><span class="cat-badge">3</span></div>
+    <div class="cat-card"><span class="cat-name">Procurement & AP</span><span class="cat-badge">3</span></div>
+    <div class="cat-card"><span class="cat-name">AR & Collections</span><span class="cat-badge">3</span></div>
+    <div class="cat-card"><span class="cat-name">Email & Comms</span><span class="cat-badge">4</span></div>
+  </div>
+
+  <!-- FEATURED -->
+  <div class="sec-label">5 שימושים נבחרים</div>
+  <h2>הצלילה לעומק — 5 ה-Use Cases החזקים ביותר</h2>
+  <p>אלה 5 השימושים שכל איש כספים צריך לשלוט בהם. כל אחד מהם מוכן להרצה על נתוני TechFlow.</p>
+
+  <div class="feat-card">
+    <div class="feat-head">
+      <span class="feat-id">#12</span>
+      <span class="feat-title">Variance Analysis</span>
+      <span class="feat-tag">Variance</span>
+    </div>
+    <p class="feat-desc">משווה Actual מול Budget לכל שורה ב-P&L, מחשב סטייה ב-$ ובאחוזים, ומסמן את החריגים. הבסיס של כל סגירת חודש — ההרחבה שלו נמצאת בתרגיל למטה.</p>
+  </div>
+
+  <div class="feat-card">
+    <div class="feat-head">
+      <span class="feat-id">#15</span>
+      <span class="feat-title">Management Commentary</span>
+      <span class="feat-tag">Commentary</span>
+    </div>
+    <p class="feat-desc">הופך טבלת סטיות לפסקאות הסבר ניהוליות מוכנות לדוח. משפט אחד לכל שורה חריגה — הסיבה והפעולה — בטון CFO מקצועי.</p>
+  </div>
+
+  <div class="feat-card">
+    <div class="feat-head">
+      <span class="feat-id">#45</span>
+      <span class="feat-title">Trial Balance Cleanup</span>
+      <span class="feat-tag">Data Cleanup</span>
+    </div>
+    <p class="feat-desc">מנקה מאזן בוחן: מתקנן שמות חשבונות, מסיר כפילויות, מסמן חשבונות ביתרה אפס וממיין לפי קוד חשבון. חוסך שעות עבודה ידנית לפני הסגירה.</p>
+  </div>
+
+  <div class="feat-card">
+    <div class="feat-head">
+      <span class="feat-id">#77</span>
+      <span class="feat-title">GL Reconciliation</span>
+      <span class="feat-tag">Reconciliation</span>
+    </div>
+    <p class="feat-desc">משווה יתרות GL מול תת-ספר או מקור חיצוני, מאתר פערים, ומסווג כל פער (תזמון / סכום / חסר). מפיק רשימת reconciling items מסודרת.</p>
+  </div>
+
+  <div class="feat-card">
+    <div class="feat-head">
+      <span class="feat-id">#79</span>
+      <span class="feat-title">FX Impact Analysis</span>
+      <span class="feat-tag">Multi-Currency</span>
+    </div>
+    <p class="feat-desc">מפריד את השפעת שער החליפין מהשינוי האמיתי בנפח. לחברת SaaS גלובלית כמו TechFlow — קריטי כדי להבין מה צמיחה אמיתית ומה רעש מטבע.</p>
+  </div>
+
+  <!-- HOW TO USE -->
+  <div class="sec-label">איך עובדים עם הספרייה</div>
+  <h2>4 שלבים מ-Use Case לתוצאה</h2>
+  <p>הספרייה היא נקודת פתיחה, לא נקודת סיום. השיטה: סרוק, התאם, הרץ, שפר.</p>
+
+  <div class="flow-steps">
+    <div class="flow-step">
+      <div class="flow-num">1</div>
+      <div class="flow-title">Scan</div>
+      <div class="flow-desc">מצא את הקטגוריה הרלוונטית ובחר את ה-Use Case שהכי קרוב למשימה שלך.</div>
+    </div>
+    <div class="flow-step">
+      <div class="flow-num">2</div>
+      <div class="flow-title">Adapt</div>
+      <div class="flow-desc">החלף את נתוני הדוגמה בנתונים האמיתיים שלך — חברה, מספרים, תקופה.</div>
+    </div>
+    <div class="flow-step">
+      <div class="flow-num">3</div>
+      <div class="flow-title">Run</div>
+      <div class="flow-desc">הרץ ב-Claude. בדוק שהפלט תואם את הפורמט והקהל שביקשת.</div>
+    </div>
+    <div class="flow-step">
+      <div class="flow-num">4</div>
+      <div class="flow-title">Iterate</div>
+      <div class="flow-desc">המשך את השיחה — "קצר ל-50 מילה", "הוסף עמודה", "הפוך לשקופית".</div>
+    </div>
+  </div>
+
+  <div class="callout">
+    <div class="callout-label">טיפ זהב</div>
+    <p>שמור את ה-Use Cases שאתה משתמש בהם הכי הרבה כ-<strong>Skills</strong> (Module 05) — כך לא תצטרך להעתיק אותם מחדש בכל פעם. השימושים החוזרים הופכים לכפתור אחד.</p>
+  </div>
+
+  <!-- EXERCISE -->
+  <div class="exercise">
+    <div class="exercise-header">
+      <span class="exercise-badge">תרגיל 12</span>
+      <span class="exercise-title">בחר 3 Use Cases, התאם ל-TechFlow, והרץ</span>
+    </div>
+    <div class="exercise-body">
+      <p class="exercise-context">
+        נתחיל מ-Use Case #12 (Variance Analysis) על נתוני TechFlow Q2 2026. אחר כך, ב-Prompt המתקדם, נשרשר שלושה שימושים לתהליך עבודה אחד.
+      </p>
+
+      <div class="prompt-box">
+        <div class="prompt-label">Starter — Use Case #12 (Variance Analysis)</div>
+        <div class="prompt-text">Perform a variance analysis for TechFlow Q2 2026:
+Revenue: Actual $22.4M vs Budget $23.0M
+COGS: Actual $8.2M vs Budget $7.6M
+Gross Profit: Actual $14.2M vs Budget $15.4M
+OpEx: Actual $10.3M vs Budget $9.9M
+EBITDA: Actual $3.9M vs Budget $5.5M
+
+For each line: calculate $ variance, % variance, and write 1-sentence management commentary.
+Format: Markdown table. Language: English.</div>
+        <button class="copy-btn" onclick="copyPrompt(this, 'Perform a variance analysis for TechFlow Q2 2026:\nRevenue: Actual $22.4M vs Budget $23.0M\nCOGS: Actual $8.2M vs Budget $7.6M\nGross Profit: Actual $14.2M vs Budget $15.4M\nOpEx: Actual $10.3M vs Budget $9.9M\nEBITDA: Actual $3.9M vs Budget $5.5M\n\nFor each line: calculate $ variance, % variance, and write 1-sentence management commentary.\nFormat: Markdown table. Language: English.')">העתק Prompt</button>
+      </div>
+
+      <div class="prompt-box">
+        <div class="prompt-label">Advanced — שרשור #12 + #15 + #77</div>
+        <div class="prompt-text">בצע תהליך עבודה משולב בשלושה שלבים על נתוני TechFlow Q2 2026:
+
+שלב 1 (Use Case #12) — Variance: חשב סטיות $ ו-% לכל שורה ב-P&L וסמן חריגים מעל $200K או 5%.
+שלב 2 (Use Case #15) — Commentary: כתוב Management Commentary של משפט אחד לכל שורה חריגה, טון CFO, אנגלית.
+שלב 3 (Use Case #77) — GL Recon: עבור שורת COGS, בנה רשימת reconciling items היפותטית שתסביר את הסטייה של +$600K, מסווגת לפי סוג (תזמון / סכום / חסר).
+
+פורמט: 3 חלקים נפרדים עם כותרות. שמור על אותו הקשר חברה לאורך כל השלבים.</div>
+        <button class="copy-btn" onclick="copyPrompt(this, 'בצע תהליך עבודה משולב בשלושה שלבים על נתוני TechFlow Q2 2026:\n\nשלב 1 (Use Case #12) — Variance: חשב סטיות $ ו-% לכל שורה ב-P&L וסמן חריגים מעל $200K או 5%.\nשלב 2 (Use Case #15) — Commentary: כתוב Management Commentary של משפט אחד לכל שורה חריגה, טון CFO, אנגלית.\nשלב 3 (Use Case #77) — GL Recon: עבור שורת COGS, בנה רשימת reconciling items היפותטית שתסביר את הסטייה של +$600K, מסווגת לפי סוג (תזמון / סכום / חסר).\n\nפורמט: 3 חלקים נפרדים עם כותרות. שמור על אותו הקשר חברה לאורך כל השלבים.')">העתק Prompt</button>
+      </div>
+
+      <div class="checklist">
+        <div class="checklist-title">✓ רשימת בדיקה</div>
+        <div class="check-item"><div class="check-box" onclick="toggleCheck(this)"></div>פתחתי את 102-Prompt.html בכרטיסייה נפרדת</div>
+        <div class="check-item"><div class="check-box" onclick="toggleCheck(this)"></div>הרצתי את Use Case #12 וקיבלתי טבלת variance</div>
+        <div class="check-item"><div class="check-box" onclick="toggleCheck(this)"></div>בחרתי 3 use cases רלוונטיים לתפקיד שלי</div>
+        <div class="check-item"><div class="check-box" onclick="toggleCheck(this)"></div>הרצתי את ה-Prompt המשורשר (#12+#15+#77)</div>
+        <div class="check-item"><div class="check-box" onclick="toggleCheck(this)"></div>שמרתי use case מועדף כ-Skill לשימוש חוזר</div>
+      </div>
+
+      <div class="exercise-tip">
+        <strong>המשך מומלץ:</strong> בחר use case אחד מקטגוריה שלא נגעת בה (למשל Forecasting או Scenario Modeling) והתאם אותו לנתוני TechFlow — תגלה כמה רחב המאגר.
+      </div>
+    </div>
+  </div>
+
+  <!-- NEXT MODULE -->
+  <div class="next-module">
+    <button class="prev-btn" onclick="window.location.href='module-11.html'">→ Module 11</button>
+    <div style="text-align:right">
+      <div class="next-label">המודול הבא</div>
+      <div class="next-title">Module 13 — סגירת חודש עם Claude</div>
+    </div>
+    <button class="next-btn" onclick="window.location.href='module-13.html'">המשך ←</button>
+  </div>
+
+</main>
+
+<script>
+  function copyPrompt(btn, text) {
+    navigator.clipboard.writeText(text).then(() => {
+      btn.textContent = '✓ הועתק!';
+      btn.style.color = 'var(--green)';
+      btn.style.borderColor = 'var(--green)';
+      setTimeout(() => { btn.textContent = 'העתק Prompt'; btn.style.color = ''; btn.style.borderColor = ''; }, 2000);
+    });
+  }
+  function toggleCheck(el) {
+    el.classList.toggle('checked');
+    el.textContent = el.classList.contains('checked') ? '✓' : '';
+  }
+  try {
+    const p = JSON.parse(localStorage.getItem('claude-course-progress')) || {};
+    p['module-12'] = true;
+    localStorage.setItem('claude-course-progress', JSON.stringify(p));
+  } catch(e) {}
+</script>
+</body>
+</html>

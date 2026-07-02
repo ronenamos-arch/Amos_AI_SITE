@@ -55,3 +55,7 @@ next-env.d.ts
 
 # generated at build time — see scripts/generate-posts-index.mjs
 /lib/generated/
+.tokensave
+
+# Course assets — MP4 videos served from Vercel Blob, not committed to Git
+/public/course-assets/**/*.mp4

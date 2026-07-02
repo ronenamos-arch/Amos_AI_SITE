@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Module 13 — סגירת חודש עם Claude | קורס Claude</title>
+  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800;900&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg:      #0b0d10;
+      --bg2:     #111318;
+      --bg3:     #181c22;
+      --border:  #232830;
+      --border2: #2e3540;
+      --accent:  #b8c45a;
+      --text:    #e8eaf0;
+      --muted:   #7a8499;
+      --muted2:  #5a6278;
+      --green:   #65c466;
+      --yellow:  #f5b340;
+      --red:     #e05555;
+      --mono:    'IBM Plex Mono', monospace;
+      --sans:    'Heebo', sans-serif;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: var(--bg); color: var(--text); font-family: var(--sans); font-size: 15px; line-height: 1.7; }
+    a { color: inherit; text-decoration: none; }
+
+    /* NAV */
+    .topnav { position: sticky; top: 0; z-index: 100; background: rgba(11,13,16,.94); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; padding: 0 2rem; height: 56px; }
+    .topnav-brand { font-size: 13px; font-weight: 700; color: var(--accent); letter-spacing: .04em; text-transform: uppercase; }
+    .topnav-right { display: flex; align-items: center; gap: 1.4rem; }
+    .topnav-back { font-size: 13px; color: var(--muted); font-weight: 500; transition: color .18s; }
+    .topnav-back:hover { color: var(--accent); }
+    .topnav-module { font-size: 12px; color: var(--muted2); font-family: var(--mono); }
+
+    /* HERO */
+    .module-hero { border-bottom: 1px solid var(--border); padding: 56px 2rem 48px; max-width: 860px; margin: 0 auto; }
+    .module-eyebrow { display: flex; align-items: center; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; }
+    .eyebrow-num { font-family: var(--mono); font-size: 12px; color: var(--accent); background: rgba(184,196,90,.1); border: 1px solid rgba(184,196,90,.25); padding: 3px 10px; border-radius: 4px; }
+    .eyebrow-part { font-size: 12px; color: var(--muted2); }
+    .eyebrow-sep { color: var(--border2); }
+    .eyebrow-level { font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 4px; background: rgba(245,179,64,.12); color: var(--yellow); border: 1px solid rgba(245,179,64,.25); }
+    .module-hero h1 { font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 900; line-height: 1.15; margin-bottom: 10px; }
+    .module-hero h1 span { color: var(--accent); }
+    .module-en { font-size: 14px; color: var(--muted2); font-family: var(--mono); direction: ltr; margin-bottom: 20px; }
+    .module-meta { display: flex; gap: 20px; flex-wrap: wrap; }
+    .meta-item { display: flex; align-items: center; gap: 6px; font-size: 13px; color: var(--muted); }
+    .meta-item svg { width: 14px; height: 14px; opacity: .6; }
+
+    /* LAYOUT */
+    .content { max-width: 860px; margin: 0 auto; padding: 0 2rem 80px; }
+    .sec-label { font-size: 10px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; color: var(--accent); margin: 52px 0 16px; display: flex; align-items: center; gap: 8px; }
+    .sec-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+    h2 { font-size: 1.3rem; font-weight: 800; color: var(--text); margin-bottom: 12px; }
+    p { color: var(--muted); margin-bottom: 16px; font-size: 15px; }
+    p strong { color: var(--text); font-weight: 700; }
+
+    /* TIMELINE */
+    .timeline { position: relative; margin: 28px 0 32px; padding-right: 24px; }
+    .timeline::before { content: ''; position: absolute; right: 9px; top: 8px; bottom: 8px; width: 2px; background: var(--border2); }
+    .tl-step { position: relative; margin-bottom: 16px; }
+    .tl-dot { position: absolute; right: -23px; top: 18px; width: 20px; height: 20px; border-radius: 50%; background: var(--bg); border: 2px solid var(--accent); color: var(--accent); font-family: var(--mono); font-size: 10px; font-weight: 800; display: flex; align-items: center; justify-content: center; }
+    .tl-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 10px; padding: 16px 18px; border-right: 3px solid var(--accent); }
+    .tl-head { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; flex-wrap: wrap; }
+    .tl-title { font-weight: 800; font-size: 1rem; color: var(--text); }
+    .tl-time { font-family: var(--mono); font-size: 11px; color: var(--accent); background: rgba(184,196,90,.1); border: 1px solid rgba(184,196,90,.25); padding: 1px 8px; border-radius: 10px; }
+    .tl-does { font-size: 13px; color: var(--muted); margin-bottom: 8px; }
+    .tl-prompt { font-family: var(--mono); font-size: 11.5px; color: var(--accent); background: var(--bg3); border-radius: 5px; padding: 7px 10px; direction: rtl; line-height: 1.5; }
+    .tl-out { font-size: 12px; color: var(--green); margin-top: 7px; }
+
+    /* INTEGRATION MAP */
+    .map-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 32px; }
+    @media (max-width: 640px) { .map-grid { grid-template-columns: 1fr 1fr; } }
+    .map-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 10px; padding: 16px; text-align: center; }
+    .map-icon { font-size: 1.6rem; margin-bottom: 8px; }
+    .map-name { font-weight: 800; font-size: .9rem; color: var(--text); margin-bottom: 4px; }
+    .map-role { font-size: 12px; color: var(--muted); line-height: 1.45; }
+
+    /* BLOCKERS */
+    .blocker-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; margin-bottom: 10px; display: flex; gap: 14px; align-items: flex-start; }
+    .blocker-x { color: var(--red); font-weight: 800; flex-shrink: 0; font-size: 1.1rem; }
+    .blocker-body { flex: 1; }
+    .blocker-prob { font-weight: 700; color: var(--text); font-size: .92rem; margin-bottom: 3px; }
+    .blocker-fix { font-size: 13px; color: var(--green); }
+
+    /* CALLOUT */
+    .callout { background: rgba(184,196,90,.06); border: 1px solid rgba(184,196,90,.2); border-radius: 10px; padding: 20px 22px; margin-bottom: 24px; }
+    .callout-label { font-size: 10px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; color: var(--accent); margin-bottom: 6px; }
+    .callout p { color: var(--text); margin: 0; font-size: 14px; }
+
+    /* EXERCISE */
+    .exercise { background: var(--bg3); border: 1px solid var(--border2); border-radius: 12px; overflow: hidden; margin-top: 48px; }
+    .exercise-header { background: var(--bg2); border-bottom: 1px solid var(--border); padding: 16px 22px; display: flex; align-items: center; gap: 12px; }
+    .exercise-badge { background: var(--accent); color: var(--bg); font-size: 10px; font-weight: 900; letter-spacing: .1em; text-transform: uppercase; padding: 3px 10px; border-radius: 4px; }
+    .exercise-title { font-weight: 800; font-size: 1rem; color: var(--text); }
+    .exercise-body { padding: 22px; }
+    .exercise-context { font-size: 13px; color: var(--muted); margin-bottom: 20px; }
+    .prompt-box { background: var(--bg); border: 1px solid var(--border2); border-radius: 8px; padding: 16px 18px; margin-bottom: 16px; }
+    .prompt-label { font-size: 10px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--accent); margin-bottom: 8px; font-family: var(--mono); }
+    .prompt-text { font-family: var(--mono); font-size: 13px; color: var(--text); direction: rtl; line-height: 1.7; white-space: pre-wrap; }
+    .copy-btn { background: var(--bg2); border: 1px solid var(--border2); color: var(--muted); font-size: 12px; font-family: var(--sans); padding: 5px 14px; border-radius: 5px; cursor: pointer; transition: border-color .18s, color .18s; margin-top: 8px; }
+    .copy-btn:hover { border-color: var(--accent); color: var(--accent); }
+    .exercise-tip { font-size: 12px; color: var(--muted2); border-top: 1px solid var(--border); margin-top: 20px; padding-top: 14px; }
+    .exercise-tip strong { color: var(--muted); }
+
+    /* CHECKLIST */
+    .checklist { background: var(--bg2); border: 1px solid var(--border); border-radius: 10px; padding: 18px 20px; margin-top: 16px; }
+    .checklist-title { font-weight: 800; font-size: .9rem; color: var(--text); margin-bottom: 12px; }
+    .check-item { display: flex; align-items: flex-start; gap: 10px; font-size: 13px; color: var(--muted); padding: 5px 0; border-bottom: 1px solid var(--border); }
+    .check-item:last-child { border-bottom: none; }
+    .check-box { width: 16px; height: 16px; border: 1px solid var(--border2); border-radius: 3px; flex-shrink: 0; margin-top: 3px; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 10px; transition: background .15s, border-color .15s; }
+    .check-box.checked { background: var(--accent); border-color: var(--accent); color: var(--bg); }
+
+    /* NEXT */
+    .next-module { margin-top: 56px; padding-top: 32px; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
+    .prev-btn { background: var(--bg2); border: 1px solid var(--border2); color: var(--muted); font-size: 13px; font-weight: 700; padding: 8px 20px; border-radius: 8px; cursor: pointer; transition: border-color .18s, color .18s; font-family: var(--sans); }
+    .prev-btn:hover { border-color: var(--accent); color: var(--accent); }
+    .next-label { font-size: 11px; color: var(--muted2); text-transform: uppercase; letter-spacing: .1em; margin-bottom: 4px; }
+    .next-title { font-weight: 800; color: var(--text); font-size: 1rem; }
+    .next-btn { background: var(--accent); color: var(--bg); font-size: 14px; font-weight: 800; padding: 10px 24px; border-radius: 8px; cursor: pointer; white-space: nowrap; transition: background .18s, transform .15s; border: none; font-family: var(--sans); }
+    .next-btn:hover { background: #cad86a; transform: translateX(-3px); }
+
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 3px; }
+  </style>
+</head>
+<body>
+<!-- AFX-SIDEBAR START (static always-on rail — active item set by JS) -->
+<style>
+  body{padding-right:252px}
+  .afx-rail{position:fixed;top:0;right:0;width:252px;height:100vh;background:#111318;border-left:1px solid #2e3540;z-index:150;display:flex;flex-direction:column;direction:rtl;font-family:'Heebo',sans-serif}
+  .afx-rail-head{height:56px;flex-shrink:0;display:flex;align-items:center;gap:8px;padding:0 18px;border-bottom:1px solid #232830}
+  .afx-rail-head b{font-size:12px;font-weight:800;letter-spacing:.1em;color:#b8c45a;text-transform:uppercase}
+  .afx-rail-head span{font-size:10px;color:#5a6278;font-family:'IBM Plex Mono',monospace}
+  .afx-list{flex:1;overflow-y:auto;padding:8px 0 28px}
+  .afx-sep{font-size:10px;font-weight:800;letter-spacing:.1em;color:#aeb6c6;padding:14px 18px 6px}
+  .afx-link{display:flex;gap:10px;align-items:baseline;padding:8px 18px;color:#ffffff;font-size:13px;text-decoration:none;border-right:3px solid transparent;transition:background .15s,color .15s}
+  .afx-link:hover{background:#181c22;color:#ffffff}
+  .afx-link.active{color:#b8c45a;background:rgba(184,196,90,.08);border-right-color:#b8c45a;font-weight:700}
+  .afx-num{font-family:'IBM Plex Mono',monospace;font-size:11px;color:#cfd5e0;min-width:26px}
+  .afx-link.active .afx-num{color:#b8c45a}
+  .afx-list::-webkit-scrollbar{width:6px}
+  .afx-list::-webkit-scrollbar-thumb{background:#2e3540;border-radius:3px}
+  @media (max-width:900px){body{padding-right:0}.afx-rail{display:none}}
+  @media print{body{padding-right:0}.afx-rail{display:none}}
+</style>
+<nav class="afx-rail" aria-label="ניווט מודולים">
+  <div class="afx-rail-head"><b>תוכן הקורס</b><span>16 מודולים</span></div>
+  <div class="afx-list">
+    <a class="afx-link" href="course-index.html" data-file="course-index.html"><span class="afx-num">⌂</span> דף הבית — כל המודולים</a>
+    <div class="afx-sep">חלק 0 — מבוא</div>
+    <a class="afx-link" href="module-00.html" data-file="module-00.html"><span class="afx-num">00</span> ברוכים הבאים</a>
+    <a class="afx-link" href="module-01.html" data-file="module-01.html"><span class="afx-num">01</span> שלושת המודלים</a>
+    <div class="afx-sep">חלק 1 — הבסיס</div>
+    <a class="afx-link" href="module-02.html" data-file="module-02.html"><span class="afx-num">02</span> השיחה הפיננסית הראשונה</a>
+    <a class="afx-link" href="module-03.html" data-file="module-03.html"><span class="afx-num">03</span> מסגרת PRICE</a>
+    <div class="afx-sep">חלק 2 — הפיצ׳רים</div>
+    <a class="afx-link" href="module-04.html" data-file="module-04.html"><span class="afx-num">04</span> Artifacts — הקנבס</a>
+    <a class="afx-link" href="module-05.html" data-file="module-05.html"><span class="afx-num">05</span> Skills — זיכרון מוסדי</a>
+    <a class="afx-link" href="module-06.html" data-file="module-06.html"><span class="afx-num">06</span> Projects — סביבת עבודה</a>
+    <a class="afx-link" href="module-07.html" data-file="module-07.html"><span class="afx-num">07</span> Connectors — Claude מחובר</a>
+    <div class="afx-sep">חלק 3 — כלים</div>
+    <a class="afx-link" href="module-08.html" data-file="module-08.html"><span class="afx-num">08</span> Claude ב-Excel</a>
+    <a class="afx-link" href="module-09.html" data-file="module-09.html"><span class="afx-num">09</span> Claude ב-PowerPoint</a>
+    <a class="afx-link" href="module-10.html" data-file="module-10.html"><span class="afx-num">10</span> Design &amp; Cowork</a>
+    <div class="afx-sep">חלק 4 — מתקדם</div>
+    <a class="afx-link" href="module-11.html" data-file="module-11.html"><span class="afx-num">11</span> 10 עקרונות Prompting</a>
+    <a class="afx-link" href="module-12.html" data-file="module-12.html"><span class="afx-num">12</span> 102 Use Cases</a>
+    <div class="afx-sep">חלק 5 — פרויקטים</div>
+    <a class="afx-link" href="module-13.html" data-file="module-13.html"><span class="afx-num">13</span> סגירת חודש</a>
+    <a class="afx-link" href="module-14.html" data-file="module-14.html"><span class="afx-num">14</span> דשבורד CFO (Capstone)</a>
+    <div class="afx-sep">בונוס</div>
+    <a class="afx-link" href="module-15.html" data-file="module-15.html"><span class="afx-num">15</span> Skills מוכנות (Bonus)</a>
+  </div>
+</nav>
+<script>
+  (function(){var f=(location.pathname.split('/').pop()||'').toLowerCase();document.querySelectorAll('.afx-link').forEach(function(a){if((a.getAttribute('data-file')||'').toLowerCase()===f)a.classList.add('active');});})();
+</script>
+<!-- AFX-SIDEBAR END -->
+
+
+<nav class="topnav">
+  <span class="topnav-brand">AI Finance Transformation</span>
+  <div class="topnav-right">
+    <a href="course-index.html" class="topnav-back">← כל המודולים</a>
+    <span class="topnav-module">MODULE 13 / 16</span>
+  </div>
+</nav>
+
+<header class="module-hero">
+  <div class="module-eyebrow">
+    <span class="eyebrow-num">MODULE 13</span>
+    <span class="eyebrow-sep">·</span>
+    <span class="eyebrow-part">חלק 5 — פרויקטים</span>
+    <span class="eyebrow-sep">·</span>
+    <span class="eyebrow-level">מתקדם</span>
+  </div>
+  <h1>סגירת חודש עם Claude<br><span>מקצה לקצה</span></h1>
+  <div class="module-en">Month-End Close: Full Workflow</div>
+  <div class="module-meta">
+    <span class="meta-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+      60–90 דקות
+    </span>
+    <span class="meta-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+      Excel + Artifacts + Skills + Projects
+    </span>
+  </div>
+</header>
+
+<main class="content">
+
+  <!-- INTRO -->
+  <div class="sec-label">המטרה</div>
+  <h2>מסגירת חודש של 5 ימים — ליום אחד</h2>
+  <p>
+    סגירת חודש היא התהליך החוזר ביותר בעבודת הכספים — ולכן הכי משתלם לייעל. במודול הזה תבנה תהליך שלם של 6 שלבים, מ-GL גולמי ועד Board Pack מוכן, שבו Claude עושה את העבודה הכבדה ואתה מאשר ומכוון.
+  </p>
+  <p>
+    כל מה שלמדת עד עכשיו מתחבר כאן: <strong>Excel</strong> לנתונים, <strong>Skills</strong> ל-commentary חוזר, <strong>Artifacts</strong> לדשבורד, ו-<strong>Projects</strong> לשמירת ההקשר לאורך כל החודשים. נשתמש ב-TechFlow Ltd Q2 2026 לאורך כל התהליך.
+  </p>
+
+  <!-- 6-STEP TIMELINE -->
+  <div class="sec-label">תהליך הסגירה</div>
+  <h2>6 השלבים — Timeline ויזואלי</h2>
+  <p>כל שלב מתבסס על הקודם. סך הזמן המשוער: כשעתיים מול ימים של עבודה ידנית.</p>
+
+  <div class="timeline">
+    <div class="tl-step">
+      <div class="tl-dot">1</div>
+      <div class="tl-card">
+        <div class="tl-head"><span class="tl-title">Data Prep</span><span class="tl-time">15 דק׳</span></div>
+        <div class="tl-does">Claude מנקה את ייצוא ה-GL: מתקנן שמות חשבונות, מאתר רישומים חסרים ומסמן אנומליות.</div>
+        <div class="tl-prompt">"נקה את ייצוא ה-GL: תקנן שמות חשבונות לרשימה הסטנדרטית, סמן יתרות חסרות וכפילויות."</div>
+        <div class="tl-out">✓ פלט: GL נקי ומתוקנן, מוכן לחישוב סטיות.</div>
+      </div>
+    </div>
+    <div class="tl-step">
+      <div class="tl-dot">2</div>
+      <div class="tl-card">
+        <div class="tl-head"><span class="tl-title">Variance Calc</span><span class="tl-time">20 דק׳</span></div>
+        <div class="tl-does">חישוב Budget מול Actual לכל שורה, עם סימון אוטומטי של חריגים מעל 5% או $10K.</div>
+        <div class="tl-prompt">"חשב סטיות $ ו-% לכל שורת P&L מול התקציב, סמן חריגים בצבעי RAG 🔴🟡🟢."</div>
+        <div class="tl-out">✓ פלט: טבלת variance מלאה עם דגלים.</div>
+      </div>
+    </div>
+    <div class="tl-step">
+      <div class="tl-dot">3</div>
+      <div class="tl-card">
+        <div class="tl-head"><span class="tl-title">Commentary</span><span class="tl-time">25 דק׳</span></div>
+        <div class="tl-does">Claude כותב Variance Commentary לכל שורה חריגה — באמצעות ה-Skill שבנית ב-Module 05.</div>
+        <div class="tl-prompt">"הפעל את Skill 'Variance Commentary' על כל שורה מסומנת מהשלב הקודם."</div>
+        <div class="tl-out">✓ פלט: פסקאות הסבר מוכנות לדוח, בטון CFO.</div>
+      </div>
+    </div>
+    <div class="tl-step">
+      <div class="tl-dot">4</div>
+      <div class="tl-card">
+        <div class="tl-head"><span class="tl-title">Dashboard</span><span class="tl-time">20 דק׳</span></div>
+        <div class="tl-does">בניית Artifact אינטראקטיבי: כרטיסי KPI עם RAG + טבלת variance מעוצבת.</div>
+        <div class="tl-prompt">"בנה Artifact HTML עם 6 כרטיסי KPI + טבלת ה-variance מהשלבים הקודמים."</div>
+        <div class="tl-out">✓ פלט: דשבורד חי שאפשר לפתוח בדפדפן.</div>
+      </div>
+    </div>
+    <div class="tl-step">
+      <div class="tl-dot">5</div>
+      <div class="tl-card">
+        <div class="tl-head"><span class="tl-title">CFO Narrative</span><span class="tl-time">15 דק׳</span></div>
+        <div class="tl-does">פסקת סיכום מנהלים לדירקטוריון, שמחברת את כל הסיפור הפיננסי של הרבעון.</div>
+        <div class="tl-prompt">"כתוב Executive Summary של 80 מילה לדירקטוריון, אנגלית, על בסיס הניתוח."</div>
+        <div class="tl-out">✓ פלט: פסקה מוכנה להדבקה ב-Board Deck.</div>
+      </div>
+    </div>
+    <div class="tl-step">
+      <div class="tl-dot">6</div>
+      <div class="tl-card">
+        <div class="tl-head"><span class="tl-title">Board Pack</span><span class="tl-time">25 דק׳</span></div>
+        <div class="tl-does">מבנה מצגת דירקטוריון מלא — שמות שקופיות + Speaker Notes לכל אחת.</div>
+        <div class="tl-prompt">"בנה outline של 8 שקופיות Board Pack + Speaker Notes על בסיס כל הניתוח."</div>
+        <div class="tl-out">✓ פלט: שלד מצגת מוכן לעיצוב סופי.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- INTEGRATION MAP -->
+  <div class="sec-label">מפת האינטגרציה</div>
+  <h2>4 הכלים שעובדים יחד</h2>
+  <p>הקסם של הסגירה הזו הוא שכל הכלים שלמדת מתחברים לתהליך אחד רציף.</p>
+
+  <div class="map-grid">
+    <div class="map-card">
+      <div class="map-icon">📊</div>
+      <div class="map-name">Excel</div>
+      <div class="map-role">מקור הנתונים הגולמיים — GL, תקציב, Actuals.</div>
+    </div>
+    <div class="map-card">
+      <div class="map-icon">🎨</div>
+      <div class="map-name">Artifacts</div>
+      <div class="map-role">הדשבורד החי וטבלאות ה-variance המעוצבות.</div>
+    </div>
+    <div class="map-card">
+      <div class="map-icon">🧩</div>
+      <div class="map-name">Skills</div>
+      <div class="map-role">Variance Commentary חוזר — אותו פורמט בכל חודש.</div>
+    </div>
+    <div class="map-card">
+      <div class="map-icon">📁</div>
+      <div class="map-name">Projects</div>
+      <div class="map-role">שומר את הקשר החברה לאורך כל החודשים.</div>
+    </div>
+  </div>
+
+  <div class="callout">
+    <div class="callout-label">הטריק הגדול</div>
+    <p>הרץ את כל 6 השלבים בתוך <strong>Project אחד</strong> של TechFlow. כך Claude זוכר את התקציב, המוצרים והקהל — ולא צריך להזין מחדש את ההקשר בכל שלב.</p>
+  </div>
+
+  <!-- BLOCKERS -->
+  <div class="sec-label">חסמים נפוצים</div>
+  <h2>איפה הסגירה נתקעת — ואיך Claude עוזר</h2>
+
+  <div class="blocker-card">
+    <span class="blocker-x">✗</span>
+    <div class="blocker-body">
+      <div class="blocker-prob">נתונים מלוכלכים מה-ERP — שמות חשבונות לא עקביים</div>
+      <div class="blocker-fix">✓ שלב 1 (Data Prep) מתקנן הכל לרשימה אחת תוך דקות.</div>
+    </div>
+  </div>
+  <div class="blocker-card">
+    <span class="blocker-x">✗</span>
+    <div class="blocker-body">
+      <div class="blocker-prob">כתיבת commentary ידנית לכל סטייה — שעות של עבודה</div>
+      <div class="blocker-fix">✓ ה-Skill בשלב 3 מייצר פסקאות עקביות בלחיצה אחת.</div>
+    </div>
+  </div>
+  <div class="blocker-card">
+    <span class="blocker-x">✗</span>
+    <div class="blocker-body">
+      <div class="blocker-prob">בניית הדשבורד והמצגת מאפס בכל חודש</div>
+      <div class="blocker-fix">✓ שלבים 4 ו-6 משתמשים באותו תבנית — רק הנתונים משתנים.</div>
+    </div>
+  </div>
+
+  <!-- 50 WAYS BLOCK -->
+  <div style="background:linear-gradient(135deg,rgba(184,196,90,.08) 0%,rgba(184,196,90,.03) 100%);border:1px solid rgba(184,196,90,.25);border-radius:14px;padding:28px 30px;margin-bottom:40px;">
+    <div style="font-family:var(--mono);font-size:0.62rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--accent);margin-bottom:10px;">// בונוס — ארסנל הפרומפטים</div>
+    <div style="font-size:1.15rem;font-weight:900;color:#ffffff;margin-bottom:12px;">50 דרכים להפוך את סגירת החודש לאוטומציה</div>
+    <p style="font-size:0.95rem;color:var(--muted);line-height:1.75;margin-bottom:24px;">
+      בדף המשאבים תמצא <strong style="color:var(--text);">50 Prompts מוכנים לשימוש</strong> — כל אחד ממוקד לאוטומציה של שלב ספציפי בסגירת החודש. מניקוי GL ועד Executive Summary לדירקטוריון, כל Prompt כתוב ומוכן להעתקה ישירה ל-Claude. כך תקצר את מחזור הסגירה שלך — חודש אחרי חודש.
+    </p>
+    <a href="50-ways-ai.html"
+      style="display:inline-flex;align-items:center;justify-content:center;gap:12px;background:linear-gradient(135deg,var(--accent),#d6e36a);color:#0b0d10;font-family:var(--sans);font-size:1.05rem;font-weight:900;letter-spacing:0.02em;padding:18px 36px;border-radius:10px;text-decoration:none;box-shadow:0 4px 22px rgba(184,196,90,0.4);transition:all 0.2s;width:100%;"
+      onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 8px 32px rgba(184,196,90,0.6)'"
+      onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='0 4px 22px rgba(184,196,90,0.4)'">
+      ⚡&nbsp;&nbsp;50 דרכים להשתמש ב-AI בסגירת חודש — כל ה-Prompts
+    </a>
+  </div>
+
+  <!-- EXERCISE -->
+  <div class="exercise">
+    <div class="exercise-header">
+      <span class="exercise-badge">תרגיל 13</span>
+      <span class="exercise-title">הרץ שלבים 1–3 על נתוני TechFlow Q2</span>
+    </div>
+    <div class="exercise-body">
+      <p class="exercise-context">
+        נתחיל מ-Variance (שלב 2) על ה-P&L המלא. ב-Prompt המתקדם נריץ את כל 6 השלבים ברצף בתוך Project אחד.
+      </p>
+
+      <div class="prompt-box">
+        <div class="prompt-label">Starter — שלב 2 (Variance)</div>
+        <div class="prompt-text">Analyze this P&L vs Budget and flag all variances >$100K or >5%:
+
+Line       | Budget  | Actual
+Revenue    | $23.0M  | $22.4M
+COGS       | $7.6M   | $8.2M
+Gross Prof | $15.4M  | $14.2M
+OpEx       | $9.9M   | $10.3M
+EBITDA     | $5.5M   | $3.9M
+
+Output: Table with columns: Line | Budget | Actual | $ Var | % Var | Status (🔴🟡🟢)
+Language: English.</div>
+        <button class="copy-btn" onclick="copyPrompt(this, 'Analyze this P&L vs Budget and flag all variances >$100K or >5%:\n\nLine       | Budget  | Actual\nRevenue    | $23.0M  | $22.4M\nCOGS       | $7.6M   | $8.2M\nGross Prof | $15.4M  | $14.2M\nOpEx       | $9.9M   | $10.3M\nEBITDA     | $5.5M   | $3.9M\n\nOutput: Table with columns: Line | Budget | Actual | $ Var | % Var | Status (🔴🟡🟢)\nLanguage: English.')">העתק Prompt</button>
+      </div>
+
+      <div class="prompt-box">
+        <div class="prompt-label">Advanced — כל 6 השלבים ב-Project אחד</div>
+        <div class="prompt-text">צור Project "TechFlow Month-End Close Q2 2026". בתוכו, הרץ את 6 השלבים ברצף, כל שלב מתבסס על הקודם:
+
+1. Data Prep: נקה את ה-GL המצורף (תקנן שמות, סמן חסרים).
+2. Variance: Budget מול Actual לכל שורה, סמן חריגים >5% או >$10K.
+3. Commentary: משפט CFO לכל שורה חריגה.
+4. Dashboard: Artifact HTML עם 6 KPI cards + טבלת variance.
+5. CFO Narrative: Executive Summary 80 מילה, אנגלית.
+6. Board Pack: outline של 8 שקופיות + Speaker Notes.
+
+הקשר: TechFlow Ltd, SaaS B2B ישראלית, USD, ARR $18M. שמור הקשר זה לאורך כל השלבים.</div>
+        <button class="copy-btn" onclick="copyPrompt(this, 'צור Project &quot;TechFlow Month-End Close Q2 2026&quot;. בתוכו, הרץ את 6 השלבים ברצף, כל שלב מתבסס על הקודם:\n\n1. Data Prep: נקה את ה-GL המצורף (תקנן שמות, סמן חסרים).\n2. Variance: Budget מול Actual לכל שורה, סמן חריגים >5% או >$10K.\n3. Commentary: משפט CFO לכל שורה חריגה.\n4. Dashboard: Artifact HTML עם 6 KPI cards + טבלת variance.\n5. CFO Narrative: Executive Summary 80 מילה, אנגלית.\n6. Board Pack: outline של 8 שקופיות + Speaker Notes.\n\nהקשר: TechFlow Ltd, SaaS B2B ישראלית, USD, ARR $18M. שמור הקשר זה לאורך כל השלבים.')">העתק Prompt</button>
+      </div>
+
+      <div class="checklist">
+        <div class="checklist-title">✓ רשימת בדיקה</div>
+        <div class="check-item"><div class="check-box" onclick="toggleCheck(this)"></div>הרצתי את שלב 2 וקיבלתי טבלת variance עם RAG</div>
+        <div class="check-item"><div class="check-box" onclick="toggleCheck(this)"></div>EBITDA סומן באדום (סטייה -29%)</div>
+        <div class="check-item"><div class="check-box" onclick="toggleCheck(this)"></div>פתחתי Project ייעודי לסגירה</div>
+        <div class="check-item"><div class="check-box" onclick="toggleCheck(this)"></div>הרצתי את כל 6 השלבים ברצף</div>
+        <div class="check-item"><div class="check-box" onclick="toggleCheck(this)"></div>קיבלתי Board Pack outline מוכן בסוף התהליך</div>
+      </div>
+
+      <div class="exercise-tip">
+        <strong>המשך מומלץ:</strong> שמור את ה-Project כתבנית. בחודש הבא רק תחליף את הנתונים — ההקשר, ה-Skills והפורמטים כבר בפנים.
+      </div>
+    </div>
+  </div>
+
+  <!-- NEXT MODULE -->
+  <div class="next-module">
+    <button class="prev-btn" onclick="window.location.href='module-12.html'">→ Module 12</button>
+    <div style="text-align:right">
+      <div class="next-label">המודול הבא</div>
+      <div class="next-title">Module 14 — דשבורד CFO (Capstone)</div>
+    </div>
+    <button class="next-btn" onclick="window.location.href='module-14.html'">המשך ←</button>
+  </div>
+
+</main>
+
+<script>
+  function copyPrompt(btn, text) {
+    navigator.clipboard.writeText(text).then(() => {
+      btn.textContent = '✓ הועתק!';
+      btn.style.color = 'var(--green)';
+      btn.style.borderColor = 'var(--green)';
+      setTimeout(() => { btn.textContent = 'העתק Prompt'; btn.style.color = ''; btn.style.borderColor = ''; }, 2000);
+    });
+  }
+  function toggleCheck(el) {
+    el.classList.toggle('checked');
+    el.textContent = el.classList.contains('checked') ? '✓' : '';
+  }
+  try {
+    const p = JSON.parse(localStorage.getItem('claude-course-progress')) || {};
+    p['module-13'] = true;
+    localStorage.setItem('claude-course-progress', JSON.stringify(p));
+  } catch(e) {}
+</script>
+</body>
+</html>
