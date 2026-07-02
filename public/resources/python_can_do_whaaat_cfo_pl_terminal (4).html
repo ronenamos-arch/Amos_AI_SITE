@@ -1,0 +1,1156 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Python Can Do Whaaat — CFO P&L Terminal</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Bebas+Neue&family=DM+Sans:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
+
+<style>
+:root{
+  --bg:#080a0f;
+  --bg2:#0d1017;
+  --bg3:#111520;
+  --surface:rgba(255,255,255,0.035);
+  --surface2:rgba(255,255,255,0.055);
+  --border:rgba(255,255,255,0.07);
+  --border2:rgba(255,255,255,0.15);
+  --text:#e8eaf0;
+  --muted:rgba(232,234,240,0.48);
+  --faint:rgba(232,234,240,0.22);
+  --green:#00e5a0;
+  --red:#ff4d6d;
+  --blue:#4da6ff;
+  --amber:#ffb347;
+  --purple:#b06aff;
+  --cyan:#00d4ff;
+  --green-dim:rgba(0,229,160,0.12);
+  --red-dim:rgba(255,77,109,0.12);
+  --blue-dim:rgba(77,166,255,0.11);
+  --amber-dim:rgba(255,179,71,0.12);
+  --purple-dim:rgba(176,106,255,0.12);
+}
+
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0
+}
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:'DM Sans',Arial,sans-serif;
+  font-size:13px;
+  min-height:100vh;
+  overflow-x:hidden;
+  cursor:crosshair;
+}
+body::before{
+  content:'';
+  position:fixed;inset:0;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+  opacity:.024;pointer-events:none;z-index:9999;
+}
+body::after{
+  content:'';
+  position:fixed;inset:0;
+  background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,.035) 2px,rgba(0,0,0,.035) 4px);
+  pointer-events:none;z-index:9998;
+}
+.grid-bg{
+  position:fixed;inset:0;
+  background-image:
+    linear-gradient(rgba(77,166,255,.035) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(77,166,255,.035) 1px,transparent 1px);
+  background-size:40px 40px;
+  pointer-events:none;z-index:0;
+}
+.orb{position:fixed;border-radius:50%;filter:blur(120px);pointer-events:none;z-index:0}
+.orb1{width:620px;height:620px;background:rgba(77,166,255,.05);top:-230px;left:-220px}
+.orb2{width:440px;height:440px;background:rgba(0,229,160,.035);bottom:-130px;right:12%}
+.orb3{width:360px;height:360px;background:rgba(176,106,255,.045);top:42%;right:-130px}
+
+.main-wrap{position:relative;z-index:1;max-width:1500px;margin:0 auto;padding:0 24px 48px}
+
+.hero{
+  text-align:center;
+  padding:36px 0 28px;
+}
+.hero-eyebrow{
+  font-family:'Space Mono',monospace;
+  font-size:10px;
+  letter-spacing:.24em;
+  color:var(--blue);
+  text-transform:uppercase;
+  margin-bottom:14px;
+}
+.hero-title{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(46px,7.5vw,88px);
+  letter-spacing:.045em;
+  line-height:1;
+}
+.hero-title span{
+  background:linear-gradient(90deg,var(--blue),var(--cyan),var(--green));
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  background-clip:text;
+}
+.hero-day{
+  font-family:'Space Mono',monospace;
+  color:var(--muted);
+  text-transform:uppercase;
+  letter-spacing:.18em;
+  margin-top:8px;
+  font-size:12px;
+}
+.hero-byline{
+  margin-top:16px;
+  color:var(--muted);
+  font-style:italic;
+  font-size:14px;
+}
+.hero-byline strong{
+  color:var(--text);
+  font-style:normal;
+}
+.hero-divider{
+  width:72px;height:1px;background:linear-gradient(90deg,transparent,var(--border2),transparent);
+  margin:26px auto 0;
+}
+
+.header{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:20px 0 16px;
+  border-bottom:1px solid var(--border);
+  margin-bottom:18px;
+}
+.logo{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:30px;
+  letter-spacing:.13em;
+  display:flex;align-items:center;gap:12px;
+}
+.logo-badge{
+  font-family:'Space Mono',monospace;
+  font-size:9px;
+  padding:3px 7px;
+  border:1px solid var(--blue);
+  color:var(--blue);
+  border-radius:3px;
+  letter-spacing:.15em;
+}
+.header-right{display:flex;align-items:center;gap:22px}
+.live-indicator{
+  display:flex;align-items:center;gap:7px;
+  font-family:'Space Mono',monospace;
+  font-size:10px;
+  color:var(--green);
+  letter-spacing:.09em;
+}
+.live-dot{
+  width:6px;height:6px;border-radius:50%;background:var(--green);
+  box-shadow:0 0 9px var(--green);
+  animation:blink 1.35s ease-in-out infinite;
+}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.25}}
+.header-time{
+  font-family:'Space Mono',monospace;
+  font-size:11px;
+  color:var(--muted);
+  letter-spacing:.06em;
+}
+
+.controls{
+  display:flex;align-items:center;justify-content:space-between;gap:14px;
+  margin-bottom:18px;
+}
+.control-group{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.control-label{
+  font-family:'Space Mono',monospace;
+  font-size:9px;
+  letter-spacing:.15em;
+  color:var(--muted);
+  text-transform:uppercase;
+}
+select,.terminal-button{
+  background:var(--bg3);
+  color:var(--text);
+  border:1px solid var(--border2);
+  border-radius:7px;
+  padding:9px 12px;
+  font-family:'Space Mono',monospace;
+  font-size:11px;
+  outline:none;
+}
+.terminal-button{cursor:pointer}
+.terminal-button:hover{border-color:var(--blue);color:var(--blue);background:var(--blue-dim)}
+
+.ticker-tape{
+  background:var(--bg3);
+  border:1px solid var(--border);
+  border-radius:6px;
+  overflow:hidden;height:36px;
+  display:flex;align-items:center;
+  margin-bottom:18px;
+}
+.ticker-label{
+  font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.15em;color:var(--blue);
+  padding:0 14px;border-right:1px solid var(--border);white-space:nowrap;height:100%;
+  display:flex;align-items:center;background:var(--bg3);z-index:2;
+}
+.ticker-scroll-wrap{overflow:hidden;flex:1;height:100%}
+.ticker-scroll{display:flex;align-items:center;height:100%;white-space:nowrap;animation:scroll-left 34s linear infinite}
+@keyframes scroll-left{from{transform:translateX(0)}to{transform:translateX(-50%)}};
+.ticker-item{
+  display:inline-flex;align-items:center;gap:8px;padding:0 20px;
+  font-family:'Space Mono',monospace;font-size:11px;border-right:1px solid var(--border);height:100%;
+}
+.ticker-sym{color:var(--text);font-weight:700}
+.ticker-price{color:var(--muted)}
+.up{color:var(--green)!important}
+.dn{color:var(--red)!important}
+.flat{color:var(--muted)!important}
+
+.kpi-row{
+  display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-bottom:16px;
+}
+.kpi-card{
+  background:linear-gradient(180deg,rgba(255,255,255,.045),rgba(255,255,255,.025));
+  border:1px solid var(--border);
+  border-radius:12px;
+  padding:16px;
+  min-height:112px;
+  position:relative;
+  overflow:hidden;
+}
+.kpi-card::after{
+  content:'';
+  position:absolute;
+  inset:auto 0 0 0;
+  height:2px;
+  background:linear-gradient(90deg,transparent,var(--accent,var(--blue)),transparent);
+  opacity:.55;
+}
+.kpi-card.green{--accent:var(--green)}
+.kpi-card.red{--accent:var(--red)}
+.kpi-card.blue{--accent:var(--blue)}
+.kpi-card.amber{--accent:var(--amber)}
+.kpi-card.purple{--accent:var(--purple)}
+.kpi-label{
+  font-family:'Space Mono',monospace;
+  font-size:9px;letter-spacing:.15em;color:var(--muted);text-transform:uppercase;
+  margin-bottom:10px;
+}
+.kpi-value{
+  font-family:'Bebas Neue',sans-serif;font-size:39px;letter-spacing:.04em;line-height:1;
+}
+.kpi-note{
+  margin-top:8px;color:var(--muted);font-size:12px;
+}
+
+.main-grid{
+  display:grid;grid-template-columns:1.45fr .9fr;gap:14px;margin-bottom:14px;
+}
+.chart-panel,.panel{
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:12px;
+  padding:16px;
+}
+.chart-panel{padding:20px;display:flex;flex-direction:column;gap:14px}
+.panel-header{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.panel-title{
+  font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:.08em;
+}
+.panel-subtitle{font-size:12px;color:var(--muted);margin-top:2px}
+.chart-stats{display:flex;gap:24px;flex-wrap:wrap}
+.cstat-label{font-size:11px;color:var(--faint);margin-bottom:3px}
+.cstat-val{font-family:'Space Mono',monospace;font-size:13px;color:var(--text)}
+.chart-area{
+  position:relative;height:330px;background:var(--bg2);border-radius:8px;border:1px solid var(--border);overflow:hidden;
+}
+.small-chart{height:260px;width:100%}
+.full-chart{height:330px;width:100%}
+
+.bottom-grid{
+  display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin-bottom:14px;
+}
+.deep-grid{
+  display:grid;grid-template-columns:1.3fr 1fr;gap:14px;margin-bottom:14px;
+}
+.commentary{
+  line-height:1.65;
+  color:rgba(232,234,240,.78);
+  font-size:14px;
+}
+.commentary strong{color:var(--cyan);font-weight:700}
+.commentary .callout{
+  border-left:2px solid var(--blue);
+  padding:10px 12px;
+  background:var(--blue-dim);
+  border-radius:0 8px 8px 0;
+  margin-top:12px;
+}
+
+.table-wrap{overflow:auto;margin-top:10px}
+table{width:100%;border-collapse:collapse;font-size:12px}
+td,th{padding:10px 9px;border-bottom:1px solid var(--border);text-align:right;white-space:nowrap}
+td:first-child,th:first-child{text-align:left}
+th{
+  font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.12em;color:var(--muted);text-transform:uppercase;
+}
+
+.heatmap-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:7px;
+  margin-top:12px;
+}
+.hm-cell{
+  border-radius:7px;
+  padding:11px 9px;
+  transition:.15s;
+  position:relative;
+  overflow:hidden;
+}
+.hm-cell:hover{transform:scale(1.03);z-index:2}
+.hm-name{
+  font-family:'Space Mono',monospace;
+  font-size:9px;
+  letter-spacing:.08em;
+  opacity:.85;
+  margin-bottom:4px;
+}
+.hm-val{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:22px;
+  letter-spacing:.04em;
+  line-height:1;
+}
+
+.driver-list{
+  display:flex;
+  flex-direction:column;
+  gap:9px;
+  margin-top:12px;
+}
+.driver{
+  background:var(--bg2);
+  border:1px solid var(--border);
+  border-radius:8px;
+  padding:11px 12px;
+}
+.driver-top{
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+  margin-bottom:8px;
+}
+.driver-name{color:var(--muted)}
+.driver-value{
+  font-family:'Space Mono',monospace;
+}
+.track{
+  height:5px;
+  background:var(--border);
+  border-radius:99px;
+  overflow:hidden;
+}
+.fill{
+  height:100%;
+  border-radius:99px;
+}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}};
+.fade-up{animation:fadeUp .5s ease both}
+.d1{animation-delay:.05s}.d2{animation-delay:.1s}.d3{animation-delay:.15s}.d4{animation-delay:.2s}.d5{animation-delay:.25s}
+@keyframes flashGreen{0%,100%{background:transparent}30%{background:rgba(0,229,160,.08)}};
+@keyframes flashRed{0%,100%{background:transparent}30%{background:rgba(255,77,109,.08)}};
+.flash-g{animation:flashGreen .5s ease}.flash-r{animation:flashRed .5s ease}
+
+::-webkit-scrollbar{width:4px;height:4px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px}
+
+@media(max-width:1200px){
+  .main-grid,.deep-grid{grid-template-columns:1fr}
+  .kpi-row{grid-template-columns:repeat(2,1fr)}
+  .bottom-grid{grid-template-columns:1fr}
+}
+@media(max-width:700px){
+  .kpi-row{grid-template-columns:1fr}
+  .controls{align-items:flex-start;flex-direction:column}
+  .header{align-items:flex-start;flex-direction:column;gap:12px}
+}
+
+#footer { padding: 5rem 2rem 3rem; }
+.footer-title { font-size: clamp(1.3rem, 2.5vw, 1.8rem); font-weight: 800; margin-bottom: 0.5rem; }
+.footer-sub { font-size: 0.88rem; color: var(--text-muted); margin-bottom: 2.5rem; }
+.footer-grid { display: grid; grid-template-columns: 1fr; gap: 1rem; }
+@media (min-width: 500px) { .footer-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 900px) { .footer-grid { grid-template-columns: repeat(3, 1fr); } }
+.footer-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 1.3rem 1.5rem;
+  transition: border-color 0.2s, transform 0.22s;
+  display: block;
+}
+.footer-card:hover { border-color: var(--accent); transform: translateY(-4px); }
+.footer-card-num { font-family: var(--mono); font-size: 0.62rem; color: var(--text-faint); letter-spacing: 0.1em; margin-bottom: 0.4rem; }
+.footer-card-title { font-size: 0.9rem; font-weight: 700; margin-bottom: 0.3rem; }
+.footer-card-desc { font-size: 0.78rem; color: var(--text-muted); line-height: 1.5; margin-bottom: 0.5rem; }
+.footer-card-link { font-size: 0.72rem; color: var(--accent); font-family: var(--mono); }
+.footer-copy { margin-top: 3rem; text-align: center; font-size: 0.75rem; color: var(--text-faint); font-family: var(--mono); letter-spacing: 0.05em; }
+
+</style>
+</head>
+
+<body>
+<div class="grid-bg"></div>
+<div class="orb orb1"></div>
+<div class="orb orb2"></div>
+<div class="orb orb3"></div>
+
+<div class="main-wrap">
+
+  <section class="hero fade-up">
+    <div class="hero-eyebrow">Finance × AI × Python</div>
+    <div class="hero-title">Python can do <span>whaaat?</span></div>
+    <div class="hero-day">CFO P&amp;L Analysis Terminal</div>
+    <div class="hero-byline">by <strong>Ronen Amos, C.P.A</strong></div>
+    <div class="hero-divider"></div>
+  </section>
+
+  <header class="header fade-up">
+    <div class="logo">P&amp;L COMMAND <span class="logo-badge">CFO v1.0</span></div>
+    <div class="header-right">
+      <div class="live-indicator"><div class="live-dot"></div>LIVE SIMULATION</div>
+      <div class="header-time" id="clock">--:--:-- UTC</div>
+    </div>
+  </header>
+
+  <section class="controls fade-up d1">
+    <div class="control-group">
+      <span class="control-label">Scenario</span>
+      <select id="scenario"></select>
+      <span class="control-label">Business Unit</span>
+      <select id="unit"></select>
+      <span class="control-label">Period</span>
+      <select id="period"></select>
+    </div>
+    <div class="control-group">
+      <button class="terminal-button" onclick="refreshNarrative()">REFRESH COMMENTARY</button>
+      <button class="terminal-button" onclick="togglePulse()">TOGGLE LIVE</button>
+    </div>
+  </section>
+
+  <div class="ticker-tape fade-up d1">
+    <div class="ticker-label">P&amp;L TAPE</div>
+    <div class="ticker-scroll-wrap"><div class="ticker-scroll" id="tickerScroll"></div></div>
+  </div>
+
+  <section class="kpi-row fade-up d2">
+    <div class="kpi-card green">
+      <div class="kpi-label">Revenue</div>
+      <div class="kpi-value" id="revKpi">$0.0M</div>
+      <div class="kpi-note" id="revNote">—</div>
+    </div>
+    <div class="kpi-card blue">
+      <div class="kpi-label">Gross Profit</div>
+      <div class="kpi-value" id="gpKpi">$0.0M</div>
+      <div class="kpi-note" id="gpNote">—</div>
+    </div>
+    <div class="kpi-card amber">
+      <div class="kpi-label">Gross Margin</div>
+      <div class="kpi-value" id="gmKpi">0.0%</div>
+      <div class="kpi-note">Revenue less COGS</div>
+    </div>
+    <div class="kpi-card purple">
+      <div class="kpi-label">EBITDA</div>
+      <div class="kpi-value" id="ebitdaKpi">$0.0M</div>
+      <div class="kpi-note" id="ebitdaNote">—</div>
+    </div>
+    <div class="kpi-card red">
+      <div class="kpi-label">Plan Variance</div>
+      <div class="kpi-value" id="varKpi">$0.0M</div>
+      <div class="kpi-note" id="varNote">—</div>
+    </div>
+  </section>
+
+  <section class="main-grid fade-up d3">
+    <div class="chart-panel">
+      <div class="panel-header">
+        <div>
+          <div class="panel-title">P&amp;L Trend — Revenue, Gross Profit, EBITDA</div>
+          <div class="panel-subtitle" id="trendSubtitle">Interactive view updates from filters</div>
+        </div>
+      </div>
+      <div class="chart-stats" id="chartStats"></div>
+      <div class="chart-area">
+        <div id="trendChart" class="full-chart"></div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-header">
+        <div>
+          <div class="panel-title">Revenue → EBITDA Bridge</div>
+          <div class="panel-subtitle">Executive profitability waterfall</div>
+        </div>
+      </div>
+      <div id="bridgeChart" class="small-chart"></div>
+    </diV>
+  </section>
+
+  <section class="bottom-grid fade-up d4">
+    <div class="panel">
+      <div class="panel-title">Expense Mix</div>
+      <div class="panel-subtitle">COGS, S&amp;M, R&amp;D, G&amp;A</div>
+      <div id="expenseChart" class="small-chart"></div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-title">Margin Bridge</div>
+      <div class="panel-subtitle">Gross margin and EBITDA margin over time</div>
+      <div id="marginChart" class="small-chart"></div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-title">Risk / Opportunity Map</div>
+      <div class="panel-subtitle">Variance intensity by driver</div>
+      <div class="heatmap-grid" id="heatmapGrid"></div>
+    </div>
+  </section>
+
+  <section class="deep-grid fade-up d5">
+    <div class="panel">
+      <div class="panel-header">
+        <div>
+          <div class="panel-title">Executive Commentary</div>
+          <div class="panel-subtitle" id="commentaryStamp">Generated from selected P&amp;L view</div>
+        </div>
+      </div>
+      <div class="commentary" id="commentary"></div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-title">P&amp;L Variance Detail</div>
+      <div class="panel-subtitle">Budget vs selected scenario</div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Line Item</th>
+              <th>Budget</th>
+              <th>Actual / LE</th>
+              <th>Variance</th>
+            </tr>
+          </thead>
+          <tbody id="varianceTable"></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="bottom-grid fade-up d5">
+    <div class="panel">
+      <div class="panel-title">Operating Levers</div>
+      <div class="panel-subtitle">What management can tune</div>
+      <div class="driver-list" id="driverList"></div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-title">Business Unit Mix</div>
+      <div class="panel-subtitle">Revenue contribution by unit</div>
+      <div id="unitMixChart" class="small-chart"></div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-title">CFO Decision Queue</div>
+      <div class="panel-subtitle">Prioritized actions</div>
+      <div class="driver-list" id="decisionQueue"></div>
+    </div>
+  </section>
+
+
+<section id="footer">
+  <div class="inner">
+    <div class="section-label">המשך</div>
+    <h2 class="footer-title">למדריכים ותוכן נוסף</h2>
+    <p class="footer-sub">כל הכלים, הקהילה והמשאבים — במקום אחד.</p>
+    <div class="footer-grid">
+      <a href="https://chat.whatsapp.com/CS6dgqnK45Q9XAMqScNr6R" target="_blank" class="footer-card">
+        <div class="footer-card-num">01 · COMMUNITY</div>
+        <div class="footer-card-title">קהילת AI Finance</div>
+        <div class="footer-card-desc">מעל 800 אנשי פיננסים שחולקים כלים ו-prompts בזמן אמת.</div>
+        <div class="footer-card-link">chat.whatsapp.com ↗</div>
+      </a>
+      <a href="https://www.youtube.com/@AIFinanceTransformation" target="_blank" class="footer-card">
+        <div class="footer-card-num">02 · YOUTUBE</div>
+        <div class="footer-card-title">AI for Finance</div>
+        <div class="footer-card-desc">הדגמות מעשיות, walkthroughs ו-playbooks שמאחורי הפרקטיקה.</div>
+        <div class="footer-card-link">@AIFinanceTransformation ↗</div>
+      </a>
+      <a href="https://www.ronenamoscpa.co.il/" target="_blank" class="footer-card">
+        <div class="footer-card-num">03 · NEWSLETTER</div>
+        <div class="footer-card-title">הניוזלטר השבועי</div>
+        <div class="footer-card-desc">תובנות AI לפיננסים ישר למייל שלך — כתוב על ידי איש פיננסים.</div>
+        <div class="footer-card-link">ronenamoscpa.co.il ↗</div>
+      </a>
+      <a href="https://www.ronenamoscpa.co.il/skill-vault" target="_blank" class="footer-card">
+        <div class="footer-card-num">04 · PROMPT HUB</div>
+        <div class="footer-card-title">Skill Vault</div>
+        <div class="footer-card-desc">ספריית ה-prompts שלי — מוכנים לשימוש מיידי בצוות הפיננסים שלך.</div>
+        <div class="footer-card-link">ronenamoscpa.co.il/skill-vault ↗</div>
+      </a>
+      <a href="https://www.paypal.com/ncp/payment/E36KBLHK8MDPN" target="_blank" class="footer-card">
+        <div class="footer-card-num">05 · THE BOOK</div>
+        <div class="footer-card-title">Claude Playbook</div>
+        <div class="footer-card-desc">הספר המלא — frameworks, case studies ומדריכי יישום לצוותי פיננסים.</div>
+        <div class="footer-card-link">רכישה מאובטחת ↗</div>
+      </a>
+      <a href="https://www.ronenamoscpa.co.il/courses" target="_blank" class="footer-card">
+        <div class="footer-card-num">06 · COURSE</div>
+        <div class="footer-card-title">קורס AI Finance</div>
+        <div class="footer-card-desc">תוכנית מובנית להטמעת חשיבה AI-First בצוות הפיננסים שלך.</div>
+        <div class="footer-card-link">ronenamoscpa.co.il/courses ↗</div>
+      </a>
+    </div>
+    <div class="footer-copy">
+      Ronen Amos · AI Finance Transformation
+    </div>
+  </div>
+</section>
+
+
+
+</div>
+
+<script>
+const PAYLOAD = {"months": ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"], "business_units": ["Enterprise", "SMB", "International", "Platform"], "scenarios": ["Actual", "Forecast", "Upside", "Downside"], "periods": ["FY", "YTD", "QTD"], "pl_data": {"Actual": {"Enterprise": {"revenue": [15.26, 15.39, 15.39, 15.5, 15.53, 16.68, 16.52, 17.9, 19.29, 18.7, 17.15, 19.97], "budget_revenue": [14.8, 15.12, 15.44, 15.76, 16.08, 16.4, 16.72, 17.04, 17.36, 17.68, 18.0, 18.32], "cogs": [5.36, 5.58, 5.53, 5.73, 5.53, 4.37, 6.12, 5.62, 5.59, 5.38, 5.78, 7.45], "sales_marketing": [4.49, 4.26, 4.51, 4.5, 4.2, 4.78, 4.8, 4.13, 5.89, 4.76, 5.3, 5.24], "rd": [2.11, 2.54, 2.55, 2.59, 2.49, 3.04, 2.77, 3.5, 3.22, 3.67, 2.37, 3.56], "ga": [1.58, 1.89, 1.87, 1.4, 1.79, 2.04, 1.41, 1.48, 1.75, 1.53, 2.22, 1.69], "ebitda": [1.72, 1.12, 0.93, 1.28, 1.52, 2.45, 1.42, 3.17, 2.84, 3.36, 1.48, 2.03]}, "SMB": {"revenue": [7.37, 7.73, 7.64, 8.39, 9.04, 9.44, 9.23, 8.62, 10.96, 11.03, 11.73, 12.96], "budget_revenue": [7.4, 7.72, 8.04, 8.36, 8.68, 9.0, 9.32, 9.64, 9.96, 10.28, 10.6, 10.92], "cogs": [2.05, 2.49, 2.06, 2.92, 3.18, 3.03, 3.2, 3.13, 3.95, 3.17, 3.23, 3.75], "sales_marketing": [2.23, 2.23, 1.76, 2.43, 2.4, 2.3, 2.41, 1.97, 3.35, 2.62, 3.49, 4.02], "rd": [1.43, 1.41, 1.2, 1.14, 1.42, 1.78, 1.32, 1.65, 1.72, 2.07, 1.79, 2.12], "ga": [0.87, 0.63, 0.79, 0.74, 1.17, 0.8, 1.01, 0.91, 1.13, 1.12, 1.47, 1.52], "ebitda": [0.79, 0.97, 1.83, 1.16, 0.87, 1.53, 1.29, 0.96, 0.81, 2.05, 1.75, 1.55]}, "International": {"revenue": [5.77, 6.11, 6.09, 6.84, 7.43, 7.52, 7.85, 8.91, 7.43, 9.62, 9.0, 8.98], "budget_revenue": [5.6, 5.92, 6.24, 6.56, 6.88, 7.2, 7.52, 7.84, 8.16, 8.48, 8.8, 9.12], "cogs": [1.84, 1.8, 1.74, 2.55, 2.58, 2.0, 2.18, 2.48, 2.12, 3.03, 2.65, 2.91], "sales_marketing": [1.48, 1.51, 1.37, 1.52, 1.74, 1.71, 1.76, 2.02, 2.17, 2.7, 2.12, 2.13], "rd": [1.1, 0.83, 1.18, 1.23, 1.47, 1.35, 1.43, 1.16, 1.39, 1.3, 1.47, 1.53], "ga": [0.57, 0.7, 0.67, 0.75, 0.62, 0.63, 0.69, 0.73, 0.94, 1.03, 0.96, 1.14], "ebitda": [0.78, 1.27, 1.13, 0.79, 1.02, 1.83, 1.79, 2.52, 0.81, 1.56, 1.8, 1.27]}, "Platform": {"revenue": [3.21, 3.73, 3.81, 4.26, 4.97, 4.44, 5.89, 6.53, 5.91, 4.97, 6.29, 6.26], "budget_revenue": [3.2, 3.52, 3.84, 4.16, 4.48, 4.8, 5.12, 5.44, 5.76, 6.08, 6.4, 6.72], "cogs": [1.01, 1.28, 1.09, 1.19, 1.6, 1.46, 1.75, 2.18, 1.57, 1.69, 2.28, 2.11], "sales_marketing": [0.76, 1.05, 0.91, 1.14, 1.4, 1.19, 1.72, 1.95, 1.53, 1.53, 1.64, 1.43], "rd": [0.57, 0.57, 0.59, 0.69, 0.74, 0.77, 0.99, 1.05, 1.13, 0.87, 1.22, 1.21], "ga": [0.29, 0.42, 0.35, 0.41, 0.44, 0.51, 0.61, 0.77, 0.67, 0.55, 0.56, 0.58], "ebitda": [0.58, 0.41, 0.87, 0.83, 0.79, 0.51, 0.82, 0.58, 1.01, 0.33, 0.59, 0.93]}}, "Forecast": {"Enterprise": {"revenue": [15.86, 15.75, 16.35, 16.41, 16.87, 18.21, 16.69, 18.05, 17.99, 18.57, 20.01, 18.11], "budget_revenue": [15.1, 15.42, 15.75, 16.08, 16.4, 16.73, 17.05, 17.38, 17.71, 18.03, 18.36, 18.69], "cogs": [5.22, 4.78, 6.17, 4.52, 5.07, 6.31, 5.06, 6.03, 6.22, 5.41, 5.75, 5.26], "sales_marketing": [3.52, 3.52, 3.64, 4.36, 4.59, 5.56, 4.73, 4.64, 5.24, 4.47, 5.48, 5.59], "rd": [2.72, 3.08, 2.96, 2.73, 3.04, 2.43, 2.73, 2.93, 3.54, 3.45, 3.79, 2.64], "ga": [1.67, 1.64, 1.71, 1.79, 1.49, 1.95, 1.54, 1.78, 2.11, 1.53, 2.02, 1.89], "ebitda": [2.73, 2.73, 1.87, 3.01, 2.68, 1.96, 2.63, 2.67, 0.88, 3.71, 2.97, 2.73]}, "SMB": {"revenue": [7.92, 8.17, 8.39, 8.44, 9.43, 10.36, 10.85, 10.65, 11.02, 10.94, 12.58, 12.31], "budget_revenue": [7.55, 7.87, 8.2, 8.53, 8.85, 9.18, 9.51, 9.83, 10.16, 10.49, 10.81, 11.14], "cogs": [2.79, 2.17, 3.17, 2.92, 3.43, 2.8, 3.44, 3.82, 3.25, 3.65, 3.39, 4.52], "sales_marketing": [2.29, 2.15, 2.12, 2.57, 2.39, 2.98, 2.4, 2.35, 3.09, 3.2, 3.01, 3.45], "rd": [1.09, 1.3, 1.56, 1.61, 1.86, 2.02, 1.63, 1.88, 2.05, 1.52, 2.16, 1.62], "ga": [0.77, 0.73, 0.78, 0.72, 0.84, 0.89, 1.11, 1.38, 0.9, 1.38, 1.58, 1.3], "ebitda": [0.98, 1.82, 0.76, 0.62, 0.91, 1.67, 2.27, 1.22, 1.73, 1.19, 2.44, 1.42]}, "International": {"revenue": [5.69, 6.32, 6.66, 6.89, 7.25, 7.79, 8.66, 9.25, 9.24, 10.57, 8.09, 10.05], "budget_revenue": [5.71, 6.04, 6.36, 6.69, 7.02, 7.34, 7.67, 8.0, 8.32, 8.65, 8.98, 9.3], "cogs": [2.09, 1.79, 2.23, 2.27, 1.96, 2.83, 3.01, 3.06, 2.41, 2.98, 3.05, 3.48], "sales_marketing": [1.39, 1.79, 1.7, 1.58, 1.97, 1.76, 2.14, 2.42, 2.13, 2.42, 2.09, 2.29], "rd": [0.79, 1.09, 0.88, 0.97, 1.32, 1.05, 1.68, 1.46, 1.4, 1.94, 1.55, 1.45], "ga": [0.65, 0.67, 0.6, 0.85, 0.64, 0.62, 0.79, 0.91, 0.98, 0.96, 0.76, 1.25], "ebitda": [0.77, 0.98, 1.25, 1.22, 1.36, 1.53, 1.04, 1.4, 2.32, 2.27, 0.64, 1.58]}, "Platform": {"revenue": [3.45, 3.83, 4.05, 4.1, 4.14, 4.29, 5.42, 6.02, 6.61, 6.15, 6.39, 8.3], "budget_revenue": [3.26, 3.59, 3.92, 4.24, 4.57, 4.9, 5.22, 5.55, 5.88, 6.2, 6.53, 6.85], "cogs": [1.11, 1.05, 1.27, 1.08, 1.56, 1.43, 1.51, 1.97, 2.28, 2.24, 2.1, 2.35], "sales_marketing": [0.97, 1.04, 0.95, 1.25, 1.18, 1.12, 1.44, 1.33, 1.66, 1.66, 1.87, 2.2], "rd": [0.53, 0.72, 0.59, 0.65, 0.6, 0.85, 0.71, 1.15, 0.99, 0.95, 0.91, 1.5], "ga": [0.34, 0.47, 0.4, 0.46, 0.44, 0.45, 0.68, 0.5, 0.68, 0.77, 0.76, 0.72], "ebitda": [0.5, 0.55, 0.84, 0.66, 0.36, 0.44, 1.08, 1.07, 1.0, 0.53, 0.75, 1.53]}}, "Upside": {"Enterprise": {"revenue": [17.04, 17.32, 17.97, 18.4, 17.89, 18.0, 18.17, 20.1, 18.3, 19.64, 20.19, 19.23], "budget_revenue": [15.1, 15.42, 15.75, 16.08, 16.4, 16.73, 17.05, 17.38, 17.71, 18.03, 18.36, 18.69], "cogs": [4.82, 4.63, 4.87, 6.35, 5.89, 6.28, 5.81, 5.94, 6.35, 5.28, 6.65, 6.37], "sales_marketing": [4.0, 4.11, 5.18, 4.56, 5.45, 4.95, 5.54, 5.22, 4.79, 5.22, 6.16, 4.84], "rd": [3.35, 3.19, 2.95, 3.01, 2.48, 2.51, 2.77, 3.53, 2.5, 2.99, 3.41, 2.74], "ga": [1.71, 1.72, 1.86, 1.49, 1.71, 1.54, 2.09, 1.75, 1.88, 2.09, 2.15, 2.39], "ebitda": [3.16, 3.67, 3.11, 2.99, 2.36, 2.72, 1.96, 3.66, 2.78, 4.06, 1.82, 2.89]}, "SMB": {"revenue": [8.25, 8.97, 8.89, 9.45, 9.69, 9.66, 11.22, 9.85, 10.32, 12.21, 11.14, 11.99], "budget_revenue": [7.55, 7.87, 8.2, 8.53, 8.85, 9.18, 9.51, 9.83, 10.16, 10.49, 10.81, 11.14], "cogs": [2.51, 2.89, 2.07, 3.31, 2.95, 2.81, 2.78, 2.44, 3.07, 3.47, 3.27, 3.34], "sales_marketing": [2.09, 2.59, 2.01, 2.23, 2.39, 2.92, 2.85, 2.32, 2.73, 2.88, 2.68, 2.66], "rd": [1.18, 1.19, 1.36, 1.81, 1.7, 1.58, 2.03, 1.61, 1.72, 1.91, 2.14, 2.21], "ga": [0.94, 1.03, 1.0, 0.78, 1.08, 1.09, 0.95, 0.95, 1.18, 1.16, 0.99, 1.13], "ebitda": [1.53, 1.27, 2.45, 1.32, 1.57, 1.26, 2.61, 2.53, 1.62, 2.79, 2.06, 2.65]}, "International": {"revenue": [6.29, 6.45, 7.19, 7.17, 7.85, 8.88, 8.9, 7.9, 8.23, 10.79, 11.8, 9.14], "budget_revenue": [5.71, 6.04, 6.36, 6.69, 7.02, 7.34, 7.67, 8.0, 8.32, 8.65, 8.98, 9.3], "cogs": [1.5, 1.6, 1.73, 1.96, 1.87, 2.57, 2.67, 2.54, 2.87, 2.69, 2.79, 2.22], "sales_marketing": [1.7, 1.43, 1.83, 2.12, 2.17, 2.14, 2.12, 1.77, 2.31, 3.29, 2.94, 2.08], "rd": [1.05, 1.21, 1.02, 0.93, 1.54, 1.55, 1.22, 1.18, 1.61, 1.69, 1.55, 1.63], "ga": [0.53, 0.62, 0.71, 0.92, 0.92, 1.08, 1.05, 0.7, 0.96, 1.15, 1.29, 1.09], "ebitda": [1.51, 1.59, 1.9, 1.24, 1.35, 1.54, 1.84, 1.71, 0.48, 1.97, 3.23, 2.12]}, "Platform": {"revenue": [3.74, 3.95, 4.39, 4.61, 4.53, 5.53, 6.0, 6.0, 7.22, 6.11, 6.5, 8.21], "budget_revenue": [3.26, 3.59, 3.92, 4.24, 4.57, 4.9, 5.22, 5.55, 5.88, 6.2, 6.53, 6.85], "cogs": [1.08, 1.32, 1.21, 1.29, 1.35, 1.32, 1.39, 1.93, 2.28, 1.53, 2.08, 2.09], "sales_marketing": [0.86, 1.22, 1.32, 1.11, 1.31, 1.29, 1.34, 1.39, 2.14, 1.56, 1.78, 2.48], "rd": [0.67, 0.77, 0.71, 0.65, 0.71, 0.97, 0.91, 1.08, 1.11, 1.17, 0.95, 1.48], "ga": [0.48, 0.46, 0.44, 0.42, 0.52, 0.52, 0.75, 0.74, 0.66, 0.68, 0.7, 0.74], "ebitda": [0.65, 0.18, 0.71, 1.14, 0.64, 1.43, 1.61, 0.86, 1.03, 1.17, 0.99, 1.42]}}, "Downside": {"Enterprise": {"revenue": [13.37, 14.05, 14.16, 14.62, 15.24, 15.52, 14.86, 15.43, 15.72, 15.9, 17.47, 17.44], "budget_revenue": [15.1, 15.42, 15.75, 16.08, 16.4, 16.73, 17.05, 17.38, 17.71, 18.03, 18.36, 18.69], "cogs": [4.44, 4.35, 5.12, 5.1, 4.67, 5.18, 5.63, 5.26, 6.2, 5.51, 5.68, 6.1], "sales_marketing": [3.08, 3.47, 4.33, 4.46, 3.99, 3.48, 3.77, 4.45, 4.38, 3.88, 4.76, 5.19], "rd": [2.36, 2.79, 2.26, 2.88, 2.01, 3.03, 2.39, 2.37, 2.07, 2.56, 2.32, 2.56], "ga": [1.26, 1.79, 1.6, 1.84, 1.81, 1.61, 1.71, 1.5, 2.0, 1.93, 2.24, 2.05], "ebitda": [2.23, 1.65, 0.85, 0.34, 2.76, 2.22, 1.36, 1.85, 1.07, 2.02, 2.47, 1.54]}, "SMB": {"revenue": [6.99, 7.21, 7.42, 7.78, 7.94, 8.16, 8.07, 8.94, 8.69, 9.83, 11.3, 10.14], "budget_revenue": [7.55, 7.87, 8.2, 8.53, 8.85, 9.18, 9.51, 9.83, 10.16, 10.49, 10.81, 11.14], "cogs": [2.63, 2.95, 2.72, 2.93, 3.12, 3.31, 3.19, 2.6, 3.18, 3.39, 3.78, 3.15], "sales_marketing": [2.07, 2.22, 2.01, 1.93, 2.17, 2.17, 1.96, 2.06, 2.6, 2.48, 3.13, 2.86], "rd": [1.13, 1.17, 1.01, 1.55, 1.27, 1.29, 1.48, 1.51, 1.28, 1.73, 1.57, 1.57], "ga": [0.7, 0.58, 0.84, 0.94, 0.96, 0.81, 0.75, 0.77, 0.87, 1.09, 0.9, 0.95], "ebitda": [0.46, 0.29, 0.84, 0.43, 0.42, 0.58, 0.69, 2.0, 0.76, 1.14, 1.92, 1.61]}, "International": {"revenue": [5.29, 5.48, 5.62, 5.69, 6.21, 6.74, 6.24, 7.29, 8.19, 7.54, 7.55, 7.91], "budget_revenue": [5.71, 6.04, 6.36, 6.69, 7.02, 7.34, 7.67, 8.0, 8.32, 8.65, 8.98, 9.3], "cogs": [1.56, 2.16, 2.23, 1.77, 2.23, 2.0, 2.27, 2.73, 2.46, 2.63, 2.29, 3.06], "sales_marketing": [1.54, 1.69, 1.31, 1.62, 1.45, 1.52, 1.81, 1.88, 1.98, 1.77, 1.73, 2.45], "rd": [0.75, 0.89, 1.02, 0.74, 1.14, 0.98, 1.12, 1.09, 1.37, 0.98, 1.08, 1.48], "ga": [0.64, 0.65, 0.61, 0.56, 0.58, 0.8, 0.72, 0.8, 0.8, 0.94, 0.63, 0.81], "ebitda": [0.8, 0.09, 0.45, 1.0, 0.81, 1.44, 0.32, 0.79, 1.58, 1.22, 1.82, 0.11]}, "Platform": {"revenue": [2.97, 3.1, 3.64, 4.24, 4.11, 4.45, 3.97, 5.49, 5.98, 4.58, 5.33, 5.11], "budget_revenue": [3.26, 3.59, 3.92, 4.24, 4.57, 4.9, 5.22, 5.55, 5.88, 6.2, 6.53, 6.85], "cogs": [0.97, 1.18, 1.24, 1.38, 1.63, 1.61, 1.51, 2.1, 2.23, 1.63, 1.82, 2.03], "sales_marketing": [0.85, 0.73, 0.85, 1.25, 0.91, 1.05, 1.02, 1.47, 1.45, 1.27, 1.64, 1.47], "rd": [0.47, 0.54, 0.61, 0.74, 0.56, 0.74, 0.76, 1.02, 1.19, 0.86, 0.87, 0.78], "ga": [0.34, 0.3, 0.36, 0.4, 0.53, 0.48, 0.51, 0.56, 0.68, 0.39, 0.52, 0.55], "ebitda": [0.34, 0.35, 0.58, 0.47, 0.48, 0.57, 0.17, 0.34, 0.43, 0.43, 0.48, 0.28]}}}, "generated_at": "2026-06-05 16:56:26 UTC"};
+const months = PAYLOAD.months;
+const units = PAYLOAD.business_units;
+const scenarios = PAYLOAD.scenarios;
+const periods = PAYLOAD.periods;
+const pl = PAYLOAD.pl_data;
+
+let liveOn = true;
+let narrativeSeed = 0;
+
+const trendChart = echarts.init(document.getElementById("trendChart"));
+const bridgeChart = echarts.init(document.getElementById("bridgeChart"));
+const expenseChart = echarts.init(document.getElementById("expenseChart"));
+const marginChart = echarts.init(document.getElementById("marginChart"));
+const unitMixChart = echarts.init(document.getElementById("unitMixChart"));
+
+function money(v){ return "$" + Number(v).toFixed(1) + "M"; }
+function pct(v){ return Number(v).toFixed(1) + "%"; }
+function sum(a){ return a.reduce((x,y)=>x+y,0); }
+function safeDiv(a,b){ return b === 0 ? 0 : a / b; }
+
+function initControls(){
+  document.getElementById("scenario").innerHTML = scenarios.map(s => `<option>${s}</option>`).join("");
+  document.getElementById("unit").innerHTML = units.map(s => `<option>${s}</option>`).join("");
+  document.getElementById("period").innerHTML = periods.map(s => `<option>${s}</option>`).join("");
+  document.getElementById("scenario").value = "Forecast";
+  document.getElementById("unit").value = "Enterprise";
+  document.getElementById("period").value = "FY";
+}
+
+function updateClock(){
+  const now = new Date();
+  document.getElementById("clock").textContent = now.toUTCString().slice(17,25) + " UTC";
+}
+setInterval(updateClock,1000);
+updateClock();
+
+function getCurrent(){
+  const scenario = document.getElementById("scenario").value;
+  const unit = document.getElementById("unit").value;
+  const period = document.getElementById("period").value;
+  const d = pl[scenario][unit];
+  return {scenario, unit, period, d};
+}
+
+function sliceForPeriod(arr){
+  const p = document.getElementById("period").value;
+  if(p === "YTD") return arr.slice(0,9);
+  if(p === "QTD") return arr.slice(6,9);
+  return arr;
+}
+function monthsForPeriod(){
+  const p = document.getElementById("period").value;
+  if(p === "YTD") return months.slice(0,9);
+  if(p === "QTD") return months.slice(6,9);
+  return months;
+}
+
+function calc(d){
+  const revenue = sliceForPeriod(d.revenue);
+  const budget = sliceForPeriod(d.budget_revenue);
+  const cogs = sliceForPeriod(d.cogs);
+  const sm = sliceForPeriod(d.sales_marketing);
+  const rd = sliceForPeriod(d.rd);
+  const ga = sliceForPeriod(d.ga);
+  const ebitda = sliceForPeriod(d.ebitda);
+  const rev = sum(revenue);
+  const bud = sum(budget);
+  const cogsTotal = sum(cogs);
+  const gp = rev - cogsTotal;
+  const smTotal = sum(sm);
+  const rdTotal = sum(rd);
+  const gaTotal = sum(ga);
+  const ebitdaTotal = sum(ebitda);
+  return {
+    revenue, budget, cogs, sm, rd, ga, ebitda,
+    rev, bud, cogsTotal, gp, smTotal, rdTotal, gaTotal, ebitdaTotal,
+    gm: safeDiv(gp, rev) * 100,
+    ebitdaMargin: safeDiv(ebitdaTotal, rev) * 100,
+    variance: rev - bud,
+    variancePct: safeDiv(rev - bud, bud) * 100
+  };
+}
+
+function buildTicker(){
+  const {scenario, unit, d} = getCurrent();
+  const c = calc(d);
+  const items = [
+    ["REV", money(c.rev), c.variancePct],
+    ["GP", money(c.gp), c.gm - 60],
+    ["GM", pct(c.gm), c.gm - 64],
+    ["EBITDA", money(c.ebitdaTotal), c.ebitdaMargin - 16],
+    ["S&M", money(c.smTotal), -safeDiv(c.smTotal,c.rev)*100 + 28],
+    ["R&D", money(c.rdTotal), -safeDiv(c.rdTotal,c.rev)*100 + 18],
+    ["G&A", money(c.gaTotal), -safeDiv(c.gaTotal,c.rev)*100 + 12],
+    ["UNIT", unit, c.variancePct],
+    ["SCENARIO", scenario, c.variancePct]
+  ];
+  const doubled = [...items, ...items, ...items];
+  document.getElementById("tickerScroll").innerHTML = doubled.map(x=>{
+    const up = x[2] >= 0;
+    return `<div class="ticker-item">
+      <span class="ticker-sym">${x[0]}</span>
+      <span class="ticker-price">${x[1]}</span>
+      <span class="${up ? "up":"dn"}">${up?"+":""}${x[2].toFixed(1)}</span>
+    </div>`;
+  }).join("");
+}
+
+function updateKpis(){
+  const {scenario, unit, period, d} = getCurrent();
+  const c = calc(d);
+
+  document.getElementById("revKpi").innerHTML = money(c.rev);
+  document.getElementById("revNote").innerHTML = `${unit} · ${scenario} · ${period}`;
+
+  document.getElementById("gpKpi").innerHTML = money(c.gp);
+  document.getElementById("gpNote").innerHTML = `COGS: ${money(c.cogsTotal)}`;
+
+  document.getElementById("gmKpi").innerHTML = pct(c.gm);
+
+  const ebitdaKpi = document.getElementById("ebitdaKpi");
+  ebitdaKpi.innerHTML = money(c.ebitdaTotal);
+  ebitdaKpi.className = "kpi-value " + (c.ebitdaTotal >= 0 ? "up" : "dn");
+  document.getElementById("ebitdaNote").innerHTML = `Margin: ${pct(c.ebitdaMargin)}`;
+
+  const varKpi = document.getElementById("varKpi");
+  varKpi.innerHTML = money(c.variance);
+  varKpi.className = "kpi-value " + (c.variance >= 0 ? "up" : "dn");
+  document.getElementById("varNote").innerHTML = `${c.variance >= 0 ? "Above" : "Below"} plan by ${Math.abs(c.variancePct).toFixed(1)}%`;
+
+  document.getElementById("chartStats").innerHTML = `
+    <div class="cstat"><div class="cstat-label">REVENUE</div><div class="cstat-val">${money(c.rev)}</div></div>
+    <div class="cstat"><div class="cstat-label">GROSS PROFIT</div><div class="cstat-val up">${money(c.gp)}</div></div>
+    <div class="cstat"><div class="cstat-label">EBITDA</div><div class="cstat-val ${c.ebitdaTotal>=0?"up":"dn"}">${money(c.ebitdaTotal)}</div></div>
+    <div class="cstat"><div class="cstat-label">GM%</div><div class="cstat-val">${pct(c.gm)}</div></div>
+    <div class="cstat"><div class="cstat-label">EBITDA%</div><div class="cstat-val">${pct(c.ebitdaMargin)}</div></div>
+  `;
+}
+
+function renderTrend(){
+  const {scenario, unit, period, d} = getCurrent();
+  const c = calc(d);
+  const m = monthsForPeriod();
+  const grossProfitMonthly = c.revenue.map((x,i)=>x - c.cogs[i]);
+
+  document.getElementById("trendSubtitle").innerHTML = `${unit} · ${scenario} · ${period} · generated from Python sample P&L`;
+
+  trendChart.setOption({
+    tooltip: {
+      trigger:"axis",
+      backgroundColor:"#0d1017",
+      borderColor:"rgba(255,255,255,.14)",
+      textStyle:{color:"#e8eaf0",fontFamily:"Space Mono"}
+    },
+    legend:{
+      top:0,
+      right:0,
+      textStyle:{color:"rgba(232,234,240,.58)",fontFamily:"Space Mono",fontSize:10}
+    },
+    grid:{left:46,right:28,top:52,bottom:36},
+    xAxis:{
+      type:"category",
+      data:m,
+      axisLine:{lineStyle:{color:"rgba(255,255,255,.12)"}},
+      axisLabel:{color:"rgba(232,234,240,.42)",fontFamily:"Space Mono"}
+    },
+    yAxis:{
+      type:"value",
+      axisLabel:{color:"rgba(232,234,240,.42)",fontFamily:"Space Mono",formatter:"${value}M"},
+      splitLine:{lineStyle:{color:"rgba(255,255,255,.045)"}}
+    },
+    series:[
+      {
+        name:"Revenue",
+        type:"line",
+        smooth:true,
+        data:c.revenue,
+        symbol:"circle",
+        symbolSize:5,
+        lineStyle:{width:3,color:"#00e5a0"},
+        itemStyle:{color:"#00e5a0"},
+        areaStyle:{
+          color:{
+            type:"linear",x:0,y:0,x2:0,y2:1,
+            colorStops:[{offset:0,color:"rgba(0,229,160,.18)"},{offset:1,color:"rgba(0,229,160,0)"}]
+          }
+        }
+      },
+      {
+        name:"Gross Profit",
+        type:"line",
+        smooth:true,
+        data:grossProfitMonthly,
+        symbol:"none",
+        lineStyle:{width:2,color:"#4da6ff"}
+      },
+      {
+        name:"EBITDA",
+        type:"bar",
+        data:c.ebitda,
+        itemStyle:{color:"#b06aff",opacity:.72}
+      },
+      {
+        name:"Budget Revenue",
+        type:"line",
+        smooth:true,
+        data:c.budget,
+        symbol:"none",
+        lineStyle:{width:2,type:"dashed",color:"#ffb347"}
+      }
+    ]
+  });
+}
+
+function renderBridge(){
+  const {d} = getCurrent();
+  const c = calc(d);
+  const labels = ["Revenue", "COGS", "S&M", "R&D", "G&A", "EBITDA"];
+  const values = [c.rev, -c.cogsTotal, -c.smTotal, -c.rdTotal, -c.gaTotal, c.ebitdaTotal];
+  let cumulative = 0;
+  const assist = [];
+  values.forEach((v,i)=>{
+    if(i === 0 || i === values.length-1){
+      assist.push(0);
+      cumulative = v;
+    } else {
+      assist.push(cumulative + Math.min(v,0));
+      cumulative += v;
+    }
+  });
+
+  bridgeChart.setOption({
+    tooltip:{trigger:"axis",axisPointer:{type:"shadow"}},
+    grid:{left:42,right:12,top:22,bottom:42},
+    xAxis:{
+      type:"category",
+      data:labels,
+      axisLabel:{color:"rgba(232,234,240,.42)",fontSize:10,rotate:20},
+      axisLine:{lineStyle:{color:"rgba(255,255,255,.1)"}}
+    },
+    yAxis:{
+      type:"value",
+      axisLabel:{color:"rgba(232,234,240,.35)",formatter:"${value}"},
+      splitLine:{lineStyle:{color:"rgba(255,255,255,.04)"}}
+    },
+    series:[
+      {type:"bar",stack:"total",itemStyle:{borderColor:"transparent",color:"transparent"},emphasis:{itemStyle:{borderColor:"transparent",color:"transparent"}},data:assist},
+      {type:"bar",stack:"total",data:values,itemStyle:{color:p=>p.value>=0?"#00e5a0":"#ff4d6d"}}
+    ]
+  });
+}
+
+function renderExpense(){
+  const {d} = getCurrent();
+  const c = calc(d);
+  expenseChart.setOption({
+    tooltip:{trigger:"item"},
+    legend:{
+      bottom:0,
+      textStyle:{color:"rgba(232,234,240,.55)",fontFamily:"Space Mono",fontSize:10}
+    },
+    series:[{
+      type:"pie",
+      radius:["44%","72%"],
+      center:["50%","45%"],
+      data:[
+        {name:"COGS",value:c.cogsTotal,itemStyle:{color:"#ff4d6d"}},
+        {name:"S&M",value:c.smTotal,itemStyle:{color:"#ffb347"}},
+        {name:"R&D",value:c.rdTotal,itemStyle:{color:"#4da6ff"}},
+        {name:"G&A",value:c.gaTotal,itemStyle:{color:"#b06aff"}}
+      ],
+      label:{color:"rgba(232,234,240,.65)",formatter:"{b}"}
+    }]
+  });
+}
+
+function renderMargin(){
+  const {d} = getCurrent();
+  const c = calc(d);
+  const m = monthsForPeriod();
+  const gpMonthly = c.revenue.map((x,i)=>x-c.cogs[i]);
+  const gmSeries = c.revenue.map((x,i)=>safeDiv(gpMonthly[i],x)*100);
+  const ebitdaMarginSeries = c.revenue.map((x,i)=>safeDiv(c.ebitda[i],x)*100);
+
+  marginChart.setOption({
+    tooltip:{trigger:"axis"},
+    legend:{
+      top:0,
+      textStyle:{color:"rgba(232,234,240,.55)",fontFamily:"Space Mono",fontSize:10}
+    },
+    grid:{left:40,right:18,top:45,bottom:30},
+    xAxis:{
+      type:"category",
+      data:m,
+      axisLabel:{color:"rgba(232,234,240,.42)",fontFamily:"Space Mono"},
+      axisLine:{lineStyle:{color:"rgba(255,255,255,.1)"}}
+    },
+    yAxis:{
+      type:"value",
+      axisLabel:{color:"rgba(232,234,240,.42)",formatter:"{value}%"},
+      splitLine:{lineStyle:{color:"rgba(255,255,255,.04)"}}
+    },
+    series:[
+      {name:"Gross Margin",type:"line",smooth:true,data:gmSeries,lineStyle:{width:3,color:"#00e5a0"},itemStyle:{color:"#00e5a0"}},
+      {name:"EBITDA Margin",type:"line",smooth:true,data:ebitdaMarginSeries,lineStyle:{width:3,color:"#b06aff"},itemStyle:{color:"#b06aff"}}
+    ]
+  });
+}
+
+function renderHeatmap(){
+  const {d} = getCurrent();
+  const c = calc(d);
+  const drivers = [
+    ["Revenue", c.variancePct],
+    ["COGS", 64 - c.gm],
+    ["S&M", 27 - safeDiv(c.smTotal,c.rev)*100],
+    ["R&D", 18 - safeDiv(c.rdTotal,c.rev)*100],
+    ["G&A", 12 - safeDiv(c.gaTotal,c.rev)*100],
+    ["EBITDA", c.ebitdaMargin - 15],
+    ["Price", c.variancePct * .45],
+    ["Volume", c.variancePct * .35],
+    ["Mix", c.variancePct * .20]
+  ];
+
+  document.getElementById("heatmapGrid").innerHTML = drivers.map(x=>{
+    const v = x[1];
+    const intensity = Math.min(Math.abs(v)/10,1);
+    const col = v >= 0 ? "#00e5a0" : "#ff4d6d";
+    const bg = v >= 0 ? `rgba(0,229,160,${.12+intensity*.36})` : `rgba(255,77,109,${.12+intensity*.36})`;
+    return `<div class="hm-cell" style="background:${bg};border:1px solid ${col}33">
+      <div class="hm-name" style="color:${col}">${x[0]}</div>
+      <div class="hm-val" style="color:${col}">${v>=0?"+":""}${v.toFixed(1)}</div>
+    </div>`;
+  }).join("");
+}
+
+function renderVarianceTable(){
+  const {d} = getCurrent();
+  const c = calc(d);
+  const budgetGp = c.bud * 0.64;
+  const budgetEbitda = c.bud * 0.17;
+  const rows = [
+    ["Revenue", c.bud, c.rev, c.rev-c.bud],
+    ["COGS", c.bud*0.36, c.cogsTotal, -(c.cogsTotal-c.bud*0.36)],
+    ["Gross Profit", budgetGp, c.gp, c.gp-budgetGp],
+    ["S&M", c.bud*0.27, c.smTotal, -(c.smTotal-c.bud*0.27)],
+    ["R&D", c.bud*0.18, c.rdTotal, -(c.rdTotal-c.bud*0.18)],
+    ["G&A", c.bud*0.12, c.gaTotal, -(c.gaTotal-c.bud*0.12)],
+    ["EBITDA", budgetEbitda, c.ebitdaTotal, c.ebitdaTotal-budgetEbitda]
+  ];
+  document.getElementById("varianceTable").innerHTML = rows.map(r=>`
+    <tr>
+      <td>${r[0]}</td>
+      <td>${money(r[1])}</td>
+      <td>${money(r[2])}</td>
+      <td class="${r[3]>=0?"up":"dn"}">${money(r[3])}</td>
+    </tr>`).join("");
+}
+
+function renderCommentary(){
+  const {scenario, unit, period, d} = getCurrent();
+  const c = calc(d);
+  const tone = c.variance >= 0 ? "ahead of plan" : "behind plan";
+  const focus = [
+    "gross margin discipline, sales productivity, and controlled hiring",
+    "pricing realization, customer expansion, and COGS efficiency",
+    "pipeline quality, renewal execution, and OpEx phasing",
+    "business unit mix, enterprise conversion, and discretionary spend governance"
+  ][narrativeSeed % 4];
+
+  document.getElementById("commentaryStamp").textContent = "Generated " + PAYLOAD.generated_at;
+  document.getElementById("commentary").innerHTML = `
+    <p><strong>${unit}</strong> under the <strong>${scenario}</strong> scenario for <strong>${period}</strong> is tracking
+    <strong>${Math.abs(c.variancePct).toFixed(1)}%</strong> ${tone} on revenue. Revenue is
+    <strong>${money(c.rev)}</strong> against budget of <strong>${money(c.bud)}</strong>, producing gross profit of
+    <strong>${money(c.gp)}</strong> and EBITDA of <strong>${money(c.ebitdaTotal)}</strong>.</p>
+
+    <div class="callout">
+      CFO readout: the P&amp;L is currently most sensitive to <strong>${focus}</strong>.
+      ${c.variance >= 0
+        ? "Management has room to protect the growth plan while selectively reinvesting in high-return initiatives."
+        : "Management should re-phase spend, tighten forecast governance, and protect near-term EBITDA."}
+    </div>
+
+    <p style="margin-top:12px;color:rgba(232,234,240,.55)">
+      This is simulated commentary generated in-browser from Python-created sample data. Replace the sample arrays with your own P&amp;L export to make it production-ready.
+    </p>
+  `;
+}
+
+function renderDrivers(){
+  const {d} = getCurrent();
+  const c = calc(d);
+  const drivers = [
+    ["Revenue attainment", Math.min(100, Math.max(0, 72 + c.variancePct)), "#00e5a0"],
+    ["Gross margin control", Math.min(100, Math.max(0, c.gm)), "#4da6ff"],
+    ["S&M efficiency", Math.min(100, Math.max(0, 100 - safeDiv(c.smTotal,c.rev)*100*2.5)), "#ffb347"],
+    ["R&D investment", Math.min(100, Math.max(0, 100 - Math.abs(18 - safeDiv(c.rdTotal,c.rev)*100)*4)), "#b06aff"],
+    ["G&A leverage", Math.min(100, Math.max(0, 100 - safeDiv(c.gaTotal,c.rev)*100*4)), "#00d4ff"]
+  ];
+  document.getElementById("driverList").innerHTML = drivers.map(d=>`
+    <div class="driver">
+      <div class="driver-top">
+        <div class="driver-name">${d[0]}</div>
+        <div class="driver-value">${d[1].toFixed(0)}</div>
+      </div>
+      <div class="track"><div class="fill" style="width:${d[1].toFixed(0)}%;background:${d[2]}"></div></div>
+    </div>
+  `).join("");
+}
+
+function renderUnitMix(){
+  const scenario = document.getElementById("scenario").value;
+  const period = document.getElementById("period").value;
+  const data = units.map(u=>{
+    const c = calc(pl[scenario][u]);
+    return {name:u,value:c.rev};
+  });
+
+  unitMixChart.setOption({
+    tooltip:{trigger:"item"},
+    legend:{
+      bottom:0,
+      textStyle:{color:"rgba(232,234,240,.55)",fontFamily:"Space Mono",fontSize:10}
+    },
+    series:[{
+      type:"pie",
+      radius:["42%","70%"],
+      center:["50%","45%"],
+      data:data,
+      label:{color:"rgba(232,234,240,.65)",formatter:"{b}"}
+    }]
+  });
+}
+
+function renderDecisionQueue(){
+  const {d} = getCurrent();
+  const c = calc(d);
+  const actions = c.variance >= 0
+    ? [
+        ["Approve selective growth reinvestment", "High"],
+        ["Lock in Q4 hiring guardrails", "Medium"],
+        ["Accelerate upsell campaigns", "High"],
+        ["Maintain margin floor", "Medium"]
+      ]
+    : [
+        ["Re-phase discretionary spend", "High"],
+        ["Review sales pipeline quality", "High"],
+        ["Freeze low-ROI programs", "Medium"],
+        ["Reset forecast assumptions", "High"]
+      ];
+
+  document.getElementById("decisionQueue").innerHTML = actions.map(a=>{
+    const col = a[1] === "High" ? "#ffb347" : "#4da6ff";
+    return `<div class="driver">
+      <div class="driver-top">
+        <div class="driver-name">${a[0]}</div>
+        <div class="driver-value" style="color:${col}">${a[1]}</div>
+      </div>
+      <div class="track"><div class="fill" style="width:${a[1]==="High"?88:62}%;background:${col}"></div></div>
+    </div>`;
+  }).join("");
+}
+
+function refreshNarrative(){
+  narrativeSeed += 1;
+  renderCommentary();
+}
+
+function togglePulse(){
+  liveOn = !liveOn;
+}
+
+function updateAll(){
+  updateKpis();
+  buildTicker();
+  renderTrend();
+  renderBridge();
+  renderExpense();
+  renderMargin();
+  renderHeatmap();
+  renderVarianceTable();
+  renderCommentary();
+  renderDrivers();
+  renderUnitMix();
+  renderDecisionQueue();
+}
+
+function livePulse(){
+  if(!liveOn) return;
+  const cards = document.querySelectorAll(".kpi-card");
+  cards.forEach((card,i)=>{
+    card.classList.remove("flash-g","flash-r");
+    void card.offsetWidth;
+    card.classList.add(i % 2 === 0 ? "flash-g" : "flash-r");
+  });
+  buildTicker();
+  renderHeatmap();
+  renderDrivers();
+}
+
+initControls();
+updateAll();
+
+document.getElementById("scenario").addEventListener("change", updateAll);
+document.getElementById("unit").addEventListener("change", updateAll);
+document.getElementById("period").addEventListener("change", updateAll);
+
+window.addEventListener("resize", ()=>{
+  trendChart.resize();
+  bridgeChart.resize();
+  expenseChart.resize();
+  marginChart.resize();
+  unitMixChart.resize();
+});
+
+setInterval(livePulse, 2800);
+</script>
+</body>
+</html>

@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Claude Skills לאנשי פיננסים — AI Finance Transformation</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800;900&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0b0d10;--surface:#12161a;--surface2:#1a1f26;
+  --accent:#b8c45a;--accent-strong:#d6e36a;--accent-dim:rgba(184,196,90,0.12);
+  --text:#fafbfc;--text-muted:#c2cad2;--text-faint:#7a8694;
+  --border:rgba(255,255,255,0.07);
+  --radius-sm:10px;--radius-md:18px;--radius-lg:28px;
+  --font:Heebo,system-ui,sans-serif;--mono:"IBM Plex Mono",monospace;
+}
+html{scroll-behavior:smooth}
+body{font-family:var(--font);background:var(--bg);color:var(--text);line-height:1.6;direction:rtl}
+a{color:inherit;text-decoration:none}
+.inner{max-width:1100px;margin:0 auto;padding:0 1.5rem}
+
+/* TOPBAR */
+.topbar{position:sticky;top:0;z-index:100;background:rgba(11,13,16,0.92);backdrop-filter:blur(14px);border-bottom:1px solid var(--border);padding:0 1.5rem}
+.topbar-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:56px;gap:1rem}
+.topbar-brand{font-family:var(--mono);font-size:.78rem;color:var(--accent);letter-spacing:.06em;font-weight:600;white-space:nowrap}
+.topbar-nav{display:flex;gap:1.2rem;flex-wrap:wrap}
+.topbar-nav a{font-size:.78rem;color:var(--text-faint);transition:color .18s}
+.topbar-nav a:hover{color:var(--accent)}
+
+/* SECTION LABEL */
+.section-label{font-family:var(--mono);font-size:.68rem;color:var(--accent);letter-spacing:.14em;text-transform:uppercase;margin-bottom:.9rem;font-weight:500}
+
+/* HERO */
+.hero{padding:5rem 2rem 4rem}
+.hero .inner{display:flex;flex-direction:column;gap:1.5rem;max-width:800px}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:.5rem;background:var(--accent-dim);border:1px solid rgba(184,196,90,.25);border-radius:999px;padding:.3rem .9rem;font-size:.75rem;color:var(--accent);font-family:var(--mono);width:fit-content}
+.hero-title{font-size:clamp(2.2rem,5.5vw,4rem);font-weight:900;line-height:1.1;color:var(--text)}
+.hero-title span{color:var(--accent)}
+.hero-sub{font-size:1.05rem;color:var(--text-muted);max-width:620px;line-height:1.7}
+.hero-bullets{display:flex;flex-direction:column;gap:.6rem}
+.hero-bullet{display:flex;align-items:flex-start;gap:.6rem;font-size:.9rem;color:var(--text-muted)}
+.hero-bullet::before{content:"✓";color:var(--accent);font-weight:700;flex-shrink:0;margin-top:.05rem}
+.hero-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:.9rem;margin-top:.5rem}
+.stat-box{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-md);padding:1.2rem 1rem}
+.stat-num{font-size:2.2rem;font-weight:900;color:var(--accent);line-height:1}
+.stat-lbl{font-size:.75rem;color:var(--text-muted);margin-top:.4rem;font-family:var(--mono)}
+
+/* TABS NAV */
+.tabs-section{padding:3rem 2rem 0}
+.tabs-nav{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:2rem}
+.tab-btn{padding:.55rem 1.1rem;border-radius:999px;border:1px solid var(--border);background:transparent;color:var(--text-faint);font-size:.78rem;font-weight:600;cursor:pointer;transition:all .18s;white-space:nowrap;font-family:var(--font);direction:rtl}
+.tab-btn:hover{background:var(--surface2);color:var(--text)}
+.tab-btn.active{background:var(--accent);color:#0b0d10;border-color:transparent}
+.panel{display:none;animation:fadein .25s ease}
+.panel.active{display:block}
+@keyframes fadein{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+
+/* ACCORDION CARDS */
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-md);padding:1.2rem 1.5rem;margin-bottom:.8rem;transition:border-color .2s}
+.card:hover{border-color:rgba(184,196,90,.25)}
+.card-header{display:flex;align-items:center;gap:.9rem;cursor:pointer}
+.card-num{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.85rem;font-weight:700;flex-shrink:0;font-family:var(--mono)}
+.card-title{font-size:1rem;font-weight:700;color:var(--text);flex:1}
+.card-toggle{color:var(--text-faint);font-size:1.2rem;transition:transform .22s;margin-right:auto;margin-left:0}
+.card-toggle.open{transform:rotate(90deg)}
+.card-body{overflow:hidden;max-height:0;transition:max-height .32s ease,padding .3s}
+.card-body.open{max-height:700px;padding-top:1.1rem}
+.card-body p{font-size:.88rem;color:var(--text-muted);line-height:1.7;margin-bottom:.8rem}
+.card-body p:last-child{margin-bottom:0}
+.card-body code{background:#0d1117;padding:2px 7px;border-radius:4px;font-size:.78rem;font-family:var(--mono);color:var(--accent);direction:ltr;display:inline-block}
+
+/* HIGHLIGHT BAR */
+.highlight-bar{border-right:3px solid var(--accent);padding:.9rem 1.1rem;background:var(--accent-dim);border-radius:0 var(--radius-sm) var(--radius-sm) 0;font-size:.88rem;color:var(--text-muted);line-height:1.6;margin-bottom:1.1rem}
+.highlight-bar strong{color:var(--text);font-weight:700}
+
+/* SECTION SHARED */
+.section-title{font-size:clamp(1.4rem,3vw,2rem);font-weight:900;color:var(--text);margin-bottom:.5rem;line-height:1.2}
+.section-sub{font-size:.9rem;color:var(--text-muted);margin-bottom:1.6rem;line-height:1.65;max-width:640px}
+
+/* FLOW */
+.flow-row{display:flex;align-items:center;gap:.7rem;flex-wrap:wrap;margin:1.4rem 0}
+.flow-box{padding:.65rem 1rem;border-radius:var(--radius-sm);font-size:.8rem;font-weight:700;text-align:center;line-height:1.3}
+.flow-arrow{color:var(--text-faint);font-size:1.1rem}
+
+/* CHEATSHEET */
+.cheatsheet-row{display:flex;align-items:baseline;gap:.8rem;padding:.75rem 0;border-bottom:1px solid var(--border);font-size:.87rem}
+.cheatsheet-row:last-child{border-bottom:none}
+.cheat-key{font-weight:700;color:var(--text);min-width:160px;flex-shrink:0}
+.cheat-val{color:var(--text-muted);line-height:1.5}
+
+/* CODE BLOCK */
+.code-block{background:#0d1117;border-right:3px solid var(--accent);border-radius:0 var(--radius-sm) var(--radius-sm) 0;padding:1rem 1.2rem;font-family:var(--mono);font-size:.78rem;color:var(--text-muted);line-height:1.8;margin-top:.7rem;direction:ltr;text-align:left;overflow-x:auto}
+
+/* VS GRID */
+.vs-grid{display:grid;grid-template-columns:1fr 1fr;gap:.9rem;margin-bottom:1.1rem}
+@media(max-width:520px){.vs-grid{grid-template-columns:1fr}}
+.vs-card{border-radius:var(--radius-md);padding:1.3rem 1.5rem}
+.vs-card.them{background:var(--surface);border:1px solid var(--border)}
+.vs-card.us{background:var(--accent-dim);border:1.5px solid var(--accent)}
+.vs-card.us-teal{background:rgba(29,158,117,.1);border:1.5px solid #1d9e75}
+.vs-brand{font-size:.65rem;font-weight:600;letter-spacing:.09em;text-transform:uppercase;margin-bottom:.5rem;font-family:var(--mono)}
+.vs-name{font-size:1.2rem;font-weight:800;margin-bottom:.9rem;color:var(--text)}
+.vs-row{display:flex;align-items:flex-start;gap:.5rem;margin-bottom:.55rem;font-size:.82rem;color:var(--text-muted);line-height:1.4}
+.vs-icon{flex-shrink:0;margin-top:1px}
+
+/* DEMO CARDS */
+.demo-card{border-radius:var(--radius-md);padding:1.6rem 1.8rem;margin-bottom:1rem;border:1px solid var(--border);background:var(--surface)}
+.demo-num{font-size:.65rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;margin-bottom:.5rem;font-family:var(--mono)}
+.demo-title{font-size:1.5rem;font-weight:900;color:var(--text);margin-bottom:.5rem}
+.demo-desc{font-size:.87rem;color:var(--text-muted);line-height:1.6;margin-bottom:1rem}
+.demo-steps{display:flex;flex-direction:column;gap:.5rem}
+.demo-step{display:flex;align-items:flex-start;gap:.6rem;font-size:.82rem;color:var(--text-muted);line-height:1.5}
+.demo-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;margin-top:.45rem}
+.demo-output{margin-top:1.1rem;background:#0d1117;border-right:3px solid;border-radius:0 var(--radius-sm) var(--radius-sm) 0;padding:1rem 1.2rem;font-size:.8rem;color:var(--text-muted);font-family:var(--mono);line-height:1.7;direction:ltr;text-align:left}
+
+/* SKILLS GRID */
+.sk-card{border-radius:var(--radius-md);padding:1.1rem 1.3rem;border:1px solid var(--border);background:var(--surface);transition:border-color .18s,transform .18s}
+.sk-card:hover{border-color:var(--accent);transform:translateY(-3px)}
+.sk-num{font-size:.65rem;font-weight:500;color:var(--text-faint);margin-bottom:.4rem;font-family:var(--mono)}
+.sk-name{font-size:.92rem;font-weight:700;color:var(--text);margin-bottom:.35rem;line-height:1.25}
+.sk-cmd{font-size:.7rem;font-family:var(--mono);padding:2px 7px;border-radius:4px;display:inline-block;margin-bottom:.55rem;direction:ltr}
+.sk-desc{font-size:.77rem;color:var(--text-muted);line-height:1.5}
+.sk-tag{font-size:.62rem;font-weight:600;padding:2px 9px;border-radius:999px;margin-top:.7rem;display:inline-block;letter-spacing:.05em;text-transform:uppercase;font-family:var(--mono)}
+.cat-filters{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:1.6rem}
+
+/* FOOTER RESOURCES */
+#footer{padding:5rem 2rem 3rem;border-top:1px solid var(--border)}
+.footer-title{font-size:clamp(1.3rem,2.5vw,1.8rem);font-weight:800;margin-bottom:.5rem}
+.footer-sub{font-size:.88rem;color:var(--text-muted);margin-bottom:2.5rem}
+.footer-grid{display:grid;grid-template-columns:1fr;gap:1rem}
+@media(min-width:500px){.footer-grid{grid-template-columns:repeat(2,1fr)}}
+@media(min-width:900px){.footer-grid{grid-template-columns:repeat(3,1fr)}}
+.footer-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-md);padding:1.3rem 1.5rem;transition:border-color .2s,transform .22s;display:block}
+.footer-card:hover{border-color:var(--accent);transform:translateY(-4px)}
+.footer-card-num{font-family:var(--mono);font-size:.62rem;color:var(--text-faint);letter-spacing:.1em;margin-bottom:.4rem}
+.footer-card-title{font-size:.9rem;font-weight:700;margin-bottom:.3rem}
+.footer-card-desc{font-size:.78rem;color:var(--text-muted);line-height:1.5;margin-bottom:.5rem}
+.footer-card-link{font-size:.72rem;color:var(--accent);font-family:var(--mono)}
+.footer-copy{margin-top:3rem;text-align:center;font-size:.75rem;color:var(--text-faint);font-family:var(--mono);letter-spacing:.05em}
+
+@media(max-width:700px){
+  .hero{padding:3.5rem 1.2rem 2.5rem}
+  .tabs-section{padding:2rem 1.2rem 0}
+  .cheat-key{min-width:120px;font-size:.8rem}
+}
+</style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<header class="topbar">
+  <div class="topbar-inner">
+    <span class="topbar-brand">AI Finance Transformation</span>
+    <nav class="topbar-nav">
+      <a href="#tabs">מה זה Skills</a>
+      <a href="#demos">דמואים</a>
+      <a href="#build">בנה בעצמך</a>
+      <a href="#footer">משאבים</a>
+    </nav>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="inner">
+    <div class="section-label">Claude Skills — מדריך לאנשי פיננסים</div>
+    <div class="hero-eyebrow">רונן עמוס · AI Finance Transformation</div>
+    <h1 class="hero-title">ה-AI שסוף סוף<br><span>מכיר את העבודה שלך</span></h1>
+    <p class="hero-sub">תפסיקו להסביר מחדש בכל שיחה מה הסטנדרטים שלכם. Skill אחד מלמד את Claude את הנוהל — והוא זוכר לנצח.</p>
+    <div class="hero-bullets">
+      <div class="hero-bullet">כתבו את ההנחיות פעם אחת — Claude מפעיל אותן אוטומטית</div>
+      <div class="hero-bullet">Variance commentary, Board pack, McKinsey slides — בפורמט שלכם</div>
+      <div class="hero-bullet">עובד בכל שיחה, בכל פרויקט, עם כל קובץ נתונים</div>
+      <div class="hero-bullet">קובץ Markdown אחד — ללא ממשק בניה, ללא כלי חיצוני</div>
+    </div>
+    <div class="hero-stats">
+      <div class="stat-box"><div class="stat-num">1×</div><div class="stat-lbl">כותבים פעם אחת</div></div>
+      <div class="stat-box"><div class="stat-num">∞</div><div class="stat-lbl">כל שיחה נהנית</div></div>
+      <div class="stat-box"><div class="stat-num">0</div><div class="stat-lbl">הסברים חוזרים</div></div>
+      <div class="stat-box"><div class="stat-num">30</div><div class="stat-lbl">Skills לבנות היום</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- TABS -->
+<section class="tabs-section" id="tabs">
+  <div class="inner">
+    <div class="tabs-nav">
+      <button class="tab-btn active" onclick="showTab('what',this)">מה זה Skills?</button>
+      <button class="tab-btn" onclick="showTab('how',this)">איך זה עובד</button>
+      <button class="tab-btn" onclick="showTab('demos',this)">3 דמואים מעשיים</button>
+      <button class="tab-btn" onclick="showTab('vs',this)">לעומת GPTs &amp; Copilot</button>
+      <button class="tab-btn" onclick="showTab('artifacts',this)">לעומת Artifacts</button>
+      <button class="tab-btn" onclick="showTab('build',this)">בנה בעצמך</button>
+      <button class="tab-btn" onclick="showTab('30skills',this)">30 Skills לבנות</button>
+    </div>
+
+    <!-- WHAT -->
+    <div class="panel active" id="tab-what">
+      <div class="section-label">הגדרה</div>
+      <h2 class="section-title">מה זה Claude Skill?</h2>
+      <p class="section-sub">משהו שנראה מסובך — ובפועל הוא קובץ טקסט אחד שמלמד את Claude לעבוד לפי הנוהל שלכם.</p>
+
+      <div class="highlight-bar"><strong>הגדרה בשורה אחת:</strong> Skill הוא תיקייה עם קובץ Markdown בפנים. כותבים את ה-workflow פעם אחת — Claude טוען אותו אוטומטית בכל פעם שהמשימה רלוונטית.</div>
+
+      <div class="card">
+        <div class="card-header" onclick="toggle(this)">
+          <div class="card-num" style="background:var(--accent-dim);color:var(--accent)">1</div>
+          <div class="card-title">מה יש בתוך Skill?</div>
+          <div class="card-toggle">›</div>
+        </div>
+        <div class="card-body">
+          <p>כל Skill הוא תיקייה עם קובץ אחד חובה: <code>SKILL.md</code>. בראש הקובץ יש כותרת YAML קצרה (frontmatter) שמספרת ל-Claude מה ה-Skill עושה ומתי להפעיל אותו. מתחת — ההוראות שלכם בעברית פשוטה.</p>
+          <p>אפשר גם לצרף סקריפטים (Python, Bash), מסמכי עזר, תבניות, ודוגמאות פלט — הכל באותה תיקייה. Claude יודע שהם שם ויטען אותם לפי הצורך.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header" onclick="toggle(this)">
+          <div class="card-num" style="background:var(--accent-dim);color:var(--accent)">2</div>
+          <div class="card-title">איך Claude יודע מתי להפעיל את ה-Skill?</div>
+          <div class="card-toggle">›</div>
+        </div>
+        <div class="card-body">
+          <p>שדה ה-<strong>description</strong> ב-SKILL.md הוא הטריגר. כתבו אותו כך: "הפעל כשהמשתמש מבקש commentary על variance, דוח חודשי, או מזכיר את ה-CFO pack." Claude קורא את זה ומחליט מתי ה-Skill רלוונטי.</p>
+          <p>אפשר גם להפעיל Skill ישירות עם slash command — פשוט כתבו <code>/fpa-commentary</code> וה-Skill מופעל מיד, ללא matching אוטומטי.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header" onclick="toggle(this)">
+          <div class="card-num" style="background:var(--accent-dim);color:var(--accent)">3</div>
+          <div class="card-title">איפה Skills גרים?</div>
+          <div class="card-toggle">›</div>
+        </div>
+        <div class="card-body">
+          <p><strong>Skills אישיים</strong> גרים בחשבון שלכם ועובדים בכל פרויקט. <strong>Skills של פרויקט</strong> משותפים לצוות דרך version control. Enterprise admins יכולים לפרוס Skills לכל הארגון.</p>
+          <p>ה-Skills עובדים על standard פתוח בשם Agent Skills — ניידים בין Claude.ai, Claude Code, והAPI. ללא נעילה לפלטפורמה.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- HOW -->
+    <div class="panel" id="tab-how">
+      <div class="section-label">מתחת למכסה</div>
+      <h2 class="section-title">שלוש שכבות של context</h2>
+      <p class="section-sub">Skills עובדים עם progressive disclosure — Claude טוען רק מה שצריך, כשצריך. השיחות נשארות מהירות וממוקדות.</p>
+
+      <div class="flow-row">
+        <div class="flow-box" style="background:var(--accent-dim);color:var(--accent)">תמיד טעון<br><small style="font-weight:400;font-size:.7rem">תיאור YAML</small></div>
+        <div class="flow-arrow">←</div>
+        <div class="flow-box" style="background:rgba(29,158,117,.12);color:#6fcfb0">כשרלוונטי<br><small style="font-weight:400;font-size:.7rem">קובץ SKILL.md מלא</small></div>
+        <div class="flow-arrow">←</div>
+        <div class="flow-box" style="background:rgba(186,117,23,.12);color:#e8a84a">לפי הצורך<br><small style="font-weight:400;font-size:.7rem">קבצי עזר מקושרים</small></div>
+      </div>
+
+      <div class="card">
+        <div class="card-header" onclick="toggle(this)">
+          <div class="card-num" style="background:var(--accent-dim);color:var(--accent)">L1</div>
+          <div class="card-title">שכבה 1 — תמיד בתוך ה-system prompt של Claude</div>
+          <div class="card-toggle">›</div>
+        </div>
+        <div class="card-body">
+          <p>ה-YAML frontmatter (שם + תיאור) נטען תמיד. Claude יודע שה-Skill שלכם קיים ולמה הוא מיועד — בלי לטעון את כל ההוראות בכל פעם. עלות ה-tokens כמעט אפסית.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header" onclick="toggle(this)">
+          <div class="card-num" style="background:rgba(29,158,117,.15);color:#6fcfb0">L2</div>
+          <div class="card-title">שכבה 2 — נטען כשה-Skill רלוונטי</div>
+          <div class="card-toggle">›</div>
+        </div>
+        <div class="card-body">
+          <p>כשאתם מבקשים commentary על variance (או מקלידים <code>/fpa-commentary</code>), Claude טוען את גוף ה-SKILL.md המלא — ההוראות שלב-אחר-שלב, פורמט הפלט, הטון, הסף לסימון חריגות, ודוגמאות. כאן גר ה-know-how שלכם.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header" onclick="toggle(this)">
+          <div class="card-num" style="background:rgba(186,117,23,.12);color:#e8a84a">L3</div>
+          <div class="card-title">שכבה 3 — קבצי עזר, נטעין לפי הצורך</div>
+          <div class="card-toggle">›</div>
+        </div>
+        <div class="card-body">
+          <p>מסמכי עזר, תבניות slides, הנחיות brand, סקריפטי validation — כולם בתיקיית ה-Skill, נטעין רק כשנדרש. ה-SKILL.md מקשר אליהם כדי ש-Claude ידע שהם קיימים.</p>
+        </div>
+      </div>
+
+      <div style="margin-top:2rem">
+        <p class="section-title" style="font-size:1.1rem">הפעלת Skill — שתי דרכים</p>
+        <div class="cheatsheet-row"><div class="cheat-key">שפה טבעית</div><div class="cheat-val">"כתוב לי את ה-commentary החודשי לדוח CFO" — Claude מזהה ומפעיל אוטומטית</div></div>
+        <div class="cheatsheet-row"><div class="cheat-key">Slash command</div><div class="cheat-val"><code>/fpa-commentary</code> — הפעלה מיידית, ללא matching</div></div>
+        <div class="cheatsheet-row"><div class="cheat-key">עם נתונים</div><div class="cheat-val">הדביקו טבלת P&amp;L או העלו קובץ, ואז הפעילו — Claude מעבד את שניהם יחד</div></div>
+      </div>
+    </div>
+
+    <!-- DEMOS -->
+    <div class="panel" id="tab-demos" id="demos">
+      <div class="section-label">דמואים מעשיים</div>
+      <h2 class="section-title">3 Skills בפעולה</h2>
+      <p class="section-sub">אותו AI. תוצאות שונות לחלוטין. כי כל Skill יודע בדיוק מה אתם צריכים.</p>
+
+      <div class="demo-card">
+        <div class="demo-num" style="color:var(--accent)">Skill 01 — /fpa-commentary</div>
+        <div class="demo-title">FP&amp;A Commentary</div>
+        <div class="demo-desc">הופך נתוני variance גולמיים מה-P&amp;L לcommentary מלוטש לדוח CFO. מכיר את הפורמט שלכם, הסף לסימון חריגות, והטון הנכון.</div>
+        <div class="demo-steps">
+          <div class="demo-step"><div class="demo-dot" style="background:var(--accent)"></div><span>הדביקו את נתוני ה-P&amp;L או העלו קובץ Excel</span></div>
+          <div class="demo-step"><div class="demo-dot" style="background:var(--accent)"></div><span>כתבו "כתוב את ה-commentary החודשי" — ה-Skill מופעל אוטומטית</span></div>
+          <div class="demo-step"><div class="demo-dot" style="background:var(--accent)"></div><span>Claude עוקב אחרי הפורמט: exec summary → drivers עיקריים → פסקאות BU → התראות</span></div>
+        </div>
+        <div class="demo-output" style="border-color:var(--accent)">
+Executive Summary: Revenue missed budget by ₪8.4M (-3.2%), driven primarily by softness in SMB. EBITDA held at 18.4% margin despite headwinds, due to cost discipline across all divisions.
+
+Key drivers: (1) SMB revenue -₪12.1M vs budget — לחץ תמחורי, לא ירידת נפח...
+        </div>
+      </div>
+
+      <div class="demo-card">
+        <div class="demo-num" style="color:#6fcfb0">Skill 02 — /fpa-board-deck</div>
+        <div class="demo-title">Board Deck Builder</div>
+        <div class="demo-desc">אותם מספרים — פורמט שמוכן לדירקטוריון. מכיר את מבנה ה-slides שלכם, מה חשוב לדירקטורים, ומה שייך לכל עמוד.</div>
+        <div class="demo-steps">
+          <div class="demo-step"><div class="demo-dot" style="background:#6fcfb0"></div><span>הקלידו <code>/fpa-board-deck</code> עם הנתונים</span></div>
+          <div class="demo-step"><div class="demo-dot" style="background:#6fcfb0"></div><span>ה-Skill מייצר מבנה slide-by-slide: כריכה → exec summary → P&amp;L bridge → waterfall → outlook</span></div>
+          <div class="demo-step"><div class="demo-dot" style="background:#6fcfb0"></div><span>insight אחד לכל slide. ללא bullets. שפה ברמת דירקטוריון.</span></div>
+        </div>
+        <div class="demo-output" style="border-color:#6fcfb0">
+Slide 1 — Revenue Bridge: "SMB drag offset by Enterprise outperformance"
+Slide 2 — Cost Structure: "OpEx held flat; headcount efficiency improved 8%"
+Slide 3 — Outlook: "H2 reforecast: ₪192M revenue, 19.1% EBITDA margin"
+        </div>
+      </div>
+
+      <div class="demo-card">
+        <div class="demo-num" style="color:#e8a84a">Skill 03 — /mckinsey-slides</div>
+        <div class="demo-title">McKinsey Slides</div>
+        <div class="demo-desc">דקים שמתחילים מה-insight — לפי ה-Pyramid Principle. כל כותרת היא "So What". כל slide מעביר נקודה אחת בדיוק.</div>
+        <div class="demo-steps">
+          <div class="demo-step"><div class="demo-dot" style="background:#e8a84a"></div><span>הפעילו עם <code>/mckinsey-slides</code> + הנתונים או ה-brief</span></div>
+          <div class="demo-step"><div class="demo-dot" style="background:#e8a84a"></div><span>ה-Skill מיישם Pyramid Principle: מבנה SCQA, כותרות-insight, ראיות תומכות</span></div>
+          <div class="demo-step"><div class="demo-dot" style="background:#e8a84a"></div><span>מייצר תוכנית slides מוכנה ל-PowerPoint או Google Slides</span></div>
+        </div>
+        <div class="demo-output" style="border-color:#e8a84a">
+Title: "Revenue growth has stalled — pricing pressure in SMB is the culprit, not volume"
+
+Supporting: Volume +4% YoY. ASP down 11% in SMB. Enterprise ASP stable.
+Implication: pricing strategy review needed, not go-to-market.
+        </div>
+      </div>
+    </div>
+
+    <!-- VS GPTs -->
+    <div class="panel" id="tab-vs">
+      <div class="section-label">השוואה</div>
+      <h2 class="section-title">Skills לעומת Custom GPTs ו-Copilot Agents</h2>
+      <p class="section-sub">אותה הבטחה — מוצרים שונים לחלוטין. הנה מה שחשוב לאנשי פיננסים.</p>
+
+      <div class="vs-grid">
+        <div class="vs-card us">
+          <div class="vs-brand" style="color:var(--accent)">Claude</div>
+          <div class="vs-name" style="color:var(--accent)">Skills</div>
+          <div class="vs-row"><span class="vs-icon">✓</span> כותבים ב-Markdown פשוט — ללא ממשק בניה</div>
+          <div class="vs-row"><span class="vs-icon">✓</span> עובד ב-Claude.ai, Claude Code, וה-API</div>
+          <div class="vs-row"><span class="vs-icon">✓</span> Standard פתוח — גמיש ונייד</div>
+          <div class="vs-row"><span class="vs-icon">✓</span> שלכם לגמרי — לשתף, לעשות version control, לפרסם</div>
+          <div class="vs-row"><span class="vs-icon">✓</span> reasoning מהמתקדמים בעולם לFP&amp;A עמוק</div>
+        </div>
+        <div class="vs-card them">
+          <div class="vs-brand" style="color:var(--text-faint)">OpenAI</div>
+          <div class="vs-name">Custom GPTs</div>
+          <div class="vs-row"><span class="vs-icon">○</span> נבנים בממשק GPT builder נפרד</div>
+          <div class="vs-row"><span class="vs-icon">○</span> נעולים לתוך מערכת ChatGPT</div>
+          <div class="vs-row"><span class="vs-icon">○</span> פורמט קנייני, ניידות מוגבלת</div>
+          <div class="vs-row"><span class="vs-icon">○</span> חלש יותר ב-reasoning מורכב רב-שלבי</div>
+          <div class="vs-row"><span class="vs-icon">○</span> מסביר את ה-context מחדש לעיתים קרובות יותר</div>
+        </div>
+      </div>
+
+      <div class="vs-grid">
+        <div class="vs-card us">
+          <div class="vs-brand" style="color:var(--accent)">Claude</div>
+          <div class="vs-name" style="color:var(--accent)">Skills</div>
+          <div class="vs-row"><span class="vs-icon">✓</span> רמות אישי + צוות + ארגון</div>
+          <div class="vs-row"><span class="vs-icon">✓</span> עובד עם כל מקור נתונים ו-workflow</div>
+          <div class="vs-row"><span class="vs-icon">✓</span> קובץ Markdown — ניהול ב-Git כמו קוד</div>
+          <div class="vs-row"><span class="vs-icon">✓</span> מחברים MCP לנתונים חיים</div>
+        </div>
+        <div class="vs-card them">
+          <div class="vs-brand" style="color:var(--text-faint)">Microsoft</div>
+          <div class="vs-name">Copilot Agents</div>
+          <div class="vs-row"><span class="vs-icon">○</span> דורש מערכת Microsoft 365 לאורך כל הדרך</div>
+          <div class="vs-row"><span class="vs-icon">○</span> בנוי לארגונים גדולים עם IT מנוהל</div>
+          <div class="vs-row"><span class="vs-icon">○</span> קשה יותר למשתמשי power user להזיז מהר</div>
+          <div class="vs-row"><span class="vs-icon">○</span> מוגבל מחוץ ל-SharePoint/Teams/Excel</div>
+        </div>
+      </div>
+
+      <div class="highlight-bar" style="margin-top:.5rem">שלושה הבדלים שחשובים: <strong>ניידות</strong> (קובץ Markdown שלכם), <strong>פשטות</strong> (הוראות בשפה פשוטה, ללא ממשק בניה), ו<strong>איכות ה-reasoning</strong> (Claude מטפל בשיקול דעת FP&amp;A מורכב טוב יותר).</div>
+    </div>
+
+    <!-- VS ARTIFACTS -->
+    <div class="panel" id="tab-artifacts">
+      <div class="section-label">בלבול נפוץ</div>
+      <h2 class="section-title">Skills לעומת Artifacts — שני דברים שונים לגמרי</h2>
+      <p class="section-sub">אנשים מתבלבלים בין השניים כל הזמן. הנה המודל המנטלי הנכון.</p>
+
+      <div class="vs-grid" style="margin-bottom:1.1rem">
+        <div class="vs-card us">
+          <div class="vs-brand" style="color:var(--accent)">הוראות → Claude</div>
+          <div class="vs-name" style="color:var(--accent)">Skills</div>
+          <div class="vs-row" style="margin-bottom:.8rem">אתם <em>מלמדים</em> את Claude לעבוד בשבילכם.</div>
+          <div class="vs-row"><span class="vs-icon">→</span> גר בהגדרות Claude שלכם</div>
+          <div class="vs-row"><span class="vs-icon">→</span> נטעין אוטומטית כשרלוונטי</div>
+          <div class="vs-row"><span class="vs-icon">→</span> הופך את Claude לחכם יותר ל-workflow שלכם</div>
+          <div class="vs-row"><span class="vs-icon">→</span> אף אחד אחר לא רואה אותו</div>
+        </div>
+        <div class="vs-card us-teal">
+          <div class="vs-brand" style="color:#6fcfb0">Claude → פלט</div>
+          <div class="vs-name" style="color:#6fcfb0">Artifacts</div>
+          <div class="vs-row" style="margin-bottom:.8rem">Claude <em>בונה</em> משהו שימושי עבור <em>אחרים</em>.</div>
+          <div class="vs-row"><span class="vs-icon">→</span> אפליקציה קטנה או אתר אינטראקטיבי</div>
+          <div class="vs-row"><span class="vs-icon">→</span> שולחים קישור, מישהו פותח בדפדפן</div>
+          <div class="vs-row"><span class="vs-icon">→</span> אפשר להשתמש: מודלים, טפסים, חקר נתונים</div>
+          <div class="vs-row"><span class="vs-icon">→</span> זה הפלט — לא ההוראה</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header" onclick="toggle(this)">
+          <div class="card-num" style="background:rgba(55,138,221,.12);color:#7ec3f5">?</div>
+          <div class="card-title">האנלוגיה: ספר הבישול לעומת הארוחה</div>
+          <div class="card-toggle">›</div>
+        </div>
+        <div class="card-body">
+          <p><strong>Skill הוא ספר הבישול שלכם.</strong> הוא אומר ל-Claude את המתכונים שלכם — איך אתם רוצים שדברים ייעשו, איזה סטנדרטים לשמור, איך הפלט אמור להיראות. אף אחד אחר לא קורא את ספר הבישול. הוא קיים כדי לשפר את הבישול שלכם.</p>
+          <p><strong>Artifact הוא הארוחה.</strong> Claude מבשל אותה לפי המתכון של ה-Skill, ואתם מגישים אותה למישהו אחר. הם אוכלים — הם לא רואים את ספר הבישול.</p>
+          <p>בשפת פיננסים: ה-Skill /fpa-commentary הוא ספר הבישול. ה-commentary המלוטש שClaude מייצר — שאתם מדביקים לדוח CFO — זאת הארוחה.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header" onclick="toggle(this)">
+          <div class="card-num" style="background:rgba(216,90,48,.12);color:#f0a080">!</div>
+          <div class="card-title">מתי תשתמשו ב-Artifact בפיננסים?</div>
+          <div class="card-toggle">›</div>
+        </div>
+        <div class="card-body">
+          <p>כשאתם רוצים לשתף משהו <em>אינטראקטיבי</em> עם מישהו שלא משתמש ב-Claude. לדוגמה: מודל תרחישים שה-CFO יכול להזיז בו slider של הכנסות ולראות את ה-EBITDA מתעדכן. טרקר תקציב שמישהו בצוות ממלא. גרף bridge אינטראקטיבי לישיבת הדירקטוריון.</p>
+          <p>ה-Artifact הוא mini-app עצמאי — נפתח בדפדפן, ללא צורך בחשבון Claude. ה-Skill שלכם יכול אפילו להיות ערכת ההוראות שמגדירה ל-Claude <em>איך</em> לבנות את ה-Artifact הזה.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- BUILD -->
+    <div class="panel" id="tab-build" id="build">
+      <div class="section-label">שלב ראשון</div>
+      <h2 class="section-title">בנו את ה-Skill הראשון שלכם ב-20 דקות</h2>
+      <p class="section-sub">צריך קובץ אחד. הנה השלד.</p>
+
+      <div class="card">
+        <div class="card-header" onclick="toggle(this)">
+          <div class="card-num" style="background:var(--accent-dim);color:var(--accent)">1</div>
+          <div class="card-title">צרו את קובץ SKILL.md</div>
+          <div class="card-toggle">›</div>
+        </div>
+        <div class="card-body">
+          <p>צרו תיקייה בשם <code>fpa-commentary</code>. בתוכה, צרו קובץ בשם בדיוק <code>SKILL.md</code> (case-sensitive). ה-YAML frontmatter נכנס בין סימני ה-<code>---</code> בראש הקובץ.</p>
+          <div class="code-block">---
+name: fpa-commentary
+description: Writes FP&A variance commentary for the CFO pack.
+Use when asked for monthly commentary, variance analysis,
+or CFO reporting.
+---
+
+# FP&A Commentary
+
+When writing variance commentary:
+1. Start with a 2-sentence executive summary
+2. Call out the top 3 drivers (positive and negative)
+3. One paragraph per business unit
+4. Flag anything ±5% vs budget
+5. Tone: direct, no jargon, CFO-ready</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header" onclick="toggle(this)">
+          <div class="card-num" style="background:var(--accent-dim);color:var(--accent)">2</div>
+          <div class="card-title">העלו ל-Claude.ai</div>
+          <div class="card-toggle">›</div>
+        </div>
+        <div class="card-body">
+          <p>לכו ל-<strong>Settings → Capabilities → Skills</strong>. לחצו "Upload skill". בחרו את תיקיית <code>fpa-commentary</code> (דחסו ל-zip אם נדרש). הפעילו.</p>
+          <p>זהו. ה-Skill שלכם פעיל בכל שיחה עתידית.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header" onclick="toggle(this)">
+          <div class="card-num" style="background:var(--accent-dim);color:var(--accent)">3</div>
+          <div class="card-title">בדקו ושפרו</div>
+          <div class="card-toggle">›</div>
+        </div>
+        <div class="card-body">
+          <p><strong>בדיקת הפעלה:</strong> אמרו "כתוב לי את ה-commentary החודשי" — האם Claude טוען את ה-Skill אוטומטית? שאלו "אילו Skills יש לך?" לאישור שהוא גלוי.</p>
+          <p><strong>אם לא מופעל אוטומטית:</strong> הפכו את ה-description לספציפי יותר. הוסיפו ביטויים שאנשים אמיתיים אומרים. היו מפורשים: "Use when user mentions variance, commentary, CFO pack, monthly report."</p>
+          <p><strong>איטרציה מהירה:</strong> ערכו את ה-SKILL.md, העלו מחדש, בדקו שוב. Skills הם מסמכים חיים — הטובים ביותר מתעדנים עשרות שימושים אמיתיים.</p>
+        </div>
+      </div>
+
+      <div class="highlight-bar" style="margin-top:1.3rem">טיפ של Anthropic: עשו איטרציה על משימה מאתגרת אחת עד שClaude מצליח, אז חלצו את הגישה המנצחת ל-Skill. מהיר יותר מבדיקות רחבות מהיום הראשון.</div>
+
+      <div style="margin-top:1.5rem">
+        <p class="section-title" style="font-size:1.1rem">צ'קליסט לפני שמעלים</p>
+        <div class="cheatsheet-row"><div class="cheat-key">שם התיקייה</div><div class="cheat-val">kebab-case, ללא רווחים, ללא אותיות גדולות (למשל <code>fpa-commentary</code>)</div></div>
+        <div class="cheatsheet-row"><div class="cheat-key">שם הקובץ</div><div class="cheat-val">בדיוק <code>SKILL.md</code> — case-sensitive, ללא שינויים</div></div>
+        <div class="cheatsheet-row"><div class="cheat-key">ה-description</div><div class="cheat-val">אומר מה הוא עושה ומתי להפעיל. כולל ביטויי טריגר.</div></div>
+        <div class="cheatsheet-row"><div class="cheat-key">ללא README.md</div><div class="cheat-val">לא לשים README בתיקיית ה-Skill — כל המסמכים בתוך SKILL.md</div></div>
+        <div class="cheatsheet-row"><div class="cheat-key">בדיקה</div><div class="cheat-val">מופעל על משימות ברורות, לא מופעל על שאלות לא קשורות</div></div>
+      </div>
+    </div>
+
+    <!-- 30 SKILLS -->
+    <div class="panel" id="tab-30skills">
+      <div class="section-label">ספריית Skills</div>
+      <h2 class="section-title">30 Skills לבנות ל-Claude</h2>
+      <p class="section-sub">כל אחד מלמד את Claude workflow חוזר — כדי שלא תסבירו אותו שוב. סננו לפי קטגוריה.</p>
+      <div class="cat-filters" id="cat-filters">
+        <button class="tab-btn active" onclick="filterSkills('all',this)">כל 30</button>
+        <button class="tab-btn" onclick="filterSkills('reporting',this)">דיווח</button>
+        <button class="tab-btn" onclick="filterSkills('planning',this)">תכנון ותחזית</button>
+        <button class="tab-btn" onclick="filterSkills('analysis',this)">ניתוח</button>
+        <button class="tab-btn" onclick="filterSkills('comms',this)">תקשורת &amp; Decks</button>
+        <button class="tab-btn" onclick="filterSkills('ops',this)">Ops &amp; אוטומציה</button>
+      </div>
+      <div id="skills-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:.9rem"></div>
+    </div>
+
+  </div><!-- .inner -->
+</section>
+
+<!-- FOOTER RESOURCES -->
+<section id="footer">
+  <div class="inner">
+    <div class="section-label">המשך</div>
+    <h2 class="footer-title">למדריכים ותוכן נוסף</h2>
+    <p class="footer-sub">כל הכלים, הקהילה והמשאבים — במקום אחד.</p>
+    <div class="footer-grid">
+      <a href="https://chat.whatsapp.com/CS6dgqnK45Q9XAMqScNr6R" target="_blank" class="footer-card">
+        <div class="footer-card-num">01 · COMMUNITY</div>
+        <div class="footer-card-title">קהילת AI Finance</div>
+        <div class="footer-card-desc">מעל 800 אנשי פיננסים שחולקים כלים ו-prompts בזמן אמת.</div>
+        <div class="footer-card-link">chat.whatsapp.com ↗</div>
+      </a>
+      <a href="https://www.youtube.com/@AIFinanceTransformation" target="_blank" class="footer-card">
+        <div class="footer-card-num">02 · YOUTUBE</div>
+        <div class="footer-card-title">AI for Finance</div>
+        <div class="footer-card-desc">הדגמות מעשיות, walkthroughs ו-playbooks שמאחורי הפרקטיקה.</div>
+        <div class="footer-card-link">@AIFinanceTransformation ↗</div>
+      </a>
+      <a href="https://www.ronenamoscpa.co.il/" target="_blank" class="footer-card">
+        <div class="footer-card-num">03 · NEWSLETTER</div>
+        <div class="footer-card-title">הניוזלטר השבועי</div>
+        <div class="footer-card-desc">תובנות AI לפיננסים ישר למייל שלך — כתוב על ידי איש פיננסים.</div>
+        <div class="footer-card-link">ronenamoscpa.co.il ↗</div>
+      </a>
+      <a href="https://www.ronenamoscpa.co.il/skill-vault" target="_blank" class="footer-card">
+        <div class="footer-card-num">04 · PROMPT HUB</div>
+        <div class="footer-card-title">Skill Vault</div>
+        <div class="footer-card-desc">ספריית ה-prompts שלי — מוכנים לשימוש מיידי בצוות הפיננסים שלך.</div>
+        <div class="footer-card-link">ronenamoscpa.co.il/skill-vault ↗</div>
+      </a>
+      <a href="https://www.paypal.com/ncp/payment/E36KBLHK8MDPN" target="_blank" class="footer-card">
+        <div class="footer-card-num">05 · THE BOOK</div>
+        <div class="footer-card-title">Claude Playbook</div>
+        <div class="footer-card-desc">הספר המלא — frameworks, case studies ומדריכי יישום לצוותי פיננסים.</div>
+        <div class="footer-card-link">רכישה מאובטחת ↗</div>
+      </a>
+      <a href="https://www.ronenamoscpa.co.il/courses" target="_blank" class="footer-card">
+        <div class="footer-card-num">06 · COURSE</div>
+        <div class="footer-card-title">קורס AI Finance</div>
+        <div class="footer-card-desc">תוכנית מובנית להטמעת חשיבה AI-First בצוות הפיננסים שלך.</div>
+        <div class="footer-card-link">ronenamoscpa.co.il/courses ↗</div>
+      </a>
+    </div>
+    <div class="footer-copy">Ronen Amos · AI Finance Transformation</div>
+  </div>
+</section>
+
+<script>
+const SKILLS=[
+  {n:1, name:"FP&A Commentary",           cmd:"/fpa-commentary",     cat:"reporting", color:"accent",  desc:"כותב commentary על variance לדוח CFO — exec summary, drivers עיקריים, פסקאות BU, התראות.", tag:"דיווח", star:true},
+  {n:2, name:"Board Deck Builder",         cmd:"/fpa-board-deck",     cat:"comms",     color:"teal",    desc:"בונה מבנה slides לדירקטוריון מנתוני P&L. insight אחד לכל slide, ללא bullets.", tag:"Decks", star:true},
+  {n:3, name:"McKinsey Slides",            cmd:"/mckinsey-slides",    cat:"comms",     color:"amber",   desc:"דקים שמתחילים מה-insight לפי Pyramid Principle. כל כותרת היא So What.", tag:"Decks", star:true},
+  {n:4, name:"Scenario Simulation",        cmd:"/scenario-sim",       cat:"planning",  color:"blue",    desc:"בונה ומשווה תרחישי Base / Bull / Bear עם טבלות רגישות על הנחות מפתח.", tag:"תכנון"},
+  {n:5, name:"Rolling Forecast",           cmd:"/rolling-forecast",   cat:"planning",  color:"teal",    desc:"מעדכן תחזית 12 חודשים מ-actuals, מסמן סטייה מהתקציב, מציע תיקונים.", tag:"תחזית"},
+  {n:6, name:"Budget Bridge",              cmd:"/budget-bridge",      cat:"analysis",  color:"coral",   desc:"מפרק variance תקציב מול actual לרכיבי נפח, מחיר, מיקס, ו-FX.", tag:"ניתוח"},
+  {n:7, name:"Cash Flow Forecast",         cmd:"/cashflow-forecast",  cat:"planning",  color:"accent",  desc:"מקרין תזרים 13 שבועות מנתוני AR/AP, מסמן תאריכי סיכון נזילות, פלט יומי.", tag:"תחזית"},
+  {n:8, name:"KPI Dashboard Narrative",   cmd:"/kpi-narrative",      cat:"reporting", color:"blue",    desc:"כותב את הסיפור מאחורי dashboard KPI — מה זז, למה זה חשוב, מה לעקוב.", tag:"דיווח"},
+  {n:9, name:"M&A Synergy Model",          cmd:"/ma-synergies",       cat:"analysis",  color:"amber",   desc:"מכמת סינרגיות הכנסות ועלויות מעסקה, בונה לוח זמנים לintegration ו-P&L impact.", tag:"ניתוח"},
+  {n:10,name:"Investor Memo",              cmd:"/investor-memo",      cat:"comms",     color:"accent",  desc:"מנסח עדכוני LP/משקיעים לפי הפורמט שלכם: highlights, פיננסים, הערות.", tag:"תקשורת"},
+  {n:11,name:"Month-End Close Pack",      cmd:"/close-pack",         cat:"reporting", color:"teal",    desc:"מרכיב דוח סגירת חודש שלם מ-trial balance ונתוני variance.", tag:"דיווח"},
+  {n:12,name:"Headcount Planning",         cmd:"/headcount-plan",     cat:"planning",  color:"coral",   desc:"מדמה תכנית גיוס לפי מחלקה, מחשב impact עלויות, משווה לתקציב מאושר.", tag:"תכנון"},
+  {n:13,name:"SaaS Metrics Analyser",      cmd:"/saas-metrics",       cat:"analysis",  color:"blue",    desc:"מחשב ARR, NRR, churn, CAC, LTV, payback period וכותב את הנרטיב.", tag:"ניתוח"},
+  {n:14,name:"Exec Summary Writer",        cmd:"/exec-summary",       cat:"comms",     color:"amber",   desc:"הופך דוח עמוס נתונים לסיכום מנהלים של עמוד אחד בסגנון הבית שלכם.", tag:"תקשורת"},
+  {n:15,name:"CapEx Appraisal",            cmd:"/capex-appraisal",    cat:"analysis",  color:"teal",    desc:"בונה NPV, IRR, payback לפרויקט הון עם רגישות על קלטים מרכזיים.", tag:"ניתוח"},
+  {n:16,name:"P&L Deep Dive",              cmd:"/pl-deep-dive",       cat:"analysis",  color:"accent",  desc:"ניתוח P&L שורה-שורה: מסמן חריגות, מחשב מרווחים, עוקב אחרי טרנד.", tag:"ניתוח"},
+  {n:17,name:"Cost Reduction Tracker",     cmd:"/cost-tracker",       cat:"ops",       color:"coral",   desc:"עוקב אחרי יוזמות חיסכון, מחשב run-rate savings, מסמן פיגורים.", tag:"Ops"},
+  {n:18,name:"Reforecast Pack",            cmd:"/reforecast",         cat:"planning",  color:"blue",    desc:"דוח reforecast מלא: P&L מתוקן, bridge מהתקציב המקורי, עמוד הנחות מעודכן.", tag:"תחזית"},
+  {n:19,name:"Working Capital Analysis",   cmd:"/working-capital",    cat:"analysis",  color:"amber",   desc:"מנתח טרנדי DSO, DPO, DIO, מסמן סיכוני cash conversion cycle, מציע מנופים.", tag:"ניתוח"},
+  {n:20,name:"Board Q&A Prep",             cmd:"/board-qa-prep",      cat:"comms",     color:"teal",    desc:"מציע שאלות דירקטוריון מהדק שלכם, מנסח תשובות תמציתיות עם נתוני תמיכה.", tag:"תקשורת"},
+  {n:21,name:"FX Impact Report",           cmd:"/fx-impact",          cat:"reporting", color:"accent",  desc:"מבודד השפעת מטבע על הכנסות ומרווחים, בונה השוואה בשערי constant-currency.", tag:"דיווח"},
+  {n:22,name:"Department Budget Review",   cmd:"/dept-budget",        cat:"planning",  color:"blue",    desc:"סוקר הגשות תקציב מחלקתיות, מסמן אי-עקביות, מוציא תצוגה מאוחדת.", tag:"תכנון"},
+  {n:23,name:"Revenue Bridge",             cmd:"/revenue-bridge",     cat:"analysis",  color:"coral",   desc:"מפל הכנסות: שינוי נפח, מחיר, לקוחות חדשים/אבודים, ומיקס מוצרים.", tag:"ניתוח"},
+  {n:24,name:"Covenant Tracker",           cmd:"/covenant-tracker",   cat:"ops",       color:"amber",   desc:"מנטר אמות מידה חוב מול actuals, מסמן headroom, מנסח עדכון מלווים.", tag:"Ops"},
+  {n:25,name:"Finance Business Partner",   cmd:"/fbp-pack",           cat:"comms",     color:"teal",    desc:"בונה דוח FBP חודשי לבינת עסקים: actuals, תחזית, תובנות, דרישות.", tag:"תקשורת"},
+  {n:26,name:"Three-Statement Model",      cmd:"/3-statement",        cat:"planning",  color:"accent",  desc:"בונה מודל P&L, מאזן, ותזרים משולב מהנחות שלכם.", tag:"תחזית"},
+  {n:27,name:"Pricing Analysis",           cmd:"/pricing-analysis",   cat:"analysis",  color:"blue",    desc:"מנתח מחיר מול נפח מול מיקס, מחשב elasticity, מדמה השפעת שינויי מחיר.", tag:"ניתוח"},
+  {n:28,name:"Grant & Subsidy Tracker",    cmd:"/grant-tracker",      cat:"ops",       color:"coral",   desc:"עוקב אחרי milestones מענקים, הוצאות מול הקצאה, מנסח דיווח ציות.", tag:"Ops"},
+  {n:29,name:"ESG Reporting Pack",         cmd:"/esg-report",         cat:"reporting", color:"amber",   desc:"מבנה גילויי ESG: פליטות, מדדים חברתיים, ממשל — במסגרת המועדפת עליכם.", tag:"דיווח"},
+  {n:30,name:"Audit Pack Builder",         cmd:"/audit-pack",         cat:"ops",       color:"teal",    desc:"מרכיב לוחות זמנים מוכנים לביקורת, פיוסים, ו-flux commentary מ-trial balance.", tag:"Ops"},
+];
+
+const COLORS={
+  accent:{bg:"var(--accent-dim)",text:"var(--accent)",cmdbg:"var(--accent-dim)",cmd:"var(--accent)"},
+  teal:{bg:"rgba(29,158,117,.12)",text:"#6fcfb0",cmdbg:"rgba(29,158,117,.12)",cmd:"#6fcfb0"},
+  amber:{bg:"rgba(186,117,23,.12)",text:"#e8a84a",cmdbg:"rgba(186,117,23,.12)",cmd:"#e8a84a"},
+  coral:{bg:"rgba(216,90,48,.12)",text:"#f0a080",cmdbg:"rgba(216,90,48,.12)",cmd:"#f0a080"},
+  blue:{bg:"rgba(55,138,221,.12)",text:"#7ec3f5",cmdbg:"rgba(55,138,221,.12)",cmd:"#7ec3f5"},
+};
+
+function renderSkills(filter){
+  const grid=document.getElementById("skills-grid");
+  const list=filter==="all"?SKILLS:SKILLS.filter(s=>s.cat===filter);
+  grid.innerHTML=list.map(s=>{
+    const c=COLORS[s.color];
+    const starLabel=s.star?`<span style="font-size:.6rem;font-weight:600;color:var(--accent);background:var(--accent-dim);padding:1px 7px;border-radius:999px;margin-right:5px">מוצג</span>`:"";
+    return `<div class="sk-card">
+      <div class="sk-num">Skill ${String(s.n).padStart(2,"0")} ${starLabel}</div>
+      <div class="sk-name">${s.name}</div>
+      <span class="sk-cmd" style="background:${c.cmdbg};color:${c.cmd}">${s.cmd}</span>
+      <div class="sk-desc">${s.desc}</div>
+      <span class="sk-tag" style="background:${c.bg};color:${c.text}">${s.tag}</span>
+    </div>`;
+  }).join("");
+}
+
+function filterSkills(cat,btn){
+  document.querySelectorAll("#cat-filters .tab-btn").forEach(b=>b.classList.remove("active"));
+  btn.classList.add("active");
+  renderSkills(cat);
+}
+
+renderSkills("all");
+
+function showTab(id,btn){
+  document.querySelectorAll(".panel").forEach(p=>p.classList.remove("active"));
+  document.querySelectorAll(".tabs-nav .tab-btn").forEach(b=>b.classList.remove("active"));
+  document.getElementById("tab-"+id).classList.add("active");
+  btn.classList.add("active");
+  document.getElementById("tabs").scrollIntoView({behavior:"smooth",block:"start"});
+}
+
+function toggle(header){
+  const body=header.nextElementSibling;
+  const icon=header.querySelector(".card-toggle");
+  const open=body.classList.toggle("open");
+  icon.classList.toggle("open",open);
+}
+</script>
+</body>
+</html>
