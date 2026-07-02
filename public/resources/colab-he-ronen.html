@@ -1,0 +1,1113 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Google Colab לאנשי כספים | AI Finance Transformation — רונן עמוס CPA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800;900&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0b0d10;--surface:#12161a;--surface2:#1a1f26;
+  --accent:#b8c45a;--accent-strong:#d6e36a;--accent-dim:rgba(184,196,90,0.12);
+  --text:#fafbfc;--text-muted:#c2cad2;--text-faint:#7a8694;
+  --border:rgba(255,255,255,0.07);--border-accent:rgba(184,196,90,0.35);
+  --radius-sm:10px;--radius-md:18px;--radius-lg:28px;
+  --font:Heebo,system-ui,sans-serif;--mono:"IBM Plex Mono",monospace;
+  --sidebar-w:240px;--topbar-h:52px;
+}
+html,body{min-height:100%;background:var(--bg);color:var(--text);font-family:var(--font);font-size:16px;line-height:1.6;overflow:hidden}
+
+/* ── TOPBAR ── */
+.topbar{position:fixed;top:0;left:0;right:0;z-index:200;background:rgba(11,13,16,0.95);backdrop-filter:blur(14px);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 1.5rem;height:var(--topbar-h)}
+.topbar-brand{font-family:var(--mono);font-size:0.78rem;color:var(--accent);letter-spacing:0.06em;font-weight:600}
+.topbar-right{display:flex;align-items:center;gap:1rem}
+.topbar-progress{display:flex;align-items:center;gap:0.6rem;font-family:var(--mono);font-size:0.68rem;color:var(--text-faint)}
+.progress-bar{width:80px;height:3px;background:var(--border);border-radius:3px;overflow:hidden}
+.progress-fill{height:100%;background:var(--accent);border-radius:3px;transition:width .4s}
+.topbar-badge{font-family:var(--mono);font-size:0.65rem;color:var(--accent);background:var(--accent-dim);padding:0.2rem 0.7rem;border-radius:20px;border:1px solid var(--border-accent)}
+.menu-toggle{display:none;background:none;border:1px solid var(--border);border-radius:6px;padding:0.35rem 0.6rem;cursor:pointer;color:var(--text-muted);font-size:1rem}
+@media(max-width:800px){.menu-toggle{display:block}.topbar-badge{display:none}}
+
+/* ── LAYOUT ── */
+.shell{display:flex;height:100vh;padding-top:var(--topbar-h)}
+
+/* ── SIDEBAR ── */
+.sidebar{
+  width:var(--sidebar-w);flex-shrink:0;
+  background:var(--surface);border-left:1px solid var(--border);
+  display:flex;flex-direction:column;overflow:hidden;
+  transition:transform .3s;
+}
+.sidebar-scroll{flex:1;overflow-y:auto;overflow-x:hidden;padding:0.5rem 0}
+.sidebar-scroll::-webkit-scrollbar{width:4px}
+.sidebar-scroll::-webkit-scrollbar-track{background:transparent}
+.sidebar-scroll::-webkit-scrollbar-thumb{background:var(--border);border-radius:4px}
+.sb-section-label{font-family:var(--mono);font-size:0.58rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--text-faint);padding:1rem 1rem 0.4rem}
+.sb-item{
+  display:flex;align-items:flex-start;gap:0.7rem;
+  padding:0.75rem 1rem;cursor:pointer;
+  border-right:3px solid transparent;
+  font-size:0.8rem;color:var(--text-muted);
+  transition:all .15s;text-decoration:none;line-height:1.2;
+}
+.sb-item:hover{background:rgba(255,255,255,0.03);color:var(--text)}
+.sb-item.active{background:var(--accent-dim);border-right-color:var(--accent);color:var(--text)}
+.sb-num{
+  width:22px;height:22px;border-radius:50%;
+  background:var(--surface2);display:flex;align-items:center;justify-content:center;
+  font-size:0.58rem;font-weight:700;flex-shrink:0;font-family:var(--mono);
+  margin-top:0.1rem;color:var(--text-faint);transition:all .15s;
+}
+.sb-item.active .sb-num{background:var(--accent);color:#0b0d10}
+.sb-item-text{}
+.sb-item-title{font-weight:700;font-size:0.82rem;color:inherit;margin-bottom:0.1rem}
+.sb-item.active .sb-item-title{color:var(--text)}
+.sb-item-sub{font-size:0.68rem;color:var(--text-faint);line-height:1.3}
+.sidebar-bottom{padding:0.8rem;border-top:1px solid var(--border);flex-shrink:0}
+.sidebar-bottom a{display:block;background:var(--accent);color:#0b0d10;font-weight:700;font-size:0.72rem;padding:0.55rem 0.9rem;border-radius:var(--radius-sm);text-align:center;font-family:var(--mono);text-decoration:none;transition:background .2s}
+.sidebar-bottom a:hover{background:var(--accent-strong)}
+
+@media(max-width:800px){
+  .sidebar{position:fixed;top:var(--topbar-h);right:0;bottom:0;z-index:150;transform:translateX(100%)}
+  .sidebar.open{transform:translateX(0)}
+  .main-area{width:100%}
+}
+
+/* ── MAIN ── */
+.main-area{flex:1;overflow-y:auto;overflow-x:hidden}
+.main-area::-webkit-scrollbar{width:5px}
+.main-area::-webkit-scrollbar-track{background:transparent}
+.main-area::-webkit-scrollbar-thumb{background:var(--border);border-radius:4px}
+
+/* ── PAGES ── */
+.page{display:none;padding:2.5rem 2.5rem 5rem;max-width:860px}
+.page.active{display:block}
+.page-tag{display:inline-block;font-family:var(--mono);font-size:0.6rem;color:var(--accent);letter-spacing:0.15em;text-transform:uppercase;border:1px solid var(--border-accent);border-radius:30px;padding:0.25rem 0.8rem;margin-bottom:0.9rem}
+.page-title{font-size:clamp(1.6rem,3vw,2.4rem);font-weight:900;line-height:1.15;margin-bottom:0.7rem}
+.page-title em{font-style:normal;color:var(--accent)}
+.page-lead{font-size:0.92rem;color:var(--text-muted);line-height:1.8;max-width:680px;margin-bottom:1.5rem}
+h2{font-size:1.2rem;font-weight:800;margin:2rem 0 0.7rem;color:var(--text)}
+h3{font-size:0.95rem;font-weight:700;margin:1.4rem 0 0.5rem;color:var(--text)}
+p{color:var(--text-muted);line-height:1.8;margin-bottom:0.8rem;font-size:0.87rem}
+strong{color:var(--text);font-weight:700}
+code{font-family:var(--mono);font-size:0.75rem;background:var(--accent-dim);color:var(--accent);padding:0.1rem 0.4rem;border-radius:4px}
+hr{border:none;border-top:1px solid var(--border);margin:2rem 0}
+
+/* ── COMPONENTS ── */
+.callout{border-radius:var(--radius-sm);padding:1rem 1.2rem;margin:1.2rem 0;font-size:0.83rem;border-right:3px solid}
+.callout-tip{background:rgba(184,196,90,0.06);border-color:var(--accent);color:var(--text-muted)}
+.callout-warn{background:rgba(255,179,71,0.06);border-color:#ffb347;color:#e2a06a}
+.callout strong{display:block;font-weight:700;font-size:0.78rem;margin-bottom:0.3rem;color:var(--text)}
+
+.stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:0.9rem;margin:1.2rem 0}
+@media(max-width:600px){.stat-row{grid-template-columns:1fr}}
+.stat-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-md);padding:1.4rem 1.2rem}
+.stat-num{font-size:2.2rem;font-weight:900;color:var(--accent);line-height:1;margin-bottom:0.4rem;font-family:var(--mono)}
+.stat-label{font-size:0.78rem;color:var(--text-muted);line-height:1.5}
+
+.bullet-list{list-style:none;padding:0;margin:0.8rem 0}
+.bullet-list li{padding:0.6rem 1.3rem 0.6rem 0;position:relative;font-size:0.83rem;border-bottom:1px solid var(--border);color:var(--text-muted)}
+.bullet-list li:last-child{border-bottom:none}
+.bullet-list li::before{content:"→";position:absolute;right:0;color:var(--accent);font-weight:700}
+
+.steps{display:flex;flex-direction:column;gap:0.9rem;margin:1.2rem 0}
+.step{display:flex;gap:0.9rem;align-items:flex-start}
+.step-num{width:30px;height:30px;background:var(--accent-dim);border:1px solid var(--border-accent);color:var(--accent);border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:0.75rem;flex-shrink:0;margin-top:0.1rem;font-family:var(--mono)}
+.step-content h4{font-size:0.88rem;font-weight:700;margin-bottom:0.2rem}
+.step-content p{font-size:0.8rem;color:var(--text-muted);margin:0}
+
+.cards-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:0.9rem;margin:1rem 0}
+@media(max-width:600px){.cards-grid{grid-template-columns:1fr}}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-md);padding:1.3rem 1.2rem;transition:border-color .2s,transform .22s}
+.card:hover{border-color:var(--border-accent);transform:translateY(-3px)}
+.card-tag{font-family:var(--mono);font-size:0.58rem;color:var(--text-faint);letter-spacing:0.1em;background:var(--surface2);padding:0.15rem 0.5rem;border-radius:4px;display:inline-block;margin-bottom:0.5rem}
+.card-title{font-size:0.9rem;font-weight:700;margin-bottom:0.35rem}
+.card-body{font-size:0.79rem;color:var(--text-muted);line-height:1.6}
+
+.lib-table{width:100%;border-collapse:collapse;margin-top:1.2rem;font-size:0.8rem}
+.lib-table thead tr{background:var(--surface2)}
+.lib-table th{padding:0.8rem 0.9rem;text-align:right;font-weight:600;font-size:0.68rem;letter-spacing:0.06em;text-transform:uppercase;color:var(--text-muted);border-bottom:1px solid var(--border)}
+.lib-table td{padding:0.9rem;border-bottom:1px solid var(--border);vertical-align:top;color:var(--text-muted)}
+.lib-table td:first-child{color:var(--accent);font-family:var(--mono);font-weight:600;font-size:0.77rem}
+.lib-table tbody tr:hover{background:rgba(255,255,255,0.02)}
+.lib-badge{display:inline-block;background:var(--accent-dim);color:var(--accent);font-size:0.57rem;font-weight:700;padding:0.12rem 0.45rem;border-radius:20px;text-transform:uppercase;letter-spacing:0.06em;font-family:var(--mono);margin-top:0.25rem}
+
+.code-wrap{background:#0d1117;border:1px solid var(--border);border-right:3px solid var(--accent);border-radius:var(--radius-sm);overflow:hidden;margin:1.3rem 0;direction:ltr;text-align:left}
+.code-header{display:flex;align-items:center;justify-content:space-between;background:rgba(255,255,255,0.03);padding:0.6rem 0.9rem;border-bottom:1px solid var(--border);direction:ltr}
+.code-dots{display:flex;gap:4px}
+.code-dot{width:9px;height:9px;border-radius:50%}
+.code-dot.r{background:#ff5f57}.code-dot.y{background:#ffbd2e}.code-dot.g{background:#28c940}
+.code-file{font-family:var(--mono);font-size:0.62rem;color:var(--text-faint)}
+.code-lang{font-family:var(--mono);font-size:0.58rem;color:var(--accent);background:var(--accent-dim);padding:0.12rem 0.5rem;border-radius:4px}
+pre{padding:1.1rem 1rem;overflow-x:auto;font-family:var(--mono);font-size:0.76rem;line-height:1.85;color:#abb2bf;margin:0;direction:ltr;text-align:left}
+.kw{color:#c678dd}.str{color:#98c379}.cm{color:#5c6370;font-style:italic}.fn{color:#61afef}.num{color:#d19a66}.vr{color:#e5c07b}
+
+.file-tree{background:#0d1117;border:1px solid var(--border);border-radius:var(--radius-sm);padding:0.9rem 1rem;margin:1rem 0;font-family:var(--mono);font-size:0.73rem;color:#abb2bf;direction:ltr;text-align:left}
+.ft-row{display:flex;align-items:center;gap:7px;padding:2px 0}
+.ft-root{color:#61afef}.ft-folder{color:#e5c07b}.ft-file{color:#98c379}
+
+.notebook-demo{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-md);overflow:hidden;margin:1.3rem 0}
+.nb-bar{background:var(--surface2);border-bottom:1px solid var(--border);padding:0.55rem 0.9rem;display:flex;gap:5px;align-items:center}
+.nb-dot2{width:8px;height:8px;border-radius:50%;background:var(--border)}
+.nb-title{font-size:0.67rem;color:var(--text-faint);margin-right:0.6rem;font-family:var(--mono)}
+.nb-cell{padding:0.8rem 1.1rem;border-bottom:1px solid var(--border)}
+.nb-cell:last-child{border-bottom:none}
+.nb-ct{font-size:0.58rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;margin-bottom:0.3rem;font-family:var(--mono)}
+.nb-cell.tc .nb-ct{color:#7777cc}.nb-cell.cc .nb-ct{color:var(--accent)}.nb-cell.oc .nb-ct{color:var(--text-faint)}
+.nb-cell.tc p{font-size:0.8rem;margin:0;color:var(--text-muted)}
+.nb-cell.cc{background:#0d1117;direction:ltr;text-align:left}
+.nb-cell.cc pre{padding:0.3rem 0;font-size:0.73rem;background:transparent;line-height:1.7}
+.nb-cell.oc p{font-size:0.75rem;color:var(--text-faint);font-family:var(--mono);margin:0}
+
+.bvsa-grid{display:grid;grid-template-columns:1fr 1fr;gap:0.9rem;margin:1.2rem 0}
+@media(max-width:600px){.bvsa-grid{grid-template-columns:1fr}}
+.bvsa-col{border-radius:var(--radius-md);padding:1.3rem 1.2rem}
+.bvsa-before{background:rgba(255,80,80,0.05);border:1px solid rgba(255,80,80,0.2)}
+.bvsa-after{background:var(--accent-dim);border:1px solid var(--border-accent)}
+.bvsa-label{font-family:var(--mono);font-size:0.62rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;margin-bottom:0.8rem;display:block}
+.bvsa-before .bvsa-label{color:#ff8080}
+.bvsa-after .bvsa-label{color:var(--accent)}
+.bvsa-list{list-style:none;padding:0;display:flex;flex-direction:column;gap:0.45rem}
+.bvsa-list li{font-size:0.8rem;color:var(--text-muted);padding-right:1.2rem;position:relative}
+.bvsa-before .bvsa-list li::before{content:"✗";position:absolute;right:0;color:#ff8080;font-weight:700}
+.bvsa-after .bvsa-list li::before{content:"✓";position:absolute;right:0;color:var(--accent);font-weight:700}
+
+.method-grid{display:grid;grid-template-columns:1fr 1fr;gap:0.9rem;margin:1.2rem 0}
+@media(max-width:600px){.method-grid{grid-template-columns:1fr}}
+
+.exercise{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-md);overflow:hidden;margin:1.3rem 0}
+.ex-header{background:linear-gradient(90deg,var(--surface2),rgba(184,196,90,0.1));border-bottom:1px solid var(--border-accent);padding:0.9rem 1.2rem;display:flex;align-items:center;gap:0.7rem}
+.ex-num{width:24px;height:24px;background:var(--accent-dim);border:1px solid var(--border-accent);color:var(--accent);border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:0.68rem;flex-shrink:0;font-family:var(--mono)}
+.ex-header h4{font-size:0.87rem;font-weight:700;color:var(--text);margin:0;flex:1}
+.ex-tag{background:var(--accent-dim);color:var(--accent);font-size:0.6rem;font-weight:600;padding:0.18rem 0.65rem;border-radius:20px;font-family:var(--mono);letter-spacing:0.06em;flex-shrink:0}
+.ex-body{padding:1.1rem 1.2rem}
+.ex-body>p{font-size:0.83rem;color:var(--text-muted);margin-bottom:0.8rem}
+.ex-task{background:var(--surface2);border-radius:var(--radius-sm);padding:0.9rem 1rem;margin:0.7rem 0;font-size:0.8rem;color:var(--text-muted);border-right:3px solid var(--accent)}
+.ex-task strong{display:block;font-size:0.68rem;text-transform:uppercase;letter-spacing:0.08em;color:var(--accent);margin-bottom:0.3rem;font-weight:700;font-family:var(--mono)}
+.hint-toggle{background:transparent;border:1px solid var(--border);border-radius:var(--radius-sm);padding:0.4rem 0.9rem;font-size:0.75rem;color:var(--text-faint);cursor:pointer;margin-top:0.7rem;font-family:var(--font);transition:border-color .15s,color .15s}
+.hint-toggle:hover{border-color:var(--accent);color:var(--accent)}
+.hint-content{display:none;margin-top:0.6rem;background:#0d1117;border-radius:var(--radius-sm);padding:0.8rem 0.9rem;font-size:0.74rem;color:var(--text-muted);border:1px solid var(--border);line-height:1.7;direction:ltr;text-align:left;font-family:var(--mono)}
+.hint-content.open{display:block}
+
+.checklist{list-style:none;padding:0;margin:1.2rem 0;display:flex;flex-direction:column;gap:0.55rem}
+.checklist li{display:flex;align-items:flex-start;gap:0.65rem;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);padding:0.8rem 1rem;font-size:0.8rem;color:var(--text-muted)}
+.ck{width:16px;height:16px;background:var(--accent-dim);border:1.5px solid var(--border-accent);border-radius:4px;flex-shrink:0;display:flex;align-items:center;justify-content:center;margin-top:0.1rem}
+.ck::after{content:"✓";font-size:8px;color:var(--accent);font-weight:700}
+.checklist strong{color:var(--text)}
+
+.nav-buttons{display:flex;gap:0.7rem;margin-top:2rem;flex-wrap:wrap}
+.nav-btn{padding:0.6rem 1.3rem;border-radius:var(--radius-sm);font-size:0.8rem;font-weight:600;cursor:pointer;border:1px solid var(--border);background:var(--surface);color:var(--text-muted);font-family:var(--font);transition:all .15s}
+.nav-btn:hover{border-color:var(--accent);color:var(--accent)}
+.nav-btn.primary{background:var(--accent);border-color:var(--accent);color:#0b0d10;font-weight:700}
+.nav-btn.primary:hover{background:var(--accent-strong);border-color:var(--accent-strong)}
+
+.vid-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:1.2rem 0}
+@media(max-width:600px){.vid-grid{grid-template-columns:1fr}}
+.vid-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-md);overflow:hidden;transition:border-color .2s,transform .22s}
+.vid-card:hover{border-color:var(--border-accent);transform:translateY(-3px)}
+.vid-thumb{display:block;position:relative;background:#0d1117;aspect-ratio:16/9;overflow:hidden}
+.vid-thumb img{width:100%;height:100%;object-fit:cover;transition:transform .3s}
+.vid-thumb:hover img{transform:scale(1.04)}
+.vid-play{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:1.8rem;color:var(--accent);background:rgba(0,0,0,0.4);opacity:0;transition:opacity .2s}
+.vid-thumb:hover .vid-play{opacity:1}
+.vid-fallback{width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:2rem;color:var(--text-faint)}
+.vid-meta{padding:0.9rem 1rem}
+.vid-tag{display:inline-block;font-family:var(--mono);font-size:0.58rem;color:var(--accent);background:var(--accent-dim);padding:0.18rem 0.55rem;border-radius:20px;margin-bottom:0.4rem;letter-spacing:0.08em;text-transform:uppercase}
+.vid-meta h4{font-size:0.85rem;font-weight:700;margin-bottom:0.3rem;line-height:1.35}
+.vid-meta p{font-size:0.76rem;color:var(--text-muted);line-height:1.5}
+.vid-link{display:inline-block;margin-top:0.5rem;font-size:0.72rem;font-weight:600;color:var(--accent);font-family:var(--mono);text-decoration:none}
+
+.gh-card{display:flex;align-items:center;gap:0.9rem;background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius-md);padding:1.1rem 1.3rem;text-decoration:none;margin:1rem 0;transition:border-color .2s}
+.gh-card:hover{border-color:var(--border-accent)}
+.gh-icon{color:var(--text-muted);flex-shrink:0}
+.gh-text{flex:1}
+.gh-name{font-size:0.85rem;font-weight:700;color:var(--text);margin-bottom:0.2rem;font-family:var(--mono)}
+.gh-sub{font-size:0.72rem;color:var(--text-faint)}
+.gh-arrow{font-size:1.1rem;color:var(--accent);font-weight:700}
+
+.about-hero-card{display:flex;align-items:flex-start;gap:1.2rem;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-md);padding:1.5rem;margin-bottom:1.5rem}
+@media(max-width:600px){.about-hero-card{flex-direction:column}}
+.about-avatar{width:60px;height:60px;border-radius:50%;background:linear-gradient(135deg,var(--surface2),var(--accent-dim));border:2px solid var(--border-accent);display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:0.95rem;font-weight:700;color:var(--accent);flex-shrink:0}
+.about-role{font-size:0.78rem;color:var(--accent);font-family:var(--mono);margin-bottom:0.6rem}
+.about-tags{display:flex;flex-wrap:wrap;gap:0.45rem}
+.ab-tag{font-size:0.7rem;background:var(--surface2);color:var(--text-muted);padding:0.18rem 0.65rem;border-radius:20px;border:1px solid var(--border)}
+.cred-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:0.7rem;margin:1rem 0}
+@media(min-width:700px){.cred-grid{grid-template-columns:repeat(4,1fr)}}
+.cred-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);padding:1rem;text-align:center}
+.cred-icon{font-size:1.2rem;margin-bottom:0.45rem}
+.cred-title{font-size:0.76rem;font-weight:700;margin-bottom:0.18rem}
+.cred-sub{font-size:0.66rem;color:var(--text-faint);line-height:1.35}
+
+.link-grid{display:grid;grid-template-columns:1fr;gap:0.7rem;margin:1rem 0}
+@media(min-width:500px){.link-grid{grid-template-columns:repeat(2,1fr)}}
+.link-card{display:flex;align-items:center;gap:0.8rem;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);padding:0.9rem 1rem;text-decoration:none;transition:border-color .15s}
+.link-card:hover{border-color:var(--border-accent)}
+.lc-icon{font-size:1rem;width:30px;height:30px;background:var(--accent-dim);border-radius:6px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.lc-title{font-size:0.8rem;font-weight:700;color:var(--text);margin-bottom:0.12rem}
+.lc-sub{font-size:0.68rem;color:var(--text-faint);line-height:1.3}
+.lc-arrow{font-size:0.95rem;color:var(--accent);font-weight:700;flex-shrink:0;margin-right:auto}
+
+/* ── FOOTER ── */
+#footer{padding:4rem 2.5rem 3rem;border-top:1px solid var(--border)}
+.section-label{font-family:var(--mono);font-size:0.6rem;color:var(--accent);letter-spacing:0.18em;text-transform:uppercase;margin-bottom:0.8rem;display:block}
+.footer-title{font-size:clamp(1.2rem,2.5vw,1.7rem);font-weight:800;margin-bottom:0.4rem}
+.footer-sub{font-size:0.8rem;color:var(--text-muted);margin-bottom:2rem}
+.footer-grid{display:grid;grid-template-columns:1fr;gap:0.9rem}
+@media(min-width:500px){.footer-grid{grid-template-columns:repeat(2,1fr)}}
+@media(min-width:900px){.footer-grid{grid-template-columns:repeat(3,1fr)}}
+.footer-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-md);padding:1.2rem 1.3rem;transition:border-color .2s,transform .22s;display:block;text-decoration:none}
+.footer-card:hover{border-color:var(--accent);transform:translateY(-3px)}
+.footer-card-num{font-family:var(--mono);font-size:0.58rem;color:var(--text-faint);letter-spacing:0.1em;margin-bottom:0.35rem}
+.footer-card-title{font-size:0.85rem;font-weight:700;margin-bottom:0.28rem;color:var(--text)}
+.footer-card-desc{font-size:0.74rem;color:var(--text-muted);line-height:1.5;margin-bottom:0.45rem}
+.footer-card-link{font-size:0.68rem;color:var(--accent);font-family:var(--mono)}
+.footer-copy{margin-top:2.5rem;text-align:center;font-size:0.7rem;color:var(--text-faint);font-family:var(--mono);letter-spacing:0.05em}
+
+/* overlay for mobile */
+.overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:140}
+.overlay.open{display:block}
+</style>
+</head>
+<body>
+
+<!-- ══ TOPBAR ══ -->
+<div class="topbar">
+  <div class="topbar-brand">AI Finance Transformation</div>
+  <div class="topbar-right">
+    <span class="topbar-badge" id="tb-title">מבוא</span>
+    <div class="topbar-progress">
+      <span id="prog-text">1 / 10</span>
+      <div class="progress-bar"><div class="progress-fill" id="prog-fill" style="width:10%"></div></div>
+    </div>
+    <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
+  </div>
+</div>
+
+<div class="overlay" id="overlay" onclick="toggleSidebar()"></div>
+
+<!-- ══ SHELL ══ -->
+<div class="shell">
+
+  <!-- ── MAIN (first in DOM so sidebar overlaps on mobile) ── -->
+  <div class="main-area" id="mainArea">
+
+    <!-- ════════════════ PAGE 0 — INTRO ════════════════ -->
+    <div class="page active" id="p0">
+      <div class="page-tag">מדריך שטח לאנשי כספים</div>
+      <div class="page-title">מ-Excel לסקריפטים —<br><em>בלי לפחד</em></div>
+      <p class="page-lead">מדריך מעשי ל-Python ו-Google Colab עבור CFOs, Controllers ואנשי FP&A שגמרו עם Excel ורוצים לשדרג. אין צורך בידע תכנות — רק פתיחות לדרך חדשה.</p>
+
+      <div class="callout callout-tip">
+        <strong>מיועד ל:</strong> רואי חשבון, CFOs, Controllers, מנהלי FP&A. ללא ניסיון בתכנות — רק Excel ורצון ללמוד.
+      </div>
+
+      <h3>מה תלמד בכל מודול</h3>
+      <ul class="bullet-list">
+        <li><strong>למה Excel נשבר בקנה מידה</strong> — הנתונים שמדברים בעד עצמם</li>
+        <li><strong>פתיחת Google Colab</strong> בפחות מ-60 שניות — ללא התקנה, ללא IT</li>
+        <li><strong>ארבע ספריות Python</strong> שמחליפות ארגז כלים שלם של אנליסטים</li>
+        <li><strong>שלוש שיטות לטעינת נתונים</strong> פיננסיים — מ-CSV ועד Google Sheets חי</li>
+        <li><strong>סקריפט Variance Analysis מלא</strong> — העתק, הדבק, הרץ</li>
+        <li><strong>תרגול מעשי עם רמזים</strong> — מותאם למנהלים עסוקים</li>
+        <li><strong>ממשל ואבטחה</strong> לפריסה ארגונית</li>
+      </ul>
+
+      <h3>קישורים מהירים</h3>
+      <div class="link-grid">
+        <a class="link-card" href="https://chat.whatsapp.com/CS6dgqnK45Q9XAMqScNr6R" target="_blank">
+          <div class="lc-icon">💬</div>
+          <div style="flex:1"><div class="lc-title">קהילת AI Finance</div><div class="lc-sub">800+ אנשי פיננסים</div></div>
+          <div class="lc-arrow">↗</div>
+        </a>
+        <a class="link-card" href="https://www.youtube.com/@AIFinanceTransformation" target="_blank">
+          <div class="lc-icon">▶</div>
+          <div style="flex:1"><div class="lc-title">YouTube</div><div class="lc-sub">@AIFinanceTransformation</div></div>
+          <div class="lc-arrow">↗</div>
+        </a>
+        <a class="link-card" href="https://www.ronenamoscpa.co.il/skill-vault" target="_blank">
+          <div class="lc-icon">🔐</div>
+          <div style="flex:1"><div class="lc-title">Skill Vault</div><div class="lc-sub">ספריית Prompts</div></div>
+          <div class="lc-arrow">↗</div>
+        </a>
+        <a class="link-card" href="https://www.ronenamoscpa.co.il/courses" target="_blank">
+          <div class="lc-icon">🎓</div>
+          <div style="flex:1"><div class="lc-title">קורס AI Finance</div><div class="lc-sub">תוכנית מובנית</div></div>
+          <div class="lc-arrow">↗</div>
+        </a>
+      </div>
+      <div class="nav-buttons">
+        <button class="nav-btn primary" onclick="nav('p1',null)">מודול 1 ←</button>
+        <button class="nav-btn" onclick="nav('p9',null)">אודות רונן ←</button>
+      </div>
+    </div>
+
+    <!-- ════════════════ PAGE 1 — WHY EXCEL ════════════════ -->
+    <div class="page" id="p1">
+      <div class="page-tag">מודול 1</div>
+      <div class="page-title">למה Excel <em>כבר לא מספיק</em></div>
+      <p class="page-lead">Excel הוא כלי מעולה — אבל ה-FP&A המודרני כבר עבר אותו. הנה הנתונים.</p>
+
+      <div class="stat-row">
+        <div class="stat-card"><div class="stat-num">1M+</div><div class="stat-label">שורות — גבול Excel. אקספורטים מ-ERP חוצים אותו בקלות</div></div>
+        <div class="stat-card"><div class="stat-num">~40%</div><div class="stat-label">מגיליונות גדולים מכילים לפחות שגיאת נוסחה מהותית אחת (EuSpRIG)</div></div>
+        <div class="stat-card"><div class="stat-num">שעות</div><div class="stat-label">אובדות בכל month-end על קונסולידציה ידנית</div></div>
+      </div>
+
+      <h2>איפה Excel נשבר</h2>
+      <ul class="bullet-list">
+        <li><strong>נפח:</strong> מיליוני שורות GL מאטים את Excel לסחיבה — ולפעמים קורסים אותו.</li>
+        <li><strong>גרסאות:</strong> "Budget_FINAL_v3_REVISED.xlsx" הוא לא ממשל. אין audit trail, אין rollback.</li>
+        <li><strong>שלבים ידניים שבירים:</strong> כל VLOOKUP, כל copy-paste — נקודת כשל פוטנציאלית.</li>
+        <li><strong>תלות באדם:</strong> כשהאנליסט עוזב — הידע עוזב איתו. סקריפט Python מתועד מעצמו.</li>
+        <li><strong>אין חיזוי:</strong> Excel מחשב את העבר. Python יכול לנתח את העתיד.</li>
+      </ul>
+
+      <h2>Python + Colab כנכסים אסטרטגיים</h2>
+      <p>תחשוב על Python בתור <strong>אנליסט שלא עושה שגיאות copy-paste, עובד במהירות מחשב, ומעבד עשרה מיליון שורות לפני קפה הבוקר</strong>.</p>
+
+      <div class="callout callout-tip">
+        <strong>המסגרת הניהולית</strong>
+        המטרה היא לא להפוך את הצוות למהנדסים. המטרה היא לבטל עבודה ידנית מועדת לשגיאות — ולהחליף אותה בקוד ניתן לביקורת שרץ לפי דרישה.
+      </div>
+
+      <div class="bvsa-grid">
+        <div class="bvsa-col bvsa-before">
+          <span class="bvsa-label">לפני — Excel</span>
+          <ul class="bvsa-list">
+            <li>קריסה על קבצים גדולים</li>
+            <li>שגיאות VLOOKUP לא מזוהות</li>
+            <li>גרסאות קובץ ידניות</li>
+            <li>תלות באדם ספציפי</li>
+            <li>ניתוח עבר בלבד</li>
+            <li>שעות קונסולידציה כל חודש</li>
+          </ul>
+        </div>
+        <div class="bvsa-col bvsa-after">
+          <span class="bvsa-label">אחרי — Python</span>
+          <ul class="bvsa-list">
+            <li>50 מיליון שורות בלי זיע</li>
+            <li>חישוב מדויק בכל הרצה</li>
+            <li>Git — היסטוריה מלאה</li>
+            <li>קוד מתועד, שכפול מלא</li>
+            <li>חיזוי ו-Scenario Modelling</li>
+            <li>3 שניות במקום 3 שעות</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="nav-buttons">
+        <button class="nav-btn" onclick="nav('p0',null)">← חזרה</button>
+        <button class="nav-btn primary" onclick="nav('p2',null)">מודול 2 ←</button>
+      </div>
+    </div>
+
+    <!-- ════════════════ PAGE 2 — COLAB ════════════════ -->
+    <div class="page" id="p2">
+      <div class="page-tag">מודול 2</div>
+      <div class="page-title">פתיחת Colab — <em>60 שניות</em></div>
+      <p class="page-lead">פתח Notebook, הרץ את שורת הקוד הראשונה שלך — ללא שום התקנה, ללא IT.</p>
+
+      <h2>מה זה Notebook?</h2>
+      <p>Google Colab Notebook הוא <strong>מסמך מודל פיננסי חי</strong> — משהו שמשלב בין Word, Excel ומנוע דוחות אוטומטי. שלושה סוגי תאים:</p>
+
+      <div class="notebook-demo">
+        <div class="nb-bar">
+          <div class="nb-dot2"></div><div class="nb-dot2"></div><div class="nb-dot2"></div>
+          <span class="nb-title">Q4_Variance_Analysis.ipynb — Google Colab</span>
+        </div>
+        <div class="nb-cell tc">
+          <div class="nb-ct">Text Cell — הסבר ותיאור</div>
+          <p><strong>ניתוח Variance Q4 2026</strong> — השוואת ביצוע מול תקציב מאושר. כל הנתונים באלפי שקלים.</p>
+        </div>
+        <div class="nb-cell cc">
+          <div class="nb-ct">Code Cell — קוד להרצה</div>
+          <pre><span class="kw">import</span> pandas <span class="kw">as</span> pd
+<span class="vr">actuals_df</span> = pd.<span class="fn">read_csv</span>(<span class="str">"q4_actuals.csv"</span>)
+<span class="vr">variance</span> = <span class="vr">actuals_df</span>[<span class="str">"actual"</span>] - <span class="vr">actuals_df</span>[<span class="str">"budget"</span>]</pre>
+        </div>
+        <div class="nb-cell oc">
+          <div class="nb-ct">Output — תוצאה אוטומטית</div>
+          <p>Revenue: 4,820 אלש"ח ביצוע vs 5,100 אלש"ח תקציב → Variance: –280 אלש"ח (–5.5%)</p>
+        </div>
+      </div>
+
+      <h2>שלושה צעדים ראשונים</h2>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-content">
+            <h4>פתח את Google Colab</h4>
+            <p>היכנס ל-<strong>colab.research.google.com</strong>. לחץ על "Notebook חדש". ללא הורדה, ללא IT.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-content">
+            <h4>לחץ בתוך תא הקוד הראשון</h4>
+            <p>תראה תא ריק עם כפתור ▶ בצד. הקלד את הפקודה הראשונה שלך.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-content">
+            <h4>לחץ Shift + Enter להרצה</h4>
+            <p>התוצאה מופיעה מיד מתחת. הכל שאר — הרחבה של אותו דפוס.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="code-wrap">
+        <div class="code-header">
+          <div class="code-dots"><div class="code-dot r"></div><div class="code-dot y"></div><div class="code-dot g"></div></div>
+          <span class="code-file">hello_finance.py</span>
+          <span class="code-lang">Python</span>
+        </div>
+        <pre><span class="cm"># הפקודה הראשונה שלך</span>
+<span class="fn">print</span>(<span class="str">"שלום Finance. Python מוכן."</span>)
+
+<span class="vr">project_investment</span> = <span class="num">500_000</span>
+<span class="vr">annual_savings</span>     = <span class="num">180_000</span>
+<span class="vr">payback_months</span>     = (<span class="vr">project_investment</span> / <span class="vr">annual_savings</span>) * <span class="num">12</span>
+<span class="fn">print</span>(<span class="str">f"תקופת החזר: </span>{<span class="vr">payback_months</span>:.1f}<span class="str"> חודשים"</span>)
+<span class="cm"># → תקופת החזר: 33.3 חודשים</span></pre>
+      </div>
+
+      <div class="nav-buttons">
+        <button class="nav-btn" onclick="nav('p1',null)">← מודול 1</button>
+        <button class="nav-btn primary" onclick="nav('p3',null)">מודול 3 ←</button>
+      </div>
+    </div>
+
+    <!-- ════════════════ PAGE 3 — TOOLKIT ════════════════ -->
+    <div class="page" id="p3">
+      <div class="page-tag">מודול 3</div>
+      <div class="page-title">ארגז הכלים של <em>Python</em></div>
+      <p class="page-lead">לא צריך ללמוד את כל Python. עבודת כספים נשענת על ארבע ספריות — כל אחת היא גרסה מואצת של כלי Excel שאתה כבר מכיר.</p>
+
+      <div class="callout callout-tip">
+        <strong>ללא התקנה ב-Google Colab</strong>
+        כל ארבע הספריות מותקנות מראש. רק <code>import pandas as pd</code> ואתה מוכן.
+      </div>
+
+      <table class="lib-table">
+        <thead><tr><th>ספרייה</th><th>מה מחליפה ב-Excel</th><th>הסופרפאוור</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>pandas<br><span class="lib-badge">ליבה</span></td>
+            <td><strong>טבלאות / Power Query</strong><br><span style="font-size:0.7rem;color:var(--text-faint)">VLOOKUP, Pivot, מיזוג גיליונות</span></td>
+            <td>מטפל ב-50 מיליון שורות כמו ב-50. ממזג 200 קבצי CSV אזוריים בשורה אחת. לא קורס.</td>
+          </tr>
+          <tr>
+            <td>NumPy<br><span class="lib-badge">מתמטיקה</span></td>
+            <td><strong>נוסחאות סטטיסטיות</strong><br><span style="font-size:0.7rem;color:var(--text-faint)">STDEV, SUMPRODUCT, arrays</span></td>
+            <td>10,000 סימולציות Monte Carlo תוך שניות. המנוע מתחת לכל מודל פיננסי ב-Python.</td>
+          </tr>
+          <tr>
+            <td>Plotly<br><span class="lib-badge">גרפים</span></td>
+            <td><strong>גרפים אינטראקטיביים</strong><br><span style="font-size:0.7rem;color:var(--text-faint)">Bar, Line, Waterfall</span></td>
+            <td>גרפי board-pack שמתעדכנים אוטומטית. Hover לצפייה בערכים. אפס עיצוב ידני.</td>
+          </tr>
+          <tr>
+            <td>Seaborn<br><span class="lib-badge">ויזואליזציה</span></td>
+            <td><strong>עיצוב מותנה</strong><br><span style="font-size:0.7rem;color:var(--text-faint)">Heat maps, distributions</span></td>
+            <td>מטריצות קורלציה, heatmaps של גורמי עלות, גרפי variance — בשתיים-שלוש שורות.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="code-wrap">
+        <div class="code-header">
+          <div class="code-dots"><div class="code-dot r"></div><div class="code-dot y"></div><div class="code-dot g"></div></div>
+          <span class="code-file">import_libraries.py</span>
+          <span class="code-lang">Python</span>
+        </div>
+        <pre><span class="cm"># הוסף לראש כל Notebook</span>
+<span class="kw">import</span> pandas   <span class="kw">as</span> pd
+<span class="kw">import</span> numpy    <span class="kw">as</span> np
+<span class="kw">import</span> plotly.express  <span class="kw">as</span> px
+<span class="kw">import</span> seaborn  <span class="kw">as</span> sns
+<span class="fn">print</span>(<span class="str">"All finance libraries loaded."</span>)</pre>
+      </div>
+
+      <div class="nav-buttons">
+        <button class="nav-btn" onclick="nav('p2',null)">← מודול 2</button>
+        <button class="nav-btn primary" onclick="nav('p4',null)">מודול 4 ←</button>
+      </div>
+    </div>
+
+    <!-- ════════════════ PAGE 4 — DATA LOADING ════════════════ -->
+    <div class="page" id="p4">
+      <div class="page-tag">מודול 4 · נושא מפתח</div>
+      <div class="page-title">טעינת נתונים <em>ל-Colab</em></div>
+      <p class="page-lead">לפני שמנתחים — צריך להכניס את הנתונים. שלוש שיטות מעשיות שכל איש כספים חייב להכיר.</p>
+
+      <div class="callout callout-tip">
+        <strong>פאנל הקבצים</strong>
+        לחץ על סמל התיקייה <strong>📁</strong> בסרגל הצד כדי לפתוח את פאנל הקבצים.
+      </div>
+
+      <div class="file-tree">
+        <div class="ft-row"><span class="ft-root">📁</span>&nbsp;Files</div>
+        <div class="ft-row" style="padding-right:14px"><span class="ft-folder">📁</span>&nbsp;sample_data</div>
+        <div class="ft-row" style="padding-right:14px"><span class="ft-file">📄</span>&nbsp;budget_actuals.csv&nbsp;<span style="color:#5c6370;font-size:0.68rem">← הקובץ שהעלית</span></div>
+      </div>
+
+      <h2>שיטה 1 — העלאת קובץ</h2>
+      <div class="code-wrap">
+        <div class="code-header">
+          <div class="code-dots"><div class="code-dot r"></div><div class="code-dot y"></div><div class="code-dot g"></div></div>
+          <span class="code-file">method1_upload.py</span><span class="code-lang">Python</span>
+        </div>
+        <pre><span class="vr">budget_df</span> = pd.<span class="fn">read_csv</span>(<span class="str">"budget_actuals.csv"</span>)
+<span class="fn">print</span>(<span class="vr">budget_df</span>.<span class="fn">head</span>())
+<span class="fn">print</span>(<span class="str">f"שורות: </span>{<span class="vr">budget_df</span>.shape[<span class="num">0</span>]}<span class="str">, עמודות: </span>{<span class="vr">budget_df</span>.shape[<span class="num">1</span>]}<span class="str">"</span>)</pre>
+      </div>
+
+      <h2>שיטה 2 — Google Drive</h2>
+      <div class="callout callout-warn">
+        <strong>הערת אבטחה</strong>
+        Mount של Drive מעניק גישה לכל ה-Drive. השתמש בתיקייה ייעודית לנתוני כספים.
+      </div>
+      <div class="code-wrap">
+        <div class="code-header">
+          <div class="code-dots"><div class="code-dot r"></div><div class="code-dot y"></div><div class="code-dot g"></div></div>
+          <span class="code-file">method2_drive.py</span><span class="code-lang">Python</span>
+        </div>
+        <pre><span class="kw">from</span> google.colab <span class="kw">import</span> drive
+drive.<span class="fn">mount</span>(<span class="str">"/content/drive"</span>)
+<span class="vr">path</span> = <span class="str">"/content/drive/My Drive/Finance/FY2026_Budget.csv"</span>
+<span class="vr">budget_df</span> = pd.<span class="fn">read_csv</span>(<span class="vr">path</span>)
+<span class="fn">print</span>(<span class="str">f"✓ נטען: </span>{<span class="fn">len</span>(<span class="vr">budget_df</span>)}<span class="str"> שורות"</span>)</pre>
+      </div>
+
+      <h2>שיטה 3 — Google Sheets חי</h2>
+      <div class="code-wrap">
+        <div class="code-header">
+          <div class="code-dots"><div class="code-dot r"></div><div class="code-dot y"></div><div class="code-dot g"></div></div>
+          <span class="code-file">method3_sheets.py</span><span class="code-lang">Python</span>
+        </div>
+        <pre><span class="kw">from</span> google.colab <span class="kw">import</span> auth
+auth.<span class="fn">authenticate_user</span>()
+<span class="kw">import</span> gspread
+<span class="kw">from</span> google.auth <span class="kw">import</span> default
+<span class="vr">creds</span>, _ = default()
+<span class="vr">gc</span> = gspread.<span class="fn">authorize</span>(<span class="vr">creds</span>)
+<span class="vr">wb</span>  = <span class="vr">gc</span>.<span class="fn">open_by_url</span>(<span class="str">"https://docs.google.com/spreadsheets/d/YOUR_ID/edit"</span>)
+<span class="vr">ws</span>  = <span class="vr">wb</span>.<span class="fn">worksheet</span>(<span class="str">"Q4 Budget"</span>)
+<span class="vr">df</span>  = pd.<span class="fn">DataFrame</span>(<span class="vr">ws</span>.<span class="fn">get_all_records</span>())
+<span class="fn">print</span>(<span class="str">f"✓ נתונים חיים: </span>{<span class="fn">len</span>(<span class="vr">df</span>)}<span class="str"> שורות"</span>)</pre>
+      </div>
+
+      <h3>איזו שיטה לבחור?</h3>
+      <div class="method-grid">
+        <div class="card"><div class="card-tag">METHOD 1</div><div class="card-title">העלאת קובץ</div><div class="card-body">הכי מהיר. מתאים לניתוחים חד-פעמיים. נמחק בסוף ה-Session.</div></div>
+        <div class="card"><div class="card-tag">METHOD 2</div><div class="card-title">Google Drive</div><div class="card-body">מתאים לדוחות חוזרים. הקובץ נשמר בין Sessions.</div></div>
+        <div class="card"><div class="card-tag">METHOD 3</div><div class="card-title">Sheets חי</div><div class="card-body">הכי חזק לצוותים. כל הרצה — נתונים עדכניים. אפס אקספורטים.</div></div>
+        <div class="card"><div class="card-tag">ADVANCED</div><div class="card-title">ERP / Database</div><div class="card-body">חיבור ישיר ל-ERP או SQL. דורש שיתוף עם IT/DBA.</div></div>
+      </div>
+
+      <div class="nav-buttons">
+        <button class="nav-btn" onclick="nav('p3',null)">← מודול 3</button>
+        <button class="nav-btn primary" onclick="nav('p5',null)">מודול 5 ←</button>
+      </div>
+    </div>
+
+    <!-- ════════════════ PAGE 5 — VARIANCE CODE ════════════════ -->
+    <div class="page" id="p5">
+      <div class="page-tag">מודול 5 · קוד מלא</div>
+      <div class="page-title">Variance Analysis <em>אוטומטי</em></div>
+      <p class="page-lead">סקריפט מוכן לייצור להשוואת תקציב מול ביצוע מול שנה קודמת. העתק, הדבק, הרץ.</p>
+
+      <div class="callout callout-tip">
+        <strong>מה זה מחליף</strong>
+        ב-FP&A רגיל: הורדת שני אקספורטים, מיזוג עם VLOOKUP, נוסחאות, עיצוב מותנה, מיון — 90–180 דקות. הסקריפט הזה: 3 שניות, זהה בכל פעם.
+      </div>
+
+      <div class="code-wrap">
+        <div class="code-header">
+          <div class="code-dots"><div class="code-dot r"></div><div class="code-dot y"></div><div class="code-dot g"></div></div>
+          <span class="code-file">budget_vs_actual_variance.py</span>
+          <span class="code-lang">Python</span>
+        </div>
+        <pre><span class="kw">import</span> pandas <span class="kw">as</span> pd
+<span class="kw">import</span> numpy  <span class="kw">as</span> np
+
+<span class="cm"># נתוני קלט — החלף עם pd.read_csv() בייצור</span>
+<span class="vr">depts</span>   = [<span class="str">"מכירות"</span>, <span class="str">"פיתוח"</span>, <span class="str">"G&A"</span>, <span class="str">"תפעול"</span>, <span class="str">"CS"</span>]
+<span class="vr">budget</span>  = [<span class="num">4_200</span>, <span class="num">3_850</span>, <span class="num">1_900</span>, <span class="num">2_600</span>, <span class="num">1_450</span>]
+<span class="vr">actual</span>  = [<span class="num">4_510</span>, <span class="num">3_720</span>, <span class="num">2_085</span>, <span class="num">2_590</span>, <span class="num">1_380</span>]
+<span class="vr">prior_y</span> = [<span class="num">4_100</span>, <span class="num">3_500</span>, <span class="num">1_750</span>, <span class="num">2_450</span>, <span class="num">1_310</span>]
+
+<span class="vr">df</span> = pd.<span class="fn">DataFrame</span>({
+    <span class="str">"מחלקה"</span>  : <span class="vr">depts</span>,
+    <span class="str">"תקציב"</span>  : <span class="vr">budget</span>,
+    <span class="str">"ביצוע"</span>  : <span class="vr">actual</span>,
+    <span class="str">"שנה_קודמת"</span>: <span class="vr">prior_y</span>,
+})
+
+<span class="vr">df</span>[<span class="str">"Variance"</span>]    = <span class="vr">df</span>[<span class="str">"תקציב"</span>] - <span class="vr">df</span>[<span class="str">"ביצוע"</span>]
+<span class="vr">df</span>[<span class="str">"Variance_%"</span>]  = (<span class="vr">df</span>[<span class="str">"Variance"</span>] / <span class="vr">df</span>[<span class="str">"תקציב"</span>] * <span class="num">100</span>).<span class="fn">round</span>(<span class="num">1</span>)
+<span class="vr">df</span>[<span class="str">"YoY_%"</span>]       = ((<span class="vr">df</span>[<span class="str">"ביצוע"</span>] - <span class="vr">df</span>[<span class="str">"שנה_קודמת"</span>]) / <span class="vr">df</span>[<span class="str">"שנה_קודמת"</span>] * <span class="num">100</span>).<span class="fn">round</span>(<span class="num">1</span>)
+<span class="vr">df</span>[<span class="str">"סטטוס"</span>]       = <span class="vr">df</span>[<span class="str">"Variance"</span>].<span class="fn">apply</span>(<span class="kw">lambda</span> <span class="vr">v</span>: <span class="str">"⚠ חריגה"</span> <span class="kw">if</span> <span class="vr">v</span>&lt;<span class="num">0</span> <span class="kw">else</span> <span class="str">"✓ תקין"</span>)
+
+<span class="vr">ranked</span> = <span class="vr">df</span>.<span class="fn">sort_values</span>(<span class="str">"Variance"</span>, ascending=<span class="kw">True</span>).<span class="fn">reset_index</span>(drop=<span class="kw">True</span>)
+
+<span class="fn">print</span>(<span class="str">"=" * 50</span>)
+<span class="fn">print</span>(<span class="str">f"  תקציב כולל:  </span>{<span class="vr">df</span>[<span class="str">'תקציב'</span>].<span class="fn">sum</span>():,.0f}<span class="str"> אלש\"ח"</span>)
+<span class="fn">print</span>(<span class="str">f"  ביצוע כולל:  </span>{<span class="vr">df</span>[<span class="str">'ביצוע'</span>].<span class="fn">sum</span>():,.0f}<span class="str"> אלש\"ח"</span>)
+<span class="fn">print</span>(<span class="str">f"  Variance:     </span>{<span class="vr">df</span>[<span class="str">'Variance'</span>].<span class="fn">sum</span>():,.0f}<span class="str"> אלש\"ח"</span>)
+<span class="fn">print</span>(<span class="str">"=" * 50</span>)
+<span class="fn">print</span>(<span class="vr">ranked</span>.<span class="fn">to_string</span>(index=<span class="kw">False</span>))
+<span class="cm"># ranked.to_csv("variance_output.csv", index=False)</span></pre>
+      </div>
+
+      <div class="nav-buttons">
+        <button class="nav-btn" onclick="nav('p4',null)">← מודול 4</button>
+        <button class="nav-btn primary" onclick="nav('p6',null)">מודול 6 ←</button>
+      </div>
+    </div>
+
+    <!-- ════════════════ PAGE 6 — EXERCISES ════════════════ -->
+    <div class="page" id="p6">
+      <div class="page-tag">מודול 6 · תרגול מעשי</div>
+      <div class="page-title">תרגילים <em>ו-Practice Labs</em></div>
+      <p class="page-lead">גם תרגיל אחד יבנה יותר אינטואיציה מכל הקריאה. לכל תרגיל יש רמז.</p>
+
+      <div class="exercise">
+        <div class="ex-header"><div class="ex-num">1</div><h4>ה-Notebook הראשון שלך</h4><span class="ex-tag">מתחיל · 5 דק'</span></div>
+        <div class="ex-body">
+          <p>פתח Colab, צור Notebook חדש, וחשב Gross Profit, Gross Margin % ו-Operating Income.</p>
+          <div class="ex-task"><strong>משימה</strong>הכנסות 12.4M ש"ח, COGS 7.2M, הוצאות תפעול 3.1M. חשב ושלש כל מדד.</div>
+          <button class="hint-toggle" onclick="toggleHint(this)">💡 הצג רמז</button>
+          <div class="hint-content">annual_revenue = 12_400_000
+gross_profit = annual_revenue - cogs
+gross_margin_pct = (gross_profit / annual_revenue) * 100
+print(f"Gross Margin: {gross_margin_pct:.1f}%")</div>
+        </div>
+      </div>
+
+      <div class="exercise">
+        <div class="ex-header"><div class="ex-num">2</div><h4>העלאה וחקירה של CSV</h4><span class="ex-tag">מתחיל · 10 דק'</span></div>
+        <div class="ex-body">
+          <p>ייצא טבלה פיננסית מ-Excel כ-CSV והעלה ל-Colab.</p>
+          <div class="ex-task"><strong>משימה א'</strong>העלה CSV, טען עם <code>pd.read_csv()</code>, הדפס <code>.head()</code> ו-<code>.shape</code>.</div>
+          <div class="ex-task"><strong>משימה ב'</strong>הרץ <code>df.describe()</code> — שקול ל-Data→Statistics ב-Excel.</div>
+          <div class="ex-task"><strong>משימה ג'</strong>סנן שורות בחריגה: <code>df[df["actual"] &gt; df["budget"]]</code></div>
+          <button class="hint-toggle" onclick="toggleHint(this)">💡 הצג רמז</button>
+          <div class="hint-content">from google.colab import files
+import io, pandas as pd
+uploaded = files.upload()
+fname = list(uploaded.keys())[0]
+df = pd.read_csv(io.BytesIO(uploaded[fname]))
+print(df.head())</div>
+        </div>
+      </div>
+
+      <div class="exercise">
+        <div class="ex-header"><div class="ex-num">3</div><h4>חיבור ל-Google Sheets</h4><span class="ex-tag">בינוני · 15 דק'</span></div>
+        <div class="ex-body">
+          <p>צור טבלת תקציב ב-Google Sheets, התחבר מ-Colab, הדפס סכום תקציב. עדכן תא — הרץ שוב.</p>
+          <div class="ex-task"><strong>משימה</strong>השתמש בקוד שיטה 3 ממודול 4. חשב <code>df["budget"].sum()</code>.</div>
+          <button class="hint-toggle" onclick="toggleHint(this)">💡 הצג רמז</button>
+          <div class="hint-content">total = df["budget"].sum()
+print(f"Total: {total:,.0f}")
+# אם gspread לא מותקן:
+# !pip install gspread --quiet</div>
+        </div>
+      </div>
+
+      <div class="exercise">
+        <div class="ex-header"><div class="ex-num">4</div><h4>שינוי סקריפט ה-Variance</h4><span class="ex-tag">בינוני · 20 דק'</span></div>
+        <div class="ex-body">
+          <p>קח את הסקריפט ממודול 5 — הפוך אותו לשלך.</p>
+          <div class="ex-task"><strong>משימה א'</strong>החלף מחלקות בשמות אמיתיים מהארגון שלך.</div>
+          <div class="ex-task"><strong>משימה ב'</strong>הוסף עמודת "תקציב_נותר" — 0 לחורגות, יתרה לשאר.</div>
+          <div class="ex-task"><strong>משימה ג'</strong>ייצא: <code>ranked.to_csv("output.csv")</code> והורד עם <code>files.download()</code>.</div>
+          <button class="hint-toggle" onclick="toggleHint(this)">💡 הצג רמז</button>
+          <div class="hint-content">df["תקציב_נותר"] = df.apply(
+  lambda row: row["Variance"] if row["Variance"] > 0 else 0,
+  axis=1
+)</div>
+        </div>
+      </div>
+
+      <div class="exercise">
+        <div class="ex-header"><div class="ex-num">5</div><h4>הגרף הפיננסי הראשון</h4><span class="ex-tag">בינוני · 15 דק'</span></div>
+        <div class="ex-body">
+          <p>גרף עמודות אינטראקטיבי — תקציב מול ביצוע. ב-Excel: 15 דקות. כאן: 3 שורות.</p>
+          <div class="code-wrap" style="margin:0.8rem 0">
+            <div class="code-header">
+              <div class="code-dots"><div class="code-dot r"></div><div class="code-dot y"></div><div class="code-dot g"></div></div>
+              <span class="code-file">exercise5_chart.py</span><span class="code-lang">Python</span>
+            </div>
+            <pre><span class="kw">import</span> plotly.express <span class="kw">as</span> px
+<span class="vr">chart_df</span> = <span class="vr">df</span>.<span class="fn">melt</span>(id_vars=<span class="str">"מחלקה"</span>,
+    value_vars=[<span class="str">"תקציב"</span>,<span class="str">"ביצוע"</span>],
+    var_name=<span class="str">"קטגוריה"</span>, value_name=<span class="str">"סכום"</span>)
+<span class="vr">fig</span> = px.<span class="fn">bar</span>(<span class="vr">chart_df</span>, x=<span class="str">"מחלקה"</span>, y=<span class="str">"סכום"</span>,
+    color=<span class="str">"קטגוריה"</span>, barmode=<span class="str">"group"</span>,
+    title=<span class="str">"תקציב מול ביצוע (אלש\"ח)"</span>,
+    color_discrete_map={<span class="str">"תקציב"</span>:<span class="str">"#b8c45a"</span>,<span class="str">"ביצוע"</span>:<span class="str">"#E24B4A"</span>})
+<span class="vr">fig</span>.<span class="fn">show</span>()</pre>
+          </div>
+          <button class="hint-toggle" onclick="toggleHint(this)">💡 הצג רמז</button>
+          <div class="hint-content"># אם plotly לא מוכר:
+# !pip install plotly --quiet</div>
+        </div>
+      </div>
+
+      <div class="nav-buttons">
+        <button class="nav-btn" onclick="nav('p5',null)">← מודול 5</button>
+        <button class="nav-btn primary" onclick="nav('p7',null)">מודול 7 ←</button>
+      </div>
+    </div>
+
+    <!-- ════════════════ PAGE 7 — GOVERNANCE ════════════════ -->
+    <div class="page" id="p7">
+      <div class="page-tag">מודול 7</div>
+      <div class="page-title">אבטחה <em>וממשל</em></div>
+      <p class="page-lead">השאלה החשובה לCFO: "איפה הנתונים יושבים ומי יכול לגשת?" הנה תשובות ישירות.</p>
+
+      <div class="cards-grid">
+        <div class="card"><div class="card-title">🔒 Google Workspace ארגוני</div><div class="card-body">DLP, מדיניות retention ובקרות IAM — אותן מדיניות שחלות על Gmail ו-Drive.</div></div>
+        <div class="card"><div class="card-title">🗂️ מיקום הנתונים</div><div class="card-body">Sessions הם Ephemeral — בתום Session סביבת המחשוב נמחקת. קבצים יושבים ב-Drive.</div></div>
+        <div class="card"><div class="card-title">👁️ בקרת גישה</div><div class="card-body">שיתוף Notebook לפי הרשאות Drive. מודלים רגישים — לאנשים ספציפיים בלבד.</div></div>
+        <div class="card"><div class="card-title">📋 Audit Trail</div><div class="card-body">Google Workspace Admin מספק לוגים מלאים. עם Git — כל שינוי בסקריפט מתועד.</div></div>
+      </div>
+
+      <div class="callout callout-warn">
+        <strong>לנתונים רגישים</strong>
+        PII, נתוני M&A, SOX, GDPR — יש לנטרל לפני שימוש בענן. פנה ל-DPO לפני פריסה רחבה.
+      </div>
+
+      <h2>צ'קליסט מעבר</h2>
+      <ul class="checklist">
+        <li><div class="ck"></div><div><strong>שלב 1: Pilots היסטוריים</strong> <span>— שחזר דוח סגור. השווה פלט מול Excel שורה-שורה.</span></div></li>
+        <li><div class="ck"></div><div><strong>שלב 2: הרצה מקבילה</strong> <span>— ל-2–3 מחזורים, הרץ גם Python וגם Excel. כל פער — הזדמנות.</span></div></li>
+        <li><div class="ck"></div><div><strong>שלב 3: Peer Review לקוד</strong> <span>— כל סקריפט שמזין דוח חייב עיון של חבר צוות נוסף.</span></div></li>
+        <li><div class="ck"></div><div><strong>שלב 4: Version Control</strong> <span>— כל Notebook ייצורי ב-Git repository.</span></div></li>
+        <li><div class="ck"></div><div><strong>שלב 5: תיעוד קלט</strong> <span>— מקור נתונים, תקופה, שם כותב, תאריך בדיקה, הנחות.</span></div></li>
+        <li><div class="ck"></div><div><strong>שלב 6: סיווג רגישות</strong> <span>— אילו Datasets מותרים בענן לעומת On-Premise.</span></div></li>
+        <li><div class="ck"></div><div><strong>שלב 7: הכשרה מדורגת</strong> <span>— Use Case אחד לכל אנליסט, Template עובד, תן לשנות.</span></div></li>
+      </ul>
+
+      <div class="callout callout-tip">
+        <strong>סיימת את המדריך</strong>
+        הצעד הבא — פתח Colab והרץ את התא הראשון. תרגיל 1 ממודול 6 הוא נקודת ההתחלה.
+      </div>
+
+      <div class="nav-buttons">
+        <button class="nav-btn" onclick="nav('p6',null)">← מודול 6</button>
+        <button class="nav-btn primary" onclick="nav('p8',null)">מודול 8 ←</button>
+      </div>
+    </div>
+
+    <!-- ════════════════ PAGE 8 — VIDEOS ════════════════ -->
+    <div class="page" id="p8">
+      <div class="page-tag">מודול 8 · סרטוני הדרכה</div>
+      <div class="page-title">צפה, למד <em>ותרגל</em></div>
+      <p class="page-lead">Walkthroughs שלב אחר שלב — ב-Google Colab, עם נתונים פיננסיים. ו-Repository פתוח ב-GitHub.</p>
+
+      <div class="callout callout-tip">
+        <strong>כל הסרטונים חינמיים</strong>
+        <a href="https://www.youtube.com/@AIFinanceTransformation" target="_blank">youtube.com/@AIFinanceTransformation</a>
+      </div>
+
+      <div class="vid-grid">
+        <div class="vid-card">
+          <a href="https://youtu.be/liN9IgGES7k" target="_blank" class="vid-thumb">
+            <img src="https://img.youtube.com/vi/liN9IgGES7k/hqdefault.jpg" alt="סרטון 1" onerror="this.parentElement.innerHTML='<div class=\'vid-fallback\'>▶</div>'"/>
+            <div class="vid-play">▶</div>
+          </a>
+          <div class="vid-meta">
+            <span class="vid-tag">מבוא</span>
+            <h4>Python לCFOs — מבוא מלא</h4>
+            <p>למה Python, מה זה Colab, ואיך מריצים Notebook ראשון מאפס.</p>
+            <a class="vid-link" href="https://youtu.be/liN9IgGES7k" target="_blank">צפה ↗</a>
+          </div>
+        </div>
+        <div class="vid-card">
+          <a href="https://www.youtube.com/watch?v=1Dhmur97AxY" target="_blank" class="vid-thumb">
+            <img src="https://img.youtube.com/vi/1Dhmur97AxY/hqdefault.jpg" alt="סרטון 2" onerror="this.parentElement.innerHTML='<div class=\'vid-fallback\'>▶</div>'"/>
+            <div class="vid-play">▶</div>
+          </a>
+          <div class="vid-meta">
+            <span class="vid-tag">טעינת נתונים</span>
+            <h4>טעינת נתונים פיננסיים</h4>
+            <p>הדגמה חיה של שלוש שיטות הטעינה עם נתונים פיננסיים.</p>
+            <a class="vid-link" href="https://www.youtube.com/watch?v=1Dhmur97AxY" target="_blank">צפה ↗</a>
+          </div>
+        </div>
+        <div class="vid-card">
+          <a href="https://www.youtube.com/watch?v=MzgwrjfzWCE" target="_blank" class="vid-thumb">
+            <img src="https://img.youtube.com/vi/MzgwrjfzWCE/hqdefault.jpg" alt="סרטון 3" onerror="this.parentElement.innerHTML='<div class=\'vid-fallback\'>▶</div>'"/>
+            <div class="vid-play">▶</div>
+          </a>
+          <div class="vid-meta">
+            <span class="vid-tag">FP&A</span>
+            <h4>Variance Analysis אוטומטי</h4>
+            <p>Walkthrough של הסקריפט המלא — שורה-שורה עם Dataset אמיתי.</p>
+            <a class="vid-link" href="https://www.youtube.com/watch?v=MzgwrjfzWCE" target="_blank">צפה ↗</a>
+          </div>
+        </div>
+        <div class="vid-card">
+          <a href="https://www.youtube.com/watch?v=eTLclOv8s2s" target="_blank" class="vid-thumb">
+            <img src="https://img.youtube.com/vi/eTLclOv8s2s/hqdefault.jpg" alt="סרטון 4" onerror="this.parentElement.innerHTML='<div class=\'vid-fallback\'>▶</div>'"/>
+            <div class="vid-play">▶</div>
+          </a>
+          <div class="vid-meta">
+            <span class="vid-tag">גרפים</span>
+            <h4>גרפים פיננסיים עם Plotly</h4>
+            <p>Waterfall, Bar ו-Trend אינטראקטיביים שמתעדכנים אוטומטית.</p>
+            <a class="vid-link" href="https://www.youtube.com/watch?v=eTLclOv8s2s" target="_blank">צפה ↗</a>
+          </div>
+        </div>
+      </div>
+
+      <hr />
+      <h2>Repository ב-GitHub</h2>
+      <a href="https://github.com/The-Financial-Fox/PythonforFinance/tree/main/Python-for-CFOs" target="_blank" class="gh-card">
+        <div class="gh-icon"><svg height="24" width="24" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg></div>
+        <div class="gh-text"><div class="gh-name">The-Financial-Fox / PythonforFinance</div><div class="gh-sub">Python-for-CFOs · Open Source · Colab Ready</div></div>
+        <div class="gh-arrow">↗</div>
+      </a>
+
+      <div class="callout callout-tip">
+        <strong>קיצור דרך: פתח ישירות ב-Colab</strong>
+        ב-GitHub, בשורת הכתובת החלף <code>github.com</code> ב-<code>githubtocolab.com</code> — ה-Notebook נפתח מיד.
+      </div>
+
+      <div class="nav-buttons">
+        <button class="nav-btn" onclick="nav('p7',null)">← מודול 7</button>
+        <button class="nav-btn primary" onclick="nav('p9',null)">אודות רונן ←</button>
+      </div>
+    </div>
+
+    <!-- ════════════════ PAGE 9 — ABOUT ════════════════ -->
+    <div class="page" id="p9">
+      <div class="page-tag">מודול 9 · אודות</div>
+      <div class="page-title">אודות <em>רונן עמוס, CPA</em></div>
+      <p class="page-lead">CFO חיצוני, יועץ פיננסי ומחנך AI Finance. בונה את הקהילה הגדולה ביותר בישראל לאנשי פיננסים שמאמצים AI.</p>
+
+      <div class="about-hero-card">
+        <div class="about-avatar">RA</div>
+        <div>
+          <h3 style="font-size:1rem;font-weight:800;margin-bottom:0.35rem">רונן עמוס, CPA</h3>
+          <div class="about-role">CFO חיצוני · יועץ פיננסי · מחנך AI Finance</div>
+          <div class="about-tags">
+            <span class="ab-tag">🇮🇱 ישראל</span>
+            <span class="ab-tag">CPA</span>
+            <span class="ab-tag">10+ שנות ניסיון</span>
+            <span class="ab-tag">800+ חברי קהילה</span>
+          </div>
+        </div>
+      </div>
+
+      <h2>רקע מקצועי</h2>
+      <p>רונן עמוס הוא רואה חשבון (CPA) עם מעל 10 שנות ניסיון בניהול פיננסי, FP&A ואוטומציה. שימש כמנהל פעולות פיננסיות בכיר ב-Airobotics (2020–2025) ומנהל כספים ב-Tzur Management (2014–2020), שם בנה תשתיות נתונים שצמצמו זמני סגירת month-end.</p>
+      <p>כיום מנהל קהילה של <strong>800+ אנשי פיננסים</strong> תחת המותג <strong>AI Finance Transformation</strong>, ומעביר הדרכות, ווביינרים וקורסים על שימוש מעשי ב-AI בצוותי כספים.</p>
+
+      <div class="stat-row">
+        <div class="stat-card"><div class="stat-num">800+</div><div class="stat-label">אנשי פיננסים בקהילה</div></div>
+        <div class="stat-card"><div class="stat-num">10+</div><div class="stat-label">שנות ניסיון CFO ו-FP&A</div></div>
+        <div class="stat-card"><div class="stat-num">100+</div><div class="stat-label">סרטונים, מדריכים וווביינרים</div></div>
+      </div>
+
+      <h2>הסמכות</h2>
+      <div class="cred-grid">
+        <div class="cred-card"><div class="cred-icon">📜</div><div class="cred-title">CPA</div><div class="cred-sub">רואה חשבון מוסמך</div></div>
+        <div class="cred-card"><div class="cred-icon">🤖</div><div class="cred-title">AI Finance</div><div class="cred-sub">מחנך ומרצה</div></div>
+        <div class="cred-card"><div class="cred-icon">📊</div><div class="cred-title">FP&A</div><div class="cred-sub">10+ שנות ניסיון</div></div>
+        <div class="cred-card"><div class="cred-icon">🎙️</div><div class="cred-title">מרצה</div><div class="cred-sub">ווביינרים, YouTube</div></div>
+      </div>
+
+      <h2>Claude Playbook — הספר</h2>
+      <a class="gh-card" href="https://www.paypal.com/ncp/payment/E36KBLHK8MDPN" target="_blank">
+        <div style="font-size:1.6rem">📘</div>
+        <div class="gh-text"><div class="gh-name">Claude Playbook — Frameworks, Case Studies ויישום</div><div class="gh-sub">הספר המלא לצוותי פיננסים · רכישה מאובטחת</div></div>
+        <div class="gh-arrow">↗</div>
+      </a>
+
+      <div class="nav-buttons">
+        <button class="nav-btn" onclick="nav('p8',null)">← מודול 8</button>
+        <button class="nav-btn primary" onclick="nav('p0',null)">↩ חזרה להתחלה</button>
+      </div>
+    </div>
+
+    <!-- ════════════════ FOOTER ════════════════ -->
+    <section id="footer">
+      <span class="section-label">המשך</span>
+      <h2 class="footer-title">למדריכים ותוכן נוסף</h2>
+      <p class="footer-sub">כל הכלים, הקהילה והמשאבים — במקום אחד.</p>
+      <div class="footer-grid">
+        <a href="https://chat.whatsapp.com/CS6dgqnK45Q9XAMqScNr6R" target="_blank" class="footer-card">
+          <div class="footer-card-num">01 · COMMUNITY</div>
+          <div class="footer-card-title">קהילת AI Finance</div>
+          <div class="footer-card-desc">מעל 800 אנשי פיננסים שחולקים כלים ו-prompts בזמן אמת.</div>
+          <div class="footer-card-link">chat.whatsapp.com ↗</div>
+        </a>
+        <a href="https://www.youtube.com/@AIFinanceTransformation" target="_blank" class="footer-card">
+          <div class="footer-card-num">02 · YOUTUBE</div>
+          <div class="footer-card-title">AI for Finance</div>
+          <div class="footer-card-desc">הדגמות מעשיות, walkthroughs ו-playbooks שמאחורי הפרקטיקה.</div>
+          <div class="footer-card-link">@AIFinanceTransformation ↗</div>
+        </a>
+        <a href="https://www.ronenamoscpa.co.il/" target="_blank" class="footer-card">
+          <div class="footer-card-num">03 · NEWSLETTER</div>
+          <div class="footer-card-title">הניוזלטר השבועי</div>
+          <div class="footer-card-desc">תובנות AI לפיננסים ישר למייל שלך — כתוב על ידי איש פיננסים.</div>
+          <div class="footer-card-link">ronenamoscpa.co.il ↗</div>
+        </a>
+        <a href="https://www.ronenamoscpa.co.il/skill-vault" target="_blank" class="footer-card">
+          <div class="footer-card-num">04 · PROMPT HUB</div>
+          <div class="footer-card-title">Skill Vault</div>
+          <div class="footer-card-desc">ספריית ה-prompts שלי — מוכנים לשימוש מיידי בצוות הפיננסים שלך.</div>
+          <div class="footer-card-link">ronenamoscpa.co.il/skill-vault ↗</div>
+        </a>
+        <a href="https://www.paypal.com/ncp/payment/E36KBLHK8MDPN" target="_blank" class="footer-card">
+          <div class="footer-card-num">05 · THE BOOK</div>
+          <div class="footer-card-title">Claude Playbook</div>
+          <div class="footer-card-desc">הספר המלא — frameworks, case studies ומדריכי יישום לצוותי פיננסים.</div>
+          <div class="footer-card-link">רכישה מאובטחת ↗</div>
+        </a>
+        <a href="https://www.ronenamoscpa.co.il/courses" target="_blank" class="footer-card">
+          <div class="footer-card-num">06 · COURSE</div>
+          <div class="footer-card-title">קורס AI Finance</div>
+          <div class="footer-card-desc">תוכנית מובנית להטמעת חשיבה AI-First בצוות הפיננסים שלך.</div>
+          <div class="footer-card-link">ronenamoscpa.co.il/courses ↗</div>
+        </a>
+      </div>
+      <div class="footer-copy">Ronen Amos · AI Finance Transformation</div>
+    </section>
+
+  </div><!-- /main-area -->
+
+  <!-- ── SIDEBAR (right) ── -->
+  <nav class="sidebar" id="sidebar">
+    <div class="sidebar-scroll">
+      <div class="sb-section-label">מודולים</div>
+
+      <a class="sb-item active" onclick="nav('p0',this)">
+        <span class="sb-num">★</span>
+        <div class="sb-item-text">
+          <div class="sb-item-title">מבוא</div>
+          <div class="sb-item-sub">על מה המדריך</div>
+        </div>
+      </a>
+      <a class="sb-item" onclick="nav('p1',this)">
+        <span class="sb-num">1</span>
+        <div class="sb-item-text">
+          <div class="sb-item-title">Excel vs Python</div>
+          <div class="sb-item-sub">למה לשדרג</div>
+        </div>
+      </a>
+      <a class="sb-item" onclick="nav('p2',this)">
+        <span class="sb-num">2</span>
+        <div class="sb-item-text">
+          <div class="sb-item-title">Colab — 60 שניות</div>
+          <div class="sb-item-sub">הצעד הראשון</div>
+        </div>
+      </a>
+      <a class="sb-item" onclick="nav('p3',this)">
+        <span class="sb-num">3</span>
+        <div class="sb-item-text">
+          <div class="sb-item-title">ארגז הכלים</div>
+          <div class="sb-item-sub">pandas, NumPy, Plotly</div>
+        </div>
+      </a>
+      <a class="sb-item" onclick="nav('p4',this)">
+        <span class="sb-num">4</span>
+        <div class="sb-item-text">
+          <div class="sb-item-title">טעינת נתונים</div>
+          <div class="sb-item-sub">CSV, Drive, Sheets</div>
+        </div>
+      </a>
+      <a class="sb-item" onclick="nav('p5',this)">
+        <span class="sb-num">5</span>
+        <div class="sb-item-text">
+          <div class="sb-item-title">Variance Analysis</div>
+          <div class="sb-item-sub">קוד מלא להעתקה</div>
+        </div>
+      </a>
+      <a class="sb-item" onclick="nav('p6',this)">
+        <span class="sb-num">6</span>
+        <div class="sb-item-text">
+          <div class="sb-item-title">תרגול מעשי</div>
+          <div class="sb-item-sub">5 תרגילים עם רמזים</div>
+        </div>
+      </a>
+      <a class="sb-item" onclick="nav('p7',this)">
+        <span class="sb-num">7</span>
+        <div class="sb-item-text">
+          <div class="sb-item-title">אבטחה וממשל</div>
+          <div class="sb-item-sub">צ'קליסט מעבר</div>
+        </div>
+      </a>
+      <a class="sb-item" onclick="nav('p8',this)">
+        <span class="sb-num">8</span>
+        <div class="sb-item-text">
+          <div class="sb-item-title">סרטוני הדרכה</div>
+          <div class="sb-item-sub">YouTube + GitHub</div>
+        </div>
+      </a>
+      <a class="sb-item" onclick="nav('p9',this)">
+        <span class="sb-num">9</span>
+        <div class="sb-item-text">
+          <div class="sb-item-title">אודות רונן</div>
+          <div class="sb-item-sub">AI Finance Transformation</div>
+        </div>
+      </a>
+    </div>
+
+    <div class="sidebar-bottom">
+      <a href="https://chat.whatsapp.com/CS6dgqnK45Q9XAMqScNr6R" target="_blank">קהילת AI Finance ↗</a>
+    </div>
+  </nav>
+
+</div><!-- /shell -->
+
+<script>
+const pages  = ['p0','p1','p2','p3','p4','p5','p6','p7','p8','p9'];
+const titles = ['מבוא','Excel vs Python','Colab — 60 שניות','ארגז הכלים','טעינת נתונים','Variance Analysis','תרגול מעשי','אבטחה וממשל','סרטוני הדרכה','אודות רונן'];
+
+function nav(pageId, clickedEl) {
+  pages.forEach(id => document.getElementById(id).classList.remove('active'));
+  document.getElementById(pageId).classList.add('active');
+  document.querySelectorAll('.sb-item').forEach(el => el.classList.remove('active'));
+  if (clickedEl) {
+    clickedEl.classList.add('active');
+  } else {
+    const idx = pages.indexOf(pageId);
+    document.querySelectorAll('.sb-item')[idx]?.classList.add('active');
+  }
+  const idx = pages.indexOf(pageId);
+  document.getElementById('tb-title').textContent = titles[idx];
+  document.getElementById('prog-text').textContent = (idx+1) + ' / ' + pages.length;
+  document.getElementById('prog-fill').style.width = Math.round(((idx+1)/pages.length)*100) + '%';
+  document.getElementById('mainArea').scrollTop = 0;
+  // close on mobile
+  if (window.innerWidth <= 800) closeSidebar();
+}
+
+function toggleSidebar() {
+  const sb = document.getElementById('sidebar');
+  const ov = document.getElementById('overlay');
+  sb.classList.toggle('open');
+  ov.classList.toggle('open');
+}
+function closeSidebar() {
+  document.getElementById('sidebar').classList.remove('open');
+  document.getElementById('overlay').classList.remove('open');
+}
+
+function toggleHint(btn) {
+  const hint = btn.nextElementSibling;
+  const open = hint.classList.toggle('open');
+  btn.textContent = open ? '💡 הסתר רמז' : '💡 הצג רמז';
+}
+</script>
+</body>
+</html>
