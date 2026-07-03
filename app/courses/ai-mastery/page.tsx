@@ -6,8 +6,8 @@ import { SectionHeading } from "@/components/ui/SectionHeading";
 import { CheckCircle2, PlayCircle, FileText, Globe, Zap, Shield, Infinity, Clock, Sparkles } from "lucide-react";
 
 export const metadata: Metadata = {
-    title: "AI FINANCE Mastery: הפוך לחשבונאי של העתיד",
-    description: "קורס מקיף של 8 שיעורים: ChatGPT לפיננסים וחשבונאות ארגונית. לימוד מעשי עם 100+ פרומפטים מוכנים.",
+    title: "AI לכספים: המדריך למתחילים | קורס יסוד",
+    description: "קורס יסוד של 8 שיעורים: ChatGPT לפיננסים וחשבונאות ארגונית. לימוד מעשי עם 100+ פרומפטים מוכנים.",
 };
 
 const syllabus = [
@@ -88,7 +88,7 @@ export default function AIMasteryPage() {
                         <div className="mb-24 text-center">
                             <Badge variant="teal" className="mb-6 px-4 py-1.5 text-sm uppercase tracking-widest bg-teal-500/10 text-teal-400 border-teal-500/20">Certified Program 2026</Badge>
                             <h1 className="text-5xl font-black sm:text-7xl lg:text-8xl mb-6 bg-clip-text text-transparent bg-gradient-to-b from-white to-white/60 leading-tight">
-                                AI FINANCE <span className="text-royal-400">Mastery</span>
+                                AI לכספים: <span className="text-royal-400">המדריך למתחילים</span>
                             </h1>
                             <h2 className="text-2xl font-bold text-teal-400 mb-8 tracking-widest uppercase">
                                 מהפיכת ה-ChatGPT בעולם החשבונאות והכספים
