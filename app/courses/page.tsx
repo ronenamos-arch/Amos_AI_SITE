@@ -66,18 +66,18 @@ export default function CoursesHubPage() {
                     <h2 className="text-3xl font-bold mb-10">קורסים נוספים</h2>
                     <div className="grid gap-10 md:grid-cols-2">
                         {gridCourses.map((course) => (
-                            <GlassCard
+                            <div
                                 key={course.slug}
-                                className={`flex flex-col h-full border-t-4 ${course.color === 'teal' ? 'border-teal-400' : 'border-royal-500'} !p-0 overflow-hidden border-b border-r border-l`}
                                 style={{
-                                    borderBottomColor: '#d4af37',
-                                    borderRightColor: '#d4af37',
-                                    borderLeftColor: '#d4af37',
-                                    borderBottomWidth: '1px',
-                                    borderRightWidth: '1px',
-                                    borderLeftWidth: '1px',
+                                    borderBottom: '1px solid #d4af37',
+                                    borderRight: '1px solid #d4af37',
+                                    borderLeft: '1px solid #d4af37',
+                                    borderRadius: '1rem',
                                 }}
                             >
+                                <GlassCard
+                                    className={`flex flex-col h-full border-t-4 ${course.color === 'teal' ? 'border-teal-400' : 'border-royal-500'} !p-0 overflow-hidden`}
+                                >
                                 {/* Syllabus Preview Image */}
                                 <div className="relative aspect-[16/9] w-full overflow-hidden border-b border-white/5">
                                     <img
@@ -104,7 +104,8 @@ export default function CoursesHubPage() {
                                         </Button>
                                     </div>
                                 </div>
-                            </GlassCard>
+                                </GlassCard>
+                            </div>
                         ))}
                     </div>
                 </div>
