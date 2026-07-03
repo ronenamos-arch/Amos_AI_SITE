@@ -357,15 +357,41 @@
   <!-- ARTIFACT VS LIVE ARTIFACT -->
   <div class="sec-label">Artifact מול Live Artifact</div>
   <h2>מה ההבדל?</h2>
-  <p>שניהם נבנים על ידי Claude, אבל יש הבדל אחד קריטי: <strong>חיבור לנתונים</strong>.</p>
-  <ul style="margin:16px 0 20px;padding-inline-start:22px;color:var(--text);line-height:1.8;">
-    <li><strong>Artifact רגיל</strong> — "צילום רגע": Claude בונה כלי שלם (דשבורד, סקריפט, דוח) עם הנתונים שנתת לו <em>באותו רגע</em>. התוצר עצמאי, ניתן לשיתוף, ניתן להורדה — אבל הנתונים בפנים קפואים ולא מתעדכנים.</li>
-    <li><strong>Live Artifact</strong> — "חיבור חי": מחובר ישירות למקורות הנתונים שלך (Google Drive, Excel, ERP וכו'). כל פתיחה מושכת נתונים עדכניים. בגלל זה — <strong>לא ניתן לשיתוף חיצוני</strong>; זה החיבור האישי שלך למערכות שלך, ושיתוף שלו פירושו חשיפת גישה לנתונים רגישים.</li>
-    <li><strong>רוצה לשתף Live Artifact?</strong> הפתרון: הפוך אותו ל-<strong>Skill</strong> — אורז את הלוגיקה ללא הנתונים, ואז כל אחד בצוות מפעיל אותו עם החיבורים <em>שלו</em>.</li>
-  </ul>
+  <p style="font-size:16px;color:var(--muted);margin-bottom:32px;line-height:1.7;">שניהם נבנים על ידי Claude, אבל יש הבדל אחד קריטי: <strong style="color:var(--accent);font-size:17px;">חיבור לנתונים</strong>.</p>
+
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px;margin-bottom:40px;">
+    <!-- Card 1: Regular Artifact -->
+    <div style="background:linear-gradient(135deg,rgba(184,196,90,0.08),rgba(184,196,90,0.03));border:1.5px solid rgba(184,196,90,0.2);border-radius:14px;padding:28px;transition:all 0.3s ease;">
+      <div style="font-family:var(--mono);font-size:12px;font-weight:900;letter-spacing:0.12em;text-transform:uppercase;color:var(--accent);margin-bottom:10px;">Artifact רגיל</div>
+      <div style="font-size:17px;font-weight:800;color:var(--text);margin-bottom:14px;line-height:1.4;">"צילום רגע"</div>
+      <p style="font-size:15px;color:var(--muted);line-height:1.8;margin:0;">Claude בונה כלי שלם (דשבורד, סקריפט, דוח) עם הנתונים שנתת לו <strong style="color:var(--text);">באותו רגע</strong>. התוצר עצמאי, ניתן לשיתוף, ניתן להורדה — אבל הנתונים בפנים קפואים ולא מתעדכנים.</p>
+    </div>
+
+    <!-- Card 2: Live Artifact -->
+    <div style="background:linear-gradient(135deg,rgba(101,196,102,0.08),rgba(101,196,102,0.03));border:1.5px solid rgba(101,196,102,0.2);border-radius:14px;padding:28px;transition:all 0.3s ease;">
+      <div style="font-family:var(--mono);font-size:12px;font-weight:900;letter-spacing:0.12em;text-transform:uppercase;color:var(--green);margin-bottom:10px;">Live Artifact</div>
+      <div style="font-size:17px;font-weight:800;color:var(--text);margin-bottom:14px;line-height:1.4;">"חיבור חי"</div>
+      <p style="font-size:15px;color:var(--muted);line-height:1.8;margin:0;">מחובר ישירות למקורות הנתונים שלך (Google Drive, Excel, ERP וכו'). כל פתיחה מושכת <strong style="color:var(--text);">נתונים עדכניים</strong> בזמן אמת.</p>
+    </div>
+
+    <!-- Card 3: Cannot Share Externally -->
+    <div style="background:linear-gradient(135deg,rgba(224,85,85,0.08),rgba(224,85,85,0.03));border:1.5px solid rgba(224,85,85,0.2);border-radius:14px;padding:28px;transition:all 0.3s ease;">
+      <div style="font-family:var(--mono);font-size:12px;font-weight:900;letter-spacing:0.12em;text-transform:uppercase;color:var(--red);margin-bottom:10px;">⚠ הגבלה חשובה</div>
+      <div style="font-size:17px;font-weight:800;color:var(--text);margin-bottom:14px;line-height:1.4;">לא ניתן לשיתוף חיצוני</div>
+      <p style="font-size:15px;color:var(--muted);line-height:1.8;margin:0;">זה <strong style="color:var(--text);">החיבור האישי שלך</strong> למערכות שלך. שיתוף שלו פירושו חשיפת גישה לנתונים רגישים למשתמש אחר.</p>
+    </div>
+
+    <!-- Card 4: How to Share Live Artifact -->
+    <div style="background:linear-gradient(135deg,rgba(96,165,250,0.08),rgba(96,165,250,0.03));border:1.5px solid rgba(96,165,250,0.2);border-radius:14px;padding:28px;transition:all 0.3s ease;">
+      <div style="font-family:var(--mono);font-size:12px;font-weight:900;letter-spacing:0.12em;text-transform:uppercase;color:var(--blue);margin-bottom:10px;">✓ הפתרון</div>
+      <div style="font-size:17px;font-weight:800;color:var(--text);margin-bottom:14px;line-height:1.4;">איך לשתף Live Artifact</div>
+      <p style="font-size:15px;color:var(--muted);line-height:1.8;margin:0;">הפוך אותו ל-<strong style="color:var(--text);">Skill</strong> — אורז את הלוגיקה ללא הנתונים, ואז כל אחד בצוות מפעיל אותו עם החיבורים <em>שלו</em>.</p>
+    </div>
+  </div>
+
   <div class="callout">
     <div class="callout-label">כלל אצבע</div>
-    <p>Artifact = תוצר להורדה ולשיתוף. Live Artifact = כלי חי שמחובר לנתונים שלך בלבד.</p>
+    <p style="font-size:16px;">Artifact = תוצר להורדה ולשיתוף • Live Artifact = כלי חי שמחובר לנתונים שלך בלבד</p>
   </div>
 
   <!-- LIVE SESSION RECORDING - ARTIFACTS -->
