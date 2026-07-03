@@ -238,6 +238,13 @@
 
 <main class="content">
 
+  <!-- ARTIFACT IMAGE PREVIEW -->
+  <div class="sec-label">Artifact — תצוגה</div>
+  <div style="border-radius:10px;overflow:hidden;border:1px solid var(--border2);margin-bottom:12px;">
+    <img src="Images/Artifact.png" alt="איך נראה Artifact" style="width:100%;display:block;">
+  </div>
+  <p style="text-align:center;color:var(--muted);font-size:13px;margin-bottom:32px;">איך זה נראה</p>
+
   <!-- INTRO -->
   <div class="sec-label">מה זה Artifact?</div>
   <h2>במקום שClaude יספר לך — הוא בונה לך</h2>
@@ -347,6 +354,43 @@
     </div>
   </div>
 
+  <!-- ARTIFACT VS LIVE ARTIFACT -->
+  <div class="sec-label">Artifact מול Live Artifact</div>
+  <h2>מה ההבדל?</h2>
+  <p>שניהם נבנים על ידי Claude, אבל יש הבדל אחד קריטי: <strong>חיבור לנתונים</strong>.</p>
+  <ul style="margin:16px 0 20px;padding-inline-start:22px;color:var(--text);line-height:1.8;">
+    <li><strong>Artifact רגיל</strong> — "צילום רגע": Claude בונה כלי שלם (דשבורד, סקריפט, דוח) עם הנתונים שנתת לו <em>באותו רגע</em>. התוצר עצמאי, ניתן לשיתוף, ניתן להורדה — אבל הנתונים בפנים קפואים ולא מתעדכנים.</li>
+    <li><strong>Live Artifact</strong> — "חיבור חי": מחובר ישירות למקורות הנתונים שלך (Google Drive, Excel, ERP וכו'). כל פתיחה מושכת נתונים עדכניים. בגלל זה — <strong>לא ניתן לשיתוף חיצוני</strong>; זה החיבור האישי שלך למערכות שלך, ושיתוף שלו פירושו חשיפת גישה לנתונים רגישים.</li>
+    <li><strong>רוצה לשתף Live Artifact?</strong> הפתרון: הפוך אותו ל-<strong>Skill</strong> — אורז את הלוגיקה ללא הנתונים, ואז כל אחד בצוות מפעיל אותו עם החיבורים <em>שלו</em>.</li>
+  </ul>
+  <div class="callout">
+    <div class="callout-label">כלל אצבע</div>
+    <p>Artifact = תוצר להורדה ולשיתוף. Live Artifact = כלי חי שמחובר לנתונים שלך בלבד.</p>
+  </div>
+
+  <!-- LIVE SESSION RECORDING - ARTIFACTS -->
+  <div style="margin-top:48px;margin-bottom:48px;background:linear-gradient(135deg,rgba(184,196,90,0.08),rgba(184,196,90,0.02));border:1px solid rgba(184,196,90,0.15);border-radius:14px;padding:32px 28px;overflow:hidden;">
+    <div style="font-family:var(--mono);font-size:11px;font-weight:900;letter-spacing:0.12em;text-transform:uppercase;color:var(--accent);margin-bottom:12px;">Live Session Recording — Artifacts (not live)</div>
+    <p style="font-size:15px;line-height:1.75;color:var(--text);margin:0 0 20px;">בסרטון הזה אני מראה איך להשתמש ב-Claude Artifacts כדי לבנות כלי עבודה אמיתי למחלקת כספים — בלי לכתוב קוד, ועם ערך פרקטי מיידי לרואי חשבון, חשבים, CFOs ואנשי FP&A. נדבר על איך Claude עוזר בניקוי קבצי אקסל מבולגנים, איחוד דוחות P&L ממספר מדינות, עיבוד נתונים פיננסיים, והפיכת תהליך ידני של ימים לאוטומציה של דקות.</p>
+    <a href="https://www.ronenamoscpa.co.il/resources/webiners/excel-hell" target="_blank"
+       style="display:inline-flex;align-items:center;gap:10px;background:linear-gradient(135deg,var(--accent),var(--accent-light,#d6e36a));color:#0b0d10;font-family:var(--mono);font-size:0.78rem;font-weight:900;letter-spacing:0.08em;padding:13px 26px;border-radius:8px;text-decoration:none;border:none;box-shadow:0 4px 18px rgba(184,196,90,0.35);transition:all 0.2s;"
+       onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 8px 28px rgba(184,196,90,0.5)'"
+       onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='0 4px 18px rgba(184,196,90,0.35)'">
+      ▶&nbsp;&nbsp;דף המצגת
+    </a>
+    <div style="margin-top:24px;position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:10px;border:1px solid var(--border2);">
+      <iframe
+        src="https://www.youtube.com/embed/QMETtbRYUEQ?rel=0"
+        title="Live Session — Claude Artifacts for Finance"
+        frameborder="0"
+        referrerpolicy="strict-origin-when-cross-origin"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        allowfullscreen
+        style="position:absolute;top:0;right:0;width:100%;height:100%;">
+      </iframe>
+    </div>
+  </div>
+
   <!-- WHEN TO USE -->
   <div class="sec-label">מתי כן ומתי לא</div>
   <h2>Artifact מול תשובה רגילה בצ'אט</h2>
@@ -449,12 +493,12 @@ Dark theme (#0b0d10 bg, #b8c45a accent), Hebrew labels, print-ready A4 layout.</
 
   <!-- NEXT MODULE -->
   <div class="next-module">
-    <button class="prev-btn" onclick="window.location.href='module-03.html'">→ Module 03</button>
+    <button class="prev-btn" onclick="window.location.href='/courses/ai-master-course/module-03'">→ Module 03</button>
     <div style="text-align:right">
       <div class="next-label">המודול הבא</div>
       <div class="next-title">Module 05 — Skills — הזיכרון המוסדי שלך</div>
     </div>
-    <button class="next-btn" onclick="window.location.href='module-05.html'">המשך ←</button>
+    <button class="next-btn" onclick="window.location.href='/courses/ai-master-course/module-05'">המשך ←</button>
   </div>
 
 </main>
