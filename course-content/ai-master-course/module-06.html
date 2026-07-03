@@ -401,6 +401,24 @@ Always: use USD, Israeli GAAP, professional English for board content</div>
     .m6-bonus .r { font-size:11px; font-weight:800; color:var(--accent); white-space:nowrap; }
   </style>
 
+  <!-- MARKDOWN EXPLANATION -->
+  <div class="sec-label">מה זה Markdown?</div>
+  <h2>קבצים שקל לקרוא וקל לערוך</h2>
+  <p style="font-size:15px;line-height:1.8;margin-bottom:16px;">
+    <strong>Markdown (.md)</strong> זה פורמט טקסט פשוט שמיועד להיות קל לקריאה גם במצב "גולמי" (טקסט רגיל), אבל גם מאורגן וקל לעריכה.
+  </p>
+  <div style="background:linear-gradient(135deg,rgba(184,196,90,0.08),rgba(184,196,90,0.02));border:1px solid rgba(184,196,90,0.15);border-radius:12px;padding:22px;margin-bottom:32px;">
+    <div style="font-weight:700;color:var(--text);margin-bottom:10px;font-size:14px;">איך יוצרים או עורכים קובץ MD:</div>
+    <ul style="margin:0;padding-inline-start:22px;color:var(--muted);font-size:14px;line-height:1.7;">
+      <li><strong style="color:var(--text);">בכל עורך טקסט</strong> — Word, Google Docs, או אפילו Notepad. בשמור בשם שמסתיים ב-.md (למשל: START.md)</li>
+      <li><strong style="color:var(--text);">סימנים פשוטים</strong> — כותרות: # כותרת גדולה, ## כותרת בינונית. רשימות: כוכבית *. Bold: **טקסט**</li>
+      <li><strong style="color:var(--text);">קובץ טקסט טהור</strong> — אין "עיצובים נסתרים" כמו ב-Word. סה"כ קובץ גיבוב שנוח לשתף ולקרוא</li>
+    </ul>
+  </div>
+  <p style="font-size:14px;color:var(--muted);margin-bottom:32px;font-style:italic;">
+    בפרויקט שלנו, אנחנו משתמשים בקבצי MD כדי לכתוב הוראות (START.md), לעקוב אחר משימות (TASKS.md), ולשמור זיכרון מתמשך (SKILL.md).
+  </p>
+
   <div class="sec-label">Project אמיתי לדוגמה</div>
   <h2>סוכן הכספים שלך — AI Finance Agent</h2>
   <p>במקום תיאוריה — Project אמיתי שאפשר להוריד ולהשתמש בו מיד. זו סביבת עבודה לעבודה פיננסית חוזרת: קליטת חוזי ספקים, עדכון מרשם חוזים, והשוואת הוצאות — בנויה סביב <strong>3 קובצי זיכרון</strong> ותיקיות מסודרות.</p>
@@ -408,7 +426,7 @@ Always: use USD, Israeli GAAP, professional English for board content</div>
   <div class="m6-tree">
 AI-Finance-Agent/<br>
 ├── <span class="f">START.md</span>      <span class="c">← הוראות הפרויקט</span><br>
-├── <span class="f">MEMORY.md</span>     <span class="c">← זיכרון מתמשך</span><br>
+├── <span class="f">skill.md</span>     <span class="c">← זיכרון מתמשך</span><br>
 ├── <span class="f">TASKS.md</span>      <span class="c">← מעקב משימות</span><br>
 │<br>
 ├── <span class="f">data/</span><br>
@@ -429,7 +447,7 @@ AI-Finance-Agent/<br>
       <div class="d">טבלת To Do / Done. Claude קורא אותה כדי לדעת מה צריך להיעשות בהרצה הנוכחית.</div>
     </div>
     <div class="m6-role">
-      <div class="fn">MEMORY.md</div>
+      <div class="fn">skill.md</div>
       <div class="t">זיכרון מתמשך</div>
       <div class="d">החלטות, מיפויי ספקים והקשר שצריך להישאר נכון בין הרצה להרצה. הזיכרון המוסדי של הפרויקט.</div>
     </div>
@@ -441,25 +459,25 @@ AI-Finance-Agent/<br>
     <div class="m6-step"><div class="n">2</div><div class="x">Claude קולט אותו ומעדכן את מרשם החוזים (Contract Register)</div></div>
     <div class="m6-step"><div class="n">3</div><div class="x">משווים הוצאות ספקים בפועל מול המרשם — מאתרים פערים ואי-התאמות</div></div>
     <div class="m6-step"><div class="n">4</div><div class="x">כותבים סיכום ממצאים קצר ושומרים ב-<code>reports/</code></div></div>
-    <div class="m6-step"><div class="n">5</div><div class="x">רושמים החלטות ומיפויים ב-<code>MEMORY.md</code> — כדי שההרצה הבאה תתחיל חכמה יותר</div></div>
+    <div class="m6-step"><div class="n">5</div><div class="x">רושמים החלטות ומיפויים ב-<code>skill.md</code> — כדי שההרצה הבאה תתחיל חכמה יותר</div></div>
   </div>
 
   <div class="m6-dl">
     <div class="h">⬇ ערכת התחלה — AI Finance Agent</div>
     <div class="s">הורד את 3 קובצי הבסיס, צור Project חדש ב-Cowork וגרור אותם פנימה. מותאם ל-TechFlow — ערוך להקשר שלך.</div>
     <div class="m6-dl-grid">
-      <a class="m6-file" href="files/ai-finance-agent/START.md" download>
+      <a class="m6-file" href="https://drive.google.com/file/d/16n8IhmnnXF9cw05kQqkS5txWUsUK658z/view?usp=sharing" target="_blank">
         <span class="fn">START.md</span>
         <span class="fd">הוראות הפרויקט ומבנה התיקיות</span>
         <span class="b">הורד ←</span>
       </a>
-      <a class="m6-file" href="files/ai-finance-agent/TASKS.md" download>
+      <a class="m6-file" href="https://drive.google.com/file/d/1EqYxNOJSvRDBLE35Y9KgrZHmbqPn7THE/view?usp=sharing" target="_blank">
         <span class="fn">TASKS.md</span>
         <span class="fd">תבנית מעקב משימות</span>
         <span class="b">הורד ←</span>
       </a>
-      <a class="m6-file" href="files/ai-finance-agent/MEMORY.md" download>
-        <span class="fn">MEMORY.md</span>
+      <a class="m6-file" href="https://drive.google.com/file/d/1VaKZmTtlmIqwSZvutMbjufREfeUcakbZ/view?usp=sharing" target="_blank">
+        <span class="fn">skill.md</span>
         <span class="fd">תבנית זיכרון מתמשך</span>
         <span class="b">הורד ←</span>
       </a>
