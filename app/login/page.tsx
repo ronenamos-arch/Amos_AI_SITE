@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useState, Suspense } from "react";
+import { useSearchParams } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
 import { GlassCard } from "@/components/ui/GlassCard";
 import { Input } from "@/components/ui/Input";
@@ -8,7 +9,10 @@ import { Button } from "@/components/ui/Button";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Loader2, Mail, Lock, Chrome } from "lucide-react";
 
-export default function LoginPage() {
+function LoginContent() {
+    const searchParams = useSearchParams();
+    const nextUrl = searchParams.get("next") ?? "/";
+
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [loading, setLoading] = useState(false);
@@ -29,7 +33,7 @@ export default function LoginPage() {
         if (error) {
             setMessage({ type: "error", text: "שגיאה בהתחברות: " + error.message });
         } else {
-            window.location.href = "/";
+            window.location.href = nextUrl;
         }
         setLoading(false);
     };
@@ -42,7 +46,7 @@ export default function LoginPage() {
             email,
             password,
             options: {
-                emailRedirectTo: `${window.location.origin}/auth/callback`,
+                emailRedirectTo: `${window.location.origin}/auth/callback?next=${encodeURIComponent(nextUrl)}`,
             },
         });
 
@@ -58,7 +62,7 @@ export default function LoginPage() {
         await supabase.auth.signInWithOAuth({
             provider: "google",
             options: {
-                redirectTo: `${window.location.origin}/auth/callback`,
+                redirectTo: `${window.location.origin}/auth/callback?next=${encodeURIComponent(nextUrl)}`,
             },
         });
     };
@@ -143,5 +147,13 @@ export default function LoginPage() {
                 </p>
             </div>
         </div>
+    );
+}
+
+export default function LoginPage() {
+    return (
+        <Suspense fallback={<div className="pt-32 pb-20 min-h-screen flex items-center justify-center">Loading...</div>}>
+            <LoginContent />
+        </Suspense>
     );
 }

@@ -1,0 +1,220 @@
+- generic [ref=f19e4]:
+  - generic [ref=f19e5]:
+    - generic [ref=f19e7]: מחיר השקה נגמר בקרוב
+    - generic [ref=f19e8]: — ₪1,250
+    - generic [ref=f19e9]: עכשיו ₪999 בלבד
+  - banner [ref=f19e10]:
+    - img "AI Finance Transformation" [ref=f19e11]
+    - generic [ref=f19e12]:
+      - generic [ref=f19e13]: AI Finance Transformation
+      - generic [ref=f19e14]: רונן עמוס רו״ח
+    - link "→ חזרה לאתר הראשי" [ref=f19e15] [cursor=pointer]:
+      - /url: https://ronenamoscpa.co.il
+  - generic [ref=f19e17]:
+    - generic [ref=f19e18]:
+      - generic [ref=f19e19]: CFOs · חשבים · FP&A · מנהלי חשבונות
+      - heading "הפוך את מחלקת הכספים למכונת אוטומציה" [level=1] [ref=f19e20]:
+        - text: הפוך את מחלקת הכספים
+        - text: למכונת אוטומציה
+      - paragraph [ref=f19e21]: מנהל הכספים בעידן ה-AI — קורס Claude מעשי. הקורס המעשי הראשון בעברית שהופך CFO לאוטומציה.
+      - generic [ref=f19e22]:
+        - link "הצטרף עכשיו — ₪999 בלבד" [ref=f19e23] [cursor=pointer]:
+          - /url: PAYMENT_URL_PLACEHOLDER
+        - generic [ref=f19e24]:
+          - generic [ref=f19e25]: ₪1,250 ₪999
+          - generic [ref=f19e26]: גישה מיידית · לכל החיים
+    - img "מ-Excel גולמי לדשבורד AI" [ref=f19e28]
+  - generic [ref=f19e31]:
+    - generic [ref=f19e32]:
+      - generic [ref=f19e33]: ✓
+      - generic [ref=f19e34]: הופך דוחות חודשיים לתהליך אוטומטי
+    - generic [ref=f19e35]:
+      - generic [ref=f19e36]: ✓
+      - generic [ref=f19e37]: חוסך עשרות שעות עבודה ידנית בחודש
+    - generic [ref=f19e38]:
+      - generic [ref=f19e39]: ✓
+      - generic [ref=f19e40]: 200+ Prompts פיננסיים מוכנים לשימוש
+    - generic [ref=f19e41]:
+      - generic [ref=f19e42]: ✓
+      - generic [ref=f19e43]: 30+ Skills להורדה והרצה מיידית
+    - generic [ref=f19e44]:
+      - generic [ref=f19e45]: ✓
+      - generic [ref=f19e46]: תרגול על נתוני TechFlow אמיתיים
+    - generic [ref=f19e47]:
+      - generic [ref=f19e48]: ✓
+      - generic [ref=f19e49]: מסלול מלא ממתחיל ועד מתקדם
+  - generic [ref=f19e50]:
+    - generic [ref=f19e51]:
+      - generic [ref=f19e52]: // לפני מול אחרי
+      - heading "מה משתנה כשמצטרפים לקורס" [level=2] [ref=f19e53]
+    - generic [ref=f19e54]:
+      - generic [ref=f19e55]:
+        - generic [ref=f19e57]: בלי הקורס
+        - generic [ref=f19e58]:
+          - generic [ref=f19e59]: ✕
+          - generic [ref=f19e60]: שעות של עבודה ידנית על כל דוח
+        - generic [ref=f19e61]:
+          - generic [ref=f19e62]: ✕
+          - generic [ref=f19e63]: העתקה והדבקה בין Excel למצגות
+        - generic [ref=f19e64]:
+          - generic [ref=f19e65]: ✕
+          - generic [ref=f19e66]: ניחוש מול AI בלי שיטה מוכחת
+        - generic [ref=f19e67]:
+          - generic [ref=f19e68]: ✕
+          - generic [ref=f19e69]: איחור בהגשת חבילות דירקטוריון
+        - generic [ref=f19e70]:
+          - generic [ref=f19e71]: ✕
+          - generic [ref=f19e72]: בלי כלים בעברית שמתאימים ל-CFO
+      - generic [ref=f19e73]:
+        - generic [ref=f19e75]: עם הקורס
+        - generic [ref=f19e76]:
+          - generic [ref=f19e77]: ✓
+          - generic [ref=f19e78]: דוחות שמתעדכנים כמעט לבד
+        - generic [ref=f19e79]:
+          - generic [ref=f19e80]: ✓
+          - generic [ref=f19e81]: זרימת נתונים אוטומטית לתובנות
+        - generic [ref=f19e82]:
+          - generic [ref=f19e83]: ✓
+          - generic [ref=f19e84]: ספריית Prompts ו-Skills מוכנה
+        - generic [ref=f19e85]:
+          - generic [ref=f19e86]: ✓
+          - generic [ref=f19e87]: חבילת דירקטוריון בלחיצת כפתור
+        - generic [ref=f19e88]:
+          - generic [ref=f19e89]: ✓
+          - generic [ref=f19e90]: קורס מעשי בעברית שנבנה ל-CFO
+  - generic [ref=f19e91]:
+    - generic [ref=f19e92]:
+      - generic [ref=f19e93]:
+        - generic [ref=f19e94]: "16"
+        - generic [ref=f19e95]: מודולים
+      - generic [ref=f19e96]:
+        - generic [ref=f19e97]: 40+
+        - generic [ref=f19e98]: שעות
+      - generic [ref=f19e99]:
+        - generic [ref=f19e100]: 200+
+        - generic [ref=f19e101]: Prompts
+      - generic [ref=f19e102]:
+        - generic [ref=f19e103]: 30+
+        - generic [ref=f19e104]: Skills
+    - generic [ref=f19e105]:
+      - generic [ref=f19e106]: "בחבילה שתקבל:"
+      - generic [ref=f19e107]:
+        - generic [ref=f19e108]:
+          - generic [ref=f19e109]: ›
+          - generic [ref=f19e110]: 16 מודולים מלאים (מתחיל → מתקדם)
+        - generic [ref=f19e111]:
+          - generic [ref=f19e112]: ›
+          - generic [ref=f19e113]: סרטוני הדגמה מעשיים בכל מודול
+        - generic [ref=f19e114]:
+          - generic [ref=f19e115]: ›
+          - generic [ref=f19e116]: ספריית Prompts מוכנה לשימוש
+        - generic [ref=f19e117]:
+          - generic [ref=f19e118]: ›
+          - generic [ref=f19e119]: ספריית Skills פיננסיים להורדה
+        - generic [ref=f19e120]:
+          - generic [ref=f19e121]: ›
+          - generic [ref=f19e122]: הקלטות וובינרים חיים
+        - generic [ref=f19e123]:
+          - generic [ref=f19e124]: ›
+          - generic [ref=f19e125]: עשרות תרגילים עם נתוני TechFlow אמיתיים
+  - generic [ref=f19e126]:
+    - generic [ref=f19e127]:
+      - generic [ref=f19e128]: // כמה זה שווה באמת
+      - heading "הערך המלא של החבילה" [level=2] [ref=f19e129]
+      - paragraph [ref=f19e130]: כל רכיב בקורס נמכר בנפרד. ביחד — שווי של אלפי שקלים, במחיר השקה אחד.
+    - generic [ref=f19e131]:
+      - generic [ref=f19e132]:
+        - generic [ref=f19e133]:
+          - generic [ref=f19e134]: ✓
+          - generic [ref=f19e135]: 16 מודולים מלאים (מתחיל → מתקדם)
+        - generic [ref=f19e136]: ₪1,900
+      - generic [ref=f19e137]:
+        - generic [ref=f19e138]:
+          - generic [ref=f19e139]: ✓
+          - generic [ref=f19e140]: סרטוני הדגמה מעשיים בכל מודול
+        - generic [ref=f19e141]: ₪750
+      - generic [ref=f19e142]:
+        - generic [ref=f19e143]:
+          - generic [ref=f19e144]: ✓
+          - generic [ref=f19e145]: ספריית Prompts מוכנה לשימוש (200+)
+        - generic [ref=f19e146]: ₪600
+      - generic [ref=f19e147]:
+        - generic [ref=f19e148]:
+          - generic [ref=f19e149]: ✓
+          - generic [ref=f19e150]: ספריית Skills פיננסיים להורדה (30+)
+        - generic [ref=f19e151]: ₪900
+      - generic [ref=f19e152]:
+        - generic [ref=f19e153]:
+          - generic [ref=f19e154]: ✓
+          - generic [ref=f19e155]: הקלטות 4 וובינרים חיים
+        - generic [ref=f19e156]: ₪250
+      - generic [ref=f19e157]:
+        - generic [ref=f19e158]:
+          - generic [ref=f19e159]: ✓
+          - generic [ref=f19e160]: עשרות תרגילים עם נתוני TechFlow אמיתיים
+        - generic [ref=f19e161]: ₪450
+      - generic [ref=f19e162]:
+        - generic [ref=f19e163]: ערך כולל
+        - generic [ref=f19e164]: ₪4,850
+      - generic [ref=f19e165]:
+        - generic [ref=f19e166]: היום, במחיר השקה
+        - generic [ref=f19e167]: ₪999
+    - paragraph [ref=f19e168]: חיסכון של ₪3,851 — לזמן מוגבל בלבד.
+    - link "אני רוצה את החבילה — ₪999" [ref=f19e170] [cursor=pointer]:
+      - /url: PAYMENT_URL_PLACEHOLDER
+  - generic [ref=f19e172]:
+    - img "רונן עמוס, רו״ח" [ref=f19e173]
+    - generic [ref=f19e174]:
+      - generic [ref=f19e175]: // המנחה
+      - heading "רונן עמוס, רו״ח" [level=3] [ref=f19e176]
+      - generic [ref=f19e177]: מייסד AI Finance Transformation
+      - paragraph [ref=f19e178]:
+        - text: רואה חשבון ומומחה להטמעת AI בעולם הפיננסי. מלווה מנהלי כספים, חשבים וצוותי FP&A בהפיכת תהליכים ידניים לאוטומציה חכמה עם Claude.
+        - text: שילוב נדיר של עומק חשבונאי ושליטה בכלים מעשיים — כל מה שנלמד בקורס נבחן קודם בשטח.
+      - generic [ref=f19e179]:
+        - generic [ref=f19e180]:
+          - generic [ref=f19e181]: רו״ח
+          - generic [ref=f19e182]: מוסמך
+        - generic [ref=f19e183]:
+          - generic [ref=f19e184]: "16"
+          - generic [ref=f19e185]: מודולים מעשיים
+        - generic [ref=f19e187]: AI Finance Transformation
+  - generic [ref=f19e189]:
+    - generic [ref=f19e190]:
+      - generic [ref=f19e191]: // שאלות נפוצות
+      - heading "שאלות ותשובות" [level=2] [ref=f19e192]
+    - generic [ref=f19e193]:
+      - generic [ref=f19e194]:
+        - button "למי הקורס מתאים? −" [ref=f19e195] [cursor=pointer]:
+          - generic [ref=f19e196]: למי הקורס מתאים?
+          - generic [ref=f19e197]: −
+        - generic [ref=f19e198]: ל-CFOs, קונטרולרים, מנהלי FP&A וכל מי שרוצה להטמיע AI בעבודה הפיננסית היומיומית. אין צורך ברקע טכני מוקדם.
+      - button "האם צריך ידע בתכנות? +" [ref=f19e200] [cursor=pointer]:
+        - generic [ref=f19e201]: האם צריך ידע בתכנות?
+        - generic [ref=f19e202]: +
+      - button "כמה זמן לוקח לסיים? +" [ref=f19e204] [cursor=pointer]:
+        - generic [ref=f19e205]: כמה זמן לוקח לסיים?
+        - generic [ref=f19e206]: +
+      - button "האם הגישה קבועה? +" [ref=f19e208] [cursor=pointer]:
+        - generic [ref=f19e209]: האם הגישה קבועה?
+        - generic [ref=f19e210]: +
+      - button "האם אקבל חשבונית מס? +" [ref=f19e212] [cursor=pointer]:
+        - generic [ref=f19e213]: האם אקבל חשבונית מס?
+        - generic [ref=f19e214]: +
+      - button "מה מדיניות ההחזר? +" [ref=f19e216] [cursor=pointer]:
+        - generic [ref=f19e217]: מה מדיניות ההחזר?
+        - generic [ref=f19e218]: +
+  - generic [ref=f19e220]:
+    - generic [ref=f19e221]: מחיר השקה נגמר בקרוב
+    - heading "התחל היום — ₪999 במקום ₪1,250" [level=2] [ref=f19e222]
+    - link "הצטרף עכשיו — ₪999 בלבד" [ref=f19e223] [cursor=pointer]:
+      - /url: PAYMENT_URL_PLACEHOLDER
+    - generic [ref=f19e224]: © AI Finance Transformation · רונן עמוס רו״ח
+  - img "AI Finance Transformation" [ref=f19e226]
+  - generic [ref=f19e228]:
+    - generic [ref=f19e229]:
+      - generic [ref=f19e230]: מנהל הכספים בעידן ה-AI
+      - generic [ref=f19e231]: ₪1,250
+      - generic [ref=f19e232]: ₪999
+    - link "הצטרף עכשיו — ₪999 בלבד" [ref=f19e233] [cursor=pointer]:
+      - /url: PAYMENT_URL_PLACEHOLDER

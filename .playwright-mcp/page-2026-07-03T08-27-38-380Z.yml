@@ -1,0 +1,135 @@
+- generic [active] [ref=e1]:
+  - banner [ref=e2]:
+    - generic [ref=e4]:
+      - link "רונן עמוס רו\"ח | יועץ טכנולוגי" [ref=e5] [cursor=pointer]:
+        - /url: /
+        - generic [ref=e6]: רונן עמוס
+        - generic [ref=e7]: רו"ח | יועץ טכנולוגי
+      - navigation [ref=e8]:
+        - link "בית" [ref=e9] [cursor=pointer]:
+          - /url: /
+        - link "אודות" [ref=e10] [cursor=pointer]:
+          - /url: /about
+        - link "שירותים" [ref=e11] [cursor=pointer]:
+          - /url: /services
+        - link "הכשרות" [ref=e12] [cursor=pointer]:
+          - /url: /training
+        - link "קורסים" [ref=e13] [cursor=pointer]:
+          - /url: /courses
+        - link "מנוי פרימיום" [ref=e14] [cursor=pointer]:
+          - /url: /pricing
+        - link "Skill Vault" [ref=e15] [cursor=pointer]:
+          - /url: /skill-vault
+        - link "מדריכים" [ref=e16] [cursor=pointer]:
+          - /url: /guides
+        - link "כלים" [ref=e17] [cursor=pointer]:
+          - /url: /tools
+        - link "בלוג" [ref=e18] [cursor=pointer]:
+          - /url: /blog
+        - link "צור קשר" [ref=e19] [cursor=pointer]:
+          - /url: /contact
+  - main [ref=e22]:
+    - generic [ref=e24]:
+      - generic [ref=e26]:
+        - heading "התחברות למערכת" [level=2] [ref=e27]
+        - paragraph [ref=e28]: גש לתכני הפרימיום ולקהילה שלנו
+      - generic [ref=e29]:
+        - generic [ref=e30]:
+          - generic [ref=e31]:
+            - text: אימייל
+            - generic [ref=e32]:
+              - img [ref=e33]
+              - textbox "name@example.com" [ref=e37]
+          - generic [ref=e38]:
+            - text: סיסמה
+            - generic [ref=e39]:
+              - img [ref=e40]
+              - textbox "••••••••" [ref=e44]
+          - generic [ref=e45]:
+            - button "התחבר" [ref=e46]
+            - button "צור חשבון חדש" [ref=e47]
+        - generic [ref=e52]: או התחבר באמצעות
+        - button "התחבר עם Google" [ref=e53]:
+          - img [ref=e54]
+          - text: התחבר עם Google
+      - paragraph [ref=e59]: בעצם ההתחברות אתה מסכים לתנאי השימוש ומדיניות הפרטיות שלנו.
+  - link "צור קשר בוואטסאפ" [ref=e60] [cursor=pointer]:
+    - /url: https://wa.me/972505500344?text=%D7%A9%D7%9C%D7%95%D7%9D%20%D7%A8%D7%95%D7%A0%D7%9F%2C%20%D7%94%D7%92%D7%A2%D7%AA%D7%99%20%D7%93%D7%A8%D7%9A%20%D7%94%D7%90%D7%AA%D7%A8%20%D7%95%D7%90%D7%A9%D7%9E%D7%97%20%D7%9C%D7%94%D7%AA%D7%99%D7%99%D7%A2%D7%A5%20%D7%90%D7%99%D7%AA%D7%9A%20%D7%91%D7%A0%D7%95%D7%92%D7%A2%20%D7%9C-
+    - img [ref=e61]
+    - generic: דבר איתי בוואטסאפ
+  - contentinfo [ref=e64]:
+    - generic [ref=e65]:
+      - generic [ref=e66]:
+        - generic [ref=e67]:
+          - link "רונן עמוס" [ref=e68] [cursor=pointer]:
+            - /url: /
+          - paragraph [ref=e69]: רואה חשבון ויועץ טכנולוגי פיננסי. הופך מחלקות כספים לחכמות, מהירות ויעילות באמצעות כלי AI ואוטומציות מתקדמים.
+          - generic [ref=e70]:
+            - link [ref=e71] [cursor=pointer]:
+              - /url: https://www.linkedin.com/in/ronenamoscpa
+              - img [ref=e72]
+            - link [ref=e76] [cursor=pointer]:
+              - /url: "#"
+              - img [ref=e77]
+        - generic [ref=e80]:
+          - heading "ניווט מהיר" [level=4] [ref=e81]
+          - list [ref=e82]:
+            - listitem [ref=e83]:
+              - link "דף הבית" [ref=e84] [cursor=pointer]:
+                - /url: /
+            - listitem [ref=e85]:
+              - link "קורסי AI" [ref=e86] [cursor=pointer]:
+                - /url: /courses
+            - listitem [ref=e87]:
+              - link "בלוג פרימיום" [ref=e88] [cursor=pointer]:
+                - /url: /blog
+            - listitem [ref=e89]:
+              - link "מסלולי מנוי" [ref=e90] [cursor=pointer]:
+                - /url: /pricing
+            - listitem [ref=e91]:
+              - link "אזור אישי" [ref=e92] [cursor=pointer]:
+                - /url: /dashboard
+            - listitem [ref=e93]:
+              - link "צור קשר" [ref=e94] [cursor=pointer]:
+                - /url: /contact
+        - generic [ref=e95]:
+          - heading "שירותים" [level=4] [ref=e96]
+          - list [ref=e97]:
+            - listitem [ref=e98]:
+              - link "ייעוץ טכנולוגי פיננסי" [ref=e99] [cursor=pointer]:
+                - /url: /services
+            - listitem [ref=e100]:
+              - link "הכשרות צוותי כספים" [ref=e101] [cursor=pointer]:
+                - /url: /training
+            - listitem [ref=e102]:
+              - link "אוטומציות Power BI" [ref=e103] [cursor=pointer]:
+                - /url: /services
+            - listitem [ref=e104]:
+              - link "מדיניות פרטיות ותנאי שימוש" [ref=e105] [cursor=pointer]:
+                - /url: /legal
+        - generic [ref=e106]:
+          - heading "צור קשר" [level=4] [ref=e107]
+          - list [ref=e108]:
+            - listitem [ref=e109]:
+              - img [ref=e110]
+              - link "050-5500344" [ref=e112] [cursor=pointer]:
+                - /url: tel:0505500344
+            - listitem [ref=e113]:
+              - img [ref=e114]
+              - link "ronenamos@gmail.com" [ref=e117] [cursor=pointer]:
+                - /url: mailto:ronenamos@gmail.com
+            - listitem [ref=e118]:
+              - img [ref=e119]
+              - generic [ref=e122]: ישראל - פריסה ארצית
+      - generic [ref=e124]:
+        - generic [ref=e125]:
+          - heading "הישאר מעודכן" [level=4] [ref=e126]
+          - paragraph [ref=e127]: טיפים על AI וכספים, פעם בשבוע
+        - generic [ref=e129]:
+          - textbox "הכנס את כתובת האימייל שלך" [ref=e132]
+          - button "הרשמה" [ref=e133]:
+            - img [ref=e134]
+            - text: הרשמה
+      - generic [ref=e137]:
+        - paragraph [ref=e138]: © 2026 רונן עמוס - AI FINANCE. כל הזכויות שמורות.
+        - paragraph [ref=e139]: "בנייה ועיצוב: Antigravity AI Engine"
