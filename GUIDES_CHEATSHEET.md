@@ -97,7 +97,72 @@ Each non-placeholder guide has an internal page at `/guides/<slug>`. The page:
 - **Build error about category type?** You used a category not in the `GuideCategory` union — fix the spelling or add it to `CATEGORIES`.
 - **Guide page returns 404?** Either `gammaUrl` is still `'#'`, or the `slug` in the URL doesn't match exactly (case-sensitive).
 
+---
+
+# Course Access Management — Cheatsheet
+
+Quick reference for granting access to the AI Master Course (`/courses/ai-master-course`).
+
+## Prerequisites before granting access
+
+**IMPORTANT:** The customer **must have signed up** to your website first. They need an account in `auth.users` before you can grant them course access.
+
+**Check:**
+1. Customer receives signup link: `https://www.ronenamoscpa.co.il/login`
+2. They create account (email + password or Google OAuth)
+3. They see "No Access" screen on the course page
+4. **Then** you run the SQL command below
+
+If they haven't signed up yet, the SQL won't find them and nothing happens.
+
+## Grant access to one email
+
+Go to **Supabase Dashboard** → **SQL Editor** → **New Query** and paste:
+
+```sql
+INSERT INTO public.course_access (user_id, email, has_access)
+SELECT id, email, true
+FROM auth.users
+WHERE email = 'customer@example.com';
+```
+
+Replace `'customer@example.com'` with their actual email. Click **Run**.
+
+**Expected result:** "Success" message, "1 row inserted"
+
+## Grant access to multiple emails at once
+
+Replace `WHERE email = '...'` with `WHERE email IN (...)` and list all emails:
+
+```sql
+INSERT INTO public.course_access (user_id, email, has_access)
+SELECT id, email, true
+FROM auth.users
+WHERE email IN (
+  'customer1@example.com',
+  'customer2@example.com',
+  'customer3@example.com'
+);
+```
+
+## Verify access was granted
+
+1. Go to **Supabase Dashboard** → **Table Editor**
+2. Click `course_access` table
+3. Search for the customer's email — it should show with `has_access = TRUE`
+4. Customer refreshes their browser on `/courses/ai-master-course` → course content now visible
+
+## Troubleshooting
+
+| Problem | Cause | Solution |
+|---------|-------|----------|
+| **"ERROR: relation 'public.course_access' does not exist"** | Migration not applied yet | Run the migration (see setup guide) |
+| **"0 rows inserted" (success but nothing added)** | Email not found in `auth.users` | Customer hasn't signed up yet. Share login link, have them sign up first, then retry |
+| **Email shows in table but customer still sees "No Access"** | Customer's browser cache | Have them clear cookies or do hard refresh (Ctrl+F5) |
+| **Added wrong email by mistake** | User error | Go to Table Editor → click the row → click delete icon (trash) |
+
 ## Still TODO
 
 - Admin UI for non-technical editing
 - Premium gating (mechanism exists via `isPremium: true`, but no paywall on click yet)
+- Automated course access provisioning (currently manual)
