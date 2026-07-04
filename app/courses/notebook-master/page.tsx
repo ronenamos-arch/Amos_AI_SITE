@@ -248,22 +248,33 @@ export default function NotebookMasterPage() {
                         </div>
 
                         {/* FAQ Quick Section */}
-                        <div className="max-w-3xl mx-auto mb-32">
-                            <h2 className="text-3xl font-bold text-center mb-12 italic italic">שאלות נפוצות</h2>
-                            <div className="space-y-4">
+                        <div className="max-w-4xl mx-auto mb-32">
+                            <h2 className="text-3xl font-bold text-center mb-16 italic">שאלות נפוצות</h2>
+                            <div className="space-y-6">
                                 {[
-                                    { q: "למי הקורס מיועד?", a: "הקורס נבנה במיוחד עבור רואי חשבון, מנהלי כספים, אנליסטים וכל מי שעובד עם דוחות פיננסיים מורכבים." },
-                                    { q: "האם צריך ידע טכני קודם?", a: "ממש לא. אנחנו מתחילים מהבסיס ומגיעים לרמות המתקדמות ביותר צעד אחר צעד." },
-                                    { q: "כמה זמן יש לי גישה לקורס?", a: "אתה מקבל גישה לכל החיים לכל תכני הקורס, כולל כל הסרטונים, המצגות והחומרים התוספים." },
-                                    { q: "איך עובדת התמיכה?", a: "אנחנו מספקים תמיכה דרך דוא״ל לכל שאלה או בעיה שתצא לך במהלך הקורס. נשמח לעזור!" },
-                                    { q: "האם יש אפשרות החזר כספי?", a: "כן, אם אתה לא מרוצה מהקורס תוך 14 ימים מהרכישה, נחזיר את כל הכסף ללא שאלות." }
+                                    {
+                                        q: "עבור מי הקורס מתאים?",
+                                        a: "הקורס תוכנן במיוחד עבור רואי חשבון, מנהלי כספים, אנליסטים וכל מי שמנהל או מנתח דוחות פיננסיים מורכבים בשוטף."
+                                    },
+                                    {
+                                        q: "האם נדרש רקע טכני או ידע מקדים?",
+                                        a: "אין צורך בחשש – אנחנו מתחילים ממש מאפס. הלמידה בנויה בהדרגה, צעד אחר צעד, עד להגעה לרמות המקצועיות הגבוהות ביותר."
+                                    },
+                                    {
+                                        q: "לכמה זמן התכנים פתוחים בפניי?",
+                                        a: "הגישה לקורס היא ללא הגבלת זמן! כל חומרי הלימוד – לרבות סרטוני ההדרכה, המצגות והתכנים המשלימים – יישארו זמינים עבורך לתמיד."
+                                    },
+                                    {
+                                        q: "כיצד מתבצעת התמיכה במהלך הלימודים?",
+                                        a: "אנחנו כאן איתך לאורך כל הדרך. לכל שאלה, התלבטות או קושי שעולים במהלך הקורס, ניתן לפנות אלינו במייל ולקבל מענה מהיר ומקצועי."
+                                    }
                                 ].map((faq, i) => (
-                                    <details key={i} className="group border-b border-white/10 pb-4 cursor-pointer">
+                                    <details key={i} className="group bg-white/5 border border-white/10 rounded-2xl p-6 cursor-pointer hover:bg-white/8 transition-all duration-300">
                                         <summary className="text-lg font-bold flex justify-between items-center list-none">
-                                            {faq.q}
-                                            <span className="group-open:rotate-180 transition-transform">↓</span>
+                                            <span className="text-right flex-1">{faq.q}</span>
+                                            <span className="text-teal-400 ml-4 flex-shrink-0 group-open:rotate-180 transition-transform duration-300">▼</span>
                                         </summary>
-                                        <p className="mt-4 text-text-secondary leading-relaxed">{faq.a}</p>
+                                        <p className="mt-4 text-text-secondary leading-relaxed text-right">{faq.a}</p>
                                     </details>
                                 ))}
                             </div>
@@ -272,7 +283,7 @@ export default function NotebookMasterPage() {
                         {/* Final CTA Footer */}
                         <div className="text-center mb-3">
                             <a href="/contact" className="inline-block bg-gradient-to-r from-teal-500 to-royal-500 hover:scale-105 transition-transform text-white font-bold py-3 px-8 rounded-lg text-lg">
-                                More information contact us
+                                צור קשר לעוד מידע
                             </a>
                         </div>
                     </div>
