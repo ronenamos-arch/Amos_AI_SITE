@@ -70,7 +70,7 @@ export default function NotebookMasterPage() {
                         rel="noopener noreferrer"
                         className="shadow-2xl shadow-teal-500/40 px-8 py-6 text-lg font-bold bg-gradient-to-r from-teal-500 to-royal-500 hover:scale-105 transition-transform inline-block text-white rounded-lg"
                     >
-                        הבטח את מקומך - 300₪ בלבד
+                        הבטח את מקומך - 150₪ בלבד
                     </a>
                 </div>
 
@@ -97,7 +97,7 @@ export default function NotebookMasterPage() {
                                         rel="noopener noreferrer"
                                         className="inline-block bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-lg text-lg transition-colors"
                                     >
-                                        רכוש גישה עכשיו — ₪300
+                                        רכוש גישה עכשיו — ₪150
                                     </a>
                                 </div>
                                 <Button size="lg" variant="ghost" href="#curriculum" className="px-10 py-7 text-xl border-white/10 hover:bg-white/5 h-fit">
@@ -112,12 +112,12 @@ export default function NotebookMasterPage() {
                                 { icon: Clock, label: "8 שיעורים", sub: "מקיפים ומקצועיים" },
                                 { icon: PlayCircle, label: "8 סרטוני הדרכה", sub: "צעד אחר צעד" },
                                 { icon: FileText, label: "8 מצגות", sub: "סיכומי שיעור להורדה" },
-                                { icon: Infinity, label: "גישה לכל החיים", sub: "כולל עדכונים" }
+                                { icon: Infinity, label: "גישה לכל החיים" }
                             ].map((stat, i) => (
                                 <GlassCard key={i} className="flex flex-col items-center p-6 text-center border-white/5">
                                     <stat.icon className="w-8 h-8 text-teal-400 mb-3" />
                                     <div className="text-xl font-bold leading-tight">{stat.label}</div>
-                                    <div className="text-xs text-text-muted mt-1">{stat.sub}</div>
+                                    {stat.sub && <div className="text-xs text-text-muted mt-1">{stat.sub}</div>}
                                 </GlassCard>
                             ))}
                         </div>
@@ -203,61 +203,6 @@ export default function NotebookMasterPage() {
                             </div>
                         </div>
 
-                        {/* Bonus Section */}
-                        <div className="mb-32">
-                            <GlassCard className="p-10 border-royal-500/20 bg-royal-500/5 overflow-hidden relative">
-                                <div className="absolute top-[-20%] right-[-10%] w-64 h-64 bg-royal-500/20 blur-3xl -z-10" />
-                                <div className="grid lg:grid-cols-2 gap-10 items-center">
-                                    <div>
-                                        <Badge variant="royal" className="mb-4">Value Addition</Badge>
-                                        <h2 className="text-4xl font-bold mb-6 italic italic">בונוס בלעדי לרוכשים</h2>
-                                        <div className="space-y-6">
-                                            <div className="flex gap-4">
-                                                <div className="flex-shrink-0 w-12 h-12 rounded-2xl bg-royal-500/20 flex items-center justify-center">
-                                                    <Globe className="w-6 h-6 text-royal-400" />
-                                                </div>
-                                                <div>
-                                                    <h4 className="text-xl font-bold">גישה לכל החיים לבלוג ולמדריכים</h4>
-                                                    <p className="text-text-secondary italic">הבלוג המתעדכן שלי עם כל הכלים הכי חדשים בעולם ה-AI לאנשי כספים.</p>
-                                                </div>
-                                            </div>
-                                            <div className="flex gap-4">
-                                                <div className="flex-shrink-0 w-12 h-12 rounded-2xl bg-teal-500/20 flex items-center justify-center">
-                                                    <Zap className="w-6 h-6 text-teal-400" />
-                                                </div>
-                                                <div>
-                                                    <h4 className="text-xl font-bold">עדכוני קורס ללא תשלום</h4>
-                                                    <p className="text-text-secondary italic">עולם ה-AI זז מהר. הקורס מתעדכן ואתה מקבל הכל בחינם.</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="hidden lg:block relative group">
-                                        <div className="aspect-square rounded-3xl overflow-hidden border border-white/10 relative shadow-2xl">
-                                            {/* Background Image */}
-                                            <div
-                                                className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110"
-                                                style={{
-                                                    backgroundImage: 'url("/images/lifetime-access.png")',
-                                                }}
-                                            />
-
-                                            {/* Dark Overlay for readability */}
-                                            <div className="absolute inset-0 bg-space-950/40 backdrop-blur-[1px] group-hover:bg-space-950/20 transition-all duration-500" />
-
-                                            {/* Content Overlay */}
-                                            <div className="absolute inset-0 flex items-center justify-center">
-                                                <div className="text-center p-8 relative z-10 transition-transform duration-500 group-hover:scale-110">
-                                                    <Infinity className="w-16 h-16 text-teal-400 mx-auto mb-4 animate-pulse" />
-                                                    <div className="text-3xl font-black text-white tracking-tighter shadow-2xl">LIFETIME ACCESS</div>
-                                                    <div className="text-teal-300 font-bold mt-2 tracking-widest uppercase text-sm">No Monthly Fees</div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </GlassCard>
-                        </div>
 
                         {/* Pricing Section */}
                         <div id="pricing" className="mb-32 text-center">
@@ -267,16 +212,16 @@ export default function NotebookMasterPage() {
                                 <GlassCard className="p-12 border-teal-500/40 relative">
                                     <div className="text-sm uppercase tracking-widest text-text-muted mb-4 font-bold">הצטרף עכשיו ב-</div>
                                     <div className="flex justify-center items-end gap-2 mb-8">
-                                        <span className="text-7xl font-black text-white">300</span>
+                                        <span className="text-7xl font-black text-white">150</span>
                                         <span className="text-2xl font-bold text-teal-400 mb-2">₪</span>
                                     </div>
                                     <ul className="text-right space-y-4 mb-10 max-w-xs mx-auto">
                                         {[
-                                            "8 שיעורים מלאים (וידאו + PPT)",
-                                            "פרויקט סיום מעשי",
-                                            "גישה לכל החיים לבלוג",
-                                            "מדריכי AI מתעדכנים",
-                                            "תמיכה מקצועית במייל"
+                                            "8 שיעורים",
+                                            "8 מצגות",
+                                            "8 סרטונים",
+                                            "פרומפטים וחוברת עבודה",
+                                            "תמיכה במייל"
                                         ].map((item, i) => (
                                             <li key={i} className="flex gap-3 justify-end items-center">
                                                 <span className="text-text-secondary">{item}</span>
@@ -291,7 +236,7 @@ export default function NotebookMasterPage() {
                                             rel="noopener noreferrer"
                                             className="inline-block bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-lg text-lg transition-colors"
                                         >
-                                            רכוש גישה עכשיו — ₪300
+                                            רכוש גישה עכשיו — ₪150
                                         </a>
                                     </div>
                                     <div className="mt-6 flex items-center justify-center gap-2 text-text-muted text-sm">
@@ -309,7 +254,9 @@ export default function NotebookMasterPage() {
                                 {[
                                     { q: "למי הקורס מיועד?", a: "הקורס נבנה במיוחד עבור רואי חשבון, מנהלי כספים, אנליסטים וכל מי שעובד עם דוחות פיננסיים מורכבים." },
                                     { q: "האם צריך ידע טכני קודם?", a: "ממש לא. אנחנו מתחילים מהבסיס ומגיעים לרמות המתקדמות ביותר צעד אחר צעד." },
-                                    { q: "איך מקבלים את הגישה לבלוג?", a: "מיד לאחר הרכישה תקבל הרשאת כניסה מיוחדת לכל התכנים המקצועיים בבלוג למשך כל החיים." }
+                                    { q: "כמה זמן יש לי גישה לקורס?", a: "אתה מקבל גישה לכל החיים לכל תכני הקורס, כולל כל הסרטונים, המצגות והחומרים התוספים." },
+                                    { q: "איך עובדת התמיכה?", a: "אנחנו מספקים תמיכה דרך דוא״ל לכל שאלה או בעיה שתצא לך במהלך הקורס. נשמח לעזור!" },
+                                    { q: "האם יש אפשרות החזר כספי?", a: "כן, אם אתה לא מרוצה מהקורס תוך 14 ימים מהרכישה, נחזיר את כל הכסף ללא שאלות." }
                                 ].map((faq, i) => (
                                     <details key={i} className="group border-b border-white/10 pb-4 cursor-pointer">
                                         <summary className="text-lg font-bold flex justify-between items-center list-none">
@@ -324,9 +271,9 @@ export default function NotebookMasterPage() {
 
                         {/* Final CTA Footer */}
                         <div className="text-center mb-3">
-                            <p className="text-text-muted">
-                                יש לך שאלות? מוזמן ליצור קשר ב- <a href="mailto:ronenamos@gmail.com" className="text-teal-400 hover:underline">ronenamos@gmail.com</a>
-                            </p>
+                            <a href="/contact" className="inline-block bg-gradient-to-r from-teal-500 to-royal-500 hover:scale-105 transition-transform text-white font-bold py-3 px-8 rounded-lg text-lg">
+                                More information contact us
+                            </a>
                         </div>
                     </div>
                 </div>
