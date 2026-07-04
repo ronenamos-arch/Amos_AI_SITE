@@ -58,7 +58,6 @@ const includes = [
     "חוברות תרגול מלאות לכל שיעור",
     "כלי תרגום מהיר אנגלית-עברית ייעודי",
     "גישה לקהילת AI ופיננסים סגורה",
-    "תעודת סיום רשמית",
 ];
 
 export default function AIMasteryPage() {
@@ -105,7 +104,7 @@ export default function AIMasteryPage() {
                                         rel="noopener noreferrer"
                                         className="inline-block bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-lg text-lg transition-colors"
                                     >
-                                        רכוש גישה עכשיו — ₪300
+                                        רכוש גישה עכשיו — ₪250
                                     </a>
                                 </div>
                                 <Button size="lg" variant="ghost" href="#curriculum" className="px-10 py-7 text-xl border-white/10 hover:bg-white/5 h-fit">
@@ -186,10 +185,10 @@ export default function AIMasteryPage() {
                                 {syllabus.map((item) => (
                                     <div
                                         key={item.lesson}
-                                        className="group p-6 rounded-3xl border border-white/5 bg-white/5 backdrop-blur-sm hover:bg-white/10 hover:border-royal-500/30 transition-all duration-300"
+                                        className="group p-6 rounded-3xl border border-white/5 bg-white/5 backdrop-blur-sm hover:bg-white/10 hover:border-royal-500/30 transition-all duration-250"
                                     >
                                         <div className="mb-4 text-royal-400 font-black text-2xl opacity-50 group-hover:opacity-100 transition-opacity">Module {item.lesson}</div>
-                                        <h3 className="text-xl font-bold mb-3 group-hover:text-royal-300 transition-colors">{item.title}</h3>
+                                        <h3 className="text-xl font-bold mb-3 group-hover:text-royal-250 transition-colors">{item.title}</h3>
                                         <p className="text-sm text-text-secondary leading-relaxed mb-4">
                                             {item.description}
                                         </p>
@@ -200,57 +199,6 @@ export default function AIMasteryPage() {
                                     </div>
                                 ))}
                             </div>
-                        </div>
-
-                        {/* Bonus Lifetime Card */}
-                        <div className="mb-32">
-                            <GlassCard className="p-10 border-teal-500/20 bg-teal-500/5 overflow-hidden relative">
-                                <div className="absolute bottom-[-10%] left-[-5%] w-72 h-72 bg-teal-500/10 blur-3xl -z-10" />
-                                <div className="grid lg:grid-cols-2 gap-10 items-center">
-                                    <div className="order-2 lg:order-1">
-                                        <Badge variant="teal" className="mb-4">Special Bonus</Badge>
-                                        <h2 className="text-4xl font-bold mb-6 italic italic text-white leading-tight">בונוס בלעדי: גישה למוח של רונן</h2>
-                                        <div className="space-y-8">
-                                            <div className="flex gap-5">
-                                                <div className="flex-shrink-0 w-14 h-14 rounded-2xl bg-teal-500/20 flex items-center justify-center">
-                                                    <Globe className="w-7 h-7 text-teal-400" />
-                                                </div>
-                                                <div>
-                                                    <h4 className="text-xl font-bold">ספריית התוכן והבלוג המתעדכן</h4>
-                                                    <p className="text-text-secondary mt-1">גישה מלאה לכל המדריכים, הכלים והמאמרים הסגורים שלי לכל החיים.</p>
-                                                </div>
-                                            </div>
-                                            <div className="flex gap-5">
-                                                <div className="flex-shrink-0 w-14 h-14 rounded-2xl bg-royal-500/20 flex items-center justify-center">
-                                                    <Zap className="w-7 h-7 text-royal-400" />
-                                                </div>
-                                                <div>
-                                                    <h4 className="text-xl font-bold">עדכונים שוטפים ב-AI</h4>
-                                                    <p className="text-text-secondary mt-1">התחום משתנה כל שבוע. כשתכונות חדשות יוצאות - הקורס מתעדכן ואתה מקבל הכל בחינם.</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="order-1 lg:order-2">
-                                        <div className="aspect-square rounded-3xl overflow-hidden border border-white/10 relative group shadow-2xl">
-                                            <div
-                                                className="absolute inset-0 bg-cover bg-center transition-transform duration-1000 group-hover:scale-105"
-                                                style={{
-                                                    backgroundImage: 'url("/images/lifetime-access.png")',
-                                                }}
-                                            />
-                                            <div className="absolute inset-0 bg-space-950/40 backdrop-blur-[1px]" />
-                                            <div className="absolute inset-0 flex items-center justify-center">
-                                                <div className="text-center p-8 relative z-10">
-                                                    <Infinity className="w-20 h-20 text-teal-400 mx-auto mb-6 animate-pulse" />
-                                                    <div className="text-4xl font-black text-white tracking-tighter">LIFETIME</div>
-                                                    <div className="text-teal-400 font-bold mt-2 tracking-widest uppercase">Full Access</div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </GlassCard>
                         </div>
 
                         {/* Pricing Section */}
@@ -265,7 +213,7 @@ export default function AIMasteryPage() {
 
                                     <div className="text-xl font-bold text-text-muted mb-4">מחיר הקורס המלא</div>
                                     <div className="flex justify-center items-end gap-3 mb-10">
-                                        <span className="text-8xl font-black text-white leading-none">300</span>
+                                        <span className="text-8xl font-black text-white leading-none">250</span>
                                         <span className="text-3xl font-bold text-teal-400 mb-2">₪</span>
                                     </div>
 
@@ -291,7 +239,7 @@ export default function AIMasteryPage() {
                                             rel="noopener noreferrer"
                                             className="inline-block bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-lg text-lg transition-colors"
                                         >
-                                            רכוש גישה עכשיו — ₪300
+                                            רכוש גישה עכשיו — ₪250
                                         </a>
                                     </div>
 
@@ -305,9 +253,9 @@ export default function AIMasteryPage() {
 
                         {/* Final CTA Footer */}
                         <div className="text-center mb-3">
-                            <p className="text-text-muted">
-                                יש לך שאלות? מוזמן ליצור קשר ב- <a href="mailto:ronenamos@gmail.com" className="text-teal-400 hover:underline">ronenamos@gmail.com</a>
-                            </p>
+                            <a href="/contact" className="inline-block bg-teal-500 hover:bg-teal-600 text-white font-bold py-3 px-8 rounded-lg text-lg transition-colors">
+                                צור קשר לעוד מידע
+                            </a>
                         </div>
                     </div>
                 </div>
