@@ -33,6 +33,18 @@ export interface Guide {
 
 export const guides: Guide[] = [
   {
+    slug: 'copilot-skill',
+    title: 'רואי החשבון שכבר עובדים עם AI לא עובדים קשה יותר — הם פשוט עובדים אחרת. - תכירו את קופיילוט סקילס',
+    description: 'אם אתה עדיין עושה את זה ידנית ב-Excel, כנראה שאתה מבזבז שעות בכל שבוע. תוך 5 דקות תגלה איך לגרום ל-Copilot לבצע עבורך את העבודה החוזרת ב-Excel — בלי נוסחאות מורכבות, בלי שעות של עבודה ידנית.',
+    category: 'Excel',
+    tags: ['Excel', 'Copilot', 'Productivity'],
+    gammaUrl: 'https://gamma.app/embed/yj29p3eyxbv3p7p',
+    thumbnail: '/guides/manage-skill.png',
+    duration: "5 דק'",
+    isPremium: false,
+    publishedAt: '2026-07-06',
+  },
+  {
     slug: 'copilot-cowork',
     title: 'Microsoft 365 Copilot Cowork — המדריך המעשי לאנשי כספים',
     description: 'מדריך מעשי לאנשי כספים שרוצים לעבוד חכם יותר עם Microsoft 365 Copilot — שליחת מיילים, יצירת מסמכים, תזמון פגישות וחיפוש מידע ארגוני בתוך הכלים שכבר יש לך.',
