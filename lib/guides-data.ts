@@ -41,7 +41,7 @@ export const guides: Guide[] = [
     gammaUrl: 'https://gamma.app/embed/yj29p3eyxbv3p7p',
     thumbnail: '/guides/manage-skill.png',
     duration: "5 דק'",
-    isPremium: false,
+    isPremium: true,
     publishedAt: '2026-07-06',
   },
   {
