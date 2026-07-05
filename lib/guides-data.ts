@@ -33,6 +33,18 @@ export interface Guide {
 
 export const guides: Guide[] = [
   {
+    slug: 'power-bi',
+    title: 'Power BI Report Skills: המדריך המלא לבניית דוחות Power BI עם AI ו-GitHub Copilot (2026)',
+    description: 'מדריך שלב-אחר-שלב להתקנת Power BI Report Skills של Microsoft. גלו כיצד GitHub Copilot וסוכני AI יכולים לבנות דוחות Power BI, Dashboards ודוחות פיננסיים בצורה אוטומטית – במיוחד עבור רואי חשבון, חשבים ו-CFO בישראל.',
+    category: 'Power BI',
+    tags: ['Power BI', 'Dashboard', 'Finance Ops'],
+    gammaUrl: 'https://gamma.app/embed/o04kkbmtbs1fsi8',
+    thumbnail: '/guides/powerbi.png',
+    duration: "10 דק'",
+    isPremium: true,
+    publishedAt: '2026-07-06',
+  },
+  {
     slug: 'copilot-skill',
     title: 'רואי החשבון שכבר עובדים עם AI לא עובדים קשה יותר — הם פשוט עובדים אחרת. - תכירו את קופיילוט סקילס',
     description: 'אם אתה עדיין עושה את זה ידנית ב-Excel, כנראה שאתה מבזבז שעות בכל שבוע. תוך 5 דקות תגלה איך לגרום ל-Copilot לבצע עבורך את העבודה החוזרת ב-Excel — בלי נוסחאות מורכבות, בלי שעות של עבודה ידנית.',

@@ -18,6 +18,7 @@
 ## Guides Library
 
 - [מדריכי AI לאנשי כספים — Guides Library](https://www.ronenamoscpa.co.il/guides): Curated library of practical Hebrew guides on Claude, ChatGPT, automation, Excel, Power BI, and AI-driven finance departments. Filterable by category and tag, with search. Free to access — actionable steps you can implement this week, no theory.
+- /guides/power-bi — Power BI Report Skills: המדריך המלא לבניית דוחות Power BI עם AI ו-GitHub Copilot (2026)
 - /guides/copilot-skill — רואי החשבון שכבר עובדים עם AI לא עובדים קשה יותר — הם פשוט עובדים אחרת. - תכירו את קופיילוט סקילס
 - /guides/copilot-cowork — Microsoft 365 Copilot Cowork — המדריך המעשי לאנשי כספים
 - /guides/command-center — Copilot Command Center Dashboard — לוח שליטה מחובר לאימייל, קלנדר וטימס
