@@ -4,6 +4,7 @@ import Script from "next/script";
 import "./globals.css";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
+import { Chrome } from "@/components/layout/Chrome";
 import { WhatsAppFloat } from "@/components/ui/WhatsAppFloat";
 import { CookieConsent } from "@/components/ui/CookieConsent";
 import StructuredData from "@/components/seo/StructuredData";
@@ -122,13 +123,17 @@ export default function RootLayout({
       </head>
       <body className="antialiased">
         <StructuredData />
-        <Header />
+        <Chrome>
+          <Header />
+        </Chrome>
         <main>{children}</main>
-        <LazyAIChat />
-        <WhatsAppFloat />
-        <LazyStickyNewsletterBar />
-        <LazyNewsletterPopup />
-        <Footer />
+        <Chrome>
+          <LazyAIChat />
+          <WhatsAppFloat />
+          <LazyStickyNewsletterBar />
+          <LazyNewsletterPopup />
+          <Footer />
+        </Chrome>
         <CookieConsent />
       </body>
     </html>

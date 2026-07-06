@@ -1,0 +1,253 @@
+- generic [active] [ref=e1]:
+  - main [ref=e2]:
+    - generic [ref=e3]:
+      - generic [ref=e5]:
+        - link "רונן עמוס" [ref=e6] [cursor=pointer]:
+          - /url: /preview-home
+          - generic [ref=e7]: רונן עמוס
+        - button "תפריט" [ref=e8]:
+          - img [ref=e9]
+      - generic [ref=e10]:
+        - generic [ref=e11]:
+          - generic [ref=e12]: המרכז הישראלי ל-AI בכספים
+          - heading "כל מה שאיש כספים צריך כדי לעבוד עם AI — במקום אחד" [level=1] [ref=e13]:
+            - text: כל מה שאיש כספים צריך
+            - text: כדי לעבוד עם AI — במקום אחד
+          - paragraph [ref=e14]: מדריכים, פרומפטים, קורסים וכלים שנבנו על ידי רו"ח עם ניסיון של 10+ שנים בשטח. בלי באזוורדים — רק מה שעובד.
+          - generic [ref=e15]:
+            - link "לגלות את המשאבים" [ref=e16] [cursor=pointer]:
+              - /url: /guides
+              - text: לגלות את המשאבים
+              - img [ref=e17]
+            - link "מנוי פרימיום — ₪30 לחודש" [ref=e19] [cursor=pointer]:
+              - /url: /pricing
+        - generic [ref=e20]:
+          - generic [ref=e21]:
+            - generic [ref=e22]: "29"
+            - generic [ref=e23]: מדריכים מעשיים
+          - generic [ref=e24]:
+            - generic [ref=e25]: "22"
+            - generic [ref=e26]: פרומפטים ב-Skill Vault
+          - generic [ref=e27]:
+            - generic [ref=e28]: "3"
+            - generic [ref=e29]: קורסים מלאים
+          - generic [ref=e30]:
+            - generic [ref=e31]: 10+
+            - generic [ref=e32]: שנות ניסיון רו״ח
+      - generic [ref=e33]:
+        - generic [ref=e35]:
+          - generic [ref=e36]: מרכז המשאבים
+          - heading "מה תמצאו כאן" [level=2] [ref=e37]
+        - generic [ref=e38]:
+          - link "מדריכים מעשיים 29 מדריכים Claude, ChatGPT, Copilot, Power BI ו-NotebookLM — צעד־אחר־צעד לאנשי כספים. לצפייה" [ref=e39] [cursor=pointer]:
+            - /url: /guides
+            - img [ref=e40]
+            - generic [ref=e42]:
+              - heading "מדריכים מעשיים" [level=3] [ref=e43]
+              - generic [ref=e44]: 29 מדריכים
+            - paragraph [ref=e45]: Claude, ChatGPT, Copilot, Power BI ו-NotebookLM — צעד־אחר־צעד לאנשי כספים.
+            - generic [ref=e46]:
+              - text: לצפייה
+              - img [ref=e47]
+          - 'link "Skill Vault 22 פרומפטים פרומפטים מוכנים להעתקה: דוחות, תחזיות, ביקורת ותקציב. לצפייה" [ref=e49] [cursor=pointer]':
+            - /url: /skill-vault
+            - img [ref=e50]
+            - generic [ref=e53]:
+              - heading "Skill Vault" [level=3] [ref=e54]
+              - generic [ref=e55]: 22 פרומפטים
+            - paragraph [ref=e56]: "פרומפטים מוכנים להעתקה: דוחות, תחזיות, ביקורת ותקציב."
+            - generic [ref=e57]:
+              - text: לצפייה
+              - img [ref=e58]
+          - link "קורסים 3 קורסים מהיסודות ועד AI Finance Master — למידה בקצב שלכם. לצפייה" [ref=e60] [cursor=pointer]:
+            - /url: /courses
+            - img [ref=e61]
+            - generic [ref=e64]:
+              - heading "קורסים" [level=3] [ref=e65]
+              - generic [ref=e66]: 3 קורסים
+            - paragraph [ref=e67]: מהיסודות ועד AI Finance Master — למידה בקצב שלכם.
+            - generic [ref=e68]:
+              - text: לצפייה
+              - img [ref=e69]
+          - link "מדריך כלים 15+ כלים FP&A, אוטומציה, ERP ו-Fintech — מה שווה את הזמן שלכם. לצפייה" [ref=e71] [cursor=pointer]:
+            - /url: /tools
+            - img [ref=e72]
+            - generic [ref=e74]:
+              - heading "מדריך כלים" [level=3] [ref=e75]
+              - generic [ref=e76]: 15+ כלים
+            - paragraph [ref=e77]: FP&A, אוטומציה, ERP ו-Fintech — מה שווה את הזמן שלכם.
+            - generic [ref=e78]:
+              - text: לצפייה
+              - img [ref=e79]
+          - link "בלוג מאמרים שוטפים ניתוחים, זרימות עבודה וחדשות AI לכספים — בעברית. לצפייה" [ref=e81] [cursor=pointer]:
+            - /url: /blog
+            - img [ref=e82]
+            - generic [ref=e85]:
+              - heading "בלוג" [level=3] [ref=e86]
+              - generic [ref=e87]: מאמרים שוטפים
+            - paragraph [ref=e88]: ניתוחים, זרימות עבודה וחדשות AI לכספים — בעברית.
+            - generic [ref=e89]:
+              - text: לצפייה
+              - img [ref=e90]
+      - generic [ref=e92]:
+        - generic [ref=e93]: חדש באתר
+        - heading "המדריכים והמאמרים האחרונים" [level=2] [ref=e94]
+        - generic [ref=e95]:
+          - generic [ref=e96]:
+            - link "מדריך · Excel · 5 דק'פרימיום רואי החשבון שכבר עובדים עם AI לא עובדים קשה יותר — הם פשוט עובדים אחרת. - תכירו את קופיילוט סקילס" [ref=e97] [cursor=pointer]:
+              - /url: /guides/copilot-skill
+              - generic [ref=e98]:
+                - generic [ref=e99]: מדריך · Excel · 5 דק'פרימיום
+                - generic [ref=e100]: רואי החשבון שכבר עובדים עם AI לא עובדים קשה יותר — הם פשוט עובדים אחרת. - תכירו את קופיילוט סקילס
+            - 'link "מדריך · Power BI · 10 דק''פרימיום Power BI Report Skills: המדריך המלא לבניית דוחות Power BI עם AI ו-GitHub Copilot (2026)" [ref=e101] [cursor=pointer]':
+              - /url: /guides/power-bi
+              - generic [ref=e102]:
+                - generic [ref=e103]: מדריך · Power BI · 10 דק'פרימיום
+                - generic [ref=e104]: "Power BI Report Skills: המדריך המלא לבניית דוחות Power BI עם AI ו-GitHub Copilot (2026)"
+            - link "מדריך · אוטומציה · 10 דק' Microsoft 365 Copilot Cowork — המדריך המעשי לאנשי כספים" [ref=e105] [cursor=pointer]:
+              - /url: /guides/copilot-cowork
+              - generic [ref=e106]:
+                - generic [ref=e107]: מדריך · אוטומציה · 10 דק'
+                - generic [ref=e108]: Microsoft 365 Copilot Cowork — המדריך המעשי לאנשי כספים
+          - generic [ref=e109]:
+            - generic [ref=e110]:
+              - generic [ref=e111]: מהבלוג
+              - list [ref=e112]:
+                - listitem [ref=e113]:
+                  - link "הטריק ה-Human-in-the-Loop שאני מוסיף לכל Prompt ו-Skill 2026-06-30" [ref=e114] [cursor=pointer]:
+                    - /url: /blog/human-loop
+                    - generic [ref=e115]: הטריק ה-Human-in-the-Loop שאני מוסיף לכל Prompt ו-Skill
+                    - text: 2026-06-30
+                - listitem [ref=e116]:
+                  - link "5 תיקיות שהופכות את Claude לעוזר שיודע בדיוק איפה הכל 2026-06-30" [ref=e117] [cursor=pointer]:
+                    - /url: /blog/claude-folder-system
+                    - generic [ref=e118]: 5 תיקיות שהופכות את Claude לעוזר שיודע בדיוק איפה הכל
+                    - text: 2026-06-30
+                - listitem [ref=e119]:
+                  - link "איך CFO אחד בנה תוכנית אסטרטגית ל-3 שנים — בזמן של אחר-צהריים אחד 2026-06-30" [ref=e120] [cursor=pointer]:
+                    - /url: /blog/cfo-strategic-plan
+                    - generic [ref=e121]: איך CFO אחד בנה תוכנית אסטרטגית ל-3 שנים — בזמן של אחר-צהריים אחד
+                    - text: 2026-06-30
+            - link "לכל המאמרים" [ref=e122] [cursor=pointer]:
+              - /url: /blog
+              - text: לכל המאמרים
+              - img [ref=e123]
+      - generic [ref=e126]:
+        - generic [ref=e127]:
+          - generic [ref=e128]: מי מאחורי המרכז
+          - heading "רונן עמוס, רו\"ח" [level=2] [ref=e129]
+          - paragraph [ref=e130]: רואה חשבון עם ניסיון של יותר מעשור במחלקות כספים, ומומחה ליישום AI, Power BI ואוטומציה בעולמות הפיננסים. כל מדריך, פרומפט וקורס כאן נבנה מתוך עבודה אמיתית מול צוותי כספים בישראל.
+          - list [ref=e131]:
+            - listitem [ref=e132]:
+              - img [ref=e133]
+              - text: רו״ח מוסמך · 10+ שנות ניסיון
+            - listitem [ref=e135]:
+              - img [ref=e136]
+              - text: Power BI Data Analyst · Python לפיננסים
+            - listitem [ref=e138]:
+              - img [ref=e139]
+              - text: מלווה מחלקות כספים בהטמעת AI ואוטומציה
+          - generic [ref=e141]:
+            - link "להכיר אותי" [ref=e142] [cursor=pointer]:
+              - /url: /about
+            - link "ייעוץ לארגונים" [ref=e143] [cursor=pointer]:
+              - /url: /services
+        - img "רונן עמוס" [ref=e145]
+      - generic [ref=e147]:
+        - generic [ref=e148]:
+          - generic [ref=e149]: קהילת הפרימיום
+          - heading "כל התוכן. כל הכלים. ₪30 לחודש." [level=2] [ref=e150]:
+            - text: כל התוכן. כל הכלים.
+            - text: ₪30 לחודש.
+          - paragraph [ref=e151]: חברי הקהילה מקבלים גישה מלאה לכל המדריכים, הפרומפטים והתבניות — וגם קבוצת WhatsApp פעילה עם מענה ישיר ממני.
+          - link "להצטרפות לקהילה" [ref=e152] [cursor=pointer]:
+            - /url: /pricing
+            - text: להצטרפות לקהילה
+            - img [ref=e153]
+        - generic [ref=e156]:
+          - generic [ref=e157]:
+            - generic [ref=e158]: חינם — לכולם
+            - list [ref=e159]:
+              - listitem [ref=e160]: מאמרים פתוחים בבלוג
+              - listitem [ref=e161]: ניוזלטר שבועי
+              - listitem [ref=e162]: מדריכים פתוחים נבחרים
+              - listitem [ref=e163]: מדריך הכלים המלא
+          - generic [ref=e164]:
+            - generic [ref=e165]: פרימיום — ₪30/חודש
+            - list [ref=e166]:
+              - listitem [ref=e167]:
+                - img [ref=e168]
+                - text: כל המדריכים — כולל הפרימיום
+              - listitem [ref=e170]:
+                - img [ref=e171]
+                - text: 22+ פרומפטים מוכנים
+              - listitem [ref=e173]:
+                - img [ref=e174]
+                - text: תבניות Excel ואוטומציה
+              - listitem [ref=e176]:
+                - img [ref=e177]
+                - text: קבוצת WhatsApp סגורה
+              - listitem [ref=e179]:
+                - img [ref=e180]
+                - text: כל מאמרי הפרימיום
+      - generic [ref=e183]:
+        - generic [ref=e184]:
+          - heading "ניוזלטר AI לכספים" [level=2] [ref=e185]
+          - paragraph [ref=e186]: "פעם בשבוע: מדריך, פרומפט או כלי אחד שחוסך לכם שעות. בלי ספאם."
+        - generic [ref=e187]:
+          - textbox "אימייל" [ref=e188]:
+            - /placeholder: you@company.co.il
+          - button "הרשמה חינם" [ref=e189]
+      - generic [ref=e190]:
+        - generic [ref=e191]:
+          - generic [ref=e192]:
+            - generic [ref=e193]: רונן עמוס
+            - paragraph [ref=e194]: רואה חשבון ויועץ AI פיננסי. מרכז ידע ישראלי לאנשי כספים — מדריכים, פרומפטים, קורסים וכלים שעובדים בשטח.
+            - paragraph [ref=e195]: ronenamos@gmail.com · 050-5500344
+          - generic [ref=e196]:
+            - generic [ref=e197]: משאבים
+            - list [ref=e198]:
+              - listitem [ref=e199]:
+                - link "מדריכים" [ref=e200] [cursor=pointer]:
+                  - /url: /guides
+              - listitem [ref=e201]:
+                - link "Skill Vault" [ref=e202] [cursor=pointer]:
+                  - /url: /skill-vault
+              - listitem [ref=e203]:
+                - link "כלים פיננסיים" [ref=e204] [cursor=pointer]:
+                  - /url: /tools
+              - listitem [ref=e205]:
+                - link "בלוג" [ref=e206] [cursor=pointer]:
+                  - /url: /blog
+          - generic [ref=e207]:
+            - generic [ref=e208]: למידה
+            - list [ref=e209]:
+              - listitem [ref=e210]:
+                - link "קורסים" [ref=e211] [cursor=pointer]:
+                  - /url: /courses
+              - listitem [ref=e212]:
+                - link "הכשרות לארגונים" [ref=e213] [cursor=pointer]:
+                  - /url: /training
+              - listitem [ref=e214]:
+                - link "מנוי פרימיום" [ref=e215] [cursor=pointer]:
+                  - /url: /pricing
+          - generic [ref=e216]:
+            - generic [ref=e217]: אודות
+            - list [ref=e218]:
+              - listitem [ref=e219]:
+                - link "מי אני" [ref=e220] [cursor=pointer]:
+                  - /url: /about
+              - listitem [ref=e221]:
+                - link "שירותי ייעוץ" [ref=e222] [cursor=pointer]:
+                  - /url: /services
+              - listitem [ref=e223]:
+                - link "צור קשר" [ref=e224] [cursor=pointer]:
+                  - /url: /contact
+              - listitem [ref=e225]:
+                - link "פרטיות ותנאי שימוש" [ref=e226] [cursor=pointer]:
+                  - /url: /legal
+        - generic [ref=e228]:
+          - generic [ref=e229]: © 2026 רונן עמוס — AI Finance. כל הזכויות שמורות.
+          - generic [ref=e230]: ronenamoscpa.co.il
+  - button "Open Next.js Dev Tools" [ref=e236] [cursor=pointer]:
+    - img [ref=e237]

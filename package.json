@@ -6,7 +6,7 @@
     "node": ">=22.0.0"
   },
   "scripts": {
-    "dev": "node scripts/generate-posts-index.mjs && next dev",
+    "dev": "node scripts/generate-posts-index.mjs && next dev --webpack",
     "prebuild": "node scripts/generate-posts-index.mjs",
     "build": "next build",
     "start": "next start",

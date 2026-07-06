@@ -1,0 +1,285 @@
+- generic [active] [ref=f8e1]:
+  - banner [ref=f8e2]:
+    - generic [ref=f8e4]:
+      - link "רונן עמוס רו\"ח | יועץ טכנולוגי" [ref=f8e5] [cursor=pointer]:
+        - /url: /
+        - generic [ref=f8e6]: רונן עמוס
+        - generic [ref=f8e7]: רו"ח | יועץ טכנולוגי
+      - navigation [ref=f8e8]:
+        - link "בית" [ref=f8e9] [cursor=pointer]:
+          - /url: /
+        - link "אודות" [ref=f8e10] [cursor=pointer]:
+          - /url: /about
+        - link "שירותים" [ref=f8e11] [cursor=pointer]:
+          - /url: /services
+        - link "הכשרות" [ref=f8e12] [cursor=pointer]:
+          - /url: /training
+        - link "קורסים" [ref=f8e13] [cursor=pointer]:
+          - /url: /courses
+        - link "מנוי פרימיום" [ref=f8e14] [cursor=pointer]:
+          - /url: /pricing
+        - link "Skill Vault" [ref=f8e15] [cursor=pointer]:
+          - /url: /skill-vault
+        - link "מדריכים" [ref=f8e16] [cursor=pointer]:
+          - /url: /guides
+        - link "כלים" [ref=f8e17] [cursor=pointer]:
+          - /url: /tools
+        - link "בלוג" [ref=f8e18] [cursor=pointer]:
+          - /url: /blog
+        - link "צור קשר" [ref=f8e19] [cursor=pointer]:
+          - /url: /contact
+  - main [ref=f8e22]:
+    - generic [ref=f8e28]:
+      - generic [ref=f8e29]:
+        - generic [ref=f8e30]: AI & Tech-Driven Finance
+        - heading "רואה חשבון בשפה של טכנולוגיה" [level=1] [ref=f8e32]
+        - paragraph [ref=f8e33]: הופך מחלקות כספים לחכמות, מהירות ויעילות - עם AI, Power BI ואוטומציה
+        - paragraph [ref=f8e34]: רו"ח מוסמך המתמחה בשילוב טכנולוגיה וכספים. מביא את חזית הקידמה לניהול הפיננסי שלך עם פתרונות AI מותאמים אישית.
+        - generic [ref=f8e35]:
+          - link "הזמן ייעוץ חינם" [ref=f8e36] [cursor=pointer]:
+            - /url: /contact
+          - link "השירותים שלי" [ref=f8e37] [cursor=pointer]:
+            - /url: "#services"
+      - img "רונן עמוס - Master AI Finance" [ref=f8e42]
+    - generic [ref=f8e47]:
+      - generic [ref=f8e48]:
+        - generic [ref=f8e49]: 500+
+        - paragraph [ref=f8e50]: שעות עבודה נחסכו ללקוחות
+      - generic [ref=f8e51]:
+        - generic [ref=f8e52]: 99.5%
+        - paragraph [ref=f8e53]: דיוק בהכרת הכנסות
+      - generic [ref=f8e54]:
+        - generic [ref=f8e55]: 50+
+        - paragraph [ref=f8e56]: חברות קיבלו ייעוץ
+      - generic [ref=f8e57]:
+        - generic [ref=f8e58]: 24 שעות
+        - paragraph [ref=f8e59]: להטמעת דשבורד Power BI
+    - generic [ref=f8e61]:
+      - generic [ref=f8e62]:
+        - heading "הבעיה שאני פותר" [level=2] [ref=f8e63]
+        - paragraph [ref=f8e64]: מחלקות כספים בארגונים קטנים-בינוניים מתמודדות עם אתגרים שעולים להן ביוקר
+      - generic [ref=f8e65]:
+        - generic [ref=f8e66]:
+          - img [ref=f8e68]
+          - generic [ref=f8e70]:
+            - heading "עבודה ידנית מתישה" [level=3] [ref=f8e71]
+            - paragraph [ref=f8e72]: דוחות שלוקחים ימים להכנה, העתקה-הדבקה אינסופית בין מערכות
+        - generic [ref=f8e73]:
+          - img [ref=f8e75]
+          - generic [ref=f8e77]:
+            - heading "טעויות אנוש יקרות" [level=3] [ref=f8e78]
+            - paragraph [ref=f8e79]: טעויות בהכרת הכנסות (ASC 606/IFRS 15) שעלולות לעלות במיליונים
+        - generic [ref=f8e80]:
+          - img [ref=f8e82]
+          - generic [ref=f8e85]:
+            - heading "חוסר תובנות בזמן אמת" [level=3] [ref=f8e86]
+            - paragraph [ref=f8e87]: מנכ"ל שואל "איפה אנחנו עומדים?" - והתשובה מגיעה רק בסוף החודש
+        - generic [ref=f8e88]:
+          - img [ref=f8e90]
+          - generic [ref=f8e92]:
+            - heading "תלות במערכות יקרות" [level=3] [ref=f8e93]
+            - paragraph [ref=f8e94]: מערכות ERP מסורבלות שדורשות צוות IT ייעודי
+    - generic [ref=f8e96]:
+      - 'heading "הפתרון: שילוב ייחודי של מומחיות" [level=2] [ref=f8e98]'
+      - generic [ref=f8e99]:
+        - generic [ref=f8e100]:
+          - img [ref=f8e102]
+          - heading "מומחיות פיננסית עמוקה" [level=3] [ref=f8e104]
+          - list [ref=f8e105]:
+            - listitem [ref=f8e106]:
+              - generic [ref=f8e107]: ✓
+              - text: רו"ח מוסמך עם 10+ שנות ניסיון
+            - listitem [ref=f8e108]:
+              - generic [ref=f8e109]: ✓
+              - text: התמחות ב-ASC 606/IFRS 15
+            - listitem [ref=f8e110]:
+              - generic [ref=f8e111]: ✓
+              - text: ייעוץ לחברות SaaS וסטארטאפים
+        - generic [ref=f8e112]:
+          - img [ref=f8e114]
+          - heading "שליטה טכנולוגית מתקדמת" [level=3] [ref=f8e116]
+          - list [ref=f8e117]:
+            - listitem [ref=f8e118]:
+              - generic [ref=f8e119]: ✓
+              - text: Power BI - דשבורדים מתקדמים
+            - listitem [ref=f8e120]:
+              - generic [ref=f8e121]: ✓
+              - text: AI - ChatGPT, Claude לעבודה פיננסית
+            - listitem [ref=f8e122]:
+              - generic [ref=f8e123]: ✓
+              - text: Python, Excel Automation, API
+        - generic [ref=f8e124]:
+          - img [ref=f8e126]
+          - heading "חשיבה עסקית אסטרטגית" [level=3] [ref=f8e128]
+          - list [ref=f8e129]:
+            - listitem [ref=f8e130]:
+              - generic [ref=f8e131]: ✓
+              - text: ייעוץ מבוסס נתונים
+            - listitem [ref=f8e132]:
+              - generic [ref=f8e133]: ✓
+              - text: בניית תהליכים פיננסיים יעילים
+            - listitem [ref=f8e134]:
+              - generic [ref=f8e135]: ✓
+              - text: ROI מדיד בכל פרויקט
+    - generic [ref=f8e138]:
+      - generic [ref=f8e139]:
+        - heading "השירותים שלי" [level=2] [ref=f8e140]
+        - paragraph [ref=f8e141]: פתרונות מותאמים אישית לכל שלב בצמיחה של מחלקת הכספים שלך
+      - generic [ref=f8e142]:
+        - generic [ref=f8e144]:
+          - img [ref=f8e146]
+          - heading "ייעוץ עסקי ופיננסי" [level=3] [ref=f8e148]
+          - paragraph [ref=f8e149]: ניתוח פיננסי מתקדם עם Power BI, אסטרטגיית ASC 606, אופטימיזציה של תהליכים והטמעת מערכות.
+          - link "למידע נוסף" [ref=f8e150] [cursor=pointer]:
+            - /url: /services
+        - generic [ref=f8e152]:
+          - img [ref=f8e154]
+          - heading "הכשרות מעשיות" [level=3] [ref=f8e156]
+          - paragraph [ref=f8e157]: "ימי הכשרה למחלקות כספים: Power BI, AI ואוטומציה, הכשרת מנהלים. ROI מדיד וכלים מוכנים לשימוש."
+          - link "למידע נוסף" [ref=f8e158] [cursor=pointer]:
+            - /url: /training
+        - generic [ref=f8e160]:
+          - img [ref=f8e162]
+          - heading "קורס AI לחשבונאים" [level=3] [ref=f8e164]
+          - paragraph [ref=f8e165]: "קורס מקיף של 8 מפגשים: Prompts, כתיבה עסקית, ניתוח נתונים, GPT-4o ועתיד ה-AI בכספים."
+          - link "למידע נוסף" [ref=f8e166] [cursor=pointer]:
+            - /url: /course
+    - generic [ref=f8e168]:
+      - heading "מה אומרים עליי" [level=2] [ref=f8e170]
+      - generic [ref=f8e171]:
+        - generic [ref=f8e172]:
+          - generic [ref=f8e173]:
+            - img [ref=f8e174]
+            - img [ref=f8e176]
+            - img [ref=f8e178]
+            - img [ref=f8e180]
+            - img [ref=f8e182]
+          - paragraph [ref=f8e184]: "\"רונן לא רק עזר לנו להטמיע את ASC 606 - הוא בנה לנו דשבורד Power BI שחוסך לנו 20 שעות עבודה בחודש. עכשיו אנחנו רואים את כל הנתונים בזמן אמת.\""
+          - generic [ref=f8e185]:
+            - paragraph [ref=f8e186]: דני כהן
+            - paragraph [ref=f8e187]: CFO, חברת SaaS בתחום ה-HR
+        - generic [ref=f8e188]:
+          - generic [ref=f8e189]:
+            - img [ref=f8e190]
+            - img [ref=f8e192]
+            - img [ref=f8e194]
+            - img [ref=f8e196]
+            - img [ref=f8e198]
+          - paragraph [ref=f8e200]: "\"הייתה לנו בעיה עם טעויות בהכרת הכנסות. רונן בנה לנו אוטומציה ב-Excel שמחשבת הכל אוטומטית לפי ASC 606. אפס טעויות מאז.\""
+          - generic [ref=f8e201]:
+            - paragraph [ref=f8e202]: מיכל לוי
+            - paragraph [ref=f8e203]: מנהלת כספים, חברת מנויים דיגיטליים
+        - generic [ref=f8e204]:
+          - generic [ref=f8e205]:
+            - img [ref=f8e206]
+            - img [ref=f8e208]
+            - img [ref=f8e210]
+            - img [ref=f8e212]
+            - img [ref=f8e214]
+          - paragraph [ref=f8e216]: "\"יום ההכשרה על Power BI היה מעולה. רונן לא רק לימד - הוא עזר לכל אחד מאיתנו לבנות דשבורד אמיתי. עכשיו כל הצוות משתמש בזה.\""
+          - generic [ref=f8e217]:
+            - paragraph [ref=f8e218]: יוסי אברהם
+            - paragraph [ref=f8e219]: מנהל חשבונאות, חברת ייצור
+    - generic [ref=f8e221]:
+      - generic [ref=f8e222]:
+        - heading "הישאר מעודכן" [level=2] [ref=f8e223]
+        - paragraph [ref=f8e224]: קבל טיפים, מדריכים ותובנות על AI וכספים — ישירות למייל, פעם בשבוע
+      - generic [ref=f8e226]:
+        - img [ref=f8e227]
+        - heading "קבלו עדכונים ישירות למייל" [level=3] [ref=f8e230]
+        - paragraph [ref=f8e231]: טיפים, מדריכים ותובנות על AI וכספים — פעם בשבוע, בלי ספאם.
+        - generic [ref=f8e232]:
+          - textbox "הכנס את כתובת האימייל שלך" [ref=f8e235]
+          - button "הרשמה" [ref=f8e236]:
+            - img [ref=f8e237]
+            - text: הרשמה
+    - generic [ref=f8e245]:
+      - heading "מוכן להפוך את מחלקת הכספים שלך לחכמה ויעילה?" [level=2] [ref=f8e246]
+      - paragraph [ref=f8e247]: בוא נתחיל עם פגישת ייעוץ חינמית של 30 דקות. ננתח את הצרכים שלך ונמפה את הדרך המהירה ביותר לאוטומציה ו-AI.
+      - generic [ref=f8e248]:
+        - link "הזמן פגישה עכשיו" [ref=f8e249] [cursor=pointer]:
+          - /url: /contact
+        - link "קרא מאמרים בבלוג" [ref=f8e250] [cursor=pointer]:
+          - /url: /blog
+  - link "צור קשר בוואטסאפ" [ref=f8e251] [cursor=pointer]:
+    - /url: https://wa.me/972505500344?text=%D7%A9%D7%9C%D7%95%D7%9D%20%D7%A8%D7%95%D7%A0%D7%9F%2C%20%D7%94%D7%92%D7%A2%D7%AA%D7%99%20%D7%93%D7%A8%D7%9A%20%D7%94%D7%90%D7%AA%D7%A8%20%D7%95%D7%90%D7%A9%D7%9E%D7%97%20%D7%9C%D7%94%D7%AA%D7%99%D7%99%D7%A2%D7%A5%20%D7%90%D7%99%D7%AA%D7%9A%20%D7%91%D7%A0%D7%95%D7%92%D7%A2%20%D7%9C-
+    - img [ref=f8e252]
+    - generic: דבר איתי בוואטסאפ
+  - contentinfo [ref=f8e255]:
+    - generic [ref=f8e256]:
+      - generic [ref=f8e257]:
+        - generic [ref=f8e258]:
+          - link "רונן עמוס" [ref=f8e259] [cursor=pointer]:
+            - /url: /
+          - paragraph [ref=f8e260]: רואה חשבון ויועץ טכנולוגי פיננסי. הופך מחלקות כספים לחכמות, מהירות ויעילות באמצעות כלי AI ואוטומציות מתקדמים.
+          - generic [ref=f8e261]:
+            - link [ref=f8e262] [cursor=pointer]:
+              - /url: https://www.linkedin.com/in/ronenamoscpa
+              - img [ref=f8e263]
+            - link [ref=f8e267] [cursor=pointer]:
+              - /url: "#"
+              - img [ref=f8e268]
+        - generic [ref=f8e271]:
+          - heading "ניווט מהיר" [level=4] [ref=f8e272]
+          - list [ref=f8e273]:
+            - listitem [ref=f8e274]:
+              - link "דף הבית" [ref=f8e275] [cursor=pointer]:
+                - /url: /
+            - listitem [ref=f8e276]:
+              - link "קורסי AI" [ref=f8e277] [cursor=pointer]:
+                - /url: /courses
+            - listitem [ref=f8e278]:
+              - link "בלוג פרימיום" [ref=f8e279] [cursor=pointer]:
+                - /url: /blog
+            - listitem [ref=f8e280]:
+              - link "מסלולי מנוי" [ref=f8e281] [cursor=pointer]:
+                - /url: /pricing
+            - listitem [ref=f8e282]:
+              - link "אזור אישי" [ref=f8e283] [cursor=pointer]:
+                - /url: /dashboard
+            - listitem [ref=f8e284]:
+              - link "צור קשר" [ref=f8e285] [cursor=pointer]:
+                - /url: /contact
+        - generic [ref=f8e286]:
+          - heading "שירותים" [level=4] [ref=f8e287]
+          - list [ref=f8e288]:
+            - listitem [ref=f8e289]:
+              - link "ייעוץ טכנולוגי פיננסי" [ref=f8e290] [cursor=pointer]:
+                - /url: /services
+            - listitem [ref=f8e291]:
+              - link "הכשרות צוותי כספים" [ref=f8e292] [cursor=pointer]:
+                - /url: /training
+            - listitem [ref=f8e293]:
+              - link "אוטומציות Power BI" [ref=f8e294] [cursor=pointer]:
+                - /url: /services
+            - listitem [ref=f8e295]:
+              - link "מדיניות פרטיות ותנאי שימוש" [ref=f8e296] [cursor=pointer]:
+                - /url: /legal
+        - generic [ref=f8e297]:
+          - heading "צור קשר" [level=4] [ref=f8e298]
+          - list [ref=f8e299]:
+            - listitem [ref=f8e300]:
+              - img [ref=f8e301]
+              - link "050-5500344" [ref=f8e303] [cursor=pointer]:
+                - /url: tel:0505500344
+            - listitem [ref=f8e304]:
+              - img [ref=f8e305]
+              - link "ronenamos@gmail.com" [ref=f8e308] [cursor=pointer]:
+                - /url: mailto:ronenamos@gmail.com
+            - listitem [ref=f8e309]:
+              - img [ref=f8e310]
+              - generic [ref=f8e313]: ישראל - פריסה ארצית
+      - generic [ref=f8e315]:
+        - generic [ref=f8e316]:
+          - heading "הישאר מעודכן" [level=4] [ref=f8e317]
+          - paragraph [ref=f8e318]: טיפים על AI וכספים, פעם בשבוע
+        - generic [ref=f8e320]:
+          - textbox "הכנס את כתובת האימייל שלך" [ref=f8e323]
+          - button "הרשמה" [ref=f8e324]:
+            - img [ref=f8e325]
+            - text: הרשמה
+      - generic [ref=f8e328]:
+        - paragraph [ref=f8e329]: © 2026 רונן עמוס - AI FINANCE. כל הזכויות שמורות.
+        - paragraph [ref=f8e330]: "בנייה ועיצוב: Antigravity AI Engine"
+  - button "Open Next.js Dev Tools" [ref=f8e336] [cursor=pointer]:
+    - img [ref=f8e337]

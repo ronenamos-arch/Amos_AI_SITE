@@ -1,0 +1,36 @@
+[     142ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_f3530cac._.js:2297
+[     314ms] [LOG] [Fast Refresh] done in 282ms @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_f3530cac._.js:2297
+[     597ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_f3530cac._.js:2297
+[     697ms] [LOG] [HMR] connected @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_f3530cac._.js:2297
+[    1108ms] Error: Module [project]/lib/actions/data:b750ad [app-client] (ecmascript) <text/javascript> was instantiated because it was required from module [project]/components/ui/StickyNewsletterBar.tsx [app-client] (ecmascript), but the module factory is not available. It might have been deleted in an HMR update.
+    at instantiateModule (http://localhost:3000/_next/static/chunks/turbopack-_23a915ee._.js:845:15)
+    at getOrInstantiateModuleFromParent (http://localhost:3000/_next/static/chunks/turbopack-_23a915ee._.js:830:12)
+    at DevContext.esmImport [as i] (http://localhost:3000/_next/static/chunks/turbopack-_23a915ee._.js:238:20)
+    at module evaluation (http://localhost:3000/_next/static/chunks/components_ui_StickyNewsletterBar_tsx_184cfb56._.js:18:183)
+    at http://localhost:3000/_next/static/chunks/turbopack-_23a915ee._.js:879:13
+    at runModuleExecutionHooks (http://localhost:3000/_next/static/chunks/turbopack-_23a915ee._.js:904:13)
+    at instantiateModule (http://localhost:3000/_next/static/chunks/turbopack-_23a915ee._.js:877:9)
+    at getOrInstantiateModuleFromParent (http://localhost:3000/_next/static/chunks/turbopack-_23a915ee._.js:830:12)
+    at DevContext.esmImport [as i] (http://localhost:3000/_next/static/chunks/turbopack-_23a915ee._.js:238:20)
+    at module evaluation (http://localhost:3000/_next/static/chunks/components_ui_StickyNewsletterBar_tsx_184cfb56._.js:218:47)
+    at http://localhost:3000/_next/static/chunks/turbopack-_23a915ee._.js:879:13
+    at runModuleExecutionHooks (http://localhost:3000/_next/static/chunks/turbopack-_23a915ee._.js:904:13)
+    at instantiateModule (http://localhost:3000/_next/static/chunks/turbopack-_23a915ee._.js:877:9)
+    at getOrInstantiateModuleFromParent (http://localhost:3000/_next/static/chunks/turbopack-_23a915ee._.js:830:12)
+    at DevContext.esmImport [as i] (http://localhost:3000/_next/static/chunks/turbopack-_23a915ee._.js:238:20)
+    at http://localhost:3000/_next/static/chunks/components_ui_79a5c94b._.js:21:16
+[    6031ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_f3530cac._.js:2297
+[    6265ms] [LOG] [Fast Refresh] done in 342ms @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_f3530cac._.js:2297
+[   15412ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_f3530cac._.js:2297
+[   15663ms] [LOG] [Fast Refresh] done in 365ms @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_f3530cac._.js:2297
+[   28947ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_RESET @ http://localhost:3000/_next/image?url=%2Fimages%2Favatar-hero-2.jpg&w=1080&q=75:0
+[   30926ms] [ERROR] WebSocket connection to 'ws://localhost:3000/_next/webpack-hmr?id=HZi2S2prkoXqGZJjqIMTz' failed: Error during WebSocket handshake: Unexpected response code: 200 @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_client_17643121._.js:10878
+[   33356ms] [ERROR] WebSocket connection to 'ws://localhost:3000/_next/webpack-hmr?id=HZi2S2prkoXqGZJjqIMTz' failed: Error during WebSocket handshake: Unexpected response code: 200 @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_client_17643121._.js:10878
+[   34681ms] [ERROR] WebSocket connection to 'ws://localhost:3000/_next/webpack-hmr?id=HZi2S2prkoXqGZJjqIMTz' failed: Error during WebSocket handshake: Unexpected response code: 200 @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_client_17643121._.js:10878
+[   36019ms] [ERROR] WebSocket connection to 'ws://localhost:3000/_next/webpack-hmr?id=HZi2S2prkoXqGZJjqIMTz' failed: Error during WebSocket handshake: Unexpected response code: 200 @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_client_17643121._.js:10878
+[   37352ms] [ERROR] WebSocket connection to 'ws://localhost:3000/_next/webpack-hmr?id=HZi2S2prkoXqGZJjqIMTz' failed: Error during WebSocket handshake: Unexpected response code: 200 @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_client_17643121._.js:10878
+[   44445ms] [LOG] [HMR] connected @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_f3530cac._.js:2297
+[   47120ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_f3530cac._.js:2297
+[   47299ms] [LOG] [HMR] connected @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_f3530cac._.js:2297
+[   47427ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_f3530cac._.js:2297
+[   47497ms] [LOG] [Fast Refresh] done in 186ms @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_f3530cac._.js:2297

@@ -1,0 +1,104 @@
+- generic [ref=f2e1]:
+  - generic [active]:
+    - generic [ref=f2e4]:
+      - generic [ref=f2e5]:
+        - generic [ref=f2e6]:
+          - navigation [ref=f2e7]:
+            - button "previous" [disabled] [ref=f2e8]:
+              - img "previous" [ref=f2e9]
+            - generic [ref=f2e11]:
+              - generic [ref=f2e12]: 1/
+              - text: "1"
+            - button "next" [disabled] [ref=f2e13]:
+              - img "next" [ref=f2e14]
+          - img
+        - generic [ref=f2e16]:
+          - link "Next.js 16.1.6 (stale) Turbopack" [ref=f2e17] [cursor=pointer]:
+            - /url: https://nextjs.org/docs/messages/version-staleness
+            - img [ref=f2e18]
+            - generic "There is a newer version (16.2.10) available, upgrade recommended!" [ref=f2e20]: Next.js 16.1.6 (stale)
+            - generic [ref=f2e21]: Turbopack
+          - img
+      - dialog "Runtime Error" [ref=f2e23]:
+        - generic [ref=f2e26]:
+          - generic [ref=f2e27]:
+            - generic [ref=f2e28]:
+              - generic [ref=f2e30]: Runtime Error
+              - generic [ref=f2e31]:
+                - button "Copy Error Info" [ref=f2e32] [cursor=pointer]:
+                  - img [ref=f2e33]
+                - button "No related documentation found" [disabled] [ref=f2e35]:
+                  - img [ref=f2e36]
+                - button "Attach Node.js inspector" [ref=f2e38] [cursor=pointer]:
+                  - img [ref=f2e39]
+            - generic [ref=f2e48]: Module [project]/lib/actions/data:b750ad [app-client] (ecmascript) <text/javascript> was instantiated because it was required from module [project]/components/ui/StickyNewsletterBar.tsx [app-client] (ecmascript), but the module factory is not available. It might have been deleted in an HMR update.
+          - generic [ref=f2e49]:
+            - generic [ref=f2e50]:
+              - paragraph [ref=f2e52]:
+                - img [ref=f2e54]
+                - generic [ref=f2e57]: app\layout.tsx (133:11) @ RootLayout
+                - button "Open in editor" [ref=f2e58] [cursor=pointer]:
+                  - img [ref=f2e60]
+              - generic [ref=f2e63]:
+                - generic [ref=f2e64]: 131 | <LazyAIChat />
+                - generic [ref=f2e65]: 132 | <WhatsAppFloat />
+                - generic [ref=f2e66]: "> 133 | <LazyStickyNewsletterBar />"
+                - generic [ref=f2e67]: "| ^"
+                - generic [ref=f2e68]: 134 | <LazyNewsletterPopup />
+                - generic [ref=f2e69]: 135 | <Footer />
+                - generic [ref=f2e70]: 136 | </Chrome>
+            - generic [ref=f2e71]:
+              - generic [ref=f2e72]:
+                - paragraph [ref=f2e73]:
+                  - text: Call Stack
+                  - generic [ref=f2e74]: "19"
+                - button "Show 13 ignore-listed frame(s)" [ref=f2e75] [cursor=pointer]:
+                  - text: Show 13 ignore-listed frame(s)
+                  - img [ref=f2e76]
+              - generic [ref=f2e78]:
+                - generic [ref=f2e79]:
+                  - text: module evaluation
+                  - button "Sourcemapping failed. Click to log cause of error." [ref=f2e80] [cursor=pointer]:
+                    - img [ref=f2e81]
+                - text: file:///C:/Users/Ronen/Documents/Projects/Personal/Antigravity/blog%20andwebsite/site/.next/dev/static/chunks/components_ui_StickyNewsletterBar_tsx_184cfb56._.js (18:183)
+              - generic [ref=f2e83]:
+                - generic [ref=f2e84]:
+                  - text: module evaluation
+                  - button "Sourcemapping failed. Click to log cause of error." [ref=f2e85] [cursor=pointer]:
+                    - img [ref=f2e86]
+                - text: file:///C:/Users/Ronen/Documents/Projects/Personal/Antigravity/blog%20andwebsite/site/.next/dev/static/chunks/components_ui_StickyNewsletterBar_tsx_184cfb56._.js (218:47)
+              - generic [ref=f2e88]:
+                - generic [ref=f2e89]: <unknown>
+                - text: .next\dev\static\chunks\components_ui_79a5c94b._.js (21:16)
+              - generic [ref=f2e90]:
+                - generic [ref=f2e91]:
+                  - text: LoadableComponent
+                  - button "Sourcemapping failed. Click to log cause of error." [ref=f2e92] [cursor=pointer]:
+                    - img [ref=f2e93]
+                - text: file:///C:/Users/Ronen/Documents/Projects/Personal/Antigravity/blog%20andwebsite/site/.next/dev/static/chunks/node_modules_next_18c76967._.js (3297:57)
+              - generic [ref=f2e95]:
+                - generic [ref=f2e96]:
+                  - text: LazyStickyNewsletterBar
+                  - button "Sourcemapping failed. Click to log cause of error." [ref=f2e97] [cursor=pointer]:
+                    - img [ref=f2e98]
+                - text: file:///C:/Users/Ronen/Documents/Projects/Personal/Antigravity/blog%20andwebsite/site/.next/dev/static/chunks/_5c26700f._.js (1041:214)
+              - generic [ref=f2e100]:
+                - generic [ref=f2e101]:
+                  - text: RootLayout
+                  - button "Open RootLayout in editor" [ref=f2e102] [cursor=pointer]:
+                    - img [ref=f2e103]
+                - text: app\layout.tsx (133:11)
+        - generic [ref=f2e105]: "1"
+        - generic [ref=f2e106]: "2"
+    - generic [ref=f2e111] [cursor=pointer]:
+      - button "Open Next.js Dev Tools" [ref=f2e112]:
+        - img [ref=f2e113]
+      - generic [ref=f2e116]:
+        - button "Open issues overlay" [ref=f2e117]:
+          - generic [ref=f2e118]:
+            - generic [ref=f2e119]: "0"
+            - generic [ref=f2e120]: "1"
+          - generic [ref=f2e121]: Issue
+        - button "Collapse issues badge" [ref=f2e122]:
+          - img [ref=f2e123]
+  - 'heading "Application error: a client-side exception has occurred while loading localhost (see the browser console for more information)." [level=2] [ref=f2e127]'
