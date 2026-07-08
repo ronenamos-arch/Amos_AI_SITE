@@ -101,6 +101,12 @@ Claude Design הוא הקנבס הוויזואלי של Anthropic. אתם כות
 
 **בקשו מ-Claude פידבק.** Claude יכול לבדוק נגישות, ניגודיות, היררכיית מידע ושימושיות. התייחסו אליו כשותף לעיצוב, לא רק כמחולל.
 
+<div style="text-align:center; margin: 32px 0;">
+  <a href="https://docs.google.com/spreadsheets/d/1RXn4fT5Pi-zipGmlhSfP5AoHSNHQsr-Q/edit?usp=sharing&ouid=113209169108500009079&rtpof=true&sd=true" target="_blank" rel="noopener noreferrer" style="display:inline-block; padding: 16px 36px; background: linear-gradient(135deg, #14b8a6, #0d9488); color: #fff; font-weight: 700; font-size: 1.05rem; border-radius: 12px; text-decoration: none; box-shadow: 0 8px 24px rgba(20,184,166,0.35);">
+    📊 הורידו את חוברת העבודה — 25 פרומפטים ל-Claude Design
+  </a>
+</div>
+
 ## ארבע דרכים לערוך — ומתי להשתמש בכל אחת
 
 הגרסה הראשונה שה-Claude נותן היא נקודת התחלה. הערך האמיתי הוא באיטרציה, ויש ארבעה כלים לזה:
