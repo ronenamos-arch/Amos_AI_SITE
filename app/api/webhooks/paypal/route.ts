@@ -128,7 +128,7 @@ async function handlePaymentCompleted(event: any): Promise<boolean> {
     const resource = event.resource;
     const orderId = resource.id;
     const amount = parseFloat(resource.amount?.value || "0");
-    const payerEmail = resource.payer?.email_address;
+    const payerEmail = resource.payer?.email_address?.toLowerCase().trim();
 
     const adminSupabase = createAdminClient();
 
@@ -179,6 +179,7 @@ async function handlePaymentCompleted(event: any): Promise<boolean> {
     // Activate lifetime subscription (one-time payment)
     const { error: profileError } = await adminSupabase.from("profiles").upsert({
         id: profile.id,
+        email: payerEmail,
         subscription_status: "lifetime",
         updated_at: new Date().toISOString(),
     });
@@ -203,7 +204,7 @@ async function handlePaymentCompleted(event: any): Promise<boolean> {
 async function handleSubscriptionActivated(event: any): Promise<boolean> {
     const resource = event.resource;
     const subscriptionId = resource.id;
-    const subscriberEmail = resource.subscriber?.email_address;
+    const subscriberEmail = resource.subscriber?.email_address?.toLowerCase().trim();
 
     const adminSupabase = createAdminClient();
 
@@ -254,6 +255,7 @@ async function handleSubscriptionActivated(event: any): Promise<boolean> {
     // Activate monthly subscription
     const { error: profileError } = await adminSupabase.from("profiles").upsert({
         id: profile.id,
+        email: subscriberEmail,
         subscription_status: "monthly",
         paypal_subscription_id: subscriptionId,
         updated_at: new Date().toISOString(),
@@ -277,7 +279,7 @@ async function handleSubscriptionActivated(event: any): Promise<boolean> {
 
 async function handleSubscriptionCancelled(event: any): Promise<boolean> {
     const resource = event.resource;
-    const subscriberEmail = resource.subscriber?.email_address;
+    const subscriberEmail = resource.subscriber?.email_address?.toLowerCase().trim();
 
     const adminSupabase = createAdminClient();
 
@@ -334,7 +336,7 @@ async function handleSubscriptionCancelled(event: any): Promise<boolean> {
 
 async function handleSubscriptionRenewal(event: any): Promise<boolean> {
     const resource = event.resource;
-    const subscriberEmail = resource.payer?.email_address;
+    const subscriberEmail = resource.payer?.email_address?.toLowerCase().trim();
     const subscriptionId = resource.billing_agreement_id;
     const amount = parseFloat(resource.amount?.total || "0");
 
@@ -386,7 +388,7 @@ async function handleSubscriptionRenewal(event: any): Promise<boolean> {
 
 async function handlePaymentFailed(event: any): Promise<boolean> {
     const resource = event.resource;
-    const subscriberEmail = resource.subscriber?.email_address;
+    const subscriberEmail = resource.subscriber?.email_address?.toLowerCase().trim();
     const subscriptionId = resource.id;
 
     const adminSupabase = createAdminClient();
@@ -427,7 +429,7 @@ async function handlePaymentFailed(event: any): Promise<boolean> {
 
 async function handleSubscriptionExpired(event: any): Promise<boolean> {
     const resource = event.resource;
-    const subscriberEmail = resource.subscriber?.email_address;
+    const subscriberEmail = resource.subscriber?.email_address?.toLowerCase().trim();
 
     const adminSupabase = createAdminClient();
 
