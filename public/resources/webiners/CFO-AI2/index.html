@@ -398,6 +398,55 @@
       gap: 1rem; margin-top: 1.2rem;
     }
 
+    /* ── STEP LIST (CFO Brain skill setup) ── */
+    .step-list {
+      display: flex; flex-direction: column; gap: 0.9rem;
+      margin-top: 2rem;
+    }
+    .step-item {
+      display: flex; align-items: flex-start; gap: 1.1rem;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 1.2rem 1.5rem;
+      transition: border-color 0.22s, transform 0.22s;
+    }
+    .step-item:hover {
+      border-color: var(--gold-border);
+      transform: translateX(-2px);
+    }
+    .step-num {
+      flex: 0 0 auto;
+      width: 2.4rem; height: 2.4rem;
+      border-radius: 50%;
+      border: 1px solid var(--gold-border);
+      background: var(--gold-dim);
+      color: var(--gold-strong);
+      font-family: var(--mono);
+      font-weight: 700; font-size: 1rem;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .step-title {
+      font-weight: 700; font-size: 1rem; margin-bottom: 0.3rem;
+    }
+    .step-desc {
+      font-size: 0.88rem; color: var(--text-muted); line-height: 1.6;
+    }
+    .cta-button {
+      display: inline-flex; align-items: center; gap: 0.6rem;
+      background: linear-gradient(135deg, var(--gold) 0%, var(--gold-strong) 100%);
+      color: #14110a;
+      font-weight: 800; font-size: 1rem;
+      padding: 1rem 2.2rem;
+      border-radius: 999px;
+      box-shadow: 0 8px 24px rgba(200,168,75,0.25);
+      transition: transform 0.22s ease, box-shadow 0.22s ease;
+    }
+    .cta-button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 32px rgba(200,168,75,0.4);
+    }
+
     /* ── BOUNDARY ── */
     .boundary-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 2rem; }
     .boundary-card {
@@ -827,11 +876,67 @@
 
 
 <!-- ══════════════════════════════════════════════════════ -->
+<!-- SLIDE — CFO Brain Skill Setup                         -->
+<!-- ══════════════════════════════════════════════════════ -->
+<section id="cfo-brain-skill">
+  <div class="inner">
+    <div class="section-label">SLIDE 07 · התקנת ה-Skill</div>
+    <h2 class="section-title">איך מוסיפים את <span>CFO Brain</span> — 5 דקות</h2>
+    <p class="section-desc">כל מה שצריך כדי להתחיל להשתמש ב-Skill של CFO Brain ולקבל דוח ניהולי ראשון עוד היום.</p>
+
+    <div class="step-list">
+      <div class="step-item">
+        <div class="step-num">1</div>
+        <div>
+          <div class="step-title">הכנת הקובץ</div>
+          <div class="step-desc">מייצאים דו"ח רווח והפסד (P&L) מה-ERP בפורמט Excel. חובה עמודות חודשים (ינואר–דצמבר) + עמודת סה"כ. נתמך בעברית ובאנגלית. שומרים את הקובץ.</div>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">2</div>
+        <div>
+          <div class="step-title">פתיחת Claude</div>
+          <div class="step-desc">נכנסים ל-claude.ai, פותחים שיחה חדשה, ולוחצים על "Attach" כדי להעלות את קובץ ה-Excel.</div>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">3</div>
+        <div>
+          <div class="step-title">הדבקת הפרומפט</div>
+          <div class="step-desc">פותחים את הקובץ <strong>CFO_PL_Review_QUICK_PROMPT.md</strong>, מעתיקים את הפרומפט (בתוך הגרשיים המשולשים) ומדביקים אותו בשיחה.</div>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">4</div>
+        <div>
+          <div class="step-title">שליחה</div>
+          <div class="step-desc">לוחצים Send וממתינים 2–5 דקות בזמן ש-Claude מנתח את הנתונים.</div>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">5</div>
+        <div>
+          <div class="step-title">קבלת הדוח</div>
+          <div class="step-desc">Claude מפיק קובץ HTML — שומרים למחשב, פותחים בדפדפן או ממירים ל-PDF, ומשתפים עם המנכ"ל, הדירקטוריון או הגורמים המממנים.</div>
+        </div>
+      </div>
+    </div>
+
+    <div style="text-align:center; margin-top:2.4rem;">
+      <a class="cta-button" href="https://drive.google.com/drive/folders/1ZivuwTtYTi0neuRAhH4gh4s7F-9iJCNU?usp=sharing" target="_blank" rel="noopener noreferrer">
+        📥 הורדת חבילת ה-Skill · CFO Brain
+      </a>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════════════ -->
 <!-- SLIDE 6 — Demo 2: מסמכים / ספקים                    -->
 <!-- ══════════════════════════════════════════════════════ -->
 <section id="demo2">
   <div class="inner">
-    <div class="section-label">SLIDE 07 · מקרה בוחן 2</div>
+    <div class="section-label">SLIDE 08 · מקרה בוחן 2</div>
     <h2 class="section-title">ניהול ספקים וחוזים — <span>אוטומציה של עיבוד מסמכים</span></h2>
     <p class="section-desc">כמה שעות עברתם החודש על קריאת הצעות ספקים, חוזים וחשבוניות בפורמטים שונים? הנה מה שאפשר לעשות במקום.</p>
 
@@ -879,7 +984,7 @@
 <!-- ══════════════════════════════════════════════════════ -->
 <section class="section-alt" id="demo3">
   <div class="inner">
-    <div class="section-label">SLIDE 08 · מקרה בוחן 3</div>
+    <div class="section-label">SLIDE 09 · מקרה בוחן 3</div>
     <h2 class="section-title">Artifacts — <span>הדור הבא של הדוחות המנהליים</span></h2>
     <p class="section-desc">בנו דשבורד ניהולי מלא, אינטראקטיבי, מוכן להנהלה — בלי IT, בלי מפתח, בלי תקציב.</p>
 
@@ -920,7 +1025,7 @@
 <!-- ══════════════════════════════════════════════════════ -->
 <section id="governance">
   <div class="inner">
-    <div class="section-label">SLIDE 09 · Governance</div>
+    <div class="section-label">SLIDE 10 · Governance</div>
     <h2 class="section-title">מה AI <span>לא</span> יעשה בשבילך</h2>
     <p class="section-desc">Governance לא נועד להפחיד — הוא נועד לבנות אמון. הנה הגבולות שמבטיחים שהשימוש ב-AI מחזק את מעמד ה-CFO, לא מחליש אותו.</p>
 
