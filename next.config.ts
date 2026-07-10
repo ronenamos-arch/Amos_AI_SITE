@@ -42,6 +42,35 @@ const nextConfig: NextConfig = {
       },
     ];
   },
+  async redirects() {
+    return [
+      {
+        source: "/resources/python_can_do_whaaat_cfo_pl_terminal%20(4).html",
+        destination: "/resources/python-cfo",
+        permanent: true,
+      },
+      {
+        source: "/resources/skills-he.html",
+        destination: "/resources/ai-skills",
+        permanent: true,
+      },
+      {
+        source: "/resources/One_pager/102-Prompt.html",
+        destination: "/resources/102-prompt",
+        permanent: true,
+      },
+      {
+        source: "/resources/One_pager/price-framework.html",
+        destination: "/resources/price-framework",
+        permanent: true,
+      },
+      {
+        source: "/resources/colab-he-ronen.html",
+        destination: "/resources/colab-he",
+        permanent: true,
+      },
+    ];
+  },
 };
 
 export default nextConfig;
