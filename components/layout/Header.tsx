@@ -3,6 +3,8 @@
 import Link from "next/link";
 import { useState } from "react";
 import { UserMenu } from "./UserMenu";
+import { ResourcesDropdown } from "./ResourcesDropdown";
+import { resources } from "@/lib/resources-data";
 import { Menu, X } from "lucide-react";
 
 const navLinks = [
@@ -54,6 +56,7 @@ export function Header() {
                 {link.label}
               </Link>
             ))}
+            <ResourcesDropdown />
             <div className="h-6 w-px" style={{ background: "rgba(255,255,255,0.1)" }} />
             <UserMenu />
           </nav>
@@ -97,6 +100,23 @@ export function Header() {
                   }}
                 >
                   {link.label}
+                </Link>
+              ))}
+              <div
+                className="mt-2 pt-3 px-4 text-xs font-bold uppercase tracking-wider"
+                style={{ color: "#64748b", borderTop: "1px solid rgba(255,255,255,0.08)" }}
+              >
+                משאבים
+              </div>
+              {resources.map((resource) => (
+                <Link
+                  key={resource.slug}
+                  href={`/resources/${resource.slug}`}
+                  onClick={() => setMobileOpen(false)}
+                  className="block rounded-lg px-4 py-3 text-base font-medium transition-colors hover:text-teal-400"
+                  style={{ color: "#e2e8f0" }}
+                >
+                  {resource.title}
                 </Link>
               ))}
               <div
