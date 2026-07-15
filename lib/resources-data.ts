@@ -3,6 +3,7 @@ export interface Resource {
     title: string;
     description: string;
     contentFile: string;
+    free?: boolean;
 }
 
 export const resources: Resource[] = [
@@ -29,6 +30,7 @@ export const resources: Resource[] = [
         title: "Price Framework",
         description: "מסגרת תמחור לשירותי ייעוץ.",
         contentFile: "price-framework.html",
+        free: true,
     },
     {
         slug: "claude-playbook",
