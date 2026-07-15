@@ -66,7 +66,6 @@ const includes = [
     "ספריית Skills מוכנות להורדה — Variance, MBR, ERP Cleaner ועוד",
     "הקלטות וובינרים חיים מהשטח",
     "עשרות תרגילים עם נתוני TechFlow אמיתיים",
-    "גישה לכל החיים — כולל כל עדכון עתידי של Claude",
 ];
 
 export default function AIFinanceMasterPage() {
@@ -286,8 +285,7 @@ export default function AIFinanceMasterPage() {
                                         "200+ Prompts פיננסיים מוכנים לשימוש מיידי",
                                         "ספריית Skills פיננסיים להורדה (30+)",
                                         "הקלטות 5 וובינרים חיים על Claude",
-                                        "עשרות תרגילים עם נתוני TechFlow אמיתיים",
-                                        "גישה לכל החיים + כל עדכון עתידי"
+                                        "עשרות תרגילים עם נתוני TechFlow אמיתיים"
                                     ].map((item, i) => (
                                         <div key={i} className="flex items-center gap-3 py-3">
                                             <CheckCircle2 className="w-5 h-5 text-teal-400 flex-shrink-0" />
@@ -322,7 +320,7 @@ export default function AIFinanceMasterPage() {
                             שאלות? <a href="mailto:ronenamos@gmail.com" className="text-teal-400 hover:underline">צור קשר עם רונן</a>
                         </p>
                         <p className="text-text-muted text-sm leading-relaxed max-w-4xl mx-auto">
-                            16 מודולים מעשיים | סגירת חודש אוטומטית | דשבורד CFO חי | Artifacts & Skills | Claude ב-Excel וב-PowerPoint | גישה לכל החיים + כל העדכונים
+                            16 מודולים מעשיים | סגירת חודש אוטומטית | דשבורד CFO חי | Artifacts & Skills | Claude ב-Excel וב-PowerPoint
                         </p>
                     </div>
                 </div>
