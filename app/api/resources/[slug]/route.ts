@@ -15,10 +15,12 @@ export async function GET(
         return NextResponse.json({ error: "Not found" }, { status: 404 });
     }
 
-    const { hasAccess } = await getSubscriptionAccess();
+    if (!resource.free) {
+        const { hasAccess } = await getSubscriptionAccess();
 
-    if (!hasAccess) {
-        return NextResponse.json({ error: "Forbidden" }, { status: 403 });
+        if (!hasAccess) {
+            return NextResponse.json({ error: "Forbidden" }, { status: 403 });
+        }
     }
 
     const filePath = path.join(process.cwd(), "content", "resources", resource.contentFile);

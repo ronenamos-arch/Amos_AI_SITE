@@ -49,10 +49,15 @@ export function ResourcesDropdown() {
                             key={resource.slug}
                             href={`/resources/${resource.slug}`}
                             onClick={() => setOpen(false)}
-                            className="block px-4 py-3 text-sm transition-colors hover:text-teal-400 hover:bg-white/5"
+                            className="flex items-center justify-between gap-2 px-4 py-3 text-sm transition-colors hover:text-teal-400 hover:bg-white/5"
                             style={{ color: "#e2e8f0" }}
                         >
-                            {resource.title}
+                            <span>{resource.title}</span>
+                            {resource.free && (
+                                <span className="text-xs font-semibold text-teal-400 border border-teal-400/40 rounded-full px-2 py-0.5">
+                                    חינם
+                                </span>
+                            )}
                         </Link>
                     ))}
                 </div>

@@ -16,7 +16,7 @@ export default async function ResourceDetailPage({
 
     const { hasAccess } = await getSubscriptionAccess();
 
-    if (hasAccess) {
+    if (hasAccess || resource.free) {
         redirect(`/api/resources/${resource.slug}`);
     }
 
