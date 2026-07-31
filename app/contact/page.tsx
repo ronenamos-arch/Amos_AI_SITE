@@ -46,7 +46,7 @@ const contactInfo = [
     ),
     label: "קבוצת WhatsApp",
     value: "הצטרף לקבוצה השקטה לעדכונים",
-    href: "https://chat.whatsapp.com/CS6dgqnK45Q9XAMqScNr6R",
+    href: "https://chat.whatsapp.com/F1Y1Q35QIZ3L6rcrXuEnNN",
   },
   {
     icon: (
