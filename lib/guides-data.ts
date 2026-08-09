@@ -233,7 +233,9 @@ const nativeGuides: Guide[] = [
     publishedAt: '2026-05-11',
   },
   {
-    slug: 'power-bi',
+    // Was also 'power-bi', which the Report Skills guide above shadowed — this one was
+    // unreachable and both shared a single sitemap entry.
+    slug: 'power-bi-finance',
     title: 'Power BI לאנשי כספים — לראות את המספרים אחרת',
     description: 'איך להשתמש ב-Power BI כדי לבנות דשבורדים פיננסיים, לשפר visibility, לזהות חריגות ולתמוך בהחלטות הנהלה.',
     category: 'Power BI',
