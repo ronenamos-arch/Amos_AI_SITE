@@ -33,7 +33,7 @@ const plans = [
     },
     {
         name: "מנוי חודשי גמיש",
-        price: "30",
+        price: "100",
         period: "לחודש (ביטול בכל עת)",
         description: "גישה מלאה לכל התוכן המקצועי בתשלום חודשי סמלי.",
         features: [
@@ -51,11 +51,19 @@ const plans = [
     }
 ];
 
+/**
+ * Live ₪100/month subscription plan. Held in code rather than an env var on
+ * purpose: the value ships to the browser either way, so the env var bought no
+ * secrecy while making it possible for the advertised price above and the plan
+ * actually charged to drift apart. Changing the price means changing both.
+ */
+const LIVE_MONTHLY_PLAN_ID = "P-9U378293SK117301BNJ4OFDY";
+
 export default function PricingPage() {
     const isSandbox = process.env.NEXT_PUBLIC_PAYPAL_SANDBOX === 'true';
     const monthlyPlanId = isSandbox
         ? process.env.NEXT_PUBLIC_PAYPAL_SANDBOX_MONTHLY_PLAN_ID
-        : process.env.NEXT_PUBLIC_PAYPAL_MONTHLY_PLAN_ID;
+        : LIVE_MONTHLY_PLAN_ID;
 
     return (
         <PayPalProvider>

@@ -268,8 +268,8 @@ async function handleSubscriptionActivated(event: any): Promise<boolean> {
     if (subscriberEmail) {
         await sendPurchaseConfirmationEmail({
             to: subscriberEmail,
-            planName: "Monthly Flexible — ₪30/חודש",
-            amount: 30,
+            planName: "Monthly Flexible — ₪100/חודש",
+            amount: 100,
             orderId: subscriptionId,
         }).catch((err) => console.error("Webhook email error:", err));
     }
