@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useMemo } from "react";
+import Link from "next/link";
 import "../skills-vault.css";
 import promptsData from "../../content/prompts.json";
 import { VaultCTA } from "@/components/skill-vault/VaultCTA";
@@ -183,6 +184,28 @@ export default function SkillVaultPage() {
             {quickWins.map((item) => (
               <QuickWinCard key={item.id} item={item} onCopy={copyPrompt} />
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── 102 Prompts resource ─────────────────────────────────────────── */}
+      <section className="vault-skills-section" style={{ paddingTop: 0, paddingBottom: "48px" }}>
+        <div className="vault-inner">
+          <div className="vault-for-card" style={{ textAlign: "center" }}>
+            <h2 className="vault-section-title" style={{ marginBottom: "12px" }}>
+              102 פרומפטים <span className="vault-gradient-text">לאנשי כספים</span>
+            </h2>
+            <p className="vault-section-subtitle" style={{ marginBottom: "28px" }}>
+              אוסף מלא של 102 פרומפטים מוכנים לשימוש — דוחות, תחזיות, ניתוח סטיות, ביקורת ובקרה —
+              מסודרים לפי תחום ומוכנים להעתקה.
+            </p>
+            <Link
+              href="/resources/102-prompt"
+              className="inline-flex items-center gap-3 bg-gradient-to-l from-neon-cyan to-neon-teal text-space-950 font-black text-xl px-12 py-6 rounded-2xl shadow-2xl shadow-neon-cyan/20 hover:opacity-90 transition-opacity"
+            >
+              <span>לכל 102 הפרומפטים</span>
+              <span aria-hidden="true">←</span>
+            </Link>
           </div>
         </div>
       </section>

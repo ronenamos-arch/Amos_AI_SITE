@@ -112,7 +112,7 @@ export function GuidesGrid({ guides }: { guides: Guide[] }) {
           >
             <h4 className="text-white font-bold text-base mb-2">רוצה גישה מלאה?</h4>
             <p className="text-slate-400 text-sm leading-relaxed mb-4">
-              מנוי פרימיום פותח את כל הבלוג, ה-Skill Vault והמדריכים המתקדמים.
+              מנוי פרימיום פותח את כל הבלוג, ספריית הפרומפטים והמדריכים המתקדמים.
             </p>
             <Link
               href="/pricing"

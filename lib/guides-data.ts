@@ -1,3 +1,5 @@
+import { getGuideResources, type Resource } from '@/lib/resources-data';
+
 export type GuideCategory =
   | 'Claude'
   | 'ChatGPT'
@@ -24,14 +26,20 @@ export interface Guide {
   longDescription?: string;
   category: GuideCategory;
   tags: string[];
-  gammaUrl: string;
+  /** Gamma deck to embed. Absent on resource-backed entries, which link out instead. */
+  gammaUrl?: string;
   thumbnail: string | null;
   duration: string;
   isPremium: boolean;
   publishedAt: string;
+  /** Set when this entry is a downloadable resource served from /resources/<slug>. */
+  resourceSlug?: string;
+  /** SEO body copy for resource-backed entries, shown in place of the Gamma embed. */
+  summary?: string;
+  keywords?: string[];
 }
 
-export const guides: Guide[] = [
+const nativeGuides: Guide[] = [
   {
     slug: 'power-bi',
     title: 'Power BI Report Skills: המדריך המלא לבניית דוחות Power BI עם AI ו-GitHub Copilot (2026)',
@@ -381,6 +389,33 @@ export const guides: Guide[] = [
     isPremium: false,
     publishedAt: '2026-04-24',
   },
+];
+
+/**
+ * Downloadable resources appear as ordinary guide cards. The detail page spots them by
+ * `resourceSlug` and swaps the Gamma embed for a link through to /resources/<slug>,
+ * which is where the subscription gate lives.
+ */
+function resourceToGuide(resource: Resource): Guide {
+  return {
+    slug: resource.slug,
+    title: resource.title,
+    description: resource.description,
+    category: resource.category,
+    tags: resource.tags,
+    thumbnail: resource.thumbnail,
+    duration: resource.duration,
+    isPremium: !resource.free,
+    publishedAt: resource.publishedAt,
+    resourceSlug: resource.slug,
+    summary: resource.summary,
+    keywords: resource.keywords,
+  };
+}
+
+export const guides: Guide[] = [
+  ...nativeGuides,
+  ...getGuideResources().map(resourceToGuide),
 ];
 
 function sortByDateDesc(list: Guide[]): Guide[] {
