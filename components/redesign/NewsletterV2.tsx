@@ -16,7 +16,7 @@ export function NewsletterV2() {
         setStatus("loading");
         try {
             const { subscribeToNewsletter } = await import("@/lib/actions/newsletter");
-            const res = await subscribeToNewsletter(email, "preview-home");
+            const res = await subscribeToNewsletter(email, "home");
             setStatus(res?.success === false ? "error" : "success");
         } catch {
             setStatus("error");

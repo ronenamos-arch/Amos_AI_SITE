@@ -5,7 +5,8 @@ const columns = [
         title: "משאבים",
         links: [
             { href: "/guides", label: "מדריכים" },
-            { href: "/skill-vault", label: "Skill Vault" },
+            { href: "/skill-vault", label: "ספריית פרומפטים" },
+            { href: "/lessons", label: "וובינרים" },
             { href: "/tools", label: "כלים פיננסיים" },
             { href: "/blog", label: "בלוג" },
         ],
@@ -15,7 +16,7 @@ const columns = [
         links: [
             { href: "/courses", label: "קורסים" },
             { href: "/training", label: "הכשרות לארגונים" },
-            { href: "/pricing", label: "מנוי פרימיום" },
+            { href: "/", label: "מנוי פרימיום" },
         ],
     },
     {

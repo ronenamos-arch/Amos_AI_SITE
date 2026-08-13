@@ -95,7 +95,7 @@ export default async function DashboardPage() {
                                 <div className="space-y-4">
                                     <p className="text-text-secondary">כרגע אתה רשום למסלול החינמי. שדרג ל-PRO כדי לפתוח את כל המדריכים המקצועיים והפרומפטים לחשבונאים.</p>
                                     <div className="pt-4">
-                                        <Button href="/pricing" variant="primary">שדרג עכשיו ל-PRO</Button>
+                                        <Button href="/" variant="primary">שדרג עכשיו ל-PRO</Button>
                                     </div>
                                 </div>
                             )}

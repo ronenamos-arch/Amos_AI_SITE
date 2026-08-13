@@ -34,8 +34,8 @@ export function Paywall({
                     <Button href="/login" size="lg" className="w-full sm:w-auto min-w-[200px]">
                         התחבר לקבלת גישה
                     </Button>
-                    <Button href="/pricing" variant="ghost" size="lg" className="w-full sm:w-auto">
-                        למד על מסלולי הפרימיום
+                    <Button href="/" variant="ghost" size="lg" className="w-full sm:w-auto">
+                        מה כלול במנוי?
                     </Button>
                 </div>
 

@@ -4,7 +4,7 @@ import { VaultCTA } from "@/components/skill-vault/VaultCTA";
 import "../../skills-vault.css";
 
 export const metadata: Metadata = {
-  title: { absolute: "ניקוי נתונים פיננסיים עם AI – Skill Vault | AI Finance" },
+  title: { absolute: "ניקוי נתונים פיננסיים עם AI – ספריית פרומפטים | AI Finance" },
   description:
     "שיטות ניקוי נתונים פיננסיים עם AI: Claude, Python, Google Colab. פרומפטים לביקורת נתונים, אימות מטבע, ניתוח שלמות מבנית — מוכנים לשימוש.",
   keywords: [

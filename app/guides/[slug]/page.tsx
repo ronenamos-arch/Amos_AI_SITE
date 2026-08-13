@@ -284,10 +284,10 @@ export default async function GuideDetailPage({
           >
             <h3 className="text-white font-bold text-lg mb-2">רוצה גישה מלאה?</h3>
             <p className="text-slate-400 text-sm leading-relaxed mb-4">
-              מנוי פרימיום פותח את כל הבלוג, ה-Skill Vault והמדריכים המתקדמים.
+              מנוי פרימיום פותח את כל הבלוג, ספריית הפרומפטים והמדריכים המתקדמים.
             </p>
             <Link
-              href="/pricing"
+              href="/"
               className="inline-block bg-gradient-to-l from-neon-cyan to-neon-teal text-space-950 font-bold text-sm px-6 py-2.5 rounded-lg hover:opacity-90 transition-opacity"
             >
               שדרג עכשיו

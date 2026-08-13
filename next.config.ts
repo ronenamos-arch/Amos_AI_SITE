@@ -1,5 +1,11 @@
 import type { NextConfig } from "next";
 
+// Long-lived asset caching is only safe once filenames are content-hashed, which
+// happens at build time. In dev, `/_next/static/chunks/app/**.js` are stable,
+// mutable URLs — marking them `immutable` makes the browser pin the first chunk
+// it ever saw and never revalidate, so edits stop reaching the page.
+const isProd = process.env.NODE_ENV === "production";
+
 const nextConfig: NextConfig = {
   images: {
     formats: ["image/avif", "image/webp"],
@@ -28,22 +34,44 @@ const nextConfig: NextConfig = {
           { key: "X-Frame-Options", value: "SAMEORIGIN" },
         ],
       },
-      {
-        source: "/_next/static/(.*)",
-        headers: [
-          { key: "Cache-Control", value: "public, max-age=31536000, immutable" },
-        ],
-      },
-      {
-        source: "/images/(.*)",
-        headers: [
-          { key: "Cache-Control", value: "public, max-age=86400, stale-while-revalidate=604800" },
-        ],
-      },
+      ...(isProd
+        ? [
+            {
+              source: "/_next/static/(.*)",
+              headers: [
+                { key: "Cache-Control", value: "public, max-age=31536000, immutable" },
+              ],
+            },
+            {
+              source: "/images/(.*)",
+              headers: [
+                {
+                  key: "Cache-Control",
+                  value: "public, max-age=86400, stale-while-revalidate=604800",
+                },
+              ],
+            },
+          ]
+        : []),
     ];
   },
   async redirects() {
     return [
+      // /pricing was retired when subscribe CTAs started going straight to
+      // PayPal. It cannot simply 404: 12 published blog posts link to it in
+      // their body copy, and the URL is indexed. Point it at the sales page.
+      {
+        source: "/pricing",
+        destination: "/",
+        permanent: true,
+      },
+      // The redesign lived at /preview-home before becoming the homepage;
+      // paywall emails and shared links from that period still point there.
+      {
+        source: "/preview-home",
+        destination: "/",
+        permanent: true,
+      },
       {
         source: "/resources/python_can_do_whaaat_cfo_pl_terminal%20(4).html",
         destination: "/resources/python-cfo",

@@ -1,20 +1,22 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useState } from "react";
 import { Menu, X, ChevronDown } from "lucide-react";
 
 const resources = [
     { href: "/guides", label: "מדריכים" },
-    { href: "/skill-vault", label: "Skill Vault — פרומפטים" },
-    { href: "/webinar-excel-ai", label: "וובינרים" },
+    { href: "/skill-vault", label: "ספריית הפרומפטים והסקילים" },
+    { href: "/lessons", label: "וובינרים" },
     { href: "/tools", label: "כלים פיננסיים" },
 ];
 
+// "מנוי פרימיום" is deliberately absent: the header CTA button already covers
+// that intent, and it now goes straight to PayPal rather than to a pricing page.
 const navLinks = [
     { href: "/blog", label: "בלוג" },
     { href: "/courses", label: "קורסים והכשרות" },
-    { href: "/pricing", label: "מנוי פרימיום" },
     { href: "/contact", label: "צור קשר" },
 ];
 
@@ -23,13 +25,21 @@ export function HeaderV2() {
     const [resourcesOpen, setResourcesOpen] = useState(false);
 
     return (
-        <header className="sticky top-0 z-50 border-b border-[var(--rv2-border)] bg-[rgba(16,18,20,0.92)] backdrop-blur-md">
+        <header className="sticky top-0 z-50 border-b border-[var(--rv2-border)] bg-[rgba(7,11,20,0.9)] backdrop-blur-md text-white">
             <div className="rv2-container flex h-16 items-center justify-between">
-                <Link href="/preview-home" className="flex items-baseline gap-2">
-                    <span className="rv2-display text-lg text-[var(--rv2-text)]">רונן עמוס</span>
-                    <span className="hidden text-xs text-[var(--rv2-text-2)] sm:inline">
-                        המרכז ל-AI בכספים
-                    </span>
+                <Link
+                    href="/"
+                    className="flex shrink-0 items-center"
+                    aria-label="AI Finance Transformation — רונן עמוס"
+                >
+                    <Image
+                        src="/logo-ai-finance.jpg"
+                        alt="AI Finance Transformation"
+                        width={512}
+                        height={106}
+                        priority
+                        className="rv2-logo h-7 w-auto sm:h-8"
+                    />
                 </Link>
 
                 <nav className="hidden items-center gap-1 lg:flex">
@@ -39,7 +49,7 @@ export function HeaderV2() {
                         onMouseLeave={() => setResourcesOpen(false)}
                     >
                         <button
-                            className="rv2-link flex items-center gap-1 rounded-lg px-4 py-2 text-sm"
+                            className="rv2-link flex items-center gap-1 rounded-lg px-4 py-2 text-sm text-white"
                             onClick={() => setResourcesOpen((v) => !v)}
                             aria-expanded={resourcesOpen}
                         >
@@ -61,7 +71,7 @@ export function HeaderV2() {
                         )}
                     </div>
                     {navLinks.map((l) => (
-                        <Link key={l.href} href={l.href} className="rv2-link rounded-lg px-4 py-2 text-sm">
+                        <Link key={l.href} href={l.href} className="rv2-link rounded-lg px-4 py-2 text-sm text-white">
                             {l.label}
                         </Link>
                     ))}
@@ -71,9 +81,9 @@ export function HeaderV2() {
                     <Link href="/login" className="rv2-link text-sm">
                         התחברות
                     </Link>
-                    <Link href="/pricing" className="rv2-btn rv2-btn-primary px-5 py-2 text-sm">
-                        הצטרפו לקהילה
-                    </Link>
+                    <a href={"/api/subscribe"} className="rv2-btn rv2-btn-primary px-5 py-2 text-sm">
+                        רכוש מנוי
+                    </a>
                 </div>
 
                 <button
@@ -100,9 +110,9 @@ export function HeaderV2() {
                         </Link>
                     ))}
                     <div className="mt-4 flex items-center gap-4">
-                        <Link href="/pricing" className="rv2-btn rv2-btn-primary text-sm">
-                            הצטרפו לקהילה
-                        </Link>
+                        <a href={"/api/subscribe"} className="rv2-btn rv2-btn-primary text-sm">
+                            רכוש מנוי
+                        </a>
                         <Link href="/login" className="rv2-link text-sm">
                             התחברות
                         </Link>
