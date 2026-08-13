@@ -2,8 +2,9 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { useState } from "react";
-import { Menu, X, ChevronDown } from "lucide-react";
+import { useEffect, useState } from "react";
+import { Menu, X, ChevronDown, UserCircle2 } from "lucide-react";
+import { createClient } from "@/lib/supabase/client";
 
 const resources = [
     { href: "/guides", label: "מדריכים" },
@@ -23,6 +24,30 @@ const navLinks = [
 export function HeaderV2() {
     const [mobileOpen, setMobileOpen] = useState(false);
     const [resourcesOpen, setResourcesOpen] = useState(false);
+    const [displayName, setDisplayName] = useState<string | null>(null);
+
+    useEffect(() => {
+        const supabase = createClient();
+        const nameFrom = (user: { user_metadata?: { full_name?: string; name?: string }; email?: string } | null) =>
+            user ? user.user_metadata?.full_name ?? user.user_metadata?.name ?? user.email?.split("@")[0] ?? null : null;
+
+        supabase.auth.getUser().then(({ data: { user } }) => setDisplayName(nameFrom(user)));
+        const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) =>
+            setDisplayName(nameFrom(session?.user ?? null))
+        );
+        return () => subscription.unsubscribe();
+    }, []);
+
+    const accountLink = displayName ? (
+        <Link href="/dashboard" className="rv2-link flex items-center gap-1.5 text-sm" title="לאזור האישי">
+            <UserCircle2 size={18} className="text-[var(--rv2-accent)]" />
+            <span className="max-w-[9rem] truncate">{displayName}</span>
+        </Link>
+    ) : (
+        <Link href="/login" className="rv2-link text-sm">
+            התחברות
+        </Link>
+    );
 
     return (
         <header className="sticky top-0 z-50 border-b border-[var(--rv2-border)] bg-[rgba(7,11,20,0.9)] backdrop-blur-md text-white">
@@ -78,9 +103,7 @@ export function HeaderV2() {
                 </nav>
 
                 <div className="hidden items-center gap-3 lg:flex">
-                    <Link href="/login" className="rv2-link text-sm">
-                        התחברות
-                    </Link>
+                    {accountLink}
                     <a href={"/api/subscribe"} className="rv2-btn rv2-btn-primary px-5 py-2 text-sm">
                         רכוש מנוי
                     </a>
@@ -113,9 +136,7 @@ export function HeaderV2() {
                         <a href={"/api/subscribe"} className="rv2-btn rv2-btn-primary text-sm">
                             רכוש מנוי
                         </a>
-                        <Link href="/login" className="rv2-link text-sm">
-                            התחברות
-                        </Link>
+                        {accountLink}
                     </div>
                 </div>
             )}

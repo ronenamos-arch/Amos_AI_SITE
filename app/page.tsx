@@ -337,6 +337,8 @@ export default function HomePage() {
                         </div>
                     </div>
                     <div className="order-1 lg:order-2">
+                        {/* Autoplay must start muted (browser policy); the controls
+                            let visitors unmute to hear the spoken welcome. */}
                         <video
                             src="/videos/website-welcome.mp4"
                             poster="/videos/website-welcome-poster.jpg"
@@ -344,6 +346,7 @@ export default function HomePage() {
                             muted
                             loop
                             playsInline
+                            controls
                             aria-label="רונן עמוס"
                             className="h-72 w-full rounded-xl object-cover lg:h-96"
                         />
