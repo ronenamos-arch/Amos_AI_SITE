@@ -3,8 +3,13 @@ import type { Metadata } from "next";
 import { HeaderV2 } from "@/components/redesign/HeaderV2";
 import { FooterV2 } from "@/components/redesign/FooterV2";
 import { NewsletterV2 } from "@/components/redesign/NewsletterV2";
+import Link from "next/link";
+import { Lock } from "lucide-react";
 import { lessons, lessonTopics, totalLessonMinutes, totalMaterials } from "@/lib/lessons-data";
 import { LessonLibrary } from "./LessonLibrary";
+import { getSubscriptionAccess } from "@/lib/subscription-access";
+
+export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
     title: "שיעורים בלייב ווובינרים | רונן עמוס",
@@ -13,8 +18,9 @@ export const metadata: Metadata = {
     robots: { index: false, follow: false },
 };
 
-export default function LessonsPage() {
+export default async function LessonsPage() {
     const hours = Math.round(totalLessonMinutes / 60);
+    const { user, hasAccess } = await getSubscriptionAccess();
 
     return (
         <div className="rv2 min-h-[100dvh]">
@@ -36,9 +42,38 @@ export default function LessonsPage() {
                 </div>
             </section>
 
-            <section className="rv2-container py-14 lg:py-20">
-                <LessonLibrary lessons={lessons} topics={lessonTopics} />
-            </section>
+            {hasAccess ? (
+                <section className="rv2-container py-14 lg:py-20">
+                    <LessonLibrary lessons={lessons} topics={lessonTopics} />
+                </section>
+            ) : (
+                /* The webinar library is a paid perk: no recordings or materials
+                   are rendered for non-subscribers, only the pitch. */
+                <section className="rv2-container py-14 lg:py-20">
+                    <div className="rv2-surface rv2-glow-card mx-auto max-w-2xl p-10 text-center lg:p-14">
+                        <div className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-full border border-[var(--rv2-border-strong)] bg-[var(--rv2-surface-2)]">
+                            <Lock size={26} className="text-[var(--rv2-accent)]" />
+                        </div>
+                        <h2 className="rv2-display text-2xl lg:text-3xl">
+                            ספריית הוובינרים פתוחה למנויים בלבד
+                        </h2>
+                        <p className="mx-auto mt-4 max-w-lg text-[var(--rv2-text-2)]">
+                            מנוי אחד פותח את כל ההקלטות, המצגות, חוברות ה-Excel והקבצים להורדה —
+                            יחד עם כל המדריכים וספריית הפרומפטים.
+                        </p>
+                        <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
+                            <a href="/api/subscribe" className="rv2-btn rv2-btn-primary px-7 py-3">
+                                רכוש מנוי
+                            </a>
+                            {!user && (
+                                <Link href="/login" className="rv2-link text-sm underline underline-offset-4">
+                                    כבר מנויים? התחברו
+                                </Link>
+                            )}
+                        </div>
+                    </div>
+                </section>
+            )}
 
             <section className="rv2-container py-14">
                 <div className="rv2-surface flex flex-col items-start gap-6 p-8 lg:flex-row lg:items-center lg:justify-between lg:p-10">

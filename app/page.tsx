@@ -337,11 +337,14 @@ export default function HomePage() {
                         </div>
                     </div>
                     <div className="order-1 lg:order-2">
-                        <Image
-                            src="/images/avatar-f.png"
-                            alt="רונן עמוס"
-                            width={520}
-                            height={420}
+                        <video
+                            src="/videos/website-welcome.mp4"
+                            poster="/videos/website-welcome-poster.jpg"
+                            autoPlay
+                            muted
+                            loop
+                            playsInline
+                            aria-label="רונן עמוס"
                             className="h-72 w-full rounded-xl object-cover lg:h-96"
                         />
                     </div>

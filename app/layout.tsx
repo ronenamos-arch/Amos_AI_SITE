@@ -2,13 +2,14 @@ import type { Metadata } from "next";
 import { Heebo, Outfit } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
-import { Header } from "@/components/layout/Header";
-import { Footer } from "@/components/layout/Footer";
+import "./home.css";
+import { HeaderV2 } from "@/components/redesign/HeaderV2";
+import { FooterV2 } from "@/components/redesign/FooterV2";
 import { Chrome } from "@/components/layout/Chrome";
 import { WhatsAppFloat } from "@/components/ui/WhatsAppFloat";
 import { CookieConsent } from "@/components/ui/CookieConsent";
 import StructuredData from "@/components/seo/StructuredData";
-import { LazyAIChat, LazyStickyNewsletterBar, LazyNewsletterPopup } from "@/components/ui/LazyClientComponents";
+import { LazyAIChat, LazyStickyNewsletterBar } from "@/components/ui/LazyClientComponents";
 
 const heebo = Heebo({
   subsets: ["hebrew", "latin"],
@@ -124,15 +125,19 @@ export default function RootLayout({
       <body className="antialiased">
         <StructuredData />
         <Chrome>
-          <Header />
+          {/* The V2 chrome needs the .rv2 scope for its design tokens (home.css). */}
+          <div className="rv2">
+            <HeaderV2 />
+          </div>
         </Chrome>
         <main>{children}</main>
         <Chrome>
           <LazyAIChat />
           <WhatsAppFloat />
           <LazyStickyNewsletterBar />
-          <LazyNewsletterPopup />
-          <Footer />
+          <div className="rv2">
+            <FooterV2 />
+          </div>
         </Chrome>
         <CookieConsent />
       </body>

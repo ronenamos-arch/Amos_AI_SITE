@@ -41,5 +41,36 @@ export async function updateSession(request: NextRequest) {
         }
     }
 
+    // The recorded webinars live as static files under public/resources/webiners.
+    // Static files bypass every page-level access check, so subscribers-only
+    // enforcement has to happen here, before the file is served.
+    if (path.startsWith('/resources/webiners')) {
+        let hasAccess = false;
+        if (user) {
+            const { data: profile } = await supabase
+                .from('profiles')
+                .select('subscription_status, subscription_end_date')
+                .eq('id', user.id)
+                .single();
+            if (profile) {
+                const endDate = profile.subscription_end_date
+                    ? new Date(profile.subscription_end_date)
+                    : null;
+                hasAccess =
+                    profile.subscription_status === 'monthly' ||
+                    profile.subscription_status === 'lifetime' ||
+                    (profile.subscription_status === 'cancelled' &&
+                        endDate !== null &&
+                        endDate > new Date());
+            }
+        }
+        if (!hasAccess) {
+            const redirectUrl = request.nextUrl.clone();
+            redirectUrl.pathname = '/lessons';
+            redirectUrl.search = '';
+            return NextResponse.redirect(redirectUrl);
+        }
+    }
+
     return supabaseResponse;
 }
