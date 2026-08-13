@@ -75,6 +75,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
             changeFrequency: 'monthly' as const,
             priority: 0.7,
         },
+        {
+            url: `${baseUrl}/resources/webiners/CFO-AI2`,
+            lastModified: new Date('2026-07-07'),
+            changeFrequency: 'monthly' as const,
+            priority: 0.7,
+        },
     ]
 
     const thirtyDaysAgo = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000)

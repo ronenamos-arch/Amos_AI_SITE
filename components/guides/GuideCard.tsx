@@ -99,7 +99,7 @@ export function GuideCard({ guide }: { guide: Guide }) {
           </span>
         ) : (
           <span className="text-sm font-bold text-neon-cyan hover:text-neon-teal inline-flex items-center gap-1 transition-colors">
-            <span>צפה במדריך</span>
+            <span>{guide.resourceSlug ? 'צפה במשאב' : 'צפה במדריך'}</span>
             <span className="inline-block transition-transform group-hover:-translate-x-1">←</span>
           </span>
         )}

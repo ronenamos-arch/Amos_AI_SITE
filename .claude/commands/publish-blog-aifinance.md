@@ -148,6 +148,26 @@ git push origin main
 
 **דגש: push ישירות ל-main** — ללא branch ביניים, כדי שהדיפלוי יהיה מיידי דרך Vercel.
 
+**דגש על הודעת ה-commit — אל תשתמש ב-here-string:**
+
+הפקודה חייבת לרוץ עם `git commit -m "..."` בלבד, מרכאות כפולות בשורה אחת, בדיוק כמו בדוגמה למעלה.
+
+**אסור** להשתמש ב-here-string של PowerShell (``git commit -m @'...'@``) בכלי ה-Bash. Bash לא מזהה את התחביר הזה ומעביר את התו `@` כטקסט רגיל, כך שהודעת ה-commit נשמרת עם `@ ` מיותר בתחילת השורה. זה כבר קרה פעמיים בהיסטוריה של הרפו (`f3145df`, `7652b96`).
+
+אם צריך הודעת commit רב-שורתית, השתמש בכמה דגלי `-m`:
+
+```bash
+git commit -m "Add blog post: <כותרת הפוסט>" -m "<שורה נוספת אם צריך>"
+```
+
+לאחר ה-commit, ודא שההודעה תקינה לפני ה-push:
+
+```bash
+git log --oneline -1
+```
+
+אם מופיע `@` בתחילת הכותרת — תקן לפני ה-push עם `git commit --amend -m "..."` (בטוח לתקן כל עוד לא בוצע push).
+
 ### שלב 6 — סיכום למשתמש
 
 לאחר ה-push, הצג:
@@ -162,6 +182,31 @@ https://api.indexnow.org/indexnow?url=https://www.ronenamoscpa.co.il/blog/<slug>
 🔍 Google Search Console — בקש אינדקס ידנית:
 https://search.google.com/search-console
 ```
+
+### שלב 7 — יצירת פוסט LinkedIn (אוטומטי, אחרי כל פרסום)
+
+לאחר ה-push, כשה-slug וה-URL הסופי כבר ידועים, צור גם גרסת LinkedIn לפוסט. זהו שלב קבוע שרץ תמיד — לא רק כשמבקשים אותו.
+
+**קרא את שני קבצי ה-Agent** (גרסה עברית, לא תיקיית ENGLISH-Speakers):
+- `C:\Users\Ronen\Documents\Projects\Business\AI FINANCE TRANSFORMATION\Linkedin\content-system\Agent 1 Ghostwriter.txt`
+- `C:\Users\Ronen\Documents\Projects\Business\AI FINANCE TRANSFORMATION\Linkedin\content-system\Agent 2 Hook Creator.txt`
+
+**רק שני האייג'נטים האלו** — לא Media Generator, לא Engagement Specialist, לא Head of Content. הם בנויים לתוכן אורגני עצמאי (קרוסלות, DM funnels, פינד-קומנטס) שלא רלוונטי כשכל מה שצריך זה CTA קבוע לכתבה.
+
+1. **Ghostwriter pass** — הזן את גוף הפוסט שפורסם (הגרסה המוגמרת, לא הטיוטה הגולמית) כ"רעיון גולמי" לפי כללי ה-Ghostwriter (רעיון אחד לפוסט — אם המאמר מכסה כמה רעיונות, בחר את החזק ביותר). פלט: טיוטת פוסט LinkedIn בעברית, בלי CTA עדיין.
+2. **Hook Creator pass** — הזן את טיוטת ה-Ghostwriter ל-Hook Creator. קבל 20 הוקים, 5 מדורגים, והמלצה אחת. הוסף את ההוק המומלץ כשורת הפתיחה.
+3. **CTA קבוע** (תמיד זהה, לא נכתב ע"י אייג'נט) — בגוף הפוסט עצמו, לא בתגובה מוצמדת:
+   ```
+   לכתבה המלאה, עם כל הפרטים 👇
+   https://www.ronenamoscpa.co.il/blog/<slug>
+   ```
+4. **בדיקת איכות עצמית** לפני הצגה — ודא: רעיון אחד לפוסט; ההוק "משלם" את עצמו בהמשך; נשמע כמו רונן (בלי שפה קורפורטיבית/AI voice/באזז-וורדס כמו leverage, unlock, game-changing, בלי "?Agree"/"?Thoughts"); CTA קיים ותקין. אם נכשל — כתוב מחדש לפני שמציגים למשתמש.
+5. **הצג preview בצ'אט**: הפוסט המוגמר + 5 ההוקים החלופיים לבחירה.
+6. **שמור מיד** (אין תלות בנכס חיצוני כמו תמונה, אז אין צורך להמתין לאישור) לקובץ:
+   `C:\Users\Ronen\Documents\Projects\Business\AI FINANCE TRANSFORMATION\Linkedin\content-system\LinkedIn Posts\<slug>.md`
+   עם frontmatter פשוט: `title`, `blog_url`, `date`, `hook_used`.
+7. **אין git** — הקובץ נשמר מחוץ ל-repo של האתר לגמרי. אל תעשה `git add`/commit לקובץ הזה.
+8. אשר למשתמש את הנתיב שנשמר.
 
 ---
 

@@ -37,7 +37,7 @@ export async function generateMetadata({
   return {
     title: { absolute: `${guide.title} | רונן עמוס` },
     description: guide.description,
-    keywords: guide.tags,
+    keywords: guide.keywords ?? guide.tags,
     alternates: { canonical: canonicalUrl },
     robots: { index: true, follow: true },
     openGraph: {
@@ -89,7 +89,7 @@ export default async function GuideDetailPage({
 
   const related = getRelatedGuides(slug);
   const guideUrl = `${BASE_URL}/guides/${guide.slug}`;
-  const embedUrl = getEmbedUrl(guide.gammaUrl);
+  const embedUrl = guide.gammaUrl ? getEmbedUrl(guide.gammaUrl) : undefined;
 
   const ogImage = guide.thumbnail
     ? guide.thumbnail.startsWith('http')
@@ -102,8 +102,11 @@ export default async function GuideDetailPage({
     '@type': 'Article',
     headline: guide.title,
     description: guide.description,
-    datePublished: guide.publishedAt,
-    dateModified: guide.publishedAt,
+    // Only guides carry a real date; resource entries would be publishing a placeholder.
+    ...(!guide.resourceSlug && {
+      datePublished: guide.publishedAt,
+      dateModified: guide.publishedAt,
+    }),
     author: {
       '@type': 'Person',
       name: 'רונן עמוס',
@@ -138,7 +141,17 @@ export default async function GuideDetailPage({
   });
 
   return (
-    <div className="pt-24 pb-16">
+    <div className="pt-24 pb-16 relative">
+      {/* Resource preview pages get a finance-themed backdrop, dimmed so body copy stays legible. */}
+      {guide.resourceSlug && (
+        <div aria-hidden="true" className="pointer-events-none fixed inset-0 z-0">
+          <div
+            className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-70"
+            style={{ backgroundImage: "url('/images/guides-bg.webp')" }}
+          />
+          <div className="absolute inset-0 bg-space-950/60" />
+        </div>
+      )}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
@@ -148,7 +161,7 @@ export default async function GuideDetailPage({
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
 
-      <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+      <div className="relative z-10 mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
         {/* Breadcrumb */}
         <nav className="mb-8 flex items-center gap-2 text-sm text-slate-500" aria-label="breadcrumb">
           <Link href="/" className="hover:text-slate-300 transition-colors">בית</Link>
@@ -175,10 +188,15 @@ export default async function GuideDetailPage({
             </span>
             <span className="text-slate-500">·</span>
             <span className="text-slate-400">{guide.duration} קריאה</span>
-            <span className="text-slate-500">·</span>
-            <time dateTime={guide.publishedAt} className="text-slate-400">
-              {publishedDate}
-            </time>
+            {/* Resource entries have no real publication date on record — don't invent one. */}
+            {!guide.resourceSlug && (
+              <>
+                <span className="text-slate-500">·</span>
+                <time dateTime={guide.publishedAt} className="text-slate-400">
+                  {publishedDate}
+                </time>
+              </>
+            )}
             {guide.isPremium && (
               <>
                 <span className="text-slate-500">·</span>
@@ -207,7 +225,18 @@ export default async function GuideDetailPage({
           {guide.longDescription ?? guide.description}
         </p>
 
-        {/* Gamma embed or paywall */}
+        {/* Resource entries carry their own body copy in place of a Gamma deck. */}
+        {guide.summary && (
+          <div className="mb-10 space-y-5">
+            {guide.summary.split('\n\n').map((paragraph) => (
+              <p key={paragraph.slice(0, 40)} className="text-xl text-slate-300 leading-loose">
+                {paragraph}
+              </p>
+            ))}
+          </div>
+        )}
+
+        {/* Gamma embed, resource link, or paywall */}
         {isLocked ? (
           <>
             {guide.thumbnail && (
@@ -226,6 +255,16 @@ export default async function GuideDetailPage({
               description="שדרג למנוי פרימיום כדי לגשת למדריך המלא ולכל תכני הפרימיום האחרים."
             />
           </>
+        ) : guide.resourceSlug ? (
+          <div className="mb-4 flex justify-center">
+            <Link
+              href={`/resources/${guide.resourceSlug}`}
+              className="inline-flex items-center gap-3 bg-gradient-to-l from-neon-cyan to-neon-teal text-space-950 font-black text-xl px-12 py-6 rounded-2xl shadow-2xl shadow-neon-cyan/20 hover:opacity-90 transition-opacity"
+            >
+              <span>פתח את המשאב המלא</span>
+              <span aria-hidden="true">←</span>
+            </Link>
+          </div>
         ) : (
           <div className="mb-4">
             <div

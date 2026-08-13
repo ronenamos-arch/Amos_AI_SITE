@@ -76,7 +76,6 @@ export async function createGuestPayment(email: string, orderId: string, amount:
         const { error: paymentError } = await adminSupabase
             .from('payment_records')
             .insert({
-                email: email,
                 amount: amount,
                 paypal_order_id: orderId,
                 status: 'COMPLETED'
