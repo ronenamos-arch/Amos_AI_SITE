@@ -22,7 +22,13 @@ export async function GET(
     }
 
     const filePath = path.join(process.cwd(), "content", "resources", resource.contentFile);
-    const html = await readFile(filePath, "utf-8");
+    let html: string;
+    try {
+        html = await readFile(filePath, "utf-8");
+    } catch {
+        console.error(`resource content file missing or unreadable: ${resource.contentFile}`);
+        return NextResponse.json({ error: "Not found" }, { status: 404 });
+    }
 
     return new NextResponse(html, {
         headers: { "Content-Type": "text/html; charset=utf-8" },

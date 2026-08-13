@@ -46,6 +46,7 @@ next-env.d.ts
 !tsconfig.json
 !content/prompts.json
 !vercel.json
+!.impeccable/design.json
 
 # Windows backup copies (prevent TypeScript from compiling stale files)
 *.bak
@@ -59,3 +60,7 @@ next-env.d.ts
 
 # Course assets — MP4 videos served from Vercel Blob, not committed to Git
 /public/course-assets/**/*.mp4
+
+# Local dev noise
+dev.log
+/.playwright-mcp/
