@@ -15,17 +15,19 @@ interface SendPurchaseEmailParams {
     planName: string;
     amount: number;
     orderId: string;
+    /** One-click login link. Omit to fall back to a plain /login button. */
+    loginUrl?: string | null;
 }
 
-export async function sendPurchaseEmail({ to, planName, amount, orderId }: SendPurchaseEmailParams) {
+export async function sendPurchaseEmail({ to, planName, amount, orderId, loginUrl }: SendPurchaseEmailParams) {
     const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.ronenamoscpa.co.il";
 
     try {
         const { data, error } = await getResend().emails.send({
             from: EMAIL_FROM,
             to,
-            subject: `אישור תשלום — ${planName} | AI Finance`,
-            html: buildPurchaseConfirmationEmail({ planName, amount, orderId, siteUrl }),
+            subject: `ברוכים הבאים — המנוי שלכם פעיל | AI Finance`,
+            html: buildPurchaseConfirmationEmail({ planName, amount, orderId, siteUrl, loginUrl }),
         });
 
         if (error) {

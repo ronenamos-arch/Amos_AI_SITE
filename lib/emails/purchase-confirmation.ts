@@ -1,12 +1,20 @@
 interface PurchaseEmailParams {
-    planName: string;
-    amount: number;
-    orderId: string;
-    siteUrl: string;
+  planName: string;
+  amount: number;
+  orderId: string;
+  siteUrl: string;
+  /** One-click login link minted by the PayPal webhook. */
+  loginUrl?: string | null;
 }
 
-export function buildPurchaseConfirmationEmail({ planName, amount, orderId, siteUrl }: PurchaseEmailParams): string {
-    return `
+export function buildPurchaseConfirmationEmail({ planName, amount, orderId, siteUrl, loginUrl }: PurchaseEmailParams): string {
+  // Subscribers created by the webhook never chose a password, so the primary
+  // CTA has to be the one-click link. Fall back to /login (which now offers a
+  // magic link) if the link could not be generated.
+  const primaryHref = loginUrl || `${siteUrl}/login`;
+  const primaryLabel = loginUrl ? "כניסה לספרייה →" : "כניסה לאזור האישי →";
+
+  return `
 <!DOCTYPE html>
 <html dir="rtl" lang="he">
 <head>
@@ -22,99 +30,89 @@ export function buildPurchaseConfirmationEmail({ planName, amount, orderId, site
                     <!-- Header -->
                     <tr>
                         <td style="padding:32px 40px 24px;text-align:center;border-bottom:1px solid rgba(45,212,191,0.2);">
-                            <h1 style="margin:0;font-size:28px;color:#2dd4bf;font-weight:bold;letter-spacing:1px;">AI FINANCE TRANSFORMATION</h1>
-                            <p style="margin:8px 0 0;font-size:14px;color:#9ca3af;">ברוכים הבאים לפרימיום</p>
+                            <h1 style="margin:0;font-size:28px;color:#2dd4bf;font-weight:bold;letter-spacing:1px;">AI FINANCE</h1>
+                            <p style="margin:8px 0 0;font-size:14px;color:#9ca3af;">המרכז הישראלי ל-AI בכספים</p>
                         </td>
                     </tr>
 
                     <!-- Body -->
                     <tr>
                         <td style="padding:40px;">
-                            <h2 style="margin:0 0 16px;font-size:22px;color:#ffffff;font-weight:bold;">תודה על הרישום! 🎉</h2>
-                            <p style="margin:0 0 24px;font-size:16px;line-height:1.8;color:#d1d5db;">
-                                יש לך עכשיו גישה מלאה לכל המאמרים בפרימיום, כולל מדריכים מעשיים בנושאי AI, פיננסים וחשבונאות.
+                            <h2 style="margin:0 0 16px;font-size:22px;color:#ffffff;font-weight:bold;">המנוי שלכם פעיל 🎉</h2>
+                            <p style="margin:0 0 28px;font-size:16px;line-height:1.8;color:#d1d5db;">
+                                תודה שהצטרפתם. מרגע זה כל התוכן המקצועי באתר פתוח בפניכם — בלי הגבלה
+                                ובלי תוספת תשלום. הכפתור למטה מכניס אתכם ישירות, בלי סיסמה.
                             </p>
 
-                            <!-- Features List -->
+                            <!-- Primary CTA -->
+                            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin-bottom:32px;">
+                                <tr>
+                                    <td align="center">
+                                        <a href="${primaryHref}" style="display:inline-block;padding:16px 40px;background-color:#2dd4bf;color:#0a0e17;font-weight:bold;font-size:16px;text-decoration:none;border-radius:9999px;">
+                                            ${primaryLabel}
+                                        </a>
+                                    </td>
+                                </tr>
+                                ${loginUrl ? `
+                                <tr>
+                                    <td align="center" style="padding-top:12px;">
+                                        <p style="margin:0;font-size:12px;color:#6b7280;">הקישור אישי, חד-פעמי ותקף לזמן מוגבל. אחר כך תוכלו להיכנס תמיד דרך עמוד ההתחברות.</p>
+                                    </td>
+                                </tr>` : ''}
+                            </table>
+
+                            <!-- What the subscription unlocks -->
                             <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color:rgba(45,212,191,0.05);border-radius:12px;border:1px solid rgba(45,212,191,0.15);margin-bottom:28px;">
                                 <tr>
                                     <td style="padding:24px;">
-                                        <p style="margin:0 0 14px;font-size:15px;font-weight:bold;color:#2dd4bf;">מה כלול במנוי שלך:</p>
-                                        <p style="margin:0 0 10px;font-size:14px;color:#d1d5db;line-height:1.7;">✅ גישה מלאה לכל מאמרי הפרימיום והמדריכים</p>
-                                        <p style="margin:0 0 10px;font-size:14px;color:#d1d5db;line-height:1.7;">✅ ניוזלטר שבועי ישלח אליך ישירות למייל</p>
-                                        <p style="margin:0;font-size:14px;color:#d1d5db;line-height:1.7;">✅ הנחה בלעדית של 15% על הקורסים שלי (פרטים למטה)</p>
+                                        <p style="margin:0 0 14px;font-size:15px;font-weight:bold;color:#2dd4bf;">מה נפתח לכם עכשיו</p>
+                                        <p style="margin:0 0 10px;font-size:14px;color:#d1d5db;line-height:1.7;">✅ כל המדריכים המתקדמים — כולל אלה שהיו נעולים</p>
+                                        <p style="margin:0 0 10px;font-size:14px;color:#d1d5db;line-height:1.7;">✅ ספריית הפרומפטים והסקילים — 100+ פרומפטים מוכנים לעבודה פיננסית</p>
+                                        <p style="margin:0 0 10px;font-size:14px;color:#d1d5db;line-height:1.7;">✅ כל הוובינרים המוקלטים, בכל זמן</p>
+                                        <p style="margin:0 0 10px;font-size:14px;color:#d1d5db;line-height:1.7;">✅ חוברות Excel ותבניות להורדה</p>
+                                        <p style="margin:0;font-size:14px;color:#d1d5db;line-height:1.7;">✅ תוכן חדש שנכנס לספרייה — כלול במנוי, בלי תשלום נוסף</p>
                                     </td>
                                 </tr>
                             </table>
 
-                            <!-- Courses Promotion -->
+                            <!-- Suggested starting point -->
                             <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color:rgba(255,255,255,0.03);border-radius:12px;border:1px solid rgba(255,255,255,0.06);margin-bottom:28px;">
                                 <tr>
                                     <td style="padding:24px;">
-                                        <p style="margin:0 0 6px;font-size:15px;font-weight:bold;color:#ffffff;">🎓 הנחה של 15% על הקורסים</p>
-                                        <p style="margin:0 0 18px;font-size:14px;color:#9ca3af;line-height:1.6;">
-                                            כמנוי פרימיום, מגיעה לך הנחה של 15% על שני הקורסים הבאים.<br>
-                                            <strong style="color:#2dd4bf;">קוד הקופון / קישור ההנחה ישלח אליך במייל נפרד בקרוב.</strong>
+                                        <p style="margin:0 0 6px;font-size:15px;font-weight:bold;color:#ffffff;">💡 לא בטוחים מאיפה להתחיל?</p>
+                                        <p style="margin:0 0 16px;font-size:14px;color:#9ca3af;line-height:1.6;">
+                                            רוב המנויים מתחילים מספריית הפרומפטים — משם רואים תוצאה כבר בעבודה של אותו יום.
                                         </p>
-                                        <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
-                                            <tr>
-                                                <td style="padding-bottom:12px;">
-                                                    <a href="https://www.paypal.com/ncp/payment/AADF6XSF3UAVY" style="display:block;padding:14px 20px;background-color:rgba(45,212,191,0.08);border:1px solid rgba(45,212,191,0.25);border-radius:10px;text-decoration:none;">
-                                                        <span style="display:block;font-size:15px;font-weight:bold;color:#2dd4bf;">🤖 Master AI</span>
-                                                        <span style="display:block;font-size:13px;color:#9ca3af;margin-top:4px;">AI Finance Mastery — הפוך לחשבונאי של העתיד</span>
-                                                    </a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <a href="https://www.paypal.com/ncp/payment/RNWU6D5DZHMHQ" style="display:block;padding:14px 20px;background-color:rgba(45,212,191,0.08);border:1px solid rgba(45,212,191,0.25);border-radius:10px;text-decoration:none;">
-                                                        <span style="display:block;font-size:15px;font-weight:bold;color:#2dd4bf;">📓 Notebook LM Master</span>
-                                                        <span style="display:block;font-size:13px;color:#9ca3af;margin-top:4px;">Mastering NotebookLM — קורס מעשי לאנשי פיננסים</span>
-                                                    </a>
-                                                </td>
-                                            </tr>
-                                        </table>
+                                        <a href="${siteUrl}/skill-vault" style="display:inline-block;padding:12px 24px;background-color:rgba(45,212,191,0.08);border:1px solid rgba(45,212,191,0.25);border-radius:10px;text-decoration:none;color:#2dd4bf;font-size:14px;font-weight:bold;">
+                                            לספריית הפרומפטים
+                                        </a>
                                     </td>
                                 </tr>
                             </table>
 
                             <!-- Order Details Summary -->
-                            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color:rgba(255,255,255,0.02);border-radius:12px;border:1px solid rgba(255,255,255,0.06);margin-bottom:32px;">
+                            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color:rgba(255,255,255,0.02);border-radius:12px;border:1px solid rgba(255,255,255,0.06);margin-bottom:8px;">
                                 <tr>
                                     <td style="padding:20px;">
                                         <p style="margin:0 0 12px;font-size:13px;font-weight:bold;color:#9ca3af;">פרטי הרכישה:</p>
                                         <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
                                             <tr>
                                                 <td style="padding:6px 0;font-size:14px;color:#9ca3af;">מנוי:</td>
-                                                <td style="padding:6px 0;font-size:14px;color:#ffffff;text-align:left;">${planName}</td>
+                                                <td style="padding:6px 0;font-size:14px;color:#ffffff;text-align:left;"><bdi>${planName}</bdi></td>
                                             </tr>
                                             <tr>
                                                 <td style="padding:6px 0;font-size:14px;color:#9ca3af;">סכום:</td>
-                                                <td style="padding:6px 0;font-size:14px;color:#ffffff;text-align:left;">₪${amount}</td>
+                                                <td style="padding:6px 0;font-size:14px;color:#ffffff;text-align:left;"><bdi>₪${amount}</bdi></td>
                                             </tr>
                                             <tr>
                                                 <td style="padding:6px 0;font-size:14px;color:#9ca3af;">מזהה הזמנה:</td>
-                                                <td style="padding:6px 0;font-size:12px;color:#ffffff;text-align:left;font-family:monospace;">${orderId}</td>
+                                                <td style="padding:6px 0;font-size:12px;color:#ffffff;text-align:left;font-family:monospace;"><bdi>${orderId}</bdi></td>
                                             </tr>
                                         </table>
-                                    </td>
-                                </tr>
-                            </table>
-
-                            <!-- Actions -->
-                            <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
-                                <tr>
-                                    <td align="center" style="padding-bottom:12px;">
-                                        <a href="${siteUrl}/dashboard" style="display:inline-block;padding:14px 32px;background-color:#2dd4bf;color:#0a0e17;font-weight:bold;font-size:16px;text-decoration:none;border-radius:9999px;">
-                                            כניסה לאזור האישי
-                                        </a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td align="center">
-                                        <a href="${siteUrl}/blog" style="display:inline-block;padding:12px 28px;background-color:transparent;color:#2dd4bf;font-size:14px;text-decoration:none;border:1px solid rgba(45,212,191,0.3);border-radius:9999px;">
-                                            גלוש בבלוג הפרימיום
-                                        </a>
+                                        <p style="margin:14px 0 0;font-size:12px;color:#6b7280;line-height:1.6;">
+                                            החיוב מתחדש אוטומטית מדי חודש. אפשר לבטל בכל עת ישירות מחשבון ה-PayPal שלכם,
+                                            והגישה נשארת פתוחה עד סוף התקופה ששולמה.
+                                        </p>
                                     </td>
                                 </tr>
                             </table>
@@ -125,13 +123,13 @@ export function buildPurchaseConfirmationEmail({ planName, amount, orderId, site
                     <tr>
                         <td style="padding:24px 40px;text-align:center;border-top:1px solid rgba(255,255,255,0.06);">
                             <p style="margin:0 0 6px;font-size:12px;color:#6b7280;">
-                                יש שאלה? דבר איתי ב-<a href="https://wa.me/972505500344" style="color:#2dd4bf;text-decoration:none;">WhatsApp</a>
+                                שאלה? אפשר להשיב למייל הזה או לכתוב ב-<a href="https://wa.me/972505500344" style="color:#2dd4bf;text-decoration:none;">WhatsApp</a>
                             </p>
                             <p style="margin:0;font-size:13px;color:#9ca3af;font-weight:bold;">
-                                AI Finance Transformation
+                                רונן עמוס, רו״ח
                             </p>
-                            <p style="margin:4px 0 0;font-size:12px;color:#6b7280;">
-                                רונן עמוס, רואה חשבון
+                            <p style="margin:6px 0 0;font-size:12px;color:#6b7280;">
+                                המרכז הישראלי ל-AI בכספים
                             </p>
                         </td>
                     </tr>

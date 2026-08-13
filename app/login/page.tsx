@@ -17,8 +17,34 @@ function LoginContent() {
     const [password, setPassword] = useState("");
     const [loading, setLoading] = useState(false);
     const [message, setMessage] = useState<{ type: "success" | "error"; text: string } | null>(null);
+    // Magic link is the default: subscribers created by the PayPal webhook never
+    // chose a password, so a password form is a dead end for them.
+    const [mode, setMode] = useState<"magic" | "password">("magic");
 
     const supabase = createClient();
+
+    const handleMagicLink = async (e: React.FormEvent) => {
+        e.preventDefault();
+        setLoading(true);
+        setMessage(null);
+
+        const { error } = await supabase.auth.signInWithOtp({
+            email,
+            options: {
+                emailRedirectTo: `${window.location.origin}/auth/callback?next=${encodeURIComponent(nextUrl)}`,
+            },
+        });
+
+        if (error) {
+            setMessage({ type: "error", text: "שגיאה בשליחת הקישור: " + error.message });
+        } else {
+            setMessage({
+                type: "success",
+                text: `שלחנו קישור כניסה ל-${email}. פתחו את המייל ולחצו על הקישור — אין צורך בסיסמה.`,
+            });
+        }
+        setLoading(false);
+    };
 
     const handleEmailLogin = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -81,7 +107,7 @@ function LoginContent() {
                         </div>
                     )}
 
-                    <form onSubmit={handleEmailLogin} className="space-y-4">
+                    <form onSubmit={mode === "magic" ? handleMagicLink : handleEmailLogin} className="space-y-4">
                         <div className="space-y-1">
                             <label className="text-xs font-medium text-text-muted mr-1">אימייל</label>
                             <div className="relative">
@@ -97,30 +123,64 @@ function LoginContent() {
                             </div>
                         </div>
 
-                        <div className="space-y-1">
-                            <label className="text-xs font-medium text-text-muted mr-1">סיסמה</label>
-                            <div className="relative">
-                                <Lock className="absolute right-4 top-1/2 -translate-y-1/2 h-4 w-4 text-text-muted" />
-                                <Input
-                                    type="password"
-                                    placeholder="••••••••"
-                                    value={password}
-                                    onChange={(e) => setPassword(e.target.value)}
-                                    className="pr-10"
-                                    required
-                                />
+                        {mode === "password" && (
+                            <div className="space-y-1">
+                                <label className="text-xs font-medium text-text-muted mr-1">סיסמה</label>
+                                <div className="relative">
+                                    <Lock className="absolute right-4 top-1/2 -translate-y-1/2 h-4 w-4 text-text-muted" />
+                                    <Input
+                                        type="password"
+                                        placeholder="••••••••"
+                                        value={password}
+                                        onChange={(e) => setPassword(e.target.value)}
+                                        className="pr-10"
+                                        required
+                                    />
+                                </div>
                             </div>
-                        </div>
+                        )}
 
                         <div className="flex flex-col gap-3 pt-2">
                             <Button type="submit" className="w-full" disabled={loading}>
-                                {loading ? <Loader2 className="h-4 w-4 animate-spin" /> : "התחבר"}
+                                {loading ? (
+                                    <Loader2 className="h-4 w-4 animate-spin" />
+                                ) : mode === "magic" ? (
+                                    "שלחו לי קישור כניסה"
+                                ) : (
+                                    "התחבר"
+                                )}
                             </Button>
-                            <Button type="button" onClick={handleSignUp} variant="ghost" className="w-full" disabled={loading}>
-                                צור חשבון חדש
-                            </Button>
+                            {mode === "password" && (
+                                <Button type="button" onClick={handleSignUp} variant="ghost" className="w-full" disabled={loading}>
+                                    צור חשבון חדש
+                                </Button>
+                            )}
                         </div>
                     </form>
+
+                    {mode === "magic" ? (
+                        <p className="mt-5 text-center text-xs leading-relaxed text-text-muted">
+                            נשלח לכם קישור חד-פעמי למייל — בלי לזכור סיסמה.{" "}
+                            <button
+                                type="button"
+                                onClick={() => { setMode("password"); setMessage(null); }}
+                                className="text-teal-400 underline underline-offset-2 hover:text-teal-300"
+                            >
+                                יש לי סיסמה
+                            </button>
+                        </p>
+                    ) : (
+                        <p className="mt-5 text-center text-xs leading-relaxed text-text-muted">
+                            שכחתם סיסמה, או נרשמתם דרך רכישת מנוי?{" "}
+                            <button
+                                type="button"
+                                onClick={() => { setMode("magic"); setMessage(null); }}
+                                className="text-teal-400 underline underline-offset-2 hover:text-teal-300"
+                            >
+                                כניסה עם קישור למייל
+                            </button>
+                        </p>
+                    )}
 
                     <div className="relative my-8">
                         <div className="absolute inset-0 flex items-center">

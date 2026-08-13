@@ -86,6 +86,39 @@ async function createGuestUserIfNotExists(email: string): Promise<string | null>
     }
 }
 
+/**
+ * Mints a one-click login link for the purchase email.
+ *
+ * Accounts created by this webhook get a random password that is never shown to
+ * anyone, so without this link a paying customer has no way into the site. We
+ * build the URL ourselves from `hashed_token` rather than using PayPal-agnostic
+ * `action_link`, because action_link routes through Supabase's implicit-flow
+ * verify endpoint and returns the session in a URL fragment that our server
+ * routes cannot read. /auth/confirm consumes the token_hash server-side.
+ *
+ * Returns null on failure — the email still sends, just without the shortcut.
+ */
+async function generateLoginLink(email: string): Promise<string | null> {
+    const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.ronenamoscpa.co.il";
+    try {
+        const adminSupabase = createAdminClient();
+        const { data, error } = await adminSupabase.auth.admin.generateLink({
+            type: "magiclink",
+            email,
+        });
+
+        if (error || !data?.properties?.hashed_token) {
+            console.error(`Failed to generate login link for ${email}:`, error);
+            return null;
+        }
+
+        return `${siteUrl}/auth/confirm?token_hash=${data.properties.hashed_token}&type=magiclink&next=%2Fdashboard`;
+    } catch (e) {
+        console.error(`Exception generating login link for ${email}:`, e);
+        return null;
+    }
+}
+
 export async function POST(req: NextRequest) {
     const body = await req.text();
 
@@ -189,11 +222,13 @@ async function handlePaymentCompleted(event: any): Promise<boolean> {
 
     // Send confirmation email
     if (payerEmail) {
+        const loginUrl = await generateLoginLink(payerEmail);
         await sendPurchaseConfirmationEmail({
             to: payerEmail,
-            planName: "Lifetime PRO — תשלום חד-פעמי",
+            planName: "גישה לכל החיים — תשלום חד-פעמי",
             amount,
             orderId,
+            loginUrl,
         }).catch((err) => console.error("Webhook email error:", err));
     }
 
@@ -243,7 +278,7 @@ async function handleSubscriptionActivated(event: any): Promise<boolean> {
     try {
         await adminSupabase.from("payment_records").insert({
             user_id: profile.id,
-            amount: 30,
+            amount: 100,
             paypal_order_id: subscriptionId,
             status: "COMPLETED",
         });
@@ -264,11 +299,15 @@ async function handleSubscriptionActivated(event: any): Promise<boolean> {
     }
 
     if (subscriberEmail) {
+        const loginUrl = await generateLoginLink(subscriberEmail);
         await sendPurchaseConfirmationEmail({
             to: subscriberEmail,
-            planName: "Monthly Flexible — ₪30/חודש",
-            amount: 30,
+            // Hebrew-only: a mixed Latin/Hebrew name renders scrambled by bidi
+            // in the email's plan row, and the price is already its own row.
+            planName: "מנוי חודשי גמיש",
+            amount: 100,
             orderId: subscriptionId,
+            loginUrl,
         }).catch((err) => console.error("Webhook email error:", err));
     }
 
