@@ -1,26 +1,29 @@
 /* Redesign V2 tokens — scoped to .rv2, loaded only by /preview-home */
-/* Luxury dark: deep charcoal-navy + champagne gold, glass surfaces, soft neon glow */
+/* Deep space blue + electric cyan — the palette from webinarlibrarypage.html,
+   sharing the site background family (globals.css --color-space-950/900/800). */
 
 .rv2 {
-  --rv2-bg: #0b0d12;
-  --rv2-bg-2: #10131a;
-  --rv2-surface: rgba(240, 220, 165, 0.10);
-  --rv2-surface-2: rgba(240, 220, 165, 0.15);
-  --rv2-box: rgba(240, 220, 165, 0.12);
-  --rv2-text: #ffffff;
-  --rv2-text-2: #c9cdd6;
-  --rv2-accent: #d4af37;
-  --rv2-accent-strong: #f0cf6e;
-  --rv2-accent-deep: #a8842a;
-  --rv2-border: rgba(240, 207, 110, 0.22);
-  --rv2-border-strong: rgba(240, 207, 110, 0.45);
-  --rv2-glow: 0 0 24px rgba(212, 175, 55, 0.25);
-  --rv2-glow-strong: 0 0 18px rgba(212, 175, 55, 0.45), 0 0 48px rgba(212, 175, 55, 0.2);
+  --rv2-bg: #070b14;
+  --rv2-bg-2: #0f172a;
+  --rv2-surface: rgba(34, 211, 238, 0.05);
+  --rv2-surface-2: rgba(34, 211, 238, 0.09);
+  --rv2-box: rgba(34, 211, 238, 0.07);
+  --rv2-text: #f1f5f9;
+  --rv2-text-2: #a8b4c8;
+  --rv2-accent: #22d3ee;
+  --rv2-accent-strong: #67e8f9;
+  --rv2-accent-deep: #0e7490;
+  --rv2-border: rgba(34, 211, 238, 0.18);
+  --rv2-border-strong: rgba(34, 211, 238, 0.42);
+  --rv2-tint: rgba(34, 211, 238, 0.05);
+  --rv2-tint-strong: rgba(34, 211, 238, 0.10);
+  --rv2-glow: 0 0 24px rgba(34, 211, 238, 0.20);
+  --rv2-glow-strong: 0 0 18px rgba(34, 211, 238, 0.40), 0 0 48px rgba(34, 211, 238, 0.16);
 
   background:
-    radial-gradient(1200px 600px at 85% -10%, rgba(212, 175, 55, 0.14), transparent 60%),
-    radial-gradient(900px 500px at 0% 40%, rgba(212, 175, 55, 0.08), transparent 55%),
-    linear-gradient(180deg, var(--rv2-bg) 0%, var(--rv2-bg-2) 100%);
+    radial-gradient(1100px 620px at 88% -12%, rgba(34, 211, 238, 0.12), transparent 62%),
+    radial-gradient(900px 520px at 0% 35%, rgba(30, 41, 59, 0.7), transparent 60%),
+    linear-gradient(180deg, var(--rv2-bg-2) 0%, var(--rv2-bg) 55%, var(--rv2-bg-2) 100%);
   color: var(--rv2-text);
   font-family: "Heebo", sans-serif;
   line-height: 1.65;
@@ -28,7 +31,7 @@
 
 .rv2 ::selection {
   background: var(--rv2-accent);
-  color: #141004;
+  color: #062028;
 }
 
 .rv2 .rv2-container {
@@ -43,12 +46,18 @@
   line-height: 1.15;
 }
 
-/* Gold gradient headline text */
+/* Cyan gradient headline accent */
 .rv2 .rv2-gold-text {
-  background: linear-gradient(120deg, #f6e6b4 0%, #d4af37 45%, #f0cf6e 70%, #b98f2e 100%);
+  background: linear-gradient(120deg, #a5f3fc 0%, #22d3ee 45%, #67e8f9 70%, #0891b2 100%);
   -webkit-background-clip: text;
   background-clip: text;
-  color: transparent;
+  color: var(--rv2-accent-strong);
+}
+
+@supports ((background-clip: text) or (-webkit-background-clip: text)) {
+  .rv2 .rv2-gold-text {
+    color: transparent;
+  }
 }
 
 .rv2 .rv2-mono {
@@ -98,14 +107,56 @@
 }
 
 .rv2 .rv2-btn-primary {
-  background: linear-gradient(120deg, #e3bd4e 0%, #d4af37 55%, #c39a2f 100%);
-  color: #141004;
+  background: linear-gradient(120deg, #67e8f9 0%, #22d3ee 55%, #06b6d4 100%);
+  color: #062028;
   box-shadow: var(--rv2-glow);
 }
 
 .rv2 .rv2-btn-primary:hover {
-  background: linear-gradient(120deg, #f0cf6e 0%, #e3bd4e 55%, #d4af37 100%);
+  background: linear-gradient(120deg, #a5f3fc 0%, #67e8f9 55%, #22d3ee 100%);
   box-shadow: var(--rv2-glow-strong);
+}
+
+.rv2 .rv2-btn-luxury {
+  background: linear-gradient(135deg, #22d3ee 0%, #06b6d4 50%, #0891b2 100%);
+  color: #070b14;
+  font-size: 1.15rem;
+  font-weight: 800;
+  padding: 1.1rem 2.5rem;
+  border-radius: 9999px;
+  border: 2px solid rgba(255, 255, 255, 0.45);
+  box-shadow: 0 0 25px rgba(34, 211, 238, 0.45), inset 0 2px 4px rgba(255, 255, 255, 0.3);
+  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.15);
+  letter-spacing: 0.05em;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.rv2 .rv2-btn-luxury:hover {
+  transform: translateY(-3px) scale(1.03);
+  box-shadow: 0 0 40px rgba(34, 211, 238, 0.8), inset 0 2px 4px rgba(255, 255, 255, 0.4);
+  border-color: rgba(255, 255, 255, 0.75);
+  background: linear-gradient(135deg, #67e8f9 0%, #22d3ee 50%, #06b6d4 100%);
+}
+
+.rv2 .rv2-btn-luxury::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.35), transparent);
+  transform: rotate(45deg);
+  transition: all 0.5s ease;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.rv2 .rv2-btn-luxury:hover::after {
+  opacity: 1;
+  left: 120%;
 }
 
 .rv2 .rv2-btn-ghost {
@@ -136,7 +187,7 @@
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--rv2-accent-strong);
-  text-shadow: 0 0 12px rgba(212, 175, 55, 0.5);
+  text-shadow: 0 0 12px rgba(34, 211, 238, 0.45);
 }
 
 .rv2 .rv2-divider {
@@ -157,7 +208,456 @@
 .rv2 input.rv2-input:focus {
   outline: none;
   border-color: var(--rv2-accent);
-  box-shadow: 0 0 0 2px rgba(212, 175, 55, 0.3), var(--rv2-glow);
+  box-shadow: 0 0 0 2px rgba(34, 211, 238, 0.3), var(--rv2-glow);
+}
+
+/* --- Resource index -------------------------------------------------- */
+
+/* Tags inside the Skill Vault anchor */
+.rv2 .rv2-chip {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 999px;
+  border: 1px solid var(--rv2-border);
+  background: var(--rv2-tint);
+  padding: 0.3rem 0.85rem;
+  font-size: 0.8125rem;
+  line-height: 1.4;
+  color: var(--rv2-text-2);
+  transition: color 0.25s ease, border-color 0.25s ease, background 0.25s ease;
+}
+
+.rv2 a:hover .rv2-chip {
+  border-color: var(--rv2-border-strong);
+  background: var(--rv2-tint-strong);
+  color: var(--rv2-text);
+}
+
+/* Hairline index rows */
+.rv2 .rv2-index {
+  border-top: 1px solid var(--rv2-border);
+}
+
+.rv2 .rv2-index > li {
+  border-bottom: 1px solid var(--rv2-border);
+}
+
+.rv2 .rv2-index-row {
+  display: grid;
+  grid-template-columns: 5.5rem minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 1.5rem 1rem;
+  border-radius: 1rem;
+  transition: background 0.25s ease;
+}
+
+.rv2 .rv2-index-row:hover {
+  background: var(--rv2-tint);
+}
+
+.rv2 .rv2-index-row:focus-visible {
+  outline: 2px solid var(--rv2-accent);
+  outline-offset: 2px;
+}
+
+.rv2 .rv2-index-count {
+  font-size: 2rem;
+  font-weight: 800;
+  line-height: 1;
+  color: var(--rv2-accent);
+  transition: color 0.25s ease;
+}
+
+.rv2 .rv2-index-row:hover .rv2-index-count {
+  color: var(--rv2-accent-strong);
+}
+
+.rv2 .rv2-index-arrow {
+  flex-shrink: 0;
+  color: var(--rv2-accent-strong);
+  opacity: 0.3;
+  transition: opacity 0.25s ease, transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.rv2 .rv2-index-row:hover .rv2-index-arrow {
+  opacity: 1;
+  transform: translateX(-8px);
+}
+
+.rv2 .rv2-arrow {
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.rv2 a:hover .rv2-arrow {
+  transform: translateX(-6px);
+}
+
+@media (max-width: 640px) {
+  .rv2 .rv2-index-row {
+    grid-template-columns: 3.25rem minmax(0, 1fr) auto;
+    gap: 1rem;
+    padding: 1.25rem 0.5rem;
+  }
+
+  .rv2 .rv2-index-count {
+    font-size: 1.5rem;
+  }
+}
+
+/* --- Lesson library --- */
+.rv2 .rv2-filter {
+  border-radius: 999px;
+  border: 1px solid var(--rv2-border);
+  background: var(--rv2-tint);
+  padding: 0.5rem 1.15rem;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--rv2-text-2);
+  transition: color 0.25s ease, border-color 0.25s ease, background 0.25s ease;
+}
+
+.rv2 .rv2-filter:hover {
+  border-color: var(--rv2-border-strong);
+  background: var(--rv2-tint-strong);
+  color: var(--rv2-text);
+}
+
+.rv2 .rv2-filter:focus-visible {
+  outline: 2px solid var(--rv2-accent);
+  outline-offset: 2px;
+}
+
+.rv2 .rv2-filter.is-active {
+  border-color: var(--rv2-accent);
+  background: var(--rv2-accent);
+  color: #062028;
+}
+
+/* Lesson hero art, with the gradient underneath as the loading fallback. */
+.rv2 .rv2-poster {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 16 / 9;
+  background:
+    linear-gradient(var(--angle, 135deg), var(--rv2-tint-strong), transparent 70%),
+    linear-gradient(160deg, #0f172a 0%, #1e293b 100%);
+  border-bottom: 1px solid var(--rv2-border);
+  overflow: hidden;
+}
+
+.rv2 .rv2-poster-img {
+  object-fit: cover;
+  z-index: 0;
+}
+
+/* Scrim so the topic, play and duration badges stay legible over any artwork. */
+.rv2 .rv2-poster::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(
+    to top,
+    rgba(7, 11, 20, 0.85) 0%,
+    rgba(7, 11, 20, 0.3) 50%,
+    rgba(7, 11, 20, 0.55) 100%
+  );
+}
+
+.rv2 .rv2-poster > :not(.rv2-poster-img) {
+  z-index: 2;
+}
+
+.rv2 .rv2-poster-topic {
+  position: absolute;
+  inset-block-start: 0.75rem;
+  inset-inline-start: 0.75rem;
+  border-radius: 999px;
+  border: 1px solid var(--rv2-border);
+  background: var(--rv2-tint-strong);
+  padding: 0.2rem 0.7rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--rv2-text-2);
+}
+
+.rv2 .rv2-duration {
+  position: absolute;
+  inset-block-end: 0.75rem;
+  inset-inline-end: 0.75rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  border-radius: 999px;
+  background: rgba(11, 13, 18, 0.72);
+  padding: 0.2rem 0.65rem;
+  font-size: 0.75rem;
+  color: var(--rv2-text);
+}
+
+.rv2 .rv2-play {
+  display: grid;
+  place-items: center;
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: 999px;
+  border: 1px solid var(--rv2-border-strong);
+  background: var(--rv2-tint-strong);
+  padding-inline-start: 0.15rem;
+  color: var(--rv2-accent-strong);
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), background 0.25s ease,
+    color 0.25s ease;
+}
+
+.rv2 .rv2-play:hover {
+  transform: scale(1.08);
+  background: var(--rv2-accent);
+  color: #062028;
+}
+
+.rv2 .rv2-play:focus-visible {
+  outline: 2px solid var(--rv2-accent);
+  outline-offset: 3px;
+}
+
+/* --- Brand logo ------------------------------------------------------ */
+/* The supplied logo is blue artwork on an opaque white JPG background.
+   Inverting knocks the white to black so the screen blend drops it out, then the
+   hue rotation brings the mark back from inverted-orange to the cyan world. */
+.rv2 .rv2-logo {
+  filter: invert(1) hue-rotate(178deg) brightness(1.85) saturate(1.35);
+  mix-blend-mode: screen;
+}
+
+/* --- Resource carousel ----------------------------------------------- */
+
+.rv2 .rv2-carousel-track {
+  display: flex;
+  gap: 1.25rem;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-padding-inline: 0.25rem;
+  padding-block: 0.5rem 1.25rem;
+  padding-inline: 0.25rem;
+  scrollbar-width: none;
+}
+
+.rv2 .rv2-carousel-track::-webkit-scrollbar {
+  display: none;
+}
+
+.rv2 .rv2-carousel-track > li {
+  flex: 0 0 clamp(19rem, 82vw, 26rem);
+  scroll-snap-align: start;
+}
+
+.rv2 .rv2-carousel-card {
+  position: relative;
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr);
+  gap: 1.15rem;
+  height: 100%;
+  min-height: 18rem;
+  overflow: hidden;
+  border: 1px solid var(--rv2-border);
+  border-radius: 1.25rem;
+  background: var(--rv2-surface);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  padding: 1rem;
+  transition: border-color 0.25s ease, background 0.25s ease, transform 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+/* Cursor-tracked spotlight — the card lights where the pointer is. */
+.rv2 .rv2-carousel-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(
+    16rem 16rem at var(--px, 50%) var(--py, 50%),
+    rgba(34, 211, 238, 0.16),
+    transparent 70%
+  );
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.rv2 .rv2-carousel-card:hover {
+  border-color: var(--rv2-border-strong);
+  background: var(--rv2-surface-2);
+  transform: translateY(-4px);
+  box-shadow: var(--rv2-glow), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+.rv2 .rv2-carousel-card:hover::before {
+  opacity: 1;
+}
+
+.rv2 .rv2-carousel-card:focus-visible {
+  outline: 2px solid var(--rv2-accent);
+  outline-offset: 2px;
+}
+
+.rv2 .rv2-carousel-media {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  border-radius: 1rem;
+  border: 1px solid var(--rv2-border);
+  aspect-ratio: 16 / 9;
+}
+
+.rv2 .rv2-carousel-img,
+.rv2 .rv2-carousel-placeholder {
+  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.rv2 .rv2-carousel-card:hover .rv2-carousel-img,
+.rv2 .rv2-carousel-card:hover .rv2-carousel-placeholder {
+  transform: scale(1.07);
+}
+
+.rv2 .rv2-carousel-img {
+  object-fit: cover;
+}
+
+/* Placeholder artwork until real resource images exist. */
+.rv2 .rv2-carousel-placeholder {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 100%;
+  background:
+    linear-gradient(var(--angle, 135deg), var(--rv2-tint-strong), transparent 70%),
+    linear-gradient(160deg, #0f172a 0%, #1e293b 100%);
+  font-size: 1.75rem;
+  font-weight: 800;
+  color: var(--rv2-accent);
+  opacity: 0.75;
+}
+
+.rv2 .rv2-carousel-body {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 0.3rem;
+  padding-block: 0.15rem;
+}
+
+.rv2 .rv2-carousel-cat {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--rv2-accent-strong);
+}
+
+.rv2 .rv2-carousel-title {
+  font-size: 1.125rem;
+  font-weight: 700;
+  line-height: 1.3;
+  color: var(--rv2-text);
+}
+
+.rv2 .rv2-carousel-desc {
+  font-size: 0.875rem;
+  line-height: 1.55;
+  color: var(--rv2-text-2);
+}
+
+.rv2 .rv2-carousel-more {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-block-start: auto;
+  padding-block-start: 0.6rem;
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--rv2-accent-strong);
+  opacity: 0.55;
+  transition: opacity 0.25s ease;
+}
+
+.rv2 .rv2-carousel-card:hover .rv2-carousel-more {
+  opacity: 1;
+}
+
+.rv2 .rv2-carousel-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-inline: 0.25rem;
+}
+
+.rv2 .rv2-carousel-dots {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.rv2 .rv2-carousel-dot {
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 999px;
+  border: 1px solid var(--rv2-border-strong);
+  background: transparent;
+  transition: width 0.3s cubic-bezier(0.22, 1, 0.36, 1), background 0.25s ease;
+}
+
+.rv2 .rv2-carousel-dot:hover {
+  background: var(--rv2-tint-strong);
+}
+
+.rv2 .rv2-carousel-dot.is-active {
+  width: 1.5rem;
+  background: var(--rv2-accent);
+  border-color: var(--rv2-accent);
+}
+
+.rv2 .rv2-carousel-dot:focus-visible,
+.rv2 .rv2-carousel-nav:focus-visible {
+  outline: 2px solid var(--rv2-accent);
+  outline-offset: 2px;
+}
+
+.rv2 .rv2-carousel-nav {
+  display: grid;
+  place-items: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 999px;
+  border: 1px solid var(--rv2-border-strong);
+  background: var(--rv2-tint);
+  color: var(--rv2-accent-strong);
+  transition: background 0.25s ease, color 0.25s ease, transform 0.25s ease,
+    box-shadow 0.25s ease, opacity 0.25s ease;
+}
+
+.rv2 .rv2-carousel-nav:hover:not(:disabled) {
+  background: var(--rv2-accent);
+  color: #062028;
+  box-shadow: var(--rv2-glow);
+  transform: scale(1.06);
+}
+
+.rv2 .rv2-carousel-nav:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+@media (max-width: 640px) {
+  .rv2 .rv2-carousel-card {
+    gap: 0.9rem;
+    min-height: 14rem;
+  }
 }
 
 @keyframes rv2-rise {
@@ -187,4 +687,145 @@
   .rv2 .rv2-rise {
     animation: none;
   }
+
+  .rv2 .rv2-index-arrow,
+  .rv2 .rv2-arrow {
+    transition: opacity 0.2s ease;
+  }
+
+  .rv2 .rv2-index-row:hover .rv2-index-arrow,
+  .rv2 a:hover .rv2-arrow {
+    transform: none;
+  }
+
+  .rv2 .rv2-carousel-track {
+    scroll-behavior: auto;
+  }
+
+  .rv2 .rv2-carousel-card:hover {
+    transform: none;
+  }
+
+  .rv2 .rv2-carousel-card:hover .rv2-carousel-img,
+  .rv2 .rv2-carousel-card:hover .rv2-carousel-placeholder,
+  .rv2 .rv2-carousel-nav:hover:not(:disabled) {
+    transform: none;
+  }
+
+  .rv2 .rv2-faq-icon {
+    transition: none;
+  }
+}
+
+/* ---------------------------------------------------------------- FAQ --- */
+
+.rv2 .rv2-faq {
+  position: relative;
+  overflow: hidden;
+  padding: 0;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+}
+
+/* HUD corner brackets — drawn with borders on the pseudo-elements so they cost
+   no extra markup. Start (top-right in RTL) and end (bottom-left) only, so the
+   card reads as a targeting frame rather than a boxed-in outline. */
+.rv2 .rv2-faq::before,
+.rv2 .rv2-faq::after {
+  content: "";
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  border-color: var(--rv2-accent);
+  border-style: solid;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.rv2 .rv2-faq::before {
+  inset-block-start: 7px;
+  inset-inline-end: 7px;
+  border-width: 1px 1px 0 0;
+  border-start-end-radius: 4px;
+}
+
+.rv2 .rv2-faq::after {
+  inset-block-end: 7px;
+  inset-inline-start: 7px;
+  border-width: 0 0 1px 1px;
+  border-end-start-radius: 4px;
+}
+
+.rv2 .rv2-faq:hover::before,
+.rv2 .rv2-faq:hover::after,
+.rv2 .rv2-faq[open]::before,
+.rv2 .rv2-faq[open]::after {
+  opacity: 0.9;
+}
+
+.rv2 .rv2-faq[open] {
+  border-color: var(--rv2-border-strong);
+  background: rgba(15, 23, 42, 0.92);
+  box-shadow: var(--rv2-glow);
+}
+
+/* Mono index, console-style */
+.rv2 .rv2-faq-index {
+  font-size: 0.75rem;
+  font-variant-numeric: tabular-nums;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--rv2-accent);
+  opacity: 0.55;
+  transition: opacity 0.25s ease;
+}
+
+.rv2 .rv2-faq[open] .rv2-faq-index,
+.rv2 .rv2-faq-q:hover .rv2-faq-index {
+  opacity: 1;
+}
+
+.rv2 .rv2-faq-q {
+  display: flex;
+  cursor: pointer;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1.15rem 1.5rem;
+  font-weight: 600;
+  color: var(--rv2-text);
+  list-style: none;
+  transition: color 0.25s ease;
+}
+
+/* Hide the default disclosure triangle so the +/× icon is the only affordance */
+.rv2 .rv2-faq-q::-webkit-details-marker {
+  display: none;
+}
+
+.rv2 .rv2-faq-q:hover {
+  color: var(--rv2-accent-strong);
+}
+
+.rv2 .rv2-faq-q:focus-visible {
+  outline: 2px solid var(--rv2-accent);
+  outline-offset: -2px;
+  border-radius: 0.75rem;
+}
+
+.rv2 .rv2-faq-icon {
+  color: var(--rv2-accent-strong);
+  transition: transform 0.25s ease;
+}
+
+.rv2 .rv2-faq[open] .rv2-faq-icon {
+  transform: rotate(45deg);
+}
+
+.rv2 .rv2-faq-a {
+  margin: 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  padding: 1.15rem 1.5rem;
+  color: var(--rv2-text-2);
+  line-height: 1.75;
 }
