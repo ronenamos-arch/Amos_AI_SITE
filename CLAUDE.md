@@ -1,66 +1,56 @@
-﻿# Antigravity Site - Project Context
+# Antigravity Site - Project Context
 
 ## Quick Facts
-- **Type:** Next.js blog + course platform with email automation
-- **Size:** 153 code files, 578 nodes, 1097 edges, 39 communities
-- **Stack:** Next.js + TypeScript, Supabase, Resend, PayPal
-- **Location:** C:\Users\Ronen\Documents\Projects\Personal\Antigravity\blog andwebsite\site
 
-## God Nodes (Critical Dependencies)
-1. \createAdminClient()\ (66 edges) — **BOTTLENECK** — touches everything
-2. \GlassCard()\ (30 edges) — core UI component
-3. \Button()\ (27 edges) — ubiquitous
-4. \createClient()\ (22 edges) — client auth
-5. \SectionHeading()\ (18 edges) — layout
-6. \getResend()\ (18 edges) — email service
-7. \getAllPosts()\ (10 edges) — blog content
+* **Type:** Next.js blog + course platform with email automation
+* **Stack:** Next.js + TypeScript, Supabase, Resend, PayPal
+* **Location:** C:\Users\Ronen\Documents\Projects\Personal\Antigravity\blog andwebsite\site
 
-## Core Subsystems
-
-### Frontend Pages
-- Blog, FAQ, About, Contact, Courses, Pricing, Training, Services, AI Mastery
-- Layout: Header, Footer, auth pages (login)
-- UI: GlassCard, Button, Badge, SectionHeading
-
-### Backend (API Routes)
-- Blog admin: create/edit articles
-- Email: drip campaigns (day 3/7/14), transactional emails
-- Admin: contact management, newsletter scheduling, GSC sync
-- Payments: PayPal subscription handling
-
-### Data Layer
-- **Supabase:** Database + auth (admin + user clients)
-- **Resend:** Email delivery
-- **PayPal:** Payments
-- **Google Search Console:** Analytics
-- File-based blog (markdown posts)
-
-## Key Patterns & Issues
-
-### Supabase Bottleneck
-\createAdminClient()\ is called from 66 different places. This is a major coupling point — refactoring could improve maintainability.
-
-### Email Workflow
-Drip campaigns are central: welcome → day 3 → day 7 → day 14. Used for onboarding.
-
-### UI Component Reuse
-GlassCard, Button, Badge are everywhere. Good sign of design system, but watch for over-specialization.
+For God Nodes, subsystem breakdown, and known architectural issues, see
+`docs/ARCHITECTURE.md` (not auto-loaded — open it when a task touches that
+area).
 
 ## Work Guidelines
 
-1. **Before any task:** check this file for context
-2. **Focus:** Only work on this project unless explicitly redirected
-3. **Refactoring opportunities:**
-   - \createAdminClient()\ centralization / dependency injection
-   - Email template consolidation (drip campaign variants)
-   - Component prop consistency across GlassCard/Button/Badge
-4. **Test coverage:** Light on isolated unit tests; focus on integration tests
-5. **No breaking changes** to the Supabase client pattern without refactoring all 66 call sites
+1. **Before any task:** check this file for context.
+2. **Focus:** Only work on this project unless explicitly redirected.
+3. **Test coverage:** Light on isolated unit tests; focus on integration tests.
+4. **No breaking changes** to the Supabase client pattern without refactoring
+   all `createAdminClient()` call sites (see `docs/ARCHITECTURE.md`).
 
-## Knowledge Graph
-Full analysis saved in \graphify-out-antigravity/\:
-- \graph.html\ — interactive visualization
-- \GRAPH_REPORT.md\ — detailed community breakdown
-- \graph.json\ — raw data
+## Deployment
 
-Last updated: 2026-06-06
+* ALL production deploys go to the `main` branch only. Never push fixes to a
+  feature branch and call it deployed — feature branches only create Vercel
+  preview deploys.
+* After pushing, confirm the commit is on `main`
+  (`git log origin/main -1`) and report the deployed URL.
+
+## Verification Before Declaring Done
+
+* One passing test is not proof. For any user-facing flow (payments, forms,
+  webhooks, embeds), verify end-to-end in the real environment and state
+  exactly what you verified and what you did not.
+* Screenshot or curl the live page after every deploy.
+
+## Guides & Resources (as of 2026-08-09)
+
+* **Resources are guides now.** Entries in `lib/resources-data.ts` are adapted into the `guides`
+  array by `resourceToGuide()` in `lib/guides-data.ts`. The grid, search, category counts, related
+  guides and the sitemap all read from `getAllGuides()`, so a new resource added there surfaces
+  everywhere automatically — do not build a second list.
+* **`/resources/[slug]` and `/api/resources/[slug]` must stay** even though Resources left the
+  header. They are the subscription-gated delivery route and the target of five legacy `.html`
+  redirects in `next.config.ts:44-70`. The guide preview page only *links* there.
+* **`publishedAt` on resources is a placeholder sort key.** `app/guides/[slug]/page.tsx`
+  deliberately hides the date and omits `datePublished`/`dateModified` from the JSON-LD when
+  `resourceSlug` is set. Do not restore it until real publication dates exist.
+* **The UI says ספריית פרומפטים; the route and directory stay `/skill-vault`.** Rename the label
+  only — never the path.
+
+## Committing in this repo
+
+* **Stage by explicit path.** This working tree usually holds unrelated in-progress work (home
+  page, `app/preview-home/`, design docs). Never `git add -A`, `git add .`, or `git commit -a`.
+* Before pushing, run `git show --stat HEAD`, read the file list, and confirm nothing unrelated
+  slipped in. If it did, unwind rather than push.
