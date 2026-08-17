@@ -84,7 +84,7 @@ premium: "false"
 הצעד הבא שלך הוא לעוד מידע, תוכן ומדריכים לפני כולם. הירשם לבלוג שלי.
 
 <div style="display: flex; justify-content: center; margin: 3rem 0;">
-  <a href="https://www.ronenamoscpa.co.il/blog" style="
+  <a href="https://www.ronenamoscpa.co.il/" style="
     display: inline-flex;
     align-items: center;
     justify-content: center;
