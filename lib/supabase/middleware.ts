@@ -5,7 +5,7 @@ import { NextResponse, type NextRequest } from "next/server";
 // open to everyone (no subscription check) until the given date.
 // Remove each entry once its date has passed.
 const FREE_UNTIL: Record<string, string> = {
-    "/resources/webiners/webinar-05-skills": "2026-08-23",
+    "/resources/webiners/webinar-05-skills": "2026-09-01",
 };
 
 export async function updateSession(request: NextRequest) {
