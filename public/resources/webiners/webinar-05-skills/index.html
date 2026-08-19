@@ -1,0 +1,1385 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <base href="/resources/webiners/webinar-05-skills/" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Skills — מתכון העבודה של Claude — AI Finance Transformation</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800;900&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg:           #0b0d10;
+      --surface:      #12161a;
+      --surface2:     #1a1f26;
+      --accent:         #b8c45a;
+      --accent-strong:  #d6e36a;
+      --accent-dim:     rgba(184,196,90,0.12);
+      --accent-border:  rgba(184,196,90,0.28);
+      --green:        #4caf7d;
+      --red:          #e05a5a;
+      --text:         #fafbfc;
+      --text-muted:   #c2cad2;
+      --text-faint:   #7a8694;
+      --border:       rgba(255,255,255,0.07);
+      --radius-sm:    10px;
+      --radius-md:    18px;
+      --radius-lg:    28px;
+      --font:         Heebo, system-ui, sans-serif;
+      --mono:         "IBM Plex Mono", monospace;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font);
+      font-size: 16px;
+      line-height: 1.7;
+      direction: rtl;
+    }
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
+
+    /* ── TOPBAR ── */
+    .topbar {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(11,13,16,0.94);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 2rem;
+      display: flex; align-items: center; justify-content: space-between;
+      min-height: 58px; gap: 1rem;
+    }
+    .topbar-brand {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.12em;
+      color: var(--accent);
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+    .topbar-nav {
+      display: flex; gap: 1.2rem; flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+    .topbar-nav a {
+      font-size: 0.8rem; color: var(--text-muted);
+      transition: color 0.2s;
+    }
+    .topbar-nav a:hover { color: var(--accent); }
+
+    /* ── SECTIONS ── */
+    section { padding: 5rem 2rem; }
+    .section-alt { background: var(--surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+    .inner { max-width: 1120px; margin: 0 auto; }
+    .section-label {
+      font-family: var(--mono);
+      font-size: 0.66rem;
+      letter-spacing: 0.16em;
+      color: var(--accent);
+      text-transform: uppercase;
+      margin-bottom: 0.7rem;
+    }
+    .section-title {
+      font-size: clamp(1.7rem, 3.8vw, 2.8rem);
+      font-weight: 800; line-height: 1.2; margin-bottom: 1rem;
+    }
+    .section-title span { color: var(--accent); }
+    .section-desc {
+      font-size: 1rem; color: var(--text-muted);
+      max-width: 760px; line-height: 1.85;
+    }
+
+    /* ── CARDS ── */
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 1.4rem 1.5rem;
+      transition: border-color 0.22s, transform 0.22s;
+    }
+    .card:hover { border-color: var(--accent-border); transform: translateY(-4px); }
+    .card-kicker {
+      font-family: var(--mono);
+      font-size: 0.66rem; color: var(--accent);
+      letter-spacing: 0.11em; text-transform: uppercase;
+      margin-bottom: 0.55rem;
+    }
+    .card-title { font-size: 0.96rem; font-weight: 700; margin-bottom: 0.35rem; }
+    .card-desc  { font-size: 0.84rem; color: var(--text-muted); line-height: 1.65; }
+
+    /* ── GRIDS ── */
+    .grid-2 { display: grid; grid-template-columns: repeat(2,1fr); gap: 1rem; margin-top: 2rem; }
+    .grid-3 { display: grid; grid-template-columns: repeat(3,1fr); gap: 1rem; margin-top: 2rem; }
+    .grid-4 { display: grid; grid-template-columns: repeat(4,1fr); gap: 1rem; margin-top: 2rem; }
+
+    /* ── IMAGE PLACEHOLDER ── */
+    .img-placeholder {
+      background: var(--surface2);
+      border: 2px dashed var(--accent-border);
+      border-radius: var(--radius-md);
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      min-height: 260px; padding: 2rem;
+      text-align: center; gap: 0.6rem;
+    }
+    .img-placeholder img { width: 100%; border-radius: var(--radius-md); object-fit: contain; }
+    .img-placeholder-label {
+      font-family: var(--mono);
+      font-size: 0.72rem; color: var(--accent);
+      letter-spacing: 0.1em; text-transform: uppercase;
+      margin-top: 0.5rem;
+    }
+    .img-placeholder-desc { font-size: 0.78rem; color: var(--text-faint); }
+
+    /* ── SLIDE A: INTRO ── */
+    .intro-hero {
+      padding: 5.8rem 2rem 4.5rem;
+      border-bottom: 1px solid var(--border);
+      background:
+        radial-gradient(circle at top left,  rgba(184,196,90,0.09), transparent 30%),
+        radial-gradient(circle at 80% 60%,   rgba(184,196,90,0.05), transparent 28%),
+        var(--bg);
+    }
+    .intro-grid {
+      display: grid; grid-template-columns: 1.2fr 0.9fr;
+      gap: 2rem; align-items: center;
+    }
+    .intro-eyebrow {
+      font-family: var(--mono); font-size: 0.72rem;
+      letter-spacing: 0.14em; color: var(--accent);
+      text-transform: uppercase; margin-bottom: 1rem;
+    }
+    .intro-title {
+      font-size: clamp(2.2rem, 5vw, 3.6rem);
+      font-weight: 900; line-height: 1.08; margin-bottom: 1.2rem;
+    }
+    .intro-title span { color: var(--accent); }
+    .intro-desc {
+      font-size: 1.05rem; color: var(--text-muted);
+      line-height: 1.85; margin-bottom: 2rem; max-width: 680px;
+    }
+    .tag-list { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1rem; }
+    .tag {
+      background: var(--accent-dim); border: 1px solid var(--accent-border);
+      border-radius: 999px; padding: 0.3rem 0.85rem;
+      font-size: 0.78rem; color: var(--accent);
+    }
+    .metric-row { display: flex; flex-direction: column; gap: 1rem; }
+    .metric-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 1.3rem 1.4rem;
+    }
+    .metric-number {
+      font-family: var(--mono); font-size: 2rem;
+      line-height: 1; color: var(--accent); margin-bottom: 0.4rem;
+    }
+    .metric-text { font-size: 0.86rem; color: var(--text-muted); line-height: 1.6; }
+
+    /* ── COMPARE TABLE ── */
+    .model-table {
+      width: 100%; border-collapse: collapse; margin-top: 2rem;
+      font-size: 0.88rem;
+    }
+    .model-table th, .model-table td {
+      border: 1px solid var(--border);
+      padding: 0.8rem 1.1rem; text-align: right;
+    }
+    .model-table thead th {
+      background: var(--surface2);
+      color: var(--accent);
+      font-family: var(--mono); font-size: 0.72rem;
+      letter-spacing: 0.1em; text-transform: uppercase;
+    }
+    .model-table tbody tr:hover { background: var(--surface2); }
+    .model-table td.highlight { color: var(--accent); font-weight: 700; }
+
+    .insight-box {
+      background: var(--accent-dim);
+      border: 1px solid var(--accent-border);
+      border-radius: var(--radius-md);
+      padding: 1.3rem 1.5rem; margin-top: 2rem;
+    }
+    .insight-box-title { font-weight: 700; margin-bottom: 0.4rem; color: var(--accent); }
+    .insight-box-text  { font-size: 0.9rem; color: var(--text-muted); line-height: 1.7; }
+
+    /* ── WORKFLOW / ANATOMY ── */
+    .workflow {
+      display: grid; grid-template-columns: repeat(5, 1fr);
+      gap: 0.8rem; margin-top: 2rem;
+    }
+    .workflow-step {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 1.1rem 1rem; min-height: 120px;
+    }
+    .workflow-step.hl { border-color: var(--accent-border); background: var(--accent-dim); }
+    .step-num { font-family: var(--mono); font-size: 0.65rem; color: var(--accent); margin-bottom: 0.6rem; }
+    .step-title { font-size: 0.88rem; font-weight: 700; margin-bottom: 0.3rem; }
+    .step-desc  { font-size: 0.8rem; color: var(--text-muted); line-height: 1.55; }
+
+    /* ── STEPS LIST ── */
+    .steps { display: flex; flex-direction: column; gap: 0.9rem; margin-top: 2rem; }
+    .step-item { display: flex; gap: 1.1rem; align-items: flex-start; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 1.1rem 1.3rem; }
+    .step-item-num { width: 32px; height: 32px; border-radius: 50%; background: var(--accent-dim); border: 1px solid var(--accent-border); color: var(--accent); font-size: 0.8rem; font-weight: 800; font-family: var(--mono); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .step-item-content { flex: 1; }
+    .step-item-title { font-weight: 700; margin-bottom: 0.2rem; font-size: 0.95rem; }
+    .step-item-desc { font-size: 0.85rem; color: var(--text-muted); line-height: 1.6; }
+
+    /* ── DEMO CARDS ── */
+    .demo-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      overflow: hidden; margin-top: 2rem;
+      transition: border-color 0.22s;
+    }
+    .demo-card:hover { border-color: var(--accent-border); }
+    .demo-body { padding: 1.6rem; }
+    .demo-label {
+      font-family: var(--mono); font-size: 0.66rem;
+      color: var(--accent); letter-spacing: 0.11em;
+      text-transform: uppercase; margin-bottom: 0.5rem;
+    }
+    .demo-title { font-size: 1.05rem; font-weight: 700; margin-bottom: 0.5rem; }
+    .demo-desc  { font-size: 0.88rem; color: var(--text-muted); line-height: 1.7; }
+    .demo-outputs {
+      list-style: none; margin-top: 1rem;
+      display: flex; flex-direction: column; gap: 0.4rem;
+    }
+    .demo-outputs li {
+      font-size: 0.84rem; color: var(--text-muted);
+      padding-right: 1.3rem; position: relative;
+    }
+    .demo-outputs li::before { content: "✓"; color: var(--green); position: absolute; right: 0; }
+    .demo-img-row {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 1rem; margin-top: 1.2rem;
+    }
+    .prompt-box {
+      background: var(--bg); border: 1px solid var(--border);
+      border-radius: var(--radius-sm); padding: 1rem 1.2rem; margin-top: 1rem;
+    }
+    .prompt-box-label { font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.5rem; }
+    .prompt-box-text { font-family: var(--mono); font-size: 0.78rem; color: var(--text-muted); line-height: 1.7; white-space: pre-wrap; direction: ltr; text-align: left; }
+
+    /* ── BOUNDARY ── */
+    .boundary-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 2rem; }
+    .boundary-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 1.4rem 1.5rem;
+    }
+    .boundary-card.good { border-color: rgba(76,175,125,0.3); }
+    .boundary-card.risk { border-color: rgba(224,90,90,0.25); }
+    .bullet-list { list-style: none; margin-top: 0.9rem; display: flex; flex-direction: column; gap: 0.5rem; }
+    .bullet-list li { font-size: 0.84rem; color: var(--text-muted); padding-right: 1.3rem; position: relative; line-height: 1.65; }
+    .good .bullet-list li::before { content: "✓"; color: var(--green); position: absolute; right: 0; }
+    .risk .bullet-list li::before { content: "!";  color: var(--red);   position: absolute; right: 0; }
+
+    /* ── CTA SECTION ── */
+    .cta-section {
+      background:
+        radial-gradient(circle at 30% 50%, rgba(184,196,90,0.08), transparent 40%),
+        var(--surface);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 5rem 2rem;
+    }
+    .cta-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1rem; margin-top: 2rem; }
+    .cta-card {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 1.5rem;
+      display: block;
+      transition: border-color 0.22s, transform 0.22s;
+    }
+    .cta-card:hover { border-color: var(--accent-border); transform: translateY(-4px); }
+    .cta-card-num { font-family: var(--mono); font-size: 0.62rem; color: var(--text-faint); letter-spacing: 0.1em; margin-bottom: 0.4rem; }
+    .cta-card-title { font-size: 0.95rem; font-weight: 700; margin-bottom: 0.3rem; }
+    .cta-card-desc  { font-size: 0.82rem; color: var(--text-muted); line-height: 1.6; margin-bottom: 0.6rem; }
+    .cta-card-link  { font-size: 0.72rem; color: var(--accent); font-family: var(--mono); }
+
+    .contact-bar {
+      display: flex; flex-wrap: wrap; gap: 1.5rem;
+      margin-top: 2.5rem; align-items: center;
+    }
+    .contact-item {
+      display: flex; align-items: center; gap: 0.5rem;
+      font-size: 0.9rem; color: var(--text-muted);
+    }
+    .contact-item span { color: var(--accent); font-weight: 700; }
+
+    .primary-btn {
+      display: inline-block;
+      background: var(--accent);
+      color: #0b0d10;
+      padding: 0.9rem 2.2rem;
+      border-radius: var(--radius-sm);
+      font-size: 0.94rem; font-weight: 800;
+      transition: background 0.2s, transform 0.2s;
+      margin-top: 1.5rem;
+    }
+    .primary-btn:hover { background: var(--accent-strong); transform: translateY(-2px); }
+
+    /* ── CLOSING SLIDE (what we'll do — moved to end) ── */
+    .agenda-overview {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 1.4rem 1.5rem;
+    }
+    .agenda-overview-item {
+      display: flex; gap: 1rem; padding: 0.7rem 0;
+      border-bottom: 1px solid var(--border);
+      align-items: flex-start;
+    }
+    .agenda-overview-item:last-child { border-bottom: none; }
+    .agenda-num {
+      font-family: var(--mono); font-size: 0.7rem;
+      color: var(--accent); min-width: 28px; padding-top: 0.2rem;
+    }
+    .agenda-text { font-size: 0.88rem; color: var(--text-muted); line-height: 1.6; }
+    .agenda-text strong { color: var(--text); }
+
+    /* ── SERIES BANNER ── */
+    .series-banner {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: 2.4rem 2rem;
+    }
+    .series-banner-inner { max-width: 1100px; margin: 0 auto; }
+    .series-label {
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.14em;
+      color: var(--text-faint);
+      text-transform: uppercase;
+      margin-bottom: 0.6rem;
+    }
+    .series-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      margin-bottom: 0.4rem;
+    }
+    .series-sub {
+      font-size: 0.82rem;
+      color: var(--text-faint);
+      margin-bottom: 1.6rem;
+    }
+    .series-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.9rem;
+    }
+    @media (min-width: 700px)  { .series-grid { grid-template-columns: repeat(3, 1fr); } }
+    @media (min-width: 1000px) { .series-grid { grid-template-columns: repeat(5, 1fr); } }
+    .series-card {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 1rem 1.1rem;
+      transition: transform 0.22s, box-shadow 0.22s;
+    }
+    .series-card:hover { transform: translateY(-4px); box-shadow: 0 12px 36px rgba(0,0,0,0.4); }
+    .series-card.active {
+      border-color: var(--accent);
+      background: var(--accent-dim);
+    }
+    .series-card-num {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      color: var(--text-faint);
+      margin-bottom: 0.35rem;
+    }
+    .series-card.active .series-card-num { color: var(--accent); }
+    .series-card-title {
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      margin-bottom: 0.3rem;
+      line-height: 1.4;
+    }
+    .series-card.active .series-card-title { color: var(--text); }
+    .series-card-tags {
+      font-size: 0.7rem;
+      color: var(--text-faint);
+      line-height: 1.5;
+    }
+    .series-card.active .series-card-tags { color: var(--accent); }
+
+    /* ── DOWNLOAD BUTTON (luxury) ── */
+    .lux-download {
+      display: block;
+      position: relative;
+      background: linear-gradient(135deg, var(--surface2) 0%, var(--surface) 100%);
+      border: 1px solid var(--accent-border);
+      border-radius: var(--radius-lg);
+      padding: 2.2rem 2rem;
+      text-align: center;
+      margin-top: 2.2rem;
+      max-width: 640px;
+      margin-left: auto; margin-right: auto;
+      overflow: hidden;
+      transition: transform 0.25s, border-color 0.25s, box-shadow 0.25s;
+    }
+    .lux-download::before {
+      content: "";
+      position: absolute; inset: 0;
+      background: radial-gradient(circle at 30% 20%, rgba(184,196,90,0.14), transparent 55%);
+      pointer-events: none;
+    }
+    .lux-download:hover { transform: translateY(-4px); border-color: var(--accent); box-shadow: 0 20px 50px rgba(184,196,90,0.15); }
+    .lux-download-eyebrow {
+      font-family: var(--mono); font-size: 0.66rem; letter-spacing: 0.16em;
+      text-transform: uppercase; color: var(--accent); margin-bottom: 0.7rem;
+      position: relative;
+    }
+    .lux-download-title {
+      font-size: 1.4rem; font-weight: 900; color: var(--text);
+      margin-bottom: 0.6rem; position: relative;
+    }
+    .lux-download-desc {
+      font-size: 0.9rem; color: var(--text-muted); line-height: 1.7;
+      margin-bottom: 1.6rem; position: relative;
+      max-width: 460px; margin-left: auto; margin-right: auto;
+    }
+    .lux-download-btn {
+      display: inline-block;
+      background: linear-gradient(135deg, var(--accent-strong), var(--accent));
+      color: #0b0d10;
+      padding: 1.05rem 2.8rem;
+      border-radius: var(--radius-sm);
+      font-size: 1rem; font-weight: 800; letter-spacing: 0.01em;
+      box-shadow: 0 10px 30px rgba(184,196,90,0.25);
+      position: relative;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .lux-download-btn:hover { transform: translateY(-2px) scale(1.02); box-shadow: 0 14px 38px rgba(184,196,90,0.35); }
+
+    /* ── CODE PANELS (Skill anatomy) ── */
+    .code-panel {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 1rem 1.2rem;
+      font-family: var(--mono);
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      line-height: 1.9;
+      direction: ltr;
+      text-align: left;
+      white-space: pre-wrap;
+    }
+    .code-panel-label {
+      font-family: var(--mono); font-size: 0.66rem; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--accent); margin-bottom: 0.6rem;
+    }
+    .code-lines {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 1.2rem 1.4rem;
+      margin: 0;
+      font-family: var(--mono);
+      font-size: 0.76rem;
+      color: var(--text-muted);
+      line-height: 2;
+      direction: ltr;
+      text-align: left;
+      overflow-x: auto;
+    }
+    .code-lines li { list-style: decimal; color: var(--text-faint); padding-inline-start: 0.6rem; }
+    .code-lines li::marker { color: var(--text-faint); }
+    .code-lines li b { color: var(--accent); font-weight: 700; }
+    .anatomy-icon {
+      width: 60px; height: 60px; border-radius: 50%;
+      background: var(--accent-dim); border: 1px solid var(--accent-border);
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 1rem; font-size: 1.5rem; color: var(--accent);
+    }
+    .anatomy-num { font-family: var(--mono); font-size: 0.7rem; color: var(--accent); margin-bottom: 0.5rem; text-align:center; }
+    .skillmd-item { display:flex; gap:0.9rem; align-items:flex-start; margin-bottom:1.2rem; }
+    .skillmd-item-icon { width:36px; height:36px; border-radius:50%; background:var(--accent-dim); border:1px solid var(--accent-border); display:flex; align-items:center; justify-content:center; flex-shrink:0; color:var(--accent); font-size:1rem; }
+    .skillmd-item-title { font-weight:700; font-size:0.9rem; margin-bottom:0.2rem; color:var(--text); }
+    .skillmd-item-desc { font-size:0.82rem; color:var(--text-muted); line-height:1.6; }
+
+    /* ── FOOTER ── */
+    .site-footer {
+      padding: 2.5rem 2rem;
+      border-top: 1px solid var(--border);
+      text-align: center;
+    }
+    .site-footer p {
+      font-family: var(--mono); font-size: 0.72rem;
+      color: var(--text-faint); letter-spacing: 0.05em;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 1080px) {
+      .grid-4 { grid-template-columns: repeat(2,1fr); }
+      .cta-grid { grid-template-columns: repeat(2,1fr); }
+      .workflow { grid-template-columns: repeat(3,1fr); }
+    }
+    @media (max-width: 860px) {
+      .intro-grid, .grid-2, .boundary-grid, .demo-img-row { grid-template-columns: 1fr; }
+      .grid-3, .cta-grid { grid-template-columns: repeat(2,1fr); }
+      .workflow { grid-template-columns: repeat(2,1fr); }
+    }
+    @media (max-width: 620px) {
+      section { padding: 3.5rem 1.2rem; }
+      .grid-3, .cta-grid, .grid-4 { grid-template-columns: 1fr; }
+      .workflow { grid-template-columns: 1fr; }
+      .topbar { padding: 0.8rem 1rem; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══ TOPBAR ══ -->
+<header class="topbar">
+  <span class="topbar-brand">AI Finance Transformation</span>
+  <nav class="topbar-nav">
+    <a href="#title">פתיחה</a>
+    <a href="#about">אודותי</a>
+    <a href="#why-skill">למה בכלל</a>
+    <a href="#what-is-skill">מה זה Skill</a>
+    <a href="#anatomy">אנטומיה</a>
+    <a href="#setup">איך בונים</a>
+    <a href="#demo1">Demo — Variance</a>
+    <a href="#governance">גבולות</a>
+    <a href="#cta">שירותים</a>
+  </nav>
+</header>
+
+<!-- ═══ SERIES BANNER ═══ -->
+<div class="series-banner">
+  <div class="series-banner-inner">
+    <div class="series-label">AI FINANCE TRANSFORMATION — WEBINAR SERIES</div>
+    <div class="series-title">סדרת וובינרים: Claude לאנשי כספים</div>
+    <div class="series-sub">5 מפגשים | מהיכרות ועד אוטומציה מלאה לצוות הכספים</div>
+    <div class="series-grid">
+      <div class="series-card">
+        <div class="series-card-num">WEBINAR 01 — הושלם</div>
+        <div class="series-card-title">סביבת העבודה של Claude — המדריך המלא לאיש הכספים</div>
+        <div class="series-card-tags">Projects · Files · Artifacts · Chrome · Excel</div>
+      </div>
+      <div class="series-card">
+        <div class="series-card-num">WEBINAR 02 — הושלם</div>
+        <div class="series-card-title">Excel ו־PowerPoint עם Claude — מנתונים גולמיים לתוצר מוכן</div>
+        <div class="series-card-tags">Excel · PowerPoint · דוחות · מצגות</div>
+      </div>
+      <div class="series-card">
+        <div class="series-card-num">WEBINAR 03 — הושלם</div>
+        <div class="series-card-title">Live Artifacts ואינטגרציות — מתשובה ל-Output שממשיך לעבוד</div>
+        <div class="series-card-tags">Artifacts · Connectors · Scheduling · Skills</div>
+      </div>
+      <div class="series-card">
+        <div class="series-card-num">WEBINAR 04 — הושלם</div>
+        <div class="series-card-title">Projects ואוטומציה — בניית סביבת עבודה חכמה לצוות הכספים</div>
+        <div class="series-card-tags">Projects · Workflows · Team Automation · 13W Cash Flow</div>
+      </div>
+      <div class="series-card active">
+        <div class="series-card-num">WEBINAR 05 — עכשיו</div>
+        <div class="series-card-title">Skills — מתכון העבודה של Claude לצוות הכספים</div>
+        <div class="series-card-tags">Custom Skills · Cowork · Local Tools</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- SLIDE 1 — כותרת הוובינר                              -->
+<!-- ══════════════════════════════════════════════════════ -->
+<section class="intro-hero" id="title">
+  <div class="inner" style="text-align:center; max-width:800px;">
+    <div class="intro-eyebrow" style="justify-content:center; display:block;">AI Finance Transformation · Skills</div>
+    <h1 class="intro-title" style="font-size: clamp(2.4rem, 6vw, 4.2rem); margin-bottom: 1.4rem;">
+      Skills —<br />
+      <span>תבניות עבודה חכמות</span><br />
+      ב- Claude
+    </h1>
+    <p class="intro-desc" style="margin: 0 auto 2.2rem; font-size:1.1rem;">
+      איך הופכים "Prompt" שכותבים כל חודש מחדש — למתכון אחד ששומרים פעם, ומפעילים אחר כך בשם. בסוף השעה הזאת כל אחד מכם יצא עם Skill עובד.
+    </p>
+    <div style="display:flex; justify-content:center; gap:2.5rem; flex-wrap:wrap; margin-top:1rem;">
+      <div class="metric-card" style="min-width:140px;">
+        <div class="metric-number">60 דק'</div>
+        <div class="metric-text">פרקטי לחלוטין</div>
+      </div>
+      <div class="metric-card" style="min-width:140px;">
+        <div class="metric-number">2 Demos</div>
+        <div class="metric-text">בונים ומתקנים חי, על המסך</div>
+      </div>
+      <div class="metric-card" style="min-width:140px;">
+        <div class="metric-number">Day 1</div>
+        <div class="metric-text">סקיל שתוכלו לבנות כבר מחר</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- SLIDE 2 — About Me (קבוע)                            -->
+<!-- ══════════════════════════════════════════════════════ -->
+<section class="section-alt" id="about">
+  <div class="inner intro-grid">
+    <div>
+      <div class="section-label">SLIDE 02 · אודותי</div>
+      <h2 class="section-title">רונן עמוס — <span>רואה חשבון טכנולוגי</span></h2>
+      <p class="intro-desc">
+        התחלתי כרו"ח קלאסי. לפני כמה שנים הבנתי שה-AI לא הולך לחכות לאף אחד — אז החלטתי להיות הגשר בין עולם הכספים לעולם הטכנולוגיה.
+      </p>
+
+      <div class="grid-2" style="margin-top:1.8rem; gap:0.8rem;">
+        <div class="card" style="background: var(--surface2);">
+          <div class="card-kicker">מקצועי</div>
+          <div class="card-title">CPA עם 10+ שנות ניסיון</div>
+          <div class="card-desc">ייעוץ כספי, ביקורת, ודוחות — ועכשיו גם AI Workflows, אוטומציות ו-Low-Code לכספים.</div>
+        </div>
+        <div class="card" style="background: var(--surface2);">
+          <div class="card-kicker">מתמחה ב...</div>
+          <div class="card-title">AI לכספים</div>
+          <div class="card-desc">מחבר בין Claude, Gemini וכלי AI לתהליכי ERP, דיווח, ניתוח וסגירות חודש.</div>
+        </div>
+        <div class="card" style="background: var(--surface2);">
+          <div class="card-kicker">לקוחות</div>
+          <div class="card-title">CFOs, סמנכ"לי כספים, רו"ח</div>
+          <div class="card-desc">עסקים ישראליים, פרילנסרים ומקצועות מורשים שרוצים לחסוך זמן ולקבל תובנות טובות יותר.</div>
+        </div>
+        <div class="card" style="background: var(--surface2);">
+          <div class="card-kicker">קהילה</div>
+          <div class="card-title">AI Finance Transformation</div>
+          <div class="card-desc">ערוץ YouTube, קהילת WhatsApp, LinkedIn — תוכן שבועי בעברית על AI לכספים.</div>
+        </div>
+      </div>
+
+      <div class="tag-list" style="margin-top:1.5rem;">
+        <span class="tag">CPA</span>
+        <span class="tag">AI Workflows</span>
+        <span class="tag">Low-Code Automation</span>
+        <span class="tag">CFO Advisory</span>
+        <span class="tag">Excel + Claude</span>
+      </div>
+    </div>
+
+   <div>
+  <img src="images/image0.png" alt="רונן עמוס — AI Finance Transformation" style="width:100%; min-height:380px; object-fit:cover; border-radius:var(--radius-md); border:1px solid var(--accent-border);">
+</div>
+
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- SLIDE 2.5 — למה בכלל צריך Skills                     -->
+<!-- ══════════════════════════════════════════════════════ -->
+<section id="why-skill">
+  <div class="inner">
+    <div class="section-label">SLIDE 02.5 · למה בכלל</div>
+    <h2 class="section-title">למה בכלל צריך <span>Skills</span>?</h2>
+    <p class="section-desc">כמה פעמים בשבוע עשיתם את אחד הדברים האלה?</p>
+
+    <div class="grid-4">
+      <div class="card" style="text-align:center;">
+        <div style="width:34px; height:34px; border-radius:50%; border:1px solid var(--red); color:var(--red); display:flex; align-items:center; justify-content:center; margin:0 auto 0.9rem; font-weight:800;">✕</div>
+        <div class="card-desc">כתבתם שוב את אותו Prompt שכבר כתבתם בחודש שעבר.</div>
+      </div>
+      <div class="card" style="text-align:center;">
+        <div style="width:34px; height:34px; border-radius:50%; border:1px solid var(--red); color:var(--red); display:flex; align-items:center; justify-content:center; margin:0 auto 0.9rem; font-weight:800;">✕</div>
+        <div class="card-desc">תיקנתם שוב ושוב את אותה תשובה עד שקיבלתם את הפורמט שרציתם.</div>
+      </div>
+      <div class="card" style="text-align:center;">
+        <div style="width:34px; height:34px; border-radius:50%; border:1px solid var(--red); color:var(--red); display:flex; align-items:center; justify-content:center; margin:0 auto 0.9rem; font-weight:800;">✕</div>
+        <div class="card-desc">שלחתם לעמית את ה-Prompt שלכם עם ההסבר: "פשוט תעתיק את זה".</div>
+      </div>
+      <div class="card" style="text-align:center;">
+        <div style="width:34px; height:34px; border-radius:50%; border:1px solid var(--red); color:var(--red); display:flex; align-items:center; justify-content:center; margin:0 auto 0.9rem; font-weight:800;">✕</div>
+        <div class="card-desc">קיבלתם תוצאה שונה למרות שהשתמשתם כמעט באותו Prompt.</div>
+      </div>
+    </div>
+
+    <div style="background:rgba(224,90,90,0.07); border:1px solid rgba(224,90,90,0.28); border-radius:var(--radius-md); padding:1.2rem 1.5rem; margin-top:1.6rem; text-align:center;">
+      <span style="color:var(--text); font-weight:700;">⚠ הבעיה היא לא ה-AI.</span>
+      <span style="color:var(--text-muted);"> הבעיה היא שהידע שלכם נשאר בתוך Prompt חד-פעמי.</span>
+    </div>
+
+    <div style="text-align:center; margin:1.6rem 0 0.4rem; color:var(--accent); font-size:1.4rem;">▾</div>
+
+    <div style="border:1px solid var(--accent-border); border-radius:var(--radius-lg); padding:1.8rem; margin-top:0.2rem;">
+      <h3 style="text-align:center; font-size:1.15rem; font-weight:800; margin-bottom:1.6rem;">ופה נכנסים <span style="color:var(--accent);">Skills</span>.</h3>
+
+      <div style="display:flex; flex-wrap:wrap; align-items:center; justify-content:center; gap:1rem;">
+        <div style="display:flex; flex-direction:column; align-items:center; gap:0.6rem; max-width:130px;">
+          <div style="width:56px; height:56px; border-radius:50%; border:1px solid var(--accent-border); color:var(--accent); display:flex; align-items:center; justify-content:center; font-size:1.3rem;">📝</div>
+          <div style="font-size:0.82rem; color:var(--text-muted); text-align:center;">מגדירים את ההוראות פעם אחת.</div>
+        </div>
+        <div style="color:var(--accent); font-size:1.2rem;">←</div>
+        <div style="display:flex; flex-direction:column; align-items:center; gap:0.6rem; max-width:130px;">
+          <div style="width:56px; height:56px; border-radius:50%; border:1px solid var(--accent-border); color:var(--accent); display:flex; align-items:center; justify-content:center; font-size:1.3rem;">🧠</div>
+          <div style="font-size:0.82rem; color:var(--text-muted); text-align:center;">Claude שומר את זה כ-Skill.</div>
+        </div>
+        <div style="color:var(--accent); font-size:1.2rem;">←</div>
+        <div style="display:flex; flex-direction:column; align-items:center; gap:0.6rem; max-width:130px;">
+          <div style="width:56px; height:56px; border-radius:50%; border:1px solid var(--accent-border); color:var(--accent); display:flex; align-items:center; justify-content:center; font-size:1.3rem;">👥</div>
+          <div style="font-size:0.82rem; color:var(--text-muted); text-align:center;">כל הצוות משתמש באותו Skill.</div>
+        </div>
+        <div style="color:var(--accent); font-size:1.2rem;">←</div>
+        <div style="display:flex; flex-direction:column; align-items:center; gap:0.6rem; max-width:130px;">
+          <div style="width:56px; height:56px; border-radius:50%; border:1px solid var(--accent-border); color:var(--accent); display:flex; align-items:center; justify-content:center; font-size:1.3rem;">🎯</div>
+          <div style="font-size:0.82rem; color:var(--text-muted); text-align:center;">מקבלים תוצאה עקבית, מהירה ואיכותית.</div>
+        </div>
+
+        <div style="background:var(--accent); color:#0b0d10; border-radius:var(--radius-md); padding:1.1rem 1.4rem; font-weight:800; font-size:0.92rem; text-align:center; line-height:1.6; max-width:220px; margin-inline-start:0.6rem;">
+          חוסכים זמן.<br>משפרים איכות.<br>יוצרים סטנדרט.
+        </div>
+      </div>
+    </div>
+
+    <div style="border:1px dashed var(--accent-border); border-radius:var(--radius-md); padding:1.1rem 1.4rem; margin-top:1.6rem; text-align:center; color:var(--text-muted); font-size:0.88rem;">
+      💡 אם מצאתם את עצמכם כותבים את אותו Prompt יותר מפעם אחת — <strong style="color:var(--text);">כנראה שהגיע הזמן להפוך אותו ל-Skill.</strong>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- SLIDE 3 — מה זה Skill                                -->
+<!-- ══════════════════════════════════════════════════════ -->
+<section id="what-is-skill">
+  <div class="inner">
+    <div class="section-label">SLIDE 03 · מה זה Skill</div>
+    <h2 class="section-title">מתכון עבודה ש-Claude זוכר — <span>כדי שלא תכתבו אותו Prompt פעמיים</span></h2>
+    <p class="section-desc">
+      תארו לעצמכם שבכל סוף חודש אתם כותבים את אותו Prompt ל-Variance Commentary. <strong style="color:var(--text)">Skill</strong> הוא הדרך לשמור את ההוראות האלה פעם אחת — וכל פעם שצריך, פשוט מפעילים אותן בשם. זה כמו מתכון עבודה למטבח: כתבתם פעם איך מכינים את המנה, ומאז כל מי שפותח את המתכון מקבל בדיוק את אותה תוצאה. ה-Skill הוא הזיכרון המוסדי של מחלקת הכספים שלכם — עקבי, חוזר על עצמו, וניתן לשיתוף עם הצוות.
+    </p>
+
+    <table class="model-table">
+      <thead>
+        <tr>
+          <th>מאפיין</th>
+          <th style="color:var(--accent);">Skill</th>
+          <th>Project</th>
+          <th>Connector</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>מה זה</td>
+          <td class="highlight">מתכון עבודה חוזר</td>
+          <td>סביבת עבודה עם זיכרון</td>
+          <td>חיבור למערכת חיצונית</td>
+        </tr>
+        <tr>
+          <td>שומר</td>
+          <td class="highlight">הוראות + פורמט קבוע</td>
+          <td>הקשר ומסמכים לנושא מתמשך</td>
+          <td>גישה לנתונים חיים</td>
+        </tr>
+        <tr>
+          <td>מתי להשתמש</td>
+          <td class="highlight">פעולה חוזרת באותו פורמט</td>
+          <td>נושא מתמשך (למשל תקציב FY27)</td>
+          <td>נתונים מ-ERP / Drive / Slack</td>
+        </tr>
+        <tr>
+          <td>דוגמה</td>
+          <td class="highlight">Variance Commentary</td>
+          <td>סגירת חודש רבעונית</td>
+          <td>חיבור ל-QuickBooks</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="insight-box">
+      <div class="insight-box-title">ה-Insight הכי חשוב</div>
+      <div class="insight-box-text">
+        אם אתם מוצאים את עצמכם כותבים את <strong>אותו Prompt</strong> שוב ושוב — זה הסימן שהגיע הזמן להפוך אותו ל-Skill. דקה של השקעה היום חוסכת שעות בכל חודש, ומבטיחה שכל המחלקה מקבלת את אותה איכות פלט.
+      </div>
+    </div>
+
+    <div style="margin-top:2rem;">
+      <img src="images/image1.png" alt="מסך Skills בממשק Claude — רשימת סקילים שמורים" style="width:100%; border-radius:var(--radius-md); border:1px solid var(--accent-border);">
+      <div class="img-placeholder-desc" style="text-align:center; margin-top:0.6rem;">מסך Skills בממשק Claude — רשימת סקילים שמורים</div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- SLIDE 4 — האנטומיה של Skill                          -->
+<!-- ══════════════════════════════════════════════════════ -->
+<section class="section-alt" id="anatomy">
+  <div class="inner">
+    <div class="section-label">SLIDE 04 · האנטומיה של Skill</div>
+    <h2 class="section-title">Skill הוא לא Prompt חזק. <span>הוא סביבת עבודה קטנה.</span></h2>
+
+    <div class="grid-3">
+      <div>
+        <div class="anatomy-num">01</div>
+        <div class="anatomy-icon">📁</div>
+        <div class="card-title" style="text-align:center;">Skill Folder</div>
+        <div class="card-desc" style="text-align:center;">תיקיית ה-Skill — בדרך כלל ה-Skill מגיע כקובץ ZIP שנפתח לתיקייה. התיקייה היא ה"בית" של ה-Skill.</div>
+      </div>
+      <div>
+        <div class="anatomy-num">02</div>
+        <div class="anatomy-icon">📄</div>
+        <div class="card-title" style="text-align:center;">SKILL.md</div>
+        <div class="card-desc" style="text-align:center;">קובץ ההגדרות וההוראות — זהו קובץ ה-Markdown המרכזי שמנחה את Claude: מה ה-Skill עושה, מתי להשתמש בו, איך לבצע את המשימה ומהו הפלט הרצוי.</div>
+      </div>
+      <div>
+        <div class="anatomy-num">03</div>
+        <div class="anatomy-icon">🛠️</div>
+        <div class="card-title" style="text-align:center;">Resources & Tools</div>
+        <div class="card-desc" style="text-align:center;">כל מה שה-Skill צריך כדי לבצע את העבודה — עזר, Templates, References, מסמכים, דוגמאות, Scripts, Python, VBA או כלים נוספים.</div>
+      </div>
+    </div>
+
+    <h2 class="section-title" style="margin-top:3rem; font-size:1.4rem;">מבנה מומלץ</h2>
+
+    <div class="grid-2">
+      <div>
+        <div class="code-panel-label">המבנה המינימלי</div>
+        <div class="code-panel">Skill Folder/
+└── SKILL.md</div>
+      </div>
+      <div>
+        <div class="code-panel-label">מבנה מתקדם</div>
+        <div class="code-panel">Skill Folder/
+├── SKILL.md
+├── references/
+├── templates/
+├── scripts/
+└── assets/</div>
+      </div>
+    </div>
+
+    <div style="border:1px dashed var(--accent-border); border-radius:var(--radius-md); padding:1.1rem 1.4rem; margin-top:1.6rem; text-align:center; color:var(--text-muted); font-size:0.88rem;">
+      ⭐ לא כל Skill צריך את כל החלקים. <strong style="color:var(--text);">אבל כל Skill צריך הוראה ברורה — וזה תמיד יגיע ב-SKILL.md.</strong>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- SLIDE 4.5 — מה יש בתוך SKILL.md?                      -->
+<!-- ══════════════════════════════════════════════════════ -->
+<section id="inside-skill">
+  <div class="inner">
+    <div class="section-label">SLIDE 04.5 · מה יש בתוך SKILL.md?</div>
+    <h2 class="section-title">הקובץ שמנחה את <span>Claude</span></h2>
+    <p class="section-desc">דוגמה למבנה בתוך SKILL.md — כך נראה סקיל Variance Commentary מבפנים.</p>
+
+    <div class="grid-2" style="align-items:start; margin-top:2rem;">
+      <ol class="code-lines">
+        <li># Variance Commentary Skill</li>
+        <li>&nbsp;</li>
+        <li>## 1. Name<br>Variance Commentary</li>
+        <li>&nbsp;</li>
+        <li>## 2. Description<br>כותב ניתוח סעיפים בין תקציב לבפועל (Variance) בטקסט מקצועי וברור.</li>
+        <li>&nbsp;</li>
+        <li>## 3. When to Use<br>כשמתעדכנת טבלת Budget/Actual עם נתונים חדשים.</li>
+        <li>&nbsp;</li>
+        <li>## 4. Instructions<br>- לפי כל שורה מעל Threshold.<br>- הסבר את הסיבה העיקרית לחריגה.<br>- הצע פעולה מומלצת.<br>- כתוב בשפה ברורה ומקצועית.<br>- מבנה הפלט: Summary, Drivers, Action.</li>
+        <li>&nbsp;</li>
+        <li>## 5. Input Format<br>טבלה עם עמודות: Account, Budget, Actual, Variance, % Variance</li>
+        <li>&nbsp;</li>
+        <li>## 6. Output Format<br>Markdown עם שלושה חלקים: Summary, Drivers, Action</li>
+        <li>&nbsp;</li>
+        <li>## 7. Examples<br>### Input (Example)<br>&lt;טבלת דוגמה כאן&gt;<br><br>### Output (Example)<br>&lt;פלט דוגמה כאן&gt;</li>
+      </ol>
+
+      <div>
+        <div class="skillmd-item">
+          <div class="skillmd-item-icon">🏷️</div>
+          <div>
+            <div class="skillmd-item-title">שם</div>
+            <div class="skillmd-item-desc">איך מפעילים את ה-Skill</div>
+          </div>
+        </div>
+        <div class="skillmd-item">
+          <div class="skillmd-item-icon">ℹ️</div>
+          <div>
+            <div class="skillmd-item-title">תיאור</div>
+            <div class="skillmd-item-desc">מה ה-Skill עושה ולמי הוא מיועד</div>
+          </div>
+        </div>
+        <div class="skillmd-item">
+          <div class="skillmd-item-icon">🎯</div>
+          <div>
+            <div class="skillmd-item-title">מתי להשתמש</div>
+            <div class="skillmd-item-desc">באילו מצבים מפעילים את ה-Skill ולא</div>
+          </div>
+        </div>
+        <div class="skillmd-item">
+          <div class="skillmd-item-icon">📋</div>
+          <div>
+            <div class="skillmd-item-title">הוראות</div>
+            <div class="skillmd-item-desc">שלב אחר שלב — מה לעשות ואיך</div>
+          </div>
+        </div>
+        <div class="skillmd-item">
+          <div class="skillmd-item-icon">📥</div>
+          <div>
+            <div class="skillmd-item-title">פורמט קלט</div>
+            <div class="skillmd-item-desc">איך הנתונים צריכים להיראות</div>
+          </div>
+        </div>
+        <div class="skillmd-item">
+          <div class="skillmd-item-icon">📤</div>
+          <div>
+            <div class="skillmd-item-title">פורמט פלט</div>
+            <div class="skillmd-item-desc">איך התשובה צריכה להיראות</div>
+          </div>
+        </div>
+        <div class="skillmd-item">
+          <div class="skillmd-item-icon">🧩</div>
+          <div>
+            <div class="skillmd-item-title">דוגמאות</div>
+            <div class="skillmd-item-desc">קלט ופלט לדוגמה שמבהירים את המשימה</div>
+          </div>
+        </div>
+
+        <img src="images/image2.png" alt="דוגמה אמיתית לסקיל fpa-commentary" style="width:100%; border-radius:var(--radius-md); border:1px solid var(--accent-border); margin-top:0.6rem;">
+      </div>
+    </div>
+
+    <div style="border:1px dashed var(--accent-border); border-radius:var(--radius-md); padding:1.1rem 1.4rem; margin-top:2rem; text-align:center; color:var(--text-muted); font-size:0.88rem;">
+      💡 דוגמאות טובות = תוצאות עקביות. <strong style="color:var(--text);">תנו ל-Claude דוגמה אחת טובה — והוא יחזור עליה בכל פעם.</strong>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- SLIDE 5 — איך בונים בפועל                           -->
+<!-- ══════════════════════════════════════════════════════ -->
+<section id="setup">
+  <div class="inner">
+    <div class="section-label">SLIDE 05 · יישום</div>
+    <h2 class="section-title">איך מגדירים סקיל — <span>בממשק Claude</span></h2>
+    <p class="section-desc">שלושה שלבים פשוטים, בלי צורך בידע טכני.</p>
+
+    <div class="steps">
+      <div class="step-item">
+        <div class="step-item-num">1</div>
+        <div class="step-item-content">
+          <div class="step-item-title">צור — פתחו Skill חדש</div>
+          <div class="step-item-desc">בהגדרות Claude, "Skills" → "Create New" → תנו לו שם קצר וברור.</div>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-item-num">2</div>
+        <div class="step-item-content">
+          <div class="step-item-title">כתבו — Instructions + Example</div>
+          <div class="step-item-desc">הגדירו את הפורמט, הטון והשפה, והוסיפו דוגמת קלט-פלט אחת.</div>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-item-num">3</div>
+        <div class="step-item-content">
+          <div class="step-item-title">בדקו — הריצו על נתונים אמיתיים</div>
+          <div class="step-item-desc">תנו לו קלט אמיתי מהעבודה שלכם ובדקו שהפלט תואם למה שציפיתם.</div>
+        </div>
+      </div>
+    </div>
+
+    <div style="position:relative; padding-bottom:56.25%; height:0; overflow:hidden; border-radius:var(--radius-md); border:1px solid var(--accent-border); margin-top:2rem; max-width:800px; margin-left:auto; margin-right:auto;">
+      <iframe
+        src="https://www.youtube.com/embed/opfuy7WrmFE"
+        title="איך מגדירים Skill בממשק Claude"
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        allowfullscreen
+        style="position:absolute; top:0; right:0; width:100%; height:100%;">
+      </iframe>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- SLIDE 6 — Demo 1: בונים Variance Commentary Skill    -->
+<!-- ══════════════════════════════════════════════════════ -->
+<section class="section-alt" id="demo1">
+  <div class="inner">
+    <div class="section-label">SLIDE 06 · הדגמה חיה 1</div>
+    <h2 class="section-title">בונים ביחד — <span>Variance Commentary Skill</span></h2>
+    <p class="section-desc">הסקיל הכי שימושי לכל CFO וקונטרולר: מקבל נתוני Actual vs Budget ומחזיר commentary מקצועי, קצר ואחיד — לכל שורה בדוח.</p>
+
+    <div class="demo-card">
+      <div class="demo-body">
+        <div class="demo-label">האתגר</div>
+        <div class="demo-desc">כל סגירת חודש, מישהו כותב ידנית הסברים לחריגות בדוח — בטון שונה, באורך שונה, ולפעמים שוכח לציין פעולה נדרשת.</div>
+
+        <div class="demo-label" style="margin-top:1.2rem;">הפתרון — הגדרת הסקיל</div>
+        <div class="prompt-box">
+          <div class="prompt-box-label">SKILL.md — fpa-commentary</div>
+          <div class="prompt-box-text">---
+name: fpa-commentary
+description: Writes FP&amp;A variance commentary for the CFO pack.
+  Use when asked for monthly commentary, variance analysis, or CFO reporting.
+---
+# FP&amp;A Commentary
+
+When writing variance commentary:
+1. Start with a 2-sentence executive summary
+2. Call out the top 3 drivers (positive and negative)
+3. One paragraph per business unit
+4. Flag anything +/- 5% vs budget
+5. Tone: direct, no jargon, CFO-ready</div>
+        </div>
+
+        <div class="demo-label" style="margin-top:1.2rem;">מה זה נותן</div>
+        <ul class="demo-outputs">
+          <li>אותו פורמט בכל שורה, בכל חודש, לא משנה מי בצוות מפעיל את זה</li>
+          <li>חוסך את הכתיבה הידנית החוזרת של אותו סוג ניתוח</li>
+          <li>קל לעדכן — משנים שורה אחת ב-Instructions וכולם מקבלים את השינוי</li>
+        </ul>
+
+        <div style="margin-top:1.2rem;">
+          <img src="images/image2.5.png" alt="מבקשים מ-Claude לבנות סקיל יחד באמצעות skill-creator" style="width:100%; border-radius:var(--radius-md); border:1px solid var(--accent-border);">
+          <div class="img-placeholder-desc" style="text-align:center; margin-top:0.6rem;">מתחילים — מבקשים מ-Claude לבנות את הסקיל יחד</div>
+        </div>
+        <div style="margin-top:1.2rem;">
+          <img src="images/Image4.png" alt="Claude שואל מה הסקיל צריך לעשות, ומקבל את הגדרת ה-fpa-commentary" style="width:100%; border-radius:var(--radius-md); border:1px solid var(--accent-border);">
+          <div class="img-placeholder-desc" style="text-align:center; margin-top:0.6rem;">Claude שואל מה הסקיל צריך לעשות — ומגדיר אותו בפועל</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- SLIDE 7 — Demo 2: בודקים ומתקנים                     -->
+<!-- ══════════════════════════════════════════════════════ -->
+<section id="demo2">
+  <div class="inner">
+    <div class="section-label">SLIDE 07 · הדגמה חיה 2</div>
+    <h2 class="section-title">בודקים על נתונים אמיתיים — <span>ומתקנים</span></h2>
+    <p class="section-desc">סקיל טוב הוא כזה שעובר את מבחן ה-P&amp;L האמיתי. מריצים על 5 שורות, ואז משנים שורה אחת ב-Instructions כדי לראות איך הפלט משתנה בהתאם.</p>
+
+    <div class="demo-card">
+      <div class="demo-body">
+        <div class="demo-label">מריצים על נתוני חברה לדוגמה (Q2 2026)</div>
+        <ul class="demo-outputs">
+          <li>Revenue: 22.4M$ מול 23.0M$ (-2.6%)</li>
+          <li>COGS: 8.2M$ מול 7.6M$ (+7.9%)</li>
+          <li>Gross Profit: 14.2M$ מול 15.4M$ (-7.8%)</li>
+          <li>OpEx: 10.3M$ מול 9.9M$ (+4.0%)</li>
+          <li>EBITDA: 3.9M$ מול 5.5M$ (-29.1%)</li>
+        </ul>
+
+        <div class="demo-label" style="margin-top:1.2rem;">מתקנים חי — אותו Skill, שתי שפות</div>
+        <div class="demo-desc">מריצים את אותו סקיל בדיוק — פעם אחת מבקשים ניתוח באנגלית, פעם שנייה בעברית — ורואים שהפורמט וההיגיון נשארים זהים, רק השפה משתנה. בלי לכתוב מחדש אף Prompt.</div>
+
+        <div style="margin-top:1.2rem;">
+          <img src="images/image6.png" alt="פלט הסקיל באנגלית — ניתוח Actual vs Budget" style="width:100%; border-radius:var(--radius-md); border:1px solid var(--accent-border);">
+          <div class="img-placeholder-desc" style="text-align:center; margin-top:0.6rem;">הפלט באנגלית — Executive Summary + Top Drivers</div>
+        </div>
+        <div style="margin-top:1rem;">
+          <img src="images/image6.5.png" alt="אותו פלט הסקיל בעברית" style="width:100%; border-radius:var(--radius-md); border:1px solid var(--accent-border);">
+          <div class="img-placeholder-desc" style="text-align:center; margin-top:0.6rem;">אותו סקיל, אותו פורמט — הפעם בעברית</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- SLIDE 8 — 3 סקילים נוספים                            -->
+<!-- ══════════════════════════════════════════════════════ -->
+<section class="section-alt" id="demo3">
+  <div class="inner">
+    <div class="section-label">SLIDE 08 · עוד רעיונות</div>
+    <h2 class="section-title">3 סקילים נוספים — <span>שכדאי לבנות השבוע</span></h2>
+    <p class="section-desc">Variance Commentary הוא רק ההתחלה. הנה שלושה סקילים נוספים שרוב מחלקות הכספים יכולות להשתמש בהם כבר מחר.</p>
+
+    <div class="grid-3">
+      <div class="card">
+        <div class="card-kicker">Reporting</div>
+        <div class="card-title">CFO MBR</div>
+        <div class="card-desc">בונה Monthly Business Review מובנה — Highlights, KPIs, Risks, Outlook — באותו פורמט בכל חודש.</div>
+      </div>
+      <div class="card">
+        <div class="card-kicker">Data</div>
+        <div class="card-title">ERP Data Cleaner</div>
+        <div class="card-desc">מנקה ייצוא מה-ERP — מתקנן שמות חשבונות, מסיר כפילויות, ומסמן יתרות אפס לפני כל ניתוח.</div>
+      </div>
+      <div class="card">
+        <div class="card-kicker">Close Process</div>
+        <div class="card-title">Month-End Checklist</div>
+        <div class="card-desc">עובר על רשימת בדיקות סגירת חודש קבועה ומסמן מה חסר — לפני שממשיכים לדוחות.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- SLIDE 8.5 — 7 כללי הזהב לכתיבת Skills                -->
+<!-- ══════════════════════════════════════════════════════ -->
+<section id="golden-rules">
+  <div class="inner">
+    <div class="section-label">SLIDE 08.5 · לפני שממשיכים</div>
+    <h2 class="section-title">7 כללי הזהב — <span>לכתיבת Skills</span></h2>
+    <p class="section-desc">שבעה כללים קצרים שכדאי לזכור בכל פעם שכותבים סקיל חדש.</p>
+
+    <div class="steps">
+      <div class="step-item">
+        <div class="step-item-num">1</div>
+        <div class="step-item-content">
+          <div class="step-item-title">Skill אחד = משימה אחת</div>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-item-num">2</div>
+        <div class="step-item-content">
+          <div class="step-item-title">שם ברור שמתאר את התוצאה</div>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-item-num">3</div>
+        <div class="step-item-content">
+          <div class="step-item-title">הוראות קצרות ומדויקות</div>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-item-num">4</div>
+        <div class="step-item-content">
+          <div class="step-item-title">תמיד דוגמת קלט ופלט</div>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-item-num">5</div>
+        <div class="step-item-content">
+          <div class="step-item-title">להימנע ממידע שמשתנה לעיתים קרובות</div>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-item-num">6</div>
+        <div class="step-item-content">
+          <div class="step-item-title">לבדוק על כמה דוגמאות אמיתיות</div>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-item-num">7</div>
+        <div class="step-item-content">
+          <div class="step-item-title">לשפר את ה-Skill לאורך הזמן</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- SLIDE 9 — Governance / גבולות ובטיחות                -->
+<!-- ══════════════════════════════════════════════════════ -->
+<section class="section-alt" id="governance">
+  <div class="inner">
+    <div class="section-label">SLIDE 09 · גבולות ובטיחות</div>
+    <h2 class="section-title">מה סקיל <span>לא</span> אמור להכיל</h2>
+    <p class="section-desc">סקיל הוא לא תוכן סטטי — הוא הופך להוראות שה-AI פועל לפיהן. הנה הגבולות שמבטיחים שהוא עוזר, ולא מסכן.</p>
+
+    <div class="boundary-grid">
+      <div class="boundary-card good">
+        <div class="card-kicker">✓ מה כן</div>
+        <div class="card-title">איפה סקיל עוזר</div>
+        <ul class="bullet-list">
+          <li>זיכרון מוסדי לצוות — כולם מקבלים אותה איכות פלט</li>
+          <li>עקביות מוחלטת בפורמט ובטון בין הרצות</li>
+          <li>חוסך כתיבה חוזרת של אותן הוראות שוב ושוב</li>
+          <li>קל לעדכן — שינוי אחד במקום אחד משפיע על כולם</li>
+        </ul>
+      </div>
+      <div class="boundary-card risk">
+        <div class="card-kicker">! תמיד לעצור</div>
+        <div class="card-title">איפה חייבים להיזהר</div>
+        <ul class="bullet-list">
+          <li>לעולם לא להכניס סיסמאות, מפתחות API או מידע רגיש לתוך הסקיל</li>
+          <li>לא לסמוך על מספרים שיכולים להתיישן (מדרגות מס, תעריפים) בלי לציין שצריך לבדוק מול המקור</li>
+          <li>לא להחליף שיקול דעת מקצועי בפלט אוטומטי</li>
+          <li>לבדוק כל סקיל שמישהו אחר שלח לפני שמתקינים אותו</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- SLIDE 9.5 — הקלטת הוובינר                           -->
+<!-- ══════════════════════════════════════════════════════ -->
+<section id="webinar-recording">
+  <div class="inner" style="text-align:center;">
+    <div class="section-label">הקלטת הוובינר</div>
+    <h2 class="section-title">צפו בהקלטה המלאה — <span>Skills Webinar</span></h2>
+    <p class="section-desc">פספסתם את הוובינר החי? הנה ההקלטה המלאה. 60 דקות שיוצאות איתכם עם סקיל אחד אמיתי.</p>
+
+    <div style="position:relative; padding-bottom:56.25%; height:0; overflow:hidden; border-radius:var(--radius-md); border:1px solid var(--accent-border); margin-top:2rem; max-width:960px; margin-left:auto; margin-right:auto;">
+      <iframe
+        src="https://www.youtube.com/embed/opfuy7WrmFE"
+        title="Skills — מתכון העבודה של Claude — AI Finance Transformation"
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        allowfullscreen
+        style="position:absolute; top:0; right:0; width:100%; height:100%;">
+      </iframe>
+    </div>
+
+    <a href="https://drive.google.com/drive/folders/1QsEOHPmQOVpaKxT3JEzfxTpcSRzM5NAa?usp=sharing" target="_blank" class="lux-download" style="margin-top:2.2rem;">
+      <div class="lux-download-eyebrow">מתנה לצופים</div>
+      <div class="lux-download-title">✦ ספריית ה-Skills המלאה שלי ✦</div>
+      <div class="lux-download-desc">כל הסקילים שהראיתי היום — ועוד — מוכנים להורדה ולהתקנה ישירה אצלכם. פשוט לוקחים ומתחילים.</div>
+      <span class="lux-download-btn">⬇ להורדת ספריית ה-Skills</span>
+    </a>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- SLIDE 10 — שירותים + כל ה-CTAs (קבוע)                -->
+<!-- ══════════════════════════════════════════════════════ -->
+<section class="cta-section" id="cta">
+  <div class="inner">
+    <div class="section-label">SLIDE 10 · שירותים וצעדים הבאים</div>
+    <h2 class="section-title">שדרוג מחלקת הכספים שלכם — <span>איך ממשיכים מכאן?</span></h2>
+    <p class="section-desc">
+      כל מה שהראיתי היום — ועוד הרבה — נמצא במקום אחד קבוע.
+    </p>
+
+    <a href="https://ronenamoscpa.co.il" target="_blank" class="lux-download" style="max-width:760px; padding:3rem 2.5rem;">
+      <div class="lux-download-eyebrow">המרכז הדיגיטלי שלי</div>
+      <div class="lux-download-title" style="font-size:1.7rem;">✦ AI FINANCE TRANSFORMATION ✦</div>
+      <div class="lux-download-desc" style="max-width:560px;">הצטרפו לאתר וקבלו גישה קבועה להקלטות וובינרים, תוכן שבועי, מדריכים מעשיים, משאבים להורדה, ספריית פרומפטים וכלי AI לכספים — הכל במקום אחד, מתעדכן כל הזמן.</div>
+      <span class="lux-download-btn">🌐 להצטרפות ולכל התוכן</span>
+    </a>
+
+    <div class="contact-bar" style="justify-content:center;">
+      <div class="contact-item">📞 <span>050-5500344</span></div>
+      <div class="contact-item">✉️ <span>ronenamos@gmail.com</span></div>
+      <div class="contact-item">🌐 <span>ronenamoscpa.co.il</span></div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- SLIDE 1 (בסוף) — מה עושים היום                       -->
+<!-- ══════════════════════════════════════════════════════ -->
+<section id="what-today">
+  <div class="inner">
+    <div class="section-label">SLIDE 01 · סיכום — מה עשינו היום</div>
+    <h2 class="section-title">מה <span>עשינו</span> בשעה האחרונה</h2>
+    <p class="section-desc">
+      לפני שסוגרים — הנה המסגרת המלאה שעברנו יחד:
+    </p>
+
+    <div class="agenda-overview" style="margin-top:2rem;">
+      <div class="agenda-overview-item">
+        <div class="agenda-num">A</div>
+        <div class="agenda-text"><strong>הצגה עצמית</strong> — מי אני, מה הרקע, ולמה AI + CPA זה שילוב שמשנה את המחלקה</div>
+      </div>
+      <div class="agenda-overview-item">
+        <div class="agenda-num">03</div>
+        <div class="agenda-text"><strong>מה זה Skill</strong> — כרטיס המתכון של Claude, ואיך זה שונה מ-Project ומ-Connector</div>
+      </div>
+      <div class="agenda-overview-item">
+        <div class="agenda-num">04</div>
+        <div class="agenda-text"><strong>האנטומיה + מתי בכלל</strong> — 3 החלקים של סקיל, ומתי כדאי לבנות אחד ומתי לא</div>
+      </div>
+      <div class="agenda-overview-item">
+        <div class="agenda-num">05</div>
+        <div class="agenda-text"><strong>איך בונים בפועל</strong> — 3 שלבים ליצירת סקיל בממשק Claude</div>
+      </div>
+      <div class="agenda-overview-item">
+        <div class="agenda-num">06</div>
+        <div class="agenda-text"><strong>Demo 1: Variance Commentary</strong> — בונים סקיל CFO אמיתי מ-A עד ת</div>
+      </div>
+      <div class="agenda-overview-item">
+        <div class="agenda-num">07</div>
+        <div class="agenda-text"><strong>Demo 2: בודקים ומתקנים</strong> — מריצים על P&amp;L אמיתי, משנים ורואים תוצאה</div>
+      </div>
+      <div class="agenda-overview-item">
+        <div class="agenda-num">08</div>
+        <div class="agenda-text"><strong>3 סקילים נוספים</strong> — CFO MBR, ERP Data Cleaner, Month-End Checklist</div>
+      </div>
+      <div class="agenda-overview-item">
+        <div class="agenda-num">09</div>
+        <div class="agenda-text"><strong>גבולות ובטיחות</strong> — מה כן, מה לא, ואיפה תמיד עוצרים</div>
+      </div>
+      <div class="agenda-overview-item">
+        <div class="agenda-num">10</div>
+        <div class="agenda-text"><strong>הצעדים הבאים</strong> — הדרכות, ייעוץ, 100 Things, קהילה, ולינקים לכל המשאבים</div>
+      </div>
+    </div>
+
+    <div style="margin-top:2rem; text-align:center;">
+      <img src="images/qr-code.png" alt="קוד QR למשאב להורדה / קביעת פגישה" style="max-width:220px; margin:0 auto; border-radius:var(--radius-md); border:1px solid var(--accent-border);">
+    </div>
+
+    <!-- כפתור הורדת ה-Excel -->
+    <div style="margin-top:2rem; text-align:center; padding:2rem; background:var(--surface); border:1px solid var(--accent-border); border-radius:var(--radius-md);">
+      <p style="font-size:0.95rem; color:var(--text-muted); margin-bottom:1.2rem; line-height:1.7;">
+        הכנתי עבורכם מדריך מעשי עם <strong style="color:var(--text);">100 דברים שClaude יכול לעשות עבור CFO</strong> — מחולק לקטגוריות: Web App, Excel, Artifacts ו-Claude Code. קחו אותו, בחרו משהו אחד, ותנסו אותו היום.
+      </p>
+      <a href="https://docs.google.com/spreadsheets/d/1Spk2Wa32COY5JJ7a3X4L-roemYNCoYql/edit?usp=sharing&ouid=113209169108500009079&rtpof=true&sd=true"
+         target="_blank"
+         style="display:inline-block; background:var(--accent); color:#0b0d10; padding:1rem 2.8rem; border-radius:var(--radius-sm); font-size:1.05rem; font-weight:800; letter-spacing:0.02em; text-decoration:none; transition:background 0.2s;">
+        ⬇ הורד עכשיו — 100 Things Claude Can Do for a CFO
+      </a>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- SLIDE A (שני) — הצגה עצמית חוזרת + סיום (קבוע)      -->
+<!-- ══════════════════════════════════════════════════════ -->
+<section class="intro-hero" id="closing" style="border-top: 1px solid var(--border); border-bottom: none;">
+  <div class="inner intro-grid">
+    <div>
+      <div class="intro-eyebrow">AI Finance Transformation · סיום הוובינר</div>
+      <h2 class="intro-title">
+        <span>מומחה ה-AI הפיננסי שלכם</span><br />
+        רונן עמוס רו"ח
+      </h2>
+      <p class="intro-desc">
+        רואה חשבון טכנולוגי עם 10+ שנות ניסיון. מתמחה בהטמעת AI, אוטומציות ו-Workflows למחלקות כספים בישראל.
+      </p>
+      <div class="contact-bar">
+        <div class="contact-item">📞 <span>050-5500344</span></div>
+        <div class="contact-item">✉️ <span>ronenamos@gmail.com</span></div>
+        <div class="contact-item">🌐 <span>ronenamoscpa.co.il</span></div>
+      </div>
+      <a href="mailto:ronenamos@gmail.com" class="primary-btn">צרו קשר עכשיו</a>
+    </div>
+    <div>
+      <img src="images/image14.png" alt="רונן עמוס — AI Finance Transformation" style="width:100%; min-height:320px; object-fit:cover; border-radius:var(--radius-md); border:1px solid var(--accent-border);">
+    </div>
+  </div>
+</section>
+
+
+<!-- ══ FOOTER ══ -->
+<footer class="site-footer">
+  <p>© 2026 · רונן עמוס רו"ח · AI Finance Transformation · כל הזכויות שמורות</p>
+</footer>
+
+</body>
+</html>
