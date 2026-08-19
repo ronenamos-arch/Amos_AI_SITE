@@ -28,6 +28,21 @@ const SITE = "https://www.ronenamoscpa.co.il/resources/webiners";
 
 export const lessons: Lesson[] = [
     {
+        slug: "webinar-05-skills",
+        title: "Claude Skills — בונים Skills שבאמת עובדים",
+        description:
+            "פרק שבו בונים Skill מאפס ב-Claude, והופכים כל פרומפט שחוזר על עצמו לכלי עבודה קבוע לך ולכל מחלקת הכספים.",
+        topic: "Claude",
+        context: "פרק 5",
+        date: "19 באוגוסט 2026",
+        minutes: 60,
+        materials: [
+            { kind: "prompts", label: "פרומפטים" },
+            { kind: "skills", label: "Skills מוכנים" },
+        ],
+        href: `${SITE}/webinar-05-skills`,
+    },
+    {
         slug: "webinar-04-projects",
         title: "עבודה עם פרויקטים בקלוד — ארגן את העבודה שלך כמו מקצוען",
         description:
