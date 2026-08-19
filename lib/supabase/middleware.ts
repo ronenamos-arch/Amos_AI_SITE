@@ -1,6 +1,13 @@
 import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
 
+// Temporary preview windows: paths under /resources/webiners that should be
+// open to everyone (no subscription check) until the given date.
+// Remove each entry once its date has passed.
+const FREE_UNTIL: Record<string, string> = {
+    "/resources/webiners/webinar-05-skills": "2026-08-23",
+};
+
 export async function updateSession(request: NextRequest) {
     let supabaseResponse = NextResponse.next({
         request,
@@ -45,8 +52,11 @@ export async function updateSession(request: NextRequest) {
     // Static files bypass every page-level access check, so subscribers-only
     // enforcement has to happen here, before the file is served.
     if (path.startsWith('/resources/webiners')) {
-        let hasAccess = false;
-        if (user) {
+        const freeUntil = FREE_UNTIL[path];
+        const isTemporarilyFree = freeUntil !== undefined && new Date() < new Date(freeUntil);
+
+        let hasAccess = isTemporarilyFree;
+        if (!isTemporarilyFree && user) {
             const { data: profile } = await supabase
                 .from('profiles')
                 .select('subscription_status, subscription_end_date')
