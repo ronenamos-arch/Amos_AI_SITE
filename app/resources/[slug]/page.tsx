@@ -1,5 +1,5 @@
 import { notFound, redirect } from "next/navigation";
-import { getResourceBySlug } from "@/lib/resources-data";
+import { getResourceBySlug, isResourceCurrentlyFree } from "@/lib/resources-data";
 import { getSubscriptionAccess } from "@/lib/subscription-access";
 import { Paywall } from "@/components/blog/Paywall";
 
@@ -16,7 +16,7 @@ export default async function ResourceDetailPage({
 
     const { hasAccess } = await getSubscriptionAccess();
 
-    if (hasAccess || resource.free) {
+    if (hasAccess || isResourceCurrentlyFree(resource)) {
         redirect(`/api/resources/${resource.slug}`);
     }
 

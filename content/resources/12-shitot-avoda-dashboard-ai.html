@@ -1,0 +1,1068 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>12 שיטות עבודה לבניית דשבורדים פיננסיים עם AI — רונן עמוס, CPA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800;900&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+:root {
+  --bg: #0b0d10;
+  --surface: #12161a;
+  --surface2: #1a1f26;
+  --accent: #b8c45a;
+  --accent-strong: #d6e36a;
+  --accent-dim: rgba(184,196,90,0.12);
+  --text: #fafbfc;
+  --text-muted: #c2cad2;
+  --text-faint: #7a8694;
+  --border: rgba(255,255,255,0.07);
+  --surface-glow: radial-gradient(circle at 25% 0%, rgba(184,196,90,0.20) 0%, transparent 70%), linear-gradient(160deg, #26372a 0%, #182219 100%);
+  --surface2-glow: radial-gradient(circle at 25% 0%, rgba(184,196,90,0.16) 0%, transparent 70%), linear-gradient(160deg, #2d3f2f 0%, #1f2a20 100%);
+  --radius-sm: 10px;
+  --radius-md: 18px;
+  --radius-lg: 28px;
+  --font: 'Heebo', system-ui, sans-serif;
+  --mono: 'IBM Plex Mono', monospace;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--font);
+  background:
+    radial-gradient(circle at 15% -10%, rgba(184,196,90,0.17) 0%, transparent 45%),
+    radial-gradient(circle at 92% 15%, rgba(184,196,90,0.09) 0%, transparent 40%),
+    radial-gradient(circle at 50% 100%, rgba(184,196,90,0.07) 0%, transparent 40%),
+    linear-gradient(160deg, #1c2c22 0%, #131c15 55%, #0d100e 100%);
+  background-attachment: fixed;
+  color: var(--text);
+  line-height: 1.7;
+  font-size: 16.5px;
+}
+a { color: inherit; }
+strong { color: var(--text); font-weight: 700; }
+
+/* ── SIDEBAR ── */
+.sidebar {
+  position: fixed; top: 0; right: 0; width: 236px; height: 100vh;
+  background: var(--surface-glow); border-left: 1px solid var(--border);
+  display: flex; flex-direction: column; padding: 1.9rem 1.15rem;
+  overflow-y: auto; z-index: 100;
+}
+.sidebar-brand { font-family: var(--mono); font-size: 0.78rem; font-weight: 600; letter-spacing: 0.06em; color: var(--accent); margin-bottom: 0.2rem; }
+.sidebar-sub { font-size: 0.78rem; color: var(--text-faint); margin-bottom: 1.8rem; }
+.sidebar-nav { display: flex; flex-direction: column; gap: 0.2rem; }
+.sidebar-nav a {
+  display: block; text-align: right; text-decoration: none;
+  font-size: 0.82rem; color: var(--text); padding: 0.55rem 0.7rem;
+  border-radius: var(--radius-sm); border: 1px solid transparent;
+  transition: background 0.2s, color 0.2s, border-color 0.2s;
+  font-family: var(--mono); letter-spacing: 0.01em; line-height: 1.4;
+}
+.sidebar-nav a span.num { color: var(--text-faint); margin-left: 0.4em; }
+.sidebar-nav a:hover { background: var(--surface2-glow); color: var(--text); }
+.sidebar-nav a.active,
+.sidebar-nav a:target { background: var(--accent-dim); color: var(--accent-strong); border-color: rgba(184,196,90,0.25); }
+.sidebar-footer { margin-top: auto; padding-top: 1.5rem; font-family: var(--mono); font-size: 0.65rem; color: var(--text-faint); letter-spacing: 0.04em; line-height: 1.6; }
+
+.content-wrap { margin-right: 236px; }
+
+@media (max-width: 900px) {
+  .sidebar {
+    position: sticky; top: 0; width: 100%; height: auto;
+    flex-direction: row; align-items: center; gap: 0.6rem;
+    border-left: none; border-bottom: 1px solid var(--border);
+    padding: 0.9rem 1rem; overflow-x: auto; overflow-y: hidden;
+  }
+  .sidebar-brand, .sidebar-sub { display: none; }
+  .sidebar-nav { flex-direction: row; flex-wrap: nowrap; gap: 0.4rem; }
+  .sidebar-nav a { white-space: nowrap; padding: 0.5rem 0.8rem; }
+  .sidebar-footer { display: none; }
+  .content-wrap { margin-right: 0; }
+}
+
+/* ── HERO ── */
+.hero { position: relative; overflow: hidden; padding: 6.5rem 4rem 4.5rem; }
+.hero::before {
+  content: ''; position: absolute; inset: 0;
+  background:
+    radial-gradient(circle at 82% -10%, rgba(184,196,90,0.14) 0%, transparent 45%),
+    radial-gradient(circle at -5% 100%, rgba(184,196,90,0.07) 0%, transparent 40%);
+  pointer-events: none;
+}
+.hero-inner { max-width: 900px; position: relative; z-index: 1; }
+.section-label {
+  font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.14em;
+  color: var(--accent); text-transform: uppercase; margin-bottom: 1.1rem;
+  display: flex; align-items: center; gap: 0.6rem;
+}
+.section-label::before { content: ''; width: 22px; height: 1px; background: var(--accent); display: inline-block; }
+.hero h1 {
+  font-size: clamp(2.1rem, 5vw, 3.4rem); font-weight: 900; line-height: 1.15;
+  margin-bottom: 1.1rem;
+}
+.hero h1 span { display: block; color: var(--accent-strong); }
+.hero-subtitle { font-size: 1.05rem; color: var(--text-muted); max-width: 620px; margin-bottom: 2rem; }
+.byline { display: flex; align-items: center; gap: 1rem; padding-top: 1.4rem; border-top: 1px solid var(--border); }
+.byline-avatar {
+  width: 46px; height: 46px; border-radius: 50%;
+  background: var(--accent-dim); border: 1.5px solid rgba(184,196,90,0.35);
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+}
+.byline-avatar span { font-family: var(--mono); font-size: 0.95rem; font-weight: 700; color: var(--accent-strong); }
+.byline-name { font-size: 1.02rem; font-weight: 700; }
+.byline-role { font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.05em; color: var(--text-faint); margin-top: 2px; }
+
+/* ── SECTIONS ── */
+.section { padding: 4rem 4rem; max-width: 1140px; }
+.section-title { font-size: clamp(1.5rem, 2.6vw, 2rem); font-weight: 800; margin-bottom: 1rem; line-height: 1.2; }
+.section-intro { color: var(--text-muted); max-width: 720px; margin-bottom: 2.2rem; font-size: 1rem; }
+
+/* ── SUMMARY GRID ── */
+.summary-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+.summary-card {
+  background: var(--surface-glow); border: 1px solid var(--border); border-radius: var(--radius-md);
+  padding: 1.4rem 1.3rem; text-decoration: none; display: block;
+  transition: transform 0.25s, border-color 0.25s, background 0.25s;
+}
+.summary-card:hover { transform: translateY(-4px); border-color: rgba(184,196,90,0.35); background: var(--surface2-glow); }
+.summary-card--full { grid-column: 1 / -1; }
+.summary-num { font-family: var(--mono); font-size: 0.85rem; font-weight: 700; color: var(--accent); margin-bottom: 0.7rem; }
+.summary-title { font-size: 1.02rem; font-weight: 700; margin-bottom: 0.5rem; }
+.summary-desc { font-size: 0.87rem; color: var(--text-muted); line-height: 1.6; margin-bottom: 0.8rem; }
+.summary-badge { font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-faint); }
+@media (max-width: 900px) { .summary-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 600px) { .summary-grid { grid-template-columns: 1fr; } }
+
+/* ── PRACTICE ── */
+.practice {
+  background: var(--surface-glow); border: 1px solid var(--border); border-radius: var(--radius-lg);
+  margin-bottom: 2.4rem; overflow: hidden;
+}
+.practice-header {
+  padding: 2.1rem 2.4rem 1.7rem; display: grid; grid-template-columns: auto 1fr auto;
+  align-items: start; gap: 1.6rem; border-bottom: 1px solid var(--border);
+  background: var(--surface2-glow);
+}
+.practice-num {
+  font-family: var(--mono); font-size: 1.9rem; font-weight: 700; line-height: 1;
+  color: var(--accent); padding-top: 2px;
+}
+.practice-title-block h2 { font-size: 1.4rem; font-weight: 800; margin-bottom: 0.4rem; line-height: 1.25; }
+.practice-tagline { font-size: 0.92rem; color: var(--text-muted); line-height: 1.5; }
+.badge {
+  font-family: var(--mono); font-size: 0.62rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
+  padding: 0.4rem 0.8rem; border: 1px solid rgba(184,196,90,0.3); border-radius: 999px;
+  color: var(--accent-strong); background: var(--accent-dim); white-space: nowrap; align-self: flex-start;
+}
+.practice-body { padding: 2.1rem 2.4rem 2.3rem; display: grid; gap: 1.6rem; }
+.practice-body > p { font-size: 1rem; color: var(--text-muted); line-height: 1.85; max-width: 760px; }
+
+/* ── PROMPT BOX (English, LTR) ── */
+.prompt-box {
+  border: 1px solid rgba(184,196,90,0.25); border-right: 3px solid var(--accent);
+  background: #0d1117; padding: 1.7rem 1.8rem; border-radius: var(--radius-sm);
+}
+.prompt-label {
+  font-family: var(--mono); font-size: 0.68rem; font-weight: 600; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--accent); margin-bottom: 0.9rem;
+  display: flex; align-items: center; gap: 0.6rem; direction: rtl;
+}
+.prompt-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+.prompt-text {
+  font-family: var(--mono); font-size: 0.92rem; color: var(--text-muted);
+  line-height: 1.85; direction: ltr; text-align: left;
+}
+.prompt-text strong { color: var(--accent-strong); font-weight: 600; }
+.prompt-text + .prompt-text { margin-top: 1rem; }
+
+/* ── HTML ACRONYM ROWS ── */
+.acronym { border: 1px solid var(--border); border-radius: var(--radius-md); overflow: hidden; }
+.acronym-row { display: grid; grid-template-columns: 1fr 72px; border-bottom: 1px solid var(--border); }
+.acronym-row:last-child { border-bottom: none; }
+.acronym-content { padding: 1.3rem 1.5rem; display: flex; flex-direction: column; gap: 0.4rem; }
+.acronym-word { font-size: 1.05rem; font-weight: 700; color: var(--text); }
+.acronym-desc { font-size: 0.9rem; color: var(--text-muted); line-height: 1.65; }
+.acronym-example {
+  font-family: var(--mono); font-size: 0.78rem; color: var(--sage, var(--accent-strong)); margin-top: 0.4rem;
+  padding: 0.5rem 0.9rem; border-right: 2px solid rgba(184,196,90,0.35);
+  background: rgba(184,196,90,0.05); line-height: 1.55; direction: ltr; text-align: left;
+}
+.acronym-letter-cell { display: flex; align-items: center; justify-content: center; background: var(--surface2-glow); }
+.acronym-letter { font-family: var(--mono); font-size: 2.2rem; font-weight: 700; color: var(--accent); }
+
+/* ── THEMES GRID ── */
+.themes-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: var(--radius-sm); overflow: hidden; }
+.theme-chip { padding: 0.9rem 1rem; background: var(--surface2-glow); font-size: 0.85rem; font-weight: 500; }
+.theme-chip span { display: block; font-family: var(--mono); font-size: 0.62rem; color: var(--text-faint); margin-top: 3px; }
+.theme-chip.featured { background: var(--accent-dim); color: var(--accent-strong); }
+.theme-chip.featured span { color: var(--accent); }
+@media (max-width: 700px) { .themes-grid { grid-template-columns: repeat(2, 1fr); } }
+
+/* ── STEPS ── */
+.steps { display: grid; border: 1px solid var(--border); border-radius: var(--radius-md); overflow: hidden; }
+.step { display: grid; grid-template-columns: 1fr 46px; border-bottom: 1px solid var(--border); }
+.step:last-child { border-bottom: none; }
+.step-text { padding: 0.95rem 1.4rem; font-size: 0.92rem; color: var(--text-muted); line-height: 1.7; }
+.step-num-cell { display: flex; align-items: flex-start; justify-content: center; padding: 1rem 0; background: var(--surface2-glow); }
+.step-num { font-family: var(--mono); font-size: 0.75rem; color: var(--accent); margin-top: 3px; }
+
+/* ── DATA FLOW ── */
+.data-flow { display: grid; grid-template-columns: repeat(4, 1fr); border: 1px solid var(--border); border-radius: var(--radius-md); overflow: hidden; position: relative; }
+.data-flow::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--accent), var(--accent-strong)); }
+.flow-step { padding: 1.3rem 1.1rem; border-left: 1px solid var(--border); text-align: center; position: relative; background: var(--surface2-glow); }
+.flow-step:first-child { background: var(--accent-dim); }
+.flow-step:last-child { border-left: none; }
+.flow-num { font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-faint); margin-bottom: 0.4rem; }
+.flow-name { font-size: 0.92rem; font-weight: 600; }
+@media (max-width: 700px) { .data-flow { grid-template-columns: repeat(2, 1fr); } }
+
+/* ── SHARE / INSPO CARDS ── */
+.grid-cards { display: grid; gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: var(--radius-md); overflow: hidden; }
+.grid-cards.cols-3 { grid-template-columns: repeat(3, 1fr); }
+.grid-cards.cols-2 { grid-template-columns: repeat(2, 1fr); }
+.mini-card { background: var(--surface2-glow); padding: 1.5rem 1.4rem; display: flex; flex-direction: column; gap: 0.5rem; }
+.mini-card h4 { font-size: 1rem; font-weight: 700; }
+.mini-card p { font-size: 0.87rem; color: var(--text-muted); line-height: 1.65; }
+.mini-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.4rem; }
+.mini-tag { font-family: var(--mono); font-size: 0.62rem; padding: 0.3rem 0.6rem; border: 1px solid rgba(184,196,90,0.3); color: var(--accent-strong); background: var(--accent-dim); border-radius: 999px; }
+@media (max-width: 700px) { .grid-cards.cols-3, .grid-cards.cols-2 { grid-template-columns: 1fr; } }
+
+/* ── ITERATION SEQUENCE ── */
+.iter-sequence { border: 1px solid var(--border); border-radius: var(--radius-md); overflow: hidden; }
+.iter-row { display: grid; grid-template-columns: 1fr 30px; border-bottom: 1px solid var(--border); background: var(--surface2-glow); }
+.iter-row:last-child { border-bottom: none; }
+.iter-arrow { display: flex; align-items: center; justify-content: center; color: var(--accent); font-size: 0.85rem; }
+.iter-text { padding: 0.85rem 1.2rem 0.85rem 0.5rem; font-size: 0.9rem; color: var(--text-muted); line-height: 1.6; }
+.iter-text strong { color: var(--accent-strong); font-weight: 600; }
+
+/* ── NAV MOCK ── */
+.nav-mock { display: grid; grid-template-columns: 150px 1fr; border: 1px solid var(--border); border-radius: var(--radius-md); overflow: hidden; min-height: 200px; }
+.nav-mock-sidebar { background: var(--bg); padding: 1rem 0; display: flex; flex-direction: column; gap: 2px; border-left: 1px solid var(--border); }
+.nav-mock-item { padding: 0.65rem 1rem; font-family: var(--mono); font-size: 0.7rem; color: var(--text-faint); text-align: right; }
+.nav-mock-item.active { color: var(--accent-strong); background: var(--accent-dim); border-right: 2px solid var(--accent); padding-right: calc(1rem - 2px); }
+.nav-mock-panel { background: var(--surface2-glow); padding: 1.4rem 1.5rem; display: flex; flex-direction: column; gap: 0.8rem; }
+.nav-mock-panel-title { font-weight: 700; font-size: 0.95rem; }
+.nav-mock-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.6rem; }
+.nav-mock-card { border: 1px solid var(--border); padding: 0.7rem 0.8rem; background: var(--surface-glow); border-radius: var(--radius-sm); }
+.nav-mock-card-label { font-family: var(--mono); font-size: 0.6rem; text-transform: uppercase; color: var(--text-faint); margin-bottom: 3px; }
+.nav-mock-card-value { font-weight: 700; font-size: 1.05rem; color: var(--accent-strong); }
+.nav-mock-chart-line { height: 54px; border: 1px solid var(--border); border-radius: var(--radius-sm); background: linear-gradient(180deg, rgba(184,196,90,0.08), transparent); }
+@media (max-width: 700px) { .nav-mock { grid-template-columns: 90px 1fr; } .nav-mock-cards { grid-template-columns: 1fr; } }
+
+/* ── SLIDER MOCK ── */
+.slider-mock { border: 1px solid var(--border); border-radius: var(--radius-md); overflow: hidden; }
+.slider-row { display: grid; grid-template-columns: 64px 1fr 170px; align-items: center; gap: 1.1rem; padding: 1.1rem 1.4rem; border-bottom: 1px solid var(--border); }
+.slider-row:last-child { border-bottom: none; }
+.slider-value { font-family: var(--mono); font-weight: 700; font-size: 0.92rem; color: var(--accent-strong); }
+.slider-track { height: 4px; background: var(--border); position: relative; border-radius: 2px; }
+.slider-fill { position: absolute; right: 0; top: 0; bottom: 0; background: linear-gradient(90deg, var(--accent-strong), var(--accent)); border-radius: 2px; }
+.slider-handle { position: absolute; top: 50%; width: 13px; height: 13px; border-radius: 50%; background: var(--bg); border: 2px solid var(--accent-strong); transform: translate(50%, -50%); }
+.slider-label { font-size: 0.85rem; color: var(--text-muted); text-align: right; }
+@media (max-width: 700px) { .slider-row { grid-template-columns: 1fr; gap: 0.5rem; } }
+
+/* ── TORNADO MOCK ── */
+.tornado-mock { border: 1px solid var(--border); border-radius: var(--radius-md); padding: 1.6rem 1.7rem; }
+.tornado-row { display: grid; grid-template-columns: 120px 1fr; align-items: center; gap: 1rem; margin-bottom: 0.9rem; }
+.tornado-row:last-child { margin-bottom: 0; }
+.tornado-label { font-size: 0.85rem; color: var(--text-muted); text-align: left; }
+.tornado-bar-wrap { position: relative; height: 18px; background: rgba(255,255,255,0.03); border-radius: 4px; }
+.tornado-bar { position: absolute; top: 0; bottom: 0; background: linear-gradient(90deg, var(--accent), var(--accent-strong)); opacity: 0.85; border-radius: 4px; }
+.tornado-note { margin-top: 1.1rem; padding-top: 1rem; border-top: 1px solid var(--border); font-size: 0.88rem; color: var(--text-muted); }
+.tornado-note strong { color: var(--accent-strong); font-weight: 700; }
+@media (max-width: 700px) { .tornado-row { grid-template-columns: 1fr; gap: 0.3rem; } .tornado-label { text-align: right; } }
+
+/* ── MASTER PROMPT ── */
+.master-section {
+  background: var(--surface-glow); border: 1px solid rgba(184,196,90,0.25); border-radius: var(--radius-lg);
+  position: relative; overflow: hidden; margin-bottom: 2rem;
+}
+.master-section::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--accent), var(--accent-strong)); }
+.master-inner { padding: 2.6rem 2.6rem 2.8rem; }
+.master-eyebrow {
+  font-family: var(--mono); font-size: 0.7rem; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--accent); margin-bottom: 1rem; display: flex; align-items: center; gap: 0.8rem;
+}
+.master-eyebrow::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+.master-title { font-size: clamp(1.3rem, 2.4vw, 1.7rem); font-weight: 800; line-height: 1.3; margin-bottom: 0.9rem; max-width: 720px; }
+.master-desc { font-size: 0.96rem; color: var(--text-muted); line-height: 1.8; max-width: 720px; margin-bottom: 1.7rem; }
+.master-columns { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1.8rem; direction: ltr; }
+.master-columns-label { font-family: var(--mono); font-size: 0.65rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-faint); width: 100%; margin-bottom: 0.6rem; direction: rtl; text-align: right; }
+.master-column-chip { font-family: var(--mono); font-size: 0.72rem; padding: 0.4rem 0.8rem; border: 1px solid rgba(184,196,90,0.3); color: var(--accent-strong); background: rgba(184,196,90,0.06); border-radius: 999px; }
+.master-note { margin-top: 1.4rem; display: flex; align-items: center; gap: 0.6rem; font-family: var(--mono); font-size: 0.78rem; color: var(--text-faint); }
+.master-note-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); flex-shrink: 0; }
+
+/* ── PRIMARY SUBSCRIBE CTA ── */
+.primary-cta {
+  max-width: 760px; margin: 0 auto 3.4rem; text-align: center;
+  border: 1px solid rgba(184,196,90,0.4); border-radius: var(--radius-lg);
+  padding: 2.6rem 2.4rem 2.8rem;
+  background: radial-gradient(circle at 50% 0%, rgba(184,196,90,0.20) 0%, transparent 60%), linear-gradient(160deg, #26372a 0%, #182219 100%);
+}
+.primary-cta-label { font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.12em; color: var(--accent); text-transform: uppercase; margin-bottom: 1rem; }
+.primary-cta-brand { font-size: 1.3rem; font-weight: 800; color: var(--text); margin-bottom: 1.1rem; letter-spacing: 0.02em; }
+.primary-cta-brand .spark { color: var(--accent-strong); }
+.primary-cta-desc { font-size: 0.95rem; color: var(--text-muted); line-height: 1.75; max-width: 560px; margin: 0 auto 1.8rem; }
+.primary-cta-btn-row { display: flex; align-items: center; justify-content: center; gap: 1rem; direction: ltr; }
+.primary-cta-avatar { width: 58px; height: 58px; border-radius: 50%; object-fit: cover; border: 2px solid rgba(184,196,90,0.5); box-shadow: 0 4px 16px rgba(184,196,90,0.25); flex-shrink: 0; }
+.primary-cta-btn {
+  display: inline-flex; align-items: center; gap: 0.6rem;
+  font-size: 1rem; font-weight: 700; padding: 0.95rem 2.2rem;
+  background: linear-gradient(135deg, var(--accent) 0%, var(--accent-strong) 100%);
+  color: var(--bg); border-radius: 999px; text-decoration: none;
+  box-shadow: 0 8px 24px rgba(184,196,90,0.28);
+  transition: transform 0.22s, box-shadow 0.22s;
+}
+.primary-cta-btn:hover { transform: translateY(-2px); box-shadow: 0 12px 30px rgba(184,196,90,0.4); }
+
+/* ── FOOTER CTA ── */
+#footer {
+  position: relative; padding: 6rem 2.5rem 3.5rem; border-top: 1px solid var(--border);
+  margin-top: 1rem; overflow: hidden;
+  background:
+    radial-gradient(circle at 18% 0%, rgba(184,196,90,0.10) 0%, transparent 45%),
+    radial-gradient(circle at 85% 100%, rgba(184,196,90,0.06) 0%, transparent 40%);
+}
+.footer-inner { max-width: 1140px; margin: 0 auto; position: relative; }
+.footer-title {
+  font-size: clamp(1.5rem, 2.8vw, 2.1rem); font-weight: 800; margin-bottom: 0.6rem;
+  background: linear-gradient(90deg, var(--text) 25%, var(--accent-strong) 100%);
+  -webkit-background-clip: text; background-clip: text; color: transparent; display: inline-block;
+}
+.footer-sub { font-size: 0.92rem; color: var(--text-muted); margin-bottom: 3rem; }
+.footer-grid { display: grid; grid-template-columns: 1fr; gap: 1.1rem; }
+@media (min-width: 500px) { .footer-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 900px) { .footer-grid { grid-template-columns: repeat(3, 1fr); } }
+
+.footer-card {
+  position: relative; background: linear-gradient(155deg, #2d3f2f 0%, #182219 65%);
+  border: 1px solid var(--border); border-radius: var(--radius-lg);
+  padding: 1.7rem 1.5rem 1.6rem; display: block; overflow: hidden; isolation: isolate;
+  transition: transform 0.28s cubic-bezier(.2,.8,.3,1), border-color 0.28s, box-shadow 0.28s;
+  text-decoration: none;
+}
+.footer-card::before {
+  content: ''; position: absolute; top: -60px; right: -60px; width: 150px; height: 150px;
+  background: radial-gradient(circle, var(--accent) 0%, transparent 72%);
+  opacity: 0.10; filter: blur(4px); z-index: -1; transition: opacity 0.28s, transform 0.28s;
+}
+.footer-card:hover { border-color: rgba(184,196,90,0.55); transform: translateY(-6px); box-shadow: 0 18px 40px -12px rgba(184,196,90,0.28), 0 0 0 1px rgba(184,196,90,0.12) inset; }
+.footer-card:hover::before { opacity: 0.22; transform: scale(1.25); }
+.footer-card-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.1rem; }
+.footer-card-icon {
+  width: 42px; height: 42px; display: flex; align-items: center; justify-content: center; font-size: 1.15rem;
+  background: var(--accent-dim); border: 1px solid rgba(184,196,90,0.25); border-radius: 12px;
+  transition: background 0.28s, transform 0.28s;
+}
+.footer-card:hover .footer-card-icon { background: var(--accent); transform: rotate(-6deg) scale(1.05); }
+.footer-card-num { font-family: var(--mono); font-size: 0.6rem; color: var(--text-faint); letter-spacing: 0.1em; direction: ltr; }
+.footer-card-title { font-size: 0.98rem; font-weight: 700; margin-bottom: 0.4rem; }
+.footer-card-desc { font-size: 0.79rem; color: var(--text-muted); line-height: 1.55; margin-bottom: 1.2rem; min-height: 2.5em; }
+.footer-card-btn {
+  display: inline-flex; align-items: center; gap: 0.45rem; font-family: var(--mono); font-size: 0.7rem;
+  font-weight: 700; letter-spacing: 0.02em; padding: 0.55rem 1rem;
+  background: linear-gradient(135deg, var(--accent) 0%, var(--accent-strong) 100%); color: var(--bg);
+  border-radius: 999px; box-shadow: 0 4px 14px rgba(184,196,90,0.18);
+  transition: transform 0.22s, box-shadow 0.22s, gap 0.22s; direction: ltr;
+}
+.footer-card:hover .footer-card-btn { box-shadow: 0 8px 22px rgba(184,196,90,0.4); gap: 0.65rem; }
+.footer-card:hover .footer-card-btn .arrow { transform: translateX(-3px); display: inline-block; transition: transform 0.22s; }
+.footer-copy { margin-top: 3.4rem; text-align: center; font-size: 0.75rem; color: var(--text-faint); font-family: var(--mono); letter-spacing: 0.05em; }
+
+@media (max-width: 700px) {
+  .hero { padding: 3rem 1.5rem 2.5rem; }
+  .section { padding: 2.6rem 1.5rem; }
+  .practice-header { padding: 1.5rem 1.4rem; grid-template-columns: auto 1fr; }
+  .badge { display: none; }
+  .practice-body { padding: 1.5rem 1.4rem; }
+  .acronym-row { grid-template-columns: 1fr; }
+  .acronym-letter-cell { padding: 0.5rem 0; }
+  .master-inner { padding: 1.8rem 1.4rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- ── SIDEBAR ── -->
+<nav class="sidebar">
+  <div class="sidebar-brand">AI FINANCE TRANSFORMATION</div>
+  <div class="sidebar-sub">רונן עמוס, CPA</div>
+  <div class="sidebar-nav">
+    <a href="#hero"><span class="num">00 ·</span>פתיחה</a>
+    <a href="#overview"><span class="num">01 ·</span>סקירת 12 העקרונות</a>
+    <a href="#practice-1"><span class="num">02 ·</span>מסגרת H·T·M·L</a>
+    <a href="#practice-2"><span class="num">03 ·</span>Theme Factory</a>
+    <a href="#practice-3"><span class="num">04 ·</span>נתוני דמה</a>
+    <a href="#practice-4"><span class="num">05 ·</span>השראה מ-Dribbble</a>
+    <a href="#practice-5"><span class="num">06 ·</span>דשבורד חי עם AI</a>
+    <a href="#practice-6"><span class="num">07 ·</span>הורדה והפצה</a>
+    <a href="#practice-7"><span class="num">08 ·</span>שיפור בדיאלוג</a>
+    <a href="#practice-8"><span class="num">09 ·</span>רענון מ-CSV</a>
+    <a href="#practice-9"><span class="num">10 ·</span>טאבים וניווט צד</a>
+    <a href="#practice-10"><span class="num">11 ·</span>סימולטור אינטראקטיבי</a>
+    <a href="#practice-11"><span class="num">12 ·</span>ניתוח רגישות</a>
+    <a href="#practice-12"><span class="num">13 ·</span>ביקורת כמו אנליסט זוטר</a>
+    <a href="#master"><span class="num">14 ·</span>הפרומפט המלא</a>
+    <a href="#footer"><span class="num">15 ·</span>משאבים</a>
+  </div>
+  <div class="sidebar-footer">v1.0 · AI Finance Transformation<br/>ronenamoscpa.co.il</div>
+</nav>
+
+<div class="content-wrap">
+
+<!-- ── HERO ── -->
+<section class="hero" id="hero">
+  <div class="hero-inner">
+    <div class="section-label">פיננסים ו-FP&amp;A · ארטיפקטים של Claude · מדריך מעשי</div>
+    <h1>12 שיטות עבודה לבניית<span>דשבורדים פיננסיים עם AI</span></h1>
+    <p class="hero-subtitle">איך להזמין דשבורד פיננסי מ-Claude באותה דיוקנות שבה מכינים תדריך למנכ"ל — ולקבל תוצאה ברמה של סטודיו עיצוב שלם.</p>
+    <div class="byline">
+      <div class="byline-avatar"><span>RA</span></div>
+      <div>
+        <div class="byline-name">רונן עמוס, CPA</div>
+        <div class="byline-role">AI FINANCE TRANSFORMATION · יועץ, מרצה ומדריך לאנשי כספים</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section" id="overview">
+  <div class="section-label">12 העקרונות</div>
+  <h2 class="section-title">מבט־על על כל השיטות</h2>
+  <p class="section-intro">כל עיקרון בנפרד עומד בפני עצמו — אבל יחד הם מרכיבים תהליך עבודה שלם: מהבריף הראשון ל-Claude ועד לדשבורד שמתעדכן לבד כל חודש.</p>
+
+  <!-- ── SUMMARY GRID ── -->
+  <div class="summary-grid">
+    <a class="summary-card" href="#practice-1">
+      <div class="summary-num">01</div>
+      <div class="summary-title">מסגרת ה-H·T·M·L</div>
+      <div class="summary-desc">בריף בן ארבע אותיות — קובץ להפצה, קהל היעד, מדגם מהנתונים שלי, ופריסה ומראה. מבנה הפרומפט המלא לכל הזמנת דשבורד.</div>
+      <div class="summary-badge">טכניקת פרומפטינג</div>
+    </a>
+    <a class="summary-card" href="#practice-2">
+      <div class="summary-num">02</div>
+      <div class="summary-title">סקיל Theme Factory</div>
+      <div class="summary-desc">עשר שילובי צבע ופונט מקצועיים מובנים ב-Claude. בוחרים אחד, או מייצרים תבנית מותאמת מצבעי המותג — בהנחיה אחת.</div>
+      <div class="summary-badge">סקיל של Claude</div>
+    </a>
+    <a class="summary-card" href="#practice-3">
+      <div class="summary-num">03</div>
+      <div class="summary-title">אב-טיפוס עם נתוני דמה</div>
+      <div class="summary-desc">בונים ומאשרים את הפריסה המלאה עם מספרים לדוגמה לפני שמתחייבים לנתונים האמיתיים. משכללים עיצוב, לא נתונים.</div>
+      <div class="summary-badge">תהליך עבודה</div>
+    </a>
+    <a class="summary-card" href="#practice-4">
+      <div class="summary-num">04</div>
+      <div class="summary-title">השראה עיצובית מ-Dribbble</div>
+      <div class="summary-desc">מוצאים עיצוב דשבורד פיננסי שאתם מעריכים, מדביקים צילום מסך או קישור, ומבקשים מ-Claude לשחזר את האסתטיקה עבור המדדים שלכם.</div>
+      <div class="summary-badge">מחקר עיצובי</div>
+    </a>
+    <a class="summary-card" href="#practice-5">
+      <div class="summary-num">05</div>
+      <div class="summary-title">דשבורד חי מבוסס AI</div>
+      <div class="summary-desc">מטמיעים את ה-API של Claude בתוך הארטיפקט — כל בעל עניין יכול לשאול שאלות על הנתונים בשפה חופשית ולקבל פרשנות וריאנס לפי דרישה.</div>
+      <div class="summary-badge">מתקדם</div>
+    </a>
+    <a class="summary-card" href="#practice-6">
+      <div class="summary-num">06</div>
+      <div class="summary-title">הורדה והפצה</div>
+      <div class="summary-desc">קובץ מצורף למייל, כתובת URL שמתארחת ב-Netlify, או הטמעה ב-Notion וב-SharePoint. קובץ HTML אחד מגיע לכל קהל בלי תשתית.</div>
+      <div class="summary-badge">הפצה</div>
+    </a>
+    <a class="summary-card" href="#practice-7">
+      <div class="summary-num">07</div>
+      <div class="summary-title">משכללים בשיחה</div>
+      <div class="summary-desc">מתייחסים ל-Claude כשותף עיצוב, לא ככלי חד-פעמי. נותנים הערות כמו לאנליסט בכיר — כל תשובה היא עדכון חי לארטיפקט עד שהדשבורד מדויק לגמרי.</div>
+      <div class="summary-badge">גישת עבודה</div>
+    </a>
+    <a class="summary-card" href="#practice-8">
+      <div class="summary-num">08</div>
+      <div class="summary-title">רענון בהעלאת CSV</div>
+      <div class="summary-desc">מטמיעים כפתור "העלאת CSV" בארטיפקט כדי שכל אנליסט יוכל להטעין את הייצוא החודשי — וכל כרטיס, גרף וסכום מתעדכן מיד.</div>
+      <div class="summary-badge">תהליך עבודה</div>
+    </a>
+    <a class="summary-card" href="#practice-9">
+      <div class="summary-num">09</div>
+      <div class="summary-title">טאבים עם ניווט צד</div>
+      <div class="summary-desc">מארגנים סקירה, רווח והפסד, מאזן, תזרים ותרחישים מאחורי סיידבר אחד — קובץ אחד, תצוגות רבות, בלי קיר גרפים אינסופי.</div>
+      <div class="summary-badge">פריסה</div>
+    </a>
+    <a class="summary-card" href="#practice-10">
+      <div class="summary-num">10</div>
+      <div class="summary-title">סימולטורים אינטראקטיביים</div>
+      <div class="summary-desc">מחברים סליידרים של תקן כוח אדם, תמחור או נטישת לקוחות ישירות לנוסחאות ההכנסה וה-EBITDA, כך שההנהלה יכולה להזיז את החוגה בעצמה ולראות כל מספר מגיב בזמן אמת.</div>
+      <div class="summary-badge">מתקדם</div>
+    </a>
+    <a class="summary-card" href="#practice-11">
+      <div class="summary-num">11</div>
+      <div class="summary-title">ניתוח רגישות</div>
+      <div class="summary-desc">מזיזים הנחת יסוד אחת בכל פעם מול תרחיש הבסיס, ומציגים את התוצאה כגרף Tornado — כך שהדשבורד מציין בעצמו את הגורם המשפיע ביותר, עוד לפני שישאלו.</div>
+      <div class="summary-badge">ניתוח</div>
+    </a>
+    <a class="summary-card summary-card--full" href="#practice-12">
+      <div class="summary-num">12</div>
+      <div class="summary-title">ביקורת AI כמו על אנליסט זוטר</div>
+      <div class="summary-desc">אף פעם לא מציגים להנהלה מספר שנבנה על ידי Claude בלי בדיקה. עוקבים אחרי כל KPI חזרה לנוסחה ולשורות המקור שלו, בדיוק כפי שהייתם בודקים מודל של אנליסט בשנה הראשונה.</div>
+      <div class="summary-badge">ממשל ובקרה</div>
+    </a>
+  </div>
+</div>
+
+<div class="section-label" style="margin: 0 4rem;">בפירוט</div>
+
+<div class="section" style="padding-top: 1rem;">
+
+  <!-- ── PRACTICE 1 ── -->
+  <article class="practice" id="practice-1">
+    <div class="practice-header">
+      <div class="practice-num">01</div>
+      <div class="practice-title-block">
+        <h2>מסגרת הפרומפט H·T·M·L</h2>
+        <p class="practice-tagline">בריף בן ארבע אותיות שהופך הנחיה של CFO לדשבורד מוכן להנהלה, להורדה מיידית</p>
+      </div>
+      <span class="badge">טכניקת פרומפטינג</span>
+    </div>
+    <div class="practice-body">
+      <p>כל הזמנה טובה מתחילה מבריף מדויק. לפני שפונים ל-Claude, בונים את הבקשה לפי <strong>מסגרת H·T·M·L</strong> — ארבעה ממדים שנותנים ל-Claude את כל מה שהוא צריך כדי להפיק ארטיפקט של ממש, לא רק פסקת ניתוח.</p>
+      <div class="acronym">
+        <div class="acronym-row">
+          <div class="acronym-content">
+            <div class="acronym-word">קובץ HTML להפצה (Hostable)</div>
+            <div class="acronym-desc">מבקשים מ-Claude להפיק קובץ HTML יחיד, עצמאי לחלוטין — כל הסקריפטים, העיצוב והגרפים משולבים בפנים או נטענים מ-CDN. כל חבר הנהלה פותח אותו בדפדפן בלי התחברות, בלי אפליקציה ובלי פנייה ל-IT. שולחים כקובץ מצורף במייל, מארחים ב-Netlify, או מטמיעים ב-Notion.</div>
+            <div class="acronym-example">"Output a single fully self-contained HTML file. No external dependencies. Must render offline and be shareable as an attachment."</div>
+          </div>
+          <div class="acronym-letter-cell"><span class="acronym-letter">H</span></div>
+        </div>
+        <div class="acronym-row">
+          <div class="acronym-content">
+            <div class="acronym-word">קהל היעד ומקרה השימוש (Target)</div>
+            <div class="acronym-desc">מגדירים מי ישתמש בדשבורד ואיזו החלטה הוא צריך לתמוך בה. CFO שבודק ביצועים צריך פריסה שונה מאנליסט שחוקר וריאנסים — וחבילת דירקטוריון שונה מכלי תפעולי פנימי. אומרים ל-Claude מי המשתמש, מה ההקשר ואיזו שאלה הדשבורד אמור לענות עליה.</div>
+            <div class="acronym-example">"Audience: CFO and board members. Use case: monthly performance review — they need to see at a glance whether we are on track vs. budget and where to probe. No interactivity needed; clarity and narrative hierarchy above all."</div>
+          </div>
+          <div class="acronym-letter-cell"><span class="acronym-letter">T</span></div>
+        </div>
+        <div class="acronym-row">
+          <div class="acronym-content">
+            <div class="acronym-word">מדגם מהנתונים שלי (My data)</div>
+            <div class="acronym-desc">מעלים פלח קטן ומייצג מהנתונים האמיתיים — כמה שורות והעמודות המרכזיות — במקום את כל קובץ העבודה. Claude משתמש במבנה ובמספרים כדי לחווט את הדשבורד נכון, בלי לדרוש את מלוא הדאטהסט מראש.</div>
+            <div class="acronym-example">"I'm attaching 3 months of data as a sample. Use this structure and these columns to build the dashboard — I will provide the full dataset once the layout is confirmed."</div>
+          </div>
+          <div class="acronym-letter-cell"><span class="acronym-letter">M</span></div>
+        </div>
+        <div class="acronym-row">
+          <div class="acronym-content">
+            <div class="acronym-word">פריסה ומראה (Layout &amp; Look)</div>
+            <div class="acronym-desc">קובעים כיוון עיצובי. משלבים עם סקיל Theme Factory לתוצאה מקצועית, או מתארים אסתטיקה משלכם — "כהה וניהולי", "נקי ומינימלי", "ירוק יער עם נגיעת זהב".</div>
+            <div class="acronym-example">"Dark executive style. Sidebar navigation. White metric cards. Serif typography for headline numbers."</div>
+          </div>
+          <div class="acronym-letter-cell"><span class="acronym-letter">L</span></div>
+        </div>
+      </div>
+      <div class="prompt-box">
+        <div class="prompt-label">דוגמה מלאה — בריף H·T·M·L שלם</div>
+        <p class="prompt-text">"Build an FP&amp;A dashboard for a SaaS company. <strong>H</strong>ostable HTML file — single self-contained output, no external dependencies, must render offline. <strong>T</strong>arget audience: CFO and board — monthly performance review, needs at-a-glance budget vs. actuals with clear narrative hierarchy, no interactivity required. <strong>M</strong>y data attached as a 3-month sample — use this structure to wire the dashboard; I will provide the full dataset once the layout is approved. <strong>L</strong>ayout: dark executive theme, sidebar navigation, large metric cards, subtle grid lines on all charts."</p>
+      </div>
+    </div>
+  </article>
+
+  <!-- ── PRACTICE 2 ── -->
+  <article class="practice" id="practice-2">
+    <div class="practice-header">
+      <div class="practice-num">02</div>
+      <div class="practice-title-block">
+        <h2>הזמנת תבנית עיצוב מ-Theme Factory</h2>
+        <p class="practice-tagline">עשר פלטות מקצועיות מובנות ב-Claude — מיושמות בהנחיה אחת</p>
+      </div>
+      <span class="badge">סקיל של Claude</span>
+    </div>
+    <div class="practice-body">
+      <p>הסקיל <strong>Theme Factory</strong> של Claude נושא ארון בגדים אצור של עשר תבניות מקצועיות — לכל אחת פלטת צבעים ושילוב פונטים שנבחרו במחשבה לפי הקשר. במקום לציין קודי צבע בעצמכם, מפעילים את הסקיל, בוחנים את התצוגה ובוחרים את התבנית שמתאימה לקהל שלכם.</p>
+      <div class="themes-grid">
+        <div class="theme-chip">Ocean Depths<span>כחול קורפורטיבי</span></div>
+        <div class="theme-chip">Sunset Boulevard<span>אדום חם</span></div>
+        <div class="theme-chip featured">Forest Canopy<span>ירוק ותיק ומכובד</span></div>
+        <div class="theme-chip">Modern Minimalist<span>גווני אפור</span></div>
+        <div class="theme-chip">Golden Hour<span>ענבר עשיר</span></div>
+        <div class="theme-chip">Arctic Frost<span>כחול קריר</span></div>
+        <div class="theme-chip">Desert Rose<span>ורוד מאובק</span></div>
+        <div class="theme-chip">Tech Innovation<span>נועז ומודרני</span></div>
+        <div class="theme-chip">Botanical Garden<span>ירוק אורגני</span></div>
+        <div class="theme-chip">Midnight Galaxy<span>קוסמי כהה</span></div>
+      </div>
+      <div class="steps">
+        <div class="step"><div class="step-text">מבקשים מ-Claude <strong>להציג את תצוגת עשר התבניות</strong> — כל האפשרויות מוצגות ויזואלית לפני שמתחייבים.</div><div class="step-num-cell"><span class="step-num">i</span></div></div>
+        <div class="step"><div class="step-text">בוחרים את התבנית המתאימה לקהל. <strong>Forest Canopy</strong> ו-<strong>Ocean Depths</strong> לדירקטוריונים שמרניים; <strong>Tech Innovation</strong> לעדכוני משקיעים.</div><div class="step-num-cell"><span class="step-num">ii</span></div></div>
+        <div class="step"><div class="step-text">מאשרים את הבחירה. Claude מיישם את הפלטה ואת שילוב הפונטים <strong>באופן עקבי</strong> על כל גרף, כרטיס וטבלה בארטיפקט.</div><div class="step-num-cell"><span class="step-num">iii</span></div></div>
+        <div class="step"><div class="step-text">לחלופין, מתארים את המותג ומבקשים מ-Claude <strong>לייצר תבנית מותאמת אישית במקום</strong> — הוא בוחר שם, מגדיר פלטה ומיישם אותה בלי הנחיה נוספת.</div><div class="step-num-cell"><span class="step-num">iv</span></div></div>
+      </div>
+      <div class="prompt-box">
+        <div class="prompt-label">איך מפעילים את Theme Factory</div>
+        <p class="prompt-text">"Before building the dashboard, display the Theme Factory showcase so I may choose a style — then apply my chosen theme throughout the entire HTML artifact. If none suit, generate a custom theme using our brand colors: olive-lime #b8c45a and near-black #0b0d10."</p>
+      </div>
+    </div>
+  </article>
+
+  <!-- ── PRACTICE 3 ── -->
+  <article class="practice" id="practice-3">
+    <div class="practice-header">
+      <div class="practice-num">03</div>
+      <div class="practice-title-block">
+        <h2>בונים קודם עם נתוני דמה</h2>
+        <p class="practice-tagline">קובעים את הצורה לפני שמתחייבים למספרים — ואז ממלאים בנתונים אמיתיים</p>
+      </div>
+      <span class="badge">תהליך עבודה</span>
+    </div>
+    <div class="practice-body">
+      <p>הדרך הבטוחה ביותר לעצור את המומנטום היא להדביק מספרים אמיתיים לפני שהפריסה אושרה. מזמינים את הדשבורד המלא עם <strong>נתוני דמה ריאליים</strong> קודם. ברגע שהצורה זכתה לאמון בעלי העניין, מחליפים את המספרים דרך העלאת אקסל או חיבור נתונים חי.</p>
+      <div class="data-flow">
+        <div class="flow-step"><div class="flow-num">שלב I</div><div class="flow-name">מזמינים את הצורה</div></div>
+        <div class="flow-step"><div class="flow-num">שלב II</div><div class="flow-name">אישור בעלי העניין</div></div>
+        <div class="flow-step"><div class="flow-num">שלב III</div><div class="flow-name">מעלים נתונים אמיתיים</div></div>
+        <div class="flow-step"><div class="flow-num">שלב IV</div><div class="flow-name">מפיצים</div></div>
+      </div>
+      <div class="prompt-box">
+        <div class="prompt-label">הזמנת נתוני הדמה</div>
+        <p class="prompt-text">"Build the complete dashboard layout using realistic placeholder figures for a B2B SaaS company at approximately ₪35M ARR. I shall upload the true data once the design is approved by stakeholders."</p>
+      </div>
+      <div class="steps">
+        <div class="step"><div class="step-text"><strong>בונים ומפיצים</strong> — משתפים את הארטיפקט עם הצוות דרך קובץ ה-HTML. משכללים עיצוב, לא נתונים. מתקדמים מהר.</div><div class="step-num-cell"><span class="step-num">i</span></div></div>
+        <div class="step"><div class="step-text"><strong>מעלים אקסל או CSV</strong> — מצרפים את הקובץ לשיחה. מנחים את Claude: "Replace the dummy figures with those from this file, preserving the layout precisely."</div><div class="step-num-cell"><span class="step-num">ii</span></div></div>
+        <div class="step"><div class="step-text"><strong>מחברים מקור נתונים חי</strong> — מפעילים Google Sheets או Salesforce בהגדרות המחברים של Claude לדשבורדים שמתעדכנים לבד בכל צפייה.</div><div class="step-num-cell"><span class="step-num">iii</span></div></div>
+      </div>
+    </div>
+  </article>
+
+  <!-- ── PRACTICE 4 ── -->
+  <article class="practice" id="practice-4">
+    <div class="practice-header">
+      <div class="practice-num">04</div>
+      <div class="practice-title-block">
+        <h2>שואבים השראה עיצובית מ-Dribbble</h2>
+        <p class="practice-tagline">מוצאים עיצוב שאתם מעריכים ומבקשים מ-Claude לשחזר את האסתטיקה עבור הנתונים שלכם</p>
+      </div>
+      <span class="badge">מחקר עיצובי</span>
+    </div>
+    <div class="practice-body">
+      <p><strong>Dribbble (dribbble.com)</strong> הוא המאגר המוביל של אומנות ממשק — כולל אוסף רחב של דשבורדים פיננסיים ברמה גבוהה. במקום לתאר במילים מה רוצים, מוצאים רפרנס ויזואלי ונותנים ל-Claude להנדס בהיפוך את האסתטיקה עבורכם.</p>
+      <div class="grid-cards cols-2">
+        <div class="mini-card">
+          <h4>איך לחפש ב-Dribbble</h4>
+          <p>מונחים שמעלים עבודות איכותיות: <em>"finance dashboard dark"</em>, <em>"SaaS metrics executive"</em>, <em>"CFO report design"</em>, <em>"FP&amp;A UI minimal"</em>, <em>"KPI dashboard luxury"</em>.</p>
+          <div class="mini-tags"><span class="mini-tag">finance dashboard dark</span><span class="mini-tag">SaaS metrics UI</span><span class="mini-tag">KPI executive</span></div>
+        </div>
+        <div class="mini-card">
+          <h4>מה לספק ל-Claude</h4>
+          <p>מעלים צילום מסך, או מדביקים ישירות את קישור ה-Dribbble. מנחים את Claude: "Match this layout and palette — adapt it to display our FP&amp;A metrics with the same visual weight."</p>
+          <div class="mini-tags"><span class="mini-tag">screenshot upload</span><span class="mini-tag">URL reference</span></div>
+        </div>
+        <div class="mini-card">
+          <h4>מה לחלץ מרפרנס</h4>
+          <p>שמים לב לסידור הכרטיסים, ההיררכיה הטיפוגרפית, בחירת הגרפים, טמפרטורת הצבע, ואיך הקומפוזיציה מכוונת תשומת לב למספר הראשי בעמוד.</p>
+        </div>
+        <div class="mini-card">
+          <h4>מתארים במה אתם מעריכים</h4>
+          <p>לא מדביקים רק תמונה — מנסחים העדפה. <em>"אני מעריך את הסיידבר הכהה, המספר הראשי הגדול, וקווי הרשת המאופקים בגרף."</em></p>
+        </div>
+      </div>
+      <div class="prompt-box">
+        <div class="prompt-label">בריף מבוסס־רפרנס</div>
+        <p class="prompt-text">"Attached is a Dribbble reference I find most distinguished — dark background, ivory cards, fine-weight typography, generous white space. Recreate this aesthetic precisely, but replace the content with our FP&amp;A metrics: Revenue, EBITDA Margin, Headcount, and Free Cash Flow."</p>
+      </div>
+    </div>
+  </article>
+
+  <!-- ── PRACTICE 5 ── -->
+  <article class="practice" id="practice-5">
+    <div class="practice-header">
+      <div class="practice-num">05</div>
+      <div class="practice-title-block">
+        <h2>מזמינים דשבורד חי מבוסס AI</h2>
+        <p class="practice-tagline">דשבורדים שחושבים — הטמעת האינטליגנציה של Claude ישירות בארטיפקט</p>
+      </div>
+      <span class="badge">מתקדם</span>
+    </div>
+    <div class="practice-body">
+      <p>מעבר לדוח סטטי, Claude יכול לבנות <strong>ארטיפקטים מבוססי-AI</strong> — דשבורדים שמתקשרים חזרה ל-API של Claude, ומאפשרים לכל צופה לשאול שאלות על הנתונים בשפה חופשית ולקבל ניתוח מיידי ומנומק. בשילוב עם חיבורי נתונים חיים, זה מפיק כלי דיווח ברמה של ממש.</p>
+      <div class="steps">
+        <div class="step"><div class="step-text"><strong>מחברים מקור נתונים</strong> — מפעילים Google Sheets, Excel Online או Salesforce בהגדרות המחברים של Claude. מספרים חיים זורמים לארטיפקט אוטומטית בכל צפייה.</div><div class="step-num-cell"><span class="step-num">i</span></div></div>
+        <div class="step"><div class="step-text"><strong>מטמיעים שורת שאילתות AI</strong> — מנחים את Claude להוסיף שדה טקסט שקורא ל-API של Anthropic עם ההקשר הפיננשי שלכם כפרומפט מערכת, כך שבעלי עניין יכולים להקליד "למה ה-EBITDA התכווץ ברבעון השלישי?" ישירות בתוך הדשבורד.</div><div class="step-num-cell"><span class="step-num">ii</span></div></div>
+        <div class="step"><div class="step-text"><strong>מאוטמים פרשנות וריאנס</strong> — כפתור "צור פרשנות" אחד מפעיל את Claude לספר את השינויים בתקופה ולהעלות חריגות, ומתעדכן עם כל מחזור נתונים.</div><div class="step-num-cell"><span class="step-num">iii</span></div></div>
+        <div class="step"><div class="step-text"><strong>מוסיפים בקרות תרחיש</strong> — סליידרים אינטראקטיביים לצמיחת כוח אדם, שיפור מרווח גולמי, או צמצום נטישה, מופעלים על ידי מנוע החישוב של Claude למידול "מה אם" מיידי.</div><div class="step-num-cell"><span class="step-num">iv</span></div></div>
+      </div>
+      <div class="prompt-box">
+        <div class="prompt-label">בריף לדשבורד מבוסס-AI</div>
+        <p class="prompt-text">"Build an FP&amp;A dashboard artifact containing: (1) live KPI cards, (2) a trend chart via Chart.js, (3) a scenario model with adjustable sliders, and (4) a natural-language query input — using the Anthropic API to answer questions with the dashboard data held as context in the system prompt."</p>
+      </div>
+    </div>
+  </article>
+
+  <!-- ── PRACTICE 6 ── -->
+  <article class="practice" id="practice-6">
+    <div class="practice-header">
+      <div class="practice-num">06</div>
+      <div class="practice-title-block">
+        <h2>מורידים ומפיצים את קובץ ה-HTML</h2>
+        <p class="practice-tagline">שלושה ערוצים שדרכם הדשבורד שלכם מגיע לקהל היעד בלי חיכוך</p>
+      </div>
+      <span class="badge">הפצה</span>
+    </div>
+    <div class="practice-body">
+      <p>היתרון הייחודי של <strong>ארטיפקט HTML עצמאי</strong> הוא שהוא לא דורש שום תשתית להפצה. קובץ יחיד — בדרך כלל מתחת למגה-בייט — נפתח בכל דפדפן ובכל מכשיר, בלי התחברות, בלי אפליקציה ובלי פנייה ל-IT.</p>
+      <div class="grid-cards cols-3">
+        <div class="mini-card">
+          <h4>כארטיפקט של Claude</h4>
+          <p>מורידים ישירות מלוח הארטיפקטים של Claude. כל הגרפים, הפונטים והעיצוב משולבים בפנים. מפיצים כדואר אלקטרוני כקובץ מצורף — בלי הכנה נוספת.</p>
+        </div>
+        <div class="mini-card">
+          <h4>כעמוד מתארח</h4>
+          <p>שמים את הקובץ ב-Netlify Drop, GitHub Pages, או כל אחסון סטטי אחר. כתובת URL להפצה נוצרת תוך רגעים — מתאים לחבילות דירקטוריון, עדכוני משקיעים ודוחות חודשיים.</p>
+        </div>
+        <div class="mini-card">
+          <h4>בתוך מצגת</h4>
+          <p>מטמיעים את ה-HTML ב-Notion, Confluence או SharePoint. או פותחים בכרטיסייה בדפדפן במהלך ישיבת דירקטוריון — הגרפים והסליידרים האינטראקטיביים נטענים במלוא הנאמנות להצגה חיה.</p>
+        </div>
+      </div>
+      <div class="prompt-box">
+        <div class="prompt-label">מוודאים שהקובץ באמת ניתן להפצה</div>
+        <p class="prompt-text">"Ensure the final HTML file is entirely self-contained. All Chart.js scripts, fonts, and CSS must be inlined or loaded from a CDN. The artifact must open and render with complete fidelity in the absence of an internet connection."</p>
+      </div>
+    </div>
+  </article>
+
+  <!-- ── PRACTICE 7 ── -->
+  <article class="practice" id="practice-7">
+    <div class="practice-header">
+      <div class="practice-num">07</div>
+      <div class="practice-title-block">
+        <h2>משכללים דרך שיחה, לא דרך מפרט</h2>
+        <p class="practice-tagline">מתייחסים ל-Claude כשותף עיצוב — נותנים הערות כמו לאנליסט בכיר</p>
+      </div>
+      <span class="badge">גישת עבודה</span>
+    </div>
+    <div class="practice-body">
+      <p>ההתאמה המשמעותית ביותר לאנשי כספים חדשים ל-Claude Artifacts: <strong>לוותר על הדחף לכתוב בריף מושלם</strong>. החוזק האמיתי של Claude הוא איטרציה — כל הנחיה היא עדכון חי לארטיפקט. מתייחסים אליו כמו לאנליסט מוכשר שלא מתעייף, לא שוכח, ומשתפר עם כל חילופי דברים.</p>
+      <div class="steps">
+        <div class="step"><div class="step-text"><strong>פותחים רחב, סוגרים מדויק</strong> — מקימים דשבורד עובד בתוך שניים-שלושה חילופי דברים לפני שמשכללים. פרופורציה, היררכיה ובחירת גרפים קודם; טיפוגרפיה וצבע אחרונים.</div><div class="step-num-cell"><span class="step-num">i</span></div></div>
+        <div class="step"><div class="step-text"><strong>מתייחסים למה שרואים</strong> — "גרף העמודות של ההכנסות בפינה השמאלית העליונה — הפכו אותו לגרף מפל שמראה וריאנס רבעוני." Claude שומר מודעות מלאה למצב הנוכחי של הארטיפקט.</div><div class="step-num-cell"><span class="step-num">ii</span></div></div>
+        <div class="step"><div class="step-text"><strong>מזמינים אפשרויות, ואז בוחרים</strong> — "הציגו שלוש חלופות לאזור הכותרת. אבחר את המתאימה ביותר ונמשיך משם."</div><div class="step-num-cell"><span class="step-num">iii</span></div></div>
+        <div class="step"><div class="step-text"><strong>מאשררים את העיצוב לפני הכנסת נתונים</strong> — משתמשים בבנייה עם נתוני דמה (עיקרון 3) כדי לסגור פריסה, ואז מחליפים למספרים חיים בהנחיה אחת נקייה.</div><div class="step-num-cell"><span class="step-num">iv</span></div></div>
+        <div class="step"><div class="step-text"><strong>שומרים גרסאות עבודה</strong> — מורידים את ה-HTML בכל אבן דרך משמעותית. כל קובץ הוא רשומה שלמה ועצמאית שאפשר תמיד לחזור אליה.</div><div class="step-num-cell"><span class="step-num">v</span></div></div>
+      </div>
+      <div class="iter-sequence">
+        <div class="iter-row"><div class="iter-text"><strong>I.</strong> "Build a CFO dashboard with dummy data, dark theme, four KPI cards, one trend chart."</div><div class="iter-arrow">←</div></div>
+        <div class="iter-row"><div class="iter-text"><strong>II.</strong> "Add a second chart — Opex breakdown as a donut. Place it to the right of the trend chart."</div><div class="iter-arrow">←</div></div>
+        <div class="iter-row"><div class="iter-text"><strong>III.</strong> "The figures on the metric cards are too small. Increase the number to 44px, bold weight."</div><div class="iter-arrow">←</div></div>
+        <div class="iter-row"><div class="iter-text"><strong>IV.</strong> "Apply the <strong>Forest Canopy</strong> theme from Theme Factory. Adjust the chart palette to match."</div><div class="iter-arrow">←</div></div>
+        <div class="iter-row"><div class="iter-text"><strong>V.</strong> "Replace the dummy data with the attached Excel file. Preserve the layout precisely."</div><div class="iter-arrow">←</div></div>
+        <div class="iter-row"><div class="iter-text"><strong>VI.</strong> "Make the file fully self-contained and downloadable. Inline all scripts and styles."</div><div class="iter-arrow">←</div></div>
+      </div>
+    </div>
+  </article>
+
+  <!-- ── PRACTICE 8 ── -->
+  <article class="practice" id="practice-8">
+    <div class="practice-header">
+      <div class="practice-num">08</div>
+      <div class="practice-title-block">
+        <h2>הופכים את הדשבורד לניתן לרענון מ-CSV</h2>
+        <p class="practice-tagline">ארטיפקט אחד, בשימוש כל חודש — אנליסט מטעין ייצוא חדש במקום להזמין קובץ חדש</p>
+      </div>
+      <span class="badge">תהליך עבודה</span>
+    </div>
+    <div class="practice-body">
+      <p>דשבורד שנבנה לחודש בודד הוא דוח. דשבורד <strong>שמקבל CSV חדש כל תקופה</strong> הוא כלי. במקום לחזור ל-Claude בכל סגירה כדי לבנות מחדש את אותה פריסה עם מספרים חדשים, מנחים את Claude לחווט בקרת העלאה ישירות לארטיפקט, כך שכל אנליסט בצוות יכול לרענן אותו בעצמו.</p>
+      <div class="steps">
+        <div class="step"><div class="step-text"><strong>קובעים את חוזה העמודות</strong> — נותנים שם מדויק לכותרות שההעלאה אמורה לצפות להן, למשל Month, Revenue, COGS, Opex, Headcount. אומרים זאת במפורש; Claude לא יכול לנחש את מבנה הייצוא שלכם.</div><div class="step-num-cell"><span class="step-num">i</span></div></div>
+        <div class="step"><div class="step-text"><strong>מפענחים בצד הלקוח</strong> — Claude מחווט את שדה הקובץ ל-PapaParse, וקורא את ה-CSV ישירות בדפדפן. שום דבר לא יוצא מהמכשיר ואין צורך בשרת.</div><div class="step-num-cell"><span class="step-num">ii</span></div></div>
+        <div class="step"><div class="step-text"><strong>מוודאים לפני ההצגה</strong> — מבקשים באנר אזהרה קצר אם כותרת חסרה או כתובה לא נכון, במקום סכום שגוי בשקט על המספרים של ההנהלה.</div><div class="step-num-cell"><span class="step-num">iii</span></div></div>
+        <div class="step"><div class="step-text"><strong>מחשבים הכל מחדש</strong> — כל כרטיס KPI, גרף וסכום צריכים להיות פונקציה של הנתונים שהועלו, לא ערך שהוקלד פעם אחת ונשכח.</div><div class="step-num-cell"><span class="step-num">iv</span></div></div>
+        <div class="step"><div class="step-text"><strong>זוכרים את ההעלאה האחרונה</strong> — ארטיפקטים של Claude יכולים לשמור את הדאטהסט המפוענח דרך ה-API המובנה לאחסון, כך שהדשבורד נפתח מחדש עם המספרים של החודש שעבר כבר במקום, במקום מסך ריק.</div><div class="step-num-cell"><span class="step-num">v</span></div></div>
+      </div>
+      <div class="prompt-box">
+        <div class="prompt-label">בריף לדשבורד ניתן לרענון</div>
+        <p class="prompt-text">"Add an 'Upload CSV' button above the KPI cards. Expect these columns exactly: Month, Revenue, COGS, Opex, Headcount. Parse the file client-side with PapaParse, show a clear warning if any column is missing, and recalculate every KPI card, chart, and total from the new data on upload. Store the parsed dataset so the dashboard remembers the last upload the next time I open the file."</p>
+      </div>
+    </div>
+  </article>
+
+  <!-- ── PRACTICE 9 ── -->
+  <article class="practice" id="practice-9">
+    <div class="practice-header">
+      <div class="practice-num">09</div>
+      <div class="practice-title-block">
+        <h2>מוסיפים טאבים עם ניווט צד</h2>
+        <p class="practice-tagline">ארטיפקט אחד, תצוגות רבות — רווח והפסד, מאזן ותזרים מאחורי סיידבר יחיד</p>
+      </div>
+      <span class="badge">פריסה</span>
+    </div>
+    <div class="practice-body">
+      <p>ככל שהיקף הדשבורד גדל מעבר למסך יחיד, דחיסת כל דוח לעמוד אחד כופה פשרות. <strong>סיידבר קבוע עם כמה טאבים</strong> מאפשר ל-CFO להפריד סקירה, רווח והפסד, מאזן, תזרים ותרחישים — תוך שמירה על המשמעת של קובץ אחד, כתובת אחת, דבר אחד לשלוח.</p>
+      <div class="nav-mock">
+        <div class="nav-mock-sidebar">
+          <div class="nav-mock-item active">סקירה</div>
+          <div class="nav-mock-item">רווח והפסד</div>
+          <div class="nav-mock-item">מאזן</div>
+          <div class="nav-mock-item">תזרים מזומנים</div>
+          <div class="nav-mock-item">תרחישים</div>
+        </div>
+        <div class="nav-mock-panel">
+          <div class="nav-mock-panel-title">סקירה</div>
+          <div class="nav-mock-cards">
+            <div class="nav-mock-card"><div class="nav-mock-card-label">הכנסות</div><div class="nav-mock-card-value">11.2M ₪</div></div>
+            <div class="nav-mock-card"><div class="nav-mock-card-label">EBITDA</div><div class="nav-mock-card-value">18.4%</div></div>
+            <div class="nav-mock-card"><div class="nav-mock-card-label">עובדים</div><div class="nav-mock-card-value">142</div></div>
+          </div>
+          <div class="nav-mock-chart-line"></div>
+        </div>
+      </div>
+      <div class="steps">
+        <div class="step"><div class="step-text"><strong>נותנים שם לטאבים בבריף</strong> — רושמים בדיוק אילו קטעים רוצים, במקום להשאיר את המבנה להמצאה של Claude.</div><div class="step-num-cell"><span class="step-num">i</span></div></div>
+        <div class="step"><div class="step-text"><strong>מבקשים החלפה מבוססת-מצב</strong> — לחיצה על טאב מחליפה את הפאנל הגלוי דרך JavaScript פשוט של הצג/הסתר. בלי ראוטר, בלי טעינה מחדש, בלי מסגרת חיצונית.</div><div class="step-num-cell"><span class="step-num">ii</span></div></div>
+        <div class="step"><div class="step-text"><strong>מצמידים את המדדים הראשיים</strong> — חוזרים על כרטיסי ה-KPI העליונים כפס קבוע מעל הפאנל, כך שה-CFO לעולם לא מאבד את התמונה הכללית תוך כדי חקירת פרטים.</div><div class="step-num-cell"><span class="step-num">iii</span></div></div>
+        <div class="step"><div class="step-text"><strong>מסמנים את הטאב הפעיל בבירור</strong> — רקע ייחודי ופס הדגשה בצבע התבנית, כדי שהתמצאות תהיה מיידית גם למשתמש ראשון.</div><div class="step-num-cell"><span class="step-num">iv</span></div></div>
+      </div>
+      <div class="prompt-box">
+        <div class="prompt-label">בריף לניווט בטאבים</div>
+        <p class="prompt-text">"Restructure this into a single-page app with a fixed sidebar containing five tabs: Overview, P&amp;L, Balance Sheet, Cash Flow, Scenarios. Clicking a tab swaps the main panel via simple show/hide JavaScript — no page reload. Keep the four KPI cards pinned above the panel on every tab. Highlight the active tab with an accent bar in our theme color."</p>
+      </div>
+    </div>
+  </article>
+
+  <!-- ── PRACTICE 10 ── -->
+  <article class="practice" id="practice-10">
+    <div class="practice-header">
+      <div class="practice-num">10</div>
+      <div class="practice-title-block">
+        <h2>בונים סימולטור אינטראקטיבי</h2>
+        <p class="practice-tagline">נותנים להנהלה להזיז את הסליידרים בעצמה ולראות כל מספר מגיב בזמן אמת</p>
+      </div>
+      <span class="badge">מתקדם</span>
+    </div>
+    <div class="practice-body">
+      <p>תחזית סטטית עונה על שאלה אחת. <strong>סימולטור</strong> עונה על כולן — מחברים סליידרים לצמיחת כוח אדם, תמחור או נטישה ישירות לנוסחאות ההכנסה והמרווח, ונותנים לחבר הנהלה לחקור את המודל במקום לחכות למצגת מעודכנת.</p>
+      <div class="slider-mock">
+        <div class="slider-row">
+          <div class="slider-value">+17%</div>
+          <div class="slider-track"><div class="slider-fill" style="width: 42%;"></div><div class="slider-handle" style="right: 42%;"></div></div>
+          <div class="slider-label">צמיחת כוח אדם</div>
+        </div>
+        <div class="slider-row">
+          <div class="slider-value">+6.5 נק'</div>
+          <div class="slider-track"><div class="slider-fill" style="width: 65%;"></div><div class="slider-handle" style="right: 65%;"></div></div>
+          <div class="slider-label">שיפור מרווח גולמי</div>
+        </div>
+        <div class="slider-row">
+          <div class="slider-value">-1.5 נק'</div>
+          <div class="slider-track"><div class="slider-fill" style="width: 30%;"></div><div class="slider-handle" style="right: 30%;"></div></div>
+          <div class="slider-label">צמצום נטישה</div>
+        </div>
+      </div>
+      <div class="steps">
+        <div class="step"><div class="step-text"><strong>מציינים את הנוסחאות במפורש</strong> — למשל: "Revenue = Customers × ARPU × (1 − Churn)". Claude לא יכול לנחש את ההיגיון הפיננסי שלכם; כותבים את המשוואה בבריף.</div><div class="step-num-cell"><span class="step-num">i</span></div></div>
+        <div class="step"><div class="step-text"><strong>משתמשים בסליידרים, לא בשדות טקסט</strong>, למשתנים רציפים כמו אחוז נטישה או העלאת מחיר — סליידר מזמין חקירה בצורה ששדה מספר לא מזמין.</div><div class="step-num-cell"><span class="step-num">ii</span></div></div>
+        <div class="step"><div class="step-text"><strong>מחברים כל פלט בזמן אמת</strong> — כל כרטיס KPI, גרף ומשפט סיכום אמורים להתעדכן בכל תזוזת סליידר, ב-JavaScript פשוט בלי טעינה מחדש.</div><div class="step-num-cell"><span class="step-num">iii</span></div></div>
+        <div class="step"><div class="step-text"><strong>מוסיפים איפוס ושמירה</strong> — כפתור "איפוס לתרחיש בסיס", ואופציונלית דרך לצלם תרחיש, כדי שיהיה אפשר להשוות שני-שלושה תרחישי "מה אם" זה לצד זה.</div><div class="step-num-cell"><span class="step-num">iv</span></div></div>
+      </div>
+      <div class="prompt-box">
+        <div class="prompt-label">בריף לסימולטור</div>
+        <p class="prompt-text">"Add a scenario simulator panel with three sliders: Headcount Growth (0–40%), Gross Margin Improvement (0–10pt), Churn Reduction (0–5pt). Bind each slider to the underlying revenue and EBITDA formulas so all KPI cards and the trend chart recalculate live as the sliders move. Include a 'Reset to Base Case' button."</p>
+      </div>
+    </div>
+  </article>
+
+  <!-- ── PRACTICE 11 ── -->
+  <article class="practice" id="practice-11">
+    <div class="practice-header">
+      <div class="practice-num">11</div>
+      <div class="practice-title-block">
+        <h2>מוסיפים ניתוח רגישות</h2>
+        <p class="practice-tagline">מראים להנהלה איזו הנחת יסוד באמת מזיזה את המספר — עוד לפני שישאלו</p>
+      </div>
+      <span class="badge">ניתוח</span>
+    </div>
+    <div class="practice-body">
+      <p>כל סימולטור מזמין את השאלה הבאה: <strong>איזה משתנה הכי משפיע?</strong> ניתוח רגישות עונה על כך — מזיזים משתנה אחד בכל פעם מול תרחיש בסיס, ומדרגים את התוצאות כגרף Tornado, כך שהדשבורד מציין בעצמו את הגורם המשפיע ביותר במקום להשאיר את ההנהלה מנחשת.</p>
+      <div class="tornado-mock">
+        <div class="tornado-row">
+          <div class="tornado-label">מרווח גולמי</div>
+          <div class="tornado-bar-wrap"><div class="tornado-bar" style="right: 8%; width: 84%;"></div></div>
+        </div>
+        <div class="tornado-row">
+          <div class="tornado-label">מחיר</div>
+          <div class="tornado-bar-wrap"><div class="tornado-bar" style="right: 20%; width: 60%;"></div></div>
+        </div>
+        <div class="tornado-row">
+          <div class="tornado-label">נפח</div>
+          <div class="tornado-bar-wrap"><div class="tornado-bar" style="right: 28%; width: 44%;"></div></div>
+        </div>
+        <div class="tornado-row">
+          <div class="tornado-label">שיעור היוון</div>
+          <div class="tornado-bar-wrap"><div class="tornado-bar" style="right: 38%; width: 24%;"></div></div>
+        </div>
+        <div class="tornado-note">ממוין מהרחב לצר: <strong>מרווח גולמי הוא הגורם הדומיננטי</strong> ברגישות ה-EBITDA במודל הזה.</div>
+      </div>
+      <div class="steps">
+        <div class="step"><div class="step-text"><strong>רושמים את המשתנים והטווחים</strong> — מחיר, נפח, אחוז עלות המכר, שיעור היוון — כל אחד עם תנודה ±סבירה, למשל ±10%. טווחים מעורפלים מייצרים גרף מעורפל.</div><div class="step-num-cell"><span class="step-num">i</span></div></div>
+        <div class="step"><div class="step-text"><strong>בודקים משתנה אחד בכל פעם</strong> — משאירים את כל השאר בתרחיש הבסיס, מזיזים משתנה יחיד לאורך הטווח שלו, ורושמים את השינוי במדד הפלט.</div><div class="step-num-cell"><span class="step-num">ii</span></div></div>
+        <div class="step"><div class="step-text"><strong>מציגים כגרף Tornado</strong> — עמודות אופקיות ממוינות לפי גודל ההשפעה, הרחבה ביותר למעלה, באמצעות Chart.js או SVG פשוט.</div><div class="step-num-cell"><span class="step-num">iii</span></div></div>
+        <div class="step"><div class="step-text"><strong>סוגרים במשפט אחד</strong> — מבקשים מ-Claude לייצר אוטומטית שורה שמציינת את הגורם הגדול ביותר, כך שהגרף טוען את מסקנתו בעצמו.</div><div class="step-num-cell"><span class="step-num">iv</span></div></div>
+      </div>
+      <div class="prompt-box">
+        <div class="prompt-label">בריף לניתוח רגישות</div>
+        <p class="prompt-text">"Add a sensitivity analysis section below the simulator. Test four variables — Price (±10%), Volume (±15%), COGS % (±5pt), Discount Rate (±2pt) — one at a time against base-case EBITDA. Render the results as a horizontal tornado chart sorted by impact, widest bar at top, in our theme's accent color. Below the chart, auto-generate one sentence naming the largest driver."</p>
+      </div>
+    </div>
+  </article>
+
+  <!-- ── PRACTICE 12 ── -->
+  <article class="practice" id="practice-12">
+    <div class="practice-header">
+      <div class="practice-num">12</div>
+      <div class="practice-title-block">
+        <h2>מבצעים ביקורת AI כמו על אנליסט זוטר</h2>
+        <p class="practice-tagline">אף פעם לא מציגים להנהלה מספר שנבנה על ידי Claude בלי בדיקה — עוברים עליו כמו על מודל של מגויס בשנה הראשונה</p>
+      </div>
+      <span class="badge">ממשל ובקרה</span>
+    </div>
+    <div class="practice-body">
+      <p>דשבורד שנבנה כל כך מהר ראוי לאותה קפדנות כמו כזה שלקח שבוע. Claude הוא אנליסט מוכשר, לא חסין טעויות — מתייחסים לכל ארטיפקט כאל <strong>טיוטה ראשונה של חבר צוות זוטר</strong>: מוכשר, מהיר, לפעמים בטוח מדי בדבר הלא נכון. אותה משמעת שתופסת טעות של אנליסט זוטר תופסת גם את זו של Claude.</p>
+      <div class="steps">
+        <div class="step"><div class="step-text"><strong>מקשרים סכומים חזרה למקור</strong> — בוחרים שניים-שלושה כרטיסי KPI, מחשבים אותם ידנית מהקובץ הגולמי, ומוודאים שהם תואמים עד לאגורה — לא רק "בערך".</div><div class="step-num-cell"><span class="step-num">i</span></div></div>
+        <div class="step"><div class="step-text"><strong>דורשים את הנוסחה, לא רק את המספר</strong> — מבקשים מ-Claude לציין בשפה פשוטה בדיוק אילו עמודות וחישוב כל כרטיס וגרף קוראים. אנליסט שלא יכול להסביר את המספר שלו לא זכה לאמון בו.</div><div class="step-num-cell"><span class="step-num">ii</span></div></div>
+        <div class="step"><div class="step-text"><strong>חוקרים את החריגים</strong> — אם גרף מראה קפיצה או שקיעה, מבקשים מ-Claude לציין את השורות הספציפיות שגורמות לזה. הסבר אמיתי מצטט נתונים; הסבר מומצא נשאר מעורפל.</div><div class="step-num-cell"><span class="step-num">iii</span></div></div>
+        <div class="step"><div class="step-text"><strong>בודקים עמידות עם קובץ שבור</strong> — מעלים CSV עם חודש חסר, תא ריק, או שורה כפולה. דשבורד אמין צריך לסמן את הבעיה, לא לחשב סכום שגוי בשקט.</div><div class="step-num-cell"><span class="step-num">iv</span></div></div>
+        <div class="step"><div class="step-text"><strong>בודקים את הצירים, לא רק את העמודות</strong> — גרף יכול להיות משכנע ויזואלית ומתויג לא נכון בשקט. מוודאים יחידות, טווחי תאריכים, ואם אחוז הוא מתוך הכנסה, מתוך תקציב, או ממשהו אחר לגמרי.</div><div class="step-num-cell"><span class="step-num">v</span></div></div>
+        <div class="step"><div class="step-text"><strong>שומרים על שובל ראיות</strong> — שומרים את היסטוריית ההנחיות ואת קובץ המקור לצד הדשבורד, כך שכל מספר שההנהלה שואלת עליו אפשר לאתר חזרה למקורו תוך שניות.</div><div class="step-num-cell"><span class="step-num">vi</span></div></div>
+      </div>
+      <div class="prompt-box">
+        <div class="prompt-label">בריף לביקורת</div>
+        <p class="prompt-text">"Before I present this dashboard, walk me through how each KPI card is calculated — state the exact formula and which columns it reads from. Then identify the three largest month-over-month changes in the data and explain what's driving each one, citing the specific rows. Finally, tell me what would break this dashboard if I uploaded a file with a missing month."</p>
+      </div>
+    </div>
+  </article>
+
+  <!-- ── MASTER PROMPT ── -->
+  <div class="section-label" style="margin-top: 1rem;">הפרומפט הראשי</div>
+  <article class="master-section" id="master">
+    <div class="master-inner">
+      <div class="master-eyebrow">כל 12 העקרונות · הזמנה אחת</div>
+      <div class="master-title">הבריף המלא — דשבורד, העלאה, ניווט, סימולטור ורגישות בהנחיה אחת</div>
+      <p class="master-desc">כל מה שלמעלה, משולב לפרומפט אחד. מדביקים אותו ל-Claude לצד קובץ האקסל שלכם ומקבלים דשבורד עצמאי ומוגמר במעבר אחד — ניתן לרענון, מחולק לטאבים ואינטראקטיבי מהרנדור הראשון.</p>
+      <div class="master-columns">
+        <div class="master-columns-label">זוהו בקובץ שלכם — דאטהסט מגמות FP&amp;A ל-SaaS</div>
+        <span class="master-column-chip">Month</span>
+        <span class="master-column-chip">Revenue (₪)</span>
+        <span class="master-column-chip">COGS (₪)</span>
+        <span class="master-column-chip">Operating_Expenses (₪)</span>
+        <span class="master-column-chip">Net_Profit (₪)</span>
+        <span class="master-column-chip">Active_Customers</span>
+        <span class="master-column-chip">New_Customers</span>
+        <span class="master-column-chip">Churn_Rate (%)</span>
+        <span class="master-column-chip">ARR (₪)</span>
+        <span class="master-column-chip">CAC (₪)</span>
+        <span class="master-column-chip">Employee_Count</span>
+      </div>
+      <div class="prompt-box">
+        <div class="prompt-label">מעתיקים · מצרפים אקסל · שולחים</div>
+        <p class="prompt-text">"Build a complete FP&amp;A dashboard for our SaaS company as a single, fully self-contained <strong>HTML</strong> file — no external dependencies beyond CDN-hosted libraries, must render offline once loaded. <strong>T</strong>arget audience: CFO and board members reviewing monthly performance together and running what-if scenarios live in the room — favor clarity, but do not shy from interactivity.</p>
+        <p class="prompt-text"><strong>M</strong>y data is attached as an Excel file with monthly SaaS metrics from 2022 through 2025 — columns are Month, Revenue (₪), COGS (₪), Operating_Expenses (₪), Net_Profit (₪), Active_Customers, New_Customers, Churn_Rate (%), ARR (₪), CAC (₪), and Employee_Count. Use this file to build and fully populate the dashboard now, not with placeholders.</p>
+        <p class="prompt-text"><strong>L</strong>ayout: apply the <strong>Forest Canopy</strong> theme from Theme Factory — deep forest green, warm gold accents, bold headline numbers — consistently across every tab, card, chart, and control.</p>
+        <p class="prompt-text">Structure it with a <strong>fixed sidebar</strong> containing five tabs: Overview, P&amp;L, Customers, Simulator, and Sensitivity. Clicking a tab swaps the main panel via simple JavaScript, no page reload. Pin four headline KPI cards — Revenue, Net Profit Margin, Active Customers, Churn Rate — above the panel on every tab, and highlight the active tab with an accent bar.</p>
+        <p class="prompt-text">On <strong>Overview</strong>: trend charts for Revenue, ARR, and Net Profit. On <strong>P&amp;L</strong>: a full month-by-month table of Revenue, COGS, Opex, and Net Profit, plus a margin trend chart. On <strong>Customers</strong>: Active and New Customer trends, CAC trend, and Churn Rate trend.</p>
+        <p class="prompt-text">On <strong>Simulator</strong>: add sliders for Headcount Growth, Gross Margin Improvement, and Churn Reduction, bound live to recalculate Revenue, Net Profit, and ARR from the latest actual month as the base case, with a "Reset to Base Case" button.</p>
+        <p class="prompt-text">On <strong>Sensitivity</strong>: add a tornado chart testing Revenue Growth, COGS %, Churn Rate, and CAC — each flexed ±10–15% one at a time against base-case Net Profit — sorted widest to narrowest, with one auto-generated sentence naming the largest driver.</p>
+        <p class="prompt-text">Finally, add an <strong>"Upload CSV"</strong> control in the sidebar footer so any analyst can refresh the entire dashboard with next month's export using these same column headers — parse client-side with PapaParse, validate the headers, and recalculate every chart, table, and card on upload. Store the parsed dataset so the file remembers the latest data the next time it's opened. Ensure the final file is fully self-contained, with all scripts, fonts, and styles inlined or CDN-loaded, ready to email or host."</p>
+      </div>
+      <div class="master-note">
+        <div class="master-note-dot"></div>
+        <span>פרומפט אחד, קובץ אחד מצורף — Claude בונה כל טאב, את הסימולטור ואת גרף הרגישות במעבר אחד.</span>
+      </div>
+    </div>
+  </article>
+
+</div><!-- end .section -->
+
+<!-- ── FOOTER CTA ── -->
+<section id="footer">
+  <div class="footer-inner">
+    <div class="section-label">המשך</div>
+    <h2 class="footer-title">למדריכים ותוכן נוסף</h2>
+    <p class="footer-sub">כל הכלים, הקהילה והמשאבים — במקום אחד.</p>
+
+    <div class="primary-cta">
+      <div class="primary-cta-label">המרכז הדיגיטלי שלי</div>
+      <div class="primary-cta-brand"><span class="spark">✦</span> AI FINANCE TRANSFORMATION <span class="spark">✦</span></div>
+      <p class="primary-cta-desc">הצטרפו לאתר וקבלו גישה קבועה להקלטות וובינרים, תוכן שבועי, מדריכים מעשיים, משאבים להורדה, ספריית פרומפטים וכלי AI לכספים — הכל במקום אחד, מתעדכן כל הזמן.</p>
+      <div class="primary-cta-btn-row">
+        <img class="primary-cta-avatar" src="data:image/jpeg;base64,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" alt="רונן עמוס" />
+        <a class="primary-cta-btn" href="https://www.ronenamoscpa.co.il/" target="_blank">🌐 להצטרפות ולכל התוכן</a>
+      </div>
+    </div>
+
+    <div class="footer-grid">
+      <a href="https://chat.whatsapp.com/F1Y1Q35QIZ3L6rcrXuEnNN" target="_blank" class="footer-card">
+        <div class="footer-card-top">
+          <div class="footer-card-icon">💬</div>
+          <div class="footer-card-num">01 · COMMUNITY</div>
+        </div>
+        <div class="footer-card-title">קהילת AI Finance</div>
+        <div class="footer-card-desc">מעל 800 אנשי פיננסים שחולקים כלים ו-prompts בזמן אמת.</div>
+        <span class="footer-card-btn">הצטרפות <span class="arrow">↗</span></span>
+      </a>
+      <a href="https://www.youtube.com/@AIFinanceTransformation" target="_blank" class="footer-card">
+        <div class="footer-card-top">
+          <div class="footer-card-icon">▶</div>
+          <div class="footer-card-num">02 · YOUTUBE</div>
+        </div>
+        <div class="footer-card-title">AI for Finance</div>
+        <div class="footer-card-desc">הדגמות מעשיות, walkthroughs ו-playbooks שמאחורי הפרקטיקה.</div>
+        <span class="footer-card-btn">צפייה בערוץ <span class="arrow">↗</span></span>
+      </a>
+      <a href="https://www.ronenamoscpa.co.il/" target="_blank" class="footer-card">
+        <div class="footer-card-top">
+          <div class="footer-card-icon">✉️</div>
+          <div class="footer-card-num">03 · NEWSLETTER</div>
+        </div>
+        <div class="footer-card-title">הניוזלטר השבועי</div>
+        <div class="footer-card-desc">תובנות AI לפיננסים ישר למייל שלך — כתוב על ידי איש פיננסים.</div>
+        <span class="footer-card-btn">הרשמה <span class="arrow">↗</span></span>
+      </a>
+      <a href="https://www.ronenamoscpa.co.il/skill-vault" target="_blank" class="footer-card">
+        <div class="footer-card-top">
+          <div class="footer-card-icon">🗂️</div>
+          <div class="footer-card-num">04 · PROMPT HUB</div>
+        </div>
+        <div class="footer-card-title">Skill Vault</div>
+        <div class="footer-card-desc">ספריית פרומפטים וסקילים מוכנים לשימוש — לכל תהליך כספים.</div>
+        <span class="footer-card-btn">כניסה לספרייה <span class="arrow">↗</span></span>
+      </a>
+      <a href="https://www.paypal.com/ncp/payment/E36KBLHK8MDPN" target="_blank" class="footer-card">
+        <div class="footer-card-top">
+          <div class="footer-card-icon">📘</div>
+          <div class="footer-card-num">05 · THE BOOK</div>
+        </div>
+        <div class="footer-card-title">Claude Playbook</div>
+        <div class="footer-card-desc">הספר המלא — frameworks, case studies ומדריכי יישום לצוותי פיננסים.</div>
+        <span class="footer-card-btn">רכישה מאובטחת <span class="arrow">↗</span></span>
+      </a>
+      <a href="https://www.ronenamoscpa.co.il/courses" target="_blank" class="footer-card">
+        <div class="footer-card-top">
+          <div class="footer-card-icon">🎓</div>
+          <div class="footer-card-num">06 · COURSE</div>
+        </div>
+        <div class="footer-card-title">קורס AI Finance</div>
+        <div class="footer-card-desc">תוכנית מובנית להטמעת חשיבה AI-First בצוות הפיננסים שלך.</div>
+        <span class="footer-card-btn">לפרטי הקורס <span class="arrow">↗</span></span>
+      </a>
+    </div>
+    <div class="footer-copy">
+      Ronen Amos · AI Finance Transformation
+    </div>
+  </div>
+</section>
+
+</div><!-- end .content-wrap -->
+</body>
+</html>

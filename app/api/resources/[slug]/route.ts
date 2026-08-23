@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { readFile } from "fs/promises";
 import path from "path";
-import { getResourceBySlug } from "@/lib/resources-data";
+import { getResourceBySlug, isResourceCurrentlyFree } from "@/lib/resources-data";
 import { getSubscriptionAccess } from "@/lib/subscription-access";
 
 export async function GET(
@@ -15,7 +15,7 @@ export async function GET(
         return NextResponse.json({ error: "Not found" }, { status: 404 });
     }
 
-    if (!resource.free) {
+    if (!isResourceCurrentlyFree(resource)) {
         const { hasAccess } = await getSubscriptionAccess();
 
         if (!hasAccess) {

@@ -1,4 +1,4 @@
-import { getGuideResources, type Resource } from '@/lib/resources-data';
+import { getGuideResources, isResourceCurrentlyFree, type Resource } from '@/lib/resources-data';
 
 export type GuideCategory =
   | 'Claude'
@@ -407,7 +407,7 @@ function resourceToGuide(resource: Resource): Guide {
     tags: resource.tags,
     thumbnail: resource.thumbnail,
     duration: resource.duration,
-    isPremium: !resource.free,
+    isPremium: !isResourceCurrentlyFree(resource),
     publishedAt: resource.publishedAt,
     resourceSlug: resource.slug,
     summary: resource.summary,

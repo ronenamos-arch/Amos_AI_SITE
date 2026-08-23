@@ -21,6 +21,15 @@ export interface Resource {
     publishedAt: string;
     contentFile: string;
     free?: boolean;
+    /** ISO date; resource is free until this date, then premium-only. */
+    freeUntilDate?: string;
+}
+
+/** Whether a resource is currently accessible without a subscription. */
+export function isResourceCurrentlyFree(resource: Resource): boolean {
+    if (resource.free) return true;
+    if (resource.freeUntilDate) return new Date() < new Date(resource.freeUntilDate);
+    return false;
 }
 
 export const resources: Resource[] = [
@@ -179,6 +188,28 @@ export const resources: Resource[] = [
         duration: "25 דק'",
         publishedAt: "2026-05-01",
         contentFile: "102-prompt.html",
+    },
+    {
+        slug: "12-shitot-avoda-dashboard-ai",
+        title: "12 שיטות עבודה לבניית דשבורדים פיננסיים עם Claude AI",
+        description:
+            "מדריך מעשי ל-CFOs, קונטרולרים ואנשי FP&A: 12 שיטות עבודה, פרומפטים מוכנים להעתקה, וכלים מתקדמים לבניית דשבורדים פיננסיים עם Claude.",
+        summary:
+            "רוב אנשי הכספים שמנסים לבנות דשבורד עם AI נתקעים באותה נקודה: הם מקבלים תוצאה שנראית \"כמעט טוב\", אבל לא ברמה שאפשר להציג להנהלה — כי הם לא יודעים איך לנסח את הבקשה נכון. המדריך הזה מרכז 12 שיטות עבודה מעשיות, שנבנו ונבחנו בפועל, להפיכת Claude לכלי אמין לבניית דשבורדים פיננסיים — מה-brief הראשוני ועד לקובץ HTML עצמאי שאפשר לשלוח במייל, לארח באתר, או להציג בישיבת דירקטוריון.\n\nהמדריך עונה על השאלות שכל CFO, קונטרולר או אנליסט FP&A שואל כשהוא מתחיל לעבוד עם AI: איך מנסחים פרומפט שמניב דשבורד ברמת סטודיו עיצוב ולא סקיצה? איך שומרים על עיצוב אחיד לאורך כל הדוח? איך הופכים דשבורד חד-פעמי לכלי שמתעדכן כל חודש בלחיצת כפתור? ואיך, לפני שמציגים מספר להנהלה, בודקים אותו כמו שהיו בודקים עבודה של אנליסט זוטר — כדי לא לגלות טעות מול הדירקטוריון. כל שיטה מלווה בדוגמת פרומפט מלאה, מוכנה להעתקה ישירה ל-Claude.\n\nמה תמצאו במדריך בפירוט: מסגרת הפרומפט H·T·M·L — התדריך בן 4 השלבים לכל בקשת דשבורד; איך לבנות אב-טיפוס עם נתוני דמה לפני שמכניסים מספרים אמיתיים; דשבורד שמתעדכן לבד מהעלאת קובץ CSV חודשי; סימולטור אינטראקטיבי וניתוח רגישות ל\"מה אם\" בזמן אמת מול ההנהלה; פרוטוקול ביקורת AI לבדיקת כל KPI לפני שהוא מגיע להנהלה; ופרומפט-על אחד שמאחד את כל 12 השיטות למסמך הזמנה יחיד.",
+        category: "Claude",
+        tags: ["Claude", "Dashboard", "FP&A", "CFO"],
+        keywords: [
+            "דשבורד פיננסי AI",
+            "Claude דשבורדים",
+            "H·T·M·L פרומפט",
+            "FP&A AI",
+            "דשבורד פיננסי Claude",
+        ],
+        thumbnail: "/guides/resources/12-shitot-avoda-dashboard-ai.png",
+        duration: "15 דק'",
+        publishedAt: "2026-08-23",
+        contentFile: "12-shitot-avoda-dashboard-ai.html",
+        freeUntilDate: "2026-09-06",
     },
 ];
 
