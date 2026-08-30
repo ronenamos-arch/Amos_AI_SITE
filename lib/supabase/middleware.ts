@@ -74,6 +74,24 @@ export async function updateSession(request: NextRequest) {
                         endDate > new Date());
             }
         }
+
+        // Check if user came from Claude Bundle Hub with a valid token
+        const bundleToken = request.nextUrl.searchParams.get('bundle_token') || request.cookies.get('claude_bundle_token')?.value;
+        if (!hasAccess && bundleToken) {
+            const { data: purchase } = await supabase
+                .from('bundle_purchases')
+                .select('id')
+                .eq('access_token', bundleToken)
+                .eq('status', 'paid')
+                .maybeSingle();
+
+            if (purchase) {
+                hasAccess = true;
+                // Set cookie so they don't need the URL param for subsequent requests
+                supabaseResponse.cookies.set('claude_bundle_token', bundleToken, { maxAge: 60 * 60 * 24 * 365, path: '/' });
+            }
+        }
+
         if (!hasAccess) {
             const redirectUrl = request.nextUrl.clone();
             redirectUrl.pathname = '/lessons';

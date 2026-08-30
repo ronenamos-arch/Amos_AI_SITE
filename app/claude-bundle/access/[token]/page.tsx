@@ -150,7 +150,7 @@ export default async function BundleAccessPage({
 
                                 {/* CTA */}
                                 <a
-                                    href={ch.href}
+                                    href={`${ch.href}?bundle_token=${token}`}
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     className="rv2-btn rv2-btn-primary mt-5 text-sm"
