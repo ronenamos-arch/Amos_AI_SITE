@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { getMonthlyPlanId, getSubscribeUrl, isPayPalSandbox } from "@/lib/paypal-subscribe";
+import { createClient } from "@/lib/supabase/server";
 
 /**
  * Creates the PayPal subscription server-side so we can set a return_url.
@@ -64,6 +65,18 @@ export async function GET() {
             return fallback;
         }
 
+        // Retrieve logged-in user to link their account
+        let userId: string | undefined = undefined;
+        try {
+            const supabase = await createClient();
+            const { data: { user } } = await supabase.auth.getUser();
+            if (user) {
+                userId = user.id;
+            }
+        } catch (err) {
+            console.error("subscribe: error checking user auth status", err);
+        }
+
         const res = await fetch(`${PAYPAL_API_BASE()}/v1/billing/subscriptions`, {
             method: "POST",
             headers: {
@@ -72,6 +85,7 @@ export async function GET() {
             },
             body: JSON.stringify({
                 plan_id: planId,
+                custom_id: userId,
                 application_context: {
                     brand_name: "רונן עמוס — AI בכספים",
                     locale: "he-IL",

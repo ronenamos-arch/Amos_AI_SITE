@@ -18,12 +18,14 @@ export function PayPalPaymentButton({ amount, onSuccess, planId, subscriptionTyp
     const [isUpdating, setIsUpdating] = useState(false);
     const [isLoggedIn, setIsLoggedIn] = useState<boolean | null>(null);
     const [userEmail, setUserEmail] = useState<string | null>(null);
+    const [userId, setUserId] = useState<string | null>(null);
 
     useEffect(() => {
         const supabase = createClient();
         supabase.auth.getUser().then(({ data: { user } }) => {
             setIsLoggedIn(!!user);
             setUserEmail(user?.email || null);
+            setUserId(user?.id || null);
         });
     }, []);
 
@@ -82,6 +84,7 @@ export function PayPalPaymentButton({ amount, onSuccess, planId, subscriptionTyp
                         ? (data, actions) => {
                             return actions.subscription.create({
                                 plan_id: planId,
+                                custom_id: userId || undefined,
                             });
                         }
                         : undefined

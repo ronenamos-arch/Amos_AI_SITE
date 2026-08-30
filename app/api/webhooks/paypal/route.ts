@@ -37,21 +37,28 @@ async function verifyWebhookSignature(req: NextRequest, body: string): Promise<b
 
     const accessToken = await getPayPalAccessToken();
 
+    // Construct the payload by replacing a unique placeholder string with the raw unmodified body.
+    // Re-serializing the body causes signature verification failure on PayPal's side because of spacing or key order variations.
+    const payloadTemplate = {
+        auth_algo: req.headers.get("paypal-auth-algo"),
+        cert_url: req.headers.get("paypal-cert-url"),
+        transmission_id: req.headers.get("paypal-transmission-id"),
+        transmission_sig: req.headers.get("paypal-transmission-sig"),
+        transmission_time: req.headers.get("paypal-transmission-time"),
+        webhook_id: webhookId,
+        webhook_event: "RAW_WEBHOOK_EVENT_PLACEHOLDER_STRING"
+    };
+
+    const payloadString = JSON.stringify(payloadTemplate)
+        .replace('"RAW_WEBHOOK_EVENT_PLACEHOLDER_STRING"', body);
+
     const verifyRes = await fetch(`${PAYPAL_API_BASE}/v1/notifications/verify-webhook-signature`, {
         method: "POST",
         headers: {
             Authorization: `Bearer ${accessToken}`,
             "Content-Type": "application/json",
         },
-        body: JSON.stringify({
-            auth_algo: req.headers.get("paypal-auth-algo"),
-            cert_url: req.headers.get("paypal-cert-url"),
-            transmission_id: req.headers.get("paypal-transmission-id"),
-            transmission_sig: req.headers.get("paypal-transmission-sig"),
-            transmission_time: req.headers.get("paypal-transmission-time"),
-            webhook_id: webhookId,
-            webhook_event: JSON.parse(body),
-        }),
+        body: payloadString,
     });
 
     const result = await verifyRes.json();
@@ -119,6 +126,45 @@ async function generateLoginLink(email: string): Promise<string | null> {
     }
 }
 
+async function findUserForSubscription(
+    adminSupabase: any,
+    subscriptionId: string | null | undefined,
+    customId: string | null | undefined,
+    email: string | null | undefined
+): Promise<{ id: string; email?: string | null } | null> {
+    // 1. Try by custom_id (Supabase User ID linked during checkout)
+    if (customId) {
+        const { data } = await adminSupabase
+            .from("profiles")
+            .select("id, email")
+            .eq("id", customId)
+            .maybeSingle();
+        if (data) return data;
+    }
+
+    // 2. Try by paypal_subscription_id
+    if (subscriptionId) {
+        const { data } = await adminSupabase
+            .from("profiles")
+            .select("id, email")
+            .eq("paypal_subscription_id", subscriptionId)
+            .maybeSingle();
+        if (data) return data;
+    }
+
+    // 3. Fallback to email
+    if (email) {
+        const { data } = await adminSupabase
+            .from("profiles")
+            .select("id, email")
+            .eq("email", email)
+            .maybeSingle();
+        if (data) return data;
+    }
+
+    return null;
+}
+
 export async function POST(req: NextRequest) {
     const body = await req.text();
 
@@ -177,22 +223,19 @@ async function handlePaymentCompleted(event: any): Promise<boolean> {
         return true;
     }
 
-    // Find user by email via profiles table
-    let { data: profile, error: userLookupError } = await adminSupabase
-        .from("profiles")
-        .select("id")
-        .eq("email", payerEmail)
-        .maybeSingle();
+    // Find user by custom_id or email
+    const customId = resource.custom_id || resource.purchase_units?.[0]?.custom_id;
+    let profile = await findUserForSubscription(adminSupabase, null, customId, payerEmail);
 
     // If user not found, create guest account
     if (!profile && payerEmail) {
         const newUserId = await createGuestUserIfNotExists(payerEmail);
         if (newUserId) {
-            profile = { id: newUserId };
+            profile = { id: newUserId, email: payerEmail };
         }
     }
 
-    if (userLookupError || !profile) {
+    if (!profile) {
         console.error(`Webhook: No user found for email ${payerEmail}, order ${orderId}`);
         return false;
     }
@@ -210,12 +253,16 @@ async function handlePaymentCompleted(event: any): Promise<boolean> {
     }
 
     // Activate lifetime subscription (one-time payment)
-    const { error: profileError } = await adminSupabase.from("profiles").upsert({
+    const profileUpdate: any = {
         id: profile.id,
-        email: payerEmail,
         subscription_status: "lifetime",
         updated_at: new Date().toISOString(),
-    });
+    };
+    if (!profile.email) {
+        profileUpdate.email = payerEmail;
+    }
+
+    const { error: profileError } = await adminSupabase.from("profiles").upsert(profileUpdate);
     if (profileError) {
         console.error("Profile upsert failed (lifetime):", profileError.message);
         return false;
@@ -255,22 +302,19 @@ async function handleSubscriptionActivated(event: any): Promise<boolean> {
         return true;
     }
 
-    // Find user by email via profiles table
-    let { data: profile, error: userLookupError } = await adminSupabase
-        .from("profiles")
-        .select("id")
-        .eq("email", subscriberEmail)
-        .maybeSingle();
+    // Find user by custom_id or email
+    const customId = resource.custom_id;
+    let profile = await findUserForSubscription(adminSupabase, subscriptionId, customId, subscriberEmail);
 
     // If user not found, create guest account
     if (!profile && subscriberEmail) {
         const newUserId = await createGuestUserIfNotExists(subscriberEmail);
         if (newUserId) {
-            profile = { id: newUserId };
+            profile = { id: newUserId, email: subscriberEmail };
         }
     }
 
-    if (userLookupError || !profile) {
+    if (!profile) {
         console.error(`Webhook: No user found for email ${subscriberEmail}, subscription ${subscriptionId}`);
         return false;
     }
@@ -288,13 +332,17 @@ async function handleSubscriptionActivated(event: any): Promise<boolean> {
     }
 
     // Activate monthly subscription
-    const { error: profileError } = await adminSupabase.from("profiles").upsert({
+    const profileUpdate: any = {
         id: profile.id,
-        email: subscriberEmail,
         subscription_status: "monthly",
         paypal_subscription_id: subscriptionId,
         updated_at: new Date().toISOString(),
-    });
+    };
+    if (!profile.email) {
+        profileUpdate.email = subscriberEmail;
+    }
+
+    const { error: profileError } = await adminSupabase.from("profiles").upsert(profileUpdate);
     if (profileError) {
         console.error("Profile upsert failed (monthly):", profileError.message);
         return false;
@@ -322,15 +370,13 @@ async function handleSubscriptionCancelled(event: any): Promise<boolean> {
 
     const adminSupabase = createAdminClient();
 
-    // Find user by email via profiles table
-    const { data: profile, error: userLookupError } = await adminSupabase
-        .from("profiles")
-        .select("id")
-        .eq("email", subscriberEmail)
-        .maybeSingle();
+    // Find user by custom_id, subscription_id, or email
+    const customId = resource.custom_id;
+    const subscriptionId = resource.id;
+    const profile = await findUserForSubscription(adminSupabase, subscriptionId, customId, subscriberEmail);
 
-    if (userLookupError || !profile) {
-        console.error(`Webhook: No user found for cancelled subscription, email ${subscriberEmail}`);
+    if (!profile) {
+        console.error(`Webhook: No user found for cancelled subscription ${subscriptionId}, email ${subscriberEmail}`);
         return false;
     }
 
@@ -381,15 +427,12 @@ async function handleSubscriptionRenewal(event: any): Promise<boolean> {
 
     const adminSupabase = createAdminClient();
 
-    // Find user by email via profiles table
-    const { data: profile, error: userLookupError } = await adminSupabase
-        .from("profiles")
-        .select("id")
-        .eq("email", subscriberEmail)
-        .maybeSingle();
+    // Find user by subscription_id, custom_id, or email
+    const customId = resource.custom_id;
+    const profile = await findUserForSubscription(adminSupabase, subscriptionId, customId, subscriberEmail);
 
-    if (userLookupError || !profile) {
-        console.error(`Webhook: No user found for renewal, email ${subscriberEmail}, subscription ${subscriptionId}`);
+    if (!profile) {
+        console.error(`Webhook: No user found for renewal of subscription ${subscriptionId}, email ${subscriberEmail}`);
         return false;
     }
 
@@ -432,15 +475,12 @@ async function handlePaymentFailed(event: any): Promise<boolean> {
 
     const adminSupabase = createAdminClient();
 
-    // Find user by email via profiles table
-    const { data: profile, error: userLookupError } = await adminSupabase
-        .from("profiles")
-        .select("id")
-        .eq("email", subscriberEmail)
-        .maybeSingle();
+    // Find user by custom_id, subscription_id, or email
+    const customId = resource.custom_id;
+    const profile = await findUserForSubscription(adminSupabase, subscriptionId, customId, subscriberEmail);
 
-    if (userLookupError || !profile) {
-        console.error(`Webhook: No user found for payment failure, email ${subscriberEmail}, subscription ${subscriptionId}`);
+    if (!profile) {
+        console.error(`Webhook: No user found for payment failure on subscription ${subscriptionId}, email ${subscriberEmail}`);
         return false;
     }
 
@@ -472,15 +512,13 @@ async function handleSubscriptionExpired(event: any): Promise<boolean> {
 
     const adminSupabase = createAdminClient();
 
-    // Find user by email via profiles table
-    const { data: profile, error: userLookupError } = await adminSupabase
-        .from("profiles")
-        .select("id")
-        .eq("email", subscriberEmail)
-        .maybeSingle();
+    // Find user by custom_id, subscription_id, or email
+    const customId = resource.custom_id;
+    const subscriptionId = resource.id;
+    const profile = await findUserForSubscription(adminSupabase, subscriptionId, customId, subscriberEmail);
 
-    if (userLookupError || !profile) {
-        console.error(`Webhook: No user found for expired subscription, email ${subscriberEmail}`);
+    if (!profile) {
+        console.error(`Webhook: No user found for expired subscription ${subscriptionId}, email ${subscriberEmail}`);
         return false;
     }
 
