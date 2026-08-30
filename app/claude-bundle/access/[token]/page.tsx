@@ -74,10 +74,16 @@ export default async function BundleAccessPage({
                     <h1 className="rv2-display text-3xl sm:text-4xl lg:text-5xl">
                         {bundleConfig.name}
                     </h1>
-                    <p className="mt-4 text-[var(--rv2-text-2)]">
+                    <p className="mt-4 text-lg text-[var(--rv2-text-2)]">
                         {hours} שעות של וובינרים מוקלטים, עם כל החומרים להורדה.
-                        בחרו פרק והתחילו לצפות.
                     </p>
+                    
+                    <div className="mt-8 rounded-xl bg-[var(--rv2-surface)] p-6 border border-[var(--rv2-border-strong)]">
+                        <h3 className="font-bold text-white mb-2">איך זה עובד?</h3>
+                        <p className="text-sm text-[var(--rv2-text-2)] leading-relaxed">
+                            כל אחת מחמש הכרטיסיות מטה תוביל אתכם לעמוד ייעודי המרכז את כל התוכן של אותו פרק. בתוך כל עמוד תמצאו את הקלטת הוובינר המלאה (ממתינה לכם בתחתית העמוד), את המצגת שהוצגה במהלך השידור, וכפתורים להורדה ישירה של כל חומרי העבודה הרלוונטיים – קבצי Excel, תבניות פרומפטים ו-Skills מוכנים. כל פרק ארוז כעמוד אחד מקיף שכולל את כל מה שצריך כדי לצפות וליישם מיד.
+                        </p>
+                    </div>
                 </div>
             </section>
 
