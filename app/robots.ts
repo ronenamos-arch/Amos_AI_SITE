@@ -15,6 +15,8 @@ export default function robots(): MetadataRoute.Robots {
                     '/api',
                     '/auth',
                     '/claude-playbook.html',
+                    '/claude-bundle/access/',
+                    '/claude-bundle/thanks',
                 ],
             },
             // Tier 1: AI search crawlers (ChatGPT, Claude, Perplexity)

@@ -1,21 +1,23 @@
 import Link from "next/link";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { GlassCard } from "@/components/ui/GlassCard";
-import { FileText, Mail, MessageSquare } from "lucide-react";
+import { FileText, Mail, MessageSquare, PlaySquare } from "lucide-react";
 
 async function getCounts() {
     const admin = createAdminClient();
 
-    const [articlesRes, subscribersRes, contactsRes] = await Promise.all([
+    const [articlesRes, subscribersRes, contactsRes, bundlesRes] = await Promise.all([
         admin.from("articles").select("*", { count: "exact", head: true }),
         admin.from("newsletter_subscribers").select("*", { count: "exact", head: true }).eq("status", "active"),
         admin.from("contact_submissions").select("*", { count: "exact", head: true }),
+        admin.from("bundle_purchases").select("*", { count: "exact", head: true }).eq("status", "paid"),
     ]);
 
     return {
         articles: articlesRes.count ?? 0,
         subscribers: subscribersRes.count ?? 0,
         contacts: contactsRes.count ?? 0,
+        bundles: bundlesRes.count ?? 0,
     };
 }
 
@@ -47,13 +49,21 @@ export default async function AdminHomePage() {
             unit: "הודעות",
             color: "text-purple-400",
         },
+        {
+            href: "/admin/bundle-purchases",
+            icon: PlaySquare,
+            label: "מכירות באנדל",
+            count: counts.bundles,
+            unit: "רוכשים",
+            color: "text-yellow-400",
+        },
     ];
 
     return (
         <div className="pt-24 pb-16 min-h-screen">
             <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8" dir="rtl">
                 <h1 className="text-3xl font-bold mb-8">לוח ניהול</h1>
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                     {cards.map(({ href, icon: Icon, label, count, unit, color }) => (
                         <Link key={href} href={href} className="block group">
                             <GlassCard className="h-full transition-all group-hover:border-white/20">

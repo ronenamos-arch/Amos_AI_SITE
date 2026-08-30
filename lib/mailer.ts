@@ -8,6 +8,7 @@ import { getResend, EMAIL_FROM } from "@/lib/resend";
 import { buildPurchaseConfirmationEmail } from "@/lib/emails/purchase-confirmation";
 import { buildWelcomeEmail } from "@/lib/emails/welcome";
 import { adminNotificationEmail } from "@/lib/emails/admin-notification";
+import { buildBundlePurchaseEmail } from "@/lib/emails/bundle-purchase";
 import { scheduleEmailSequence } from "@/lib/email-sequence";
 
 interface SendPurchaseEmailParams {
@@ -100,5 +101,37 @@ export async function sendAdminNotification(params: SendAdminNotificationParams)
         }
     } catch (err) {
         console.error("Failed to send admin notification:", err);
+    }
+}
+
+interface SendBundlePurchaseEmailParams {
+    to: string;
+    name: string;
+    accessToken: string;
+}
+
+export async function sendBundlePurchaseEmail({ to, name, accessToken }: SendBundlePurchaseEmailParams) {
+    const siteUrl = process.env.NODE_ENV === "development" 
+        ? "http://localhost:3000" 
+        : (process.env.NEXT_PUBLIC_SITE_URL || "https://www.ronenamoscpa.co.il");
+    const accessUrl = `${siteUrl}/claude-bundle/access/${accessToken}`;
+
+    try {
+        const { data, error } = await getResend().emails.send({
+            from: EMAIL_FROM,
+            to,
+            subject: "Claude לכספים — הגישה שלכם פתוחה 🎬",
+            html: buildBundlePurchaseEmail({ name, accessUrl }),
+        });
+
+        if (error) {
+            console.error("Resend bundle email error:", error);
+            return { success: false, error: error.message };
+        }
+
+        return { success: true, id: data?.id };
+    } catch (err) {
+        console.error("Failed to send bundle purchase email:", err);
+        return { success: false, error: String(err) };
     }
 }
