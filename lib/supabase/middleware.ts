@@ -78,7 +78,19 @@ export async function updateSession(request: NextRequest) {
         // Check if user came from Claude Bundle Hub with a valid token
         const bundleToken = request.nextUrl.searchParams.get('bundle_token') || request.cookies.get('claude_bundle_token')?.value;
         if (!hasAccess && bundleToken) {
-            const { data: purchase } = await supabase
+            // Use service role key to bypass RLS on bundle_purchases
+            const adminSupabase = createServerClient(
+                process.env.NEXT_PUBLIC_SUPABASE_URL!,
+                process.env.SUPABASE_SERVICE_ROLE_KEY!,
+                {
+                    cookies: {
+                        getAll() { return request.cookies.getAll(); },
+                        setAll() {}
+                    }
+                }
+            );
+
+            const { data: purchase } = await adminSupabase
                 .from('bundle_purchases')
                 .select('id')
                 .eq('access_token', bundleToken)
