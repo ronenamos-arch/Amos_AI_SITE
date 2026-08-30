@@ -1,7 +1,5 @@
 import { createAdminClient } from "@/lib/supabase/admin";
 import { GlassCard } from "@/components/ui/GlassCard";
-import { format } from "date-fns";
-import { he } from "date-fns/locale";
 
 export default async function BundlePurchasesPage() {
     const admin = createAdminClient();
@@ -55,7 +53,13 @@ export default async function BundlePurchasesPage() {
                             {purchases?.map((p) => (
                                 <tr key={p.id} className="hover:bg-white/5 transition-colors">
                                     <td className="px-6 py-4 whitespace-nowrap">
-                                        {format(new Date(p.created_at), "dd/MM/yyyy HH:mm", { locale: he })}
+                                        {new Intl.DateTimeFormat("he-IL", {
+                                            day: "2-digit",
+                                            month: "2-digit",
+                                            year: "numeric",
+                                            hour: "2-digit",
+                                            minute: "2-digit",
+                                        }).format(new Date(p.created_at))}
                                     </td>
                                     <td className="px-6 py-4 font-medium text-white">
                                         {p.name}
