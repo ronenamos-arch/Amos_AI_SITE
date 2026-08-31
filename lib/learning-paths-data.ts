@@ -43,6 +43,8 @@ export interface LearningPath {
   tier: DifficultyTier;
   /** Tier display label in Hebrew */
   tierLabel: string;
+  /** Whether this path is 100% free or requires a Pro subscription */
+  isPremium: boolean;
   /** Estimated total duration in minutes */
   totalMinutes: number;
   /** Total number of core (non-optional) steps */
@@ -81,15 +83,16 @@ function step(
 
 export const learningPaths: LearningPath[] = [
   // ═══════════════════════════════════════════════════════════════════════
-  // PATH A — AI for Beginners (Tier 1: Foundation)
+  // PATH A — AI for Beginners (Tier 1: Foundation) — 100% FREE HOOK
   // ═══════════════════════════════════════════════════════════════════════
   {
     slug: 'ai-beginners',
     title: 'AI למתחילים בכספים',
-    description: 'מסלול ההתחלה — הכרות עם AI, פרומפטים ראשונים, ותובנות מעשיות',
+    description: 'מסלול ההתחלה החינמי — תלמד ליצור פרומפטים ראשונים, לאוטמט דוח סטיות תקציב ולנסח סיכום מנהלים תוך פחות משעה. ללא ניסיון קודם וללא תשלום.',
     icon: '🌱',
     tier: 'beginner',
     tierLabel: 'יסודות',
+    isPremium: false, // 100% FREE STAGE
     totalMinutes: 57,
     coreStepCount: 7,
     steps: [
@@ -106,15 +109,16 @@ export const learningPaths: LearningPath[] = [
   },
 
   // ═══════════════════════════════════════════════════════════════════════
-  // PATH B — ChatGPT & Prompt Engineering (Tier 1: Foundation)
+  // PATH B — ChatGPT & Prompt Engineering (Tier 1: Foundation) — PREMIUM
   // ═══════════════════════════════════════════════════════════════════════
   {
     slug: 'prompt-engineering',
     title: 'ChatGPT ומסגרות פרומפטינג',
-    description: 'שליטה במסגרות עבודה, טכניקות פרומפטינג מתקדמות, וספריית 102 פרומפטים',
+    description: 'שליטה במסגרות עבודה מתקדמות, טכניקת PRICE הייחודית וספריית 102 הפרומפטים הפיננסיים למנויים בלבד.',
     icon: '💬',
     tier: 'beginner',
     tierLabel: 'יסודות',
+    isPremium: true, // PREMIUM STAGE
     totalMinutes: 148,
     coreStepCount: 8,
     steps: [
@@ -132,15 +136,16 @@ export const learningPaths: LearningPath[] = [
   },
 
   // ═══════════════════════════════════════════════════════════════════════
-  // PATH C — Claude Mastery (Tier 2: Core Skills)
+  // PATH C — Claude Mastery (Tier 2: Core Skills) — PREMIUM
   // ═══════════════════════════════════════════════════════════════════════
   {
     slug: 'claude-mastery',
     title: 'Claude Mastery',
-    description: 'שליטה מלאה ב-Claude — מ-Projects ועד Skills ו-Cowork',
+    description: 'שליטה מלאה ב-Claude למקצועני כספים — מ-Projects ועד Live Artifacts, הדרכות וידאו וכלי Cowork מובנים.',
     icon: '🧠',
     tier: 'intermediate',
     tierLabel: 'מיומנויות ליבה',
+    isPremium: true, // PREMIUM STAGE
     totalMinutes: 495,
     coreStepCount: 13,
     steps: [
@@ -169,15 +174,16 @@ export const learningPaths: LearningPath[] = [
   },
 
   // ═══════════════════════════════════════════════════════════════════════
-  // PATH D — Excel & Automation (Tier 2: Core Skills)
+  // PATH D — Excel & Automation (Tier 2: Core Skills) — PREMIUM
   // ═══════════════════════════════════════════════════════════════════════
   {
     slug: 'excel-automation',
     title: 'Excel, אוטומציה וכלי AI',
-    description: 'Copilot, Python, Google Colab, Zite — כלים שמחסלים עבודה ידנית',
+    description: 'Copilot, Python, Google Colab, Zite — אוטומציות שמחסלות עבודה ידנית וממירות גיליונות אקסל לאפליקציות.',
     icon: '⚡',
     tier: 'intermediate',
     tierLabel: 'מיומנויות ליבה',
+    isPremium: true, // PREMIUM STAGE
     totalMinutes: 220,
     coreStepCount: 9,
     steps: [
@@ -195,15 +201,16 @@ export const learningPaths: LearningPath[] = [
   },
 
   // ═══════════════════════════════════════════════════════════════════════
-  // PATH E — Month-End Close & Reporting (Tier 3: Mastery)
+  // PATH E — Month-End Close & Reporting (Tier 3: Mastery) — PREMIUM
   // ═══════════════════════════════════════════════════════════════════════
   {
     slug: 'month-end-close',
     title: 'Month-End Close & Reporting',
-    description: 'אוטומציה של סגירת חודש — מוולידציית נתונים ועד דוחות דירקטוריון',
+    description: 'אוטומציה מתקדמת של סגירת חודש — מאימות נתונים והתאמות בנקים ועד ניתוח AVB ודוחות דירקטוריון.',
     icon: '📋',
     tier: 'advanced',
     tierLabel: 'מומחיות',
+    isPremium: true, // PREMIUM STAGE
     totalMinutes: 248,
     coreStepCount: 11,
     steps: [
@@ -229,15 +236,16 @@ export const learningPaths: LearningPath[] = [
   },
 
   // ═══════════════════════════════════════════════════════════════════════
-  // PATH F — Dashboard Pro with AI (Tier 3: Mastery)
+  // PATH F — Dashboard Pro with AI (Tier 3: Mastery) — PREMIUM
   // ═══════════════════════════════════════════════════════════════════════
   {
     slug: 'dashboard-pro',
     title: 'Dashboard Pro with AI',
-    description: 'דשבורדים פיננסיים אינטראקטיביים — מתכנון ועד פריסה',
+    description: 'בניית דשבורדים פיננסיים אינטראקטיביים עם AI — מתכנון ארכיטקטורת נתונים, דרך Python P&L ועד דשבורד CFO נייד.',
     icon: '📊',
     tier: 'advanced',
     tierLabel: 'מומחיות',
+    isPremium: true, // PREMIUM STAGE
     totalMinutes: 183,
     coreStepCount: 9,
     steps: [

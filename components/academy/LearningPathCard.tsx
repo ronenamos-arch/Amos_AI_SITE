@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import Image from 'next/image';
-import { ArrowLeft, Clock, Layers } from 'lucide-react';
+import { ArrowLeft, Clock, Layers, Lock, Sparkles, Crown } from 'lucide-react';
 import type { LearningPath } from '@/lib/learning-paths-data';
 import { formatDuration } from '@/lib/learning-paths-data';
 
@@ -42,14 +42,19 @@ const TIER_GRADIENTS = {
 export function LearningPathCard({ path, hasAccess }: LearningPathCardProps) {
   const tier = TIER_GRADIENTS[path.tier];
   const premiumSteps = path.steps.filter((s) => !s.isOptional).length;
+  
+  // Path 1 is 100% free; others are premium
+  const isLockedForUser = path.isPremium && !hasAccess;
 
   return (
     <Link href={`/academy/paths/${path.slug}`} className="block group h-full">
       <article
-        className="glass-panel rounded-xl overflow-hidden flex flex-col h-full transition-all duration-300 hover:-translate-y-1"
+        className={`glass-panel rounded-xl overflow-hidden flex flex-col h-full transition-all duration-300 hover:-translate-y-1 relative ${
+          !path.isPremium ? 'border-2 border-neon-teal/60 shadow-[0_0_25px_-5px_rgba(45,212,191,0.3)]' : ''
+        }`}
         style={{
-          borderColor: tier.border,
-          boxShadow: `0 0 30px -12px ${tier.glow}`,
+          borderColor: !path.isPremium ? undefined : tier.border,
+          boxShadow: !path.isPremium ? undefined : `0 0 30px -12px ${tier.glow}`,
         }}
       >
         {/* Graphic Header Area */}
@@ -71,7 +76,8 @@ export function LearningPathCard({ path, hasAccess }: LearningPathCardProps) {
             {path.icon}
           </div>
 
-          <div className="absolute top-3 right-3 z-10">
+          {/* Top Badges */}
+          <div className="absolute top-3 right-3 z-10 flex items-center gap-2">
             <span
               className="px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider backdrop-blur-md shadow-lg"
               style={{ backgroundColor: tier.bg, border: `1px solid ${tier.border}`, color: tier.text }}
@@ -79,13 +85,30 @@ export function LearningPathCard({ path, hasAccess }: LearningPathCardProps) {
               {path.tierLabel}
             </span>
           </div>
+
+          {/* Premium / Free Tag on top left */}
+          <div className="absolute top-3 left-3 z-10">
+            {!path.isPremium ? (
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-black bg-neon-teal text-space-950 shadow-lg animate-pulse">
+                <Sparkles size={12} />
+                100% חינם — להתחיל כאן!
+              </span>
+            ) : (
+              <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[11px] font-bold bg-royal-400 text-space-950 shadow-lg">
+                <Crown size={12} />
+                מנוי Pro בלבד
+              </span>
+            )}
+          </div>
         </div>
 
         {/* Content Area */}
         <div className="p-6 flex flex-col flex-grow">
-          <h3 className="text-xl font-bold text-white mb-3 leading-snug group-hover:text-neon-cyan transition-colors">
-            {path.title}
-          </h3>
+          <div className="flex items-center justify-between mb-2">
+            <h3 className="text-xl font-bold text-white leading-snug group-hover:text-neon-cyan transition-colors">
+              {path.title}
+            </h3>
+          </div>
 
           <p className="text-sm text-slate-400 leading-relaxed mb-6 flex-grow line-clamp-3">
             {path.description}
@@ -105,12 +128,26 @@ export function LearningPathCard({ path, hasAccess }: LearningPathCardProps) {
             </div>
 
             {/* CTA */}
-            <div
-              className="flex items-center gap-1.5 text-sm font-bold transition-colors"
-              style={{ color: tier.text }}
-            >
-              <span>התחל מסלול</span>
-              <ArrowLeft size={16} className="inline-block transition-transform group-hover:-translate-x-1" />
+            <div className="flex items-center justify-between">
+              {!path.isPremium ? (
+                <div className="flex items-center gap-1.5 text-sm font-black text-neon-teal">
+                  <span>התחל מסלול חינמי</span>
+                  <ArrowLeft size={16} className="inline-block transition-transform group-hover:-translate-x-1" />
+                </div>
+              ) : isLockedForUser ? (
+                <div className="flex items-center gap-1.5 text-xs font-bold text-royal-400">
+                  <Lock size={14} />
+                  <span>נעול למנויים (שדרג לגישה)</span>
+                </div>
+              ) : (
+                <div
+                  className="flex items-center gap-1.5 text-sm font-bold transition-colors"
+                  style={{ color: tier.text }}
+                >
+                  <span>התחל מסלול למנויים</span>
+                  <ArrowLeft size={16} className="inline-block transition-transform group-hover:-translate-x-1" />
+                </div>
+              )}
             </div>
           </div>
         </div>
