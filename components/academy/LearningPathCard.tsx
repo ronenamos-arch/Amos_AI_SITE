@@ -1,7 +1,17 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import { ArrowLeft, Clock, Layers } from 'lucide-react';
 import type { LearningPath } from '@/lib/learning-paths-data';
 import { formatDuration } from '@/lib/learning-paths-data';
+
+const PATH_IMAGES = {
+  'ai-beginners': '/guides/chatgpt.png',
+  'prompt-engineering': '/guides/chatgpt-20-frameworks.png',
+  'claude-mastery': '/guides/claude-finance-guide.png',
+  'excel-automation': '/guides/excel-ai.png',
+  'month-end-close': '/images/fpna-book.png',
+  'dashboard-pro': '/guides/ai-excel-dashboard.png',
+};
 
 interface LearningPathCardProps {
   path: LearningPath;
@@ -43,19 +53,19 @@ export function LearningPathCard({ path, hasAccess }: LearningPathCardProps) {
         }}
       >
         {/* Graphic Header Area */}
-        <div className="relative h-32 w-full flex items-center justify-center overflow-hidden border-b border-white/5"
-             style={{ background: `radial-gradient(circle at top right, ${tier.bg} 0%, rgba(15,23,42,1) 100%)` }}>
+        <div className="relative h-40 w-full flex items-center justify-center overflow-hidden border-b border-white/5 bg-space-950">
           
-          {/* Subtle grid pattern overlay */}
-          <div className="absolute inset-0 opacity-40" 
-               style={{
-                 backgroundImage: 'linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px)',
-                 backgroundSize: '20px 20px'
-               }} 
+          <Image 
+            src={PATH_IMAGES[path.slug as keyof typeof PATH_IMAGES] || '/images/card-guides.jpg'}
+            alt={path.title}
+            fill
+            className="object-cover transition-transform duration-700 group-hover:scale-105 opacity-80"
           />
           
+          <div className="absolute inset-0 bg-gradient-to-t from-space-950 via-space-950/40 to-transparent" />
+          
           <div
-            className="relative z-10 w-16 h-16 rounded-2xl flex items-center justify-center text-3xl shadow-2xl transition-transform duration-500 group-hover:scale-110"
+            className="absolute bottom-4 right-4 z-10 w-12 h-12 rounded-2xl flex items-center justify-center text-2xl shadow-xl transition-transform duration-500 group-hover:-translate-y-1"
             style={{ backgroundColor: tier.bg, border: `1px solid ${tier.border}` }}
           >
             {path.icon}
@@ -63,7 +73,7 @@ export function LearningPathCard({ path, hasAccess }: LearningPathCardProps) {
 
           <div className="absolute top-3 right-3 z-10">
             <span
-              className="px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider backdrop-blur-md"
+              className="px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider backdrop-blur-md shadow-lg"
               style={{ backgroundColor: tier.bg, border: `1px solid ${tier.border}`, color: tier.text }}
             >
               {path.tierLabel}

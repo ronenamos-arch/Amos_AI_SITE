@@ -50,9 +50,17 @@ const GRID_PATTERN_STYLE = {
   backgroundSize: '24px 24px',
 };
 
+const TYPE_IMAGES: Record<ContentType, string> = {
+  guide: '/images/card-guides.jpg',
+  resource: '/guides/artifacts.jpg',
+  lesson: '/images/card-webinars.jpg',
+  prompt: '/images/card-prompts.png',
+  blog: '/images/card-blog.png',
+};
+
 // ─── Component ──────────────────────────────────────────────────────────────
 interface ContentCardProps {
-  item: AcademyContentItem;
+  item: AcademyContentItem & { thumbnail?: string };
   hasAccess: boolean;
   stepNumber?: number;
   compact?: boolean;
@@ -71,8 +79,7 @@ export function ContentCard({ item, hasAccess, stepNumber, compact = false }: Co
     ? `${item.durationMinutes} דק׳`
     : `${Math.floor(item.durationMinutes / 60)} שעות`;
 
-  // Determine an image or generic rich background
-  const hasThumbnail = false; // We can add item.thumbnail to academy-data later
+  const imageSrc = item.thumbnail || TYPE_IMAGES[item.contentType];
 
   const card = (
     <article
@@ -98,31 +105,31 @@ export function ContentCard({ item, hasAccess, stepNumber, compact = false }: Co
         </div>
       )}
 
-      {/* Image / Graphic Header Area */}
-      <div className={`relative overflow-hidden flex-shrink-0 ${compact ? 'w-28 border-l border-white/10' : 'h-36 border-b border-white/10'}`}>
-        {hasThumbnail ? (
-          <Image
-            src={"" /* placeholder for item.thumbnail */}
-            alt={item.title}
-            fill
-            className="object-cover transition-transform duration-500 group-hover:scale-105"
-          />
-        ) : (
-          <div className="absolute inset-0 bg-space-950 flex flex-col items-center justify-center transition-transform duration-500 group-hover:scale-105"
-               style={{ background: `radial-gradient(circle at center, ${typeColor}20 0%, #090D16 100%)` }}>
-            <div className="absolute inset-0" style={GRID_PATTERN_STYLE} />
-            <TypeIcon size={40} style={{ color: typeColor, opacity: 0.8 }} strokeWidth={1.5} className="z-10" />
-          </div>
-        )}
+      {/* Image Header Area */}
+      <div className={`relative overflow-hidden flex-shrink-0 bg-space-950 ${compact ? 'w-28 border-l border-white/10' : 'h-40 border-b border-white/10'}`}>
+        <Image
+          src={imageSrc}
+          alt={item.title}
+          fill
+          className="object-cover transition-transform duration-700 group-hover:scale-105 opacity-80"
+        />
+        
+        {/* Subtle overlay to ensure badges are legible */}
+        <div className="absolute inset-0 bg-gradient-to-t from-space-950 via-transparent to-space-950/40" />
+        
+        {/* Large faint icon in the center */}
+        <div className="absolute inset-0 flex items-center justify-center mix-blend-overlay opacity-30">
+           <TypeIcon size={64} style={{ color: typeColor }} />
+        </div>
         
         {/* Top-left Badges inside the image area */}
-        <div className="absolute top-2 left-2 flex flex-col gap-1">
+        <div className="absolute top-3 left-3 flex flex-col gap-1.5 z-10">
           {item.isPremium ? (
-            <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-royal-400 text-space-950 shadow-md">
+            <span className="px-2.5 py-1 rounded text-[10px] font-bold bg-royal-400 text-space-950 shadow-md">
               פרימיום
             </span>
           ) : (
-            <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-neon-teal text-space-950 shadow-md">
+            <span className="px-2.5 py-1 rounded text-[10px] font-bold bg-neon-teal text-space-950 shadow-md">
               חינם
             </span>
           )}
