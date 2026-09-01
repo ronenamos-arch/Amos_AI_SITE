@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { getSubscriptionAccess } from '@/lib/subscription-access';
+import { getUserProgress } from '@/lib/actions/progress';
 import { topicClusters, getClustersByTier } from '@/lib/academy-data';
 import { learningPaths, getPathsByTier } from '@/lib/learning-paths-data';
 import { AcademyHero } from '@/components/academy/AcademyHero';
@@ -33,11 +34,25 @@ export const metadata: Metadata = {
 
 export default async function AcademyPage() {
   const { user, hasAccess } = await getSubscriptionAccess();
+  const progressRecords = user ? await getUserProgress() : [];
+
+  // Create a fast lookup Set of completed keys ("contentType:slug")
+  const completedKeys = new Set(
+    progressRecords
+      .filter((r) => r.status === 'completed')
+      .map((r) => `${r.contentType}:${r.contentSlug}`)
+  );
+
+  // Helper to count completed steps in a given learning path
+  const getCompletedCountForPath = (pathSlug: string) => {
+    const pathObj = learningPaths.find((p) => p.slug === pathSlug);
+    if (!pathObj) return 0;
+    return pathObj.steps.filter((s) => completedKeys.has(`${s.contentType}:${s.slug}`)).length;
+  };
 
   // Get user display name for the hero
   let userName: string | null = null;
   if (user) {
-    // user_metadata may contain display_name or full_name
     userName =
       (user.user_metadata?.display_name as string) ||
       (user.user_metadata?.full_name as string) ||
@@ -110,7 +125,12 @@ export default async function AcademyPage() {
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
             {foundationPaths.map((path) => (
-              <LearningPathCard key={path.slug} path={path} hasAccess={hasAccess} />
+              <LearningPathCard 
+                key={path.slug} 
+                path={path} 
+                hasAccess={hasAccess}
+                completedCount={getCompletedCountForPath(path.slug)} 
+              />
             ))}
           </div>
         </div>
@@ -129,7 +149,12 @@ export default async function AcademyPage() {
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
             {corePaths.map((path) => (
-              <LearningPathCard key={path.slug} path={path} hasAccess={hasAccess} />
+              <LearningPathCard 
+                key={path.slug} 
+                path={path} 
+                hasAccess={hasAccess}
+                completedCount={getCompletedCountForPath(path.slug)} 
+              />
             ))}
           </div>
         </div>
@@ -148,7 +173,12 @@ export default async function AcademyPage() {
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
             {masteryPaths.map((path) => (
-              <LearningPathCard key={path.slug} path={path} hasAccess={hasAccess} />
+              <LearningPathCard 
+                key={path.slug} 
+                path={path} 
+                hasAccess={hasAccess}
+                completedCount={getCompletedCountForPath(path.slug)} 
+              />
             ))}
           </div>
         </div>

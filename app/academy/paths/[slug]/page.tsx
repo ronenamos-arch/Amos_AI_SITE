@@ -1,10 +1,12 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { ArrowLeft, ArrowRight, Clock, Layers, Crown, ChevronLeft } from 'lucide-react';
+import { ArrowLeft, ArrowRight, Clock, Layers, Crown, ChevronLeft, CheckCircle2 } from 'lucide-react';
 import { getSubscriptionAccess } from '@/lib/subscription-access';
+import { getUserProgress } from '@/lib/actions/progress';
 import { learningPaths, getLearningPath, getNextPath, formatDuration } from '@/lib/learning-paths-data';
 import { ContentCard } from '@/components/academy/ContentCard';
+import { MarkCompleteButton } from '@/components/academy/MarkCompleteButton';
 
 export const dynamic = 'force-dynamic';
 
@@ -51,12 +53,19 @@ export default async function LearningPathPage({
   const path = getLearningPath(slug);
   if (!path) notFound();
 
-  const { hasAccess } = await getSubscriptionAccess();
+  const { user, hasAccess } = await getSubscriptionAccess();
+  const userProgress = user ? await getUserProgress() : [];
+  const completedKeys = new Set(
+    userProgress.filter((r) => r.status === 'completed').map((r) => `${r.contentType}:${r.contentSlug}`)
+  );
+
   const nextPath = getNextPath(slug);
   const tier = TIER_STYLES[path.tier];
 
   const coreSteps = path.steps.filter((s) => !s.isOptional);
   const optionalSteps = path.steps.filter((s) => s.isOptional);
+  const completedCoreCount = coreSteps.filter((s) => completedKeys.has(`${s.contentType}:${s.slug}`)).length;
+  const progressPercent = Math.min(100, Math.round((completedCoreCount / coreSteps.length) * 100));
 
   return (
     <div className="pt-16 relative">
@@ -100,8 +109,8 @@ export default async function LearningPathPage({
             {path.description}
           </p>
 
-          {/* Meta row */}
-          <div className="flex flex-wrap items-center gap-6 text-sm text-slate-500">
+          {/* Meta row & Progress Bar */}
+          <div className="flex flex-wrap items-center gap-6 text-sm text-slate-500 mb-6">
             <div className="flex items-center gap-1.5">
               <Layers size={14} style={{ color: tier.color }} />
               <span>{coreSteps.length} שלבים</span>
@@ -114,6 +123,24 @@ export default async function LearningPathPage({
               <span>{formatDuration(path.totalMinutes)}</span>
             </div>
           </div>
+
+          {/* Progress bar for authenticated users */}
+          {user && (
+            <div className="glass-panel p-4 rounded-xl border border-white/10 mb-8 max-w-xl">
+              <div className="flex items-center justify-between text-xs font-bold text-slate-300 mb-2">
+                <span className="flex items-center gap-1.5 text-neon-teal">
+                  <CheckCircle2 size={16} /> התקדמות במסלול: {completedCoreCount} מתוך {coreSteps.length} שלבים הושלמו
+                </span>
+                <span className="text-neon-teal">{progressPercent}%</span>
+              </div>
+              <div className="w-full h-2 bg-slate-800 rounded-full overflow-hidden">
+                <div 
+                  className="h-full bg-gradient-to-r from-neon-teal via-neon-cyan to-blue-400 transition-all duration-500 rounded-full"
+                  style={{ width: `${progressPercent}%` }}
+                />
+              </div>
+            </div>
+          )}
         </div>
 
         {/* ── Progress Line + Steps ──────────────────────────────────── */}
@@ -126,41 +153,56 @@ export default async function LearningPathPage({
 
           {/* Core steps */}
           <div className="space-y-4">
-            {coreSteps.map((step, index) => (
-              <div key={step.slug} className="relative flex gap-4">
-                {/* Step number circle */}
-                <div
-                  className="relative z-10 flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold border"
-                  style={{
-                    backgroundColor: tier.bg,
-                    borderColor: tier.border,
-                    color: tier.color,
-                  }}
-                >
-                  {index + 1}
-                </div>
-
-                {/* Card */}
-                <div className="flex-grow pb-2">
-                  <ContentCard
-                    item={{
-                      id: `${step.contentType}:${step.slug}`,
-                      title: step.title,
-                      contentType: step.contentType,
-                      slug: step.slug,
-                      difficulty: path.tier,
-                      isPremium: step.contentType === 'lesson' || step.contentType === 'resource'
-                        ? true // lessons and resources are generally premium
-                        : false,
-                      durationMinutes: 0,
-                      description: step.rationale,
+            {coreSteps.map((step, index) => {
+              const isCompleted = completedKeys.has(`${step.contentType}:${step.slug}`);
+              return (
+                <div key={step.slug} className="relative flex gap-4 items-start">
+                  {/* Step number circle */}
+                  <div
+                    className={`relative z-10 flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold border transition-colors ${
+                      isCompleted ? 'bg-neon-teal text-space-950 border-neon-teal shadow-lg' : ''
+                    }`}
+                    style={{
+                      backgroundColor: isCompleted ? undefined : tier.bg,
+                      borderColor: isCompleted ? undefined : tier.border,
+                      color: isCompleted ? undefined : tier.color,
                     }}
-                    hasAccess={hasAccess}
-                    compact
-                  />
+                  >
+                    {isCompleted ? <CheckCircle2 size={18} /> : index + 1}
+                  </div>
+
+                  {/* Card + Completion Button */}
+                  <div className="flex-grow pb-2">
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-2">
+                      <span className="text-xs font-bold text-slate-400">שלב {index + 1}</span>
+                      {user && (
+                        <MarkCompleteButton 
+                          contentType={step.contentType} 
+                          contentSlug={step.slug} 
+                          initialCompleted={isCompleted} 
+                        />
+                      )}
+                    </div>
+                    <ContentCard
+                      item={{
+                        id: `${step.contentType}:${step.slug}`,
+                        title: step.title,
+                        contentType: step.contentType,
+                        slug: step.slug,
+                        difficulty: path.tier,
+                        isPremium: step.contentType === 'lesson' || step.contentType === 'resource'
+                          ? true
+                          : false,
+                        durationMinutes: 0,
+                        description: step.rationale,
+                      }}
+                      hasAccess={hasAccess}
+                      compact
+                    />
+                  </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
 
           {/* Optional steps */}

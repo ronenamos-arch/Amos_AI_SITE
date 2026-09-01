@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import Image from 'next/image';
-import { ArrowLeft, Clock, Layers, Lock, Sparkles, Crown } from 'lucide-react';
+import { ArrowLeft, Clock, Layers, Lock, Sparkles, Crown, CheckCircle2 } from 'lucide-react';
 import type { LearningPath } from '@/lib/learning-paths-data';
 import { formatDuration } from '@/lib/learning-paths-data';
 
@@ -16,6 +16,8 @@ const PATH_IMAGES = {
 interface LearningPathCardProps {
   path: LearningPath;
   hasAccess: boolean;
+  /** Number of completed items in this path (for logged in users) */
+  completedCount?: number;
 }
 
 const TIER_GRADIENTS = {
@@ -39,22 +41,28 @@ const TIER_GRADIENTS = {
   },
 };
 
-export function LearningPathCard({ path, hasAccess }: LearningPathCardProps) {
+export function LearningPathCard({ path, hasAccess, completedCount = 0 }: LearningPathCardProps) {
   const tier = TIER_GRADIENTS[path.tier];
   const premiumSteps = path.steps.filter((s) => !s.isOptional).length;
   
   // Path 1 is 100% free; others are premium
   const isLockedForUser = path.isPremium && !hasAccess;
 
+  // Calculate completion percentage
+  const progressPercent = Math.min(100, Math.round((completedCount / premiumSteps) * 100));
+
+  // Determine target link: locked premium paths redirect to subscribe flow
+  const targetHref = isLockedForUser ? '/api/subscribe' : `/academy/paths/${path.slug}`;
+
   return (
-    <Link href={`/academy/paths/${path.slug}`} className="block group h-full">
+    <Link href={targetHref} className="block group h-full">
       <article
         className={`glass-panel rounded-xl overflow-hidden flex flex-col h-full transition-all duration-300 hover:-translate-y-1 relative ${
           !path.isPremium ? 'border-2 border-neon-teal/60 shadow-[0_0_25px_-5px_rgba(45,212,191,0.3)]' : ''
-        }`}
+        } ${isLockedForUser ? 'opacity-90 hover:opacity-100 hover:border-royal-400/60' : ''}`}
         style={{
-          borderColor: !path.isPremium ? undefined : tier.border,
-          boxShadow: !path.isPremium ? undefined : `0 0 30px -12px ${tier.glow}`,
+          borderColor: !path.isPremium ? undefined : isLockedForUser ? undefined : tier.border,
+          boxShadow: !path.isPremium ? undefined : isLockedForUser ? undefined : `0 0 30px -12px ${tier.glow}`,
         }}
       >
         {/* Graphic Header Area */}
@@ -113,6 +121,24 @@ export function LearningPathCard({ path, hasAccess }: LearningPathCardProps) {
           <p className="text-sm text-slate-400 leading-relaxed mb-6 flex-grow line-clamp-3">
             {path.description}
           </p>
+
+          {/* Progress Bar (if user has started or completed items) */}
+          {hasAccess && completedCount > 0 && (
+            <div className="mb-4">
+              <div className="flex items-center justify-between text-xs text-slate-400 mb-1 font-medium">
+                <span className="flex items-center gap-1 text-neon-teal">
+                  <CheckCircle2 size={12} /> {completedCount}/{premiumSteps} הושלמו
+                </span>
+                <span>{progressPercent}%</span>
+              </div>
+              <div className="w-full h-1.5 bg-slate-800 rounded-full overflow-hidden">
+                <div 
+                  className="h-full bg-gradient-to-r from-neon-teal to-neon-cyan transition-all duration-500 rounded-full"
+                  style={{ width: `${progressPercent}%` }}
+                />
+              </div>
+            </div>
+          )}
 
           <div className="mt-auto">
             {/* Meta row */}
