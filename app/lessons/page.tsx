@@ -29,6 +29,20 @@ export default async function LessonsPage() {
             <section className="rv2-container py-16 lg:py-20">
                 <div className="rv2-rise max-w-3xl">
                     <div className="rv2-kicker mb-4">הספרייה</div>
+
+                    {/* Academy Banner */}
+                    <div className="mb-6">
+                        <Link 
+                            href="/academy" 
+                            className="flex items-center justify-between p-3.5 rounded-xl glass-panel border border-neon-cyan/40 bg-neon-cyan/10 hover:bg-neon-cyan/20 transition-all text-xs sm:text-sm group text-right"
+                        >
+                            <span className="text-neon-cyan font-bold">
+                                🎓 רוצה ללמוד במסלול מובנה? כל הוובינרים והשיעורים מאורגנים כעת באקדמיה
+                            </span>
+                            <span className="text-neon-teal font-black group-hover:-translate-x-1 transition-transform">←</span>
+                        </Link>
+                    </div>
+
                     <h1 className="rv2-display text-4xl sm:text-5xl lg:text-[3.2rem]">
                         שיעורים בלייב ווובינרים
                     </h1>

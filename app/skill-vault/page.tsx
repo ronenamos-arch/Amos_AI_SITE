@@ -136,6 +136,20 @@ export default function SkillVaultPage() {
       <section className="vault-hero">
         <div className="vault-inner">
           <p className="vault-hero-eyebrow">Free AI Finance Tools</p>
+          
+          {/* Academy Banner */}
+          <div className="my-4 max-w-xl mx-auto">
+            <Link 
+              href="/academy" 
+              className="flex items-center justify-between p-3.5 rounded-xl glass-panel border border-neon-cyan/40 bg-neon-cyan/10 hover:bg-neon-cyan/20 transition-all text-xs sm:text-sm group text-right"
+            >
+              <span className="text-neon-cyan font-bold">
+                🎓 רוצה ללמוד במסלול מובנה? כל הפרומפטים והסקילים מאורגנים באקדמיה
+              </span>
+              <span className="text-neon-teal font-black group-hover:-translate-x-1 transition-transform">←</span>
+            </Link>
+          </div>
+
           <h1 className="vault-hero-headline">
             פרומפטים מוכנים לאנשי{" "}
             <span className="vault-gradient-text">פיננסים</span>

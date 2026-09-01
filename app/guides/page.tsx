@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { getAllGuides } from "@/lib/guides-data";
 import { GuidesGrid } from "@/components/guides/GuidesGrid";
 import { NewsletterForm } from "@/components/forms/NewsletterForm";
@@ -118,7 +119,7 @@ export default async function GuidesPage() {
                 <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12 md:py-20">
                     <div className="grid lg:grid-cols-2 gap-12 items-center">
                         <div>
-                            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full glass-panel mb-6">
+                            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full glass-panel mb-4">
                                 <span
                                     className="text-xs font-medium"
                                     style={{ color: "#2dd4bf" }}
@@ -126,6 +127,17 @@ export default async function GuidesPage() {
                                     📚 ספרייה מתעדכנת
                                 </span>
                             </div>
+
+                            {/* Academy Banner */}
+                            <Link 
+                                href="/academy" 
+                                className="mb-6 flex items-center justify-between p-3.5 rounded-xl glass-panel border border-neon-cyan/40 bg-neon-cyan/10 hover:bg-neon-cyan/20 transition-all text-xs sm:text-sm group"
+                            >
+                                <span className="text-neon-cyan font-bold">
+                                    🎓 רוצה ללמוד במסלול מובנה? כל המדריכים והכלים מאורגנים כעת באקדמיה
+                                </span>
+                                <span className="text-neon-teal font-black group-hover:-translate-x-1 transition-transform">←</span>
+                            </Link>
 
                             <h1 className="text-3xl md:text-4xl lg:text-5xl font-black mb-6 leading-tight">
                                 <span className="text-white">

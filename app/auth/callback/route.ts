@@ -6,7 +6,7 @@ export async function GET(request: Request) {
     const { searchParams, origin } = new URL(request.url);
     const code = searchParams.get("code");
     // if "next" is in search params, use it as the redirection URL after successful connection
-    const next = searchParams.get("next") ?? "/";
+    const next = searchParams.get("next") ?? "/academy";
 
     // Use NEXT_PUBLIC_SITE_URL if available (production), otherwise fall back to origin (local dev)
     const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || origin;

@@ -7,15 +7,15 @@ import { Menu, X, ChevronDown, UserCircle2 } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
 
 const resources = [
+    { href: "/academy", label: "🎓 האקדמיה (מרכז בלעדי)" },
     { href: "/guides", label: "מדריכים" },
     { href: "/skill-vault", label: "ספריית הפרומפטים והסקילים" },
     { href: "/lessons", label: "וובינרים" },
     { href: "/tools", label: "כלים פיננסיים" },
 ];
 
-// "מנוי פרימיום" is deliberately absent: the header CTA button already covers
-// that intent, and it now goes straight to PayPal rather than to a pricing page.
 const navLinks = [
+    { href: "/academy", label: "האקדמיה ✨" },
     { href: "/blog", label: "בלוג" },
     { href: "/courses", label: "קורסים והכשרות" },
     { href: "/contact", label: "צור קשר" },
@@ -39,7 +39,7 @@ export function HeaderV2() {
     }, []);
 
     const accountLink = displayName ? (
-        <Link href="/dashboard" className="rv2-link flex items-center gap-1.5 text-sm" title="לאזור האישי">
+        <Link href="/academy" className="rv2-link flex items-center gap-1.5 text-sm font-bold text-neon-teal" title="לאקדמיה שלי">
             <UserCircle2 size={18} className="text-[var(--rv2-accent)]" />
             <span className="max-w-[9rem] truncate">{displayName}</span>
         </Link>
