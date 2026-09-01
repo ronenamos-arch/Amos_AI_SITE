@@ -97,8 +97,8 @@ export function AcademyHero({ hasAccess, userName }: AcademyHeroProps) {
           {/* CTA for non-subscribers */}
           {!hasAccess && (
             <div className="mt-8 flex flex-wrap gap-4">
-              <a
-                href="/api/subscribe"
+              <Link
+                href="/pricing"
                 className="inline-flex items-center gap-2 px-7 py-3.5 rounded-xl font-bold text-space-950 transition-all duration-200 hover:scale-105 shadow-xl text-sm"
                 style={{
                   background: 'linear-gradient(135deg, #22d3ee, #2dd4bf)',
@@ -106,7 +106,7 @@ export function AcademyHero({ hasAccess, userName }: AcademyHeroProps) {
               >
                 <Crown size={18} />
                 שדרג למנוי Pro — ₪100 לחודש
-              </a>
+              </Link>
             </div>
           )}
         </div>

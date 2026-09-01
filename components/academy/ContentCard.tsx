@@ -184,9 +184,10 @@ export function ContentCard({ item, hasAccess, stepNumber, compact = false }: Co
     </article>
   );
 
+  // Locked items link to the pricing page so users see subscription value before paying
   if (isLocked) {
     return (
-      <Link href="/api/subscribe" className="block h-full">
+      <Link href="/pricing" className="block h-full">
         {card}
       </Link>
     );

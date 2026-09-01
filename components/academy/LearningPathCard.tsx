@@ -51,8 +51,8 @@ export function LearningPathCard({ path, hasAccess, completedCount = 0 }: Learni
   // Calculate completion percentage
   const progressPercent = Math.min(100, Math.round((completedCount / premiumSteps) * 100));
 
-  // Determine target link: locked premium paths redirect to subscribe flow
-  const targetHref = isLockedForUser ? '/api/subscribe' : `/academy/paths/${path.slug}`;
+  // Determine target link: locked premium paths redirect to pricing page for clear context
+  const targetHref = isLockedForUser ? '/pricing' : `/academy/paths/${path.slug}`;
 
   return (
     <Link href={targetHref} className="block group h-full">
