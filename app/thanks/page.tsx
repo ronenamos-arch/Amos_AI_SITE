@@ -76,23 +76,23 @@ export default async function ThankYouPage() {
                                         <h3 className="font-bold">מה קורה עכשיו?</h3>
                                     </div>
                                     <p className="text-sm text-text-secondary">
-                                        שלחנו לך אישור תשלום למייל. הגישה לתכני הפרימיום כבר פעילה — אפשר להתחיל מיד.
+                                        שלחנו לך אישור תשלום למייל. הגישה למסלולי הלמידה באקדמיה כבר פעילה — אפשר להתחיל מיד.
                                     </p>
                                 </div>
                                 <div className="p-4 rounded-xl bg-white/5 border border-white/5">
                                     <div className="flex items-center gap-3 mb-2">
                                         <BookOpen className="h-5 w-5 text-teal-400" />
-                                        <h3 className="font-bold">לאן כדאי להיכנס?</h3>
+                                        <h3 className="font-bold">איפה להתחיל?</h3>
                                     </div>
                                     <p className="text-sm text-text-secondary">
-                                        אנחנו ממליצים להתחיל מהמדריך "הטמעת AI בביקורת" שנמצא בבלוג הפרימיום.
+                                        אנחנו ממליצים להיכנס לאקדמיה ולהתחיל ממסלול הלמידה הראשון שלך.
                                     </p>
                                 </div>
                             </div>
 
                             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-                                <Button href="/dashboard" size="lg" className="w-full sm:w-auto">
-                                    עבור לאזור האישי
+                                <Button href="/academy" size="lg" className="w-full sm:w-auto font-bold bg-gradient-to-r from-neon-cyan to-neon-teal text-space-950">
+                                    עבור לאקדמיה עכשיו 🎓
                                 </Button>
                                 <Button href="/blog" variant="secondary" size="lg" className="w-full sm:w-auto">
                                     גלוש בבלוג
