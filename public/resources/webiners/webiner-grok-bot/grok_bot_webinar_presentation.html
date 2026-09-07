@@ -1,0 +1,1184 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Grok Bot לאנשי כספים ורואי חשבון | AI Finance Transformation</title>
+  <meta name="description" content="וובינר מקצועי לאנשי כספים, רואי חשבון ו-CFOs: מדריך מעשי לשימוש בסוכן ה-AI החדש של xAI - Grok Bot." />
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800;900&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #0b0d10;
+      --surface-1: #12161c;
+      --surface-2: #181e26;
+      --surface-3: #202732;
+      --border: rgba(255, 255, 255, 0.08);
+      --border-strong: rgba(184, 196, 90, 0.35);
+      --text: #f3f5f8;
+      --text-muted: #9daab8;
+      --text-faint: #657484;
+      --accent: #b8c45a;
+      --accent-strong: #d4e265;
+      --accent-glow: rgba(184, 196, 90, 0.22);
+      --accent-soft: rgba(184, 196, 90, 0.10);
+      --success: #4caf72;
+      --warning: #e5a93c;
+      --danger: #e55c6c;
+      --shadow-lg: 0 20px 50px rgba(0, 0, 0, 0.5);
+      --shadow-glow: 0 0 35px rgba(184, 196, 90, 0.12);
+      --radius-sm: 8px;
+      --radius-md: 16px;
+      --radius-lg: 24px;
+      --radius-xl: 32px;
+      --max: 1240px;
+      --max-copy: 820px;
+      --hero-title: clamp(2.4rem, 5vw, 4.5rem);
+      --h1: clamp(1.8rem, 3.2vw, 2.8rem);
+      --h2: clamp(1.3rem, 2vw, 1.8rem);
+      --h3: clamp(1.05rem, 1.3vw, 1.25rem);
+      --body: clamp(1rem, 1.15vw, 1.15rem);
+      --mono: "IBM Plex Mono", monospace;
+      --font: "Heebo", system-ui, -apple-system, sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: var(--font);
+      background:
+        radial-gradient(circle at 85% 5%, rgba(184, 196, 90, 0.07), transparent 28%),
+        radial-gradient(circle at 10% 20%, rgba(255, 255, 255, 0.02), transparent 25%),
+        radial-gradient(circle at 50% 80%, rgba(184, 196, 90, 0.04), transparent 40%),
+        var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+      font-size: var(--body);
+      min-height: 100dvh;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; height: auto; }
+
+    /* LAYOUT CONTAINERS */
+    .container {
+      width: min(calc(100% - 40px), var(--max));
+      margin-inline: auto;
+    }
+    .narrow { width: min(100%, var(--max-copy)); }
+
+    /* STICKY TOPBAR */
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      background: rgba(11, 13, 16, 0.92);
+      border-bottom: 1px solid var(--border);
+    }
+    .topbar-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      min-height: 66px;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 800;
+      font-size: 1.05rem;
+    }
+    .brand-mark {
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(135deg, rgba(184, 196, 90, 0.25), rgba(184, 196, 90, 0.05));
+      border: 1px solid var(--border-strong);
+      color: var(--accent-strong);
+      font-family: var(--mono);
+      font-size: 0.9rem;
+      font-weight: 800;
+    }
+    .nav {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      color: var(--text-muted);
+      font-size: 0.88rem;
+      font-weight: 500;
+      align-items: center;
+    }
+    .nav a {
+      padding: 6px 12px;
+      border-radius: var(--radius-sm);
+      transition: all 0.2s;
+    }
+    .nav a:hover, .nav a.active {
+      color: var(--accent-strong);
+      background: var(--surface-2);
+    }
+    .nav-btn {
+      padding: 6px 16px !important;
+      background: var(--accent-soft) !important;
+      border: 1px solid rgba(184, 196, 90, 0.3) !important;
+      border-radius: 999px !important;
+      color: var(--accent-strong) !important;
+      font-weight: 700;
+    }
+    .nav-btn:hover {
+      background: var(--accent) !important;
+      color: #0b0d10 !important;
+    }
+
+    /* SLIDE CONTROLS BAR */
+    .controls-bar {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 120;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      background: rgba(18, 22, 28, 0.92);
+      border: 1px solid var(--border-strong);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      padding: 8px 20px;
+      border-radius: 999px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+    }
+    .ctrl-btn {
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      color: var(--text);
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .ctrl-btn:hover {
+      background: var(--accent);
+      color: #0b0d10;
+      border-color: var(--accent);
+    }
+    .slide-counter {
+      font-family: var(--mono);
+      font-size: 0.85rem;
+      color: var(--accent-strong);
+      font-weight: 600;
+      white-space: nowrap;
+    }
+    .progress-bar-container {
+      position: fixed;
+      top: 66px;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: rgba(255, 255, 255, 0.05);
+      z-index: 99;
+    }
+    .progress-bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--accent), var(--accent-strong));
+      width: 0%;
+      transition: width 0.3s ease;
+    }
+
+    /* SECTIONS & SLIDES */
+    .section {
+      padding: clamp(60px, 8vw, 100px) 0;
+      position: relative;
+      min-height: calc(100dvh - 66px);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .section + .section {
+      border-top: 1px solid var(--border);
+    }
+
+    /* TYPOGRAPHY COMPONENTS */
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--accent-strong);
+      font-family: var(--mono);
+      font-size: 0.82rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+    .eyebrow::before {
+      content: "";
+      width: 18px;
+      height: 2px;
+      background: var(--accent);
+    }
+
+    .section-head {
+      display: grid;
+      gap: 10px;
+      margin-bottom: 36px;
+    }
+    .section-head h2 {
+      margin: 0;
+      font-size: var(--h1);
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+      font-weight: 800;
+    }
+    .section-head p {
+      margin: 0;
+      color: var(--text-muted);
+      max-width: 70ch;
+      font-size: var(--body);
+    }
+
+    /* BUTTONS */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      min-height: 48px;
+      padding: 0 24px;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      font-weight: 700;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: all 0.25s ease;
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent-strong), var(--accent));
+      color: #0b0d10;
+      box-shadow: 0 6px 20px rgba(184, 196, 90, 0.25);
+    }
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 28px rgba(184, 196, 90, 0.4);
+    }
+    .btn-secondary {
+      background: var(--surface-2);
+      border-color: var(--border);
+      color: var(--text);
+    }
+    .btn-secondary:hover {
+      background: var(--surface-3);
+      border-color: var(--border-strong);
+      color: var(--accent-strong);
+    }
+
+    /* HERO STYLING (SLIDE 00) */
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 16px;
+      border-radius: 999px;
+      background: var(--accent-soft);
+      border: 1px solid rgba(184, 196, 90, 0.25);
+      font-size: 0.85rem;
+      color: var(--accent-strong);
+      font-family: var(--mono);
+      margin-bottom: 24px;
+    }
+    .hero-title {
+      font-size: var(--hero-title);
+      line-height: 1.08;
+      letter-spacing: -0.03em;
+      font-weight: 900;
+      margin: 0 0 20px;
+    }
+    .hero-title span.accent {
+      color: var(--accent-strong);
+      position: relative;
+    }
+    .hero-subtitle {
+      color: var(--text-muted);
+      font-size: clamp(1.1rem, 1.5vw, 1.35rem);
+      line-height: 1.6;
+      margin-bottom: 32px;
+      font-weight: 400;
+    }
+    .hero-speakers {
+      display: inline-flex;
+      align-items: center;
+      gap: 16px;
+      padding: 12px 24px;
+      background: var(--surface-1);
+      border: 1px solid var(--border-strong);
+      border-radius: var(--radius-md);
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    /* CARDS & BENTO GRIDS */
+    .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
+    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+
+    .card {
+      background: linear-gradient(180deg, var(--surface-1), var(--surface-2));
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 28px;
+      box-shadow: var(--shadow-lg);
+      transition: all 0.25s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    .card::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+    }
+    .card:hover {
+      border-color: var(--border-strong);
+      transform: translateY(-2px);
+    }
+    .card-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      background: var(--accent-soft);
+      border: 1px solid rgba(184, 196, 90, 0.2);
+      color: var(--accent-strong);
+      display: grid;
+      place-items: center;
+      margin-bottom: 18px;
+    }
+    .card h3 {
+      margin: 0 0 10px;
+      font-size: var(--h2);
+      line-height: 1.25;
+      font-weight: 700;
+    }
+    .card p {
+      margin: 0;
+      color: var(--text-muted);
+      font-size: 0.98rem;
+    }
+
+    /* STEP CARDS (SLIDE 06 & 07) */
+    .step-number {
+      font-family: var(--mono);
+      font-size: 1.6rem;
+      font-weight: 800;
+      color: var(--accent-strong);
+      background: var(--surface-3);
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
+      display: grid;
+      place-items: center;
+      border: 1px solid var(--border-strong);
+      margin-bottom: 16px;
+    }
+
+    /* MEDIA FRAME FOR SCREENSHOTS */
+    .media-frame {
+      background: var(--surface-1);
+      border: 1px solid var(--border-strong);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5);
+      margin-top: 24px;
+    }
+    .media-frame-header {
+      background: var(--surface-2);
+      padding: 10px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--border);
+    }
+    .media-dots { display: flex; gap: 6px; }
+    .media-dot { width: 10px; height: 10px; border-radius: 50%; background: rgba(255, 255, 255, 0.2); }
+    .media-title { font-family: var(--mono); font-size: 0.8rem; color: var(--text-muted); }
+
+    /* COMPARISON TABLE / CARD (SLIDE 02) */
+    .comparison-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+    .comp-card {
+      padding: 28px;
+      border-radius: var(--radius-md);
+      background: var(--surface-1);
+      border: 1px solid var(--border);
+    }
+    .comp-card.active-agent {
+      border-color: var(--border-strong);
+      background: linear-gradient(180deg, var(--surface-1), var(--surface-2));
+      box-shadow: var(--shadow-glow);
+    }
+    .comp-badge {
+      font-family: var(--mono);
+      font-size: 0.8rem;
+      padding: 4px 10px;
+      border-radius: 999px;
+      display: inline-block;
+      margin-bottom: 14px;
+    }
+    .badge-legacy { background: rgba(255, 255, 255, 0.08); color: var(--text-muted); }
+    .badge-future { background: var(--accent-soft); color: var(--accent-strong); border: 1px solid var(--border-strong); }
+
+    /* BULLET LIST */
+    .bullet-list { display: grid; gap: 12px; }
+    .bullet-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      background: var(--surface-1);
+      padding: 14px 18px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border);
+      font-size: 0.95rem;
+    }
+    .bullet-icon {
+      color: var(--accent-strong);
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    /* SPECIAL SLIDE 08: LIVE DEMO TRANSITION */
+    .slide-demo {
+      text-align: center;
+      background: radial-gradient(circle at center, rgba(184, 196, 90, 0.12), transparent 60%), var(--bg);
+    }
+    .demo-play-icon {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background: var(--accent-soft);
+      border: 2px solid var(--accent-strong);
+      color: var(--accent-strong);
+      display: grid;
+      place-items: center;
+      margin: 0 auto 28px;
+      box-shadow: var(--shadow-glow);
+      animation: pulseGlow 3s infinite ease-in-out;
+    }
+    @keyframes pulseGlow {
+      0%, 100% { box-shadow: 0 0 25px rgba(184, 196, 90, 0.2); }
+      50% { box-shadow: 0 0 45px rgba(184, 196, 90, 0.45); }
+    }
+
+    /* CTA SLIDES (SLIDE 09 & 10) */
+    .cta-card {
+      background: linear-gradient(135deg, rgba(184, 196, 90, 0.12), rgba(18, 22, 28, 0.95));
+      border: 2px solid var(--border-strong);
+      border-radius: var(--radius-lg);
+      padding: 40px;
+      box-shadow: var(--shadow-glow);
+    }
+    .price-tag {
+      font-family: var(--mono);
+      font-size: 2.2rem;
+      font-weight: 800;
+      color: var(--accent-strong);
+      margin: 16px 0;
+    }
+
+    /* FOOTER / CONTACT GRID (SLIDE 11) */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 16px;
+      margin-top: 28px;
+    }
+    .contact-card {
+      background: var(--surface-1);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 16px 20px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      transition: all 0.2s;
+    }
+    .contact-card:hover {
+      border-color: var(--border-strong);
+      background: var(--surface-2);
+      color: var(--accent-strong);
+    }
+
+    /* RESPONSIVE OVERRIDES */
+    @media (max-width: 900px) {
+      .grid-2, .grid-3, .grid-4, .comparison-grid {
+        grid-template-columns: 1fr !important;
+      }
+      .nav { display: none; }
+      .controls-bar { width: 90%; justify-content: space-between; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- STICKY TOPBAR -->
+  <header class="topbar">
+    <div class="container topbar-inner">
+      <div class="brand">
+        <div class="brand-mark">xAI</div>
+        <span>Grok Bot לאנשי כספים</span>
+      </div>
+      <nav class="nav">
+        <a href="#slide-00">פתח</a>
+        <a href="#slide-01">היכרות</a>
+        <a href="#slide-02">למה עכשיו</a>
+        <a href="#slide-03">מה זה Grok Bot</a>
+        <a href="#slide-04">איך זה עובד</a>
+        <a href="#slide-05">התקנה</a>
+        <a href="#slide-08">הדגמה</a>
+        <a href="#slide-09" class="nav-btn">הצעות מיוחדות</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- PROGRESS BAR -->
+  <div class="progress-bar-container">
+    <div class="progress-bar-fill" id="progressBar"></div>
+  </div>
+
+  <!-- FLOATING SLIDE NAVIGATION CONTROLS -->
+  <div class="controls-bar">
+    <button class="ctrl-btn" id="prevSlideBtn" title="שקופית קודמת (חץ ימינה)" aria-label="Slide back">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+    </button>
+    <div class="slide-counter" id="slideCounter">שקופית 00 / 11</div>
+    <button class="ctrl-btn" id="nextSlideBtn" title="שקופית הבאה (חץ שמאלה / רווח)" aria-label="Slide forward">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
+    </button>
+  </div>
+
+  <main>
+    <!-- SLIDE 00 · Title / Hero -->
+    <section id="slide-00" class="section">
+      <div class="container">
+        <div class="hero-badge">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+          AI Finance Transformation | 60 דקות | RTL
+        </div>
+        <h1 class="hero-title">
+          Grok Bot לאנשי כספים —<br />
+          איך ולמה להשתמש ב-<span class="accent">סוכן ה-AI החדש של xAI</span>
+        </h1>
+        <p class="hero-subtitle">
+          מעבר מ"צ'אט שמשוחח" לסוכן אוטונומי שמבצע עבודה פיננסית בפועל במערכות הארגון
+        </p>
+        <div class="hero-speakers">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--accent-strong)" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          רונן עמוס רו"ח × תומר, מומחה אוטומציה
+        </div>
+
+        <div class="media-frame" style="max-width: 960px; margin-top: 40px;">
+          <div class="media-frame-header">
+            <div class="media-dots">
+              <div class="media-dot"></div><div class="media-dot"></div><div class="media-dot"></div>
+            </div>
+            <div class="media-title">Grok Bot לאנשי כספים | AI Finance Transformation</div>
+          </div>
+          <img src="/resources/webiners/webiner-grok-bot/Images/image0_hero.jpg" alt="Grok Bot Title Hero Banner" style="width:100%; border-radius:0 0 var(--radius-md) var(--radius-md); display:block;" />
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 01 · About Me -->
+    <section id="slide-01" class="section">
+      <div class="container">
+        <div class="eyebrow">SLIDE 01</div>
+        <div class="section-head">
+          <h2>מי אנחנו ומה נלמד היום</h2>
+          <p>השילוב המנצח בין ניסיון פיננסי מעמיק ליכולות הנדסת אוטומציה וסוכני AI</p>
+        </div>
+
+        <div class="speaker-stack" style="display: flex; flex-direction: column; gap: 20px;">
+          <div class="card" style="display: flex; align-items: center; gap: 24px; padding: 24px 28px; flex-wrap: wrap;">
+            <img src="/resources/webiners/webiner-grok-bot/Images/profile-ronen.png" alt="רונן עמוס רו״ח" style="width: 120px; height: 120px; border-radius: 50%; object-fit: cover; border: 3px solid var(--accent-strong); box-shadow: var(--shadow-glow); flex-shrink: 0;" />
+            <div style="flex: 1; min-width: 260px;">
+              <h3 style="margin: 0 0 6px; font-size: 1.4rem; color: var(--text);">רונן עמוס רו"ח</h3>
+              <div style="font-family: var(--mono); font-size: 0.85rem; color: var(--accent-strong); margin-bottom: 10px;">10+ שנים בעולם הכספים | מומחה AI ואוטומציה פיננסית</div>
+              <p style="margin: 0; color: var(--text-muted); font-size: 1rem; line-height: 1.6;">מתמחה בשילוב מעשי של כלי AI, סוכנים ואוטומציות מתקדמות בעבודת החשבות, FP&A והניהול הפיננסי.</p>
+            </div>
+          </div>
+
+          <div class="card" style="display: flex; align-items: center; gap: 24px; padding: 24px 28px; flex-wrap: wrap;">
+            <img src="/resources/webiners/webiner-grok-bot/Images/tomer-profile.png" alt="תומר מומחה אוטומציה" style="width: 120px; height: 120px; border-radius: 50%; object-fit: cover; border: 3px solid var(--accent-strong); box-shadow: var(--shadow-glow); flex-shrink: 0;" />
+            <div style="flex: 1; min-width: 260px;">
+              <h3 style="margin: 0 0 6px; font-size: 1.4rem; color: var(--text);">תומר — מומחה אוטומציה</h3>
+              <div style="font-family: var(--mono); font-size: 0.85rem; color: var(--accent-strong); margin-bottom: 10px;">ארכיטקט סוכני AI | אינטגרטור מערכות ארגוניות</div>
+              <p style="margin: 0; color: var(--text-muted); font-size: 1rem; line-height: 1.6;">מוביל את הפיתוח והחיבור של Grok Bot למערכות ארגוניות, Workflow וכלים פיננסיים.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="card" style="margin-top: 24px; background: var(--surface-2);">
+          <h3 style="font-size: 1.1rem; color: var(--accent-strong); margin-bottom: 12px;">מה נלמד ב-60 הדקות הקרובות:</h3>
+          <div class="bullet-list">
+            <div class="bullet-item">
+              <div class="bullet-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></div>
+              <div><strong>מה זה Grok Bot:</strong> היכרות מעמיקה עם פלטפורמת הסוכנים החדשה של xAI והשונה מול grok.com הרגיל.</div>
+            </div>
+            <div class="bullet-item">
+              <div class="bullet-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></div>
+              <div><strong>למה זה רלוונטי לכם עכשיו:</strong> איך סוכנים אוטונומיים פותרים את העבודה השגרתית והמתישה של צוותי כספים.</div>
+            </div>
+            <div class="bullet-item">
+              <div class="bullet-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></div>
+              <div><strong>איך מתחילים בפועל:</strong> צעד אחר צעד – מהורדת האפליקציה, חיבור Cursor ועד בניית ה-Bot הפיננסי הראשון שלכם.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 02 · Why Now -->
+    <section id="slide-02" class="section">
+      <div class="container">
+        <div class="eyebrow">SLIDE 02</div>
+        <div class="section-head">
+          <h2>מהשתתפות בצ'אט לסוכנים שמבצעים עבודה</h2>
+          <p>המהפכה השקטה: Grok Bot הוא הכניסה הדרמטית של xAI לעולם סוכני ה-AI הארגוניים</p>
+        </div>
+
+        <div class="comparison-grid">
+          <div class="comp-card">
+            <span class="comp-badge badge-legacy">דור ה-AI הקודם (Chatbots)</span>
+            <h3 style="margin-top: 0;">ממשקי צ'אט עונים על שאלות</h3>
+            <p>דורש מגע אנושי מתמיד, העתק-הדבק של טקסטים, עונה רק על מה ששואלים אותם בלולאה סגורה בדפדפן.</p>
+          </div>
+
+          <div class="comp-card active-agent">
+            <span class="comp-badge badge-future">הדור החדש (Grok Bot Agents)</span>
+            <h3 style="margin-top: 0; color: var(--accent-strong);">עובד AI תמידי שמבצע משימות</h3>
+            <p>מתחבר ישירות ל-Slack, מייל, יומן, CRM ו-Salesforce. מבצע מחקר, מעקב והצלבת נתונים באופן עצמאי – בכפוף לאישור אדם.</p>
+          </div>
+        </div>
+
+        <div class="card" style="margin-top: 24px;">
+          <h3>למה זה קריטי במיוחד לאנשי כספים ורואי חשבון?</h3>
+          <p>מרבית עבודת הכספים הרוטינית – התאמות בנק/ספקים, מעקב חשבוניות פתוחות, ריכוז קבלות מתיבות מייל ואיסוף נתונים מגיליונות – מורכבת מתהליכים מחזוריים מבוססי חוקים. Grok Bot בנוי בדיוק כדי לקחת את הנטל הזה מכתפי הצוות.</p>
+        </div>
+
+        <div class="media-frame">
+          <div class="media-frame-header">
+            <div class="media-dots"><div class="media-dot"></div><div class="media-dot"></div><div class="media-dot"></div></div>
+            <div class="media-title">השוואה: צ'אטבוט מול סוכן AI עצמאי</div>
+          </div>
+          <img src="/resources/webiners/webiner-grok-bot/Images/image2_comparison.jpg" alt="Chatbot vs Autonomous AI Agent Comparison Diagram" style="width:100%; border-radius:0 0 var(--radius-md) var(--radius-md); display:block;" />
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 03 · What Is Grok Bot -->
+    <section id="slide-03" class="section">
+      <div class="container">
+        <div class="eyebrow">SLIDE 03</div>
+        <div class="section-head">
+          <h2>הכירו את Grok Bot מבית xAI</h2>
+          <p>פלטפורמת סוכני ה-AI מבית Elon Musk: "חבר צוות AI שאפשר לסמוך עליו לביצוע עבודה"</p>
+        </div>
+
+        <div class="grid-2">
+          <div class="card">
+            <div class="card-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+            </div>
+            <h3>Grok הרגיל (grok.com)</h3>
+            <p>ממשק צ'אט בדפדפן ובאפליקציות ניידות. מיועד לשיחה חופשית, מענה לשאלות, וחיפוש מידע ברשת בזמן אמת דרך פלטפורמת 𝕏.</p>
+          </div>
+
+          <div class="card" style="border-color: var(--border-strong);">
+            <div class="card-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+            </div>
+            <h3 style="color: var(--accent-strong);">Grok Bot (הסוכן האוטונומי)</h3>
+            <p>אפליקציית Desktop ייעודית המפעילה סוכני AI עצמאיים. מתחברת לכלי העבודה הארגוניים (Slack, Mail, CRM) ומבצעת משימות מורכבות מקצה לקצה.</p>
+          </div>
+        </div>
+
+        <div class="media-frame">
+          <div class="media-frame-header">
+            <div class="media-dots"><div class="media-dot"></div><div class="media-dot"></div><div class="media-dot"></div></div>
+            <div class="media-title">פלטפורמת Grok Bot מבית xAI</div>
+          </div>
+          <img src="/resources/webiners/webiner-grok-bot/Images/image3_grok_homepage.jpg" alt="Official x.ai/bot Homepage Screenshot" style="width:100%; border-radius:0 0 var(--radius-md) var(--radius-md); display:block;" />
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 04 · How Does It Work -->
+    <section id="slide-04" class="section">
+      <div class="container">
+        <div class="eyebrow">SLIDE 04</div>
+        <div class="section-head">
+          <h2>ארכיטקטורה ו-Use Cases מעולם הכספים</h2>
+          <p>בניית סוכנים ממוקדי תפקיד (Role-Based Bots) עם נקודות אישור אנושיות (Human-in-the-loop)</p>
+        </div>
+
+        <div class="grid-4">
+          <div class="card">
+            <div class="step-number">01</div>
+            <h3 style="font-size: 1.1rem;">Expense Manager</h3>
+            <p>בונה סיכום הוצאות שבועי, רושם קבלות מתיבת המייל, ומזכיר לבעלי תפקידים על קטגוריות חסרות.</p>
+          </div>
+
+          <div class="card">
+            <div class="step-number">02</div>
+            <h3 style="font-size: 1.1rem;">Invoice Coordinator</h3>
+            <p>עוקב אחרי סטטוס חשבוניות ספקים, מתאים מול הזמנות רכש (PO), ומסמן חריגות לטיפול אדם.</p>
+          </div>
+
+          <div class="card">
+            <div class="step-number">03</div>
+            <h3 style="font-size: 1.1rem;">Contract Desk</h3>
+            <p>מרכז חוזים פעילים לפי שלב ובעלים, שולף תנאי תשלום מרכזיים, ומזהיר על מועדי חידוש קרבים.</p>
+          </div>
+
+          <div class="card">
+            <div class="step-number">04</div>
+            <h3 style="font-size: 1.1rem;">Vendor Portal Operator</h3>
+            <p>ממלא שאלוני ציות וביטחון שגרתיים ומתפעל תהליכי רישום ספקים בפורטלים חיצוניים.</p>
+          </div>
+        </div>
+
+        <div class="media-frame">
+          <div class="media-frame-header">
+            <div class="media-dots"><div class="media-dot"></div><div class="media-dot"></div><div class="media-dot"></div></div>
+            <div class="media-title">ארכיטקטורת עבודה ו-Use Cases פיננסיים</div>
+          </div>
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px; padding:16px; background:var(--surface-1); border-radius:0 0 var(--radius-md) var(--radius-md);">
+            <img src="/resources/webiners/webiner-grok-bot/Images/image4_flow_diagram.jpg" alt="Workflow Process Diagram" style="width:100%; border-radius:var(--radius-sm); border:1px solid var(--border);" />
+            <img src="/resources/webiners/webiner-grok-bot/Images/image4_5_usecases.jpg" alt="Grok Bot Use Cases" style="width:100%; border-radius:var(--radius-sm); border:1px solid var(--border);" />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 05 · How to Open -->
+    <section id="slide-05" class="section">
+      <div class="container">
+        <div class="eyebrow">SLIDE 05</div>
+        <div class="section-head">
+          <h2>דרישות מערכת וגישה ל-Grok Bot</h2>
+          <p>Grok Bot אינו רק אתר אינטרנט – הוא מופעל כ-Desktop App ייעודי למערכות הפעלה שונות</p>
+        </div>
+
+        <div class="grid-2">
+          <div class="card">
+            <h3>אפליקציית Desktop ייעודית</h3>
+            <div class="bullet-list" style="margin-top: 16px;">
+              <div class="bullet-item">
+                <div class="bullet-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/></svg></div>
+                <div>זמין להורדה עבור <strong>macOS</strong> (Apple Silicon & Intel)</div>
+              </div>
+              <div class="bullet-item">
+                <div class="bullet-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/></svg></div>
+                <div>גרסה ייעודית עבור <strong>Windows</strong> (Windows 10/11)</div>
+              </div>
+              <div class="bullet-item">
+                <div class="bullet-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/></svg></div>
+                <div>תמיכה ב-<strong>Linux</strong> דרך Package Manager / AppImage</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card" style="border-color: var(--border-strong);">
+            <h3 style="color: var(--accent-strong);">דרישות מנוי ואימות התחברות</h3>
+            <div class="bullet-list" style="margin-top: 16px;">
+              <div class="bullet-item">
+                <div class="bullet-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg></div>
+                <div>מנוי <strong>SuperGrok Plus</strong> או <strong>SuperGrok Heavy</strong> מבית xAI</div>
+              </div>
+              <div class="bullet-item">
+                <div class="bullet-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg></div>
+                <div>או אימות דרך חשבון <strong>Cursor</strong> (Pro+/Ultra/Teams)</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="media-frame">
+          <div class="media-frame-header">
+            <div class="media-dots"><div class="media-dot"></div><div class="media-dot"></div><div class="media-dot"></div></div>
+            <div class="media-title">אפליקציית Desktop לכל מערכות ההפעלה</div>
+          </div>
+          <img src="/resources/webiners/webiner-grok-bot/Images/image5_download_page.jpg" alt="x.ai/bot Download Page" style="width:100%; border-radius:0 0 var(--radius-md) var(--radius-md); display:block;" />
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 06 · How to Install -->
+    <section id="slide-06" class="section">
+      <div class="container">
+        <div class="eyebrow">SLIDE 06</div>
+        <div class="section-head">
+          <h2>תהליך ההתקנה וההפעלה הראשונית</h2>
+          <p>5 צעדים קלים מקבלת הקובץ ועד חיבור מלא לסביבת העבודה</p>
+        </div>
+
+        <div class="grid-3">
+          <div class="card">
+            <div class="step-number">01</div>
+            <h3>הורדת הקובץ</h3>
+            <p>נכנסים לכתובת <code>x.ai/bot</code> ומורידים את קובץ ההתקנה המתאים למערכת ההפעלה שלכם.</p>
+          </div>
+
+          <div class="card">
+            <div class="step-number">02</div>
+            <h3>התקנה במחשב</h3>
+            <p><strong>Mac:</strong> גוררים ל-Applications.<br /><strong>Windows:</strong> מריצים את ה-Installer.<br /><strong>Linux:</strong> דרך AppImage.</p>
+          </div>
+
+          <div class="card">
+            <div class="step-number">03</div>
+            <h3>אימות בדפדפן</h3>
+            <p>בהפעלה הראשונה יפתח חלון אימות בדפדפן – מתחברים עם חשבון Cursor / SuperGrok המאושר.</p>
+          </div>
+        </div>
+
+        <div class="media-frame">
+          <div class="media-frame-header">
+            <div class="media-dots"><div class="media-dot"></div><div class="media-dot"></div><div class="media-dot"></div></div>
+            <div class="media-title">תהליך התקנה ואימות חשבון</div>
+          </div>
+          <img src="/resources/webiners/webiner-grok-bot/Images/image6_install_guide.jpg" alt="Installation Steps & Cursor Authentication" style="width:100%; border-radius:0 0 var(--radius-md) var(--radius-md); display:block;" />
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 07 · How to Start -->
+    <section id="slide-07" class="section">
+      <div class="container">
+        <div class="eyebrow">SLIDE 07</div>
+        <div class="section-head">
+          <h2>6 הצעדים הראשונים להקמת Bot ראשון</h2>
+          <p>מתווה מעשי להגדרת משימות, מקורות מידע ואילוצים בעבודת הכספים</p>
+        </div>
+
+        <div class="grid-3">
+          <div class="card">
+            <div class="step-number">1</div>
+            <h3>התחברות ואימות</h3>
+            <p>אימות זהות מול חשבון Cursor/xAI בדפדפן ופתיחת סביבת ה-Desktop.</p>
+          </div>
+
+          <div class="card">
+            <div class="step-number">2</div>
+            <h3>יצירת Bot והגדרת שם</h3>
+            <p>מתן שם ותפקיד ברור לסוכן (למשל: "רותם – ניהול הוצאות וקבלות").</p>
+          </div>
+
+          <div class="card">
+            <div class="step-number">3</div>
+            <h3>הגדרת משימה ואילוצים</h3>
+            <p>קביעת התוצאה המבוקשת, מקורות המידע, התוצרים המצופים ונקודות האישור.</p>
+          </div>
+
+          <div class="card">
+            <div class="step-number">4</div>
+            <h3>חיבור לכלים ארגוניים</h3>
+            <p>אישור חיבור בטוח לתיבת המייל, Slack, ERP וגיליונות הנתונים.</p>
+          </div>
+
+          <div class="card">
+            <div class="step-number">5</div>
+            <h3>סקירת תוצאות ובקרה</h3>
+            <p>בדיקת הפלט שהפיק ה-Bot, מתן תיקונים והנחיות דיוק בזמן אמת.</p>
+          </div>
+
+          <div class="card">
+            <div class="step-number">6</div>
+            <h3>שמירה כ-Skill קבוע</h3>
+            <p>שמירת תהליך מוצלח כשגרה קבועה (Skill) להרצה חוזרת בלחיצת כפתור.</p>
+          </div>
+        </div>
+
+        <div class="media-frame">
+          <div class="media-frame-header">
+            <div class="media-dots"><div class="media-dot"></div><div class="media-dot"></div><div class="media-dot"></div></div>
+            <div class="media-title">מסך הגדרת סוכן AI ראשון</div>
+          </div>
+          <img src="/resources/webiners/webiner-grok-bot/Images/image7_create_bot.jpg" alt="Create Bot UI Screen" style="width:100%; border-radius:0 0 var(--radius-md) var(--radius-md); display:block;" />
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 08 · Live Demo Transition -->
+    <section id="slide-08" class="section slide-demo">
+      <div class="container">
+        <div class="demo-play-icon">
+          <svg width="36" height="36" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+        </div>
+        <div class="eyebrow" style="justify-content: center;">SLIDE 08</div>
+        <h2 style="font-size: clamp(2.2rem, 4.5vw, 3.8rem); margin: 20px 0; font-weight: 900; color: var(--accent-strong);">
+          כאן אנחנו עוברים להדגמה חיה
+        </h2>
+        <p style="color: var(--text-muted); max-width: 600px; margin: 0 auto; font-size: 1.2rem;">
+          תומר מדגים בזמן אמת בניית 1-2 סוכני AI פיננסיים (Expense Manager / Invoice Coordinator) מקצה לקצה
+        </p>
+      </div>
+    </section>
+
+    <!-- SLIDE 09 · CTA 1 -->
+    <section id="slide-09" class="section">
+      <div class="container narrow">
+        <div class="eyebrow">SLIDE 09</div>
+        <div class="cta-card">
+          <div style="font-family: var(--mono); color: var(--accent-strong); font-weight: 700; margin-bottom: 8px;">הטבה בלעדית למשתתפי הוובינר</div>
+          <h2 style="margin: 0 0 16px; font-size: var(--h1); font-weight: 900;">מנוי לשנה לגרוק בוט במחיר שלא יחזור</h2>
+          <p style="color: var(--text-muted); font-size: 1.05rem;">
+            מנוי SuperGrok נדרש לצורך גישה מלאה לאפליקציית Desktop של Grok Bot ולהרצת סוכנים אוטונומיים ללא הגבלות.
+          </p>
+
+          <div style="background: rgba(184, 196, 90, 0.08); padding: 24px; border-radius: var(--radius-md); border: 1px solid var(--border-strong); margin: 24px 0; text-align: center;">
+            <div style="font-family: var(--mono); color: var(--accent-strong); font-size: 0.9rem; font-weight: 700;">מחיר מיוחד למשתתפי הוובינר</div>
+            <div style="font-family: var(--mono); font-size: 2.5rem; font-weight: 900; color: var(--accent-strong); margin: 8px 0;">535 ₪ <span style="font-size: 1.1rem; color: var(--text-muted); font-weight: 400;">/ לשנה מלאה</span></div>
+            <div style="color: var(--text-muted); font-size: 0.95rem;">גישה מלאה ל-Grok Bot Desktop והרצת סוכני AI פיננסיים ללא הגבלות</div>
+          </div>
+
+          <a href="https://www.digisaveil.com/cursor?ref=RONEN" target="_blank" class="btn btn-primary" style="width: 100%;">
+            לרכישת מנוי שנתי ל-Grok Bot ←
+          </a>
+        </div>
+
+        <div class="media-frame">
+          <div class="media-frame-header">
+            <div class="media-dots"><div class="media-dot"></div><div class="media-dot"></div><div class="media-dot"></div></div>
+            <div class="media-title">מנוי Grok Bot Desktop שנתי</div>
+          </div>
+          <img src="/resources/webiners/webiner-grok-bot/Images/image9_supergrok_discount.jpg" alt="SuperGrok Discount Upgrade Screen" style="width:100%; border-radius:0 0 var(--radius-md) var(--radius-md); display:block;" />
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 10 · CTA 2 -->
+    <section id="slide-10" class="section">
+      <div class="container">
+        <div class="eyebrow">SLIDE 10</div>
+        <div class="section-head">
+          <h2>רוצים לצאת מהוובינר עם 2 סוכני AI מותאמים לעסק שלכם?</h2>
+          <p>מפגש ייעוץ ובנייה ממוקד אחד-על-אחד מול תומר או מול רונן (לפי זמינות ובחירתכם) לבניית סוכנים פיננסיים בפועל</p>
+        </div>
+
+        <div class="grid-2">
+          <div class="cta-card">
+            <div style="font-family: var(--mono); color: var(--accent-strong); font-weight: 700;">מפגש יישומי ממוקד (עד שעה)</div>
+            <div class="price-tag">1,500 ₪</div>
+            <p style="color: var(--text-muted); margin-bottom: 24px;">
+              בנייה משותפת של 2 סוכני Grok Bot המותאמים בדיוק לצרכים, לתהליכים ולמערכות של משרד/צוות הכספים שלכם.
+            </p>
+            <a href="https://wa.me/972505500344" target="_blank" class="btn btn-primary" style="width: 100%;">
+              לתאום מפגש לבניית סוכנים ←
+            </a>
+          </div>
+
+          <div class="card">
+            <h3 style="color: var(--accent-strong); margin-bottom: 16px;">5 סוכנים לדוגמה שאפשר לבנות במפגש:</h3>
+            <div class="bullet-list">
+              <div class="bullet-item">
+                <div class="bullet-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg></div>
+                <div><strong>סוכן ניהול הוצאות:</strong> מרכז קבלות ממייל, בונה סיכום שבועי ומאתר חסרים.</div>
+              </div>
+              <div class="bullet-item">
+                <div class="bullet-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg></div>
+                <div><strong>סוכן מעקב חשבוניות:</strong> עוקב אחרי ספקים, מתאים מול PO ומסמן חריגות.</div>
+              </div>
+              <div class="bullet-item">
+                <div class="bullet-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg></div>
+                <div><strong>סוכן ריכוז חוזים:</strong> עוקב אחרי חוזים פעילים ומזהיר על מועדי חידוש.</div>
+              </div>
+              <div class="bullet-item">
+                <div class="bullet-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg></div>
+                <div><strong>סוכן דוחות סטטוס:</strong> אוסף נתונים מ-ERP וגיליונות לטיוטת דוח שבועי.</div>
+              </div>
+              <div class="bullet-item">
+                <div class="bullet-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg></div>
+                <div><strong>סוכן תיבה פיננסית:</strong> ממיין מיילים פיננסיים נכנסים ומכין מענה לאישור.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="media-frame">
+          <div class="media-frame-header">
+            <div class="media-dots"><div class="media-dot"></div><div class="media-dot"></div><div class="media-dot"></div></div>
+            <div class="media-title">סוכן ניהול הוצאות בפעולה בלייב</div>
+          </div>
+          <img src="/resources/webiners/webiner-grok-bot/Images/image10_active_bot.jpg" alt="Active Expense Manager Bot Task" style="width:100%; border-radius:0 0 var(--radius-md) var(--radius-md); display:block;" />
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 11 · Summary & Contact -->
+    <section id="slide-11" class="section">
+      <div class="container">
+        <div class="eyebrow">SLIDE 11</div>
+        <div class="section-head">
+          <h2>סיכום ויצירת קשר</h2>
+          <p>תודה שהצטרפתם לוובינר! אנחנו כאן כדי ללוות אתכם במעבר לעולם סוכני ה-AI הפיננסיים</p>
+        </div>
+
+        <div class="grid-3" style="margin-bottom: 32px;">
+          <div class="card">
+            <div class="step-number">1</div>
+            <h3>Grok Bot הוא סוכן מבצע</h3>
+            <p>מעבר דרמטי מממשק צ'אט לסוכן שפועל במערכות הארגוניות באופן עצמאי.</p>
+          </div>
+          <div class="card">
+            <div class="step-number">2</div>
+            <h3>שליטה ובקרה אנושית</h3>
+            <p>כל פעולה פיננסית משמעותית עוברת נקודת אישור אנוש (Human-in-the-loop).</p>
+          </div>
+          <div class="card">
+            <div class="step-number">3</div>
+            <h3>התחלה פשוטה כבר היום</h3>
+            <p>הורידו את האפליקציה, חברו את Cursor/SuperGrok והקימו סוכן הוצאות ראשון.</p>
+          </div>
+        </div>
+
+        <h3 style="color: var(--accent-strong); margin-bottom: 16px;">דרכי התקשרות וערוצי המותג:</h3>
+        <div class="contact-grid">
+          <a href="https://wa.me/972505500344" target="_blank" class="contact-card">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            <div>קביעת פגישה</div>
+          </a>
+          <a href="https://www.linkedin.com/in/ronenamoscpa" target="_blank" class="contact-card">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+            <div>LinkedIn</div>
+          </a>
+          <a href="mailto:ronenamos@gmail.com" class="contact-card">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            <div>ronenamos@gmail.com</div>
+          </a>
+          <a href="tel:0505500344" class="contact-card">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            <div>050-5500344</div>
+          </a>
+          <a href="http://ronenamoscpa.co.il" target="_blank" class="contact-card">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+            <div>ספריית התוכן המלאה</div>
+          </a>
+          <a href="https://www.youtube.com/@AIFinanceTransformation" target="_blank" class="contact-card">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"/><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"/></svg>
+            <div>ערוץ YouTube</div>
+          </a>
+          <a href="https://chat.whatsapp.com/F1Y1Q35QIZ3L6rcrXuEnNN" target="_blank" class="contact-card">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+            <div>קהילת WhatsApp</div>
+          </a>
+        </div>
+
+        <div style="margin-top: 40px; text-align: center; color: var(--accent-strong); font-weight: 700; font-size: 1.1rem;">
+          מומחה ה-AI הפיננסי שלכם, רונן עמוס רו״ח
+        </div>
+
+        <div class="media-frame" style="max-width: 600px; margin: 30px auto 0;">
+          <div class="media-frame-header">
+            <div class="media-dots"><div class="media-dot"></div><div class="media-dot"></div><div class="media-dot"></div></div>
+            <div class="media-title">AI Finance Transformation</div>
+          </div>
+          <img src="/resources/webiners/webiner-grok-bot/Images/Brand.png" alt="AI Finance Transformation Brand Logo" style="width:100%; max-height:280px; object-fit:contain; padding:20px; background:var(--surface-1); border-radius:0 0 var(--radius-md) var(--radius-md); display:block;" />
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- JAVASCRIPT FOR SLIDE NAVIGATION & INTERACTIVITY -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const sections = Array.from(document.querySelectorAll('.section'));
+      const prevBtn = document.getElementById('prevSlideBtn');
+      const nextBtn = document.getElementById('nextSlideBtn');
+      const slideCounter = document.getElementById('slideCounter');
+      const progressBar = document.getElementById('progressBar');
+      const navLinks = Array.from(document.querySelectorAll('.nav a[href^="#"]'));
+
+      let currentIndex = 0;
+
+      function updateSlideState(index) {
+        if (index < 0) index = 0;
+        if (index >= sections.length) index = sections.length - 1;
+        currentIndex = index;
+
+        // Smooth scroll to target section
+        sections[currentIndex].scrollIntoView({ behavior: 'smooth' });
+
+        // Update Counter
+        const formattedCurrent = String(currentIndex).padStart(2, '0');
+        const formattedTotal = String(sections.length - 1).padStart(2, '0');
+        slideCounter.textContent = `שקופית ${formattedCurrent} / ${formattedTotal}`;
+
+        // Update Progress Bar
+        const progress = (currentIndex / (sections.length - 1)) * 100;
+        progressBar.style.width = `${progress}%`;
+
+        // Active state on topbar links
+        const activeId = sections[currentIndex].getAttribute('id');
+        navLinks.forEach(link => {
+          if (link.getAttribute('href') === `#${activeId}`) {
+            link.classList.add('active');
+          } else {
+            link.classList.remove('active');
+          }
+        });
+      }
+
+      prevBtn.addEventListener('click', () => updateSlideState(currentIndex - 1));
+      nextBtn.addEventListener('click', () => updateSlideState(currentIndex + 1));
+
+      // Keyboard Controls (RTL aware)
+      document.addEventListener('keydown', (e) => {
+        // Arrow Left or Space -> Next slide
+        if (e.key === 'ArrowLeft' || e.key === ' ' || e.key === 'PageDown') {
+          if (e.key === ' ') e.preventDefault();
+          updateSlideState(currentIndex + 1);
+        } 
+        // Arrow Right -> Previous slide
+        else if (e.key === 'ArrowRight' || e.key === 'PageUp') {
+          updateSlideState(currentIndex - 1);
+        }
+      });
+
+      // Intersection Observer for scroll tracking
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const idx = sections.indexOf(entry.target);
+            if (idx !== -1) {
+              currentIndex = idx;
+              const formattedCurrent = String(currentIndex).padStart(2, '0');
+              const formattedTotal = String(sections.length - 1).padStart(2, '0');
+              slideCounter.textContent = `שקופית ${formattedCurrent} / ${formattedTotal}`;
+              const progress = (currentIndex / (sections.length - 1)) * 100;
+              progressBar.style.width = `${progress}%`;
+            }
+          }
+        });
+      }, { threshold: 0.5 });
+
+      sections.forEach(sec => observer.observe(sec));
+    });
+  </script>
+</body>
+</html>
