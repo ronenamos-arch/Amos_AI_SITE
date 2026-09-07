@@ -5,6 +5,9 @@ import { NextResponse, type NextRequest } from "next/server";
 // open to everyone (no subscription check) until the given date.
 // Remove each entry once its date has passed.
 const FREE_UNTIL: Record<string, string> = {
+    "/resources/webiners/webiner-antigravity": "2026-10-08",
+    "/resources/webiners/webinar-claude-accountant-marketing": "2026-10-08",
+    "/resources/webiners/webiner-grok-bot": "2026-10-08",
     "/resources/webiners/webinar-05-skills": "2026-09-01",
 };
 
@@ -52,8 +55,13 @@ export async function updateSession(request: NextRequest) {
     // Static files bypass every page-level access check, so subscribers-only
     // enforcement has to happen here, before the file is served.
     if (path.startsWith('/resources/webiners')) {
-        const freeUntil = FREE_UNTIL[path];
-        const isTemporarilyFree = freeUntil !== undefined && new Date() < new Date(freeUntil);
+        let isTemporarilyFree = false;
+        for (const [prefix, untilDate] of Object.entries(FREE_UNTIL)) {
+            if ((path === prefix || path.startsWith(prefix + '/') || path.startsWith(prefix)) && new Date() < new Date(untilDate)) {
+                isTemporarilyFree = true;
+                break;
+            }
+        }
 
         let hasAccess = isTemporarilyFree;
         if (!isTemporarilyFree && user) {
