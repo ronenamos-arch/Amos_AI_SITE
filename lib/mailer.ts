@@ -9,6 +9,7 @@ import { buildPurchaseConfirmationEmail } from "@/lib/emails/purchase-confirmati
 import { buildWelcomeEmail } from "@/lib/emails/welcome";
 import { adminNotificationEmail } from "@/lib/emails/admin-notification";
 import { buildBundlePurchaseEmail } from "@/lib/emails/bundle-purchase";
+import { buildCoursePurchaseEmail } from "@/lib/emails/course-purchase";
 import { scheduleEmailSequence } from "@/lib/email-sequence";
 
 interface SendPurchaseEmailParams {
@@ -135,3 +136,36 @@ export async function sendBundlePurchaseEmail({ to, name, accessToken }: SendBun
         return { success: false, error: String(err) };
     }
 }
+
+interface SendCoursePurchaseEmailParams {
+    to: string;
+    name: string;
+    accessToken: string;
+}
+
+export async function sendCoursePurchaseEmail({ to, name, accessToken }: SendCoursePurchaseEmailParams) {
+    const siteUrl = process.env.NODE_ENV === "development" 
+        ? "http://localhost:3000" 
+        : (process.env.NEXT_PUBLIC_SITE_URL || "https://www.ronenamoscpa.co.il");
+    const accessUrl = `${siteUrl}/courses/ai-master-course?course_token=${accessToken}`;
+
+    try {
+        const { data, error } = await getResend().emails.send({
+            from: EMAIL_FROM,
+            to,
+            subject: "AI Finance Master — הגישה שלכם לקורס פתוחה 🎉",
+            html: buildCoursePurchaseEmail({ name, accessUrl }),
+        });
+
+        if (error) {
+            console.error("Resend course email error:", error);
+            return { success: false, error: error.message };
+        }
+
+        return { success: true, id: data?.id };
+    } catch (err) {
+        console.error("Failed to send course purchase email:", err);
+        return { success: false, error: String(err) };
+    }
+}
+

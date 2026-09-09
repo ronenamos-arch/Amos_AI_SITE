@@ -3,54 +3,58 @@ import { GlassCard } from "@/components/ui/GlassCard";
 import { Button } from "@/components/ui/Button";
 import { Badge } from "@/components/ui/Badge";
 import { SectionHeading } from "@/components/ui/SectionHeading";
+import { CourseFAQ } from "@/components/sections/CourseFAQ";
+import { CourseCurriculum } from "@/components/sections/CourseCurriculum";
+import { CourseBuyButton } from "@/components/course/CourseBuyButton";
 import { CheckCircle2, PlayCircle, FileText, Zap, Infinity, Clock, Shield, Sparkles, Globe, Video } from "lucide-react";
 
 export const metadata: Metadata = {
-    title: "AI Finance Master: קורס מתקדם לאוטומציה של מחלקת הכספים",
-    description: "קורס מתקדם בעברית: הפוך את מחלקת הכספים למכונת אוטומציה עם Claude AI. 8 מודולים בעמקות, אוטומציה של דוחות, ניתוח נתונים ו-AI Agents פיננסיים.",
+    title: "AI לרואי חשבון קורס מעשי | AI Finance Master לאוטומציה פיננסית | רונן עמוס",
+    description: "קורס AI לרואי חשבון, מנהלי כספים ו-CFOs. שלטו ב-Claude לאוטומציה של סגירת חודש, ניתוח חריגים, דשבורדים אינטראקטיביים וספריית 30+ Skills פיננסיים.",
+    keywords: [
+        "AI לרואי חשבון קורס",
+        "קורס AI לרואי חשבון",
+        "קורס AI למנהלי כספים",
+        "Claude לכספים",
+        "אוטומציה פיננסית",
+        "AI Finance Master",
+        "סגירת חודש AI",
+        "רונן עמוס"
+    ],
+    openGraph: {
+        title: "AI לרואי חשבון קורס מעשי | AI Finance Master",
+        description: "קורס מתקדם בעברית: הפכו את מחלקת הכספים למכונת אוטומציה עם Claude AI. 16 מודולים, 200+ Prompts וספריית Skills פיננסיים.",
+        type: "website",
+        locale: "he_IL",
+        url: "https://www.ronenamoscpa.co.il/courses/sell-page",
+    }
 };
 
-const modules = [
+const courseFAQs = [
     {
-        num: 1,
-        title: "Claude ושלושת המודלים — מאיפה מתחילים",
-        description: "הבנת ההבדל בין Haiku, Sonnet ו-Opus, מתי להשתמש בכל מודל, ואיך נכנסים לעבוד עם Claude כאיש כספים — בלי רקע טכנולוגי.",
+        q: "למי מתאים קורס AI לרואי חשבון ומנהלי כספים?",
+        a: "הקורס מיועד לרואי חשבון, מנהלי כספים (CFOs), חשבים (Controllers), אנשי FP&A, מנהלי חשבונות ויועצי מס שרוצים להטמיע כלי AI מתקדמים (בדגש על Claude) בעבודתם השוטפת, לקצר דרמטית זמני עבודה ולהוביל טכנולוגית בארגון."
     },
     {
-        num: 2,
-        title: "מסגרת PRICE — Prompts שעובדים בפועל",
-        description: "השיטה המובנית לכתיבת Prompts פיננסיים: Purpose, Role, Instructions, Context, Examples. הבסיס שמתחת לכל שאר הקורס.",
+        q: "האם צריך ידע מוקדם בבינה מלאכותית או רקע בתכנות?",
+        a: "בכלל לא. הקורס נבנה במיוחד עבור אנשי כספים ללא שום רקע טכנולוגי. אנחנו לומדים מהיסוד את מתודולוגיית ה-PRICE לכתיבת פרומפטים פיננסיים מדויקים, עבודה עם Claude Projects, חיבור למערכות קיימות ושימוש ב-Skills מוכנים מראש."
     },
     {
-        num: 3,
-        title: "Artifacts — דשבורד CFO ב-Prompt אחד",
-        description: "בניית דשבורדים אינטראקטיביים חיים ישירות מהצ'אט: כרטיסי KPI עם RAG, גרפים, Waterfall — מוכן למצגת דירקטוריון.",
+        q: "איך הקורס עוזר לי בפועל בסגירת חודש ובדוחות כספיים?",
+        a: "הקורס כולל מודול ייעודי לסגירת חודש מקצה לקצה ב-6 שלבים — מניתוח GL גולמי, איתור חריגות (Variance Analysis) תוך דקות, ועד הפקת נרטיב עסקי ודשבורד CFO אינטראקטיבי מוכן לדירקטוריון ב-Prompt אחד."
     },
     {
-        num: 4,
-        title: "Skills & Projects — הזיכרון המוסדי שלך",
-        description: "שמירת Prompts חוזרים כ-Skills שכל הצוות משתמש בהם, ובניית Projects עם הקשר קבוע — כך Claude זוכר את החברה שלך לאורך כל השנה.",
+        q: "מה כוללת ספריית ה-Prompts וה-Skills הפיננסיים?",
+        a: "אתם מקבלים גישה ישירה ליותר מ-200 פרומפטים פיננסיים מוכנים להעתקה-הדבקה ו-30+ Skills מוכנים להורדה: ניתוח חריגים, הכנת MBR, ניקוי נתוני ERP, בניית Board Pack ועוד — חסכון של עשרות שעות פיתוח עצמאי."
     },
     {
-        num: 5,
-        title: "Connectors — Claude מחובר למערכות שלך",
-        description: "חיבור Claude ל-Google Drive, Slack, ERP וכלים נוספים. מנתונים שיושבים בפוקדרים — לניתוח חי בלי העתק-הדבק.",
+        q: "האם הנתונים הפיננסיים שלי מאובטחים ושומרים על סודיות?",
+        a: "בהחלט. הקורס שם דגש מרכזי על אבטחת מידע ופרטיות נתונים פיננסיים (Privacy & Governance), כולל שיטות מעשיות לעבודה מאובטחת, נטרול מידע רגיש (Anonymization/Data Masking) והגדרות אבטחה נכונות בכלי AI."
     },
     {
-        num: 6,
-        title: "Claude ב-Excel וב-PowerPoint",
-        description: "ישירות מתוך הכלים שאתה עובד בהם כל יום: Variance Commentary על טווח מסומן ב-Excel, ו-Board Pack מלא עם Speaker Notes ב-PowerPoint.",
-    },
-    {
-        num: 7,
-        title: "סגירת חודש מקצה לקצה + 102 Use Cases",
-        description: "תהליך סגירה שלם ב-6 שלבים — מ-GL גולמי ועד Board Pack — ומאגר של 102 Use Cases פיננסיים מוכנים לשימוש מיידי.",
-    },
-    {
-        num: 8,
-        title: "Capstone: דשבורד CFO + ספריית Skills מוכנה",
-        description: "פרויקט הסיום: דשבורד דירקטוריון אינטראקטיבי מלא ב-Prompt אחד. בונוס: ספריית Skills פיננסיים מוכנים להורדה והפעלה מיידית.",
-    },
+        q: "לכמה זמן יש לי גישה לקורס, לסילבוס ולהקלטות הוובינרים?",
+        a: "הגישה היא לכל החיים (Lifetime Access)! אתם מקבלים גישה מלאה לכל 16 המודולים, לכל חומרי התרגול ונתוני TechFlow, להקלטות 5 הוובינרים המלאים ולכל עדכון עתידי של התכנים."
+    }
 ];
 
 const benefits = [
@@ -69,8 +73,49 @@ const includes = [
 ];
 
 export default function AIFinanceMasterPage() {
+    const faqSchema = {
+        "@context": "https://schema.org",
+        "@graph": [
+            {
+                "@type": "Course",
+                "name": "קורס AI לרואי חשבון ומנהלי כספים: AI Finance Master",
+                "description": "הקורס המקיף בישראל ללימוד AI ו-Claude לרואי חשבון, יועצי מס, CFOs וחשבים לאוטומציה מלאה של מחלקת הכספים.",
+                "provider": {
+                    "@type": "Person",
+                    "name": "רונן עמוס",
+                    "jobTitle": "רואה חשבון ויועץ טכנולוגי פיננסי",
+                    "url": "https://www.ronenamoscpa.co.il"
+                },
+                "offers": {
+                    "@type": "Offer",
+                    "price": "599",
+                    "priceCurrency": "ILS",
+                    "availability": "https://schema.org/InStock",
+                    "url": "https://www.ronenamoscpa.co.il/courses/sell-page"
+                }
+            },
+            {
+                "@type": "FAQPage",
+                "mainEntity": courseFAQs.map(faq => ({
+                    "@type": "Question",
+                    "name": faq.q,
+                    "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": faq.a
+                    }
+                }))
+            }
+        ]
+    };
+
     return (
         <div className="relative min-h-screen bg-space-950 text-white overflow-hidden font-primary">
+            {/* Schema.org Structured Data */}
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+            />
+
             {/* Background Gradients */}
             <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none -z-10">
                 <div className="absolute top-[-10%] right-[-10%] w-[45%] h-[45%] bg-teal-600/20 blur-[130px] rounded-full" />
@@ -79,37 +124,34 @@ export default function AIFinanceMasterPage() {
 
             {/* Floating CTA */}
             <div className="fixed bottom-8 left-1/2 -translate-x-1/2 z-50 animate-bounce-subtle">
-                <a
-                    href="https://www.paypal.com/ncp/payment/YK86AVAKZL7YG"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="shadow-2xl shadow-teal-500/40 px-8 py-6 text-lg font-bold bg-gradient-to-r from-teal-500 to-royal-500 hover:scale-105 transition-transform inline-block text-white rounded-lg"
-                >
-                    הצטרף ל-AI Finance Master — ₪999
-                </a>
+                <CourseBuyButton
+                    variant="floating"
+                    text="הצטרף ל-AI Finance Master — ₪599"
+                />
             </div>
 
             <div className="pt-24 pb-32">
                 <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                     {/* Hero Section */}
                     <div className="mb-24 text-center">
-                        <Badge variant="teal" className="mb-6 px-4 py-1.5 text-sm uppercase tracking-widest bg-teal-500/10 text-teal-400 border-teal-500/20">Certified Advanced Program 2026</Badge>
-                        <h1 className="text-5xl font-black sm:text-7xl lg:text-8xl mb-6 bg-clip-text text-transparent bg-gradient-to-b from-white to-white/60 leading-tight">
-                            AI Finance <span className="text-royal-400">Master</span>
+                        <Badge variant="teal" className="mb-6 px-4 py-1.5 text-sm uppercase tracking-widest bg-teal-500/10 text-teal-400 border-teal-500/20">
+                            התוכנית המעשית המובילה בישראל · רונן עמוס, CPA
+                        </Badge>
+                        <h1 className="text-4xl font-black sm:text-6xl lg:text-7xl mb-6 bg-clip-text text-transparent bg-gradient-to-b from-white to-white/70 leading-tight">
+                            קורס AI לרואי חשבון ומנהלי כספים
                         </h1>
-                        <p className="mx-auto max-w-3xl text-xl text-text-secondary leading-relaxed mb-12">
-                            קורס מתקדם בעברית המלמד מנהלי כספים וCFOs איך לשלוט ב-Claude לאוטומציה מלאה, ניתוח מתקדם ו-AI Agents פיננסיים.
+                        <p className="mx-auto max-w-3xl text-2xl font-bold text-royal-300 leading-snug mb-4">
+                            AI Finance Master — שליטה מלאה ב-Claude לאוטומציה של מחלקת הכספים
+                        </p>
+                        <p className="mx-auto max-w-3xl text-lg text-text-secondary leading-relaxed mb-12">
+                            סגירת חודש מהירה, ניתוח חריגים ב-15 דקות, בניית דשבורדים לדירקטוריון ב-Prompt אחד וספריית 30+ Skills מוכנים להורדה.
                         </p>
                         <div className="flex flex-wrap justify-center gap-6 items-center">
                             <div className="min-w-[200px]">
-                                <a
-                                    href="https://www.paypal.com/ncp/payment/YK86AVAKZL7YG"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="inline-block bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-lg text-lg transition-colors"
-                                >
-                                    רכוש גישה עכשיו — ₪999
-                                </a>
+                                <CourseBuyButton
+                                    variant="hero"
+                                    text="רכוש גישה עכשיו — ₪599"
+                                />
                             </div>
                             <Button size="lg" variant="ghost" href="#curriculum" className="px-10 py-7 text-xl border-white/10 hover:bg-white/5 h-fit">
                                 הסילבוס המלא
@@ -134,29 +176,44 @@ export default function AIFinanceMasterPage() {
                     </div>
 
                     {/* Value Props */}
-                    <div className="mb-24 grid lg:grid-cols-2 gap-12 items-center">
-                        <div className="space-y-6 border border-white/10 rounded-2xl p-8">
-                            <h2 className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white to-white/70 italic">למה זה קריטי לך?</h2>
+                    <div className="mb-24 grid lg:grid-cols-2 gap-8 items-stretch">
+                        <div className="space-y-6 bg-gradient-to-br from-slate-50 via-white to-slate-100 border border-slate-200/80 rounded-3xl p-8 md:p-10 shadow-2xl text-slate-900">
+                            <div className="inline-block bg-teal-600 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">
+                                ערך עסקי מוכח
+                            </div>
+                            <h2 className="text-3xl font-black text-slate-950 leading-tight">
+                                למה זה קריטי לך?
+                            </h2>
                             <ul className="space-y-4">
                                 {benefits.map((item, i) => (
-                                    <li key={i} className="flex items-start gap-3 text-text-secondary">
-                                        <CheckCircle2 className="w-5 h-5 text-royal-400 mt-1 flex-shrink-0" />
-                                        {item}
+                                    <li key={i} className="flex items-start gap-3.5 text-slate-800 text-base md:text-lg font-medium">
+                                        <div className="w-6 h-6 rounded-full bg-teal-100 flex items-center justify-center shrink-0 mt-0.5">
+                                            <CheckCircle2 className="w-4 h-4 text-teal-700" />
+                                        </div>
+                                        <span>{item}</span>
                                     </li>
                                 ))}
                             </ul>
                         </div>
-                        <GlassCard className="p-8 border-royal-500/20 bg-royal-500/5">
-                            <h2 className="text-3xl font-bold text-royal-400 mb-6 font-primary uppercase tracking-tight">מה תקבל?</h2>
-                            <ul className="space-y-4">
-                                {includes.map((item, i) => (
-                                    <li key={i} className="flex items-start gap-3 text-white">
-                                        <div className="h-2 w-2 rounded-full bg-teal-400 mt-2 flex-shrink-0" />
-                                        {item}
-                                    </li>
-                                ))}
-                            </ul>
-                        </GlassCard>
+
+                        <div className="space-y-6 bg-gradient-to-br from-royal-950/80 via-space-900 to-space-950 border border-royal-500/30 rounded-3xl p-8 md:p-10 shadow-2xl text-white flex flex-col justify-between">
+                            <div>
+                                <div className="inline-block bg-royal-500/20 text-royal-300 border border-royal-500/30 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider mb-4">
+                                    תכולת התוכנית
+                                </div>
+                                <h2 className="text-3xl font-black text-white mb-6">
+                                    מה תקבל בחבילה?
+                                </h2>
+                                <ul className="space-y-4">
+                                    {includes.map((item, i) => (
+                                        <li key={i} className="flex items-start gap-3.5 text-slate-200 text-base md:text-lg font-medium">
+                                            <div className="h-2.5 w-2.5 rounded-full bg-teal-400 mt-2 flex-shrink-0" />
+                                            <span>{item}</span>
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
+                        </div>
                     </div>
 
                     {/* Syllabus Image */}
@@ -178,73 +235,56 @@ export default function AIFinanceMasterPage() {
                         </div>
                     </div>
 
-                    {/* Curriculum Grid */}
-                    <div id="curriculum" className="mb-32">
-                        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-                            {modules.map((item) => (
-                                <div
-                                    key={item.num}
-                                    className="group p-6 rounded-3xl border border-white/5 bg-white/5 backdrop-blur-sm hover:bg-white/10 hover:border-royal-500/30 transition-all duration-300"
-                                >
-                                    <div className="mb-4 text-royal-400 font-black text-2xl opacity-50 group-hover:opacity-100 transition-opacity">Module {item.num}</div>
-                                    <h3 className="text-xl font-bold mb-3 group-hover:text-royal-300 transition-colors">{item.title}</h3>
-                                    <p className="text-sm text-text-secondary leading-relaxed mb-4">
-                                        {item.description}
-                                    </p>
-                                    <div className="flex gap-2 opacity-30 group-hover:opacity-100 transition-opacity">
-                                        <PlayCircle className="w-5 h-5 text-teal-400" />
-                                        <FileText className="w-5 h-5 text-royal-400" />
-                                    </div>
-                                </div>
-                            ))}
-                        </div>
-                    </div>
+                    {/* Interactive 16-Module Curriculum */}
+                    <CourseCurriculum />
 
-                    {/* Full-Width "More Inside" Banner */}
+                    {/* Full-Width "More Inside" Banner - Light & Accessible */}
                     <div className="mb-32">
-                        <div className="group relative w-full overflow-hidden rounded-3xl p-1">
-                            <div className="absolute -inset-1 bg-gradient-to-r from-royal-500 to-teal-500 rounded-3xl blur opacity-30 group-hover:opacity-50 transition duration-700"></div>
-                            <div className="relative bg-space-950 rounded-3xl overflow-hidden border border-white/10 p-12 md:p-16 group-hover:scale-[1.02] transition-transform duration-500">
+                        <div className="relative w-full rounded-3xl p-1 bg-gradient-to-r from-teal-500/40 via-royal-500/40 to-teal-500/40 shadow-2xl">
+                            <div className="relative bg-gradient-to-br from-white via-slate-50 to-slate-100 rounded-[1.4rem] p-10 md:p-16 border border-slate-200 text-slate-900 shadow-inner">
                                 <div className="space-y-6">
-                                    <div className="text-center">
-                                        <div className="text-teal-400 font-black text-4xl md:text-5xl mb-4">ועוד הרבה בפנים</div>
-                                        <h3 className="text-3xl md:text-4xl font-bold mb-6 text-white">מה שאתה באמת מקבל</h3>
+                                    <div className="text-center max-w-2xl mx-auto">
+                                        <div className="inline-block bg-teal-100 text-teal-800 border border-teal-200 px-4 py-1.5 rounded-full text-sm font-extrabold uppercase tracking-wider mb-3">
+                                            בונוסים ותכנים נוספים
+                                        </div>
+                                        <div className="text-teal-700 font-black text-3xl md:text-4xl mb-2">ועוד הרבה בפנים</div>
+                                        <h3 className="text-2xl md:text-3xl font-black text-slate-950">מה שאתה באמת מקבל בכלים ופרקטיקה</h3>
                                     </div>
-                                    <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto mt-10">
-                                        <div className="flex gap-4">
-                                            <div className="flex-shrink-0">
-                                                <PlayCircle className="w-8 h-8 text-teal-400 mt-1" />
+                                    <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto mt-10">
+                                        <div className="flex gap-4 p-6 bg-white border border-slate-200 rounded-2xl shadow-sm hover:shadow-md transition-shadow">
+                                            <div className="w-12 h-12 rounded-xl bg-teal-600 text-white flex items-center justify-center shrink-0 shadow-md">
+                                                <PlayCircle className="w-6 h-6" />
                                             </div>
                                             <div>
-                                                <h4 className="text-xl font-bold text-white mb-2">הקלטות וובינרים חיים</h4>
-                                                <p className="text-text-secondary">5 וובינרים שנערכו עם מנהלי כספים בשטח — כל שעה מלאה ב-Claude המשימות הפיננסיות שלך.</p>
+                                                <h4 className="text-xl font-bold text-slate-900 mb-2">הקלטות וובינרים חיים</h4>
+                                                <p className="text-slate-700 text-sm md:text-base leading-relaxed">5 וובינרים שנערכו עם מנהלי כספים בשטח — כל שעה מלאה ב-Claude למשימות הפיננסיות שלך.</p>
                                             </div>
                                         </div>
-                                        <div className="flex gap-4">
-                                            <div className="flex-shrink-0">
-                                                <FileText className="w-8 h-8 text-royal-400 mt-1" />
+                                        <div className="flex gap-4 p-6 bg-white border border-slate-200 rounded-2xl shadow-sm hover:shadow-md transition-shadow">
+                                            <div className="w-12 h-12 rounded-xl bg-royal-600 text-white flex items-center justify-center shrink-0 shadow-md">
+                                                <FileText className="w-6 h-6" />
                                             </div>
                                             <div>
-                                                <h4 className="text-xl font-bold text-white mb-2">ספריית Prompts מלאה</h4>
-                                                <p className="text-text-secondary">200+ Prompts פיננסיים מוכנים — העתקה ישירה וברא לעבודה שלך בלי צורך לכתוב שום דבר.</p>
+                                                <h4 className="text-xl font-bold text-slate-900 mb-2">ספריית Prompts מלאה</h4>
+                                                <p className="text-slate-700 text-sm md:text-base leading-relaxed">200+ Prompts פיננסיים מוכנים — העתקה ישירה וישר לעבודה שלך בלי צורך לכתוב שום דבר מאפס.</p>
                                             </div>
                                         </div>
-                                        <div className="flex gap-4">
-                                            <div className="flex-shrink-0">
-                                                <Sparkles className="w-8 h-8 text-teal-400 mt-1" />
+                                        <div className="flex gap-4 p-6 bg-white border border-slate-200 rounded-2xl shadow-sm hover:shadow-md transition-shadow">
+                                            <div className="w-12 h-12 rounded-xl bg-teal-600 text-white flex items-center justify-center shrink-0 shadow-md">
+                                                <Sparkles className="w-6 h-6" />
                                             </div>
                                             <div>
-                                                <h4 className="text-xl font-bold text-white mb-2">ספריית Skills פיננסיים</h4>
-                                                <p className="text-text-secondary">30+ Skills מוכנות: Variance Analysis, MBR, ERP Cleaner, Board Pack Builder — הורדה והפעלה מיידית.</p>
+                                                <h4 className="text-xl font-bold text-slate-900 mb-2">ספריית Skills פיננסיים</h4>
+                                                <p className="text-slate-700 text-sm md:text-base leading-relaxed">30+ Skills מוכנות: Variance Analysis, MBR, ERP Cleaner, Board Pack Builder — הורדה והפעלה מיידית.</p>
                                             </div>
                                         </div>
-                                        <div className="flex gap-4">
-                                            <div className="flex-shrink-0">
-                                                <Shield className="w-8 h-8 text-royal-400 mt-1" />
+                                        <div className="flex gap-4 p-6 bg-white border border-slate-200 rounded-2xl shadow-sm hover:shadow-md transition-shadow">
+                                            <div className="w-12 h-12 rounded-xl bg-royal-600 text-white flex items-center justify-center shrink-0 shadow-md">
+                                                <Shield className="w-6 h-6" />
                                             </div>
                                             <div>
-                                                <h4 className="text-xl font-bold text-white mb-2">חוברות עבודה וקבצי תרגול</h4>
-                                                <p className="text-text-secondary">עשרות תרגילים עם נתוני TechFlow אמיתיים — practice עם מקרים אמיתיים של סגירת חודש.</p>
+                                                <h4 className="text-xl font-bold text-slate-900 mb-2">חוברות עבודה וקבצי תרגול</h4>
+                                                <p className="text-slate-700 text-sm md:text-base leading-relaxed">עשרות תרגילים עם נתוני TechFlow אמיתיים — תרגול מעשי על מקרים אמיתיים של סגירת חודש.</p>
                                             </div>
                                         </div>
                                     </div>
@@ -253,6 +293,9 @@ export default function AIFinanceMasterPage() {
                         </div>
                     </div>
 
+
+                    {/* Course FAQ Section */}
+                    <CourseFAQ faqs={courseFAQs} />
 
                     {/* Value Breakdown Pricing */}
                     <div id="pricing" className="mb-32">
@@ -266,10 +309,10 @@ export default function AIFinanceMasterPage() {
                                     <div className="flex justify-center items-center gap-3 mb-6">
                                         <span className="text-sm text-text-muted line-through">₪1,300</span>
                                         <span className="text-gray-600">/</span>
-                                        <span className="text-7xl md:text-8xl font-black text-teal-400">999</span>
+                                        <span className="text-7xl md:text-8xl font-black text-teal-400">599</span>
                                         <span className="text-3xl font-bold text-white">₪</span>
                                     </div>
-                                    <p className="text-sm text-teal-400 font-medium">מחיר השקה — זמן מוגבל</p>
+                                    <p className="text-sm text-teal-400 font-medium">מחיר מיוחד לזמן מוגבל · גישה לכל החיים</p>
                                 </div>
 
                                 {/* Header */}
@@ -296,14 +339,10 @@ export default function AIFinanceMasterPage() {
 
                                 {/* CTA Button */}
                                 <div className="text-center">
-                                    <a
-                                        href="https://www.paypal.com/ncp/payment/YK86AVAKZL7YG"
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        className="inline-block bg-teal-500 hover:bg-teal-400 text-space-950 font-bold py-4 px-12 rounded-lg text-lg transition-colors shadow-lg shadow-teal-500/30"
-                                    >
-                                        אני רוצה את החבילה — ₪999
-                                    </a>
+                                    <CourseBuyButton
+                                        variant="pricing"
+                                        text="אני רוצה את החבילה — ₪599 בלבד"
+                                    />
                                 </div>
 
                                 <div className="text-center text-text-muted text-sm mt-8">

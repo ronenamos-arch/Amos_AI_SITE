@@ -16,9 +16,13 @@ export async function updateSession(request: NextRequest) {
         request,
     });
 
+    if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY) {
+        return supabaseResponse;
+    }
+
     const supabase = createServerClient(
-        process.env.NEXT_PUBLIC_SUPABASE_URL!,
-        process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+        process.env.NEXT_PUBLIC_SUPABASE_URL,
+        process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
         {
             cookies: {
                 getAll() {
@@ -117,6 +121,17 @@ export async function updateSession(request: NextRequest) {
             redirectUrl.pathname = '/lessons';
             redirectUrl.search = '';
             return NextResponse.redirect(redirectUrl);
+        }
+    }
+
+    // Auto-sync course_token from query param into course_master_token cookie for course pages
+    if (path.startsWith('/courses/ai-master-course')) {
+        const courseToken = request.nextUrl.searchParams.get('course_token');
+        if (courseToken) {
+            supabaseResponse.cookies.set('course_master_token', courseToken, {
+                maxAge: 60 * 60 * 24 * 365,
+                path: '/',
+            });
         }
     }
 
