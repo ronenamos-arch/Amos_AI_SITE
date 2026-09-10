@@ -1,5 +1,6 @@
 import { createAdminClient } from "@/lib/supabase/admin";
 import { GlassCard } from "@/components/ui/GlassCard";
+import { CopyBundleLinkButton } from "@/components/admin/CopyBundleLinkButton";
 
 export default async function BundlePurchasesPage() {
     const admin = createAdminClient();
@@ -46,6 +47,7 @@ export default async function BundlePurchasesPage() {
                                 <th className="px-6 py-4 font-medium">אימייל</th>
                                 <th className="px-6 py-4 font-medium">טלפון</th>
                                 <th className="px-6 py-4 font-medium">סטטוס</th>
+                                <th className="px-6 py-4 font-medium">קישור גישה</th>
                                 <th className="px-6 py-4 font-medium">PayPal ID</th>
                             </tr>
                         </thead>
@@ -85,6 +87,13 @@ export default async function BundlePurchasesPage() {
                                             </span>
                                         )}
                                     </td>
+                                    <td className="px-6 py-4">
+                                        {p.access_token ? (
+                                            <CopyBundleLinkButton accessToken={p.access_token} />
+                                        ) : (
+                                            "-"
+                                        )}
+                                    </td>
                                     <td className="px-6 py-4 font-mono text-xs">
                                         {p.paypal_order_id || "-"}
                                     </td>
@@ -92,7 +101,7 @@ export default async function BundlePurchasesPage() {
                             ))}
                             {(!purchases || purchases.length === 0) && (
                                 <tr>
-                                    <td colSpan={6} className="px-6 py-8 text-center text-text-muted">
+                                    <td colSpan={7} className="px-6 py-8 text-center text-text-muted">
                                         אין עדיין רכישות.
                                     </td>
                                 </tr>

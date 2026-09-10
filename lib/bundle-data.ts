@@ -31,7 +31,7 @@ export const bundleChapters: BundleChapter[] = [
       { kind: "skills", label: "מיומנויות" },
     ],
     href: "https://www.ronenamoscpa.co.il/resources/webiners/claude-accountant",
-    imageUrl: "/course-assets/ai-master-course/images/c-logo.png",
+    imageUrl: "/images/bundle/webinar-cfo-agenda.png",
   },
   {
     chapterNumber: 2,
@@ -47,7 +47,7 @@ export const bundleChapters: BundleChapter[] = [
       { kind: "deck", label: "תבניות PPT" },
     ],
     href: "https://www.ronenamoscpa.co.il/resources/webiners/Claude-excel-pp",
-    imageUrl: "/course-assets/ai-master-course/images/claude-excel.png",
+    imageUrl: "/images/bundle/data-cleaning-before-after.png",
   },
   {
     chapterNumber: 3,
@@ -62,7 +62,7 @@ export const bundleChapters: BundleChapter[] = [
       { kind: "code", label: "Artifacts לדוגמה" },
     ],
     href: "https://www.ronenamoscpa.co.il/resources/webiners/webinar-03-live-artifacts",
-    imageUrl: "/course-assets/ai-master-course/images/live-artifact.png",
+    imageUrl: "/images/bundle/fpa-analytics-hub.jpg",
   },
   {
     chapterNumber: 4,
@@ -77,7 +77,7 @@ export const bundleChapters: BundleChapter[] = [
       { kind: "skills", label: "הנחיות מערכת" },
     ],
     href: "https://www.ronenamoscpa.co.il/resources/webiners/webinar-04-projects",
-    imageUrl: "/course-assets/ai-master-course/images/Projects-folder-structure.png",
+    imageUrl: "/images/bundle/webinar-architecture.jpg",
   },
   {
     chapterNumber: 5,

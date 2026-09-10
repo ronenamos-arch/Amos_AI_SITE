@@ -159,8 +159,6 @@ export function BundleCheckout() {
                                 height: 50,
                             }}
                             createOrder={async () => {
-                                // The order was already created in step 1 and stored
-                                // as a purchase record. Now create the actual PayPal order.
                                 const res = await fetch("/api/bundle/paypal-create", {
                                     method: "POST",
                                     headers: { "Content-Type": "application/json" },
@@ -210,6 +208,67 @@ export function BundleCheckout() {
                     <button
                         onClick={() => setStep(1)}
                         className="rv2-link mx-auto block text-xs underline underline-offset-4"
+                    >
+                        חזרה לעריכת פרטים
+                    </button>
+                </div>
+            )}
+
+            {step === 2 && !clientId && (
+                <div className="space-y-4 rounded-xl border border-teal-500/30 bg-teal-950/40 p-5 text-center">
+                    <div className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-teal-500/20 text-teal-300 mx-auto mb-1">
+                        🧪
+                    </div>
+                    <div className="text-sm font-semibold text-slate-100">
+                        סביבת בדיקה מקומית (Localhost)
+                    </div>
+                    <p className="text-xs text-slate-300 leading-relaxed">
+                        בסביבת הייצור (Vercel) כפתורי PayPal עולים אוטומטית. בסביבה זו ניתן לבצע בדיקת רכישה מלאה ללא כרטיס אשראי.
+                    </p>
+
+                    {globalError && (
+                        <p className="text-center text-xs text-red-400">{globalError}</p>
+                    )}
+
+                    <button
+                        onClick={async () => {
+                            setSubmitting(true);
+                            setGlobalError(null);
+                            try {
+                                const res = await fetch("/api/bundle/test-purchase", {
+                                    method: "POST",
+                                    headers: { "Content-Type": "application/json" },
+                                    body: JSON.stringify({
+                                        purchaseId,
+                                        email: form.email,
+                                        name: form.name,
+                                        phone: form.phone,
+                                    }),
+                                });
+                                const data = await res.json();
+                                if (!res.ok) throw new Error(data.error || "שגיאה ברכישת בדיקה");
+                                if (data.accessToken) {
+                                    window.location.href = `/claude-bundle/thanks?token=${data.accessToken}`;
+                                }
+                            } catch (e: any) {
+                                setGlobalError(e.message || "שגיאה בביצוע בדיקת הרכישה");
+                            } finally {
+                                setSubmitting(false);
+                            }
+                        }}
+                        disabled={submitting}
+                        className="rv2-btn rv2-btn-primary w-full py-3 text-sm font-bold shadow-lg shadow-teal-500/20"
+                    >
+                        {submitting ? (
+                            <Loader2 size={18} className="animate-spin mx-auto" />
+                        ) : (
+                            "⚡ השלם רכישת בדיקה ושלח מייל אישור"
+                        )}
+                    </button>
+
+                    <button
+                        onClick={() => setStep(1)}
+                        className="rv2-link mx-auto block text-xs underline underline-offset-4 text-slate-400 pt-2"
                     >
                         חזרה לעריכת פרטים
                     </button>
