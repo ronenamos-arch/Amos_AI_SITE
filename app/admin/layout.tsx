@@ -8,7 +8,7 @@ export const metadata: Metadata = {
 };
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
-import { FileText, Mail, MessageSquare, ExternalLink, Eye } from "lucide-react";
+import { FileText, Mail, MessageSquare, ExternalLink, Eye, CreditCard } from "lucide-react";
 
 export default async function AdminLayout({ children }: { children: React.ReactNode }) {
     if (process.env.NODE_ENV !== "development") {
@@ -32,6 +32,13 @@ export default async function AdminLayout({ children }: { children: React.ReactN
                                 ניהול
                             </Link>
                             <span className="text-white/20">|</span>
+                            <Link
+                                href="/admin/subscriptions"
+                                className="flex items-center gap-1.5 text-sm text-text-secondary hover:text-white px-3 py-1.5 rounded-lg hover:bg-white/5 transition-colors"
+                            >
+                                <CreditCard className="h-3.5 w-3.5 text-emerald-400" />
+                                מנויים והכנסות
+                            </Link>
                             <Link
                                 href="/admin/blog"
                                 className="flex items-center gap-1.5 text-sm text-text-secondary hover:text-white px-3 py-1.5 rounded-lg hover:bg-white/5 transition-colors"

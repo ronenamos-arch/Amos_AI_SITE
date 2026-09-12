@@ -1,23 +1,34 @@
 import Link from "next/link";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { GlassCard } from "@/components/ui/GlassCard";
-import { FileText, Mail, MessageSquare, PlaySquare } from "lucide-react";
+import { FileText, Mail, MessageSquare, PlaySquare, CreditCard, GraduationCap } from "lucide-react";
 
 async function getCounts() {
     const admin = createAdminClient();
 
-    const [articlesRes, subscribersRes, contactsRes, bundlesRes] = await Promise.all([
+    const [articlesRes, subscribersRes, contactsRes, bundlesRes, coursesRes, profilesRes] = await Promise.all([
         admin.from("articles").select("*", { count: "exact", head: true }),
         admin.from("newsletter_subscribers").select("*", { count: "exact", head: true }).eq("status", "active"),
         admin.from("contact_submissions").select("*", { count: "exact", head: true }),
         admin.from("bundle_purchases").select("*", { count: "exact", head: true }).eq("status", "paid"),
+        admin.from("course_purchases").select("*", { count: "exact", head: true }).eq("status", "paid"),
+        admin.from("profiles").select("subscription_status"),
     ]);
+
+    const profiles = profilesRes.data || [];
+    const activeMonthly = profiles.filter((p) => p.subscription_status === "monthly").length;
+    const activeLifetime = profiles.filter((p) => p.subscription_status === "lifetime").length;
+    const activeSubscribers = activeMonthly + activeLifetime;
+    const mrr = activeMonthly * 100;
 
     return {
         articles: articlesRes.count ?? 0,
         subscribers: subscribersRes.count ?? 0,
         contacts: contactsRes.count ?? 0,
         bundles: bundlesRes.count ?? 0,
+        courses: coursesRes.count ?? 0,
+        activeSubscribers,
+        mrr,
     };
 }
 
@@ -25,6 +36,22 @@ export default async function AdminHomePage() {
     const counts = await getCounts();
 
     const cards = [
+        {
+            href: "/admin/subscriptions",
+            icon: CreditCard,
+            label: "דשבורד מנויים והכנסות",
+            count: counts.activeSubscribers,
+            unit: `מנויים פעילים (MRR ₪${counts.mrr.toLocaleString()})`,
+            color: "text-emerald-400",
+        },
+        {
+            href: "/admin/bundle-purchases",
+            icon: PlaySquare,
+            label: "מכירות באנדל",
+            count: counts.bundles,
+            unit: "רוכשים",
+            color: "text-yellow-400",
+        },
         {
             href: "/admin/blog",
             icon: FileText,
@@ -48,14 +75,6 @@ export default async function AdminHomePage() {
             count: counts.contacts,
             unit: "הודעות",
             color: "text-purple-400",
-        },
-        {
-            href: "/admin/bundle-purchases",
-            icon: PlaySquare,
-            label: "מכירות באנדל",
-            count: counts.bundles,
-            unit: "רוכשים",
-            color: "text-yellow-400",
         },
     ];
 
