@@ -17,9 +17,11 @@ import {
     Mail,
     RefreshCw,
     ExternalLink,
+    AlertCircle,
+    CheckCircle2,
 } from "lucide-react";
 
-type FilterTab = "all" | "active" | "monthly" | "lifetime" | "cancelled" | "payment_failed" | "free";
+type FilterTab = "all" | "active" | "monthly" | "lifetime" | "cancelled" | "payment_failed" | "free" | "tests";
 
 export function SubscriptionsTable({
     subscribers: initialSubscribers,
@@ -59,6 +61,11 @@ export function SubscriptionsTable({
             if (!matchesSearch) return false;
 
             if (selectedTab === "all") return true;
+            if (selectedTab === "tests") return !!sub.is_test;
+
+            // For all other tabs, exclude test accounts
+            if (sub.is_test) return false;
+
             if (selectedTab === "active") return status === "monthly" || status === "lifetime";
             if (selectedTab === "monthly") return status === "monthly";
             if (selectedTab === "lifetime") return status === "lifetime";
@@ -102,6 +109,11 @@ export function SubscriptionsTable({
         }
     };
 
+    const nonTestSubscribers = useMemo(
+        () => subscribers.filter((s) => !s.is_test),
+        [subscribers]
+    );
+
     const tabs: { id: FilterTab; label: string; count: number }[] = [
         {
             id: "all",
@@ -110,42 +122,51 @@ export function SubscriptionsTable({
         },
         {
             id: "active",
-            label: "משלמים פעילים",
-            count: subscribers.filter((s) => s.subscription_status === "monthly" || s.subscription_status === "lifetime").length,
+            label: "מנויים משלמים",
+            count: nonTestSubscribers.filter((s) => s.subscription_status === "monthly" || s.subscription_status === "lifetime").length,
         },
         {
             id: "monthly",
             label: "חודשי",
-            count: subscribers.filter((s) => s.subscription_status === "monthly").length,
+            count: nonTestSubscribers.filter((s) => s.subscription_status === "monthly").length,
         },
         {
             id: "lifetime",
             label: "לכל החיים",
-            count: subscribers.filter((s) => s.subscription_status === "lifetime").length,
+            count: nonTestSubscribers.filter((s) => s.subscription_status === "lifetime").length,
         },
         {
             id: "cancelled",
             label: "בוטלו / בגרייס",
-            count: subscribers.filter((s) => s.subscription_status === "cancelled").length,
+            count: nonTestSubscribers.filter((s) => s.subscription_status === "cancelled").length,
         },
         {
             id: "payment_failed",
             label: "תשלום נכשל",
-            count: subscribers.filter((s) => s.subscription_status === "payment_failed").length,
+            count: nonTestSubscribers.filter((s) => s.subscription_status === "payment_failed").length,
         },
         {
             id: "free",
             label: "חינמי",
-            count: subscribers.filter((s) => s.subscription_status === "free" || !s.subscription_status).length,
+            count: nonTestSubscribers.filter((s) => s.subscription_status === "free" || !s.subscription_status).length,
+        },
+        {
+            id: "tests",
+            label: "בדיקות ומנהל",
+            count: subscribers.filter((s) => s.is_test).length,
         },
     ];
 
-    const getStatusBadge = (status: string, inGrace?: boolean) => {
+    const getStatusBadge = (sub: SubscriptionProfile) => {
+        const status = sub.subscription_status;
+        const inGrace = sub.in_grace_period;
+        const rate = sub.recurring_amount;
+
         switch (status) {
             case "monthly":
                 return (
                     <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-semibold bg-emerald-400/10 text-emerald-400 border border-emerald-400/20">
-                        חודשי פעיל (₪100)
+                        חודשי פעיל (₪{rate})
                     </span>
                 );
             case "lifetime":
@@ -265,9 +286,10 @@ export function SubscriptionsTable({
                             <tr>
                                 <th className="px-5 py-3.5 font-medium">לקוח / אימייל</th>
                                 <th className="px-5 py-3.5 font-medium">תוכנית</th>
+                                <th className="px-5 py-3.5 font-medium">תשלום אחרון</th>
                                 <th className="px-5 py-3.5 font-medium">סיום תקופה / חידוש</th>
-                                <th className="px-5 py-3.5 font-medium">סך תשלומים</th>
-                                <th className="px-5 py-3.5 font-medium">PayPal ID</th>
+                                <th className="px-5 py-3.5 font-medium">סך מצטבר</th>
+                                <th className="px-5 py-3.5 font-medium">PayPal Subscription ID</th>
                                 <th className="px-5 py-3.5 font-medium text-left">פעולות</th>
                             </tr>
                         </thead>
@@ -281,13 +303,18 @@ export function SubscriptionsTable({
                                     : null;
 
                                 return (
-                                    <tr key={sub.id} className="hover:bg-white/5 transition-colors">
+                                    <tr key={sub.id} className={`hover:bg-white/5 transition-colors ${sub.is_test ? "opacity-75 bg-white/[0.02]" : ""}`}>
                                         {/* User / Email */}
                                         <td className="px-5 py-4">
                                             <div className="flex items-center gap-2">
                                                 <span className="font-semibold text-white">
                                                     {sub.email || "ללא כתובת אימייל"}
                                                 </span>
+                                                {sub.is_test && (
+                                                    <span className="px-1.5 py-0.2 text-[10px] rounded bg-amber-500/20 text-amber-300 border border-amber-500/30">
+                                                        בדיקה / מנהל
+                                                    </span>
+                                                )}
                                                 {sub.email && (
                                                     <a
                                                         href={`mailto:${sub.email}`}
@@ -305,7 +332,27 @@ export function SubscriptionsTable({
 
                                         {/* Plan Status */}
                                         <td className="px-5 py-4">
-                                            {getStatusBadge(sub.subscription_status, sub.in_grace_period)}
+                                            {getStatusBadge(sub)}
+                                        </td>
+
+                                        {/* Last Payment */}
+                                        <td className="px-5 py-4 text-xs whitespace-nowrap">
+                                            {sub.last_payment_date ? (
+                                                <div>
+                                                    <span className="text-white font-bold">
+                                                        ₪{sub.last_payment_amount || sub.recurring_amount}
+                                                    </span>
+                                                    <span className="block text-[11px] text-text-muted mt-0.5">
+                                                        {new Intl.DateTimeFormat("he-IL", {
+                                                            day: "2-digit",
+                                                            month: "2-digit",
+                                                            year: "numeric",
+                                                        }).format(new Date(sub.last_payment_date))}
+                                                    </span>
+                                                </div>
+                                            ) : (
+                                                <span className="text-text-muted">-</span>
+                                            )}
                                         </td>
 
                                         {/* End Date / Renewal */}
@@ -411,7 +458,7 @@ export function SubscriptionsTable({
 
                             {filteredSubscribers.length === 0 && (
                                 <tr>
-                                    <td colSpan={6} className="px-5 py-10 text-center text-text-muted">
+                                    <td colSpan={7} className="px-5 py-10 text-center text-text-muted">
                                         לא נמצאו מנויים התואמים לסינון הנוכחי.
                                     </td>
                                 </tr>

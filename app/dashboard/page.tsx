@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { createClient } from "@/lib/supabase/server";
+import { checkProfileAccess } from "@/lib/subscription-access";
 
 export const metadata: Metadata = {
     robots: { index: false, follow: false },
@@ -38,7 +39,7 @@ export default async function DashboardPage() {
         .eq("id", user.id)
         .single();
 
-    const isPremium = profile?.subscription_status === 'monthly' || profile?.subscription_status === 'lifetime';
+    const isPremium = checkProfileAccess(profile);
 
     return (
         <div className="pt-24 pb-16 min-h-screen">

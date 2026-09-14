@@ -7,6 +7,7 @@ import { GuideCard } from '@/components/guides/GuideCard';
 import { NewsletterForm } from '@/components/forms/NewsletterForm';
 import { Paywall } from '@/components/blog/Paywall';
 import { createClient } from '@/lib/supabase/server';
+import { checkProfileAccess } from '@/lib/subscription-access';
 
 export const dynamic = 'force-dynamic';
 
@@ -64,27 +65,17 @@ export default async function GuideDetailPage({
   const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();
 
-  let subscriptionStatus = 'free';
-  let subscriptionEndDate: string | null = null;
+  let profile = null;
   if (user) {
-    const { data: profile } = await supabase
+    const { data } = await supabase
       .from('profiles')
       .select('subscription_status, subscription_end_date')
       .eq('id', user.id)
       .single();
-    if (profile) {
-      subscriptionStatus = profile.subscription_status;
-      subscriptionEndDate = profile.subscription_end_date ?? null;
-    }
+    profile = data;
   }
 
-  const now = new Date();
-  const endDate = subscriptionEndDate ? new Date(subscriptionEndDate) : null;
-  const hasAccess =
-    !guide.isPremium ||
-    subscriptionStatus === 'monthly' ||
-    subscriptionStatus === 'lifetime' ||
-    (subscriptionStatus === 'cancelled' && endDate !== null && endDate > now);
+  const hasAccess = !guide.isPremium || checkProfileAccess(profile);
   const isLocked = guide.isPremium && !hasAccess;
 
   const related = getRelatedGuides(slug);

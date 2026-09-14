@@ -3,23 +3,19 @@ import { createAdminClient } from "@/lib/supabase/admin";
 import { GlassCard } from "@/components/ui/GlassCard";
 import { FileText, Mail, MessageSquare, PlaySquare, CreditCard, GraduationCap } from "lucide-react";
 
+import { getSubscriptionOverview } from "@/lib/actions/admin-subscriptions";
+
 async function getCounts() {
     const admin = createAdminClient();
 
-    const [articlesRes, subscribersRes, contactsRes, bundlesRes, coursesRes, profilesRes] = await Promise.all([
+    const [articlesRes, subscribersRes, contactsRes, bundlesRes, coursesRes, overview] = await Promise.all([
         admin.from("articles").select("*", { count: "exact", head: true }),
         admin.from("newsletter_subscribers").select("*", { count: "exact", head: true }).eq("status", "active"),
         admin.from("contact_submissions").select("*", { count: "exact", head: true }),
         admin.from("bundle_purchases").select("*", { count: "exact", head: true }).eq("status", "paid"),
         admin.from("course_purchases").select("*", { count: "exact", head: true }).eq("status", "paid"),
-        admin.from("profiles").select("subscription_status"),
+        getSubscriptionOverview(),
     ]);
-
-    const profiles = profilesRes.data || [];
-    const activeMonthly = profiles.filter((p) => p.subscription_status === "monthly").length;
-    const activeLifetime = profiles.filter((p) => p.subscription_status === "lifetime").length;
-    const activeSubscribers = activeMonthly + activeLifetime;
-    const mrr = activeMonthly * 100;
 
     return {
         articles: articlesRes.count ?? 0,
@@ -27,8 +23,8 @@ async function getCounts() {
         contacts: contactsRes.count ?? 0,
         bundles: bundlesRes.count ?? 0,
         courses: coursesRes.count ?? 0,
-        activeSubscribers,
-        mrr,
+        activeSubscribers: overview.activeSubscribersCount,
+        mrr: overview.mrr,
     };
 }
 

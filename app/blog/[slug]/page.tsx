@@ -71,6 +71,7 @@ export async function generateMetadata({
 }
 
 import { createClient } from "@/lib/supabase/server";
+import { checkProfileAccess } from "@/lib/subscription-access";
 import { Paywall } from "@/components/blog/Paywall";
 import { ShareButtons } from "@/components/blog/ShareButtons";
 import RelatedPosts from "@/components/blog/RelatedPosts";
@@ -112,29 +113,18 @@ export default async function BlogPostPage({
   const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();
 
-  let subscriptionStatus = 'free';
-  let subscriptionEndDate: string | null = null;
+  let profile = null;
   if (user) {
-    const { data: profile } = await supabase
+    const { data } = await supabase
       .from('profiles')
       .select('subscription_status, subscription_end_date')
       .eq('id', user.id)
       .single();
-
-    if (profile) {
-      subscriptionStatus = profile.subscription_status;
-      subscriptionEndDate = profile.subscription_end_date ?? null;
-    }
+    profile = data;
   }
 
   // If post is premium, check if user has access
-  // Cancelled users retain access until subscription_end_date (grace period)
-  const now = new Date();
-  const endDate = subscriptionEndDate ? new Date(subscriptionEndDate) : null;
-  const hasAccess = !post.premium
-    || subscriptionStatus === 'monthly'
-    || subscriptionStatus === 'lifetime'
-    || (subscriptionStatus === 'cancelled' && endDate !== null && endDate > now);
+  const hasAccess = !post.premium || checkProfileAccess(profile);
   const isLocked = post.premium && !hasAccess;
 
   // Show only first paragraph for locked posts

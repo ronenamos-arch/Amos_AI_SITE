@@ -5,19 +5,23 @@ import Link from "next/link";
 import {
     getSubscriptionOverview,
     getSubscribersList,
+    syncSubscribersWithPayPalLive,
     SubscriptionOverviewData,
     SubscriptionProfile,
+    PayPalSyncResult,
 } from "@/lib/actions/admin-subscriptions";
 import { SubscriptionStatsCards } from "@/components/admin/SubscriptionStatsCards";
 import { ChurnAlertsBanner } from "@/components/admin/ChurnAlertsBanner";
 import { SubscriptionsTable } from "@/components/admin/SubscriptionsTable";
-import { RefreshCw, CreditCard, ShieldAlert } from "lucide-react";
+import { RefreshCw, CreditCard, ShieldAlert, Zap, CheckCircle2, X } from "lucide-react";
 
 export default function SubscriptionsAdminPage() {
     const [overview, setOverview] = useState<SubscriptionOverviewData | null>(null);
     const [subscribers, setSubscribers] = useState<SubscriptionProfile[]>([]);
     const [loading, setLoading] = useState(true);
     const [refreshing, setRefreshing] = useState(false);
+    const [syncingPaypal, setSyncingPaypal] = useState(false);
+    const [syncResult, setSyncResult] = useState<PayPalSyncResult | null>(null);
     const [error, setError] = useState<string | null>(null);
 
     const loadData = useCallback(async (isSilent = false) => {
@@ -46,6 +50,21 @@ export default function SubscriptionsAdminPage() {
         loadData();
     }, [loadData]);
 
+    const handleSyncPayPal = async () => {
+        try {
+            setSyncingPaypal(true);
+            setError(null);
+            const res = await syncSubscribersWithPayPalLive();
+            setSyncResult(res);
+            await loadData(true);
+        } catch (err: any) {
+            console.error("PayPal sync failed:", err);
+            setError("כשל בסנכרון מול PayPal: " + (err.message || "שגיאה לא ידועה"));
+        } finally {
+            setSyncingPaypal(false);
+        }
+    };
+
     return (
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-10" dir="rtl">
             {/* Header */}
@@ -66,6 +85,16 @@ export default function SubscriptionsAdminPage() {
 
                 <div className="flex items-center gap-2">
                     <button
+                        onClick={handleSyncPayPal}
+                        disabled={syncingPaypal || loading}
+                        className="px-3.5 py-2 rounded-xl bg-blue-500/10 hover:bg-blue-500/20 text-xs font-semibold text-blue-300 border border-blue-500/30 transition-colors flex items-center gap-2 disabled:opacity-50"
+                        title="סנכרון תשלומים ומצב מנויים מול שרתי PayPal בזמן אמת"
+                    >
+                        <Zap className={`h-3.5 w-3.5 ${syncingPaypal ? "animate-spin text-blue-400" : "text-blue-400"}`} />
+                        <span>{syncingPaypal ? "מסנכרן מול PayPal..." : "סנכרן מול PayPal Live"}</span>
+                    </button>
+
+                    <button
                         onClick={() => loadData(true)}
                         disabled={refreshing || loading}
                         className="px-3.5 py-2 rounded-xl bg-white/5 hover:bg-white/10 text-xs font-medium text-white border border-white/10 transition-colors flex items-center gap-2 disabled:opacity-50"
@@ -81,6 +110,35 @@ export default function SubscriptionsAdminPage() {
                 <div className="mb-6 p-4 rounded-xl bg-red-500/10 border border-red-500/20 text-red-400 text-sm flex items-center gap-2">
                     <ShieldAlert className="h-5 w-5 shrink-0" />
                     <span>{error}</span>
+                </div>
+            )}
+
+            {/* PayPal Sync Result Banner */}
+            {syncResult && (
+                <div className="mb-6 p-4 rounded-xl bg-teal-500/10 border border-teal-500/30 text-xs text-white relative">
+                    <button
+                        onClick={() => setSyncResult(null)}
+                        className="absolute top-3 left-3 p-1 rounded-lg text-text-muted hover:text-white"
+                    >
+                        <X className="h-4 w-4" />
+                    </button>
+                    <div className="flex items-center gap-2 text-teal-300 font-bold mb-2">
+                        <CheckCircle2 className="h-4 w-4" />
+                        <span>
+                            סנכרון מול PayPal Live הושלם בהצלחה! (נבדקו {syncResult.totalChecked} מנויים, עודכנו {syncResult.updatedCount})
+                        </span>
+                    </div>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2 mt-2">
+                        {syncResult.details.map((d, i) => (
+                            <div key={i} className="p-2 rounded bg-black/20 border border-white/5">
+                                <p className="font-semibold text-white truncate">{d.email}</p>
+                                <p className="text-text-muted text-[11px] mt-0.5">
+                                    סטטוס: <span className="text-teal-300 font-mono">{d.newStatus}</span>
+                                    {d.lastPaymentAmount && ` · תשלום אחרון: ₪${d.lastPaymentAmount}`}
+                                </p>
+                            </div>
+                        ))}
+                    </div>
                 </div>
             )}
 
