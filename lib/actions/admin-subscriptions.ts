@@ -16,7 +16,7 @@ async function verifyAdmin() {
     return true;
 }
 
-export function isTestOrAdminAccount(email: string | null | undefined): boolean {
+function isTestOrAdminAccount(email: string | null | undefined): boolean {
     if (!email) return false;
     const lower = email.toLowerCase().trim();
     if (
