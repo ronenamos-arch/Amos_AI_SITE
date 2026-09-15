@@ -7,6 +7,7 @@ import { CourseFAQ } from "@/components/sections/CourseFAQ";
 import { CourseCurriculum } from "@/components/sections/CourseCurriculum";
 import { CourseBuyButton } from "@/components/course/CourseBuyButton";
 import { CheckCircle2, PlayCircle, FileText, Zap, Infinity, Clock, Shield, Sparkles, Globe, Video } from "lucide-react";
+import { SMARTBEE_CONFIG } from "@/lib/smartbee-config";
 
 export const metadata: Metadata = {
     title: "AI לרואי חשבון קורס מעשי | AI Finance Master לאוטומציה פיננסית | רונן עמוס",
@@ -345,9 +346,14 @@ export default function AIFinanceMasterPage() {
                                     />
                                 </div>
 
-                                <div className="text-center text-text-muted text-sm mt-8">
-                                    <Shield className="w-4 h-4 inline-block mr-2 text-teal-500" />
-                                    SSL Secured Checkout | Lifetime Access
+                                <div className="text-center text-text-muted text-sm mt-8 space-y-1">
+                                    <div>
+                                        <Shield className="w-4 h-4 inline-block mr-2 text-teal-400" />
+                                        סליקה מאובטחת SmartBee (מקס, Bit, כרטיסי אשראי)
+                                    </div>
+                                    <div className="text-xs text-text-secondary">
+                                        חשבונית מס / קבלה מופקת מיידית במייל כחוק | גישה לכל החיים
+                                    </div>
                                 </div>
                             </GlassCard>
                         </div>

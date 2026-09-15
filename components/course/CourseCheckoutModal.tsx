@@ -2,8 +2,8 @@
 
 import { useState, useCallback, useEffect } from "react";
 import { createPortal } from "react-dom";
-import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
 import { Loader2, X, Shield, Sparkles, CheckCircle2 } from "lucide-react";
+import { SMARTBEE_CONFIG } from "@/lib/smartbee-config";
 
 interface FormData {
     name: string;
@@ -89,10 +89,17 @@ export function CourseCheckoutModal({
         }
     }, [form]);
 
-    const isSandbox = process.env.NEXT_PUBLIC_PAYPAL_SANDBOX === "true";
-    const clientId = isSandbox 
-        ? process.env.NEXT_PUBLIC_PAYPAL_SANDBOX_CLIENT_ID 
-        : process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID;
+    const getSmartBeeCheckoutUrl = () => {
+        const baseUrl = SMARTBEE_CONFIG.products.aiFinanceMaster.url;
+        const params = new URLSearchParams();
+        if (purchaseId) params.append("purchaseId", purchaseId);
+        if (form.email) params.append("email", form.email);
+        if (form.name) params.append("fullName", form.name);
+        if (form.phone) params.append("phone", form.phone);
+
+        const separator = baseUrl.includes("?") ? "&" : "?";
+        return `${baseUrl}${separator}${params.toString()}`;
+    };
 
     if (!isOpen || !mounted) return null;
 
@@ -209,66 +216,25 @@ export function CourseCheckoutModal({
                 ) : (
                     <div className="space-y-4">
                         <div className="text-center text-sm text-text-secondary mb-2">
-                            שלום <strong className="text-white">{form.name}</strong>, השלימו את התשלום ב-PayPal:
+                            שלום <strong className="text-white">{form.name}</strong>, השלימו את התשלום המאובטח:
                         </div>
 
-                        {clientId ? (
-                            <PayPalScriptProvider
-                                options={{
-                                    clientId,
-                                    currency: "ILS",
-                                    intent: "capture",
-                                }}
-                            >
-                                <PayPalButtons
-                                    style={{
-                                        layout: "vertical",
-                                        color: "gold",
-                                        shape: "rect",
-                                        label: "pay",
-                                        height: 48,
-                                    }}
-                                    createOrder={async () => {
-                                        const res = await fetch("/api/course/paypal-create", {
-                                            method: "POST",
-                                            headers: { "Content-Type": "application/json" },
-                                            body: JSON.stringify({ purchaseId }),
-                                        });
-                                        const data = await res.json();
-                                        if (!res.ok) throw new Error(data.error || "שגיאה ביצירת הזמנה");
-                                        return data.paypalOrderId;
-                                    }}
-                                    onApprove={async (data) => {
-                                        try {
-                                            const res = await fetch("/api/course/capture-order", {
-                                                method: "POST",
-                                                headers: { "Content-Type": "application/json" },
-                                                body: JSON.stringify({
-                                                    paypalOrderId: data.orderID,
-                                                    purchaseId,
-                                                }),
-                                            });
-                                            const result = await res.json();
-                                            if (!res.ok) throw new Error(result.error || "שגיאה באישור התשלום");
+                        <a
+                            href={getSmartBeeCheckoutUrl()}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="w-full py-4 rounded-xl font-bold text-lg bg-teal-400 hover:bg-teal-300 text-space-950 flex items-center justify-center gap-2 transition-all shadow-xl shadow-teal-500/25 cursor-pointer text-center"
+                        >
+                            מעבר לתשלום מאובטח ב-SmartBee — ₪599 ←
+                        </a>
 
-                                            setIsSuccess(true);
-                                            setTimeout(() => {
-                                                window.location.href = result.redirectUrl || `/courses/ai-master-course?course_token=${result.accessToken}`;
-                                            }, 2000);
-                                        } catch (err) {
-                                            setGlobalError(err instanceof Error ? err.message : "שגיאה בעיבוד התשלום");
-                                        }
-                                    }}
-                                    onError={() => {
-                                        setGlobalError("שגיאה בתשלום דרך PayPal — נסו שנית או פנו לתמיכה");
-                                    }}
-                                />
-                            </PayPalScriptProvider>
-                        ) : (
-                            <div className="text-center py-6 text-sm text-text-muted">
-                                טוען אמצעי תשלום...
+                        <div className="space-y-2 text-xs text-text-muted text-center pt-2">
+                            <div className="flex items-center justify-center gap-2 font-medium text-white/90">
+                                <Shield className="w-4 h-4 text-teal-400" />
+                                <span>סליקת מקס (Max) • כרטיסי אשראי • Bit</span>
                             </div>
-                        )}
+                            <p>חשבונית מס / קבלה דיגיטלית תופק ותישלח מיידית למייל שלכם כחוק</p>
+                        </div>
 
                         {globalError && (
                             <p className="text-center text-sm text-rose-400 bg-rose-500/10 border border-rose-500/20 py-2 rounded-lg">

@@ -27,8 +27,8 @@ export default async function ThankYouPage() {
                     {isGuest ? (
                         <>
                             <p className="text-xl text-text-secondary mb-8 leading-relaxed">
-                                התשלום התקבל בהצלחה ב-PayPal. <br />
-                                כעת שלחנו לך דוא״ל עם הוראות ליצירת חשבון.
+                                התשלום עבר בהצלחה! <br />
+                                חשבונית מס / קבלה דיגיטלית חתומה נשלחה כעת לתיבת המייל שלך.
                             </p>
 
                             <div className="grid gap-6 md:grid-cols-2 mb-10 text-right" dir="rtl">
@@ -38,7 +38,7 @@ export default async function ThankYouPage() {
                                         <h3 className="font-bold">בדוק את הדוא״ל שלך</h3>
                                     </div>
                                     <p className="text-sm text-text-secondary">
-                                        שלחנו לך אישור תשלום והוראות לביצוע התחברות. בדוק גם את תיקיית הספאם.
+                                        שלחנו לך את חשבונית המס מ-SmartBee ופרטי ההתחברות לקורס/מדריך. בדוק גם את תיקיית הספאם/קידומי מכירות.
                                     </p>
                                 </div>
                                 <div className="p-4 rounded-xl bg-white/5 border border-white/5">
@@ -47,7 +47,7 @@ export default async function ThankYouPage() {
                                         <h3 className="font-bold">מה קורה עכשיו?</h3>
                                     </div>
                                     <p className="text-sm text-text-secondary">
-                                        לאחר שתיצור חשבון וההתחברות שלך תאישור, תקבל גישה מלאה לכל התוכן הפרימיום.
+                                        הגישה שלך נפתחה — תוכל להתחבר מיד וליהנות מכל התכנים.
                                     </p>
                                 </div>
                             </div>
@@ -65,8 +65,8 @@ export default async function ThankYouPage() {
                     ) : (
                         <>
                             <p className="text-xl text-text-secondary mb-8 leading-relaxed">
-                                התשלום התקבל בהצלחה ב-PayPal. <br />
-                                אנחנו מבצעים כעת סנכרון של החשבון שלך.
+                                התשלום עבר בהצלחה! <br />
+                                חשבונית מס / קבלה דיגיטלית נשלחה לתיבת המייל שלך, והחשבון שלך סונכרן.
                             </p>
 
                             <div className="grid gap-6 md:grid-cols-2 mb-10 text-right" dir="rtl">

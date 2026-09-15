@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/Button";
 import { Badge } from "@/components/ui/Badge";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { CheckCircle2, PlayCircle, FileText, Globe, Zap, Shield, TrendingUp, Clock, Infinity } from "lucide-react";
+import { SMARTBEE_CONFIG } from "@/lib/smartbee-config";
 
 export const metadata: Metadata = {
     title: "Mastering NotebookLM: קורס מעשי לאנשי פיננסים",
@@ -18,38 +19,38 @@ const syllabus = [
     },
     {
         lesson: 2,
-        title: "ניהול מקורות ידע",
-        description: "סנכרון דוחות 10-K, תקני IFRS ומסמכים פנים ארגוניים ללא חשש להזיות.",
+        title: "העלאת דוחות וניהול מקורות מידע",
+        description: "חיבור עשרות דוחות כספיים במקביל והצלבת מידע בין מקורות שונים.",
     },
     {
         lesson: 3,
-        title: "הכנה לדירקטוריון ב-10 דקות",
-        description: "בניית סיכומי מנהלים ומצגות מורכבות המבוססות על נתוני אמת בלבד.",
+        title: "כתיבת פרומפטים מדויקים לנתונים כספיים",
+        description: "איך לשאול שאלות מורכבות ולקבל תשובות עם מראי מקום מדויקים.",
     },
     {
         lesson: 4,
-        title: "Deep Research פיננסי",
-        description: "הצלבת אלפי דפי נתונים לשאלות אסטרטגיות בשניות.",
+        title: "יצירת תקצירי מנהלים והכנה לדירקטוריון",
+        description: "הפקת מצגות, סיכומי החלטות וניירות עמדה בכמה דקות.",
     },
     {
         lesson: 5,
-        title: "מצוינות רגולטורית",
-        description: "שימוש ב-AI לבקרת ציות וזיהוי פערים בתהליכים חשבונאיים.",
+        title: "Audio Overviews לרואי חשבון",
+        description: "האזנה לפודקאסט AI מותאם אישית על הדוחות הכספיים שלכם.",
     },
     {
         lesson: 6,
-        title: "בניית זיכרון ארגוני",
-        description: "הפיכת ידע שנצבר בשיחות ומסמכים לנכס דיגיטלי נגיש.",
+        title: "בקרות פנימיות וציות רגולטורי",
+        description: "איתור חריגות, בדיקת תאימות לתקנים ובדיקות נאותות מהירות.",
     },
     {
         lesson: 7,
-        title: "אוטומציה של תובנות",
-        description: "בניית מחברות (Notebooks) חכמות שמתעדכנות בזמן אמת.",
+        title: "אינטגרציה עם Google Workspace",
+        description: "שילוב חלק עם Google Docs, Drive וסביבת העבודה השוטפת.",
     },
     {
         lesson: 8,
-        title: "פרויקט סיום: ה-Notebook האישי",
-        description: "בניית מערכת של 3 מחברות חכמות המותאמות אישית לצרכים שלך.",
+        title: "בניית מרכז ידע פיננסי ארגוני",
+        description: "יצירת מאגר ידע חכם ומתעדכן לכל צוות הכספים.",
     },
 ];
 
@@ -65,7 +66,7 @@ export default function NotebookMasterPage() {
                 {/* Floating CTA */}
                 <div className="fixed bottom-8 left-1/2 -translate-x-1/2 z-50 animate-bounce-subtle">
                     <a
-                        href="https://www.paypal.com/ncp/payment/4AVKHU45YU4XS"
+                        href={SMARTBEE_CONFIG.products.notebookMaster.url}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="shadow-2xl shadow-teal-500/40 px-8 py-6 text-lg font-bold bg-gradient-to-r from-teal-500 to-royal-500 hover:scale-105 transition-transform inline-block text-white rounded-lg"
@@ -92,7 +93,7 @@ export default function NotebookMasterPage() {
                             <div className="flex flex-wrap justify-center gap-6 items-center">
                                 <div className="min-w-[200px]">
                                     <a
-                                        href="https://www.paypal.com/ncp/payment/4AVKHU45YU4XS"
+                                        href={SMARTBEE_CONFIG.products.notebookMaster.url}
                                         target="_blank"
                                         rel="noopener noreferrer"
                                         className="inline-block bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-lg text-lg transition-colors"
@@ -231,7 +232,7 @@ export default function NotebookMasterPage() {
                                     </ul>
                                     <div className="mt-4">
                                         <a
-                                            href="https://www.paypal.com/ncp/payment/4AVKHU45YU4XS"
+                                            href={SMARTBEE_CONFIG.products.notebookMaster.url}
                                             target="_blank"
                                             rel="noopener noreferrer"
                                             className="inline-block bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-lg text-lg transition-colors"
@@ -239,9 +240,12 @@ export default function NotebookMasterPage() {
                                             רכוש גישה עכשיו — ₪150
                                         </a>
                                     </div>
-                                    <div className="mt-6 flex items-center justify-center gap-2 text-text-muted text-sm">
-                                        <Shield className="w-4 h-4" />
-                                        רכישה מאובטחת תחת SSL
+                                    <div className="mt-6 flex flex-col items-center justify-center gap-1 text-text-muted text-xs">
+                                        <div className="flex items-center gap-1.5 text-text-secondary">
+                                            <Shield className="w-4 h-4 text-teal-400" />
+                                            סליקה מאובטחת SmartBee (מקס, Bit, אשראי)
+                                        </div>
+                                        <span>חשבונית מס / קבלה מופקת מיידית במייל כחוק</span>
                                     </div>
                                 </GlassCard>
                             </div>

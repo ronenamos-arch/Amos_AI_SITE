@@ -1,8 +1,8 @@
 "use client";
 
 import { useState, useCallback } from "react";
-import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
-import { Loader2 } from "lucide-react";
+import { Loader2, Shield, ArrowLeft, CheckCircle2, Lock } from "lucide-react";
+import { SMARTBEE_CONFIG } from "@/lib/smartbee-config";
 
 interface FormData {
     name: string;
@@ -59,10 +59,18 @@ export function BundleCheckout() {
         }
     }, [form]);
 
-    const isSandbox = process.env.NEXT_PUBLIC_PAYPAL_SANDBOX === "true";
-    const clientId = isSandbox 
-        ? process.env.NEXT_PUBLIC_PAYPAL_SANDBOX_CLIENT_ID 
-        : process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID;
+    // Build the SmartBee payment page URL with customer parameters
+    const getSmartBeeCheckoutUrl = () => {
+        const baseUrl = SMARTBEE_CONFIG.products.claudeBundle.url;
+        const params = new URLSearchParams();
+        if (purchaseId) params.append("purchaseId", purchaseId);
+        if (form.email) params.append("email", form.email);
+        if (form.name) params.append("fullName", form.name);
+        if (form.phone) params.append("phone", form.phone);
+
+        const separator = baseUrl.includes("?") ? "&" : "?";
+        return `${baseUrl}${separator}${params.toString()}`;
+    };
 
     return (
         <div className="text-right">
@@ -76,7 +84,7 @@ export function BundleCheckout() {
             {step === 1 && (
                 <div className="space-y-4">
                     <div className="text-center text-sm text-[var(--rv2-text-2)] mb-4">
-                        הזינו פרטים לקבלת גישה
+                        הזינו פרטים לקבלת גישה מיידית
                     </div>
 
                     {/* Name */}
@@ -126,80 +134,56 @@ export function BundleCheckout() {
                     <button
                         onClick={handleContinue}
                         disabled={submitting}
-                        className="rv2-btn rv2-btn-primary w-full py-3"
+                        className="rv2-btn rv2-btn-primary w-full py-3 text-base font-bold flex items-center justify-center gap-2"
                     >
                         {submitting ? (
                             <Loader2 size={18} className="animate-spin" />
                         ) : (
-                            "המשך לתשלום"
+                            <>
+                                המשך לתשלום (150 ₪)
+                                <ArrowLeft size={16} />
+                            </>
                         )}
                     </button>
                 </div>
             )}
 
-            {step === 2 && clientId && (
-                <div className="space-y-4">
-                    <div className="text-center text-sm text-[var(--rv2-text-2)] mb-4">
-                        👋 {form.name}, השלימו את התשלום דרך PayPal
+            {step === 2 && (
+                <div className="space-y-5 text-center">
+                    <div className="p-4 rounded-xl bg-white/5 border border-white/10 text-right space-y-3">
+                        <div className="flex items-center justify-between">
+                            <span className="text-xs text-[var(--rv2-text-2)]">פרטי הזמנה</span>
+                            <span className="text-xs text-teal-400 font-medium">רשום ומאומת</span>
+                        </div>
+                        <div className="text-sm font-bold text-white">
+                            👋 {form.name} ({form.email})
+                        </div>
+                        <div className="text-xs text-[var(--rv2-text-2)] flex items-center gap-1.5">
+                            <CheckCircle2 size={14} className="text-teal-400" />
+                            באנדל Claude המלא — 5 וובינרים, פרומפטים ו-Skills (גישה לצמיתות)
+                        </div>
                     </div>
 
-                    <PayPalScriptProvider
-                        options={{
-                            clientId,
-                            currency: "ILS",
-                            intent: "capture",
-                        }}
+                    {/* SmartBee Direct Checkout Button */}
+                    <a
+                        href={getSmartBeeCheckoutUrl()}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="rv2-btn rv2-btn-primary w-full py-3.5 text-base font-bold flex items-center justify-center gap-2 shadow-lg shadow-teal-500/20"
                     >
-                        <PayPalButtons
-                            style={{
-                                layout: "vertical",
-                                color: "blue",
-                                shape: "rect",
-                                label: "pay",
-                                height: 50,
-                            }}
-                            createOrder={async () => {
-                                const res = await fetch("/api/bundle/paypal-create", {
-                                    method: "POST",
-                                    headers: { "Content-Type": "application/json" },
-                                    body: JSON.stringify({ purchaseId }),
-                                });
-                                const data = await res.json();
-                                if (!res.ok)
-                                    throw new Error(data.error || "PayPal order creation failed");
-                                return data.paypalOrderId;
-                            }}
-                            onApprove={async (data) => {
-                                try {
-                                    const res = await fetch("/api/bundle/capture-order", {
-                                        method: "POST",
-                                        headers: { "Content-Type": "application/json" },
-                                        body: JSON.stringify({
-                                            paypalOrderId: data.orderID,
-                                            purchaseId,
-                                        }),
-                                    });
-                                    const result = await res.json();
-                                    if (!res.ok)
-                                        throw new Error(
-                                            result.error || "Payment capture failed"
-                                        );
+                        <Lock size={16} />
+                        תשלום מאובטח ב-SmartBee — ₪150
+                        <ArrowLeft size={16} />
+                    </a>
 
-                                    // Redirect to thanks page with token
-                                    window.location.href = `/claude-bundle/thanks?token=${result.accessToken}`;
-                                } catch (err) {
-                                    setGlobalError(
-                                        err instanceof Error
-                                            ? err.message
-                                            : "שגיאה בעיבוד התשלום — נסו שנית"
-                                    );
-                                }
-                            }}
-                            onError={() => {
-                                setGlobalError("שגיאה בתשלום — נסו שנית או צרו קשר");
-                            }}
-                        />
-                    </PayPalScriptProvider>
+                    {/* Payment methods supported */}
+                    <div className="space-y-2 text-xs text-[var(--rv2-text-2)]">
+                        <div className="flex items-center justify-center gap-2 font-medium text-white/80">
+                            <Shield size={14} className="text-teal-400" />
+                            <span>סליקת מקס (Max) • כרטיסי אשראי • Bit</span>
+                        </div>
+                        <p>חשבונית מס / קבלה דיגיטלית תופק ותישלח מיידית למייל שלכם כחוק</p>
+                    </div>
 
                     {globalError && (
                         <p className="text-center text-sm text-red-400">{globalError}</p>
@@ -207,68 +191,7 @@ export function BundleCheckout() {
 
                     <button
                         onClick={() => setStep(1)}
-                        className="rv2-link mx-auto block text-xs underline underline-offset-4"
-                    >
-                        חזרה לעריכת פרטים
-                    </button>
-                </div>
-            )}
-
-            {step === 2 && !clientId && (
-                <div className="space-y-4 rounded-xl border border-teal-500/30 bg-teal-950/40 p-5 text-center">
-                    <div className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-teal-500/20 text-teal-300 mx-auto mb-1">
-                        🧪
-                    </div>
-                    <div className="text-sm font-semibold text-slate-100">
-                        סביבת בדיקה מקומית (Localhost)
-                    </div>
-                    <p className="text-xs text-slate-300 leading-relaxed">
-                        בסביבת הייצור (Vercel) כפתורי PayPal עולים אוטומטית. בסביבה זו ניתן לבצע בדיקת רכישה מלאה ללא כרטיס אשראי.
-                    </p>
-
-                    {globalError && (
-                        <p className="text-center text-xs text-red-400">{globalError}</p>
-                    )}
-
-                    <button
-                        onClick={async () => {
-                            setSubmitting(true);
-                            setGlobalError(null);
-                            try {
-                                const res = await fetch("/api/bundle/test-purchase", {
-                                    method: "POST",
-                                    headers: { "Content-Type": "application/json" },
-                                    body: JSON.stringify({
-                                        purchaseId,
-                                        email: form.email,
-                                        name: form.name,
-                                        phone: form.phone,
-                                    }),
-                                });
-                                const data = await res.json();
-                                if (!res.ok) throw new Error(data.error || "שגיאה ברכישת בדיקה");
-                                if (data.accessToken) {
-                                    window.location.href = `/claude-bundle/thanks?token=${data.accessToken}`;
-                                }
-                            } catch (e: any) {
-                                setGlobalError(e.message || "שגיאה בביצוע בדיקת הרכישה");
-                            } finally {
-                                setSubmitting(false);
-                            }
-                        }}
-                        disabled={submitting}
-                        className="rv2-btn rv2-btn-primary w-full py-3 text-sm font-bold shadow-lg shadow-teal-500/20"
-                    >
-                        {submitting ? (
-                            <Loader2 size={18} className="animate-spin mx-auto" />
-                        ) : (
-                            "⚡ השלם רכישת בדיקה ושלח מייל אישור"
-                        )}
-                    </button>
-
-                    <button
-                        onClick={() => setStep(1)}
-                        className="rv2-link mx-auto block text-xs underline underline-offset-4 text-slate-400 pt-2"
+                        className="rv2-link mx-auto block text-xs underline underline-offset-4 text-[var(--rv2-text-2)] hover:text-white"
                     >
                         חזרה לעריכת פרטים
                     </button>

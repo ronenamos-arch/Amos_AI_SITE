@@ -62,7 +62,7 @@ const faqs = [
     },
     {
         q: "איך מתבצע התשלום והאם הוא מאובטח?",
-        a: "התשלום הוא חד-פעמי בסך ₪150 בלבד, ומבוצע בצורה מאובטחת בתקן SSL מחמיר דרך PayPal.",
+        a: "התשלום הוא חד-פעמי בסך ₪150 בלבד, ומבוצע בצורה מאובטחת דרך SmartBee (סליקת מקס, כרטיסי אשראי או Bit) בתקן PCI-DSS מחמיר, וחשבונית מס מופקת אוטומטית למייל שלכם כחוק.",
     },
     {
         q: "מה ההבדל בין הבאנדל לבין קורס AI Finance Master המלא?",
@@ -561,9 +561,12 @@ export default function BundleSalesPage() {
                             <BundleCheckout />
                         </div>
 
-                        <div className="mt-6 flex items-center justify-center gap-2 text-xs text-[var(--rv2-text-2)]">
-                            <Shield size={14} className="text-[var(--rv2-accent)]" />
-                            תשלום מאובטח SSL דרך PayPal
+                        <div className="mt-6 flex flex-col items-center justify-center gap-1 text-xs text-[var(--rv2-text-2)]">
+                            <div className="flex items-center gap-1.5 text-white/80">
+                                <Shield size={14} className="text-teal-400" />
+                                <span>סליקה מאובטחת ע״י SmartBee (מקס, Bit וכרטיסי אשראי)</span>
+                            </div>
+                            <span>חשבונית מס / קבלה מופקת מיידית במייל כחוק</span>
                         </div>
                     </div>
                 </div>

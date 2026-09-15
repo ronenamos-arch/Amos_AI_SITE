@@ -3,6 +3,7 @@ import { GlassCard } from "@/components/ui/GlassCard";
 import { Button } from "@/components/ui/Button";
 import { Badge } from "@/components/ui/Badge";
 import { SectionHeading } from "@/components/ui/SectionHeading";
+import { SMARTBEE_CONFIG } from "@/lib/smartbee-config";
 
 export const metadata: Metadata = {
   title: "קורס AI לחשבונאים",
@@ -78,7 +79,7 @@ export default function CoursePage() {
             לחשבונאי של העתיד.
           </p>
           <div className="mt-8 flex flex-wrap justify-center gap-4">
-            <Button href="https://www.paypal.com/ncp/payment/J4W48J6LKJ78N" size="lg">
+            <Button href={SMARTBEE_CONFIG.products.aiMastery.url} size="lg">
               הירשם עכשיו
             </Button>
             <Button href="#syllabus" variant="ghost" size="lg">
@@ -133,10 +134,13 @@ export default function CoursePage() {
           <p className="mx-auto mt-4 max-w-lg text-text-secondary">
             הצטרף למאות אנשי כספים שכבר משתמשים ב-AI בעבודה היומיומית שלהם.
           </p>
-          <div className="mt-8">
-            <Button href="https://www.paypal.com/ncp/payment/J4W48J6LKJ78N" size="lg">
+          <div className="mt-8 flex flex-col items-center gap-2">
+            <Button href={SMARTBEE_CONFIG.products.aiMastery.url} size="lg">
               הירשם לקורס
             </Button>
+            <p className="text-xs text-text-muted mt-2">
+              סליקה מאובטחת SmartBee (מקס, Bit, אשראי) | חשבונית מס אוטומטית במייל
+            </p>
           </div>
         </div>
       </div>

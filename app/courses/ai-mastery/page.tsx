@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/Button";
 import { Badge } from "@/components/ui/Badge";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { CheckCircle2, PlayCircle, FileText, Globe, Zap, Shield, Infinity, Clock, Sparkles } from "lucide-react";
+import { SMARTBEE_CONFIG } from "@/lib/smartbee-config";
 
 export const metadata: Metadata = {
     title: "AI לכספים: המדריך למתחילים | קורס יסוד",
@@ -23,33 +24,33 @@ const syllabus = [
     },
     {
         lesson: 3,
-        title: "כתיבה עסקית ודיווח מהיר",
-        description: "בניית דוחות, מיילים ומסמכים מקצועיים בשבריר מהזמן הרגיל.",
+        title: "אוטומציה של איסוף נתונים",
+        description: "שיטות עבודה לייבוא, ניקוי ועיבוד דוחות כספיים בצורה אוטומטית.",
     },
     {
         lesson: 4,
-        title: "Brainstorming ואסטרטגיה",
-        description: "שימוש ב-AI לפתרון בעיות מורכבות וחדשנות באתגרים פיננסיים.",
+        title: "חשיבה יצירתית עם AI",
+        description: "חדשנות וסיעור מוחות לאתגרים פיננסיים.",
     },
     {
         lesson: 5,
-        title: "Data Analysis & Automation",
-        description: "ניתוח נתונים מורכבים מהיר ואוטומציה של תהליכים פיננסיים חוזרים.",
+        title: "מנתונים לתובנות",
+        description: "ניתוח מורכב מהיר ואוטומציה של תהליכים פיננסיים.",
     },
     {
         lesson: 6,
-        title: "פתרון בעיות טכניות ו-IT",
-        description: "קבלת עזרה מיידית, פתרון תקלות טכניות וכתיבת נוסחאות מורכבות.",
+        title: "פתרון בעיות טכניות",
+        description: "קבלת עזרה מיידית ופתרון תקלות טכניות עם AI.",
     },
     {
         lesson: 7,
-        title: "מודלים מתקדמים ו-Multi-modal",
-        description: "שימוש ביכולות הקול, התמונה והווידאו של דור ה-AI החדש.",
+        title: "מודלים מתקדמים (GPT-4o)",
+        description: "יכולות מולטימדיה ותכונות AI חדישות.",
     },
     {
         lesson: 8,
-        title: "עתיד המקצוע והכנה לדיגיטל",
-        description: "מגמות עתידיות, התפתחויות צפויות ובניית תוכנית עבודה אישית.",
+        title: "עתיד ה-AI בכספים",
+        description: "מגמות, התפתחויות והכנה ארוכת טווח.",
     },
 ];
 
@@ -60,7 +61,7 @@ const includes = [
     "גישה לקהילת AI ופיננסים סגורה",
 ];
 
-export default function AIMasteryPage() {
+export default function AIMasteryCoursePage() {
     return (
         <div className="relative min-h-screen bg-space-950 text-white overflow-hidden font-primary">
                 {/* Background Gradients */}
@@ -72,7 +73,7 @@ export default function AIMasteryPage() {
                 {/* Floating CTA */}
                 <div className="fixed bottom-8 left-1/2 -translate-x-1/2 z-50 animate-bounce-subtle">
                     <a
-                        href="https://www.paypal.com/ncp/payment/J4W48J6LKJ78N"
+                        href={SMARTBEE_CONFIG.products.aiMastery.url}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="shadow-2xl shadow-teal-500/40 px-8 py-6 text-lg font-bold bg-gradient-to-r from-teal-500 to-royal-500 hover:scale-105 transition-transform inline-block text-white rounded-lg"
@@ -99,7 +100,7 @@ export default function AIMasteryPage() {
                             <div className="flex flex-wrap justify-center gap-6 items-center">
                                 <div className="min-w-[200px]">
                                     <a
-                                        href="https://www.paypal.com/ncp/payment/J4W48J6LKJ78N"
+                                        href={SMARTBEE_CONFIG.products.aiMastery.url}
                                         target="_blank"
                                         rel="noopener noreferrer"
                                         className="inline-block bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-lg text-lg transition-colors"
@@ -234,7 +235,7 @@ export default function AIMasteryPage() {
 
                                     <div className="mt-4">
                                         <a
-                                            href="https://www.paypal.com/ncp/payment/J4W48J6LKJ78N"
+                                            href={SMARTBEE_CONFIG.products.aiMastery.url}
                                             target="_blank"
                                             rel="noopener noreferrer"
                                             className="inline-block bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-lg text-lg transition-colors"
@@ -243,9 +244,12 @@ export default function AIMasteryPage() {
                                         </a>
                                     </div>
 
-                                    <div className="mt-8 flex items-center justify-center gap-2 text-text-muted text-sm font-medium">
-                                        <Shield className="w-4 h-4 text-teal-500" />
-                                        SSL Secured Checkout | Lifetime Access
+                                    <div className="mt-8 flex flex-col items-center justify-center gap-1 text-text-muted text-xs font-medium">
+                                        <div className="flex items-center gap-1.5 text-text-secondary">
+                                            <Shield className="w-4 h-4 text-teal-400" />
+                                            סליקה מאובטחת SmartBee (מקס, Bit, אשראי)
+                                        </div>
+                                        <span>חשבונית מס / קבלה מופקת מיידית במייל כחוק | גישה לכל החיים</span>
                                     </div>
                                 </GlassCard>
                             </div>

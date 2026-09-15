@@ -11,6 +11,8 @@
  * The advertised price and this plan ID must change together. A mismatch means
  * charging a different amount than the page promises.
  */
+import { SMARTBEE_CONFIG } from "./smartbee-config";
+
 export const SUBSCRIPTION_PRICE = "₪100";
 export const SUBSCRIPTION_PERIOD = "לחודש";
 
@@ -27,6 +29,11 @@ export function getMonthlyPlanId(): string | undefined {
 }
 
 export function getSubscribeUrl(): string {
+    // Priority: SmartBee Hosted Subscription page
+    if (SMARTBEE_CONFIG.products.monthlySubscription.url) {
+        return SMARTBEE_CONFIG.products.monthlySubscription.url;
+    }
+
     const isSandbox = isPayPalSandbox();
     const planId = getMonthlyPlanId();
 
