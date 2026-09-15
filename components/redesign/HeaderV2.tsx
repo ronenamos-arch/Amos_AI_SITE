@@ -5,6 +5,7 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import { Menu, X, ChevronDown, UserCircle2 } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
+import { SMARTBEE_CONFIG } from "@/lib/smartbee-config";
 
 const resources = [
     { href: "/guides", label: "מדריכים" },
@@ -14,7 +15,7 @@ const resources = [
 ];
 
 // "מנוי פרימיום" is deliberately absent: the header CTA button already covers
-// that intent, and it now goes straight to PayPal rather than to a pricing page.
+// that intent, and it now goes straight to SmartBee rather than to a pricing page.
 const navLinks = [
     { href: "/blog", label: "בלוג" },
     { href: "/courses", label: "קורסים והכשרות" },
@@ -104,7 +105,12 @@ export function HeaderV2() {
 
                 <div className="hidden items-center gap-3 lg:flex">
                     {accountLink}
-                    <a href={"/api/subscribe"} className="rv2-btn rv2-btn-primary px-5 py-2 text-sm">
+                    <a
+                        href={SMARTBEE_CONFIG.products.monthlySubscription.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="rv2-btn rv2-btn-primary px-5 py-2 text-sm"
+                    >
                         רכוש מנוי
                     </a>
                 </div>
@@ -133,7 +139,12 @@ export function HeaderV2() {
                         </Link>
                     ))}
                     <div className="mt-4 flex items-center gap-4">
-                        <a href={"/api/subscribe"} className="rv2-btn rv2-btn-primary text-sm">
+                        <a
+                            href={SMARTBEE_CONFIG.products.monthlySubscription.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="rv2-btn rv2-btn-primary text-sm"
+                        >
                             רכוש מנוי
                         </a>
                         {accountLink}

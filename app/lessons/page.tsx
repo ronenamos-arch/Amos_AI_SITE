@@ -8,6 +8,7 @@ import { Lock } from "lucide-react";
 import { lessons, lessonTopics, totalLessonMinutes, totalMaterials } from "@/lib/lessons-data";
 import { LessonLibrary } from "./LessonLibrary";
 import { getSubscriptionAccess } from "@/lib/subscription-access";
+import { SMARTBEE_CONFIG } from "@/lib/smartbee-config";
 
 export const dynamic = "force-dynamic";
 
@@ -62,7 +63,12 @@ export default async function LessonsPage() {
                             יחד עם כל המדריכים וספריית הפרומפטים.
                         </p>
                         <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
-                            <a href="/api/subscribe" className="rv2-btn rv2-btn-primary px-7 py-3">
+                            <a
+                                href={SMARTBEE_CONFIG.products.monthlySubscription.url}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="rv2-btn rv2-btn-primary px-7 py-3"
+                            >
                                 רכוש מנוי
                             </a>
                             {!user && (

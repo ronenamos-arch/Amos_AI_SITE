@@ -14,6 +14,7 @@ import { ResourceCarousel } from "@/components/redesign/ResourceCarousel";
 import { TestimonialsV2 } from "@/components/redesign/TestimonialsV2";
 import { FaqV2 } from "@/components/redesign/FaqV2";
 import { SUBSCRIPTION_PRICE, SUBSCRIPTION_PERIOD } from "@/lib/paypal-subscribe";
+import { SMARTBEE_CONFIG } from "@/lib/smartbee-config";
 import type { ResourceCard } from "@/lib/resource-cards";
 
 /** Kept in one place so the hero, the closing CTA and the FAQ never disagree. */
@@ -48,7 +49,7 @@ export const metadata: Metadata = {
 };
 
 export default function HomePage() {
-    const subscribeUrl = "/api/subscribe";
+    const subscribeUrl = SMARTBEE_CONFIG.products.monthlySubscription.url;
     const posts = getAllPosts()
         .filter((p) => p.date)
         .sort((a, b) => (a.date < b.date ? 1 : -1))
@@ -156,6 +157,8 @@ export default function HomePage() {
                         <div className="mt-10 flex flex-col sm:flex-row items-center gap-6 w-full lg:w-auto">
                             <a
                                 href={subscribeUrl}
+                                target="_blank"
+                                rel="noopener noreferrer"
                                 className="rv2-btn rv2-btn-luxury text-xl px-9 py-4 shadow-2xl shadow-black/40"
                             >
                                 רכוש מנוי Pro
@@ -373,7 +376,12 @@ export default function HomePage() {
                     </p>
 
                     <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
-                        <a href={subscribeUrl} className="rv2-btn rv2-btn-primary rv2-arrow text-base">
+                        <a
+                            href={subscribeUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="rv2-btn rv2-btn-primary rv2-arrow text-base"
+                        >
                             רכוש מנוי Pro
                             <ArrowLeft size={18} aria-hidden />
                         </a>
