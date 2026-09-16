@@ -3,152 +3,417 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Module 04 — Artifacts — הקנבס של Claude | קורס Claude</title>
-  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800;900&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <title>Module 04 — Artifacts — הקנבס של Claude | קורס AI Finance</title>
+  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800;900&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
+    /* ═══════════════════════════════════════════════════════════
+       DigiSave Pro Theme: Slate Navy, Electric Cyan & Warm Coral
+       ═══════════════════════════════════════════════════════════ */
     :root {
-      --bg:      #0b0d10;
-      --bg2:     #111318;
-      --bg3:     #181c22;
-      --border:  #232830;
-      --border2: #2e3540;
-      --accent:  #b8c45a;
-      --text:    #e8eaf0;
-      --muted:   #7a8499;
-      --muted2:  #5a6278;
-      --green:   #65c466;
-      --yellow:  #f5b340;
-      --red:     #e05555;
-      --mono:    'IBM Plex Mono', monospace;
-      --sans:    'Heebo', sans-serif;
+      --bg:        #141821;
+      --bg-2:      #1A1F2A;
+      --bg-3:      #222938;
+      --border:    rgba(255, 255, 255, 0.10);
+      --border-hl: rgba(44, 229, 255, 0.35);
+      --ink:       #F4F7FA;
+      --dim:       #A7B0BE;
+      --dimmer:    #76808F;
+      --cy:        #2CE5FF;
+      --cy-soft:   rgba(44, 229, 255, 0.13);
+      --vi:        #8B7CFF;
+      --vi-soft:   rgba(139, 124, 255, 0.13);
+      --coral:     #FF5A3C;
+      --coral-soft:rgba(255, 90, 60, 0.12);
+      --ok:        #3DDC97;
+      --ok-soft:   rgba(61, 220, 151, 0.13);
+      --bad:       #FF6B6B;
+      --bad-soft:  rgba(255, 107, 107, 0.12);
+      --gold:      #F59E0B;
+      --gold-soft: rgba(245, 158, 11, 0.12);
+      --cream:     #F5F1EC;
+      --on-cream:  #15181F;
+      --mono:      'IBM Plex Mono', monospace;
+      --sans:      'Heebo', sans-serif;
     }
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    body { background: var(--bg); color: var(--text); font-family: var(--sans); font-size: 15px; line-height: 1.7; }
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: var(--sans);
+      font-size: 15.5px;
+      line-height: 1.7;
+      position: relative;
+      min-height: 100vh;
+    }
     a { color: inherit; text-decoration: none; }
 
-    /* NAV */
-    .topnav { position: sticky; top: 0; z-index: 100; background: rgba(11,13,16,.94); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; padding: 0 2rem; height: 56px; }
-    .topnav-brand { font-size: 13px; font-weight: 700; color: var(--accent); letter-spacing: .04em; text-transform: uppercase; }
+    /* Ambient Background Glow Mesh */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      background:
+        radial-gradient(58% 42% at 82% -6%, rgba(44, 229, 255, 0.13), transparent 62%),
+        radial-gradient(48% 38% at 8% 18%, rgba(139, 124, 255, 0.10), transparent 64%),
+        radial-gradient(70% 50% at 50% 108%, rgba(44, 229, 255, 0.07), transparent 60%);
+    }
+
+    /* ── NAV ── */
+    .topnav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(20, 24, 33, 0.92);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 2rem; height: 58px;
+    }
+    .topnav-brand {
+      font-size: 13px; font-weight: 800;
+      background: linear-gradient(96deg, var(--cy), var(--vi));
+      -webkit-background-clip: text; background-clip: text; color: transparent;
+      letter-spacing: .05em; text-transform: uppercase;
+    }
     .topnav-right { display: flex; align-items: center; gap: 1.4rem; }
-    .topnav-back { font-size: 13px; color: var(--muted); font-weight: 500; transition: color .18s; }
-    .topnav-back:hover { color: var(--accent); }
-    .topnav-module { font-size: 12px; color: var(--muted2); font-family: var(--mono); }
+    .topnav-back { font-size: 13px; color: var(--dim); font-weight: 600; transition: color .18s; }
+    .topnav-back:hover { color: var(--cy); }
+    .topnav-module { font-size: 12px; color: var(--dimmer); font-family: var(--mono); }
 
-    /* HERO */
-    .module-hero { border-bottom: 1px solid var(--border); padding: 56px 2rem 48px; max-width: 860px; margin: 0 auto; }
+    /* ── HERO ── */
+    .module-hero {
+      border-bottom: 1px solid var(--border);
+      padding: 56px 2rem 48px;
+      max-width: 880px; margin: 0 auto;
+      position: relative; z-index: 1;
+    }
     .module-eyebrow { display: flex; align-items: center; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; }
-    .eyebrow-num { font-family: var(--mono); font-size: 12px; color: var(--accent); background: rgba(184,196,90,.1); border: 1px solid rgba(184,196,90,.25); padding: 3px 10px; border-radius: 4px; }
-    .eyebrow-part { font-size: 12px; color: var(--muted2); }
-    .eyebrow-sep { color: var(--border2); }
-    .eyebrow-level { font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 4px; background: rgba(245,179,64,.12); color: var(--yellow); border: 1px solid rgba(245,179,64,.25); }
-    .module-hero h1 { font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 900; line-height: 1.15; margin-bottom: 10px; }
-    .module-hero h1 span { color: var(--accent); }
-    .module-en { font-size: 14px; color: var(--muted2); font-family: var(--mono); direction: ltr; margin-bottom: 20px; }
+    .eyebrow-num {
+      font-family: var(--mono); font-size: 11.5px; font-weight: 700;
+      color: var(--cy); background: var(--cy-soft);
+      border: 1px solid rgba(44, 229, 255, 0.28);
+      padding: 4px 12px; border-radius: 100px; letter-spacing: .05em;
+    }
+    .eyebrow-part { font-size: 12.5px; color: var(--dim); }
+    .eyebrow-sep { color: var(--dimmer); opacity: .5; }
+    .eyebrow-level {
+      font-size: 10.5px; font-weight: 800; padding: 3px 9px; border-radius: 100px;
+      background: var(--gold-soft); color: var(--gold); border: 1px solid rgba(245, 158, 11, 0.3);
+    }
+    .module-hero h1 {
+      font-size: clamp(2rem, 4.5vw, 3rem); font-weight: 900; line-height: 1.15; margin-bottom: 12px;
+      color: var(--ink);
+    }
+    .module-hero h1 span {
+      background: linear-gradient(96deg, var(--cy), var(--vi));
+      -webkit-background-clip: text; background-clip: text; color: transparent;
+    }
+    .module-en { font-size: 14.5px; color: var(--dim); font-family: var(--mono); direction: ltr; margin-bottom: 22px; font-weight: 500; }
     .module-meta { display: flex; gap: 20px; flex-wrap: wrap; }
-    .meta-item { display: flex; align-items: center; gap: 6px; font-size: 13px; color: var(--muted); }
-    .meta-item svg { width: 14px; height: 14px; opacity: .6; }
+    .meta-item { display: flex; align-items: center; gap: 7px; font-size: 13px; color: var(--dim); }
+    .meta-item svg { width: 15px; height: 15px; color: var(--cy); }
 
-    /* LAYOUT */
-    .content { max-width: 860px; margin: 0 auto; padding: 0 2rem 80px; }
-    .sec-label { font-size: 10px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; color: var(--accent); margin: 52px 0 16px; display: flex; align-items: center; gap: 8px; }
-    .sec-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
-    h2 { font-size: 1.3rem; font-weight: 800; color: var(--text); margin-bottom: 12px; }
-    p { color: var(--muted); margin-bottom: 16px; font-size: 15px; }
-    p strong { color: var(--text); font-weight: 700; }
+    /* ── LAYOUT ── */
+    .content { max-width: 880px; margin: 0 auto; padding: 0 2rem 80px; position: relative; z-index: 1; }
+    .sec-label {
+      font-size: 11px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase;
+      color: var(--cy); margin: 56px 0 16px; display: flex; align-items: center; gap: 10px;
+    }
+    .sec-label::after { content: ''; flex: 1; height: 1px; background: linear-gradient(90deg, var(--border), transparent); }
+    h2 { font-size: 1.45rem; font-weight: 800; color: var(--ink); margin-bottom: 14px; letter-spacing: -.01em; }
+    p { color: var(--dim); margin-bottom: 16px; font-size: 15.5px; line-height: 1.75; }
+    p strong { color: var(--ink); font-weight: 700; }
 
-    /* ARTIFACT TYPE CARDS */
-    .type-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-bottom: 32px; }
-    @media (max-width: 680px) { .type-grid { grid-template-columns: 1fr; } }
-    .type-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; transition: border-color .18s, transform .15s; }
-    .type-card:hover { border-color: var(--accent); transform: translateY(-2px); }
-    .type-preview { height: 96px; display: flex; align-items: center; justify-content: center; font-family: var(--mono); font-size: 11px; color: rgba(255,255,255,.85); letter-spacing: .05em; }
-    .type-preview.html { background: linear-gradient(135deg, #1a2530, #0e1620); border-bottom: 1px solid var(--border); }
-    .type-preview.py { background: linear-gradient(135deg, #2a2418, #1a160e); border-bottom: 1px solid var(--border); }
-    .type-preview.md { background: linear-gradient(135deg, #1e2418, #131810); border-bottom: 1px solid var(--border); }
-    .type-chip { padding: 4px 10px; border-radius: 4px; background: rgba(0,0,0,.35); border: 1px solid rgba(255,255,255,.12); }
-    .type-body { padding: 16px; }
-    .type-name { font-weight: 800; color: var(--text); font-size: .95rem; margin-bottom: 4px; }
-    .type-name .en { font-family: var(--mono); font-size: 11px; color: var(--muted2); direction: ltr; display: block; margin-top: 2px; }
-    .type-desc { font-size: 12.5px; color: var(--muted); }
+    /* ── CONSOLE / MOCKUP FRAMES ── */
+    .mockup-frame {
+      background: var(--bg-2); border: 1px solid var(--border);
+      border-radius: 16px; overflow: hidden; margin-bottom: 32px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.45);
+    }
+    .mockup-header {
+      background: var(--bg-3); border-bottom: 1px solid var(--border);
+      padding: 14px 20px; display: flex; align-items: center; justify-content: space-between;
+    }
+    .window-dots { display: flex; gap: 6px; align-items: center; }
+    .dot-w { width: 10px; height: 10px; border-radius: 50%; opacity: .8; }
+    .dot-red { background: #FF5F56; }
+    .dot-yellow { background: #FFBD2E; }
+    .dot-green { background: #27C93F; }
+    .mockup-title { font-size: 12.5px; color: var(--dim); font-family: var(--mono); direction: ltr; font-weight: 600; }
+    .mockup-badge {
+      font-size: 10.5px; font-weight: 800; padding: 3px 10px; border-radius: 100px;
+      font-family: var(--mono); letter-spacing: .05em; text-transform: uppercase;
+      background: var(--cy-soft); color: var(--cy); border: 1px solid rgba(44, 229, 255, 0.3);
+    }
+    .mockup-body { background: #0E1219; padding: 0; overflow: hidden; }
+    .mockup-body img { width: 100%; display: block; height: auto; }
+    .mockup-caption {
+      padding: 12px 20px; font-size: 13px; color: var(--dimmer); text-align: center;
+      background: var(--bg-2); border-top: 1px solid var(--border);
+    }
 
-    /* EXAMPLE SCREENS (placeholder divs) */
-    .examples { display: flex; flex-direction: column; gap: 16px; margin-bottom: 32px; }
-    .example-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
-    .example-head { padding: 12px 18px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
-    .example-title { font-weight: 800; font-size: .92rem; color: var(--text); }
-    .example-tag { font-size: 10px; font-family: var(--mono); color: var(--accent); background: rgba(184,196,90,.1); border: 1px solid rgba(184,196,90,.25); padding: 2px 8px; border-radius: 4px; }
-    .example-screen { height: 150px; padding: 16px; display: flex; gap: 10px; }
-    .screen-dash { background: linear-gradient(135deg,#101620,#0c1118); }
-    .mini-kpi { flex: 1; border-radius: 8px; padding: 10px; display: flex; flex-direction: column; justify-content: center; gap: 6px; border: 1px solid var(--border2); }
-    .mini-kpi .v { font-size: 18px; font-weight: 900; font-family: var(--mono); }
-    .mini-kpi .l { font-size: 9px; color: var(--muted2); text-transform: uppercase; letter-spacing: .08em; }
-    .rag-g { color: var(--green); } .rag-a { color: var(--yellow); } .rag-r { color: var(--red); }
-    .dot { display:inline-block; width:8px;height:8px;border-radius:50%;margin-left:5px;vertical-align:middle; }
-    .dot.g{background:var(--green);} .dot.a{background:var(--yellow);} .dot.r{background:var(--red);}
-    .screen-py { background: #0c0f14; font-family: var(--mono); font-size: 11px; line-height: 1.7; color: var(--muted); padding: 16px; overflow: hidden; direction: ltr; }
-    .screen-py .kw { color: var(--accent); } .screen-py .st { color: var(--green); } .screen-py .cm { color: var(--muted2); }
-    .screen-md { background: #0c100b; padding: 16px; direction: ltr; overflow: hidden; }
-    .screen-md .h { font-weight: 900; color: var(--text); font-size: 14px; margin-bottom: 6px; }
-    .screen-md .b { font-size: 11px; color: var(--muted); margin-bottom: 4px; }
-    .screen-md .b::before { content: '— '; color: var(--accent); }
+    /* ── SHOWCASE CARDS ── */
+    .m4-slides { display: flex; flex-direction: column; gap: 28px; margin-bottom: 40px; }
+    .m4-slide {
+      background: var(--bg-2); border: 1px solid var(--border);
+      border-radius: 16px; overflow: hidden; display: flex; flex-direction: column;
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.35);
+      transition: border-color .2s ease, transform .2s ease;
+    }
+    .m4-slide:hover { border-color: var(--border-hl); transform: translateY(-2px); }
+    .m4-slide .cap { padding: 24px 26px 20px; }
+    .m4-slide .chip {
+      display: inline-block; font-family: var(--mono); font-size: 11px; font-weight: 800;
+      letter-spacing: .06em; text-transform: uppercase;
+      color: var(--cy); background: var(--cy-soft); border: 1px solid rgba(44, 229, 255, 0.3);
+      border-radius: 100px; padding: 4px 12px; margin-bottom: 12px;
+    }
+    .m4-slide .nm { font-weight: 900; color: var(--ink); font-size: 1.25rem; margin-bottom: 6px; }
+    .m4-slide .nm .en { font-family: var(--mono); font-size: 12.5px; color: var(--dimmer); direction: ltr; display: block; margin-top: 3px; font-weight: 600; }
+    .m4-slide .ds { font-size: 14.5px; color: var(--dim); line-height: 1.7; margin: 0; }
+    .m4-slide .media { margin-top: auto; border-top: 1px solid var(--border); background: #0E1219; }
+    .m4-slide .media img { width: 100%; display: block; }
+    .m4-slide .media iframe { display: block; width: 100%; border: none; }
 
-    /* STEPS */
-    .steps { display: flex; flex-direction: column; gap: 10px; margin-bottom: 32px; }
-    .step-item { display: flex; gap: 14px; align-items: flex-start; background: var(--bg2); border: 1px solid var(--border); border-radius: 8px; padding: 14px 16px; }
-    .step-num { width: 28px; height: 28px; border-radius: 50%; background: rgba(184,196,90,.12); border: 1px solid rgba(184,196,90,.3); color: var(--accent); font-size: 12px; font-weight: 800; font-family: var(--mono); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    /* ── 4-STEP WORKFLOW ── */
+    .steps { display: flex; flex-direction: column; gap: 14px; margin-bottom: 36px; }
+    .step-item {
+      display: flex; gap: 18px; align-items: flex-start;
+      background: var(--bg-2); border: 1px solid var(--border);
+      border-radius: 14px; padding: 18px 22px;
+      transition: transform .18s ease, border-color .18s ease;
+    }
+    .step-item:hover { transform: translateY(-2px); border-color: var(--border-hl); }
+    .step-num {
+      width: 36px; height: 36px; border-radius: 10px;
+      background: var(--cy-soft); border: 1px solid rgba(44, 229, 255, 0.35);
+      color: var(--cy); font-size: 15px; font-weight: 900; font-family: var(--mono);
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    }
     .step-content { flex: 1; }
-    .step-title { font-weight: 800; color: var(--text); margin-bottom: 3px; font-size: .92rem; }
-    .step-desc { font-size: 13px; color: var(--muted); }
+    .step-title { font-weight: 800; color: var(--ink); margin-bottom: 4px; font-size: 1rem; }
+    .step-desc { font-size: 13.8px; color: var(--dim); line-height: 1.6; }
 
-    /* WHEN TO USE TABLE */
-    .compare-table { width: 100%; border-collapse: collapse; margin-bottom: 32px; border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
-    .compare-table th { background: var(--bg3); color: var(--text); font-size: .82rem; font-weight: 800; text-align: right; padding: 12px 16px; border-bottom: 1px solid var(--border); }
-    .compare-table td { padding: 12px 16px; font-size: 13px; color: var(--muted); border-bottom: 1px solid var(--border); border-left: 1px solid var(--border); vertical-align: top; }
-    .compare-table td:first-child { border-left: none; font-weight: 700; color: var(--text); }
+    /* ── ARTIFACT VS LIVE ARTIFACT GRID ── */
+    .artifact-grid {
+      display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-bottom: 36px;
+    }
+    @media (max-width: 680px) { .artifact-grid { grid-template-columns: 1fr; } }
+    .art-card {
+      background: var(--bg-2); border: 1px solid var(--border);
+      border-radius: 14px; padding: 24px; position: relative; overflow: hidden;
+      display: flex; flex-direction: column; justify-content: space-between;
+      backdrop-filter: blur(10px);
+      transition: transform .2s ease, border-color .2s ease;
+    }
+    .art-card:hover { transform: translateY(-3px); border-color: var(--border-hl); }
+    .art-card::before {
+      content: ''; position: absolute; top: 0; right: 0; left: 0; height: 3px;
+    }
+    .art-card.card-snap::before { background: var(--cy); }
+    .art-card.card-live::before { background: var(--ok); }
+    .art-card.card-warn::before { background: var(--coral); }
+    .art-card.card-sol::before  { background: var(--vi); }
+
+    .art-tag {
+      font-family: var(--mono); font-size: 11px; font-weight: 900;
+      letter-spacing: .08em; text-transform: uppercase; margin-bottom: 10px;
+    }
+    .card-snap .art-tag { color: var(--cy); }
+    .card-live .art-tag { color: var(--ok); }
+    .card-warn .art-tag { color: var(--coral); }
+    .card-sol  .art-tag { color: var(--vi); }
+
+    .art-title { font-size: 1.1rem; font-weight: 800; color: var(--ink); margin-bottom: 8px; }
+    .art-desc { font-size: 14px; color: var(--dim); line-height: 1.7; margin: 0; }
+
+    /* ── CALLOUT ── */
+    .callout {
+      background: linear-gradient(135deg, rgba(44, 229, 255, 0.08), rgba(139, 124, 255, 0.06));
+      border: 1px solid rgba(44, 229, 255, 0.28);
+      border-radius: 14px; padding: 22px 24px; margin-bottom: 32px;
+    }
+    .callout-label {
+      font-size: 10.5px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase;
+      color: var(--cy); margin-bottom: 8px;
+    }
+    .callout p { color: #FFFFFF; margin: 0; font-size: 15px; line-height: 1.7; }
+
+    /* ── WEBINAR CONTAINER ── */
+    .webinar-card {
+      background: var(--bg-2); border: 1px solid var(--border);
+      border-radius: 16px; padding: 28px 30px; margin-bottom: 36px;
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.35);
+    }
+    .webinar-tag {
+      font-family: var(--mono); font-size: 11px; font-weight: 800;
+      letter-spacing: .12em; text-transform: uppercase; color: var(--cy); margin-bottom: 8px;
+    }
+    .webinar-title { font-size: 1.15rem; font-weight: 900; color: var(--ink); margin-bottom: 10px; }
+    .webinar-desc { font-size: 14.5px; color: var(--dim); line-height: 1.75; margin-bottom: 20px; }
+    .webinar-cta {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--cy); color: #04121A; font-size: 13.5px; font-weight: 800;
+      padding: 12px 24px; border-radius: 10px; text-decoration: none;
+      box-shadow: 0 4px 18px rgba(44, 229, 255, 0.35); transition: all .2s ease;
+    }
+    .webinar-cta:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(44, 229, 255, 0.5); }
+    .webinar-player {
+      margin-top: 24px; position: relative; padding-bottom: 56.25%; height: 0;
+      overflow: hidden; border-radius: 12px; border: 1px solid var(--border);
+      background: #000;
+    }
+    .webinar-player iframe {
+      position: absolute; top: 0; right: 0; width: 100%; height: 100%; border: none;
+    }
+
+    /* ── DOWNLOAD BUTTONS ── */
+    .download-grid { display: flex; flex-direction: column; gap: 12px; margin-top: 24px; }
+    .download-btn {
+      display: flex; align-items: center; justify-content: center; gap: 12px;
+      padding: 16px 22px; border-radius: 12px; font-weight: 800; font-size: 14.5px;
+      text-decoration: none; transition: transform .18s ease, box-shadow .18s ease;
+    }
+    .download-btn.btn-excel {
+      background: linear-gradient(135deg, #10B981, #059669); color: #04140D;
+      box-shadow: 0 4px 18px rgba(16, 185, 129, 0.35);
+    }
+    .download-btn.btn-excel:hover {
+      transform: translateY(-2px); box-shadow: 0 8px 28px rgba(16, 185, 129, 0.55);
+    }
+    .download-btn.btn-design {
+      background: linear-gradient(135deg, #3B82F6, #2563EB); color: #07162C;
+      box-shadow: 0 4px 18px rgba(59, 130, 246, 0.35);
+    }
+    .download-btn.btn-design:hover {
+      transform: translateY(-2px); box-shadow: 0 8px 28px rgba(59, 130, 246, 0.55);
+    }
+
+    /* ── COMPARE TABLE ── */
+    .compare-wrap {
+      border: 1px solid var(--border); border-radius: 14px; overflow: hidden;
+      margin-bottom: 36px; background: var(--bg-2);
+    }
+    .compare-table { width: 100%; border-collapse: collapse; }
+    .compare-table th {
+      background: var(--bg-3); color: var(--ink); font-size: 13px; font-weight: 800;
+      text-align: right; padding: 14px 18px; border-bottom: 1px solid var(--border);
+    }
+    .compare-table td {
+      padding: 14px 18px; font-size: 13.5px; color: var(--dim);
+      border-bottom: 1px solid var(--border); border-left: 1px solid var(--border);
+      vertical-align: middle;
+    }
+    .compare-table td:first-child { border-left: none; font-weight: 700; color: var(--ink); }
     .compare-table tr:last-child td { border-bottom: none; }
-    .yes { color: var(--green); font-weight: 700; }
-    .no { color: var(--red); font-weight: 700; }
+    .yes { color: var(--ok); font-weight: 800; }
+    .no { color: var(--bad); font-weight: 800; }
 
-    /* CALLOUT */
-    .callout { background: rgba(184,196,90,.06); border: 1px solid rgba(184,196,90,.2); border-radius: 10px; padding: 20px 22px; margin-bottom: 24px; }
-    .callout-label { font-size: 10px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; color: var(--accent); margin-bottom: 6px; }
-    .callout p { color: var(--text); margin: 0; font-size: 14px; }
+    /* ── PROMPT MASTER PACK ── */
+    .prompt-box {
+      background: #0E1219; border: 1px solid var(--border);
+      border-radius: 12px; padding: 18px 20px; margin-bottom: 20px;
+    }
+    .prompt-label {
+      font-size: 11.5px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase;
+      color: var(--cy); margin-bottom: 10px; font-family: var(--mono); display: flex; align-items: center; justify-content: space-between;
+    }
+    .prompt-text {
+      font-family: var(--mono); font-size: 12.8px; color: #FFFFFF;
+      direction: ltr; text-align: left; line-height: 1.75; white-space: pre-wrap;
+    }
+    .copy-btn {
+      background: var(--bg-2); border: 1px solid var(--border); color: var(--dim);
+      font-size: 12px; font-family: var(--sans); font-weight: 700; padding: 7px 16px;
+      border-radius: 6px; cursor: pointer; transition: all .18s ease; margin-top: 12px;
+    }
+    .copy-btn:hover { border-color: var(--cy); color: var(--cy); background: var(--cy-soft); }
 
-    /* EXERCISE */
-    .exercise { background: var(--bg3); border: 1px solid var(--border2); border-radius: 12px; overflow: hidden; margin-top: 48px; }
-    .exercise-header { background: var(--bg2); border-bottom: 1px solid var(--border); padding: 16px 22px; display: flex; align-items: center; gap: 12px; }
-    .exercise-badge { background: var(--accent); color: var(--bg); font-size: 10px; font-weight: 900; letter-spacing: .1em; text-transform: uppercase; padding: 3px 10px; border-radius: 4px; }
-    .exercise-title { font-weight: 800; font-size: 1rem; color: var(--text); }
-    .exercise-body { padding: 22px; }
-    .exercise-context { font-size: 13px; color: var(--muted); margin-bottom: 20px; }
-    .prompt-box { background: var(--bg); border: 1px solid var(--border2); border-radius: 8px; padding: 16px 18px; margin-bottom: 16px; }
-    .prompt-label { font-size: 10px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--accent); margin-bottom: 8px; font-family: var(--mono); }
-    .prompt-text { font-family: var(--mono); font-size: 13px; color: var(--text); direction: rtl; line-height: 1.7; white-space: pre-wrap; }
-    .copy-btn { background: var(--bg2); border: 1px solid var(--border2); color: var(--muted); font-size: 12px; font-family: var(--sans); padding: 5px 14px; border-radius: 5px; cursor: pointer; transition: border-color .18s, color .18s; margin-top: 8px; }
-    .copy-btn:hover { border-color: var(--accent); color: var(--accent); }
-    .exercise-tip { font-size: 12px; color: var(--muted2); border-top: 1px solid var(--border); margin-top: 20px; padding-top: 14px; }
-    .exercise-tip strong { color: var(--muted); }
+    /* ── EXERCISE (Console Style) ── */
+    .exercise {
+      background: var(--bg-2); border: 1px solid var(--border);
+      border-radius: 16px; overflow: hidden; margin-top: 52px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.45);
+    }
+    .exercise-header {
+      background: var(--bg-3); border-bottom: 1px solid var(--border);
+      padding: 16px 24px; display: flex; align-items: center; justify-content: space-between;
+    }
+    .exercise-header-left { display: flex; align-items: center; gap: 12px; }
+    .exercise-badge {
+      background: var(--cy); color: #04121A;
+      font-size: 10.5px; font-weight: 900; letter-spacing: .08em;
+      text-transform: uppercase; padding: 4px 11px; border-radius: 100px;
+    }
+    .exercise-title { font-weight: 800; font-size: 1.05rem; color: var(--ink); }
+    .exercise-body { padding: 26px; }
+    .exercise-context { font-size: 14px; color: var(--dim); margin-bottom: 24px; line-height: 1.7; }
 
-    /* CHECKLIST */
-    .checklist { background: var(--bg2); border: 1px solid var(--border); border-radius: 10px; padding: 18px 20px; margin-top: 16px; }
-    .checklist-title { font-weight: 800; font-size: .9rem; color: var(--text); margin-bottom: 12px; }
-    .check-item { display: flex; align-items: flex-start; gap: 10px; font-size: 13px; color: var(--muted); padding: 5px 0; border-bottom: 1px solid var(--border); }
-    .check-item:last-child { border-bottom: none; }
-    .check-box { width: 16px; height: 16px; border: 1px solid var(--border2); border-radius: 3px; flex-shrink: 0; margin-top: 3px; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 10px; transition: background .15s, border-color .15s; }
-    .check-box.checked { background: var(--accent); border-color: var(--accent); color: var(--bg); }
+    .exercise-tip {
+      font-size: 13.5px; color: #FFFFFF;
+      background: linear-gradient(135deg, rgba(44, 229, 255, 0.08), rgba(255, 90, 60, 0.06));
+      border: 1px solid rgba(44, 229, 255, 0.25);
+      border-radius: 10px; padding: 16px 20px; margin-top: 24px; line-height: 1.65;
+    }
+    .exercise-tip strong { color: var(--cy); }
 
-    /* NEXT */
-    .next-module { margin-top: 56px; padding-top: 32px; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
-    .prev-btn { background: var(--bg2); border: 1px solid var(--border2); color: var(--muted); font-size: 13px; font-weight: 700; padding: 8px 20px; border-radius: 8px; cursor: pointer; transition: border-color .18s, color .18s; font-family: var(--sans); }
-    .prev-btn:hover { border-color: var(--accent); color: var(--accent); }
-    .next-label { font-size: 11px; color: var(--muted2); text-transform: uppercase; letter-spacing: .1em; margin-bottom: 4px; }
-    .next-title { font-weight: 800; color: var(--text); font-size: 1rem; }
-    .next-btn { background: var(--accent); color: var(--bg); font-size: 14px; font-weight: 800; padding: 10px 24px; border-radius: 8px; cursor: pointer; white-space: nowrap; transition: background .18s, transform .15s; border: none; font-family: var(--sans); }
-    .next-btn:hover { background: #cad86a; transform: translateX(-3px); }
+    /* ── HIGH-CONTRAST CREAM CHECKLIST ── */
+    .checklist-cream {
+      background: var(--cream); color: var(--on-cream);
+      border-radius: 14px; padding: 26px 28px; margin-top: 28px;
+      box-shadow: 0 16px 36px rgba(0,0,0,.4);
+    }
+    .checklist-cream-title {
+      font-size: 1.05rem; font-weight: 900; color: var(--on-cream); margin-bottom: 6px;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .checklist-cream-sub {
+      font-size: 13px; color: #555D6E; margin-bottom: 18px; line-height: 1.5;
+    }
+    .check-item-c {
+      display: flex; align-items: flex-start; gap: 12px;
+      font-size: 13.5px; color: #2D333F; font-weight: 600;
+      padding: 9px 0; border-bottom: 1px solid rgba(0,0,0,0.08);
+      cursor: pointer; user-select: none;
+    }
+    .check-item-c:last-child { border-bottom: none; }
+    .check-box-c {
+      width: 18px; height: 18px; border: 2px solid #8892A0; border-radius: 4px;
+      flex-shrink: 0; margin-top: 3px; display: flex; align-items: center; justify-content: center;
+      font-size: 11px; font-weight: 900; transition: all .15s; background: #FFFFFF;
+    }
+    .check-box-c.checked {
+      background: #10B981; border-color: #10B981; color: #FFFFFF;
+    }
+
+    /* ── NEXT MODULE ── */
+    .next-module {
+      margin-top: 60px; padding-top: 36px; border-top: 1px solid var(--border);
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .prev-btn {
+      background: var(--bg-2); border: 1px solid var(--border); color: var(--dim);
+      font-size: 13.5px; font-weight: 700; padding: 10px 22px; border-radius: 10px;
+      cursor: pointer; transition: all .18s; font-family: var(--sans);
+    }
+    .prev-btn:hover { border-color: var(--cy); color: var(--cy); }
+    .next-label { font-size: 11px; color: var(--dimmer); text-transform: uppercase; letter-spacing: .1em; margin-bottom: 4px; }
+    .next-title { font-weight: 800; color: var(--ink); font-size: 1.05rem; }
+    .next-btn {
+      background: var(--cy); color: #04121A;
+      font-size: 14.5px; font-weight: 800; padding: 12px 28px;
+      border-radius: 10px; cursor: pointer; white-space: nowrap;
+      transition: transform .18s ease, box-shadow .18s ease;
+      border: none; font-family: var(--sans);
+      box-shadow: 0 8px 24px rgba(44, 229, 255, 0.28);
+    }
+    .next-btn:hover {
+      transform: translateY(-2px); box-shadow: 0 14px 34px rgba(44, 229, 255, 0.4);
+    }
 
     ::-webkit-scrollbar { width: 6px; }
     ::-webkit-scrollbar-track { background: var(--bg); }
-    ::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 3px; }
+    ::-webkit-scrollbar-thumb { background: var(--bg-3); border-radius: 3px; }
   </style>
 </head>
 <body>
@@ -205,7 +470,7 @@
 </script>
 <!-- AFX-SIDEBAR END -->
 
-
+<!-- NAV -->
 <nav class="topnav">
   <span class="topnav-brand">AI Finance Transformation</span>
   <div class="topnav-right">
@@ -214,6 +479,7 @@
   </div>
 </nav>
 
+<!-- HERO -->
 <header class="module-hero">
   <div class="module-eyebrow">
     <span class="eyebrow-num">MODULE 04</span>
@@ -222,8 +488,8 @@
     <span class="eyebrow-sep">·</span>
     <span class="eyebrow-level">בינוני</span>
   </div>
-  <h1>Artifacts<br><span>הקנבס של Claude</span></h1>
-  <div class="module-en">Creating Live Finance Artifacts</div>
+  <h1>Artifacts<br><span>הקנבס החי של Claude</span></h1>
+  <div class="module-en">Creating Live Finance Artifacts & Dynamic Dashboards</div>
   <div class="module-meta">
     <span class="meta-item">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
@@ -231,249 +497,358 @@
     </span>
     <span class="meta-item">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
-      Claude App
+      Claude Canvas · Live Dashboards · HTML & Code
     </span>
   </div>
 </header>
 
+<!-- MAIN CONTENT -->
 <main class="content">
 
-  <!-- ARTIFACT IMAGE PREVIEW -->
-  <div class="sec-label">Artifact — תצוגה</div>
-  <div style="border-radius:10px;overflow:hidden;border:1px solid var(--border2);margin-bottom:12px;">
-    <img src="Images/Artifact.png" alt="איך נראה Artifact" style="width:100%;display:block;">
+  <!-- ARTIFACT UI SHOWCASE FRAME -->
+  <div class="sec-label">תצוגת הממשק</div>
+  <h2>איך נראה חלון ה-Artifacts בפועל</h2>
+  <p>כאשר Claude מייצר נכס מורכב (דשבורד, סקריפט, אפליקציה אינטראקטיבית או מסמך מלא), הוא מפצל את המסך לשניים: השיחה הרגילה משמאל, וקנבס עבודה אינטראקטיבי וחי מימין.</p>
+
+  <div class="mockup-frame">
+    <div class="mockup-header">
+      <div class="window-dots">
+        <span class="dot-w dot-red"></span>
+        <span class="dot-w dot-yellow"></span>
+        <span class="dot-w dot-green"></span>
+      </div>
+      <span class="mockup-title">claude.ai / artifacts-workspace</span>
+      <span class="mockup-badge">Live Canvas UI</span>
+    </div>
+    <div class="mockup-body">
+      <img src="Images/Artifact.png" alt="איך נראה Artifact בממשק Claude — חלון שיחה לצד קנבס חי">
+    </div>
+    <div class="mockup-caption">חלון השיחה השוטף מופרד לחלוטין מהתוצר הסופי — מה שמאפשר איטרציות, בדיקות חיות והורדה בלחיצת כפתור.</div>
   </div>
-  <p style="text-align:center;color:var(--muted);font-size:13px;margin-bottom:32px;">איך זה נראה</p>
 
   <!-- INTRO -->
   <div class="sec-label">מה זה Artifact?</div>
-  <h2>במקום שClaude יספר לך — הוא בונה לך</h2>
+  <h2>במקום ש-Claude יספר לך — הוא בונה לך</h2>
   <p>
-    עד עכשיו Claude החזיר לך טקסט בתוך השיחה. <strong>Artifact</strong> הוא חלון נפרד בצד שבו Claude בונה משהו אמיתי שאפשר לפתוח, לראות, להוריד ולשתף — דשבורד אינטראקטיבי, סקריפט, או דוח מעוצב.
+    עד עכשיו Claude החזיר לך טקסט בתוך השיחה. <strong>Artifact</strong> הוא חלון נפרד בצד שבו Claude בונה משהו אמיתי שאפשר לפתוח, לבדוק אינטראקטיבית, להוריד ולשתף — דשבורד CFO חי, מודל פיננסי, כלי לניקוי נתונים או דוח דירקטוריון מעוצב.
   </p>
   <p>
-    בשביל איש כספים זה game-changer: במקום להעתיק מספרים ל-Excel ולעצב ידנית, אתה מתאר מה אתה רוצה — ו-Claude מחזיר <strong>דשבורד CFO מוכן למצגת</strong>, חי, צבעוני, עם אינדיקטורים.
+    בשביל איש כספים זה <strong>Game Changer</strong> אמיתי: במקום להעתיק מספרים ל-Excel ולעצב ידנית שעות, אתה מתאר מה אתה רוצה — ו-Claude מחזיר <strong>דשבורד CFO מוכן למצגת</strong>, אינטראקטיבי, עם אינדיקטורים וסימולטורים חיים.
   </p>
 
-
-
-  <!-- 3 TYPES -->
-  <style>
-    .m4-slides { display: grid; grid-template-columns: 1fr; gap: 24px; margin-bottom: 36px; align-items: start; }
-    .m4-slide { background: var(--bg2); border: 1px solid var(--border); border-radius: 14px; overflow: hidden; display: flex; flex-direction: column; transition: border-color .18s, transform .15s; }
-    .m4-slide:hover { border-color: var(--accent); transform: translateY(-2px); }
-    .m4-slide .cap { padding: 22px 24px 18px; }
-    .m4-slide .chip { display: inline-block; font-family: var(--mono); font-size: 11px; letter-spacing: .06em; color: var(--accent); background: rgba(184,196,90,.1); border: 1px solid rgba(184,196,90,.25); border-radius: 5px; padding: 4px 12px; margin-bottom: 12px; }
-    .m4-slide .nm { font-weight: 800; color: #fff; font-size: 1.2rem; margin-bottom: 6px; }
-    .m4-slide .nm .en { font-family: var(--mono); font-size: 12px; color: var(--muted2); direction: ltr; display: block; margin-top: 3px; }
-    .m4-slide .ds { font-size: 14px; color: var(--muted); line-height: 1.65; }
-    .m4-slide .media { margin-top: auto; }
-    .m4-slide .media img, .m4-slide .media video { width: 100%; display: block; border-top: 1px solid var(--border); background: #0e1116; }
-  </style>
+  <!-- ARTIFACTS IN ACTION (3 SHOWCASES) -->
   <div class="sec-label">Artifacts בפעולה</div>
-  <h2>מה Claude יכול לבנות לך</h2>
+  <h2>מה Claude יכול לבנות עבורך למחלקת הכספים</h2>
+  <p>שלוש דוגמאות מוחשיות לנכסים שנוצרו באמצעות Artifacts ללא שורת קוד אחת מצד המשתמש:</p>
+
   <div class="m4-slides">
 
+    <!-- Slide 1: Interactive CFO Dashboard (Video) -->
     <div class="m4-slide">
       <div class="cap">
-        <span class="chip">Live Dashboard</span>
-        <div class="nm">דשבורד CFO אינטראקטיבי<span class="en">Interactive CFO Dashboard</span></div>
-        <div class="ds">דשבורד חי עם כרטיסי KPI, אינדיקטורי RAG וגרפים — נפתח בדפדפן ומוכן למצגת דירקטוריון.</div>
+        <span class="chip">Live Dashboard · Video Demo</span>
+        <div class="nm">דשבורד CFO אינטראקטיבי<span class="en">Interactive CFO Intelligence Dashboard</span></div>
+        <p class="ds">דשבורד חי עם כרטיסי KPI, אינדיקטורי RAG, גרפי מגמה וסימולטור תרחישים — נפתח בדפדפן ומוכן להצגה ישירה לדירקטוריון.</p>
       </div>
-      <div class="media"><iframe width="100%" height="500" src="https://www.youtube.com/embed/2n4R6vTd1Bo" title="CFO Intelligence Dashboard" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div>
+      <div class="media">
+        <iframe width="100%" height="480" src="https://www.youtube.com/embed/2n4R6vTd1Bo" title="CFO Intelligence Dashboard" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+      </div>
     </div>
 
+    <!-- Slide 2: Excel Cleaner (Image) -->
     <div class="m4-slide">
       <div class="cap">
-        <span class="chip">Excel Cleaner</span>
-        <div class="nm">מנקה נתוני Excel<span class="en">Excel Data Cleaner</span></div>
-        <div class="ds">גוררים קובץ FP&amp;A מבולגן ומקבלים גרסה נקייה עם audit trail — הסרת כפילויות, תקנון כותרות, סימון מטבע וסטטוסים.</div>
+        <span class="chip">Data Processing · Artifact</span>
+        <div class="nm">מנקה נתוני Excel אוטונומי<span class="en">Autonomous Excel Data Cleaner</span></div>
+        <p class="ds">גוררים קובץ FP&amp;A מבולגן ומקבלים גרסה נקייה עם Audit Trail מלא — הסרת כפילויות, תקנון כותרות, סימון מטבע וזיהוי אנומליות.</p>
       </div>
-      <div class="media"><img src="Images/module4-Artifact-Ready.png" alt="Excel Data Cleaner — Artifact"></div>
+      <div class="media">
+        <img src="Images/module4-Artifact-Ready.png" alt="Excel Data Cleaner — Artifact">
+      </div>
     </div>
 
+    <!-- Slide 3: Analytics Hub (Image) -->
     <div class="m4-slide">
       <div class="cap">
-        <span class="chip">Analytics Hub</span>
-        <div class="nm">דשבורד ניתוח הוצאות<span class="en">Expense Analytics Dashboard</span></div>
-        <div class="ds">Hub ל-FP&amp;A עם KPIs, מגמת הוצאות חודשית וגרפים לפי אזור ומחלקה — מחובר ישירות ל-Google Drive.</div>
+        <span class="chip">FP&A Hub · Analytics</span>
+        <div class="nm">דשבורד ניתוח הוצאות מחובר<span class="en">Expense Analytics Dashboard</span></div>
+        <p class="ds">Hub ייעודי ל-FP&amp;A עם מעקב KPIs, ניתוח מגמת הוצאות חודשית ופילוח לפי אזור גיאוגרפי ומחלקה — מחובר ישירות לנתוני הענן.</p>
       </div>
-      <div class="media"><img src="Images/module4-HTML%20Dashboard.png" alt="Expense Analytics Dashboard"></div>
+      <div class="media">
+        <img src="Images/module4-HTML%20Dashboard.png" alt="Expense Analytics Dashboard">
+      </div>
     </div>
 
   </div>
 
-  <!-- EXAMPLES -->
-  <div class="sec-label">דוגמה חיה</div>
-  <h2>איך זה נראה בפועל</h2>
-  <p>תצוגה מקדימה של דשבורד ה-CFO שתבנה בקורס — עם נתוני <strong>TechFlow Ltd Q2 2026</strong>.</p>
+  <!-- REAL-WORLD EXAMPLE SCREENSHOT -->
+  <div class="sec-label">דוגמה חיה ומעשית</div>
+  <h2>TechFlow Ltd Q2 2026 — דשבורד ה-CFO שתבנה</h2>
+  <p>תצוגה מקדימה של דשבורד ה-CFO המלא שייבנה לאורך התרגולים בקורס — כולל מדדי רווחיות, גבייה ו-SaaS Unit Economics.</p>
 
-  <div class="examples">
-    <div class="example-card">
-      <div class="example-head">
-        <span class="example-title">📊 CFO KPI Dashboard</span>
-        <span class="example-tag">HTML Artifact</span>
+  <div class="mockup-frame">
+    <div class="mockup-header">
+      <div class="window-dots">
+        <span class="dot-w dot-red"></span>
+        <span class="dot-w dot-yellow"></span>
+        <span class="dot-w dot-green"></span>
       </div>
-      <div class="example-screen screen-dash" style="height:auto;padding:0;overflow:hidden;display:block;">
-        <img src="Images/CFO-dshboard.png" alt="CFO KPI Dashboard — TechFlow Q2 2026" style="width:100%;display:block;">
-      </div>
+      <span class="mockup-title">TechFlow Ltd / CFO KPI Dashboard Q2 2026</span>
+      <span class="mockup-badge">Board Ready</span>
     </div>
+    <div class="mockup-body">
+      <img src="Images/CFO-dshboard.png" alt="CFO KPI Dashboard — TechFlow Q2 2026">
+    </div>
+    <div class="mockup-caption">מדדי ARR, Gross Margin, EBITDA, Cash, DSO ו-NRR עם סטטוס RAG וגרף מגמה רב-רבעוני.</div>
   </div>
 
-  <!-- STEPS -->
-  <div class="sec-label">איך עובדים עם Artifact</div>
-  <h2>4 שלבים — מ-Prompt ל-Board Deck</h2>
+  <!-- STEPS WORKFLOW -->
+  <div class="sec-label">איך עובדים עם Artifacts</div>
+  <h2>4 שלבים — מ-Prompt ראשוני ל-Board Pack מושלם</h2>
+
   <div class="steps">
     <div class="step-item">
       <div class="step-num">1</div>
       <div class="step-content">
-        <div class="step-title">בקש במפורש "Create an interactive HTML..."</div>
-        <div class="step-desc">תאר מה אתה רוצה לראות. Claude יפתח חלון Artifact בצד אוטומטית.</div>
+        <div class="step-title">בקש במפורש "Create an interactive HTML Artifact..."</div>
+        <div class="step-desc">תאר את מבנה הנתונים, המדדים והטבלאות שברצונך לראות. Claude יפתח את חלון ה-Artifact בצד אוטומטית.</div>
       </div>
     </div>
     <div class="step-item">
       <div class="step-num">2</div>
       <div class="step-content">
-        <div class="step-title">פתח בדפדפן / ראה Preview חי</div>
-        <div class="step-desc">ה-Artifact מתרנדר מיד. לחץ על כפתורים, בדוק שהמספרים נכונים, ראה איך זה נראה באמת.</div>
+        <div class="step-title">פתח בדפדפן ובדוק אינטראקטיבית בזמן אמת</div>
+        <div class="step-desc">ה-Artifact מתרנדר מיד. לחץ על כפתורים, גרור סליידרים, בדוק שהנוסחאות והסיכומים החשבונאיים מדויקים.</div>
       </div>
     </div>
     <div class="step-item">
       <div class="step-num">3</div>
       <div class="step-content">
-        <div class="step-title">בקש שינויים — "שנה את הצבע", "הוסף עמודה"</div>
-        <div class="step-desc">Claude מעדכן את אותו Artifact בלי להתחיל מחדש. תהליך איטרטיבי כמו עם עוזר.</div>
+        <div class="step-title">בקש שיפורים ואיטרציות שוטפות</div>
+        <div class="step-desc">"שנה את צבעי ה-RAG", "הוסף גרף Waterfall", "הוסף מתג תרחיש פסימי" — Claude מעדכן את אותו הנכס בלי להתחיל מחדש.</div>
       </div>
     </div>
     <div class="step-item">
       <div class="step-num">4</div>
       <div class="step-content">
-        <div class="step-title">הורד / שתף — Download או לינק</div>
-        <div class="step-desc">שמור כקובץ HTML, הורד, או שתף לינק עם הצוות. מוכן להצגה בישיבת דירקטוריון.</div>
+        <div class="step-title">הורד, הטמע ושתף עם הנהלת החברה</div>
+        <div class="step-desc">שמור כקובץ HTML עצמאי, הדפס ישירות ל-A4 Board Deck, או שתף קישור ישיר לעמיתים בצוות הפיננסי.</div>
       </div>
     </div>
   </div>
 
   <!-- ARTIFACT VS LIVE ARTIFACT -->
-  <div class="sec-label">Artifact מול Live Artifact</div>
-  <h2>מה ההבדל?</h2>
-  <p style="font-size:16px;color:var(--muted);margin-bottom:32px;line-height:1.7;">שניהם נבנים על ידי Claude, אבל יש הבדל אחד קריטי: <strong style="color:var(--accent);font-size:17px;">חיבור לנתונים</strong>.</p>
+  <div class="sec-label">סוגי Artifacts</div>
+  <h2>Artifact רגיל מול Live Artifact — מה ההבדל?</h2>
+  <p>שניהם נבנים על ידי Claude, אך קיים ביניהם הבדל ארכיטקטוני קריטי: <strong>החיבור הרציף למקורות הנתונים החיים</strong>.</p>
 
-  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px;margin-bottom:40px;">
+  <div class="artifact-grid">
     <!-- Card 1: Regular Artifact -->
-    <div style="background:linear-gradient(135deg,rgba(184,196,90,0.08),rgba(184,196,90,0.03));border:1.5px solid rgba(184,196,90,0.2);border-radius:14px;padding:28px;transition:all 0.3s ease;">
-      <div style="font-family:var(--mono);font-size:12px;font-weight:900;letter-spacing:0.12em;text-transform:uppercase;color:var(--accent);margin-bottom:10px;">Artifact רגיל</div>
-      <div style="font-size:17px;font-weight:800;color:var(--text);margin-bottom:14px;line-height:1.4;">"צילום רגע"</div>
-      <p style="font-size:15px;color:var(--muted);line-height:1.8;margin:0;">Claude בונה כלי שלם (דשבורד, סקריפט, דוח) עם הנתונים שנתת לו <strong style="color:var(--text);">באותו רגע</strong>. התוצר עצמאי, ניתן לשיתוף, ניתן להורדה — אבל הנתונים בפנים קפואים ולא מתעדכנים.</p>
+    <div class="art-card card-snap">
+      <div>
+        <div class="art-tag">Artifact רגיל (Static Snapshot)</div>
+        <div class="art-title">צילום רגע — Snapshot עצמאי</div>
+        <p class="art-desc">Claude בונה כלי שלם (דשבורד, סקריפט, דוח) עם הנתונים שהזנת <strong>באותו רגע</strong>. התוצר עצמאי, ניתן להורדה כקובץ HTML בודד, וניתן לשיתוף מלא ללא תלות במערכות המקור.</p>
+      </div>
     </div>
 
     <!-- Card 2: Live Artifact -->
-    <div style="background:linear-gradient(135deg,rgba(101,196,102,0.08),rgba(101,196,102,0.03));border:1.5px solid rgba(101,196,102,0.2);border-radius:14px;padding:28px;transition:all 0.3s ease;">
-      <div style="font-family:var(--mono);font-size:12px;font-weight:900;letter-spacing:0.12em;text-transform:uppercase;color:var(--green);margin-bottom:10px;">Live Artifact</div>
-      <div style="font-size:17px;font-weight:800;color:var(--text);margin-bottom:14px;line-height:1.4;">"חיבור חי"</div>
-      <p style="font-size:15px;color:var(--muted);line-height:1.8;margin:0;">מחובר ישירות למקורות הנתונים שלך (Google Drive, Excel, ERP וכו'). כל פתיחה מושכת <strong style="color:var(--text);">נתונים עדכניים</strong> בזמן אמת.</p>
+    <div class="art-card card-live">
+      <div>
+        <div class="art-tag">Live Artifact (Connected Data)</div>
+        <div class="art-title">חיבור חי למקורות נתונים</div>
+        <p class="art-desc">מחובר ישירות למקורות המידע של הארגון (Google Drive, Excel, NetSuite, ERP). בכל פתיחה ורענון נמשכים <strong>נתונים עדכניים בזמן אמת</strong> ללא צורך בהזנה ידנית חוזרת.</p>
+      </div>
     </div>
 
-    <!-- Card 3: Cannot Share Externally -->
-    <div style="background:linear-gradient(135deg,rgba(224,85,85,0.08),rgba(224,85,85,0.03));border:1.5px solid rgba(224,85,85,0.2);border-radius:14px;padding:28px;transition:all 0.3s ease;">
-      <div style="font-family:var(--mono);font-size:12px;font-weight:900;letter-spacing:0.12em;text-transform:uppercase;color:var(--red);margin-bottom:10px;">⚠ הגבלה חשובה</div>
-      <div style="font-size:17px;font-weight:800;color:var(--text);margin-bottom:14px;line-height:1.4;">לא ניתן לשיתוף חיצוני</div>
-      <p style="font-size:15px;color:var(--muted);line-height:1.8;margin:0;">זה <strong style="color:var(--text);">החיבור האישי שלך</strong> למערכות שלך. שיתוף שלו פירושו חשיפת גישה לנתונים רגישים למשתמש אחר.</p>
+    <!-- Card 3: Constraint -->
+    <div class="art-card card-warn">
+      <div>
+        <div class="art-tag">⚠ אבטחת מידע והרשאות</div>
+        <div class="art-title">מגבלת שיתוף חיצוני</div>
+        <p class="art-desc">ה-Live Artifact מחובר לחשבון ולהרשאות האישיות שלך במערכות הארגון. שיתוף שלו כלשונו מחוץ לחשבונך עלול לחשוף טוקנים וגישה לנתונים רגישים.</p>
+      </div>
     </div>
 
-    <!-- Card 4: How to Share Live Artifact -->
-    <div style="background:linear-gradient(135deg,rgba(96,165,250,0.08),rgba(96,165,250,0.03));border:1.5px solid rgba(96,165,250,0.2);border-radius:14px;padding:28px;transition:all 0.3s ease;">
-      <div style="font-family:var(--mono);font-size:12px;font-weight:900;letter-spacing:0.12em;text-transform:uppercase;color:var(--blue);margin-bottom:10px;">✓ הפתרון</div>
-      <div style="font-size:17px;font-weight:800;color:var(--text);margin-bottom:14px;line-height:1.4;">איך לשתף Live Artifact</div>
-      <p style="font-size:15px;color:var(--muted);line-height:1.8;margin:0;">הפוך אותו ל-<strong style="color:var(--text);">Skill</strong> — אורז את הלוגיקה ללא הנתונים, ואז כל אחד בצוות מפעיל אותו עם החיבורים <em>שלו</em>.</p>
+    <!-- Card 4: Solution -->
+    <div class="art-card card-sol">
+      <div>
+        <div class="art-tag">✓ הפתרון הארגוני</div>
+        <div class="art-title">אריזת הלוגיקה כ-Skill ארגוני</div>
+        <p class="art-desc">כדי לשתף כלי מחובר עם הצוות — הופכים אותו ל-<strong>Skill</strong> (מודול 05). ה-Skill אורז את הלוגיקה והמבנה, וכל עובד מפעיל אותו תחת ההרשאות המאובטחות שלו.</p>
+      </div>
     </div>
   </div>
 
   <div class="callout">
-    <div class="callout-label">כלל אצבע</div>
-    <p style="font-size:16px;">Artifact = תוצר להורדה ולשיתוף • Live Artifact = כלי חי שמחובר לנתונים שלך בלבד</p>
+    <div class="callout-label">כלל אצבע למנהלי כספים</div>
+    <p><strong>Artifact רגיל</strong> = תוצר להורדה, להפצה במייל ולמצגות דירקטוריון • <strong>Live Artifact</strong> = קונסולת ניטור חיה אישית המחוברת למערכות החברה שלך.</p>
   </div>
 
-  <!-- LIVE SESSION RECORDING - ARTIFACTS -->
-  <div style="margin-top:48px;margin-bottom:48px;background:linear-gradient(135deg,rgba(184,196,90,0.08),rgba(184,196,90,0.02));border:1px solid rgba(184,196,90,0.15);border-radius:14px;padding:32px 28px;overflow:hidden;">
-    <div style="font-family:var(--mono);font-size:11px;font-weight:900;letter-spacing:0.12em;text-transform:uppercase;color:var(--accent);margin-bottom:12px;">Live Session Recording — Artifacts (not live)</div>
-    <p style="font-size:15px;line-height:1.75;color:var(--text);margin:0 0 20px;">בסרטון הזה אני מראה איך להשתמש ב-Claude Artifacts כדי לבנות כלי עבודה אמיתי למחלקת כספים — בלי לכתוב קוד, ועם ערך פרקטי מיידי לרואי חשבון, חשבים, CFOs ואנשי FP&A. נדבר על איך Claude עוזר בניקוי קבצי אקסל מבולגנים, איחוד דוחות P&L ממספר מדינות, עיבוד נתונים פיננסיים, והפיכת תהליך ידני של ימים לאוטומציה של דקות.</p>
-    <a href="https://www.ronenamoscpa.co.il/resources/webiners/excel-hell" target="_blank"
-       style="display:inline-flex;align-items:center;gap:10px;background:linear-gradient(135deg,var(--accent),var(--accent-light,#d6e36a));color:#0b0d10;font-family:var(--mono);font-size:0.78rem;font-weight:900;letter-spacing:0.08em;padding:13px 26px;border-radius:8px;text-decoration:none;border:none;box-shadow:0 4px 18px rgba(184,196,90,0.35);transition:all 0.2s;"
-       onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 8px 28px rgba(184,196,90,0.5)'"
-       onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='0 4px 18px rgba(184,196,90,0.35)'">
-      ▶&nbsp;&nbsp;דף המצגת
+  <!-- LIVE SESSION RECORDING 1 (EXCEL HELL) -->
+  <div class="webinar-card">
+    <div class="webinar-tag">// Live Masterclass Recording 01</div>
+    <div class="webinar-title">Live Session: מחלץ את מחלקת הכספים מגיהנום האקסל בעזרת Artifacts</div>
+    <p class="webinar-desc">
+      בסרטון המעשי הזה אני מדגים כיצד להשתמש ב-Claude Artifacts כדי לבנות כלי עבודה אמיתי למחלקת כספים — בלי לכתוב שורת קוד אחת, ועם ערך פרקטי מיידי לרואי חשבון, חשבים, מנהלי כספים וצוותי FP&A. נדגים ניקוי קבצי אקסל מבולגנים, איחוד דוחות P&L רב-חברתיים, עיבוד נתונים מהיר והפיכת תהליכי סגירה ידניים של ימים לאוטומציה של דקות.
+    </p>
+    <a href="https://www.ronenamoscpa.co.il/resources/webiners/excel-hell" target="_blank" class="webinar-cta">
+      ▶&nbsp;&nbsp;לדף המצגת והחומרים המלא
     </a>
-    <div style="margin-top:24px;position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:10px;border:1px solid var(--border2);">
+    <div class="webinar-player">
       <iframe
         src="https://www.youtube.com/embed/QMETtbRYUEQ?rel=0"
         title="Live Session — Claude Artifacts for Finance"
-        frameborder="0"
-        referrerpolicy="strict-origin-when-cross-origin"
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-        allowfullscreen
-        style="position:absolute;top:0;right:0;width:100%;height:100%;">
+        allowfullscreen>
       </iframe>
     </div>
   </div>
 
-  <!-- WHEN TO USE -->
-  <div class="sec-label">מתי כן ומתי לא</div>
-  <h2>Artifact מול תשובה רגילה בצ'אט</h2>
-  <table class="compare-table">
-    <tr><th>המשימה</th><th>Artifact</th><th>צ'אט רגיל</th></tr>
-    <tr><td>דשבורד KPI למצגת</td><td class="yes">✓ כן</td><td class="no">✗</td></tr>
-    <tr><td>שאלה מהירה "מה ה-DSO שלי?"</td><td class="no">✗</td><td class="yes">✓ כן</td></tr>
-    <tr><td>דוח Variance מעוצב להורדה</td><td class="yes">✓ כן</td><td class="no">✗</td></tr>
-    <tr><td>הסבר / brainstorm קצר</td><td class="no">✗</td><td class="yes">✓ כן</td></tr>
-    <tr><td>סקריפט לניקוי Trial Balance</td><td class="yes">✓ כן</td><td class="no">✗</td></tr>
-  </table>
-
-  <div class="callout">
-    <div class="callout-label">כלל אצבע</div>
-    <p>אם התוצאה היא משהו ש<strong>תרצה לפתוח, לשמור או להציג</strong> — בקש Artifact. אם זו שיחה או שאלה מהירה — תישאר בצ'אט.</p>
+  <!-- COMPARE TABLE -->
+  <div class="sec-label">מתי להשתמש</div>
+  <h2>Artifact מול תשובת צ'אט רגילה</h2>
+  <div class="compare-wrap">
+    <table class="compare-table">
+      <thead>
+        <tr>
+          <th>המשימה הפיננסית</th>
+          <th>Artifact ייעודי</th>
+          <th>תשובת צ'אט רגילה</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>דשבורד KPI אינטראקטיבי למצגת דירקטוריון</td>
+          <td class="yes">✓ כן (HTML / CSS / JS)</td>
+          <td class="no">✗ לא מומלץ</td>
+        </tr>
+        <tr>
+          <td>שאלה נקודתית מהירה: "מה הנוסחה ל-DSO?"</td>
+          <td class="no">✗ מיותר</td>
+          <td class="yes">✓ מומלץ בצ'אט</td>
+        </tr>
+        <tr>
+          <td>דוח Variance Analysis מעוצב להורדה והדפסה</td>
+          <td class="yes">✓ כן (דוח Board Pack)</td>
+          <td class="no">✗ פלט טקסטואלי בלבד</td>
+        </tr>
+        <tr>
+          <td>סיעור מוחות (Brainstorming) על שיפור מרווח גולמי</td>
+          <td class="no">✗ אין צורך</td>
+          <td class="yes">✓ מומלץ בצ'אט</td>
+        </tr>
+        <tr>
+          <td>סקריפט / מודול אוטונומי לניקוי קובץ Trial Balance</td>
+          <td class="yes">✓ כן (Tool / Python / JS)</td>
+          <td class="no">✗ קוד לא רץ</td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 
-  <!-- ═══ WEBINAR BLOCK — Update placeholders: VIDEO_ID_HERE → YouTube ID, WEBINAR_PAGE_URL_HERE → live page URL, WEBINAR_DESCRIPTION_HERE → 1-2 sentence description ═══ -->
-  <!-- ADDED-IMAGE: section="Module 04 — Live Artifacts Webinar" topic="Live webinar recording — Live Artifacts in Claude for finance teams" — remove this entire block to hide -->
-  <div style="background:linear-gradient(135deg,var(--bg2) 0%,var(--bg3) 100%);border:1px solid var(--border2);border-radius:14px;padding:28px 30px;margin-bottom:32px;">
-    <div style="font-family:var(--mono);font-size:0.62rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--accent);margin-bottom:10px;">// Live Session Recording</div>
-    <div style="font-size:1.1rem;font-weight:800;color:#ffffff;margin-bottom:10px;">וובינר Live Artifacts: לבנות עם Claude במקום רק לכתוב</div>
-    <p style="font-size:0.9rem;color:#ffffff;line-height:1.7;margin-bottom:20px;">בהקלטת הוובינר אני מראה איך הופכים את Claude מצ׳אט שמחזיר טקסט לכלי שבונה לך נכסים אמיתיים — דשבורדים אינטראקטיביים, סקריפטים חישוביים ודוחות מעוצבים. עוברים יחד על Use Cases פיננסיים ועל ה-Prompts המדויקים שמייצרים כל Artifact, צעד אחר צעד.</p>
-    <a href="https://www.ronenamoscpa.co.il/resources/webiners/webinar-03-live-artifacts" target="_blank"
-      style="display:inline-flex;align-items:center;gap:10px;background:linear-gradient(135deg,var(--accent),var(--accent-light,#d6e36a));color:#0b0d10;font-family:var(--mono);font-size:0.78rem;font-weight:900;letter-spacing:0.08em;padding:13px 26px;border-radius:8px;text-decoration:none;border:none;box-shadow:0 4px 18px rgba(184,196,90,0.35);transition:all 0.2s;"
-      onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 8px 28px rgba(184,196,90,0.5)'"
-      onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='0 4px 18px rgba(184,196,90,0.35)'">
+  <!-- LIVE WEBINAR 2 + DOWNLOADS -->
+  <div class="webinar-card">
+    <div class="webinar-tag">// Live Webinar Recording 02 & Resources</div>
+    <div class="webinar-title">וובינר Live Artifacts: לבנות נכסים פיננסיים עם Claude</div>
+    <p class="webinar-desc">
+      בהקלטת הוובינר נלמד לעומק כיצד הופכים את Claude מבוט טקסטואלי לכלי פיתוח של מוצרים פיננסיים — דשבורדים אינטראקטיביים, מודלי חיזוי תזרים ומערכות בקרה חכמות. עוברים יחד על Use Cases פיננסיים ועל ה-Prompts המדויקים שמייצרים כל תוצר.
+    </p>
+    <a href="https://www.ronenamoscpa.co.il/resources/webiners/webinar-03-live-artifacts" target="_blank" class="webinar-cta">
       ▶&nbsp;&nbsp;לעמוד הוובינר המלא
     </a>
-    <div style="margin-top:24px;position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:10px;border:1px solid var(--border2);">
+    <div class="webinar-player">
       <iframe
         src="https://www.youtube.com/embed/dVmxm7kUR20?rel=0"
         title="Live Session — Live Artifacts בפעולה"
-        frameborder="0"
-        referrerpolicy="strict-origin-when-cross-origin"
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-        allowfullscreen
-        style="position:absolute;top:0;right:0;width:100%;height:100%;">
+        allowfullscreen>
       </iframe>
     </div>
-    <a href="https://docs.google.com/spreadsheets/d/1jqEtECLt6bMw48biuSBLxblg-iNvPfVZ/edit?usp=sharing&ouid=113209169108500009079&rtpof=true&sd=true" target="_blank"
-      style="display:flex;align-items:center;justify-content:center;gap:12px;margin-top:24px;background:linear-gradient(135deg,#1f7a4d,#65c466);color:#06120b;font-family:var(--sans);font-size:1rem;font-weight:900;letter-spacing:0.02em;padding:18px 28px;border-radius:10px;text-decoration:none;border:none;box-shadow:0 4px 20px rgba(101,196,102,0.35);transition:all 0.2s;"
-      onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 8px 30px rgba(101,196,102,0.55)'"
-      onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='0 4px 20px rgba(101,196,102,0.35)'">
-      ⬇&nbsp;&nbsp;הורד את קובץ ה-Excel — Use Cases ו-Prompts לבניית Artifacts
-    </a>
+
+    <!-- Download Buttons -->
+    <div class="download-grid">
+      <a href="FILES/How to Create Claude Artifacts for Finance and FP&A by Ronen Amos.xlsx" class="download-btn btn-excel">
+        📊&nbsp;&nbsp;הורד גיליון מנחה: How to Create Claude Artifacts for Finance (.xlsx)
+      </a>
+      <a href="FILES/RA Claude Design - Bonus.xlsx" class="download-btn btn-design">
+        🎨&nbsp;&nbsp;הורד גיליון עיצוב ו-UI: RA Claude Design & Themes Bonus (.xlsx)
+      </a>
+    </div>
   </div>
 
-  <!-- EXERCISE -->
+  <!-- DASHBOARD PROMPT MASTER PACK -->
+  <div class="sec-label">ספריית פרומפטים לדשבורדים</div>
+  <h2>3 פרומפטי זהב לבניית דשבורדים פיננסיים מתקדמים</h2>
+  <p>העתק כל פרומפט ישירות ל-Claude (מומלץ במודל Sonnet או Opus) לקבלת Artifact אינטראקטיבי מיידי:</p>
+
+  <div style="display:flex;flex-direction:column;gap:18px;margin-bottom:40px;">
+    <!-- Prompt 1: SaaS Unit Economics -->
+    <div class="prompt-box">
+      <div class="prompt-label">
+        <span>1. SaaS Unit Economics & Efficiency Dashboard</span>
+        <span style="font-size:10px;color:var(--dimmer);">HTML Artifact</span>
+      </div>
+      <div class="prompt-text">Create an interactive HTML Artifact dashboard for SaaS Unit Economics.
+Include:
+- Metric Cards: ARR ($18.5M), Magic Number (1.14 🟢), CAC Payback (14 months 🟢), LTV/CAC (4.8x 🟢), Rule of 40 (44% 🟢).
+- Interactive Cohort Retention Heatmap (months 1-12 across 4 customer tiers).
+- Toggle for Base Case vs Pessimistic Churn scenario.
+Dark financial theme (#141821 bg), IBM Plex Mono for numbers, responsive layout, Hebrew metric explanations on hover.</div>
+      <button class="copy-btn" onclick="copyPrompt(this, 'Create an interactive HTML Artifact dashboard for SaaS Unit Economics.\nInclude:\n- Metric Cards: ARR ($18.5M), Magic Number (1.14 🟢), CAC Payback (14 months 🟢), LTV/CAC (4.8x 🟢), Rule of 40 (44% 🟢).\n- Interactive Cohort Retention Heatmap (months 1-12 across 4 customer tiers).\n- Toggle for Base Case vs Pessimistic Churn scenario.\nDark financial theme (#141821 bg), IBM Plex Mono for numbers, responsive layout, Hebrew metric explanations on hover.')">העתק Prompt</button>
+    </div>
+
+    <!-- Prompt 2: 13-Week Cash Flow Runway Simulator -->
+    <div class="prompt-box">
+      <div class="prompt-label" style="color:var(--ok);">
+        <span>2. 13-Week Cash Flow & Runway Simulator</span>
+        <span style="font-size:10px;color:var(--dimmer);">Simulator Artifact</span>
+      </div>
+      <div class="prompt-text">Create an interactive HTML 13-Week Cash Flow Forecast Artifact.
+Features:
+- Beginning Cash ($4.2M) + Weekly Collections bar chart + Weekly Disbursements.
+- Interactive Sliders: Customer Collection Delay (0 to +30 days), Hiring Freeze toggle, OpEx reduction (-10% to -30%).
+- Real-time Runway counter (e.g. 18.4 months) that dynamically updates when sliders move.
+- Export as CSV / Print View button.
+Dark theme, professional financial UI.</div>
+      <button class="copy-btn" onclick="copyPrompt(this, 'Create an interactive HTML 13-Week Cash Flow Forecast Artifact.\nFeatures:\n- Beginning Cash ($4.2M) + Weekly Collections bar chart + Weekly Disbursements.\n- Interactive Sliders: Customer Collection Delay (0 to +30 days), Hiring Freeze toggle, OpEx reduction (-10% to -30%).\n- Real-time Runway counter (e.g. 18.4 months) that dynamically updates when sliders move.\n- Export as CSV / Print View button.\nDark theme, professional financial UI.')">העתק Prompt</button>
+    </div>
+
+    <!-- Prompt 3: Variance Waterfall Bridge -->
+    <div class="prompt-box">
+      <div class="prompt-label" style="color:var(--gold);">
+        <span>3. EBITDA Bridge & Multi-Entity Waterfall</span>
+        <span style="font-size:10px;color:var(--dimmer);">Waterfall Artifact</span>
+      </div>
+      <div class="prompt-text">Create an interactive HTML Waterfall Bridge Artifact for Board Presentation.
+Data:
+- Budget EBITDA: $4.5M
+- Volume Drift: -$0.4M (🔴)
+- Pricing Uplift: +$0.6M (🟢)
+- Headcount Ramp: -$0.5M (🔴)
+- Server & Cloud Cost Savings: +$0.3M (🟢)
+- Actual EBITDA: $4.5M (Net Neutral)
+Interactive hover tooltips explaining each variance driver in Hebrew.</div>
+      <button class="copy-btn" onclick="copyPrompt(this, 'Create an interactive HTML Waterfall Bridge Artifact for Board Presentation.\nData:\n- Budget EBITDA: $4.5M\n- Volume Drift: -$0.4M (🔴)\n- Pricing Uplift: +$0.6M (🟢)\n- Headcount Ramp: -$0.5M (🔴)\n- Server & Cloud Cost Savings: +$0.3M (🟢)\n- Actual EBITDA: $4.5M (Net Neutral)\nInteractive hover tooltips explaining each variance driver in Hebrew.')">העתק Prompt</button>
+    </div>
+  </div>
+
+  <!-- EXERCISE (Console Style) -->
   <div class="exercise">
     <div class="exercise-header">
-      <span class="exercise-badge">תרגיל 04</span>
-      <span class="exercise-title">בנה דשבורד CFO ראשון עם נתוני TechFlow</span>
+      <div class="exercise-header-left">
+        <div class="window-dots">
+          <span class="dot-w dot-red"></span>
+          <span class="dot-w dot-yellow"></span>
+          <span class="dot-w dot-green"></span>
+        </div>
+        <span class="exercise-badge">תרגיל 04</span>
+        <span class="exercise-title">בניית דשבורד CFO ראשון עם נתוני TechFlow</span>
+      </div>
     </div>
     <div class="exercise-body">
       <p class="exercise-context">
-        הרץ את ה-Starter Prompt וצפה ב-Artifact נבנה חי בצד. אחר כך נסה את ה-Advanced Prompt לדשבורד Board Pack מלא — ושים לב כמה Claude מסוגל לבנות מ-Prompt אחד.
+        הרץ את ה-Starter Prompt ב-Claude וצפה ב-Artifact נבנה בזמן אמת בחלון הקנבס. לאחר מכן נסה את ה-Advanced Prompt לקבלת Board Pack שלם — ושים לב ליכולת של Claude לייצר נכס אינטראקטיבי מלא מתוך פרומפט יחיד.
       </p>
 
       <div class="prompt-box">
@@ -486,33 +861,50 @@ Include these KPIs with RAG indicators:
 - Cash: $28.6M → GREEN
 - DSO: 42 days (Target: <45) → GREEN
 - NRR: 112% (Target: 110%) → GREEN
-Dark theme, Hebrew labels, mobile-friendly. Show status indicator for each KPI.</div>
-        <button class="copy-btn" onclick="copyPrompt(this, 'Create an interactive HTML CFO dashboard for TechFlow Ltd Q2 2026.\nInclude these KPIs with RAG indicators:\n- Revenue: $22.4M (Budget: $23.0M) → RED\n- Gross Margin: 63.2% (Budget: 66%) → RED\n- EBITDA: $3.9M (Budget: $4.2M) → AMBER\n- Cash: $28.6M → GREEN\n- DSO: 42 days (Target: <45) → GREEN\n- NRR: 112% (Target: 110%) → GREEN\nDark theme, Hebrew labels, mobile-friendly. Show status indicator for each KPI.')">העתק Prompt</button>
+Dark theme (#141821), Hebrew labels, mobile-friendly. Show status indicator for each KPI.</div>
+        <button class="copy-btn" onclick="copyPrompt(this, 'Create an interactive HTML CFO dashboard for TechFlow Ltd Q2 2026.\nInclude these KPIs with RAG indicators:\n- Revenue: $22.4M (Budget: $23.0M) → RED\n- Gross Margin: 63.2% (Budget: 66%) → RED\n- EBITDA: $3.9M (Budget: $4.2M) → AMBER\n- Cash: $28.6M → GREEN\n- DSO: 42 days (Target: <45) → GREEN\n- NRR: 112% (Target: 110%) → GREEN\nDark theme (#141821), Hebrew labels, mobile-friendly. Show status indicator for each KPI.')">העתק Starter Prompt</button>
       </div>
 
-      <div class="prompt-box">
-        <div class="prompt-label">Advanced Prompt — Full Board Pack Artifact</div>
+      <div class="prompt-box" style="margin-top:18px;">
+        <div class="prompt-label" style="color:var(--vi);">Advanced Prompt — Full Board Pack Artifact</div>
         <div class="prompt-text">Create a complete interactive HTML Board Pack for TechFlow Ltd Q2 2026.
 Include:
 1. KPI header row (6 cards with RAG): Revenue $22.4M (B:$23M 🔴), GM 63.2% (B:66% 🔴), EBITDA $3.9M (B:$4.2M 🟡), Cash $28.6M 🟢, DSO 42d 🟢, NRR 112% 🟢
 2. EBITDA bridge waterfall: Revenue $22.4M → COGS -$8.2M → Gross $14.2M → OpEx -$10.3M → EBITDA $3.9M
 3. 8-quarter Revenue trend (sparkline): 16.8, 17.9, 18.6, 19.5, 20.4, 21.3, 21.9, 22.4 ($M)
 4. A toggle button: "Board View" (clean) vs "CFO Narrative" (shows a 60-word English commentary)
-Dark theme (#0b0d10 bg, #b8c45a accent), Hebrew labels, print-ready A4 layout.</div>
-        <button class="copy-btn" onclick="copyPrompt(this, 'Create a complete interactive HTML Board Pack for TechFlow Ltd Q2 2026.\nInclude:\n1. KPI header row (6 cards with RAG): Revenue $22.4M (B:$23M 🔴), GM 63.2% (B:66% 🔴), EBITDA $3.9M (B:$4.2M 🟡), Cash $28.6M 🟢, DSO 42d 🟢, NRR 112% 🟢\n2. EBITDA bridge waterfall: Revenue $22.4M → COGS -$8.2M → Gross $14.2M → OpEx -$10.3M → EBITDA $3.9M\n3. 8-quarter Revenue trend (sparkline): 16.8, 17.9, 18.6, 19.5, 20.4, 21.3, 21.9, 22.4 ($M)\n4. A toggle button: \'Board View\' (clean) vs \'CFO Narrative\' (shows a 60-word English commentary)\nDark theme (#0b0d10 bg, #b8c45a accent), Hebrew labels, print-ready A4 layout.')">העתק Prompt</button>
+Dark financial theme (#141821 bg, #2CE5FF cyan accent), Hebrew labels, print-ready A4 layout.</div>
+        <button class="copy-btn" onclick="copyPrompt(this, 'Create a complete interactive HTML Board Pack for TechFlow Ltd Q2 2026.\nInclude:\n1. KPI header row (6 cards with RAG): Revenue $22.4M (B:$23M 🔴), GM 63.2% (B:66% 🔴), EBITDA $3.9M (B:$4.2M 🟡), Cash $28.6M 🟢, DSO 42d 🟢, NRR 112% 🟢\n2. EBITDA bridge waterfall: Revenue $22.4M → COGS -$8.2M → Gross $14.2M → OpEx -$10.3M → EBITDA $3.9M\n3. 8-quarter Revenue trend (sparkline): 16.8, 17.9, 18.6, 19.5, 20.4, 21.3, 21.9, 22.4 ($M)\n4. A toggle button: \'Board View\' (clean) vs \'CFO Narrative\' (shows a 60-word English commentary)\nDark financial theme (#141821 bg, #2CE5FF cyan accent), Hebrew labels, print-ready A4 layout.')">העתק Advanced Prompt</button>
       </div>
 
-      <div class="checklist">
-        <div class="checklist-title">✓ רשימת בדיקה לאחר התרגיל</div>
-        <div class="check-item"><div class="check-box" onclick="toggleCheck(this)"></div>ה-Artifact נפתח בחלון נפרד בצד</div>
-        <div class="check-item"><div class="check-box" onclick="toggleCheck(this)"></div>אינדיקטורי ה-RAG הופיעו בצבעים הנכונים</div>
-        <div class="check-item"><div class="check-box" onclick="toggleCheck(this)"></div>ביקשתי שינוי אחד ו-Claude עדכן את אותו Artifact</div>
-        <div class="check-item"><div class="check-box" onclick="toggleCheck(this)"></div>הורדתי / שיתפתי את ה-Artifact</div>
-        <div class="check-item"><div class="check-box" onclick="toggleCheck(this)"></div>הרצתי את ה-Advanced וקיבלתי Board Pack עם toggle</div>
+      <!-- HIGH-CONTRAST CREAM CHECKLIST -->
+      <div class="checklist-cream">
+        <div class="checklist-cream-title">📋 רשימת בדיקה והערכה לאחר התרגיל</div>
+        <div class="checklist-cream-sub">סמן כל שלב שהשלמת בהצלחה כדי לוודא שליטה בייצור נכסים חיים:</div>
+        <div class="check-item-c" onclick="toggleCheckCream(this)">
+          <div class="check-box-c"></div>
+          <span>ה-Artifact נפתח בחלון קנבס נפרד בצד ימין של ממשק Claude.</span>
+        </div>
+        <div class="check-item-c" onclick="toggleCheckCream(this)">
+          <div class="check-box-c"></div>
+          <span>אינדיקטורי ה-RAG הוצגו בצבעים המדויקים (ירוק / כתום / אדום) לפי היעדים.</span>
+        </div>
+        <div class="check-item-c" onclick="toggleCheckCream(this)">
+          <div class="check-box-c"></div>
+          <span>ביקשתי שינוי איטרטיבי (כגון צבע או עמודה נוספת) ו-Claude עדכן את אותו הנכס.</span>
+        </div>
+        <div class="check-item-c" onclick="toggleCheckCream(this)">
+          <div class="check-box-c"></div>
+          <span>הורדתי את קובץ ה-HTML או בדקתי אותו ישירות בדפדפן.</span>
+        </div>
+        <div class="check-item-c" onclick="toggleCheckCream(this)">
+          <div class="check-box-c"></div>
+          <span>הרצתי את ה-Advanced Prompt וקיבלתי Board Pack שלם עם מתג תצוגה ניהולית.</span>
+        </div>
       </div>
 
-      <div class="exercise-tip" style="margin-top:14px">
-        <strong>המשך מומלץ:</strong> בקש <span style="font-family:var(--mono);color:var(--accent)">"הוסף כפתור Print והפוך ל-A4"</span> — ותקבל דשבורד שאפשר להדפיס ולהניח על שולחן הדירקטוריון.
+      <div class="exercise-tip">
+        <strong>המשך מומלץ:</strong> לאחר קבלת ה-Board Pack, בקש מ-Claude: <span style="font-family:var(--mono);color:var(--cy);">"Add a Print to PDF button and optimize CSS for standard A4 landscape"</span> — ותקבל תוצר מושלם להדפסה ישירה לישיבות הנהלה.
       </div>
     </div>
   </div>
@@ -524,7 +916,7 @@ Dark theme (#0b0d10 bg, #b8c45a accent), Hebrew labels, print-ready A4 layout.</
       <div class="next-label">המודול הבא</div>
       <div class="next-title">Module 05 — Skills — הזיכרון המוסדי שלך</div>
     </div>
-    <button class="next-btn" onclick="window.location.href='/courses/ai-master-course/module-05'">המשך ←</button>
+    <button class="next-btn" onclick="window.location.href='/courses/ai-master-course/module-05'">המשך ל-Module 05 ←</button>
   </div>
 
 </main>
@@ -532,16 +924,24 @@ Dark theme (#0b0d10 bg, #b8c45a accent), Hebrew labels, print-ready A4 layout.</
 <script>
   function copyPrompt(btn, text) {
     navigator.clipboard.writeText(text).then(() => {
-      btn.textContent = '✓ הועתק!';
-      btn.style.color = 'var(--green)';
-      btn.style.borderColor = 'var(--green)';
-      setTimeout(() => { btn.textContent = 'העתק Prompt'; btn.style.color = ''; btn.style.borderColor = ''; }, 2000);
+      const orig = btn.textContent;
+      btn.textContent = '✓ הועתק לקליפבורד!';
+      btn.style.color = 'var(--ok)';
+      btn.style.borderColor = 'var(--ok)';
+      setTimeout(() => {
+        btn.textContent = orig;
+        btn.style.color = '';
+        btn.style.borderColor = '';
+      }, 2000);
     });
   }
-  function toggleCheck(el) {
-    el.classList.toggle('checked');
-    el.textContent = el.classList.contains('checked') ? '✓' : '';
+
+  function toggleCheckCream(item) {
+    const box = item.querySelector('.check-box-c');
+    box.classList.toggle('checked');
+    box.textContent = box.classList.contains('checked') ? '✓' : '';
   }
+
   try {
     const p = JSON.parse(localStorage.getItem('claude-course-progress')) || {};
     p['module-04'] = true;
@@ -550,3 +950,4 @@ Dark theme (#0b0d10 bg, #b8c45a accent), Hebrew labels, print-ready A4 layout.</
 </script>
 </body>
 </html>
+

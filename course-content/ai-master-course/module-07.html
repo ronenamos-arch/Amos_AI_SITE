@@ -3,156 +3,381 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Module 07 — Connectors — Claude מחובר | קורס Claude</title>
-  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800;900&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <title>Module 07 — Connectors — Claude מחובר למערכות | קורס AI Finance</title>
+  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800;900&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
+    /* ═══════════════════════════════════════════════════════════
+       DigiSave Pro Theme: Slate Navy, Electric Cyan & Warm Coral
+       ═══════════════════════════════════════════════════════════ */
     :root {
-      --bg:      #0b0d10;
-      --bg2:     #111318;
-      --bg3:     #181c22;
-      --border:  #232830;
-      --border2: #2e3540;
-      --accent:  #b8c45a;
-      --text:    #e8eaf0;
-      --muted:   #7a8499;
-      --muted2:  #5a6278;
-      --green:   #65c466;
-      --yellow:  #f5b340;
-      --red:     #e05555;
-      --mono:    'IBM Plex Mono', monospace;
-      --sans:    'Heebo', sans-serif;
+      --bg:        #141821;
+      --bg-2:      #1A1F2A;
+      --bg-3:      #222938;
+      --border:    rgba(255, 255, 255, 0.10);
+      --border-hl: rgba(44, 229, 255, 0.35);
+      --ink:       #F4F7FA;
+      --dim:       #A7B0BE;
+      --dimmer:    #76808F;
+      --cy:        #2CE5FF;
+      --cy-soft:   rgba(44, 229, 255, 0.13);
+      --vi:        #8B7CFF;
+      --vi-soft:   rgba(139, 124, 255, 0.13);
+      --coral:     #FF5A3C;
+      --coral-soft:rgba(255, 90, 60, 0.12);
+      --ok:        #3DDC97;
+      --ok-soft:   rgba(61, 220, 151, 0.13);
+      --bad:       #FF6B6B;
+      --bad-soft:  rgba(255, 107, 107, 0.12);
+      --gold:      #F59E0B;
+      --gold-soft: rgba(245, 158, 11, 0.12);
+      --cream:     #F5F1EC;
+      --on-cream:  #15181F;
+      --mono:      'IBM Plex Mono', monospace;
+      --sans:      'Heebo', sans-serif;
     }
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    body { background: var(--bg); color: var(--text); font-family: var(--sans); font-size: 15px; line-height: 1.7; }
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: var(--sans);
+      font-size: 15.5px;
+      line-height: 1.7;
+      position: relative;
+      min-height: 100vh;
+    }
     a { color: inherit; text-decoration: none; }
 
-    /* NAV */
-    .topnav { position: sticky; top: 0; z-index: 100; background: rgba(11,13,16,.94); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; padding: 0 2rem; height: 56px; }
-    .topnav-brand { font-size: 13px; font-weight: 700; color: var(--accent); letter-spacing: .04em; text-transform: uppercase; }
+    /* Ambient Background Glow Mesh */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      background:
+        radial-gradient(58% 42% at 82% -6%, rgba(44, 229, 255, 0.13), transparent 62%),
+        radial-gradient(48% 38% at 8% 18%, rgba(139, 124, 255, 0.10), transparent 64%),
+        radial-gradient(70% 50% at 50% 108%, rgba(44, 229, 255, 0.07), transparent 60%);
+    }
+
+    /* ── NAV ── */
+    .topnav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(20, 24, 33, 0.92);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 2rem; height: 58px;
+    }
+    .topnav-brand {
+      font-size: 13px; font-weight: 800;
+      background: linear-gradient(96deg, var(--cy), var(--vi));
+      -webkit-background-clip: text; background-clip: text; color: transparent;
+      letter-spacing: .05em; text-transform: uppercase;
+    }
     .topnav-right { display: flex; align-items: center; gap: 1.4rem; }
-    .topnav-back { font-size: 13px; color: var(--muted); font-weight: 500; transition: color .18s; }
-    .topnav-back:hover { color: var(--accent); }
-    .topnav-module { font-size: 12px; color: var(--muted2); font-family: var(--mono); }
+    .topnav-back { font-size: 13px; color: var(--dim); font-weight: 600; transition: color .18s; }
+    .topnav-back:hover { color: var(--cy); }
+    .topnav-module { font-size: 12px; color: var(--dimmer); font-family: var(--mono); }
 
-    /* HERO */
-    .module-hero { border-bottom: 1px solid var(--border); padding: 56px 2rem 48px; max-width: 860px; margin: 0 auto; }
+    /* ── HERO ── */
+    .module-hero {
+      border-bottom: 1px solid var(--border);
+      padding: 56px 2rem 48px;
+      max-width: 880px; margin: 0 auto;
+      position: relative; z-index: 1;
+    }
     .module-eyebrow { display: flex; align-items: center; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; }
-    .eyebrow-num { font-family: var(--mono); font-size: 12px; color: var(--accent); background: rgba(184,196,90,.1); border: 1px solid rgba(184,196,90,.25); padding: 3px 10px; border-radius: 4px; }
-    .eyebrow-part { font-size: 12px; color: var(--muted2); }
-    .eyebrow-sep { color: var(--border2); }
-    .eyebrow-level { font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 4px; background: rgba(245,179,64,.12); color: var(--yellow); border: 1px solid rgba(245,179,64,.25); }
-    .module-hero h1 { font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 900; line-height: 1.15; margin-bottom: 10px; }
-    .module-hero h1 span { color: var(--accent); }
-    .module-en { font-size: 14px; color: var(--muted2); font-family: var(--mono); direction: ltr; margin-bottom: 20px; }
+    .eyebrow-num {
+      font-family: var(--mono); font-size: 11.5px; font-weight: 700;
+      color: var(--cy); background: var(--cy-soft);
+      border: 1px solid rgba(44, 229, 255, 0.28);
+      padding: 4px 12px; border-radius: 100px; letter-spacing: .05em;
+    }
+    .eyebrow-part { font-size: 12.5px; color: var(--dim); }
+    .eyebrow-sep { color: var(--dimmer); opacity: .5; }
+    .eyebrow-level {
+      font-size: 10.5px; font-weight: 800; padding: 3px 9px; border-radius: 100px;
+      background: var(--gold-soft); color: var(--gold); border: 1px solid rgba(245, 158, 11, 0.3);
+    }
+    .module-hero h1 {
+      font-size: clamp(2rem, 4.5vw, 3rem); font-weight: 900; line-height: 1.15; margin-bottom: 12px;
+      color: var(--ink);
+    }
+    .module-hero h1 span {
+      background: linear-gradient(96deg, var(--cy), var(--vi));
+      -webkit-background-clip: text; background-clip: text; color: transparent;
+    }
+    .module-en { font-size: 14.5px; color: var(--dim); font-family: var(--mono); direction: ltr; margin-bottom: 22px; font-weight: 500; }
     .module-meta { display: flex; gap: 20px; flex-wrap: wrap; }
-    .meta-item { display: flex; align-items: center; gap: 6px; font-size: 13px; color: var(--muted); }
-    .meta-item svg { width: 14px; height: 14px; opacity: .6; }
+    .meta-item { display: flex; align-items: center; gap: 7px; font-size: 13px; color: var(--dim); }
+    .meta-item svg { width: 15px; height: 15px; color: var(--cy); }
 
-    /* LAYOUT */
-    .content { max-width: 860px; margin: 0 auto; padding: 0 2rem 80px; }
-    .sec-label { font-size: 10px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; color: var(--accent); margin: 52px 0 16px; display: flex; align-items: center; gap: 8px; }
-    .sec-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
-    h2 { font-size: 1.3rem; font-weight: 800; color: var(--text); margin-bottom: 12px; }
-    p { color: var(--muted); margin-bottom: 16px; font-size: 15px; }
-    p strong { color: var(--text); font-weight: 700; }
+    /* ── LAYOUT ── */
+    .content { max-width: 880px; margin: 0 auto; padding: 0 2rem 80px; position: relative; z-index: 1; }
+    .sec-label {
+      font-size: 11px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase;
+      color: var(--cy); margin: 56px 0 16px; display: flex; align-items: center; gap: 10px;
+    }
+    .sec-label::after { content: ''; flex: 1; height: 1px; background: linear-gradient(90deg, var(--border), transparent); }
+    h2 { font-size: 1.45rem; font-weight: 800; color: var(--ink); margin-bottom: 14px; letter-spacing: -.01em; }
+    p { color: var(--dim); margin-bottom: 16px; font-size: 15.5px; line-height: 1.75; }
+    p strong { color: var(--ink); font-weight: 700; }
 
-    /* ANALOGY */
-    .analogy { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 32px; }
-    @media (max-width: 600px) { .analogy { grid-template-columns: 1fr; } }
-    .analogy-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 12px; padding: 20px; }
-    .analogy-card.old { border-top: 3px solid var(--muted2); }
-    .analogy-card.new { border-top: 3px solid var(--accent); }
-    .analogy-icon { font-size: 1.6rem; margin-bottom: 8px; }
-    .analogy-title { font-weight: 800; color: var(--text); margin-bottom: 4px; }
-    .analogy-desc { font-size: 13px; color: var(--muted); line-height: 1.6; }
+    /* ── CONSOLE / MOCKUP FRAMES ── */
+    .mockup-frame {
+      background: var(--bg-2); border: 1px solid var(--border);
+      border-radius: 16px; overflow: hidden; margin-bottom: 32px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.45);
+    }
+    .mockup-header {
+      background: var(--bg-3); border-bottom: 1px solid var(--border);
+      padding: 14px 20px; display: flex; align-items: center; justify-content: space-between;
+    }
+    .window-dots { display: flex; gap: 6px; align-items: center; }
+    .dot-w { width: 10px; height: 10px; border-radius: 50%; opacity: .8; }
+    .dot-red { background: #FF5F56; }
+    .dot-yellow { background: #FFBD2E; }
+    .dot-green { background: #27C93F; }
+    .mockup-title { font-size: 12.5px; color: var(--dim); font-family: var(--mono); direction: ltr; font-weight: 600; }
+    .mockup-badge {
+      font-size: 10.5px; font-weight: 800; padding: 3px 10px; border-radius: 100px;
+      font-family: var(--mono); letter-spacing: .05em; text-transform: uppercase;
+      background: var(--cy-soft); color: var(--cy); border: 1px solid rgba(44, 229, 255, 0.3);
+    }
+    .mockup-body { background: #0E1219; padding: 0; overflow: hidden; }
+    .mockup-body img { width: 100%; display: block; height: auto; }
+    .mockup-caption {
+      padding: 12px 20px; font-size: 13px; color: var(--dimmer); text-align: center;
+      background: var(--bg-2); border-top: 1px solid var(--border);
+    }
 
-    /* CONNECTOR CARDS */
-    .conn-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 32px; }
-    @media (max-width: 640px) { .conn-grid { grid-template-columns: 1fr 1fr; } }
-    .conn-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 10px; padding: 16px; text-align: center; border-bottom: 3px solid var(--accent); }
-    .conn-logo { width: 40px; height: 40px; border-radius: 9px; margin: 0 auto 10px; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; font-weight: 800; }
-    .conn-logo.drive { background: rgba(101,196,102,.15); color: var(--green); }
-    .conn-logo.notion { background: rgba(232,234,240,.1); color: var(--text); }
-    .conn-logo.share { background: rgba(245,179,64,.15); color: var(--yellow); }
-    .conn-logo.slack { background: rgba(184,196,90,.15); color: var(--accent); }
-    .conn-name { font-weight: 800; font-size: .88rem; color: var(--text); margin-bottom: 4px; }
-    .conn-use { font-size: 11.5px; color: var(--muted); line-height: 1.45; }
+    /* ── ANALOGY (Old vs New) ── */
+    .analogy { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 36px; }
+    @media (max-width: 640px) { .analogy { grid-template-columns: 1fr; } }
+    .analogy-card {
+      background: var(--bg-2); border: 1px solid var(--border);
+      border-radius: 14px; padding: 22px 20px;
+      position: relative; backdrop-filter: blur(10px);
+      transition: transform .2s ease, border-color .2s ease, box-shadow .2s ease;
+    }
+    .analogy-card:hover {
+      transform: translateY(-3px); border-color: var(--border-hl);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
+    }
+    .analogy-card.old { border-top: 3px solid var(--dimmer); }
+    .analogy-card.new { border-top: 3px solid var(--cy); }
+    .analogy-icon { font-size: 1.8rem; margin-bottom: 10px; }
+    .analogy-title { font-weight: 800; color: var(--ink); font-size: 1.05rem; margin-bottom: 6px; }
+    .analogy-desc { font-size: 13.8px; color: var(--dim); line-height: 1.6; }
 
-    /* UPLOAD vs CONNECT TABLE */
-    .cmp-table { width: 100%; border-collapse: collapse; margin-bottom: 32px; border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
-    .cmp-table th { background: var(--bg3); padding: 12px 14px; text-align: right; font-size: 12px; font-weight: 800; border-bottom: 1px solid var(--border); }
-    .cmp-table th.upl { color: var(--muted); }
-    .cmp-table th.con { color: var(--accent); }
-    .cmp-table th:first-child { color: var(--text); }
-    .cmp-table td { padding: 11px 14px; font-size: 13px; color: var(--muted); border-bottom: 1px solid var(--border); border-right: 1px solid var(--border); }
-    .cmp-table td:first-child { color: var(--text); font-weight: 700; border-right: none; }
-    .cmp-table tr:last-child td { border-bottom: none; }
+    /* ── CONNECTOR CARDS ── */
+    .conn-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 36px; }
+    @media (max-width: 760px) { .conn-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 480px) { .conn-grid { grid-template-columns: 1fr; } }
+    .conn-card {
+      background: var(--bg-2); border: 1px solid var(--border);
+      border-radius: 14px; padding: 20px 16px; text-align: center;
+      border-bottom: 3px solid var(--cy);
+      transition: transform .2s ease, border-color .2s ease, box-shadow .2s ease;
+    }
+    .conn-card:hover {
+      transform: translateY(-3px); border-color: var(--border-hl);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
+    }
+    .conn-card.c-notion { border-bottom-color: var(--vi); }
+    .conn-card.c-share { border-bottom-color: var(--gold); }
+    .conn-card.c-slack { border-bottom-color: var(--ok); }
 
-    /* PRIVACY CARDS */
-    .priv-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 32px; }
-    @media (max-width: 600px) { .priv-grid { grid-template-columns: 1fr; } }
-    .priv-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 10px; padding: 16px 18px; }
-    .priv-card.sees { border-right: 3px solid var(--yellow); }
-    .priv-card.local { border-right: 3px solid var(--green); }
-    .priv-head { font-weight: 800; font-size: .92rem; margin-bottom: 8px; }
-    .priv-card.sees .priv-head { color: var(--yellow); }
-    .priv-card.local .priv-head { color: var(--green); }
-    .priv-row { font-size: 13px; color: var(--muted); padding: 4px 0; }
+    .conn-logo {
+      width: 44px; height: 44px; border-radius: 12px; margin: 0 auto 12px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.4rem; font-weight: 900; font-family: var(--mono);
+    }
+    .conn-logo.drive { background: var(--ok-soft); color: var(--ok); border: 1px solid rgba(61, 220, 151, 0.3); }
+    .conn-logo.notion { background: var(--vi-soft); color: var(--vi); border: 1px solid rgba(139, 124, 255, 0.3); }
+    .conn-logo.share { background: var(--gold-soft); color: var(--gold); border: 1px solid rgba(245, 158, 11, 0.3); }
+    .conn-logo.slack { background: var(--cy-soft); color: var(--cy); border: 1px solid rgba(44, 229, 255, 0.3); }
 
-    /* STEPS */
-    .steps-list { display: flex; flex-direction: column; gap: 10px; margin-bottom: 32px; }
-    .step-item { display: flex; gap: 14px; align-items: flex-start; background: var(--bg2); border: 1px solid var(--border); border-radius: 8px; padding: 14px 16px; }
-    .step-num { width: 28px; height: 28px; border-radius: 50%; background: rgba(184,196,90,.12); border: 1px solid rgba(184,196,90,.3); color: var(--accent); font-size: 12px; font-weight: 800; font-family: var(--mono); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .conn-name { font-weight: 800; font-size: .95rem; color: var(--ink); margin-bottom: 6px; }
+    .conn-use { font-size: 12px; color: var(--dim); line-height: 1.5; }
+
+    /* ── COMPARISON TABLE ── */
+    .compare-wrap {
+      border: 1px solid var(--border); border-radius: 14px; overflow: hidden;
+      margin-bottom: 36px; background: var(--bg-2);
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.35);
+    }
+    .compare-table { width: 100%; border-collapse: collapse; }
+    .compare-table th {
+      background: var(--bg-3); color: var(--ink); font-size: 13px; font-weight: 800;
+      text-align: right; padding: 14px 18px; border-bottom: 1px solid var(--border);
+    }
+    .compare-table th.upl { color: var(--dim); }
+    .compare-table th.con { color: var(--cy); }
+    .compare-table td {
+      padding: 14px 18px; font-size: 13.5px; color: var(--dim);
+      border-bottom: 1px solid var(--border); border-left: 1px solid var(--border);
+      vertical-align: middle;
+    }
+    .compare-table td:first-child { border-left: none; font-weight: 700; color: var(--ink); }
+    .compare-table tr:last-child td { border-bottom: none; }
+    .col-connect { color: var(--cy); font-weight: 700; background: rgba(44, 229, 255, 0.04); }
+
+    /* ── PRIVACY CARDS ── */
+    .priv-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 36px; }
+    @media (max-width: 640px) { .priv-grid { grid-template-columns: 1fr; } }
+    .priv-card {
+      background: var(--bg-2); border: 1px solid var(--border);
+      border-radius: 14px; padding: 22px 20px;
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.35);
+      transition: transform .2s ease, border-color .2s ease;
+    }
+    .priv-card:hover { transform: translateY(-2px); border-color: var(--border-hl); }
+    .priv-card.sees { border-right: 4px solid var(--gold); }
+    .priv-card.local { border-right: 4px solid var(--ok); }
+    .priv-head { font-weight: 800; font-size: 1rem; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
+    .priv-card.sees .priv-head { color: var(--gold); }
+    .priv-card.local .priv-head { color: var(--ok); }
+    .priv-row { font-size: 13.5px; color: var(--dim); padding: 5px 0; line-height: 1.6; }
+
+    /* ── 4-STEP WORKFLOW ── */
+    .steps-list { display: flex; flex-direction: column; gap: 20px; margin-bottom: 36px; }
+    .step-item {
+      display: flex; gap: 18px; align-items: flex-start;
+      background: var(--bg-2); border: 1px solid var(--border);
+      border-radius: 14px; padding: 20px 22px;
+      transition: transform .18s ease, border-color .18s ease;
+    }
+    .step-item:hover { transform: translateY(-2px); border-color: var(--border-hl); }
+    .step-num {
+      width: 36px; height: 36px; border-radius: 10px;
+      background: var(--cy-soft); border: 1px solid rgba(44, 229, 255, 0.35);
+      color: var(--cy); font-size: 15px; font-weight: 900; font-family: var(--mono);
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    }
     .step-content { flex: 1; }
-    .step-title { font-weight: 800; color: var(--text); margin-bottom: 3px; font-size: .92rem; }
-    .step-desc { font-size: 13px; color: var(--muted); }
+    .step-title { font-weight: 800; color: var(--ink); margin-bottom: 6px; font-size: 1.05rem; }
+    .step-desc { font-size: 13.8px; color: var(--dim); line-height: 1.65; margin-bottom: 14px; }
+    .step-content .mockup-frame { margin-bottom: 6px; }
 
-    /* SCREENSHOT PLACEHOLDER */
-    .shot { border-radius: 10px; border: 1px dashed var(--border2); background: linear-gradient(135deg, var(--bg3), var(--bg2)); display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 6px; color: var(--muted2); font-size: 12px; font-family: var(--mono); min-height: 150px; margin-bottom: 24px; text-align: center; padding: 16px; }
-    .shot .shot-icon { font-size: 1.6rem; opacity: .5; }
-    .shot .shot-label { color: var(--muted); font-weight: 600; }
+    /* ── CALLOUT ── */
+    .callout {
+      background: linear-gradient(135deg, rgba(44, 229, 255, 0.08), rgba(139, 124, 255, 0.06));
+      border: 1px solid rgba(44, 229, 255, 0.28);
+      border-radius: 14px; padding: 22px 24px; margin-bottom: 32px;
+    }
+    .callout-label {
+      font-size: 10.5px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase;
+      color: var(--cy); margin-bottom: 8px;
+    }
+    .callout p { color: #FFFFFF; margin: 0; font-size: 15px; line-height: 1.7; }
 
-    /* CALLOUT */
-    .callout { background: rgba(184,196,90,.06); border: 1px solid rgba(184,196,90,.2); border-radius: 10px; padding: 20px 22px; margin-bottom: 24px; }
-    .callout-label { font-size: 10px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; color: var(--accent); margin-bottom: 6px; }
-    .callout p { color: var(--text); margin: 0; font-size: 14px; }
+    /* ── PROMPTS & CONSOLE BOXES ── */
+    .prompt-box {
+      background: #0E1219; border: 1px solid var(--border);
+      border-radius: 12px; padding: 18px 20px; margin-bottom: 20px;
+    }
+    .prompt-label {
+      font-size: 11.5px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase;
+      color: var(--cy); margin-bottom: 10px; font-family: var(--mono);
+    }
+    .prompt-text {
+      font-family: var(--mono); font-size: 12.8px; color: #FFFFFF;
+      direction: ltr; text-align: left; line-height: 1.75; white-space: pre-wrap;
+    }
+    .copy-btn {
+      background: var(--bg-2); border: 1px solid var(--border); color: var(--dim);
+      font-size: 12px; font-family: var(--sans); font-weight: 700; padding: 7px 16px;
+      border-radius: 6px; cursor: pointer; transition: all .18s ease; margin-top: 12px;
+    }
+    .copy-btn:hover { border-color: var(--cy); color: var(--cy); background: var(--cy-soft); }
 
-    /* EXERCISE */
-    .exercise { background: var(--bg3); border: 1px solid var(--border2); border-radius: 12px; overflow: hidden; margin-top: 48px; }
-    .exercise-header { background: var(--bg2); border-bottom: 1px solid var(--border); padding: 16px 22px; display: flex; align-items: center; gap: 12px; }
-    .exercise-badge { background: var(--accent); color: var(--bg); font-size: 10px; font-weight: 900; letter-spacing: .1em; text-transform: uppercase; padding: 3px 10px; border-radius: 4px; }
-    .exercise-title { font-weight: 800; font-size: 1rem; color: var(--text); }
-    .exercise-body { padding: 22px; }
-    .exercise-context { font-size: 13px; color: var(--muted); margin-bottom: 20px; }
-    .prompt-box { background: var(--bg); border: 1px solid var(--border2); border-radius: 8px; padding: 16px 18px; margin-bottom: 16px; }
-    .prompt-label { font-size: 10px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--accent); margin-bottom: 8px; font-family: var(--mono); }
-    .prompt-text { font-family: var(--mono); font-size: 13px; color: var(--text); direction: rtl; line-height: 1.7; white-space: pre-wrap; }
-    .prompt-text.ltr { direction: ltr; text-align: left; }
-    .copy-btn { background: var(--bg2); border: 1px solid var(--border2); color: var(--muted); font-size: 12px; font-family: var(--sans); padding: 5px 14px; border-radius: 5px; cursor: pointer; transition: border-color .18s, color .18s; margin-top: 8px; }
-    .copy-btn:hover { border-color: var(--accent); color: var(--accent); }
-    .exercise-tip { font-size: 12px; color: var(--muted2); border-top: 1px solid var(--border); margin-top: 20px; padding-top: 14px; }
-    .exercise-tip strong { color: var(--muted); }
+    /* ── EXERCISE (Console Style) ── */
+    .exercise {
+      background: var(--bg-2); border: 1px solid var(--border);
+      border-radius: 16px; overflow: hidden; margin-top: 52px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.45);
+    }
+    .exercise-header {
+      background: var(--bg-3); border-bottom: 1px solid var(--border);
+      padding: 16px 24px; display: flex; align-items: center; justify-content: space-between;
+    }
+    .exercise-header-left { display: flex; align-items: center; gap: 12px; }
+    .exercise-badge {
+      background: var(--cy); color: #04121A;
+      font-size: 10.5px; font-weight: 900; letter-spacing: .08em;
+      text-transform: uppercase; padding: 4px 11px; border-radius: 100px;
+    }
+    .exercise-title { font-weight: 800; font-size: 1.05rem; color: var(--ink); }
+    .exercise-body { padding: 26px; }
+    .exercise-context { font-size: 14px; color: var(--dim); margin-bottom: 24px; line-height: 1.7; }
 
-    /* CHECKLIST */
-    .checklist { background: var(--bg2); border: 1px solid var(--border); border-radius: 10px; padding: 18px 20px; margin-top: 16px; }
-    .checklist-title { font-weight: 800; font-size: .9rem; color: var(--text); margin-bottom: 12px; }
-    .check-item { display: flex; align-items: flex-start; gap: 10px; font-size: 13px; color: var(--muted); padding: 5px 0; border-bottom: 1px solid var(--border); }
-    .check-item:last-child { border-bottom: none; }
-    .check-box { width: 16px; height: 16px; border: 1px solid var(--border2); border-radius: 3px; flex-shrink: 0; margin-top: 3px; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 10px; transition: background .15s, border-color .15s; }
-    .check-box.checked { background: var(--accent); border-color: var(--accent); color: var(--bg); }
+    .exercise-tip {
+      font-size: 13.5px; color: #FFFFFF;
+      background: linear-gradient(135deg, rgba(44, 229, 255, 0.08), rgba(255, 90, 60, 0.06));
+      border: 1px solid rgba(44, 229, 255, 0.25);
+      border-radius: 10px; padding: 16px 20px; margin-top: 24px; line-height: 1.65;
+    }
+    .exercise-tip strong { color: var(--cy); }
 
-    /* NEXT */
-    .next-module { margin-top: 56px; padding-top: 32px; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
-    .prev-btn { background: var(--bg2); border: 1px solid var(--border2); color: var(--muted); font-size: 13px; font-weight: 700; padding: 8px 20px; border-radius: 8px; cursor: pointer; transition: border-color .18s, color .18s; font-family: var(--sans); }
-    .prev-btn:hover { border-color: var(--accent); color: var(--accent); }
-    .next-label { font-size: 11px; color: var(--muted2); text-transform: uppercase; letter-spacing: .1em; margin-bottom: 4px; }
-    .next-title { font-weight: 800; color: var(--text); font-size: 1rem; }
-    .next-btn { background: var(--accent); color: var(--bg); font-size: 14px; font-weight: 800; padding: 10px 24px; border-radius: 8px; cursor: pointer; white-space: nowrap; transition: background .18s, transform .15s; border: none; font-family: var(--sans); }
-    .next-btn:hover { background: #cad86a; transform: translateX(-3px); }
+    /* ── HIGH-CONTRAST CREAM CHECKLIST ── */
+    .checklist-cream {
+      background: var(--cream); color: var(--on-cream);
+      border-radius: 14px; padding: 26px 28px; margin-top: 28px;
+      box-shadow: 0 16px 36px rgba(0,0,0,.4);
+    }
+    .checklist-cream-title {
+      font-size: 1.05rem; font-weight: 900; color: var(--on-cream); margin-bottom: 6px;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .checklist-cream-sub {
+      font-size: 13px; color: #555D6E; margin-bottom: 18px; line-height: 1.5;
+    }
+    .check-item-c {
+      display: flex; align-items: flex-start; gap: 12px;
+      font-size: 13.5px; color: #2D333F; font-weight: 600;
+      padding: 9px 0; border-bottom: 1px solid rgba(0,0,0,0.08);
+      cursor: pointer; user-select: none;
+    }
+    .check-item-c:last-child { border-bottom: none; }
+    .check-box-c {
+      width: 18px; height: 18px; border: 2px solid #8892A0; border-radius: 4px;
+      flex-shrink: 0; margin-top: 3px; display: flex; align-items: center; justify-content: center;
+      font-size: 11px; font-weight: 900; transition: all .15s; background: #FFFFFF;
+    }
+    .check-box-c.checked {
+      background: #10B981; border-color: #10B981; color: #FFFFFF;
+    }
+
+    /* ── NEXT MODULE ── */
+    .next-module {
+      margin-top: 60px; padding-top: 36px; border-top: 1px solid var(--border);
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .prev-btn {
+      background: var(--bg-2); border: 1px solid var(--border); color: var(--dim);
+      font-size: 13.5px; font-weight: 700; padding: 10px 22px; border-radius: 10px;
+      cursor: pointer; transition: all .18s; font-family: var(--sans);
+    }
+    .prev-btn:hover { border-color: var(--cy); color: var(--cy); }
+    .next-label { font-size: 11px; color: var(--dimmer); text-transform: uppercase; letter-spacing: .1em; margin-bottom: 4px; }
+    .next-title { font-weight: 800; color: var(--ink); font-size: 1.05rem; }
+    .next-btn {
+      background: var(--cy); color: #04121A;
+      font-size: 14.5px; font-weight: 800; padding: 12px 28px;
+      border-radius: 10px; cursor: pointer; white-space: nowrap;
+      transition: transform .18s ease, box-shadow .18s ease;
+      border: none; font-family: var(--sans);
+      box-shadow: 0 8px 24px rgba(44, 229, 255, 0.28);
+    }
+    .next-btn:hover {
+      transform: translateY(-2px); box-shadow: 0 14px 34px rgba(44, 229, 255, 0.4);
+    }
 
     ::-webkit-scrollbar { width: 6px; }
     ::-webkit-scrollbar-track { background: var(--bg); }
-    ::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 3px; }
+    ::-webkit-scrollbar-thumb { background: var(--bg-3); border-radius: 3px; }
   </style>
 </head>
 <body>
@@ -209,7 +434,7 @@
 </script>
 <!-- AFX-SIDEBAR END -->
 
-
+<!-- NAV -->
 <nav class="topnav">
   <span class="topnav-brand">AI Finance Transformation</span>
   <div class="topnav-right">
@@ -218,6 +443,7 @@
   </div>
 </nav>
 
+<!-- HERO -->
 <header class="module-hero">
   <div class="module-eyebrow">
     <span class="eyebrow-num">MODULE 07</span>
@@ -227,7 +453,7 @@
     <span class="eyebrow-level">בינוני</span>
   </div>
   <h1>Connectors — Claude<br><span>מחובר למערכות שלך</span></h1>
-  <div class="module-en">Connecting Claude to Live Data</div>
+  <div class="module-en">Connecting Claude to Live Data &amp; Enterprise Systems</div>
   <div class="module-meta">
     <span class="meta-item">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
@@ -235,189 +461,285 @@
     </span>
     <span class="meta-item">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7 0l3-3a5 5 0 0 0-7-7l-1 1"/><path d="M14 11a5 5 0 0 0-7 0l-3 3a5 5 0 0 0 7 7l1-1"/></svg>
-      Connectors / MCP
+      Connectors / MCP · Live Data Integration
     </span>
   </div>
 </header>
 
+<!-- MAIN CONTENT -->
 <main class="content">
 
   <!-- INTRO / ANALOGY -->
   <div class="sec-label">מה זה Connector?</div>
   <h2>במקום להעלות קבצים — Claude מתחבר ישירות</h2>
   <p>
-    עד עכשיו, כדי ש-Claude ינתח דוח, היית מוריד אותו, מעלה ל-Claude, ומדביק. עם <strong>Connector</strong> (המנגנון נקרא MCP) — Claude מתחבר ישירות ל-Google Drive, Notion או SharePoint שלך, וקורא את הקבצים בעצמו.
+    עד עכשיו, כדי ש-Claude ינתח דוח, היית מוריד אותו, מעלה ל-Claude, ומדביק. עם <strong>Connector</strong> (המבוסס על תקן ה-MCP של Anthropic) — Claude מתחבר ישירות ל-Google Drive, Notion, SharePoint או מערכות ה-ERP שלך, וקורא את הקבצים באופן מאובטח ואוטומטי.
   </p>
 
   <div class="analogy">
     <div class="analogy-card old">
       <div class="analogy-icon">📋</div>
-      <div class="analogy-title">בלי Connector — Copy-Paste</div>
-      <div class="analogy-desc">מוריד קובץ → מעלה ידנית → מדביק נתונים. בכל פעם מחדש. כמו להעתיק מסמך ביד.</div>
+      <div class="analogy-title">בלי Connector — Copy-Paste ידני</div>
+      <div class="analogy-desc">מוריד קובץ → מעלה ידנית → מדביק נתונים. בכל פעם מחדש. כמו להעתיק מסמך ביד עם סיכון גבוה לפערי גרסאות.</div>
     </div>
     <div class="analogy-card new">
       <div class="analogy-icon">🔌</div>
-      <div class="analogy-title">עם Connector — כבל ישיר</div>
-      <div class="analogy-desc">Claude מחובר למקור ושולף את הקובץ העדכני לבד. כמו לחבר כבל — המידע זורם.</div>
+      <div class="analogy-title">עם Connector — כבל ישיר ומאובטח</div>
+      <div class="analogy-desc">Claude מחובר ישירות למקור ושולף את הקובץ העדכני לבד. כמו לחבר כבל מהיר — המידע הפיננסי זורם בזמן אמת.</div>
     </div>
   </div>
 
   <!-- AVAILABLE CONNECTORS -->
   <div class="sec-label">Connectors זמינים</div>
-  <h2>למה כדאי לחבר כל אחד</h2>
+  <h2>למה כדאי לחבר כל מערכת</h2>
 
   <div class="conn-grid">
     <div class="conn-card">
       <div class="conn-logo drive">▲</div>
       <div class="conn-name">Google Drive</div>
-      <div class="conn-use">דוחות, Board Packs, גיליונות Excel</div>
+      <div class="conn-use">דוחות חודשיים, Board Packs וגיליונות עבודה</div>
     </div>
-    <div class="conn-card">
+    <div class="conn-card c-notion">
       <div class="conn-logo notion">N</div>
       <div class="conn-name">Notion</div>
-      <div class="conn-use">תיעוד תהליכים, רשימות בקרה, נהלים</div>
+      <div class="conn-use">תיעוד תהליכים, רשימות בקרה ונהלי עבודה</div>
     </div>
-    <div class="conn-card">
+    <div class="conn-card c-share">
       <div class="conn-logo share">S</div>
       <div class="conn-name">SharePoint</div>
-      <div class="conn-use">קבצי ארגון, מסמכי ביקורת, ארכיון</div>
+      <div class="conn-use">קבצי ארגון, מסמכי ביקורת וארכיון חשבונאי</div>
     </div>
-    <div class="conn-card">
+    <div class="conn-card c-slack">
       <div class="conn-logo slack">#</div>
       <div class="conn-name">Slack</div>
-      <div class="conn-use">שיחות צוות, החלטות, עדכוני סטטוס</div>
+      <div class="conn-use">שיחות צוות, סיכומי החלטות ועדכוני סטטוס</div>
     </div>
   </div>
 
   <!-- UPLOAD vs CONNECT -->
   <div class="sec-label">Upload מול Connect</div>
-  <h2>מתי להעלות ומתי לחבר</h2>
-  <p>שניהם עובדים — אבל Connector חוסך זמן כשהקבצים מתעדכנים תדיר.</p>
+  <h2>מתי להעלות קובץ ומתי לחבר מערכת</h2>
+  <p>שני הנתיבים עובדים מצוין — אך חיבור Connector חוסך שעות עבודה יקרות כאשר הקבצים והנתונים מתעדכנים באופן שוטף.</p>
 
-  <table class="cmp-table">
-    <thead>
-      <tr><th>קריטריון</th><th class="upl">העלאה ידנית (Upload)</th><th class="con">חיבור (Connect)</th></tr>
-    </thead>
-    <tbody>
-      <tr><td>עדכניות</td><td>תמונת מצב רגעית בלבד</td><td>תמיד הגרסה העדכנית</td></tr>
-      <tr><td>מאמץ</td><td>הורדה + העלאה בכל פעם</td><td>חיבור פעם אחת</td></tr>
-      <tr><td>מספר קבצים</td><td>נוח לקובץ בודד</td><td>מצוין לתיקיות שלמות</td></tr>
-      <tr><td>מתי מתאים</td><td>קובץ חד-פעמי / רגיש</td><td>תהליך חוזר (סגירה, דוחות)</td></tr>
-    </tbody>
-  </table>
+  <div class="compare-wrap">
+    <table class="compare-table">
+      <thead>
+        <tr>
+          <th>קריטריון</th>
+          <th class="upl">העלאה ידנית (Upload)</th>
+          <th class="con">חיבור ישיר (Connect)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>עדכניות נתונים</td>
+          <td>תמונת מצב רגעית בלבד (Snapshot)</td>
+          <td class="col-connect">תמיד הגרסה העדכנית ביותר בזמן אמת</td>
+        </tr>
+        <tr>
+          <td>מאמץ תפעולי</td>
+          <td>הורדה + העלאה ידנית בכל שיחה מחדש</td>
+          <td class="col-connect">חיבור חד-פעמי — שליפה אוטומטית לפי דרישה</td>
+        </tr>
+        <tr>
+          <td>טיפול בריבוי קבצים</td>
+          <td>נוח לקובץ בודד או ניתוח נקודתי</td>
+          <td class="col-connect">מצוין לתיקיות שלמות, ארכיונים וחיפוש רוחבי</td>
+        </tr>
+        <tr>
+          <td>התאמה למחלקת כספים</td>
+          <td>קובץ חד-פעמי, סודי או בדיקה רגעית</td>
+          <td class="col-connect">תהליכים חוזרים (סגירת חודש, דוחות דירקטוריון)</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 
   <!-- PRIVACY -->
-  <div class="sec-label">פרטיות ואבטחה</div>
-  <h2>מה Claude רואה — ומה נשאר אצלך</h2>
+  <div class="sec-label">פרטיות ואבטחת מידע</div>
+  <h2>מה Claude רואה — ומה נשאר מוגן לחלוטין אצלך</h2>
 
   <div class="priv-grid">
     <div class="priv-card sees">
       <div class="priv-head">👁️ מה Claude ניגש אליו</div>
-      <div class="priv-row">• רק הקבצים שאתה מבקש במפורש</div>
-      <div class="priv-row">• רק לאחר אישור הרשאה שלך</div>
-      <div class="priv-row">• רק בזמן השיחה הפעילה</div>
+      <div class="priv-row">• רק הקבצים והתיקיות שאתה מבקש במפורש בשיחה</div>
+      <div class="priv-row">• רק לאחר אישור הרשאה (Authorization) מפורש שלך</div>
+      <div class="priv-row">• קריאה בזמן השיחה הפעילה בלבד — ללא שמירה בלתי מורשית</div>
     </div>
     <div class="priv-card local">
-      <div class="priv-head">🔒 מה נשאר מוגן</div>
-      <div class="priv-row">• הסיסמאות שלך — לעולם לא נחשפות</div>
-      <div class="priv-row">• אתה שולט בהרשאות ומבטל בכל רגע</div>
-      <div class="priv-row">• קבצים שלא ביקשת — לא נקראים</div>
+      <div class="priv-head">🔒 מה נשאר מוגן בארגון</div>
+      <div class="priv-row">• הסיסמאות ופרטי ההתחברות שלך — לעולם לא נחשפים</div>
+      <div class="priv-row">• שליטה מלאה בהרשאות (Read-Only) ואפשרות ניתוק מיידית</div>
+      <div class="priv-row">• כל יתר הקבצים והמידע שלא נתבקשו — אינם נסרקים ואינם נקראים</div>
     </div>
   </div>
 
   <!-- STEP BY STEP: connect Drive -->
-  <div class="sec-label">חיבור Google Drive</div>
-  <h2>4 שלבים לחיבור</h2>
+  <div class="sec-label">מדריך מעשי: חיבור Google Drive</div>
+  <h2>4 שלבים פשוטים לחיבור המערכת</h2>
 
   <div class="steps-list">
+    <!-- Step 1 -->
     <div class="step-item">
       <div class="step-num">1</div>
       <div class="step-content">
         <div class="step-title">Settings → Connectors → Google Drive</div>
-        <div class="step-desc">פתח את הגדרות החשבון ובחר את Google Drive מרשימת ה-Connectors.</div>
-        <img src="Images/connectors.png" alt="מסך Connectors בהגדרות Claude — Settings → Connectors" style="display:block;width:100%;max-width:640px;margin-top:12px;border:1px solid var(--border2);border-radius:8px;">
+        <div class="step-desc">פתח את הגדרות החשבון ב-Claude, גש ללשונית Connectors ובחר את Google Drive מרשימת החיבורים הזמינים.</div>
+        <div class="mockup-frame">
+          <div class="mockup-header">
+            <div class="window-dots">
+              <span class="dot-w dot-red"></span>
+              <span class="dot-w dot-yellow"></span>
+              <span class="dot-w dot-green"></span>
+            </div>
+            <span class="mockup-title">claude.ai / settings / connectors</span>
+            <span class="mockup-badge">Connectors Hub</span>
+          </div>
+          <div class="mockup-body">
+            <img src="Images/connectors.png" alt="מסך Connectors בהגדרות Claude — Settings → Connectors">
+          </div>
+          <div class="mockup-caption">מסך Connectors בהגדרות החשבון — בחירת מקור הנתונים לחיבור ישיר.</div>
+        </div>
       </div>
     </div>
+
+    <!-- Step 2 -->
     <div class="step-item">
       <div class="step-num">2</div>
       <div class="step-content">
         <div class="step-title">בדוק את ה-Tools של ה-Connector</div>
-        <div class="step-desc">לפני החיבור, ראה אילו פעולות (Tools) ה-Connector חושף — קריאה, חיפוש, יצירה. כך תדע בדיוק מה Claude יוכל לעשות.</div>
-        <img src="Images/netsuite1.png" alt="עמוד Connector עם רשימת ה-Tools הזמינים" style="display:block;width:100%;max-width:640px;margin-top:12px;border:1px solid var(--border2);border-radius:8px;">
+        <div class="step-desc">לפני החיבור, סקור אילו פעולות (Tools) ה-Connector חושף — קריאה, חיפוש או יצירת מסמכים. כך תדע בדיוק מה Claude מורשה לבצע.</div>
+        <div class="mockup-frame">
+          <div class="mockup-header">
+            <div class="window-dots">
+              <span class="dot-w dot-red"></span>
+              <span class="dot-w dot-yellow"></span>
+              <span class="dot-w dot-green"></span>
+            </div>
+            <span class="mockup-title">claude.ai / connectors / tools-scope</span>
+            <span class="mockup-badge">Tools &amp; Capabilities</span>
+          </div>
+          <div class="mockup-body">
+            <img src="Images/netsuite1.png" alt="עמוד Connector עם רשימת ה-Tools הזמינים">
+          </div>
+          <div class="mockup-caption">סקירת הכלים והפעולות המוגדרים ב-Connector לפני מתן ההרשאה.</div>
+        </div>
       </div>
     </div>
+
+    <!-- Step 3 -->
     <div class="step-item">
       <div class="step-num">3</div>
       <div class="step-content">
         <div class="step-title">אשר הרשאות (Authorize)</div>
-        <div class="step-desc">התחבר לחשבון Google ואשר אילו Tools מותרים — Read-only או גם כתיבה. אתה בשליטה מלאה על כל פעולה.</div>
-        <img src="Images/image5%20toolscop.png" alt="מסך Tool permissions של ה-Connector — Read-only / Write tools" style="display:block;width:100%;max-width:640px;margin-top:12px;border:1px solid var(--border2);border-radius:8px;">
+        <div class="step-desc">התחבר לחשבון ה-Google שלך ואשר אילו Tools מותרים — קריאה בלבד (Read-only) או גם כתיבה. אתה שומר על שליטה מלאה בכל שלב.</div>
+        <div class="mockup-frame">
+          <div class="mockup-header">
+            <div class="window-dots">
+              <span class="dot-w dot-red"></span>
+              <span class="dot-w dot-yellow"></span>
+              <span class="dot-w dot-green"></span>
+            </div>
+            <span class="mockup-title">claude.ai / connectors / permissions</span>
+            <span class="mockup-badge">Security &amp; Permissions</span>
+          </div>
+          <div class="mockup-body">
+            <img src="Images/image5%20toolscop.png" alt="מסך Tool permissions של ה-Connector — Read-only / Write tools">
+          </div>
+          <div class="mockup-caption">הגדרת רמת ההרשאות — קביעת מדיניות גישה מוגבלת ומאובטחת.</div>
+        </div>
       </div>
     </div>
+
+    <!-- Step 4 -->
     <div class="step-item">
       <div class="step-num">4</div>
       <div class="step-content">
-        <div class="step-title">בקש קובץ לפי שם בשיחה</div>
-        <div class="step-desc">פשוט כתוב "Access the file ... from my Drive" — Claude ישלוף ויקרא.</div>
+        <div class="step-title">בקש קובץ לפי שם ישירות בשיחה</div>
+        <div class="step-desc">פשוט פנה ל-Claude בשפה טבעית: "Access the file TechFlow Board Pack from my Drive" — Claude ישלוף, יקרא וינתח את המידע ישירות ללא צורך בהעלאה ידנית.</div>
       </div>
     </div>
   </div>
 
   <div class="callout">
-    <div class="callout-label">ה-Insight הכי חשוב</div>
-    <p>Connector הופך את Claude מ<strong>"כלי שמנתח מה שהדבקת"</strong> ל<strong>"עוזר שיודע איפה הקבצים שלך"</strong>. במקום לחפש את הדוח — פשוט מבקשים אותו בשם.</p>
+    <div class="callout-label">ה-Insight החשוב ביותר למנהל הכספים</div>
+    <p>Connector הופך את Claude מ<strong>"כלי שמנתח רק מה שהדבקת לו"</strong> ל<strong>"עוזר פיננסי חכם שיודע איפה הקבצים שלך נמצאים"</strong>. במקום לבזבז זמן בחיפוש, הורדה והעלאה של דוחות — פשוט מבקשים אותם בשמם והניתוח מתבצע מיד.</p>
   </div>
 
-  <!-- EXERCISE -->
+  <!-- EXERCISE (Console Style) -->
   <div class="exercise">
     <div class="exercise-header">
-      <span class="exercise-badge">תרגיל 07</span>
-      <span class="exercise-title">חבר את Drive ונתח Board Pack בלי להעלות אותו</span>
+      <div class="exercise-header-left">
+        <div class="window-dots">
+          <span class="dot-w dot-red"></span>
+          <span class="dot-w dot-yellow"></span>
+          <span class="dot-w dot-green"></span>
+        </div>
+        <span class="exercise-badge">תרגיל 07</span>
+        <span class="exercise-title">חיבור Google Drive וניתוח Board Pack מחובר ישירות</span>
+      </div>
     </div>
     <div class="exercise-body">
       <p class="exercise-context">
-        קודם חבר את Google Drive (לפי 3 השלבים למעלה). ודא שיש בו קובץ בשם "TechFlow Board Pack Q2 2026" (אפשר ליצור קובץ דמה). אז הרץ את ה-Prompt — Claude ישלוף ויסכם ישירות, בלי שתעלה כלום.
+        חבר את Google Drive לפי 4 השלבים שלמעד. ודא שיש ב-Drive קובץ בשם <span style="font-family:var(--mono);color:var(--cy);">TechFlow Board Pack Q2 2026</span> (ניתן ליצור קובץ דמה או להשתמש בקובץ קיים). לאחר מכן הרץ את ה-Prompts — Claude ישלוף את המידע ויסכם אותו ישירות ללא העלאה ידנית.
       </p>
 
       <div class="prompt-box">
-        <div class="prompt-label">Starter — סיכום Board Pack מ-Drive</div>
-        <div class="prompt-text ltr">Access the file "TechFlow Board Pack Q2 2026" from my Google Drive.
+        <div class="prompt-label">Starter — סיכום Board Pack מתוך ה-Drive</div>
+        <div class="prompt-text">Access the file "TechFlow Board Pack Q2 2026" from my Google Drive.
 Summarize: 1) Key financial highlights 2) Metrics below target 3) Top 3 risks mentioned.
 Format: 3 sections, bullet points, English.</div>
-        <button class="copy-btn" onclick="copyPrompt(this, 'Access the file \'TechFlow Board Pack Q2 2026\' from my Google Drive.\nSummarize: 1) Key financial highlights 2) Metrics below target 3) Top 3 risks mentioned.\nFormat: 3 sections, bullet points, English.')">העתק Prompt</button>
+        <button class="copy-btn" onclick="copyPrompt(this, 'Access the file \"TechFlow Board Pack Q2 2026\" from my Google Drive.\nSummarize: 1) Key financial highlights 2) Metrics below target 3) Top 3 risks mentioned.\nFormat: 3 sections, bullet points, English.')">העתק Prompt בסיסי</button>
       </div>
 
-      <div class="prompt-box">
-        <div class="prompt-label">Advanced — השוואה בין רבעונים מ-Drive</div>
-        <div class="prompt-text ltr">Compare the Q1 vs Q2 Board Packs from my Drive — what metrics are trending in the wrong direction?
+      <div class="prompt-box" style="margin-top:18px;">
+        <div class="prompt-label" style="color:var(--vi);">Advanced — השוואת מגמות בין רבעונים מ-Drive</div>
+        <div class="prompt-text">Compare the Q1 vs Q2 Board Packs from my Drive — what metrics are trending in the wrong direction?
 For each declining metric show: Metric | Q1 | Q2 | Change | Why it matters.
 Language: English, board-ready.</div>
-        <button class="copy-btn" onclick="copyPrompt(this, 'Compare the Q1 vs Q2 Board Packs from my Drive — what metrics are trending in the wrong direction?\nFor each declining metric show: Metric | Q1 | Q2 | Change | Why it matters.\nLanguage: English, board-ready.')">העתק Prompt</button>
+        <button class="copy-btn" onclick="copyPrompt(this, 'Compare the Q1 vs Q2 Board Packs from my Drive — what metrics are trending in the wrong direction?\nFor each declining metric show: Metric | Q1 | Q2 | Change | Why it matters.\nLanguage: English, board-ready.')">העתק פקודת השוואה</button>
       </div>
 
-      <div class="checklist">
-        <div class="checklist-title">✓ רשימת בדיקה לאחר התרגיל</div>
-        <div class="check-item"><div class="check-box" onclick="toggleCheck(this)"></div>חיברתי את Google Drive ואישרתי הרשאות</div>
-        <div class="check-item"><div class="check-box" onclick="toggleCheck(this)"></div>Claude שלף את הקובץ בלי שהעליתי אותו ידנית</div>
-        <div class="check-item"><div class="check-box" onclick="toggleCheck(this)"></div>קיבלתי סיכום ב-3 חלקים (highlights / below target / risks)</div>
-        <div class="check-item"><div class="check-box" onclick="toggleCheck(this)"></div>הרצתי את ההשוואה בין Q1 ל-Q2</div>
-        <div class="check-item"><div class="check-box" onclick="toggleCheck(this)"></div>זיהיתי אילו מדדים במגמה שלילית</div>
+      <!-- HIGH-CONTRAST CREAM CHECKLIST -->
+      <div class="checklist-cream">
+        <div class="checklist-cream-title">📋 רשימת בדיקה והערכה לאחר התרגיל</div>
+        <div class="checklist-cream-sub">סמן כל שלב שהשלמת בהצלחה כדי לוודא שליטה מלאה בחיבור וניהול Connectors:</div>
+        <div class="check-item-c" onclick="toggleCheckCream(this)">
+          <div class="check-box-c"></div>
+          <span>חיברתי את Google Drive (או סביבת בדיקה) ואישרתי הרשאות פעולה מאובטחות.</span>
+        </div>
+        <div class="check-item-c" onclick="toggleCheckCream(this)">
+          <div class="check-box-c"></div>
+          <span>Claude שלף בהצלחה את קובץ ה-Board Pack מתוך ה-Drive ללא העלאה ידנית.</span>
+        </div>
+        <div class="check-item-c" onclick="toggleCheckCream(this)">
+          <div class="check-box-c"></div>
+          <span>קיבלתי סיכום פיננסי ממוקד ב-3 חלקים (Key Highlights / Below Target / Top Risks).</span>
+        </div>
+        <div class="check-item-c" onclick="toggleCheckCream(this)">
+          <div class="check-box-c"></div>
+          <span>הרצתי בהצלחה את שאילתת ההשוואה בין הרבעונים (Q1 מול Q2) בפורמט Board-Ready.</span>
+        </div>
+        <div class="check-item-c" onclick="toggleCheckCream(this)">
+          <div class="check-box-c"></div>
+          <span>זיהיתי אילו מדדים במגמה שלילית והבנתי כיצד לבטל או להגביל הרשאות בהגדרות.</span>
+        </div>
       </div>
 
-      <div class="exercise-tip" style="margin-top:14px">
-        <strong>טיפ אבטחה:</strong> אחרי שסיימת, אפשר לבטל את ההרשאה ב-<span style="font-family:var(--mono);color:var(--accent)">Settings → Connectors</span>. אתה תמיד בשליטה על מה Claude יכול לראות.
+      <div class="exercise-tip">
+        <strong>טיפ אבטחה וניהול גישה:</strong> לאחר סיום התרגיל, בדוק כיצד ניתן לנהל או לנתק את החיבור דרך <span style="font-family:var(--mono);color:var(--cy);">Settings → Connectors</span>. במחלקת כספים תמיד שומרים על שליטה מלאה ומדיניות Least Privilege.
       </div>
     </div>
   </div>
 
   <!-- NEXT MODULE -->
   <div class="next-module">
-    <button class="prev-btn" onclick="window.location.href='/courses/ai-master-course/module-06'">→ Module 06</button>
+    <button class="prev-btn" onclick="window.location.href='/courses/ai-master-course/module-06'">→ Module 06 — Projects</button>
     <div style="text-align:right">
       <div class="next-label">המודול הבא</div>
       <div class="next-title">Module 08 — Claude ב-Excel</div>
     </div>
-    <button class="next-btn" onclick="window.location.href='/courses/ai-master-course/module-08'">המשך ←</button>
+    <button class="next-btn" onclick="window.location.href='/courses/ai-master-course/module-08'">המשך ל-Module 08 ←</button>
   </div>
 
 </main>
@@ -425,16 +747,24 @@ Language: English, board-ready.</div>
 <script>
   function copyPrompt(btn, text) {
     navigator.clipboard.writeText(text).then(() => {
-      btn.textContent = '✓ הועתק!';
-      btn.style.color = 'var(--green)';
-      btn.style.borderColor = 'var(--green)';
-      setTimeout(() => { btn.textContent = 'העתק Prompt'; btn.style.color = ''; btn.style.borderColor = ''; }, 2000);
+      const orig = btn.textContent;
+      btn.textContent = '✓ הועתק לקליפבורד!';
+      btn.style.color = 'var(--ok)';
+      btn.style.borderColor = 'var(--ok)';
+      setTimeout(() => {
+        btn.textContent = orig;
+        btn.style.color = '';
+        btn.style.borderColor = '';
+      }, 2000);
     });
   }
-  function toggleCheck(el) {
-    el.classList.toggle('checked');
-    el.textContent = el.classList.contains('checked') ? '✓' : '';
+
+  function toggleCheckCream(item) {
+    const box = item.querySelector('.check-box-c');
+    box.classList.toggle('checked');
+    box.textContent = box.classList.contains('checked') ? '✓' : '';
   }
+
   try {
     const p = JSON.parse(localStorage.getItem('claude-course-progress')) || {};
     p['module-07'] = true;
