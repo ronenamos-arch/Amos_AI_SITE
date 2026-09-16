@@ -4,149 +4,388 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Module 03 — מסגרת PRICE לכל Prompt | קורס Claude</title>
-  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800;900&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800;900&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
+    /* ═══════════════════════════════════════════════════════════
+       DigiSave Pro Theme: Slate Navy, Electric Cyan & Warm Coral
+       ═══════════════════════════════════════════════════════════ */
     :root {
-      --bg:      #0b0d10;
-      --bg2:     #111318;
-      --bg3:     #181c22;
-      --border:  #232830;
-      --border2: #2e3540;
-      --accent:  #b8c45a;
-      --text:    #e8eaf0;
-      --muted:   #7a8499;
-      --muted2:  #5a6278;
-      --green:   #65c466;
-      --yellow:  #f5b340;
-      --red:     #e05555;
-      --mono:    'IBM Plex Mono', monospace;
-      --sans:    'Heebo', sans-serif;
+      --bg:        #141821;
+      --bg-2:      #1A1F2A;
+      --bg-3:      #222938;
+      --border:    rgba(255, 255, 255, 0.10);
+      --border-hl: rgba(44, 229, 255, 0.35);
+      --ink:       #F4F7FA;
+      --dim:       #A7B0BE;
+      --dimmer:    #76808F;
+      --cy:        #2CE5FF;
+      --cy-soft:   rgba(44, 229, 255, 0.13);
+      --vi:        #8B7CFF;
+      --vi-soft:   rgba(139, 124, 255, 0.13);
+      --coral:     #FF5A3C;
+      --coral-soft:rgba(255, 90, 60, 0.12);
+      --ok:        #3DDC97;
+      --ok-soft:   rgba(61, 220, 151, 0.13);
+      --bad:       #FF6B6B;
+      --bad-soft:  rgba(255, 107, 107, 0.12);
+      --gold:      #F59E0B;
+      --gold-soft: rgba(245, 158, 11, 0.12);
+      --cream:     #F5F1EC;
+      --on-cream:  #15181F;
+      --mono:      'IBM Plex Mono', monospace;
+      --sans:      'Heebo', sans-serif;
     }
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    body { background: var(--bg); color: var(--text); font-family: var(--sans); font-size: 15px; line-height: 1.7; }
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: var(--sans);
+      font-size: 15.5px;
+      line-height: 1.7;
+      position: relative;
+      min-height: 100vh;
+    }
     a { color: inherit; text-decoration: none; }
 
-    /* NAV */
-    .topnav { position: sticky; top: 0; z-index: 100; background: rgba(11,13,16,.94); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; padding: 0 2rem; height: 56px; }
-    .topnav-brand { font-size: 13px; font-weight: 700; color: var(--accent); letter-spacing: .04em; text-transform: uppercase; }
+    /* Ambient Background Glow Mesh */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      background:
+        radial-gradient(58% 42% at 82% -6%, rgba(44, 229, 255, 0.13), transparent 62%),
+        radial-gradient(48% 38% at 8% 18%, rgba(139, 124, 255, 0.10), transparent 64%),
+        radial-gradient(70% 50% at 50% 108%, rgba(44, 229, 255, 0.07), transparent 60%);
+    }
+
+    /* ── NAV ── */
+    .topnav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(20, 24, 33, 0.92);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 2rem; height: 58px;
+    }
+    .topnav-brand {
+      font-size: 13px; font-weight: 800;
+      background: linear-gradient(96deg, var(--cy), var(--vi));
+      -webkit-background-clip: text; background-clip: text; color: transparent;
+      letter-spacing: .05em; text-transform: uppercase;
+    }
     .topnav-right { display: flex; align-items: center; gap: 1.4rem; }
-    .topnav-back { font-size: 13px; color: var(--muted); font-weight: 500; transition: color .18s; }
-    .topnav-back:hover { color: var(--accent); }
-    .topnav-module { font-size: 12px; color: var(--muted2); font-family: var(--mono); }
+    .topnav-back { font-size: 13px; color: var(--dim); font-weight: 600; transition: color .18s; }
+    .topnav-back:hover { color: var(--cy); }
+    .topnav-module { font-size: 12px; color: var(--dimmer); font-family: var(--mono); }
 
-    /* HERO */
-    .module-hero { border-bottom: 1px solid var(--border); padding: 56px 2rem 48px; max-width: 860px; margin: 0 auto; }
+    /* ── HERO ── */
+    .module-hero {
+      border-bottom: 1px solid var(--border);
+      padding: 56px 2rem 48px;
+      max-width: 880px; margin: 0 auto;
+      position: relative; z-index: 1;
+    }
     .module-eyebrow { display: flex; align-items: center; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; }
-    .eyebrow-num { font-family: var(--mono); font-size: 12px; color: var(--accent); background: rgba(184,196,90,.1); border: 1px solid rgba(184,196,90,.25); padding: 3px 10px; border-radius: 4px; }
-    .eyebrow-part { font-size: 12px; color: var(--muted2); }
-    .eyebrow-sep { color: var(--border2); }
-    .eyebrow-level { font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 4px; background: rgba(101,196,102,.12); color: var(--green); border: 1px solid rgba(101,196,102,.25); }
-    .module-hero h1 { font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 900; line-height: 1.15; margin-bottom: 10px; }
-    .module-hero h1 span { color: var(--accent); }
-    .module-en { font-size: 14px; color: var(--muted2); font-family: var(--mono); direction: ltr; margin-bottom: 20px; }
+    .eyebrow-num {
+      font-family: var(--mono); font-size: 11.5px; font-weight: 700;
+      color: var(--cy); background: var(--cy-soft);
+      border: 1px solid rgba(44, 229, 255, 0.28);
+      padding: 4px 12px; border-radius: 100px; letter-spacing: .05em;
+    }
+    .eyebrow-part { font-size: 12.5px; color: var(--dim); }
+    .eyebrow-sep { color: var(--dimmer); opacity: .5; }
+    .eyebrow-level {
+      font-size: 10.5px; font-weight: 800; padding: 3px 9px; border-radius: 100px;
+      background: var(--ok-soft); color: var(--ok); border: 1px solid rgba(61, 220, 151, 0.3);
+    }
+    .module-hero h1 {
+      font-size: clamp(2rem, 4.5vw, 3rem); font-weight: 900; line-height: 1.15; margin-bottom: 12px;
+      color: var(--ink);
+    }
+    .module-hero h1 span {
+      background: linear-gradient(96deg, var(--cy), var(--vi));
+      -webkit-background-clip: text; background-clip: text; color: transparent;
+    }
+    .module-en { font-size: 14.5px; color: var(--dim); font-family: var(--mono); direction: ltr; margin-bottom: 22px; font-weight: 500; }
     .module-meta { display: flex; gap: 20px; flex-wrap: wrap; }
-    .meta-item { display: flex; align-items: center; gap: 6px; font-size: 13px; color: var(--muted); }
-    .meta-item svg { width: 14px; height: 14px; opacity: .6; }
+    .meta-item { display: flex; align-items: center; gap: 7px; font-size: 13px; color: var(--dim); }
+    .meta-item svg { width: 15px; height: 15px; color: var(--cy); }
 
-    /* LAYOUT */
-    .content { max-width: 860px; margin: 0 auto; padding: 0 2rem 80px; }
-    .sec-label { font-size: 10px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; color: var(--accent); margin: 52px 0 16px; display: flex; align-items: center; gap: 8px; }
-    .sec-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
-    h2 { font-size: 1.3rem; font-weight: 800; color: var(--text); margin-bottom: 12px; }
-    p { color: var(--muted); margin-bottom: 16px; font-size: 15px; }
-    p strong { color: var(--text); font-weight: 700; }
+    /* ── LAYOUT ── */
+    .content { max-width: 880px; margin: 0 auto; padding: 0 2rem 80px; position: relative; z-index: 1; }
+    .sec-label {
+      font-size: 11px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase;
+      color: var(--cy); margin: 56px 0 16px; display: flex; align-items: center; gap: 10px;
+    }
+    .sec-label::after { content: ''; flex: 1; height: 1px; background: linear-gradient(90deg, var(--border), transparent); }
+    h2 { font-size: 1.45rem; font-weight: 800; color: var(--ink); margin-bottom: 14px; letter-spacing: -.01em; }
+    p { color: var(--dim); margin-bottom: 16px; font-size: 15.5px; line-height: 1.75; }
+    p strong { color: var(--ink); font-weight: 700; }
 
-    /* PRICE LETTER CARDS */
-    .price-grid { display: flex; flex-direction: column; gap: 12px; margin-bottom: 32px; }
-    .price-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 10px; padding: 18px 20px; display: flex; gap: 16px; align-items: flex-start; border-right: 3px solid var(--accent); }
-    .price-letter { width: 44px; height: 44px; border-radius: 10px; background: rgba(184,196,90,.12); border: 1px solid rgba(184,196,90,.3); color: var(--accent); font-size: 22px; font-weight: 900; font-family: var(--mono); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    /* ── PRICE LETTER CARDS ── */
+    .price-grid { display: flex; flex-direction: column; gap: 14px; margin-bottom: 36px; }
+    .price-card {
+      background: var(--bg-2); border: 1px solid var(--border);
+      border-radius: 14px; padding: 20px 22px; display: flex; gap: 18px; align-items: flex-start;
+      position: relative; overflow: hidden; backdrop-filter: blur(10px);
+      transition: transform .2s ease, border-color .2s ease, box-shadow .2s ease;
+    }
+    .price-card:hover { transform: translateY(-2px); border-color: var(--border-hl); box-shadow: 0 12px 30px rgba(0,0,0,0.35); }
+    .price-card::before {
+      content: ''; position: absolute;
+      top: 0; right: 0; bottom: 0; width: 4px;
+    }
+    .price-card.card-p::before { background: var(--cy); }
+    .price-card.card-r::before { background: var(--vi); }
+    .price-card.card-i::before { background: var(--ok); }
+    .price-card.card-c::before { background: var(--coral); }
+    .price-card.card-e::before { background: var(--gold); }
+
+    .price-letter {
+      width: 48px; height: 48px; border-radius: 12px;
+      font-size: 22px; font-weight: 900; font-family: var(--mono);
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    }
+    .card-p .price-letter { background: var(--cy-soft); color: var(--cy); border: 1px solid rgba(44, 229, 255, 0.35); }
+    .card-r .price-letter { background: var(--vi-soft); color: var(--vi); border: 1px solid rgba(139, 124, 255, 0.35); }
+    .card-i .price-letter { background: var(--ok-soft); color: var(--ok); border: 1px solid rgba(61, 220, 151, 0.35); }
+    .card-c .price-letter { background: var(--coral-soft); color: var(--coral); border: 1px solid rgba(255, 90, 60, 0.35); }
+    .card-e .price-letter { background: var(--gold-soft); color: var(--gold); border: 1px solid rgba(245, 158, 11, 0.35); }
+
     .price-body { flex: 1; }
-    .price-name { font-weight: 800; color: var(--text); font-size: 1rem; margin-bottom: 3px; }
-    .price-name .en { font-family: var(--mono); font-size: 12px; color: var(--muted2); direction: ltr; margin-right: 8px; }
-    .price-def { font-size: 13px; color: var(--muted); margin-bottom: 8px; }
-    .price-ex { font-family: var(--mono); font-size: 12px; color: var(--accent); background: var(--bg3); border-radius: 5px; padding: 8px 12px; direction: rtl; line-height: 1.6; }
-    .price-ex .tag { color: var(--muted2); }
+    .price-name { font-weight: 800; color: var(--ink); font-size: 1.05rem; margin-bottom: 4px; display: flex; align-items: center; gap: 10px; }
+    .price-name .en { font-family: var(--mono); font-size: 12px; color: var(--dimmer); direction: ltr; font-weight: 600; }
+    .price-def { font-size: 13.5px; color: var(--dim); margin-bottom: 10px; line-height: 1.6; }
+    .price-ex {
+      font-family: var(--mono); font-size: 12.8px; color: #FFFFFF;
+      background: #0E1219; border: 1px solid var(--border);
+      border-radius: 8px; padding: 10px 14px; direction: rtl; line-height: 1.6;
+    }
+    .price-ex .tag { color: var(--cy); font-weight: 700; margin-left: 6px; }
 
-    /* BEFORE / AFTER */
-    .ba-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; margin-bottom: 20px; }
-    .ba-header { background: var(--bg3); padding: 12px 20px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
-    .ba-scenario { font-weight: 800; font-size: .9rem; color: var(--text); }
-    .ba-tag { font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 4px; font-family: var(--mono); }
-    .ba-tag.p { background: rgba(101,196,102,.12); color: var(--green); border: 1px solid rgba(101,196,102,.25); }
+    /* ── BEFORE / AFTER ── */
+    .ba-card {
+      background: var(--bg-2); border: 1px solid var(--border);
+      border-radius: 14px; overflow: hidden; margin-bottom: 28px;
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.35);
+    }
+    .ba-header {
+      background: var(--bg-3); padding: 14px 22px; border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .ba-scenario { font-weight: 800; font-size: .95rem; color: var(--ink); }
+    .ba-tag {
+      font-size: 10.5px; font-weight: 800; padding: 3px 10px; border-radius: 100px;
+      font-family: var(--mono); letter-spacing: .05em; text-transform: uppercase;
+    }
+    .ba-tag.p { background: var(--ok-soft); color: var(--ok); border: 1px solid rgba(61, 220, 151, 0.3); }
     .ba-body { display: grid; grid-template-columns: 1fr 1fr; }
-    @media (max-width: 600px) { .ba-body { grid-template-columns: 1fr; } }
-    .ba-side { padding: 18px; }
-    .ba-side.bad { border-left: 1px solid var(--border); }
-    .ba-side-label { font-size: 10px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; margin-bottom: 10px; display: flex; align-items: center; gap: 6px; font-family: var(--mono); }
-    .ba-side.bad  .ba-side-label { color: var(--red); }
-    .ba-side.good .ba-side-label { color: var(--green); }
-    .ba-prompt { background: var(--bg); border: 1px solid var(--border2); border-radius: 6px; padding: 12px 14px; font-family: var(--mono); font-size: 12.5px; color: var(--text); line-height: 1.65; white-space: pre-wrap; direction: rtl; }
-    .ba-result { margin-top: 10px; font-size: 12px; line-height: 1.55; }
-    .ba-side.bad  .ba-result { color: var(--red); }
-    .ba-side.good .ba-result { color: var(--green); }
-    .ba-why { font-size: 11px; color: var(--muted2); margin-top: 6px; }
+    @media (max-width: 680px) { .ba-body { grid-template-columns: 1fr; } }
+    .ba-side { padding: 22px; }
+    .ba-side.bad { border-left: 1px solid var(--border); background: rgba(255, 107, 107, 0.02); }
+    .ba-side.good { background: rgba(61, 220, 151, 0.02); }
+    .ba-side-label {
+      font-size: 11px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase;
+      margin-bottom: 12px; display: flex; align-items: center; gap: 6px; font-family: var(--mono);
+    }
+    .ba-side.bad  .ba-side-label { color: var(--bad); }
+    .ba-side.good .ba-side-label { color: var(--ok); }
+    .ba-prompt {
+      background: #0E1219; border: 1px solid var(--border);
+      border-radius: 8px; padding: 14px; font-family: var(--mono);
+      font-size: 12.8px; color: #FFFFFF; line-height: 1.7; white-space: pre-wrap; direction: rtl;
+    }
+    .ba-result { margin-top: 12px; font-size: 13px; line-height: 1.6; font-weight: 500; }
+    .ba-side.bad  .ba-result { color: var(--bad); }
+    .ba-side.good .ba-result { color: var(--ok); }
+    .ba-why { font-size: 12px; color: var(--dim); margin-top: 8px; line-height: 1.55; }
 
-    /* BUILDER */
-    .builder { background: var(--bg2); border: 1px solid var(--border2); border-radius: 12px; padding: 22px; margin-bottom: 32px; }
-    .builder-title { font-weight: 800; font-size: 1rem; color: var(--text); margin-bottom: 4px; }
-    .builder-sub { font-size: 13px; color: var(--muted); margin-bottom: 18px; }
-    .builder-field { margin-bottom: 14px; }
-    .builder-field label { display: block; font-size: 11px; font-weight: 800; font-family: var(--mono); color: var(--accent); margin-bottom: 6px; letter-spacing: .05em; }
-    .builder-field textarea { width: 100%; background: var(--bg); border: 1px solid var(--border2); border-radius: 6px; color: var(--text); font-family: var(--mono); font-size: 13px; padding: 10px 12px; resize: vertical; min-height: 46px; direction: rtl; line-height: 1.6; }
-    .builder-field textarea:focus { outline: none; border-color: var(--accent); }
-    .builder-out { background: var(--bg); border: 1px dashed var(--border2); border-radius: 8px; padding: 16px; margin-top: 8px; }
-    .builder-out-label { font-size: 10px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; color: var(--accent); margin-bottom: 8px; font-family: var(--mono); }
-    .builder-out pre { font-family: var(--mono); font-size: 12.5px; color: var(--text); white-space: pre-wrap; direction: rtl; line-height: 1.7; min-height: 24px; }
-    .builder-empty { color: var(--muted2); font-style: italic; }
+    /* ── BUILDER (Console Style) ── */
+    .builder {
+      background: var(--bg-2); border: 1px solid var(--border);
+      border-radius: 16px; overflow: hidden; margin-bottom: 36px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.45);
+    }
+    .builder-header {
+      background: var(--bg-3); border-bottom: 1px solid var(--border);
+      padding: 16px 24px; display: flex; align-items: center; justify-content: space-between;
+    }
+    .builder-header-left { display: flex; align-items: center; gap: 12px; }
+    .window-dots { display: flex; gap: 6px; align-items: center; margin-left: 8px; }
+    .dot-w { width: 10px; height: 10px; border-radius: 50%; opacity: .7; }
+    .dot-red { background: #FF5F56; }
+    .dot-yellow { background: #FFBD2E; }
+    .dot-green { background: #27C93F; }
+    .builder-badge {
+      background: var(--cy); color: #04121A;
+      font-size: 10.5px; font-weight: 900; letter-spacing: .08em;
+      text-transform: uppercase; padding: 4px 11px; border-radius: 100px;
+    }
+    .builder-title { font-weight: 800; font-size: 1.05rem; color: var(--ink); }
+    .builder-body { padding: 24px; }
+    .builder-sub { font-size: 13.5px; color: var(--dim); margin-bottom: 20px; }
 
-    /* MISTAKES */
-    .mistakes-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 32px; }
-    @media (max-width: 600px) { .mistakes-grid { grid-template-columns: 1fr; } }
-    .mistake-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 10px; padding: 16px; border-right: 3px solid var(--red); }
-    .mistake-title { font-weight: 800; color: var(--red); font-size: .9rem; margin-bottom: 6px; }
-    .mistake-example { font-family: var(--mono); font-size: 12px; color: var(--muted2); background: var(--bg3); border-radius: 5px; padding: 8px 10px; margin-bottom: 8px; direction: rtl; }
-    .mistake-fix { font-size: 12px; color: var(--green); }
+    .builder-field { margin-bottom: 16px; }
+    .builder-field label {
+      display: block; font-size: 11.5px; font-weight: 800; font-family: var(--mono);
+      color: var(--cy); margin-bottom: 6px; letter-spacing: .05em;
+    }
+    .builder-field textarea {
+      width: 100%; background: #0E1219; border: 1px solid var(--border);
+      border-radius: 8px; color: #FFFFFF; font-family: var(--mono);
+      font-size: 13px; padding: 10px 14px; resize: vertical; min-height: 48px;
+      direction: rtl; line-height: 1.6; transition: border-color .18s;
+    }
+    .builder-field textarea:focus { outline: none; border-color: var(--cy); box-shadow: 0 0 0 2px rgba(44, 229, 255, 0.2); }
 
-    /* CALLOUT */
-    .callout { background: rgba(184,196,90,.06); border: 1px solid rgba(184,196,90,.2); border-radius: 10px; padding: 20px 22px; margin-bottom: 24px; }
-    .callout-label { font-size: 10px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; color: var(--accent); margin-bottom: 6px; }
-    .callout p { color: var(--text); margin: 0; font-size: 14px; }
+    .builder-out {
+      background: #0A0D13; border: 1px dashed rgba(44, 229, 255, 0.3);
+      border-radius: 10px; padding: 18px; margin-top: 16px;
+    }
+    .builder-out-label {
+      font-size: 10.5px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase;
+      color: var(--cy); margin-bottom: 10px; font-family: var(--mono);
+    }
+    .builder-out pre {
+      font-family: var(--mono); font-size: 13px; color: #FFFFFF;
+      white-space: pre-wrap; direction: rtl; line-height: 1.75; min-height: 24px;
+    }
+    .builder-empty { color: var(--dimmer); font-style: italic; }
 
-    /* EXERCISE */
-    .exercise { background: var(--bg3); border: 1px solid var(--border2); border-radius: 12px; overflow: hidden; margin-top: 48px; }
-    .exercise-header { background: var(--bg2); border-bottom: 1px solid var(--border); padding: 16px 22px; display: flex; align-items: center; gap: 12px; }
-    .exercise-badge { background: var(--accent); color: var(--bg); font-size: 10px; font-weight: 900; letter-spacing: .1em; text-transform: uppercase; padding: 3px 10px; border-radius: 4px; }
-    .exercise-title { font-weight: 800; font-size: 1rem; color: var(--text); }
-    .exercise-body { padding: 22px; }
-    .exercise-context { font-size: 13px; color: var(--muted); margin-bottom: 20px; }
-    .prompt-box { background: var(--bg); border: 1px solid var(--border2); border-radius: 8px; padding: 16px 18px; margin-bottom: 16px; }
-    .prompt-label { font-size: 10px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--accent); margin-bottom: 8px; font-family: var(--mono); }
-    .prompt-text { font-family: var(--mono); font-size: 13px; color: var(--text); direction: rtl; line-height: 1.7; white-space: pre-wrap; }
-    .copy-btn { background: var(--bg2); border: 1px solid var(--border2); color: var(--muted); font-size: 12px; font-family: var(--sans); padding: 5px 14px; border-radius: 5px; cursor: pointer; transition: border-color .18s, color .18s; margin-top: 8px; }
-    .copy-btn:hover { border-color: var(--accent); color: var(--accent); }
-    .exercise-tip { font-size: 12px; color: var(--muted2); border-top: 1px solid var(--border); margin-top: 20px; padding-top: 14px; }
-    .exercise-tip strong { color: var(--muted); }
+    /* ── MISTAKES GRID ── */
+    .mistakes-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 36px; }
+    @media (max-width: 680px) { .mistakes-grid { grid-template-columns: 1fr; } }
+    .mistake-card {
+      background: var(--bg-2); border: 1px solid var(--border);
+      border-radius: 12px; padding: 18px; border-right: 3px solid var(--coral);
+      backdrop-filter: blur(10px);
+    }
+    .mistake-title { font-weight: 800; color: var(--coral); font-size: .95rem; margin-bottom: 8px; }
+    .mistake-example {
+      font-family: var(--mono); font-size: 12.5px; color: var(--dim);
+      background: #0E1219; border: 1px solid var(--border);
+      border-radius: 6px; padding: 8px 12px; margin-bottom: 10px; direction: rtl;
+    }
+    .mistake-fix { font-size: 13px; color: var(--ok); line-height: 1.55; }
 
-    /* CHECKLIST */
-    .checklist { background: var(--bg2); border: 1px solid var(--border); border-radius: 10px; padding: 18px 20px; margin-top: 16px; }
-    .checklist-title { font-weight: 800; font-size: .9rem; color: var(--text); margin-bottom: 12px; }
-    .check-item { display: flex; align-items: flex-start; gap: 10px; font-size: 13px; color: var(--muted); padding: 5px 0; border-bottom: 1px solid var(--border); }
-    .check-item:last-child { border-bottom: none; }
-    .check-box { width: 16px; height: 16px; border: 1px solid var(--border2); border-radius: 3px; flex-shrink: 0; margin-top: 3px; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 10px; transition: background .15s, border-color .15s; }
-    .check-box.checked { background: var(--accent); border-color: var(--accent); color: var(--bg); }
+    /* ── CALLOUT ── */
+    .callout {
+      background: linear-gradient(135deg, rgba(44, 229, 255, 0.08), rgba(139, 124, 255, 0.06));
+      border: 1px solid rgba(44, 229, 255, 0.28);
+      border-radius: 14px; padding: 22px 24px; margin-bottom: 28px;
+    }
+    .callout-label {
+      font-size: 10.5px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase;
+      color: var(--cy); margin-bottom: 8px;
+    }
+    .callout p { color: #FFFFFF; margin: 0; font-size: 15px; line-height: 1.7; }
 
-    /* NEXT */
-    .next-module { margin-top: 56px; padding-top: 32px; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
-    .prev-btn { background: var(--bg2); border: 1px solid var(--border2); color: var(--muted); font-size: 13px; font-weight: 700; padding: 8px 20px; border-radius: 8px; cursor: pointer; transition: border-color .18s, color .18s; font-family: var(--sans); }
-    .prev-btn:hover { border-color: var(--accent); color: var(--accent); }
-    .next-label { font-size: 11px; color: var(--muted2); text-transform: uppercase; letter-spacing: .1em; margin-bottom: 4px; }
-    .next-title { font-weight: 800; color: var(--text); font-size: 1rem; }
-    .next-btn { background: var(--accent); color: var(--bg); font-size: 14px; font-weight: 800; padding: 10px 24px; border-radius: 8px; cursor: pointer; white-space: nowrap; transition: background .18s, transform .15s; border: none; font-family: var(--sans); }
-    .next-btn:hover { background: #cad86a; transform: translateX(-3px); }
+    /* ── EXERCISE (Console Style) ── */
+    .exercise {
+      background: var(--bg-2); border: 1px solid var(--border);
+      border-radius: 16px; overflow: hidden; margin-top: 52px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.45);
+    }
+    .exercise-header {
+      background: var(--bg-3); border-bottom: 1px solid var(--border);
+      padding: 16px 24px; display: flex; align-items: center; justify-content: space-between;
+    }
+    .exercise-header-left { display: flex; align-items: center; gap: 12px; }
+    .exercise-badge {
+      background: var(--cy); color: #04121A;
+      font-size: 10.5px; font-weight: 900; letter-spacing: .08em;
+      text-transform: uppercase; padding: 4px 11px; border-radius: 100px;
+    }
+    .exercise-title { font-weight: 800; font-size: 1.05rem; color: var(--ink); }
+    .exercise-body { padding: 26px; }
+    .exercise-context { font-size: 14px; color: var(--dim); margin-bottom: 24px; line-height: 1.7; }
+
+    .prompt-box {
+      background: #0E1219; border: 1px solid var(--border);
+      border-radius: 10px; padding: 18px 20px; margin-bottom: 20px;
+    }
+    .prompt-label {
+      font-size: 11px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase;
+      color: var(--cy); margin-bottom: 10px; font-family: var(--mono);
+    }
+    .prompt-text {
+      font-family: var(--mono); font-size: 12.8px; color: #FFFFFF;
+      direction: rtl; line-height: 1.75; white-space: pre-wrap;
+    }
+    .copy-btn {
+      background: var(--bg-2); border: 1px solid var(--border); color: var(--dim);
+      font-size: 12px; font-family: var(--sans); font-weight: 700; padding: 6px 16px;
+      border-radius: 6px; cursor: pointer; transition: all .18s; margin-top: 10px;
+    }
+    .copy-btn:hover { border-color: var(--cy); color: var(--cy); background: var(--cy-soft); }
+
+    .exercise-tip {
+      font-size: 13.5px; color: #FFFFFF;
+      background: linear-gradient(135deg, rgba(44, 229, 255, 0.08), rgba(255, 90, 60, 0.06));
+      border: 1px solid rgba(44, 229, 255, 0.25);
+      border-radius: 10px; padding: 16px 20px; margin-top: 24px; line-height: 1.65;
+    }
+    .exercise-tip strong { color: var(--cy); }
+
+    /* ── HIGH-CONTRAST CREAM CHECKLIST ── */
+    .checklist-cream {
+      background: var(--cream); color: var(--on-cream);
+      border-radius: 14px; padding: 26px 28px; margin-top: 28px;
+      box-shadow: 0 16px 36px rgba(0,0,0,.4);
+    }
+    .checklist-cream-title {
+      font-size: 1.05rem; font-weight: 900; color: var(--on-cream); margin-bottom: 6px;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .checklist-cream-sub {
+      font-size: 13px; color: #555D6E; margin-bottom: 18px; line-height: 1.5;
+    }
+    .check-item-c {
+      display: flex; align-items: flex-start; gap: 12px;
+      font-size: 13.5px; color: #2D333F; font-weight: 600;
+      padding: 9px 0; border-bottom: 1px solid rgba(0,0,0,0.08);
+      cursor: pointer; user-select: none;
+    }
+    .check-item-c:last-child { border-bottom: none; }
+    .check-box-c {
+      width: 18px; height: 18px; border: 2px solid #8892A0; border-radius: 4px;
+      flex-shrink: 0; margin-top: 3px; display: flex; align-items: center; justify-content: center;
+      font-size: 11px; font-weight: 900; transition: all .15s; background: #FFFFFF;
+    }
+    .check-box-c.checked {
+      background: #10B981; border-color: #10B981; color: #FFFFFF;
+    }
+
+    /* ── NEXT MODULE ── */
+    .next-module {
+      margin-top: 60px; padding-top: 36px; border-top: 1px solid var(--border);
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .prev-btn {
+      background: var(--bg-2); border: 1px solid var(--border); color: var(--dim);
+      font-size: 13.5px; font-weight: 700; padding: 10px 22px; border-radius: 10px;
+      cursor: pointer; transition: all .18s; font-family: var(--sans);
+    }
+    .prev-btn:hover { border-color: var(--cy); color: var(--cy); }
+    .next-label { font-size: 11px; color: var(--dimmer); text-transform: uppercase; letter-spacing: .1em; margin-bottom: 4px; }
+    .next-title { font-weight: 800; color: var(--ink); font-size: 1.05rem; }
+    .next-btn {
+      background: var(--cy); color: #04121A;
+      font-size: 14.5px; font-weight: 800; padding: 12px 28px;
+      border-radius: 10px; cursor: pointer; white-space: nowrap;
+      transition: transform .18s ease, box-shadow .18s ease;
+      border: none; font-family: var(--sans);
+      box-shadow: 0 8px 24px rgba(44, 229, 255, 0.28);
+    }
+    .next-btn:hover {
+      transform: translateY(-2px); box-shadow: 0 14px 34px rgba(44, 229, 255, 0.4);
+    }
 
     ::-webkit-scrollbar { width: 6px; }
     ::-webkit-scrollbar-track { background: var(--bg); }
-    ::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 3px; }
+    ::-webkit-scrollbar-thumb { background: var(--bg-3); border-radius: 3px; }
   </style>
 </head>
 <body>
@@ -203,7 +442,7 @@
 </script>
 <!-- AFX-SIDEBAR END -->
 
-
+<!-- NAV -->
 <nav class="topnav">
   <span class="topnav-brand">AI Finance Transformation</span>
   <div class="topnav-right">
@@ -212,6 +451,7 @@
   </div>
 </nav>
 
+<!-- HERO -->
 <header class="module-hero">
   <div class="module-eyebrow">
     <span class="eyebrow-num">MODULE 03</span>
@@ -220,8 +460,8 @@
     <span class="eyebrow-sep">·</span>
     <span class="eyebrow-level">מתחיל</span>
   </div>
-  <h1>מסגרת <span>PRICE</span><br>5 שלבים לכל Prompt</h1>
-  <div class="module-en">The PRICE Framework</div>
+  <h1>מסגרת <span>PRICE</span><br>5 שלבים לפרומפט פיננסי מדויק</h1>
+  <div class="module-en">The PRICE Framework for Financial Engineering</div>
   <div class="module-meta">
     <span class="meta-item">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
@@ -229,233 +469,283 @@
     </span>
     <span class="meta-item">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
-      Claude App
+      Claude App · Interactive Builder
     </span>
   </div>
 </header>
 
+<!-- MAIN CONTENT -->
 <main class="content">
 
   <!-- INTRO -->
-  <div class="sec-label">למה צריך מסגרת?</div>
-  <h2>במודול הקודם ראית את ההבדל. עכשיו תקבל את הנוסחה</h2>
+  <div class="sec-label">למה צריך מסגרת עבודה מובנית?</div>
+  <h2>במודול הקודם ראית את ההבדל — עכשיו תקבל את הנוסחה</h2>
   <p>
-    ב-Module 02 ראית ש-Prompt חזק תמיד מכיל את אותם רכיבים: <strong>הקשר, נתונים, הוראות, פורמט</strong>. הבעיה — בלחץ של סגירת רבעון, קל לשכוח רכיב.
+    ב-Module 02 ראית שפרומפט פיננסי חזק תמיד מכיל את אותם ארבעה רכיבי יסוד: <strong>הקשר, נתונים, הוראות ופורמט</strong>. הבעיה המרכזית היא שבלחץ סגירת חודש או הכנת ישיבת דירקטוריון — קל מאוד לדלג על רכיב קריטי ולקבל תשובה גנרית.
   </p>
   <p>
-    <strong>PRICE</strong> היא ראשי תיבות שתזכור בעל-פה אחרי תרגול אחד. חמש אותיות, חמישה שלבים. כל Prompt פיננסי שתכתוב מהיום — תעבור עליו בראש ותוודא שכל אות קיימת.
+    <strong>PRICE</strong> היא מסגרת עבודה (Framework) בת חמש אותיות שפותחה במיוחד עבור מנהלי כספים, חשבים וצוותי FP&A. כל פרומפט פיננסי שתכתוב מהיום — תעבור עליו בראש ותוודא שכל אות קיימת.
   </p>
 
   <!-- PRICE CARDS -->
-  <div class="sec-label">5 האותיות</div>
+  <div class="sec-label">5 האותיות של PRICE</div>
   <h2>P · R · I · C · E — אות אחר אות</h2>
-  <p>כל כרטיס: שם האות, הגדרה במשפט, ודוגמה פיננסית של <strong>TechFlow Ltd</strong> — חברת ה-SaaS הישראלית שמלווה אותנו לאורך הקורס.</p>
+  <p>כל כרטיס מגדיר את תפקיד האות, את השאלה המנחה, ודוגמה מוחשית מתוך חברת ה-SaaS שמלווה אותנו בקורס — <strong>TechFlow Ltd</strong>.</p>
 
   <div class="price-grid">
-    <div class="price-card">
+    <!-- P -->
+    <div class="price-card card-p">
       <div class="price-letter">P</div>
       <div class="price-body">
-        <div class="price-name">Problem — הבעיה<span class="en">P = Problem</span></div>
-        <div class="price-def">מה השאלה או המשימה? פתח עם הבעיה העסקית האמיתית, לא עם "תעזור לי".</div>
-        <div class="price-ex"><span class="tag">[P]</span> ה-OpEx שלנו גדל ב-22% YoY ואנחנו לא יודעים למה.</div>
+        <div class="price-name">Problem — הבעיה העסקית<span class="en">P = Problem</span></div>
+        <div class="price-def">מהי המשימה או האתגר הפיננסי המדויק? פתח עם הבעיה העסקית האמיתית, לא עם "עזור לי".</div>
+        <div class="price-ex"><span class="tag">[P]</span> ה-OpEx שלנו גדל ב-22% YoY ברבעון האחרון ואנחנו חייבים להבין את מנועי הגידול העיקריים.</div>
       </div>
     </div>
-    <div class="price-card">
+
+    <!-- R -->
+    <div class="price-card card-r">
       <div class="price-letter">R</div>
       <div class="price-body">
-        <div class="price-name">Relevant Context — הקשר רלוונטי<span class="en">R = Relevant Context</span></div>
-        <div class="price-def">מי החברה, איזה ענף, מטבע, תקופה, גודל. שני משפטים שהופכים תשובה גנרית לספציפית.</div>
-        <div class="price-ex"><span class="tag">[R]</span> TechFlow Ltd, SaaS B2B ישראלית, USD, 150 עובדים, ARR $18M, Q2 2026.</div>
+        <div class="price-name">Relevant Context — הקשר עסקי וחשבונאי<span class="en">R = Relevant Context</span></div>
+        <div class="price-def">מי החברה, מודל עסקי, מטבע דיווח, תקופה וסדרי גודל. שני משפטים שהופכים תשובה שבלונית לניתוח מדויק.</div>
+        <div class="price-ex"><span class="tag">[R]</span> TechFlow Ltd, חברת SaaS B2B ישראלית, דיווח ב-USD, 150 עובדים, ARR $18M, נתוני Q2 2026.</div>
       </div>
     </div>
-    <div class="price-card">
+
+    <!-- I -->
+    <div class="price-card card-i">
       <div class="price-letter">I</div>
       <div class="price-body">
-        <div class="price-name">Instructions — הוראות<span class="en">I = Instructions</span></div>
-        <div class="price-def">בדיוק מה לעשות, בפעלים ברורים. "נתח", "מצא", "כתוב", "השווה".</div>
-        <div class="price-ex"><span class="tag">[I]</span> נתח את הגידול ב-OpEx ומצא את 3 ה-Drivers העיקריים.</div>
+        <div class="price-name">Instructions — הוראות פעולה ברורות<span class="en">I = Instructions</span></div>
+        <div class="price-def">בדיוק מה לעשות, בפעלים אופרטיביים: "נתח", "בצע Reconciliation", "מצא 3 מנועים", "חשב שונות".</div>
+        <div class="price-ex"><span class="tag">[I]</span> בצע Variance Analysis של ה-OpEx מול התקציב, מצא את 3 ה-Drivers העיקריים וחשב את השפעתם.</div>
       </div>
     </div>
-    <div class="price-card">
+
+    <!-- C -->
+    <div class="price-card card-c">
       <div class="price-letter">C</div>
       <div class="price-body">
-        <div class="price-name">Constraints — מגבלות<span class="en">C = Constraints</span></div>
-        <div class="price-def">אורך, שפה, טון, מה לא לכלול. המגבלות הן מה שהופך פלט לשמיש מיד.</div>
-        <div class="price-ex"><span class="tag">[C]</span> מקסימום 5 שורות, אנגלית עסקית, ללא גרפים.</div>
+        <div class="price-name">Constraints — מגבלות ובקרת איכות<span class="en">C = Constraints</span></div>
+        <div class="price-def">אורך רצוי, שפה, טון ניהולי, מה לא לכלול, ואיסור מוחלט על המצאת נתונים (Evidence Citations).</div>
+        <div class="price-ex"><span class="tag">[C]</span> מקסימום 5 שורות, אנגלית עסקית, ללא ז'רגון טכני, צטט מספר עמוד/שורה לכל מספר מהותי.</div>
       </div>
     </div>
-    <div class="price-card">
+
+    <!-- E -->
+    <div class="price-card card-e">
       <div class="price-letter">E</div>
       <div class="price-body">
-        <div class="price-name">Examples — דוגמאות<span class="en">E = Examples</span></div>
-        <div class="price-def">דוגמה אחת לפורמט הרצוי = שיפור פי 10 בפלט. הראה ל-Claude איך נראה "טוב".</div>
-        <div class="price-ex"><span class="tag">[E]</span> פורמט: Driver | סכום | % מהסך | הסבר קצר.</div>
+        <div class="price-name">Examples — דוגמה לפורמט הפלט<span class="en">E = Examples</span></div>
+        <div class="price-def">דוגמה קונקרטית אחת למבנה הרצוי = שיפור של 10x באיכות הפלט. הראה ל-Claude בדיוק איך נראה תוצר מושלם.</div>
+        <div class="price-ex"><span class="tag">[E]</span> פורמט טבלה: Driver | סכום ($) | % מסך השונות | מקור ראייתי (Lineage) | הסבר תמציתי.</div>
       </div>
     </div>
   </div>
 
   <!-- WORKED EXAMPLE -->
-  <div class="sec-label">דוגמה מלאה</div>
-  <h2>לפני PRICE → אחרי PRICE</h2>
-  <p>אותה משימה בדיוק — ניתוח גידול ב-OpEx של TechFlow. שים לב איך כל אות מוסיפה שכבת דיוק.</p>
+  <div class="sec-label">השוואה מעשית</div>
+  <h2>לפני PRICE מול אחרי PRICE</h2>
+  <p>אותה משימה בדיוק — ניתוח גידול בהוצאות הנהלה וכלליות (OpEx). שים לב כיצד כל אות מוסיפה שכבת דיוק ואיכות.</p>
 
   <div class="ba-card">
     <div class="ba-header">
-      <span class="ba-scenario">📈 ניתוח גידול OpEx</span>
+      <span class="ba-scenario">📈 ניתוח גידול OpEx ב-TechFlow Ltd</span>
       <span class="ba-tag p">PRICE Applied</span>
     </div>
     <div class="ba-body">
       <div class="ba-side bad">
-        <div class="ba-side-label">✗ לפני — בלי מסגרת</div>
-        <div class="ba-prompt">למה ההוצאות שלנו גדלו? תעזור לי להבין.</div>
-        <div class="ba-result">❌ Claude מחזיר רשימה כללית של סיבות אפשריות לגידול הוצאות — ללא קשר ל-TechFlow.</div>
-        <div class="ba-why">חסר: מספרים, הקשר חברה, מה בדיוק לעשות, פורמט.</div>
+        <div class="ba-side-label">✗ לפני — פרומפט חלש וללא מבנה</div>
+        <div class="ba-prompt">למה ההוצאות שלנו גדלו? תעזור לי להבין מה קרה שם.</div>
+        <div class="ba-result">❌ Claude מחזיר רשימה תיאורטית של סיבות אפשריות לגידול הוצאות בעולם — ללא שום קשר למספרים של TechFlow.</div>
+        <div class="ba-why">מה חסר: נתוני בסיס, הקשר חברה, פקודת עבודה אופרטיבית ופורמט דיווח.</div>
       </div>
       <div class="ba-side good">
-        <div class="ba-side-label">✓ אחרי — PRICE מלא</div>
-        <div class="ba-prompt">[P] ה-OpEx שלנו גדל ב-22% YoY.
-[R] TechFlow Ltd, SaaS, USD, 150 עובדים, ARR $18M.
-[I] נתח את הגידול, מצא 3 drivers עיקריים.
-[C] מקסימום 5 שורות, ללא גרפים.
-[E] פורמט: Driver | סכום | % מהסך | הסבר קצר</div>
-        <div class="ba-result">✅ Claude מחזיר טבלת 3 Drivers ממוקדת, בפורמט המבוקש, מוכנה לדוח.</div>
-        <div class="ba-why">כל אות במקום — תוצאה ספציפית, קצרה, שמישה מיד.</div>
+        <div class="ba-side-label">✓ אחרי — PRICE מלא ומובנה</div>
+        <div class="ba-prompt">[P] ה-OpEx שלנו גדל ב-22% YoY ברבעון הנוכחי.
+[R] TechFlow Ltd, SaaS B2B, USD, 150 עובדים, ARR $18M.
+[I] נתח את הגידול, מצא את 3 ה-Drivers המובילים וחשב את חלקם.
+[C] מקסימום 5 שורות, Board-Ready, צטט מספרי שורות מקור.
+[E] פורמט: Driver | סכום ($) | % מהשונות | הסבר קצר</div>
+        <div class="ba-result">✅ Claude מחזיר טבלת 3 Drivers מדויקת עם מספרים מחושבים, מוכנה להטמעה מיידית במצגת הדירקטוריון.</div>
+        <div class="ba-why">כל אות במקומה — תוצר ממוקד, מדויק, בר ביקורת ומוכן להצגה.</div>
       </div>
     </div>
   </div>
 
   <!-- BUILDER -->
-  <div class="sec-label">בנה בעצמך</div>
-  <h2>PRICE Builder — הרכב Prompt בזמן אמת</h2>
-  <p>מלא כל שדה למטה. ה-Prompt המורכב נבנה אוטומטית. כשתסיים — לחץ "העתק Prompt" והדבק ב-Claude.</p>
+  <div class="sec-label">בנה בעצמך בזמן אמת</div>
+  <h2>PRICE Builder — מחולל הפרומפטים הפיננסי</h2>
+  <p>הזן את הנתונים שלך בכל אחד מחמשת השדות. הפרומפט השלם יורכב אוטומטית בפורמט PRICE תקני. כשתסיים — לחץ "העתק Prompt" והדבק ישירות ב-Claude.</p>
 
   <div class="builder">
-    <div class="builder-title">⚙️ מחולל ה-PRICE</div>
-    <div class="builder-sub">השדות מאוכלסים מראש בנתוני TechFlow — שנה לפי הצורך שלך.</div>
+    <div class="builder-header">
+      <div class="builder-header-left">
+        <div class="window-dots">
+          <span class="dot-w dot-red"></span>
+          <span class="dot-w dot-yellow"></span>
+          <span class="dot-w dot-green"></span>
+        </div>
+        <span class="builder-badge">Interactive Tool</span>
+        <span class="builder-title">PRICE Prompt Generator</span>
+      </div>
+    </div>
+    <div class="builder-body">
+      <div class="builder-sub">השדות מאוכלסים מראש בדוגמת TechFlow — עדכן והתאם אותם לנתוני החברה שלך:</div>
 
-    <div class="builder-field">
-      <label>P — Problem / הבעיה</label>
-      <textarea id="f-p" oninput="buildPrice()">ה-OpEx שלנו גדל ב-22% YoY</textarea>
-    </div>
-    <div class="builder-field">
-      <label>R — Relevant Context / הקשר</label>
-      <textarea id="f-r" oninput="buildPrice()">TechFlow Ltd, SaaS, USD, 150 עובדים, ARR $18M</textarea>
-    </div>
-    <div class="builder-field">
-      <label>I — Instructions / הוראות</label>
-      <textarea id="f-i" oninput="buildPrice()">נתח את הגידול, מצא 3 drivers עיקריים</textarea>
-    </div>
-    <div class="builder-field">
-      <label>C — Constraints / מגבלות</label>
-      <textarea id="f-c" oninput="buildPrice()">מקסימום 5 שורות, ללא גרפים</textarea>
-    </div>
-    <div class="builder-field">
-      <label>E — Examples / דוגמה לפורמט</label>
-      <textarea id="f-e" oninput="buildPrice()">פורמט: Driver | סכום | % מהסך | הסבר קצר</textarea>
-    </div>
+      <div class="builder-field">
+        <label>P — Problem / הגדרת הבעיה והמשימה</label>
+        <textarea id="f-p" oninput="buildPrice()">ה-OpEx שלנו גדל ב-22% YoY ואנחנו צריכים לזהות את גורמי השונות המרכזיים</textarea>
+      </div>
+      <div class="builder-field">
+        <label>R — Relevant Context / הקשר עסקי, ענפי וחשבונאי</label>
+        <textarea id="f-r" oninput="buildPrice()">TechFlow Ltd, SaaS B2B, USD, 150 עובדים, ARR $18M, נתוני Q2 2026</textarea>
+      </div>
+      <div class="builder-field">
+        <label>I — Instructions / הוראות ניתוח וחישוב</label>
+        <textarea id="f-i" oninput="buildPrice()">בצע Variance Analysis מלא, מצא 3 מנועים עיקריים וחשב את חלקם בסך הסטייה</textarea>
+      </div>
+      <div class="builder-field">
+        <label>C — Constraints / מגבלות שפה, אורך וביקורתיות</label>
+        <textarea id="f-c" oninput="buildPrice()">מקסימום 5 שורות, אנגלית עסקית ברמת Board, ללא השערות ללא מקור</textarea>
+      </div>
+      <div class="builder-field">
+        <label>E — Examples / פורמט הפלט המבוקש</label>
+        <textarea id="f-e" oninput="buildPrice()">פורמט טבלה: Driver | סכום ($) | % מהסך | מקור ראייתי | הסבר תמציתי</textarea>
+      </div>
 
-    <div class="builder-out">
-      <div class="builder-out-label">ה-Prompt המורכב</div>
-      <pre id="price-out"></pre>
+      <div class="builder-out">
+        <div class="builder-out-label">// Generated PRICE Prompt</div>
+        <pre id="price-out"></pre>
+      </div>
+      <button class="copy-btn" id="builder-copy" onclick="copyBuilder(this)" style="margin-top:14px;">העתק Prompt מורכב</button>
     </div>
-    <button class="copy-btn" id="builder-copy" onclick="copyBuilder(this)">העתק Prompt</button>
   </div>
 
   <!-- MISTAKES -->
   <div class="sec-label">טעויות נפוצות לכל אות</div>
-  <h2>איפה אנשים נופלים — ואיך לתקן</h2>
+  <h2>איפה אנשי כספים נופלים — ואיך לתקן</h2>
 
   <div class="mistakes-grid">
     <div class="mistake-card">
-      <div class="mistake-title">❌ P — בעיה מעורפלת</div>
-      <div class="mistake-example">"תעזור לי עם ההוצאות"</div>
-      <div class="mistake-fix">✓ הגדר את הבעיה: "OpEx גדל 22% YoY — צריך להבין מדוע"</div>
+      <div class="mistake-title">❌ P — בעיה מעורפלת ללא יעד</div>
+      <div class="mistake-example">"תעזור לי לעבור על ההוצאות"</div>
+      <div class="mistake-fix">✓ הגדר יעד כמותי: "ה-OpEx גדל ב-22% YoY — זהה את 3 הגורמים המהותיים".</div>
     </div>
     <div class="mistake-card">
-      <div class="mistake-title">❌ R — בלי הקשר חברה</div>
-      <div class="mistake-example">"נתח את ההוצאות שלנו"</div>
-      <div class="mistake-fix">✓ הוסף: "SaaS ישראלית, USD, 150 עובדים, ARR $18M"</div>
+      <div class="mistake-title">❌ R — היעדר הקשר חברה ומטבע</div>
+      <div class="mistake-example">"נתח את קובץ האקסל המצורף"</div>
+      <div class="mistake-fix">✓ ציין הקשר מלא: "חברת SaaS בינלאומית, דיווח ב-USD, ARR $18M, שיטת צבירה".</div>
     </div>
     <div class="mistake-card">
-      <div class="mistake-title">❌ I — פועל לא ברור</div>
-      <div class="mistake-example">"מה דעתך על ההוצאות?"</div>
-      <div class="mistake-fix">✓ פועל מדיד: "מצא 3 drivers", "חשב", "השווה לתקציב"</div>
+      <div class="mistake-title">❌ I — פועל כללי ובלתי מדיד</div>
+      <div class="mistake-example">"מה דעתך על המספרים?"</div>
+      <div class="mistake-fix">✓ פועל חשבונאי ברור: "חשב Waterfall Variance", "בצע התאמת בנקים".</div>
     </div>
     <div class="mistake-card">
-      <div class="mistake-title">❌ C — בלי מגבלות</div>
-      <div class="mistake-example">"כתוב לי ניתוח"</div>
-      <div class="mistake-fix">✓ הגבל: "5 שורות, אנגלית, ללא ז'רגון, board-ready"</div>
+      <div class="mistake-title">❌ C — היעדר מגבלות בקרה</div>
+      <div class="mistake-example">"כתוב לי דוח מקיף"</div>
+      <div class="mistake-fix">✓ סייג במדויק: "עד 80 מילים, טון Board-Ready, צטט שורות מקור לכל ערך".</div>
     </div>
     <div class="mistake-card">
-      <div class="mistake-title">❌ E — בלי דוגמה</div>
-      <div class="mistake-example">"תחזיר בפורמט יפה"</div>
-      <div class="mistake-fix">✓ הראה: "Driver | סכום | % | הסבר" — Claude יחקה בדיוק</div>
+      <div class="mistake-title">❌ E — בקשת פורמט ללא דוגמה</div>
+      <div class="mistake-example">"תחזיר את זה מעוצב יפה"</div>
+      <div class="mistake-fix">✓ תן מבנה עמודות: "Driver | סכום | % שונות | הסבר" — Claude יחקה ב-100%.</div>
     </div>
     <div class="mistake-card">
-      <div class="mistake-title">❌ ערבוב הכל לפסקה אחת</div>
-      <div class="mistake-example">משפט ארוך אחד עם הכל דחוס</div>
-      <div class="mistake-fix">✓ סמן כל אות בשורה: [P] [R] [I] [C] [E] — קל לClaude לעקוב</div>
+      <div class="mistake-title">❌ דחיסת הכל לפסקה אחת ארוכה</div>
+      <div class="mistake-example">בלוק טקסט אחד ארוך שקשה לסרוק</div>
+      <div class="mistake-fix">✓ פצל לתוויות מסודרות: [P] [R] [I] [C] [E] — קל ל-Claude לעבד ללא שגיאות.</div>
     </div>
   </div>
 
   <div class="callout">
-    <div class="callout-label">ה-Insight הכי חשוב</div>
-    <p>לא חייבים את כל 5 האותיות בכל Prompt. אבל <strong>אם תשובה יצאה גנרית — תמיד חסרה אות</strong>. עבור על PRICE בראש, מצא את החסרה, הוסף אותה. זה הכל.</p>
+    <div class="callout-label">עקרון הזהב למנהלי כספים</div>
+    <p>לא בכל שיחה יומיומית חייבים להקליד את כל 5 האותיות. אבל <strong>בכל פעם שתקבל תשובה גנרית או מעורפלת — תמיד תגלה שחסרה אחת מאותיות ה-PRICE</strong>. עבור עליהן בראש, זהה את החסר והוסף אותו. התוצאה תשתפר מיד.</p>
   </div>
 
-  <!-- EXERCISE -->
+  <!-- ONE-PAGER RESOURCE LINK -->
+  <div style="background:var(--bg-2);border:1px solid var(--border);border-radius:14px;padding:24px 28px;margin-bottom:32px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;box-shadow:0 16px 40px rgba(0,0,0,0.35);">
+    <div>
+      <div style="font-weight:800;font-size:1.1rem;color:var(--ink);margin-bottom:4px;">◈ דף ה-One-Pager המלא של מסגרת PRICE</div>
+      <p style="font-size:13.5px;color:var(--dim);margin:0;">מדריך מהיר להדפסה ושמירה עם כל חוקי ה-PRICE, דוגמאות לכל תפקיד פיננסי וסט פרומפטים מוכן.</p>
+    </div>
+    <a href="https://www.ronenamoscpa.co.il/resources/One_pager/price-framework.html" target="_blank"
+      style="display:inline-flex;align-items:center;gap:10px;background:var(--cy);color:#04121A;font-family:var(--sans);font-size:13.5px;font-weight:800;padding:12px 24px;border-radius:10px;text-decoration:none;box-shadow:0 4px 18px rgba(44,229,255,0.35);transition:all 0.2s;"
+      onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 8px 28px rgba(44,229,255,0.5)'"
+      onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='0 4px 18px rgba(44,229,255,0.35)'">
+      ◈&nbsp;&nbsp;פתח את דף ה-PRICE המלא
+    </a>
+  </div>
+
+  <!-- EXERCISE (Console Style) -->
   <div class="exercise">
     <div class="exercise-header">
-      <span class="exercise-badge">תרגיל 03</span>
-      <span class="exercise-title">קח Prompt חלש ובנה אותו מחדש עם PRICE</span>
+      <div class="exercise-header-left">
+        <div class="window-dots">
+          <span class="dot-w dot-red"></span>
+          <span class="dot-w dot-yellow"></span>
+          <span class="dot-w dot-green"></span>
+        </div>
+        <span class="exercise-badge">תרגיל 03</span>
+        <span class="exercise-title">הפיכת פרומפט חלש לפרומפט PRICE ברמת CFO</span>
+      </div>
     </div>
     <div class="exercise-body">
       <p class="exercise-context">
-        ה-Prompt החלש: <span style="font-family:var(--mono);color:var(--red)">"עזור לי עם הוצאות Q2"</span>.
-        השלב הראשון — הרץ אותו וראה את התשובה הגנרית. השלב השני — הרץ את גרסת ה-PRICE המלאה עם נתוני TechFlow והשווה.
+        פרומפט חלש ונפוץ: <span style="font-family:var(--mono);color:var(--coral);font-weight:700;">"עזור לי עם הוצאות Q2"</span>.<br>
+        השלב הראשון — הרץ אותו ב-Claude וראה את התשובה השטחית. השלב השני — הרץ את גרסת ה-PRICE המלאה עם נתוני TechFlow והשווה את התוצר.
       </p>
 
       <div class="prompt-box">
-        <div class="prompt-label">Starter Prompt — PRICE מלא</div>
-        <div class="prompt-text">[P] הוצאות ה-OpEx שלנו גדלו ב-22% YoY
-[R] TechFlow Ltd, SaaS, USD, 150 עובדים, ARR $18M
-[I] נתח את הגידול, מצא 3 drivers עיקריים
-[C] מקסימום 5 שורות, ללא גרפים
-[E] פורמט: Driver | סכום | % מהסך | הסבר קצר</div>
-        <button class="copy-btn" onclick="copyPrompt(this, '[P] הוצאות ה-OpEx שלנו גדלו ב-22% YoY\n[R] TechFlow Ltd, SaaS, USD, 150 עובדים, ARR $18M\n[I] נתח את הגידול, מצא 3 drivers עיקריים\n[C] מקסימום 5 שורות, ללא גרפים\n[E] פורמט: Driver | סכום | % מהסך | הסבר קצר')">העתק Prompt</button>
+        <div class="prompt-label">Starter Prompt — יישום PRICE בסיסי</div>
+        <div class="prompt-text">[P] הוצאות ה-OpEx שלנו גדלו ב-22% YoY ברבעון Q2.
+[R] TechFlow Ltd, SaaS B2B ישראלית, USD, 150 עובדים, ARR $18M.
+[I] נתח את הגידול, מצא 3 drivers עיקריים וחשב את חלקם באחוזים.
+[C] מקסימום 5 שורות, ללא גרפים, טון מקצועי.
+[E] פורמט: Driver | סכום ($) | % מהסך | הסבר קצר.</div>
+        <button class="copy-btn" onclick="copyPrompt(this, '[P] הוצאות ה-OpEx שלנו גדלו ב-22% YoY ברבעון Q2.\n[R] TechFlow Ltd, SaaS B2B ישראלית, USD, 150 עובדים, ARR $18M.\n[I] נתח את הגידול, מצא 3 drivers עיקריים וחשב את חלקם באחוזים.\n[C] מקסימום 5 שורות, ללא גרפים, טון מקצועי.\n[E] פורמט: Driver | סכום ($) | % מהסך | הסבר קצר.')">העתק Starter Prompt</button>
       </div>
 
-      <div class="prompt-box">
-        <div class="prompt-label">Advanced Prompt — Variance Narrative לדירקטוריון</div>
+      <div class="prompt-box" style="margin-top:18px;">
+        <div class="prompt-label" style="color:var(--vi);">Advanced Prompt — Variance Narrative מנומק לדירקטוריון</div>
         <div class="prompt-text">[P] EBITDA ירד מ-$1.2M ל-$690K YoY (-42.5%) למרות שה-Revenue גדל ב-18%.
 [R] TechFlow Ltd, SaaS B2B ישראלית, USD, ARR $18M, Q2 2026. Gross Margin ירד מ-68% ל-63.2%. נוספו 14 עובדים.
-[I] כתוב Variance Narrative ל-CFO שמסביר לדירקטוריון מדוע EBITDA ירד למרות צמיחת ההכנסות.
-[C] אנגלית עסקית, מקסימום 80 מילה, טון מקצועי, ללא תירוצים — רק עובדות ופעולה.
-[E] מבנה: משפט פתיחה עם המספר → 2 drivers עיקריים → משפט סיום עם ה-outlook.</div>
-        <button class="copy-btn" onclick="copyPrompt(this, '[P] EBITDA ירד מ-$1.2M ל-$690K YoY (-42.5%) למרות שה-Revenue גדל ב-18%.\n[R] TechFlow Ltd, SaaS B2B ישראלית, USD, ARR $18M, Q2 2026. Gross Margin ירד מ-68% ל-63.2%. נוספו 14 עובדים.\n[I] כתוב Variance Narrative ל-CFO שמסביר לדירקטוריון מדוע EBITDA ירד למרות צמיחת ההכנסות.\n[C] אנגלית עסקית, מקסימום 80 מילה, טון מקצועי, ללא תירוצים — רק עובדות ופעולה.\n[E] מבנה: משפט פתיחה עם המספר → 2 drivers עיקריים → משפט סיום עם ה-outlook.')">העתק Prompt</button>
+[I] כתוב Variance Narrative מנומק ל-CFO שמסביר לדירקטוריון מדוע EBITDA ירד למרות צמיחת ההכנסות.
+[C] אנגלית עסקית, מקסימום 80 מילים, טון מקצועי, ללא תירוצים — רק עובדות, מנועים ופעולה.
+[E] מבנה: משפט פתיחה עם המספר → 2 drivers עיקריים → משפט סיום עם ה-Outlook וההמלצה.</div>
+        <button class="copy-btn" onclick="copyPrompt(this, '[P] EBITDA ירד מ-$1.2M ל-$690K YoY (-42.5%) למרות שה-Revenue גדל ב-18%.\n[R] TechFlow Ltd, SaaS B2B ישראלית, USD, ARR $18M, Q2 2026. Gross Margin ירד מ-68% ל-63.2%. נוספו 14 עובדים.\n[I] כתוב Variance Narrative מנומק ל-CFO שמסביר לדירקטוריון מדוע EBITDA ירד למרות צמיחת ההכנסות.\n[C] אנגלית עסקית, מקסימום 80 מילים, טון מקצועי, ללא תירוצים — רק עובדות, מנועים ופעולה.\n[E] מבנה: משפט פתיחה עם המספר → 2 drivers עיקריים → משפט סיום עם ה-Outlook וההמלצה.')">העתק Advanced Prompt</button>
       </div>
 
-      <!-- ═══ LINK TO PRICE PAGE — Replace PRICE_PAGE_URL_HERE with the actual URL ═══ -->
-      <div style="margin-bottom:16px;">
-        <a href="https://www.ronenamoscpa.co.il/resources/One_pager/price-framework.html" target="_blank"
-          style="display:inline-flex;align-items:center;gap:10px;background:linear-gradient(135deg,var(--accent),var(--accent-light,#d6e36a));color:#0b0d10;font-family:var(--mono);font-size:0.78rem;font-weight:900;letter-spacing:0.08em;padding:13px 26px;border-radius:8px;text-decoration:none;box-shadow:0 4px 18px rgba(184,196,90,0.35);transition:all 0.2s;"
-          onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 8px 28px rgba(184,196,90,0.5)'"
-          onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='0 4px 18px rgba(184,196,90,0.35)'">
-          ◈&nbsp;&nbsp;פתח את דף ה-PRICE המלא
-        </a>
+      <!-- HIGH-CONTRAST CREAM CHECKLIST -->
+      <div class="checklist-cream">
+        <div class="checklist-cream-title">📋 רשימת בדיקה והערכה לאחר התרגיל</div>
+        <div class="checklist-cream-sub">סמן כל שלב שהשלמת בהצלחה כדי לוודא שליטה מלאה במסגרת:</div>
+        <div class="check-item-c" onclick="toggleCheckCream(this)">
+          <div class="check-box-c"></div>
+          <span>זיהיתי את כל 5 האותיות ב-Starter Prompt והבנתי את תפקידן.</span>
+        </div>
+        <div class="check-item-c" onclick="toggleCheckCream(this)">
+          <div class="check-box-c"></div>
+          <span>הרצתי ב-Claude והפלט התקבל בדיוק בפורמט הטבלה שביקשתי ב-[E].</span>
+        </div>
+        <div class="check-item-c" onclick="toggleCheckCream(this)">
+          <div class="check-box-c"></div>
+          <span>השתמשתי ב-PRICE Builder לבניית פרומפט מותאם לנתונים האמיתיים שלי.</span>
+        </div>
+        <div class="check-item-c" onclick="toggleCheckCream(this)">
+          <div class="check-box-c"></div>
+          <span>הרצתי את ה-Advanced Prompt וקיבלתי נרטיב CFO ממוקד עד 80 מילים.</span>
+        </div>
+        <div class="check-item-c" onclick="toggleCheckCream(this)">
+          <div class="check-box-c"></div>
+          <span>אני יודע לזהות איזו אות חסרה כאשר תשובת ה-AI אינה מספקת.</span>
+        </div>
       </div>
 
-      <div class="checklist">
-        <div class="checklist-title">✓ רשימת בדיקה לאחר התרגיל</div>
-        <div class="check-item"><div class="check-box" onclick="toggleCheck(this)"></div>זיהיתי את 5 האותיות ב-Starter Prompt</div>
-        <div class="check-item"><div class="check-box" onclick="toggleCheck(this)"></div>הרצתי והפלט יצא בפורמט הטבלה שביקשתי</div>
-        <div class="check-item"><div class="check-box" onclick="toggleCheck(this)"></div>השתמשתי ב-Builder לבנות Prompt משלי</div>
-        <div class="check-item"><div class="check-box" onclick="toggleCheck(this)"></div>הרצתי את ה-Advanced Prompt וקיבלתי Narrative עד 80 מילה</div>
-        <div class="check-item"><div class="check-box" onclick="toggleCheck(this)"></div>זיהיתי לבד איזו אות חסרה בתשובה גנרית</div>
-      </div>
-
-      <div class="exercise-tip" style="margin-top:14px">
-        <strong>המשך מומלץ:</strong> בקש מ-Claude <span style="font-family:var(--mono);color:var(--accent)">"עכשיו הפוך את ה-Narrative לבעברית, אותו אורך"</span> — תראה שכשה-PRICE שלך מסודר, גם שינוי שפה לוקח שנייה.
+      <div class="exercise-tip">
+        <strong>טיפ מתקדם:</strong> לאחר קבלת התוצאה, בקש מ-Claude: <span style="font-family:var(--mono);color:var(--cy);">"עכשיו הפוך את ה-Narrative לעברית עסקית, באותו אורך ובאותו מבנה"</span> — תיווכח שכאשר שלד ה-PRICE יצוק ומדויק, גם שינויי שפה והתאמות סגנון מתבצעים בשניות.
       </div>
     </div>
   </div>
@@ -467,7 +757,7 @@
       <div class="next-label">המודול הבא</div>
       <div class="next-title">Module 04 — Artifacts — הקנבס של Claude</div>
     </div>
-    <button class="next-btn" onclick="window.location.href='/courses/ai-master-course/module-04'">המשך ←</button>
+    <button class="next-btn" onclick="window.location.href='/courses/ai-master-course/module-04'">המשך ל-Module 04 ←</button>
   </div>
 
 </main>
@@ -476,14 +766,15 @@
   function copyPrompt(btn, text) {
     navigator.clipboard.writeText(text).then(() => {
       btn.textContent = '✓ הועתק!';
-      btn.style.color = 'var(--green)';
-      btn.style.borderColor = 'var(--green)';
+      btn.style.color = 'var(--ok)';
+      btn.style.borderColor = 'var(--ok)';
       setTimeout(() => { btn.textContent = 'העתק Prompt'; btn.style.color = ''; btn.style.borderColor = ''; }, 2000);
     });
   }
-  function toggleCheck(el) {
-    el.classList.toggle('checked');
-    el.textContent = el.classList.contains('checked') ? '✓' : '';
+  function toggleCheckCream(el) {
+    const box = el.querySelector('.check-box-c');
+    box.classList.toggle('checked');
+    box.textContent = box.classList.contains('checked') ? '✓' : '';
   }
   function buildPrice() {
     const p = document.getElementById('f-p').value.trim();
@@ -498,16 +789,21 @@
     if (c) lines.push('[C] ' + c);
     if (e) lines.push('[E] ' + e);
     const out = document.getElementById('price-out');
-    if (lines.length) { out.textContent = lines.join('\n'); out.classList.remove('builder-empty'); }
-    else { out.textContent = 'מלא את השדות למעלה כדי לבנות את ה-Prompt...'; out.classList.add('builder-empty'); }
+    if (lines.length) {
+      out.textContent = lines.join('\n');
+      out.classList.remove('builder-empty');
+    } else {
+      out.textContent = '// מלא את השדות למעלה כדי להרכיב את ה-PRICE Prompt...';
+      out.classList.add('builder-empty');
+    }
   }
   function copyBuilder(btn) {
     const txt = document.getElementById('price-out').textContent;
     navigator.clipboard.writeText(txt).then(() => {
       btn.textContent = '✓ הועתק!';
-      btn.style.color = 'var(--green)';
-      btn.style.borderColor = 'var(--green)';
-      setTimeout(() => { btn.textContent = 'העתק Prompt'; btn.style.color = ''; btn.style.borderColor = ''; }, 2000);
+      btn.style.color = 'var(--ok)';
+      btn.style.borderColor = 'var(--ok)';
+      setTimeout(() => { btn.textContent = 'העתק Prompt מורכב'; btn.style.color = ''; btn.style.borderColor = ''; }, 2000);
     });
   }
   buildPrice();
