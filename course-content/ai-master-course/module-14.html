@@ -3,145 +3,488 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Module 14 — דשבורד CFO (Capstone) | קורס Claude</title>
-  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800;900&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <title>Module 14 — דשבורד CFO (Capstone) | קורס AI Finance</title>
+  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800;900&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
+    /* ═══════════════════════════════════════════════════════════
+       DigiSave Pro Theme: Deep Slate Navy, Electric Cyan & Violet
+       ═══════════════════════════════════════════════════════════ */
     :root {
-      --bg:      #0b0d10;
-      --bg2:     #111318;
-      --bg3:     #181c22;
-      --border:  #232830;
-      --border2: #2e3540;
-      --accent:  #b8c45a;
-      --text:    #e8eaf0;
-      --muted:   #7a8499;
-      --muted2:  #5a6278;
-      --green:   #65c466;
-      --yellow:  #f5b340;
-      --red:     #e05555;
-      --mono:    'IBM Plex Mono', monospace;
-      --sans:    'Heebo', sans-serif;
+      --bg:        #141821;
+      --bg-2:      #1A1F2A;
+      --bg-3:      #222938;
+      --border:    rgba(255, 255, 255, 0.10);
+      --border-hl: rgba(44, 229, 255, 0.35);
+      --ink:       #F4F7FA;
+      --dim:       #A7B0BE;
+      --dimmer:    #76808F;
+      --cy:        #2CE5FF;
+      --cy-soft:   rgba(44, 229, 255, 0.13);
+      --vi:        #8B7CFF;
+      --vi-soft:   rgba(139, 124, 255, 0.13);
+      --coral:     #FF5A3C;
+      --coral-soft:rgba(255, 90, 60, 0.12);
+      --ok:        #3DDC97;
+      --ok-soft:   rgba(61, 220, 151, 0.13);
+      --bad:       #FF6B6B;
+      --bad-soft:  rgba(255, 107, 107, 0.12);
+      --gold:      #F59E0B;
+      --gold-soft: rgba(245, 158, 11, 0.12);
+      --cream:     #F5F1EC;
+      --on-cream:  #15181F;
+      --mono:      'IBM Plex Mono', monospace;
+      --sans:      'Heebo', sans-serif;
     }
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    body { background: var(--bg); color: var(--text); font-family: var(--sans); font-size: 15px; line-height: 1.7; }
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: var(--sans);
+      font-size: 15.5px;
+      line-height: 1.7;
+      position: relative;
+      min-height: 100vh;
+    }
     a { color: inherit; text-decoration: none; }
 
-    /* NAV */
-    .topnav { position: sticky; top: 0; z-index: 100; background: rgba(11,13,16,.94); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; padding: 0 2rem; height: 56px; }
-    .topnav-brand { font-size: 13px; font-weight: 700; color: var(--accent); letter-spacing: .04em; text-transform: uppercase; }
+    /* Ambient Background Glow Mesh */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      background:
+        radial-gradient(58% 42% at 82% -6%, rgba(44, 229, 255, 0.13), transparent 62%),
+        radial-gradient(48% 38% at 8% 18%, rgba(139, 124, 255, 0.10), transparent 64%),
+        radial-gradient(70% 50% at 50% 108%, rgba(44, 229, 255, 0.07), transparent 60%);
+    }
+
+    /* ── NAV ── */
+    .topnav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(20, 24, 33, 0.92);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 2rem; height: 58px;
+    }
+    .topnav-brand {
+      font-size: 13px; font-weight: 800;
+      background: linear-gradient(96deg, var(--cy), var(--vi));
+      -webkit-background-clip: text; background-clip: text; color: transparent;
+      letter-spacing: .05em; text-transform: uppercase;
+    }
     .topnav-right { display: flex; align-items: center; gap: 1.4rem; }
-    .topnav-back { font-size: 13px; color: var(--muted); font-weight: 500; transition: color .18s; }
-    .topnav-back:hover { color: var(--accent); }
-    .topnav-module { font-size: 12px; color: var(--muted2); font-family: var(--mono); }
+    .topnav-back { font-size: 13px; color: var(--dim); font-weight: 600; transition: color .18s; }
+    .topnav-back:hover { color: var(--cy); }
+    .topnav-module { font-size: 12px; color: var(--dimmer); font-family: var(--mono); }
 
-    /* HERO */
-    .module-hero { border-bottom: 1px solid var(--border); padding: 56px 2rem 48px; max-width: 860px; margin: 0 auto; }
+    /* ── HERO ── */
+    .module-hero {
+      border-bottom: 1px solid var(--border);
+      padding: 56px 2rem 48px;
+      max-width: 880px; margin: 0 auto;
+      position: relative; z-index: 1;
+    }
     .module-eyebrow { display: flex; align-items: center; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; }
-    .eyebrow-num { font-family: var(--mono); font-size: 12px; color: var(--accent); background: rgba(184,196,90,.1); border: 1px solid rgba(184,196,90,.25); padding: 3px 10px; border-radius: 4px; }
-    .eyebrow-part { font-size: 12px; color: var(--muted2); }
-    .eyebrow-sep { color: var(--border2); }
-    .eyebrow-level { font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 4px; background: rgba(245,179,64,.12); color: var(--yellow); border: 1px solid rgba(245,179,64,.25); }
-    .module-hero h1 { font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 900; line-height: 1.15; margin-bottom: 10px; }
-    .module-hero h1 span { color: var(--accent); }
-    .module-en { font-size: 14px; color: var(--muted2); font-family: var(--mono); direction: ltr; margin-bottom: 20px; }
+    .eyebrow-num {
+      font-family: var(--mono); font-size: 11.5px; font-weight: 700;
+      color: var(--cy); background: var(--cy-soft);
+      border: 1px solid rgba(44, 229, 255, 0.28);
+      padding: 4px 12px; border-radius: 100px; letter-spacing: .05em;
+    }
+    .eyebrow-part { font-size: 12.5px; color: var(--dim); }
+    .eyebrow-sep { color: var(--dimmer); opacity: .5; }
+    .eyebrow-level {
+      font-size: 10.5px; font-weight: 800; padding: 3px 9px; border-radius: 100px;
+      background: var(--gold-soft); color: var(--gold); border: 1px solid rgba(245, 158, 11, 0.3);
+    }
+    .module-hero h1 {
+      font-size: clamp(2rem, 4.5vw, 3.1rem); font-weight: 900; line-height: 1.15; margin-bottom: 12px;
+      color: var(--ink);
+    }
+    .module-hero h1 span {
+      background: linear-gradient(96deg, var(--cy), var(--vi));
+      -webkit-background-clip: text; background-clip: text; color: transparent;
+    }
+    .module-en { font-size: 14.5px; color: var(--dim); font-family: var(--mono); direction: ltr; margin-bottom: 22px; font-weight: 500; }
     .module-meta { display: flex; gap: 20px; flex-wrap: wrap; }
-    .meta-item { display: flex; align-items: center; gap: 6px; font-size: 13px; color: var(--muted); }
-    .meta-item svg { width: 14px; height: 14px; opacity: .6; }
+    .meta-item { display: flex; align-items: center; gap: 7px; font-size: 13px; color: var(--dim); }
+    .meta-item svg { width: 15px; height: 15px; color: var(--cy); }
 
-    /* LAYOUT */
-    .content { max-width: 860px; margin: 0 auto; padding: 0 2rem 80px; }
-    .sec-label { font-size: 10px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; color: var(--accent); margin: 52px 0 16px; display: flex; align-items: center; gap: 8px; }
-    .sec-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
-    h2 { font-size: 1.3rem; font-weight: 800; color: var(--text); margin-bottom: 12px; }
-    p { color: var(--muted); margin-bottom: 16px; font-size: 15px; }
-    p strong { color: var(--text); font-weight: 700; }
+    /* ── LAYOUT ── */
+    .content { max-width: 880px; margin: 0 auto; padding: 0 2rem 80px; position: relative; z-index: 1; }
+    .sec-label {
+      font-size: 11px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase;
+      color: var(--cy); margin: 56px 0 16px; display: flex; align-items: center; gap: 10px;
+    }
+    .sec-label::after { content: ''; flex: 1; height: 1px; background: linear-gradient(90deg, var(--border), transparent); }
+    h2 { font-size: 1.45rem; font-weight: 800; color: var(--ink); margin-bottom: 14px; letter-spacing: -.01em; }
+    p { color: var(--dim); margin-bottom: 16px; font-size: 15.5px; line-height: 1.75; }
+    p strong { color: var(--ink); font-weight: 700; }
 
-    /* DASHBOARD MOCKUP */
-    .dash-mock { background: var(--bg2); border: 1px solid var(--border2); border-radius: 12px; padding: 18px; margin-bottom: 28px; }
-    .dash-kpis { display: grid; grid-template-columns: repeat(6, 1fr); gap: 8px; margin-bottom: 12px; }
-    @media (max-width: 700px) { .dash-kpis { grid-template-columns: repeat(3, 1fr); } }
-    .kpi { background: var(--bg3); border: 1px solid var(--border); border-radius: 8px; padding: 10px 8px; text-align: center; border-top: 3px solid var(--muted2); }
-    .kpi.g { border-top-color: var(--green); }
-    .kpi.a { border-top-color: var(--yellow); }
-    .kpi.r { border-top-color: var(--red); }
-    .kpi-val { font-family: var(--mono); font-size: 1rem; font-weight: 700; color: var(--text); }
-    .kpi-lbl { font-size: 10px; color: var(--muted); margin-top: 2px; }
-    .dash-row { display: grid; grid-template-columns: 1.3fr 1fr; gap: 8px; margin-bottom: 8px; }
-    @media (max-width: 600px) { .dash-row { grid-template-columns: 1fr; } }
-    .dash-ph { border-radius: 8px; padding: 14px; font-size: 11px; color: var(--muted); display: flex; align-items: center; justify-content: center; text-align: center; min-height: 80px; }
-    .ph-bridge { background: linear-gradient(135deg, rgba(184,196,90,.12), rgba(184,196,90,.04)); border: 1px dashed rgba(184,196,90,.35); color: var(--accent); }
-    .ph-trend { background: linear-gradient(135deg, rgba(101,196,102,.12), rgba(101,196,102,.04)); border: 1px dashed rgba(101,196,102,.35); color: var(--green); }
-    .ph-table { background: linear-gradient(135deg, rgba(122,132,153,.12), rgba(122,132,153,.04)); border: 1px dashed var(--border2); color: var(--muted); }
-    .ph-narr { background: linear-gradient(135deg, rgba(245,179,64,.1), rgba(245,179,64,.03)); border: 1px dashed rgba(245,179,64,.3); color: var(--yellow); }
-    .dash-toggle { display: flex; gap: 6px; justify-content: flex-end; margin-top: 4px; }
-    .dash-toggle span { font-size: 10px; font-family: var(--mono); padding: 3px 10px; border-radius: 12px; border: 1px solid var(--border2); color: var(--muted); }
-    .dash-toggle span.on { background: var(--accent); color: var(--bg); border-color: var(--accent); font-weight: 700; }
+    /* ── DASHBOARD CONSOLE MOCKUP (LIVE PREVIEW) ── */
+    .mockup-frame {
+      background: var(--bg-2); border: 1px solid var(--border);
+      border-radius: 16px; overflow: hidden; margin-bottom: 36px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.45);
+    }
+    .mockup-header {
+      background: var(--bg-3); border-bottom: 1px solid var(--border);
+      padding: 14px 20px; display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 12px;
+    }
+    .window-dots { display: flex; gap: 6px; align-items: center; }
+    .dot-w { width: 10px; height: 10px; border-radius: 50%; opacity: .8; }
+    .dot-red { background: #FF5F56; }
+    .dot-yellow { background: #FFBD2E; }
+    .dot-green { background: #27C93F; }
+    .mockup-title { font-size: 12.5px; color: var(--dim); font-family: var(--mono); direction: ltr; font-weight: 600; }
+    .mockup-controls { display: flex; align-items: center; gap: 10px; }
+    .view-toggle {
+      display: inline-flex; background: #0E1219; border: 1px solid var(--border);
+      border-radius: 8px; padding: 2px;
+    }
+    .view-btn {
+      background: transparent; border: none; color: var(--dim); font-size: 11px;
+      font-family: var(--mono); font-weight: 700; padding: 4px 12px; border-radius: 6px;
+      cursor: pointer; transition: all .18s ease;
+    }
+    .view-btn.active {
+      background: var(--cy); color: #04121A; font-weight: 800;
+      box-shadow: 0 2px 8px rgba(44, 229, 255, 0.35);
+    }
 
-    /* COMPONENT LIST */
-    .comp-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; margin-bottom: 10px; display: flex; gap: 14px; align-items: flex-start; border-right: 3px solid var(--accent); }
-    .comp-num { width: 26px; height: 26px; border-radius: 50%; background: rgba(184,196,90,.12); border: 1px solid rgba(184,196,90,.3); color: var(--accent); font-size: 12px; font-weight: 800; font-family: var(--mono); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .mockup-inner { padding: 22px; background: #0E1219; }
+
+    /* Dashboard KPIs */
+    .dash-kpis { display: grid; grid-template-columns: repeat(6, 1fr); gap: 10px; margin-bottom: 16px; }
+    @media (max-width: 760px) { .dash-kpis { grid-template-columns: repeat(3, 1fr); } }
+    @media (max-width: 480px) { .dash-kpis { grid-template-columns: repeat(2, 1fr); } }
+    .dash-kpi-card {
+      background: var(--bg-2); border: 1px solid var(--border);
+      border-radius: 10px; padding: 12px 10px; text-align: center;
+      position: relative; overflow: hidden;
+    }
+    .dash-kpi-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+    }
+    .dash-kpi-card.kpi-bad::before { background: var(--bad); }
+    .dash-kpi-card.kpi-ok::before  { background: var(--ok); }
+    .kpi-val { font-family: var(--mono); font-size: 1.15rem; font-weight: 800; color: #FFFFFF; }
+    .kpi-name { font-size: 10.5px; color: var(--dim); margin-top: 3px; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 4px; }
+    .kpi-sub { font-size: 9.5px; color: var(--dimmer); font-family: var(--mono); margin-top: 2px; }
+
+    /* Dashboard Content Grid */
+    .dash-grid { display: grid; grid-template-columns: 1.25fr 1fr; gap: 12px; margin-bottom: 12px; }
+    @media (max-width: 680px) { .dash-grid { grid-template-columns: 1fr; } }
+    .dash-panel {
+      background: var(--bg-2); border: 1px solid var(--border);
+      border-radius: 10px; padding: 16px;
+    }
+    .panel-head {
+      font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: .08em;
+      color: var(--cy); margin-bottom: 12px; font-family: var(--mono);
+      display: flex; justify-content: space-between; align-items: center;
+    }
+
+    /* Waterfall simulation */
+    .waterfall-bars { display: flex; flex-direction: column; gap: 8px; }
+    .wf-row { display: flex; align-items: center; gap: 10px; font-size: 12px; }
+    .wf-lbl { width: 85px; color: var(--dim); font-size: 11.5px; font-weight: 600; }
+    .wf-track { flex: 1; height: 18px; background: rgba(255,255,255,0.04); border-radius: 4px; overflow: hidden; position: relative; }
+    .wf-fill { height: 100%; border-radius: 4px; display: flex; align-items: center; justify-content: flex-end; padding-right: 6px; font-size: 10.5px; font-family: var(--mono); font-weight: 700; color: #fff; }
+    .wf-fill.rev  { width: 100%; background: linear-gradient(90deg, #1e3a5f, var(--cy)); }
+    .wf-fill.cogs { width: 36.6%; background: linear-gradient(90deg, #592525, var(--bad)); }
+    .wf-fill.gp   { width: 63.4%; background: linear-gradient(90deg, #1b4b38, var(--ok)); }
+    .wf-fill.opex { width: 46%; background: linear-gradient(90deg, #592525, var(--coral)); }
+    .wf-fill.ebit { width: 17.4%; background: linear-gradient(90deg, #4c3b7a, var(--vi)); }
+
+    /* Trend Simulation */
+    .trend-bars { display: flex; align-items: flex-end; justify-content: space-between; height: 110px; padding: 10px 4px 0; gap: 6px; }
+    .trend-col { display: flex; flex-direction: column; align-items: center; flex: 1; height: 100%; justify-content: flex-end; }
+    .trend-bar { width: 100%; max-width: 28px; background: linear-gradient(180deg, var(--cy), rgba(44,229,255,0.2)); border-radius: 4px 4px 0 0; transition: height .3s; }
+    .trend-val { font-size: 9.5px; font-family: var(--mono); color: #fff; margin-bottom: 4px; }
+    .trend-q { font-size: 9.5px; font-family: var(--mono); color: var(--dimmer); margin-top: 6px; }
+
+    /* Mini Table */
+    .mini-table { width: 100%; border-collapse: collapse; font-size: 11.5px; }
+    .mini-table th { color: var(--dimmer); text-align: right; padding: 4px 8px; font-weight: 600; border-bottom: 1px solid var(--border); font-family: var(--mono); }
+    .mini-table td { padding: 6px 8px; color: var(--dim); border-bottom: 1px solid rgba(255,255,255,0.04); font-family: var(--mono); }
+    .mini-table tr:last-child td { border-bottom: none; font-weight: 700; color: #fff; }
+    .badge-r { color: var(--bad); background: var(--bad-soft); padding: 1px 6px; border-radius: 4px; font-size: 10px; }
+    .badge-g { color: var(--ok); background: var(--ok-soft); padding: 1px 6px; border-radius: 4px; font-size: 10px; }
+
+    /* Mini Commentary */
+    .mini-commentary { font-size: 12.5px; color: var(--dim); line-height: 1.65; border-right: 3px solid var(--gold); padding-right: 12px; }
+    .mini-commentary strong { color: #fff; }
+
+    /* ── 6 COMPONENT CARDS ── */
+    .comp-grid { display: flex; flex-direction: column; gap: 16px; margin-bottom: 36px; }
+    .comp-card {
+      background: var(--bg-2); border: 1px solid var(--border);
+      border-radius: 14px; padding: 20px 22px; display: flex; gap: 18px; align-items: flex-start;
+      position: relative; overflow: hidden; backdrop-filter: blur(10px);
+      transition: transform .2s ease, border-color .2s ease, box-shadow .2s ease;
+    }
+    .comp-card:hover { transform: translateY(-2px); border-color: var(--border-hl); box-shadow: 0 12px 30px rgba(0,0,0,0.35); }
+    .comp-card::before {
+      content: ''; position: absolute;
+      top: 0; right: 0; bottom: 0; width: 4px;
+    }
+    .comp-card.c-1::before { background: var(--cy); }
+    .comp-card.c-2::before { background: var(--vi); }
+    .comp-card.c-3::before { background: var(--ok); }
+    .comp-card.c-4::before { background: var(--gold); }
+    .comp-card.c-5::before { background: var(--coral); }
+    .comp-card.c-6::before { background: var(--cy); }
+
+    .comp-num {
+      width: 44px; height: 44px; border-radius: 12px;
+      font-size: 18px; font-weight: 900; font-family: var(--mono);
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    }
+    .c-1 .comp-num { background: var(--cy-soft); color: var(--cy); border: 1px solid rgba(44, 229, 255, 0.35); }
+    .c-2 .comp-num { background: var(--vi-soft); color: var(--vi); border: 1px solid rgba(139, 124, 255, 0.35); }
+    .c-3 .comp-num { background: var(--ok-soft); color: var(--ok); border: 1px solid rgba(61, 220, 151, 0.35); }
+    .c-4 .comp-num { background: var(--gold-soft); color: var(--gold); border: 1px solid rgba(245, 158, 11, 0.35); }
+    .c-5 .comp-num { background: var(--coral-soft); color: var(--coral); border: 1px solid rgba(255, 90, 60, 0.35); }
+    .c-6 .comp-num { background: var(--cy-soft); color: var(--cy); border: 1px solid rgba(44, 229, 255, 0.35); }
+
     .comp-body { flex: 1; }
-    .comp-title { font-weight: 800; color: var(--text); font-size: .95rem; margin-bottom: 3px; }
-    .comp-desc { font-size: 13px; color: var(--muted); }
+    .comp-title { font-weight: 800; color: var(--ink); font-size: 1.05rem; margin-bottom: 4px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
+    .comp-badge { font-family: var(--mono); font-size: 10.5px; font-weight: 700; text-transform: uppercase; padding: 2px 8px; border-radius: 6px; letter-spacing: .04em; }
+    .c-1 .comp-badge { background: var(--cy-soft); color: var(--cy); }
+    .c-2 .comp-badge { background: var(--vi-soft); color: var(--vi); }
+    .c-3 .comp-badge { background: var(--ok-soft); color: var(--ok); }
+    .c-4 .comp-badge { background: var(--gold-soft); color: var(--gold); }
+    .c-5 .comp-badge { background: var(--coral-soft); color: var(--coral); }
+    .c-6 .comp-badge { background: var(--cy-soft); color: var(--cy); }
+    .comp-desc { font-size: 13.8px; color: var(--dim); line-height: 1.65; }
 
-    /* STAGES */
-    .stage-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 28px; }
-    @media (max-width: 700px) { .stage-grid { grid-template-columns: 1fr 1fr; } }
-    .stage { background: var(--bg2); border: 1px solid var(--border); border-radius: 10px; padding: 16px; }
-    .stage-num { font-family: var(--mono); font-size: 11px; color: var(--accent); margin-bottom: 8px; }
-    .stage-title { font-weight: 800; font-size: .9rem; color: var(--text); margin-bottom: 5px; }
-    .stage-desc { font-size: 12px; color: var(--muted); line-height: 1.5; }
+    /* ── 4-STAGE BUILD SEQUENCE ── */
+    .stage-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 36px; }
+    @media (max-width: 760px) { .stage-grid { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 480px) { .stage-grid { grid-template-columns: 1fr; } }
+    .stage-card {
+      background: var(--bg-2); border: 1px solid var(--border);
+      border-radius: 14px; padding: 20px 18px; position: relative;
+      display: flex; flex-direction: column; justify-content: space-between;
+      backdrop-filter: blur(10px);
+      transition: transform .2s ease, border-color .2s ease, box-shadow .2s ease;
+    }
+    .stage-card:hover {
+      transform: translateY(-3px); border-color: var(--border-hl);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
+    }
+    .stage-card::before {
+      content: ''; position: absolute; top: 0; right: 0; left: 0; height: 3px;
+      border-radius: 14px 14px 0 0;
+    }
+    .st-1::before { background: var(--cy); }
+    .st-2::before { background: var(--vi); }
+    .st-3::before { background: var(--ok); }
+    .st-4::before { background: var(--gold); }
 
-    /* CALLOUT */
-    .callout { background: rgba(184,196,90,.06); border: 1px solid rgba(184,196,90,.2); border-radius: 10px; padding: 20px 22px; margin-bottom: 24px; }
-    .callout-label { font-size: 10px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; color: var(--accent); margin-bottom: 6px; }
-    .callout p { color: var(--text); margin: 0; font-size: 14px; }
+    .stage-num { font-family: var(--mono); font-size: 11px; font-weight: 800; letter-spacing: .06em; margin-bottom: 8px; }
+    .st-1 .stage-num { color: var(--cy); }
+    .st-2 .stage-num { color: var(--vi); }
+    .st-3 .stage-num { color: var(--ok); }
+    .st-4 .stage-num { color: var(--gold); }
 
-    /* CONGRATS */
-    .congrats { background: linear-gradient(135deg, rgba(184,196,90,.1), rgba(101,196,102,.06)); border: 1px solid rgba(184,196,90,.3); border-radius: 14px; padding: 28px; margin-top: 36px; text-align: center; }
-    .congrats h3 { font-size: 1.5rem; font-weight: 900; color: var(--text); margin-bottom: 8px; }
-    .congrats h3 span { color: var(--accent); }
-    .congrats p { color: var(--muted); font-size: 14px; margin-bottom: 18px; }
-    .learned-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; text-align: right; }
-    @media (max-width: 600px) { .learned-grid { grid-template-columns: 1fr 1fr; } }
-    .learned { background: var(--bg2); border: 1px solid var(--border); border-radius: 8px; padding: 10px 12px; font-size: 12px; color: var(--muted); }
-    .learned strong { color: var(--text); display: block; font-size: 12.5px; }
+    .stage-title { font-weight: 800; font-size: 1.05rem; color: var(--ink); margin-bottom: 6px; }
+    .stage-desc { font-size: 13px; color: var(--dim); line-height: 1.6; }
 
-    /* EXERCISE */
-    .exercise { background: var(--bg3); border: 1px solid var(--border2); border-radius: 12px; overflow: hidden; margin-top: 48px; }
-    .exercise-header { background: var(--bg2); border-bottom: 1px solid var(--border); padding: 16px 22px; display: flex; align-items: center; gap: 12px; }
-    .exercise-badge { background: var(--accent); color: var(--bg); font-size: 10px; font-weight: 900; letter-spacing: .1em; text-transform: uppercase; padding: 3px 10px; border-radius: 4px; }
-    .exercise-title { font-weight: 800; font-size: 1rem; color: var(--text); }
-    .exercise-body { padding: 22px; }
-    .exercise-context { font-size: 13px; color: var(--muted); margin-bottom: 20px; }
-    .prompt-box { background: var(--bg); border: 1px solid var(--border2); border-radius: 8px; padding: 16px 18px; margin-bottom: 16px; }
-    .prompt-label { font-size: 10px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--accent); margin-bottom: 8px; font-family: var(--mono); }
-    .prompt-text { font-family: var(--mono); font-size: 13px; color: var(--text); direction: rtl; line-height: 1.7; white-space: pre-wrap; }
-    .copy-btn { background: var(--bg2); border: 1px solid var(--border2); color: var(--muted); font-size: 12px; font-family: var(--sans); padding: 5px 14px; border-radius: 5px; cursor: pointer; transition: border-color .18s, color .18s; margin-top: 8px; }
-    .copy-btn:hover { border-color: var(--accent); color: var(--accent); }
-    .exercise-tip { font-size: 12px; color: var(--muted2); border-top: 1px solid var(--border); margin-top: 20px; padding-top: 14px; }
-    .exercise-tip strong { color: var(--muted); }
+    /* ── CALLOUT ── */
+    .callout {
+      background: linear-gradient(135deg, rgba(44, 229, 255, 0.08), rgba(139, 124, 255, 0.06));
+      border: 1px solid rgba(44, 229, 255, 0.28);
+      border-radius: 14px; padding: 22px 24px; margin-bottom: 32px;
+    }
+    .callout-label {
+      font-size: 10.5px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase;
+      color: var(--cy); margin-bottom: 8px;
+    }
+    .callout p { color: #FFFFFF; margin: 0; font-size: 15px; line-height: 1.7; }
 
-    /* CHECKLIST */
-    .checklist { background: var(--bg2); border: 1px solid var(--border); border-radius: 10px; padding: 18px 20px; margin-top: 16px; }
-    .checklist-title { font-weight: 800; font-size: .9rem; color: var(--text); margin-bottom: 12px; }
-    .check-item { display: flex; align-items: flex-start; gap: 10px; font-size: 13px; color: var(--muted); padding: 5px 0; border-bottom: 1px solid var(--border); }
-    .check-item:last-child { border-bottom: none; }
-    .check-box { width: 16px; height: 16px; border: 1px solid var(--border2); border-radius: 3px; flex-shrink: 0; margin-top: 3px; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 10px; transition: background .15s, border-color .15s; }
-    .check-box.checked { background: var(--accent); border-color: var(--accent); color: var(--bg); }
+    /* ── EXERCISE (Console Style) ── */
+    .exercise {
+      background: var(--bg-2); border: 1px solid var(--border);
+      border-radius: 16px; overflow: hidden; margin-top: 52px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.45);
+    }
+    .exercise-header {
+      background: var(--bg-3); border-bottom: 1px solid var(--border);
+      padding: 16px 24px; display: flex; align-items: center; justify-content: space-between;
+    }
+    .exercise-header-left { display: flex; align-items: center; gap: 12px; }
+    .exercise-badge {
+      background: var(--cy); color: #04121A;
+      font-size: 10.5px; font-weight: 900; letter-spacing: .08em;
+      text-transform: uppercase; padding: 4px 11px; border-radius: 100px;
+    }
+    .exercise-title { font-weight: 800; font-size: 1.05rem; color: var(--ink); }
+    .exercise-body { padding: 26px; }
+    .exercise-context { font-size: 14px; color: var(--dim); margin-bottom: 24px; line-height: 1.7; }
 
-    /* NEXT */
-    .next-module { margin-top: 56px; padding-top: 32px; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
-    .prev-btn { background: var(--bg2); border: 1px solid var(--border2); color: var(--muted); font-size: 13px; font-weight: 700; padding: 8px 20px; border-radius: 8px; cursor: pointer; transition: border-color .18s, color .18s; font-family: var(--sans); }
-    .prev-btn:hover { border-color: var(--accent); color: var(--accent); }
-    .next-label { font-size: 11px; color: var(--muted2); text-transform: uppercase; letter-spacing: .1em; margin-bottom: 4px; }
-    .next-title { font-weight: 800; color: var(--text); font-size: 1rem; }
-    .next-btn { background: var(--accent); color: var(--bg); font-size: 14px; font-weight: 800; padding: 10px 24px; border-radius: 8px; cursor: pointer; white-space: nowrap; transition: background .18s, transform .15s; border: none; font-family: var(--sans); }
-    .next-btn:hover { background: #cad86a; transform: translateX(-3px); }
+    /* Prompts */
+    .prompt-box {
+      background: #0E1219; border: 1px solid var(--border);
+      border-radius: 12px; padding: 18px 20px; margin-bottom: 20px;
+    }
+    .prompt-label {
+      font-size: 11.5px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase;
+      color: var(--cy); margin-bottom: 10px; font-family: var(--mono);
+    }
+    .prompt-text {
+      font-family: var(--mono); font-size: 12.8px; color: #FFFFFF;
+      direction: ltr; text-align: left; line-height: 1.75; white-space: pre-wrap;
+    }
+    .prompt-text.rtl-dir { direction: rtl; text-align: right; }
+    .copy-btn {
+      background: var(--bg-2); border: 1px solid var(--border); color: var(--dim);
+      font-size: 12px; font-family: var(--sans); font-weight: 700; padding: 7px 16px;
+      border-radius: 6px; cursor: pointer; transition: all .18s ease; margin-top: 12px;
+    }
+    .copy-btn:hover { border-color: var(--cy); color: var(--cy); background: var(--cy-soft); }
+
+    /* ── HIGH-CONTRAST CREAM CHECKLIST ── */
+    .checklist-cream {
+      background: var(--cream); color: var(--on-cream);
+      border-radius: 14px; padding: 26px 28px; margin-top: 28px;
+      box-shadow: 0 16px 36px rgba(0,0,0,.4);
+    }
+    .checklist-cream-title {
+      font-size: 1.05rem; font-weight: 900; color: var(--on-cream); margin-bottom: 6px;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .checklist-cream-sub {
+      font-size: 13px; color: #555D6E; margin-bottom: 18px; line-height: 1.5;
+    }
+    .check-item-c {
+      display: flex; align-items: flex-start; gap: 12px;
+      font-size: 13.5px; color: #2D333F; font-weight: 600;
+      padding: 9px 0; border-bottom: 1px solid rgba(0,0,0,0.08);
+      cursor: pointer; user-select: none;
+    }
+    .check-item-c:last-child { border-bottom: none; }
+    .check-box-c {
+      width: 18px; height: 18px; border: 2px solid #8892A0; border-radius: 4px;
+      flex-shrink: 0; margin-top: 3px; display: flex; align-items: center; justify-content: center;
+      font-size: 11px; font-weight: 900; transition: all .15s; background: #FFFFFF;
+    }
+    .check-box-c.checked {
+      background: #10B981; border-color: #10B981; color: #FFFFFF;
+    }
+
+    .exercise-tip {
+      font-size: 13.5px; color: #FFFFFF;
+      background: linear-gradient(135deg, rgba(44, 229, 255, 0.08), rgba(255, 90, 60, 0.06));
+      border: 1px solid rgba(44, 229, 255, 0.25);
+      border-radius: 10px; padding: 16px 20px; margin-top: 24px; line-height: 1.65;
+    }
+    .exercise-tip strong { color: var(--cy); }
+
+    /* ── CONGRATULATIONS CELEBRATION CARD ── */
+    .congrats-card {
+      background: linear-gradient(135deg, rgba(44, 229, 255, 0.12), rgba(139, 124, 255, 0.08));
+      border: 1px solid rgba(44, 229, 255, 0.35);
+      border-radius: 18px; padding: 36px 32px; margin-top: 48px; text-align: center;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.45);
+      position: relative; overflow: hidden;
+    }
+    .congrats-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+      background: linear-gradient(90deg, var(--cy), var(--vi), var(--gold));
+    }
+    .congrats-icon { font-size: 2.4rem; margin-bottom: 12px; }
+    .congrats-card h3 {
+      font-size: 1.65rem; font-weight: 900; color: #FFFFFF; margin-bottom: 10px;
+    }
+    .congrats-card h3 span {
+      background: linear-gradient(96deg, var(--cy), var(--vi));
+      -webkit-background-clip: text; background-clip: text; color: transparent;
+    }
+    .congrats-card p {
+      color: var(--dim); font-size: 15px; margin-bottom: 26px; max-width: 640px; margin-left: auto; margin-right: auto;
+    }
+    .learned-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; text-align: right;
+    }
+    @media (max-width: 720px) { .learned-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 480px) { .learned-grid { grid-template-columns: 1fr; } }
+    .learned-item {
+      background: var(--bg-2); border: 1px solid var(--border);
+      border-radius: 12px; padding: 14px 16px;
+      transition: border-color .18s, transform .18s;
+    }
+    .learned-item:hover { border-color: var(--border-hl); transform: translateY(-2px); }
+    .learned-item strong {
+      color: var(--cy); display: block; font-size: 13.5px; margin-bottom: 3px; font-weight: 800;
+    }
+    .learned-item span { font-size: 12.5px; color: var(--dim); line-height: 1.5; }
+
+    /* ── CLAUDE CODE NEXT LEVEL BLOCK ── */
+    .claude-code-card {
+      background: linear-gradient(135deg, #0E131E 0%, #151C2C 100%);
+      border: 1px solid rgba(44, 229, 255, 0.3);
+      border-radius: 18px; padding: 34px 36px; margin-top: 40px;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.4);
+      position: relative; overflow: hidden;
+    }
+    .claude-code-tag {
+      font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.14em;
+      text-transform: uppercase; color: var(--cy); margin-bottom: 12px; font-weight: 800;
+    }
+    .claude-code-title {
+      font-size: 1.3rem; font-weight: 900; color: #FFFFFF; margin-bottom: 14px;
+    }
+    .claude-code-desc {
+      font-size: 14.8px; color: var(--dim); line-height: 1.8; margin-bottom: 10px;
+    }
+    .claude-code-cta {
+      display: inline-flex; align-items: center; justify-content: center; gap: 14px;
+      background: linear-gradient(135deg, #183C66, #225C9E); color: #F0F7FF;
+      font-family: var(--sans); font-size: 1.05rem; font-weight: 900;
+      letter-spacing: 0.02em; padding: 18px 34px; border-radius: 12px;
+      text-decoration: none; border: 1px solid rgba(44, 229, 255, 0.45);
+      box-shadow: 0 4px 28px rgba(44, 229, 255, 0.25);
+      transition: all 0.22s ease; width: 100%; margin-top: 18px;
+    }
+    .claude-code-cta:hover {
+      transform: translateY(-2px); box-shadow: 0 10px 40px rgba(44, 229, 255, 0.45);
+      border-color: var(--cy);
+    }
+
+    /* ── NEXT MODULE ── */
+    .next-module {
+      margin-top: 60px; padding-top: 36px; border-top: 1px solid var(--border);
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .prev-btn {
+      background: var(--bg-2); border: 1px solid var(--border); color: var(--dim);
+      font-size: 13.5px; font-weight: 700; padding: 10px 22px; border-radius: 10px;
+      cursor: pointer; transition: all .18s; font-family: var(--sans);
+    }
+    .prev-btn:hover { border-color: var(--cy); color: var(--cy); }
+    .next-label { font-size: 11px; color: var(--dimmer); text-transform: uppercase; letter-spacing: .1em; margin-bottom: 4px; }
+    .next-title { font-weight: 800; color: var(--ink); font-size: 1.05rem; }
+    .next-btn {
+      background: var(--cy); color: #04121A;
+      font-size: 14.5px; font-weight: 800; padding: 12px 28px;
+      border-radius: 10px; cursor: pointer; white-space: nowrap;
+      transition: transform .18s ease, box-shadow .18s ease;
+      border: none; font-family: var(--sans);
+      box-shadow: 0 8px 24px rgba(44, 229, 255, 0.28);
+    }
+    .next-btn:hover {
+      transform: translateY(-2px); box-shadow: 0 14px 34px rgba(44, 229, 255, 0.4);
+    }
 
     ::-webkit-scrollbar { width: 6px; }
     ::-webkit-scrollbar-track { background: var(--bg); }
-    ::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 3px; }
+    ::-webkit-scrollbar-thumb { background: var(--bg-3); border-radius: 3px; }
   </style>
 </head>
 <body>
@@ -198,7 +541,7 @@
 </script>
 <!-- AFX-SIDEBAR END -->
 
-
+<!-- NAV -->
 <nav class="topnav">
   <span class="topnav-brand">AI Finance Transformation</span>
   <div class="topnav-right">
@@ -207,6 +550,7 @@
   </div>
 </nav>
 
+<!-- HERO -->
 <header class="module-hero">
   <div class="module-eyebrow">
     <span class="eyebrow-num">MODULE 14</span>
@@ -224,134 +568,322 @@
     </span>
     <span class="meta-item">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
-      Claude App + Artifacts
+      Claude App + Artifacts · Executive Dashboard
     </span>
   </div>
 </header>
 
+<!-- MAIN CONTENT -->
 <main class="content">
 
   <!-- INTRO -->
   <div class="sec-label">פרויקט הסיום</div>
   <h2>הכל מתחבר לתוצר אחד — דשבורד CFO מלא</h2>
   <p>
-    זה ה-Capstone של הקורס. תיקח את כל מה שלמדת — PRICE, Artifacts, Skills, סגירת חודש — ותבנה <strong>דשבורד דירקטוריון אינטראקטיבי אחד</strong>, מוכן להצגה, ב-Prompt בודד. זה התוצר שתוכל להראות למנהל שלך מחר בבוקר.
+    זה ה-Capstone של הקורס. תיקח את כל מה שלמדת — <strong>PRICE</strong>, <strong>Artifacts</strong>, <strong>Skills</strong>, <strong>סגירת חודש</strong> — ותבנה <strong>דשבורד דירקטוריון אינטראקטיבי אחד</strong>, מוכן להצגה, ב-Prompt בודד. זה התוצר שתוכל להראות למנהל שלך מחר בבוקר.
   </p>
 
   <!-- DASHBOARD MOCKUP -->
   <div class="sec-label">איך זה ייראה</div>
-  <h2>תצוגה מקדימה של הדשבורד</h2>
-  <p>הדשבורד הסופי כולל 6 רכיבים. כך הם מסתדרים על המסך (placeholder להמחשה):</p>
+  <h2>תצוגה מקדימה של הדשבורד (Board Pack Preview)</h2>
+  <p>הדשבורד הסופי כולל 6 רכיבים מובנים. כך הם מסתדרים על המסך בתוך Artifact חי ואינטראקטיבי:</p>
 
-  <div class="dash-mock">
-    <div class="dash-kpis">
-      <div class="kpi r"><div class="kpi-val">$22.4M</div><div class="kpi-lbl">Revenue 🔴</div></div>
-      <div class="kpi r"><div class="kpi-val">63.2%</div><div class="kpi-lbl">GM 🔴</div></div>
-      <div class="kpi r"><div class="kpi-val">$3.9M</div><div class="kpi-lbl">EBITDA 🔴</div></div>
-      <div class="kpi g"><div class="kpi-val">$28.6M</div><div class="kpi-lbl">Cash 🟢</div></div>
-      <div class="kpi g"><div class="kpi-val">42d</div><div class="kpi-lbl">DSO 🟢</div></div>
-      <div class="kpi g"><div class="kpi-val">112%</div><div class="kpi-lbl">NRR 🟢</div></div>
+  <div class="mockup-frame">
+    <div class="mockup-header">
+      <div class="window-dots">
+        <span class="dot-w dot-red"></span>
+        <span class="dot-w dot-yellow"></span>
+        <span class="dot-w dot-green"></span>
+      </div>
+      <span class="mockup-title">TechFlow Ltd // CFO Executive Board Pack — Q2 2026 (Live Artifact)</span>
+      <div class="mockup-controls">
+        <div class="view-toggle">
+          <button class="view-btn active" id="btn-board" onclick="switchView('board')">Board View</button>
+          <button class="view-btn" id="btn-mgmt" onclick="switchView('mgmt')">Management View</button>
+        </div>
+      </div>
     </div>
-    <div class="dash-row">
-      <div class="dash-ph ph-bridge">EBITDA Bridge Waterfall<br>Revenue → COGS → Gross → OpEx → EBITDA</div>
-      <div class="dash-ph ph-trend">Revenue Trend<br>8 רבעונים (sparkline)</div>
+    <div class="mockup-inner">
+      <!-- 6 KPIs Header Row -->
+      <div class="dash-kpis">
+        <div class="dash-kpi-card kpi-bad">
+          <div class="kpi-val">$22.4M</div>
+          <div class="kpi-name">Revenue 🔴</div>
+          <div class="kpi-sub">B: $23.0M (-2.6%)</div>
+        </div>
+        <div class="dash-kpi-card kpi-bad">
+          <div class="kpi-val">63.2%</div>
+          <div class="kpi-name">Gross Margin 🔴</div>
+          <div class="kpi-sub">B: 66.0% (-2.8pp)</div>
+        </div>
+        <div class="dash-kpi-card kpi-bad">
+          <div class="kpi-val">$3.9M</div>
+          <div class="kpi-name">EBITDA 🔴</div>
+          <div class="kpi-sub">B: $5.5M (-29.1%)</div>
+        </div>
+        <div class="dash-kpi-card kpi-ok">
+          <div class="kpi-val">$28.6M</div>
+          <div class="kpi-name">Cash Balance 🟢</div>
+          <div class="kpi-sub">Target: &gt;$25M (+14.4%)</div>
+        </div>
+        <div class="dash-kpi-card kpi-ok">
+          <div class="kpi-val">42d</div>
+          <div class="kpi-name">DSO 🟢</div>
+          <div class="kpi-sub">Target: &lt;45d (On track)</div>
+        </div>
+        <div class="dash-kpi-card kpi-ok">
+          <div class="kpi-val">112%</div>
+          <div class="kpi-name">NRR 🟢</div>
+          <div class="kpi-sub">Target: &gt;110% (Healthy)</div>
+        </div>
+      </div>
+
+      <!-- 2 Visual Panels Row -->
+      <div class="dash-grid">
+        <div class="dash-panel">
+          <div class="panel-head">
+            <span>EBITDA Bridge Waterfall</span>
+            <span style="color:var(--dimmer);font-size:10px;">Q2 2026 P&amp;L Flow</span>
+          </div>
+          <div class="waterfall-bars">
+            <div class="wf-row">
+              <span class="wf-lbl">Revenue</span>
+              <div class="wf-track"><div class="wf-fill rev">$22.4M</div></div>
+            </div>
+            <div class="wf-row">
+              <span class="wf-lbl">COGS</span>
+              <div class="wf-track"><div class="wf-fill cogs">-$8.2M</div></div>
+            </div>
+            <div class="wf-row">
+              <span class="wf-lbl">Gross Profit</span>
+              <div class="wf-track"><div class="wf-fill gp">$14.2M</div></div>
+            </div>
+            <div class="wf-row">
+              <span class="wf-lbl">OpEx</span>
+              <div class="wf-track"><div class="wf-fill opex">-$10.3M</div></div>
+            </div>
+            <div class="wf-row">
+              <span class="wf-lbl">EBITDA</span>
+              <div class="wf-track"><div class="wf-fill ebit">$3.9M</div></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="dash-panel">
+          <div class="panel-head">
+            <span>Revenue Trend (8Q Sparkline)</span>
+            <span style="color:var(--ok);font-size:10px;">+39.1% Growth</span>
+          </div>
+          <div class="trend-bars">
+            <div class="trend-col"><span class="trend-val">16.1</span><div class="trend-bar" style="height:48px;"></div><span class="trend-q">Q3'24</span></div>
+            <div class="trend-col"><span class="trend-val">17.3</span><div class="trend-bar" style="height:55px;"></div><span class="trend-q">Q4'24</span></div>
+            <div class="trend-col"><span class="trend-val">18.0</span><div class="trend-bar" style="height:60px;"></div><span class="trend-q">Q1'25</span></div>
+            <div class="trend-col"><span class="trend-val">19.0</span><div class="trend-bar" style="height:68px;"></div><span class="trend-q">Q2'25</span></div>
+            <div class="trend-col"><span class="trend-val">20.2</span><div class="trend-bar" style="height:76px;"></div><span class="trend-q">Q3'25</span></div>
+            <div class="trend-col"><span class="trend-val">21.1</span><div class="trend-bar" style="height:82px;"></div><span class="trend-q">Q4'25</span></div>
+            <div class="trend-col"><span class="trend-val">21.8</span><div class="trend-bar" style="height:88px;"></div><span class="trend-q">Q1'26</span></div>
+            <div class="trend-col"><span class="trend-val" style="color:var(--cy);font-weight:700;">22.4</span><div class="trend-bar" style="height:96px;background:linear-gradient(180deg,var(--ok),rgba(61,220,151,0.3));"></div><span class="trend-q" style="color:var(--cy);font-weight:700;">Q2'26</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Variance Table & CFO Commentary Row -->
+      <div class="dash-grid">
+        <div class="dash-panel">
+          <div class="panel-head">
+            <span>P&amp;L Variance Summary</span>
+            <span style="color:var(--dimmer);font-size:10px;">Actual vs Budget</span>
+          </div>
+          <table class="mini-table">
+            <thead>
+              <tr>
+                <th>P&amp;L Line</th>
+                <th>Budget</th>
+                <th>Actual</th>
+                <th>$ Var</th>
+                <th>% Var</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td style="color:#fff;font-weight:600;">Revenue</td>
+                <td>$23.0M</td>
+                <td>$22.4M</td>
+                <td style="color:var(--bad);">-$0.6M</td>
+                <td style="color:var(--bad);">-2.6%</td>
+                <td><span class="badge-r">🔴 Lag</span></td>
+              </tr>
+              <tr>
+                <td style="color:#fff;font-weight:600;">COGS</td>
+                <td>$7.6M</td>
+                <td>$8.2M</td>
+                <td style="color:var(--bad);">+$0.6M</td>
+                <td style="color:var(--bad);">+7.9%</td>
+                <td><span class="badge-r">🔴 Over</span></td>
+              </tr>
+              <tr>
+                <td style="color:#fff;font-weight:600;">Gross Profit</td>
+                <td>$15.4M</td>
+                <td>$14.2M</td>
+                <td style="color:var(--bad);">-$1.2M</td>
+                <td style="color:var(--bad);">-7.8%</td>
+                <td><span class="badge-r">🔴 Lag</span></td>
+              </tr>
+              <tr>
+                <td style="color:#fff;font-weight:600;">OpEx</td>
+                <td>$9.9M</td>
+                <td>$10.3M</td>
+                <td style="color:var(--bad);">+$0.4M</td>
+                <td style="color:var(--bad);">+4.0%</td>
+                <td><span class="badge-r">🔴 Over</span></td>
+              </tr>
+              <tr>
+                <td style="color:var(--cy);font-weight:800;">EBITDA</td>
+                <td style="color:var(--cy);">$5.5M</td>
+                <td style="color:var(--cy);">$3.9M</td>
+                <td style="color:var(--bad);font-weight:800;">-$1.6M</td>
+                <td style="color:var(--bad);font-weight:800;">-29.1%</td>
+                <td><span class="badge-r">🔴 Lag</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="dash-panel">
+          <div class="panel-head">
+            <span>CFO Executive Commentary</span>
+            <span style="color:var(--gold);font-size:10px;">Board Narrative</span>
+          </div>
+          <div class="mini-commentary" id="commentary-box">
+            Q2 2026 closed at <strong>$22.4M Revenue</strong> (-2.6% vs budget) and <strong>$3.9M EBITDA</strong> (-29.1% vs budget), primarily impacted by delayed Enterprise software rollouts ($0.6M) and accelerated AI infrastructure investments. <strong>Cash runway remains strong at $28.6M</strong> with DSO improving to 42 days. Management initiated targeted pipeline acceleration targeting full EBITDA recovery by Q4 2026.
+          </div>
+        </div>
+      </div>
     </div>
-    <div class="dash-row">
-      <div class="dash-ph ph-table">Variance Table — כל 5 שורות ה-P&L עם $ ו-%</div>
-      <div class="dash-ph ph-narr">CFO Auto-Commentary<br>פסקת סיכום אוטומטית</div>
-    </div>
-    <div class="dash-toggle"><span class="on">Board View</span><span>Management View</span></div>
   </div>
 
-  <!-- COMPONENTS -->
+  <!-- 6 COMPONENTS -->
   <div class="sec-label">6 הרכיבים</div>
-  <h2>ממה הדשבורד בנוי</h2>
+  <h2>ממה הדשבורד בנוי — אנטומיה של דוח דירקטוריון</h2>
 
-  <div class="comp-card">
-    <div class="comp-num">1</div>
-    <div class="comp-body">
-      <div class="comp-title">KPI Header Row</div>
-      <div class="comp-desc">6 כרטיסים עם אינדיקטור RAG: Revenue, GM%, EBITDA, Cash, DSO, NRR. צבע מיידי שמראה מה במצב.</div>
+  <div class="comp-grid">
+    <div class="comp-card c-1">
+      <div class="comp-num">01</div>
+      <div class="comp-body">
+        <div class="comp-title">
+          <span>KPI Header Row</span>
+          <span class="comp-badge">Executive At-a-Glance</span>
+        </div>
+        <div class="comp-desc">6 כרטיסי על עם אינדיקטור RAG: Revenue, GM%, EBITDA, Cash, DSO, NRR. צבע מיידי שמראה מה במצב עוד לפני קריאת המספרים.</div>
+      </div>
     </div>
-  </div>
-  <div class="comp-card">
-    <div class="comp-num">2</div>
-    <div class="comp-body">
-      <div class="comp-title">EBITDA Bridge Waterfall</div>
-      <div class="comp-desc">תרשים מפל שמראה את הדרך מ-Revenue ל-EBITDA דרך COGS ו-OpEx — מסביר ויזואלית מאיפה הרווח.</div>
+
+    <div class="comp-card c-2">
+      <div class="comp-num">02</div>
+      <div class="comp-body">
+        <div class="comp-title">
+          <span>EBITDA Bridge Waterfall</span>
+          <span class="comp-badge">Visual Value Flow</span>
+        </div>
+        <div class="comp-desc">תרשים מפל שמראה את הדרך מ-Revenue ל-EBITDA דרך COGS ו-OpEx — מסביר ויזואלית לדירקטוריון מאיפה מגיע הרווח ואיפה נשחקו השוליים.</div>
+      </div>
     </div>
-  </div>
-  <div class="comp-card">
-    <div class="comp-num">3</div>
-    <div class="comp-body">
-      <div class="comp-title">Revenue Trend (8Q Sparkline)</div>
-      <div class="comp-desc">מגמת הכנסות על פני 8 רבעונים — הקשר היסטורי שהופך מספר בודד לסיפור צמיחה.</div>
+
+    <div class="comp-card c-3">
+      <div class="comp-num">03</div>
+      <div class="comp-body">
+        <div class="comp-title">
+          <span>Revenue Trend (8Q Sparkline)</span>
+          <span class="comp-badge">Historical Context</span>
+        </div>
+        <div class="comp-desc">מגמת הכנסות על פני 8 רבעונים רצופים — הקשר היסטורי שהופך מספר בודד לסיפור צמיחה ומראה את כיוון החברה לאורך זמן.</div>
+      </div>
     </div>
-  </div>
-  <div class="comp-card">
-    <div class="comp-num">4</div>
-    <div class="comp-body">
-      <div class="comp-title">Variance Table</div>
-      <div class="comp-desc">כל 5 שורות ה-P&L עם סטיית $ ו-% מול התקציב — הפירוט המספרי המלא לצד הויזואלים.</div>
+
+    <div class="comp-card c-4">
+      <div class="comp-num">04</div>
+      <div class="comp-body">
+        <div class="comp-title">
+          <span>Variance Table</span>
+          <span class="comp-badge">Granular Breakdown</span>
+        </div>
+        <div class="comp-desc">כל 5 שורות ה-P&amp;L עם סטיית $ ו-% מול התקציב ואינדיקטורי סטטוס — הפירוט המספרי המלא והמדויק לצד האלמנטים הויזואליים.</div>
+      </div>
     </div>
-  </div>
-  <div class="comp-card">
-    <div class="comp-num">5</div>
-    <div class="comp-body">
-      <div class="comp-title">CFO Auto-Commentary</div>
-      <div class="comp-desc">פסקת סיכום מנהלים שנכתבת אוטומטית מהנתונים — מוכנה להקראה בדירקטוריון.</div>
+
+    <div class="comp-card c-5">
+      <div class="comp-num">05</div>
+      <div class="comp-body">
+        <div class="comp-title">
+          <span>CFO Auto-Commentary</span>
+          <span class="comp-badge">Automated Synthesis</span>
+        </div>
+        <div class="comp-desc">פסקת סיכום מנהלים שנכתבת אוטומטית מהנתונים — ממוקדת, מנומקת ומוכנה להקראה בדירקטוריון או לשילוב ישיר ב-Board Pack.</div>
+      </div>
     </div>
-  </div>
-  <div class="comp-card">
-    <div class="comp-num">6</div>
-    <div class="comp-body">
-      <div class="comp-title">Toggle: Board / Management View</div>
-      <div class="comp-desc">כפתור שמחליף בין תצוגה נקייה לדירקטוריון לבין תצוגה מפורטת לצוות הפנימי.</div>
+
+    <div class="comp-card c-6">
+      <div class="comp-num">06</div>
+      <div class="comp-body">
+        <div class="comp-title">
+          <span>Toggle: Board / Management View</span>
+          <span class="comp-badge">Interactive Flexibility</span>
+        </div>
+        <div class="comp-desc">כפתור אינטראקטיבי שמחליף בין תצוגה נקייה וממוקדת לדירקטוריון (Board View) לבין תצוגה מפורטת עם עומק ניתוח לצוות הניהול הפנימי.</div>
+      </div>
     </div>
   </div>
 
   <!-- BUILD STAGES -->
   <div class="sec-label">רצף הבנייה</div>
   <h2>4 שלבים — מפשוט ל-Board-Ready</h2>
-  <p>אל תנסה לבנות הכל בבת אחת. בנה בשכבות — כל שלב מוסיף עומק.</p>
+  <p>אל תנסה לבנות הכל בבת אחת. בנה בשכבות — כל שלב מוסיף עומק, פירוט ומקצועיות.</p>
 
   <div class="stage-grid">
-    <div class="stage">
-      <div class="stage-num">STAGE 1</div>
+    <div class="stage-card st-1">
+      <div class="stage-num">STAGE 01 // CORE</div>
       <div class="stage-title">KPI Cards</div>
-      <div class="stage-desc">התחל עם שורת 6 כרטיסי KPI עם צבעי RAG. הבסיס המינימלי שכבר נראה מקצועי.</div>
+      <div class="stage-desc">התחל עם שורת 6 כרטיסי KPI עם צבעי RAG. הבסיס המינימלי שמציג תמונת מצב מהירה ומקצועית.</div>
     </div>
-    <div class="stage">
-      <div class="stage-num">STAGE 2</div>
-      <div class="stage-title">+ Visuals</div>
-      <div class="stage-desc">הוסף את ה-EBITDA Bridge ואת ה-Revenue Trend. עכשיו יש סיפור ויזואלי.</div>
+    <div class="stage-card st-2">
+      <div class="stage-num">STAGE 02 // VISUALS</div>
+      <div class="stage-title">+ Visual Story</div>
+      <div class="stage-desc">הוסף את ה-EBITDA Bridge ואת ה-Revenue Trend. עכשיו הדוח מייצר סיפור ויזואלי ברור.</div>
     </div>
-    <div class="stage">
-      <div class="stage-num">STAGE 3</div>
-      <div class="stage-title">+ Table & Narrative</div>
-      <div class="stage-desc">הוסף את טבלת ה-variance ואת פסקת ה-CFO האוטומטית. המספרים והמילים יחד.</div>
+    <div class="stage-card st-3">
+      <div class="stage-num">STAGE 03 // NARRATIVE</div>
+      <div class="stage-title">+ Variance &amp; Text</div>
+      <div class="stage-desc">הוסף את טבלת ה-variance המלאה ואת פסקת ה-CFO האוטומטית. המספרים וההסברים המילוליים משתלבים יחד.</div>
     </div>
-    <div class="stage">
-      <div class="stage-num">STAGE 4</div>
-      <div class="stage-title">+ Toggle & Polish</div>
-      <div class="stage-desc">הוסף את ה-Toggle, עיצוב כהה, ופריסת A4 להדפסה. מוכן לדירקטוריון.</div>
+    <div class="stage-card st-4">
+      <div class="stage-num">STAGE 04 // POLISH</div>
+      <div class="stage-title">+ Toggle &amp; PDF</div>
+      <div class="stage-desc">הוסף את ה-Toggle החי, עיצוב Dark Slate מוקפד, וכפתור ייצוא לפריסת A4 נקייה להדפסה ו-PDF.</div>
     </div>
   </div>
 
   <div class="callout">
-    <div class="callout-label">איך לשתף ולהציג</div>
-    <p>פתח את ה-Artifact בדפדפן, הורד כקובץ HTML, ושלח לעמיתים — הוא עובד בכל מחשב ללא התקנה. להצגה בדירקטוריון: השתמש ב-Board View והקרן ישירות מהדפדפן.</p>
+    <div class="callout-label">איך לשתף ולהציג בדירקטוריון</div>
+    <p>פתח את ה-Artifact בדפדפן, הורד כקובץ HTML עצמאי, ושלח לעמיתים — הוא עובד בכל מחשב ללא צורך בהתקנה כלשהי. להצגה בדירקטוריון: השתמש ב-Board View והקרן ישירות מהדפדפן במסך מלא, או ייצא כ-PDF בלחיצה אחת.</p>
   </div>
 
-  <!-- EXERCISE -->
+  <!-- EXERCISE (Console Style) -->
   <div class="exercise">
     <div class="exercise-header">
-      <span class="exercise-badge">תרגיל 14</span>
-      <span class="exercise-title">בנה את הדשבורד המלא ב-Artifact אחד</span>
+      <div class="exercise-header-left">
+        <div class="window-dots">
+          <span class="dot-w dot-red"></span>
+          <span class="dot-w dot-yellow"></span>
+          <span class="dot-w dot-green"></span>
+        </div>
+        <span class="exercise-badge">תרגיל 14</span>
+        <span class="exercise-title">בנה את הדשבורד המלא ב-Artifact אחד</span>
+      </div>
     </div>
     <div class="exercise-body">
       <p class="exercise-context">
-        ה-Prompt ה-Starter בונה את כל הדשבורד בבת אחת. ה-Prompt המתקדם מוסיף Revenue trend ל-8 רבעונים וכפתור ייצוא ל-PDF.
+        ה-Prompt ה-Starter בונה את כל הדשבורד בבת אחת בתוך Artifact אינטראקטיבי. ה-Prompt המתקדם מוסיף גרף מגמת הכנסות (Revenue trend) ל-8 רבעונים וכפתור ייצוא ל-PDF.
       </p>
 
       <div class="prompt-box">
@@ -367,13 +899,13 @@ Include:
 - CFO executive summary paragraph (auto-generated, 60 words, English)
 - Toggle button: Board View (clean) / Management View (detailed)
 
-Style: Dark theme (#0b0d10 bg, #b8c45a accent), Hebrew labels, print-ready A4 layout.</div>
-        <button class="copy-btn" onclick="copyPrompt(this, 'Create a complete interactive CFO Board Pack HTML dashboard for TechFlow Ltd Q2 2026.\n\nKPIs: Revenue $22.4M (B:$23M 🔴), GM 63.2% (B:66% 🔴), EBITDA $3.9M (B:$5.5M 🔴), Cash $28.6M (🟢), DSO 42d (T:<45 🟢), NRR 112% (T:110% 🟢)\n\nInclude:\n- KPI header row with RAG color indicators\n- EBITDA bridge: Revenue $22.4M → COGS -$8.2M → Gross $14.2M → OpEx -$10.3M → EBITDA $3.9M\n- Variance table: all 5 P&L lines with $ and % variance\n- CFO executive summary paragraph (auto-generated, 60 words, English)\n- Toggle button: Board View (clean) / Management View (detailed)\n\nStyle: Dark theme (#0b0d10 bg, #b8c45a accent), Hebrew labels, print-ready A4 layout.')">העתק Prompt</button>
+Style: Dark theme (#141821 bg, #2CE5FF accent, #8B7CFF secondary), Hebrew labels, print-ready A4 layout.</div>
+        <button class="copy-btn" onclick="copyPrompt(this, 'Create a complete interactive CFO Board Pack HTML dashboard for TechFlow Ltd Q2 2026.\n\nKPIs: Revenue $22.4M (B:$23M 🔴), GM 63.2% (B:66% 🔴), EBITDA $3.9M (B:$5.5M 🔴), Cash $28.6M (🟢), DSO 42d (T:<45 🟢), NRR 112% (T:110% 🟢)\n\nInclude:\n- KPI header row with RAG color indicators\n- EBITDA bridge: Revenue $22.4M → COGS -$8.2M → Gross $14.2M → OpEx -$10.3M → EBITDA $3.9M\n- Variance table: all 5 P&L lines with $ and % variance\n- CFO executive summary paragraph (auto-generated, 60 words, English)\n- Toggle button: Board View (clean) / Management View (detailed)\n\nStyle: Dark theme (#141821 bg, #2CE5FF accent, #8B7CFF secondary), Hebrew labels, print-ready A4 layout.')">העתק Starter Prompt</button>
       </div>
 
-      <div class="prompt-box">
-        <div class="prompt-label">Advanced — + 8Q Trend + PDF Export</div>
-        <div class="prompt-text">שדרג את הדשבורד מה-Prompt הקודם:
+      <div class="prompt-box" style="margin-top:20px;">
+        <div class="prompt-label" style="color:var(--vi);">Advanced — + 8Q Trend + PDF Export</div>
+        <div class="prompt-text rtl-dir">שדרג את הדשבורד מה-Prompt הקודם:
 
 1. הוסף Revenue Trend sparkline ל-8 רבעונים:
    Q3'24 $16.1M, Q4'24 $17.3M, Q1'25 $18.0M, Q2'25 $19.0M, Q3'25 $20.2M, Q4'25 $21.1M, Q1'26 $21.8M, Q2'26 $22.4M
@@ -381,53 +913,89 @@ Style: Dark theme (#0b0d10 bg, #b8c45a accent), Hebrew labels, print-ready A4 la
 3. ודא שה-Toggle בין Board ל-Management עובד עם JavaScript אמיתי (לא placeholder).
 
 שמור על העיצוב הכהה ועל התוויות בעברית. הכל ב-Artifact אחד.</div>
-        <button class="copy-btn" onclick="copyPrompt(this, 'שדרג את הדשבורד מה-Prompt הקודם:\n\n1. הוסף Revenue Trend sparkline ל-8 רבעונים:\n   Q3\'24 $16.1M, Q4\'24 $17.3M, Q1\'25 $18.0M, Q2\'25 $19.0M, Q3\'25 $20.2M, Q4\'25 $21.1M, Q1\'26 $21.8M, Q2\'26 $22.4M\n2. הוסף כפתור &quot;Export to PDF&quot; שמפעיל את window.print() עם פריסת A4 נקייה.\n3. ודא שה-Toggle בין Board ל-Management עובד עם JavaScript אמיתי (לא placeholder).\n\nשמור על העיצוב הכהה ועל התוויות בעברית. הכל ב-Artifact אחד.')">העתק Prompt</button>
+        <button class="copy-btn" onclick="copyPrompt(this, 'שדרג את הדשבורד מה-Prompt הקודם:\n\n1. הוסף Revenue Trend sparkline ל-8 רבעונים:\n   Q3\'24 $16.1M, Q4\'24 $17.3M, Q1\'25 $18.0M, Q2\'25 $19.0M, Q3\'25 $20.2M, Q4\'25 $21.1M, Q1\'26 $21.8M, Q2\'26 $22.4M\n2. הוסף כפתור &quot;Export to PDF&quot; שמפעיל את window.print() עם פריסת A4 נקייה.\n3. ודא שה-Toggle בין Board ל-Management עובד עם JavaScript אמיתי (לא placeholder).\n\nשמור על העיצוב הכהה ועל התוויות בעברית. הכל ב-Artifact אחד.')">העתק Advanced Prompt</button>
       </div>
 
-      <div class="checklist">
-        <div class="checklist-title">✓ רשימת בדיקה</div>
-        <div class="check-item"><div class="check-box" onclick="toggleCheck(this)"></div>הרצתי את ה-Starter וקיבלתי Artifact מלא</div>
-        <div class="check-item"><div class="check-box" onclick="toggleCheck(this)"></div>6 כרטיסי ה-KPI מציגים צבעי RAG נכונים</div>
-        <div class="check-item"><div class="check-box" onclick="toggleCheck(this)"></div>ה-Toggle בין Board ל-Management עובד</div>
-        <div class="check-item"><div class="check-box" onclick="toggleCheck(this)"></div>הוספתי Revenue trend ל-8 רבעונים</div>
-        <div class="check-item"><div class="check-box" onclick="toggleCheck(this)"></div>כפתור Export to PDF מפיק עמוד נקי</div>
-        <div class="check-item"><div class="check-box" onclick="toggleCheck(this)"></div>הורדתי את הדשבורד ושיתפתי עם עמית</div>
+      <!-- HIGH-CONTRAST CREAM CHECKLIST -->
+      <div class="checklist-cream">
+        <div class="checklist-cream-title">📋 רשימת בדיקה והערכה לאחר התרגיל</div>
+        <div class="checklist-cream-sub">סמן כל שלב שהשלמת בהצלחה כדי לוודא שליטה מלאה בבניית הדשבורד:</div>
+        <div class="check-item-c" onclick="toggleCheckCream(this)">
+          <div class="check-box-c"></div>
+          <span>הרצתי את ה-Starter וקיבלתי Artifact מלא ופעיל בדפדפן.</span>
+        </div>
+        <div class="check-item-c" onclick="toggleCheckCream(this)">
+          <div class="check-box-c"></div>
+          <span>6 כרטיסי ה-KPI מציגים צבעי RAG נכונים ומדויקים (אדום/ירוק).</span>
+        </div>
+        <div class="check-item-c" onclick="toggleCheckCream(this)">
+          <div class="check-box-c"></div>
+          <span>ה-Toggle בין Board ל-Management עובד ומחליף את מצב התצוגה.</span>
+        </div>
+        <div class="check-item-c" onclick="toggleCheckCream(this)">
+          <div class="check-box-c"></div>
+          <span>הוספתי Revenue trend ל-8 רבעונים עם תרשים sparkline ויזואלי.</span>
+        </div>
+        <div class="check-item-c" onclick="toggleCheckCream(this)">
+          <div class="check-box-c"></div>
+          <span>כפתור Export to PDF מפיק עמוד A4 נקי ומותאם להדפסה.</span>
+        </div>
+        <div class="check-item-c" onclick="toggleCheckCream(this)">
+          <div class="check-box-c"></div>
+          <span>הורדתי את הדשבורד כקובץ HTML עצמאי ובדקתי פתיחה מקומית.</span>
+        </div>
       </div>
 
       <div class="exercise-tip">
-        <strong>המשך מומלץ:</strong> שמור את ה-Prompt הזה כ-Skill בשם "CFO Dashboard" — בחודש הבא רק תחליף את הנתונים ותקבל דשבורד מעודכן בלחיצה.
+        <strong>המשך מומלץ:</strong> שמור את ה-Prompt הזה כ-Skill בשם "CFO Dashboard" — בחודש הבא רק תחליף את הנתונים ותקבל דשבורד מעודכן בלחיצה אחת.
       </div>
     </div>
   </div>
 
-  <!-- CONGRATULATIONS -->
-  <div class="congrats">
-    <h3>🎉 כל הכבוד — <span>סיימת את הליבה</span></h3>
-    <p>בנית דשבורד CFO מלא ב-Prompt אחד. זה היה בלתי אפשרי לפני שנה. הנה מה שלמדת בקורס:</p>
+  <!-- CONGRATULATIONS CELEBRATION CARD -->
+  <div class="congrats-card">
+    <div class="congrats-icon">🎉</div>
+    <h3>כל הכבוד — <span>סיימת את ליבת הקורס!</span></h3>
+    <p>בנית דשבורד CFO מלא ב-Prompt אחד. זה היה בלתי אפשרי לפני שנה. הנה ארגז הכלים השלם שרכשת בקורס:</p>
     <div class="learned-grid">
-      <div class="learned"><strong>מסגרת PRICE</strong>לכתוב כל Prompt נכון</div>
-      <div class="learned"><strong>Artifacts</strong>לבנות דשבורדים חיים</div>
-      <div class="learned"><strong>Skills</strong>לזכרון מוסדי חוזר</div>
-      <div class="learned"><strong>Projects & Connectors</strong>סביבת עבודה מחוברת</div>
-      <div class="learned"><strong>Excel & PowerPoint</strong>Claude בכלים שלך</div>
-      <div class="learned"><strong>סגירת חודש</strong>תהליך מקצה לקצה</div>
+      <div class="learned-item">
+        <strong>מסגרת PRICE</strong>
+        <span>כתיבת כל Prompt פיננסי בצורה מובנית ומדויקת</span>
+      </div>
+      <div class="learned-item">
+        <strong>Artifacts</strong>
+        <span>בניית דשבורדים חיים, מודלים וטבלאות אינטראקטיביות</span>
+      </div>
+      <div class="learned-item">
+        <strong>Skills</strong>
+        <span>יצירת זיכרון מוסדי חוזר ואחיד לכל המחלקה</span>
+      </div>
+      <div class="learned-item">
+        <strong>Projects &amp; Connectors</strong>
+        <span>סביבת עבודה מקושרת עם זיכרון ארגוני רציף</span>
+      </div>
+      <div class="learned-item">
+        <strong>Excel &amp; PowerPoint</strong>
+        <span>חיבור Claude ישירות לתוך כלי העבודה היומיומיים</span>
+      </div>
+      <div class="learned-item">
+        <strong>סגירת חודש</strong>
+        <span>אוטומציה מקצה לקצה מתהליך GL ועד Board Deck</span>
+      </div>
     </div>
   </div>
 
   <!-- CLAUDE CODE NEXT LEVEL BLOCK -->
-  <div style="background:linear-gradient(135deg,#0d1117 0%,#111820 100%);border:1px solid rgba(99,179,237,.25);border-radius:16px;padding:32px 34px;margin-top:40px;">
-    <div style="font-family:var(--mono);font-size:0.62rem;letter-spacing:0.14em;text-transform:uppercase;color:#63b3ed;margin-bottom:12px;">// השלב הבא — למי שרוצה ללכת רחוק יותר</div>
-    <div style="font-size:1.2rem;font-weight:900;color:#ffffff;margin-bottom:14px;">Claude Code — העומק שמתחת לממשק</div>
-    <p style="font-size:0.95rem;color:var(--muted);line-height:1.8;margin-bottom:8px;">
-      סיימת את הקורס הזה — וזה רק תחילת הדרך. <strong style="color:var(--text);">Claude Code</strong> הוא השכבה הבאה: עבודה ישירה עם Claude מהטרמינל, כתיבת קוד, ואוטומציות שלא ניתן לבצע מממשק הצ'אט הרגיל.
+  <div class="claude-code-card">
+    <div class="claude-code-tag">// השלב הבא — למי שרוצה ללכת רחוק יותר</div>
+    <div class="claude-code-title">Claude Code — העומק שמתחת לממשק</div>
+    <p class="claude-code-desc">
+      סיימת את הקורס הזה — וזה רק תחילת הדרך. <strong style="color:var(--ink);">Claude Code</strong> הוא השכבה הבאה: עבודה ישירה עם Claude מהטרמינל, כתיבת קוד, ואוטומציות שלא ניתן לבצע מממשק הצ'אט הרגיל.
     </p>
-    <p style="font-size:0.95rem;color:var(--muted);line-height:1.8;margin-bottom:26px;">
-      בעמוד המשאבים החינמי תמצא: מדריך התקנה מלא, איך להתחיל לעבוד בטרמינל, קורס על GitHub, <strong style="color:var(--text);">ספרייה שלמה של Skills מוכנים</strong> לשימוש ישיר, וכלים ליצירת Skills משלך — הכל בחינם, הכל בעברית.
+    <p class="claude-code-desc">
+      בעמוד המשאבים החינמי תמצא: מדריך התקנה מלא, איך להתחיל לעבוד בטרמינל, קורס על GitHub, <strong style="color:var(--ink);">ספרייה שלמה של Skills מוכנים</strong> לשימוש ישיר, וכלים ליצירת Skills משלך — הכל בחינם, הכל בעברית.
     </p>
-    <a href="https://www.ronenamoscpa.co.il/resources/claude-code#skills" target="_blank"
-      style="display:inline-flex;align-items:center;justify-content:center;gap:14px;background:linear-gradient(135deg,#1a3a5c,#2b6cb0);color:#ebf8ff;font-family:var(--sans);font-size:1.05rem;font-weight:900;letter-spacing:0.02em;padding:20px 36px;border-radius:12px;text-decoration:none;border:1px solid rgba(99,179,237,.4);box-shadow:0 4px 28px rgba(66,153,225,0.35);transition:all 0.22s;width:100%;"
-      onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 10px 40px rgba(66,153,225,0.55)'"
-      onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='0 4px 28px rgba(66,153,225,0.35)'">
+    <a href="https://www.ronenamoscpa.co.il/resources/claude-code#skills" target="_blank" class="claude-code-cta">
       <span style="font-size:1.3rem;">⚡</span>
       <span>כנס למשאבי Claude Code החינמיים — Skills, טרמינל, GitHub ועוד</span>
       <span style="font-size:1rem;opacity:.7">←</span>
@@ -441,7 +1009,7 @@ Style: Dark theme (#0b0d10 bg, #b8c45a accent), Hebrew labels, print-ready A4 la
       <div class="next-label">המודול הבא — בונוס</div>
       <div class="next-title">Module 15 — Skills מוכנות להורדה</div>
     </div>
-    <button class="next-btn" onclick="window.location.href='/courses/ai-master-course/module-15'">המשך ←</button>
+    <button class="next-btn" onclick="window.location.href='/courses/ai-master-course/module-15'">המשך ל-Module 15 ←</button>
   </div>
 
 </main>
@@ -449,16 +1017,39 @@ Style: Dark theme (#0b0d10 bg, #b8c45a accent), Hebrew labels, print-ready A4 la
 <script>
   function copyPrompt(btn, text) {
     navigator.clipboard.writeText(text).then(() => {
-      btn.textContent = '✓ הועתק!';
-      btn.style.color = 'var(--green)';
-      btn.style.borderColor = 'var(--green)';
-      setTimeout(() => { btn.textContent = 'העתק Prompt'; btn.style.color = ''; btn.style.borderColor = ''; }, 2000);
+      const orig = btn.textContent;
+      btn.textContent = '✓ הועתק לקליפבורד!';
+      btn.style.color = 'var(--ok)';
+      btn.style.borderColor = 'var(--ok)';
+      setTimeout(() => {
+        btn.textContent = orig;
+        btn.style.color = '';
+        btn.style.borderColor = '';
+      }, 2000);
     });
   }
-  function toggleCheck(el) {
-    el.classList.toggle('checked');
-    el.textContent = el.classList.contains('checked') ? '✓' : '';
+
+  function toggleCheckCream(item) {
+    const box = item.querySelector('.check-box-c');
+    box.classList.toggle('checked');
+    box.textContent = box.classList.contains('checked') ? '✓' : '';
   }
+
+  function switchView(mode) {
+    const btnB = document.getElementById('btn-board');
+    const btnM = document.getElementById('btn-mgmt');
+    const comm = document.getElementById('commentary-box');
+    if (mode === 'board') {
+      btnB.classList.add('active');
+      btnM.classList.remove('active');
+      comm.innerHTML = 'Q2 2026 closed at <strong>$22.4M Revenue</strong> (-2.6% vs budget) and <strong>$3.9M EBITDA</strong> (-29.1% vs budget), primarily impacted by delayed Enterprise software rollouts ($0.6M) and accelerated AI infrastructure investments. <strong>Cash runway remains strong at $28.6M</strong> with DSO improving to 42 days. Management initiated targeted pipeline acceleration targeting full EBITDA recovery by Q4 2026.';
+    } else {
+      btnM.classList.add('active');
+      btnB.classList.remove('active');
+      comm.innerHTML = '<strong>Management Detail:</strong> Enterprise sales cycle lengthened from 45 to 68 days in Q2. Cloud hosting overage ($0.25M) and sales recruiting fees ($0.15M) drove OpEx to $10.3M (+4.0%). Hiring freeze on non-engineering roles and restructuring vendor terms will save $0.45M in Q3.';
+    }
+  }
+
   try {
     const p = JSON.parse(localStorage.getItem('claude-course-progress')) || {};
     p['module-14'] = true;

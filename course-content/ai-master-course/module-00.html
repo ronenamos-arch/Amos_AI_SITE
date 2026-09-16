@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Module 00 — ברוכים הבאים | קורס Claude</title>
-  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800;900&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800;900&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     /* ═══════════════════════════════════════════════════════════
        DigiSave Pro Theme: Slate Navy, Electric Cyan & Warm Coral
@@ -21,12 +21,15 @@
       --cy:        #2CE5FF;
       --cy-soft:   rgba(44, 229, 255, 0.13);
       --vi:        #8B7CFF;
+      --vi-soft:   rgba(139, 124, 255, 0.13);
       --coral:     #FF5A3C;
       --coral-soft:rgba(255, 90, 60, 0.12);
       --ok:        #3DDC97;
       --ok-soft:   rgba(61, 220, 151, 0.13);
       --bad:       #FF6B6B;
       --bad-soft:  rgba(255, 107, 107, 0.12);
+      --gold:      #F59E0B;
+      --gold-soft: rgba(245, 158, 11, 0.12);
       --cream:     #F5F1EC;
       --on-cream:  #15181F;
       --mono:      'IBM Plex Mono', monospace;
@@ -277,11 +280,46 @@
     }
     .exercise-tip strong { color: var(--cy); }
 
+    /* ── HIGH-CONTRAST CREAM CHECKLIST ── */
+    .checklist-cream {
+      background: var(--cream); color: var(--on-cream);
+      border-radius: 14px; padding: 26px 28px; margin-top: 28px;
+      box-shadow: 0 16px 36px rgba(0,0,0,.4);
+    }
+    .checklist-cream-title {
+      font-size: 1.05rem; font-weight: 900; color: var(--on-cream); margin-bottom: 6px;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .checklist-cream-sub {
+      font-size: 13px; color: #555D6E; margin-bottom: 18px; line-height: 1.5;
+    }
+    .check-item-c {
+      display: flex; align-items: flex-start; gap: 12px;
+      font-size: 13.5px; color: #2D333F; font-weight: 600;
+      padding: 9px 0; border-bottom: 1px solid rgba(0,0,0,0.08);
+      cursor: pointer; user-select: none;
+    }
+    .check-item-c:last-child { border-bottom: none; }
+    .check-box-c {
+      width: 18px; height: 18px; border: 2px solid #8892A0; border-radius: 4px;
+      flex-shrink: 0; margin-top: 3px; display: flex; align-items: center; justify-content: center;
+      font-size: 11px; font-weight: 900; transition: all .15s; background: #FFFFFF;
+    }
+    .check-box-c.checked {
+      background: #10B981; border-color: #10B981; color: #FFFFFF;
+    }
+
     /* ── NEXT MODULE ── */
     .next-module {
       margin-top: 60px; padding-top: 36px; border-top: 1px solid var(--border);
       display: flex; justify-content: space-between; align-items: center;
     }
+    .prev-btn {
+      background: var(--bg-2); border: 1px solid var(--border); color: var(--dim);
+      font-size: 13.5px; font-weight: 700; padding: 10px 22px; border-radius: 10px;
+      cursor: pointer; transition: all .18s; font-family: var(--sans);
+    }
+    .prev-btn:hover { border-color: var(--cy); color: var(--cy); }
     .next-label { font-size: 11px; color: var(--dimmer); text-transform: uppercase; letter-spacing: .1em; margin-bottom: 4px; }
     .next-title { font-weight: 800; color: var(--ink); font-size: 1.05rem; }
     .next-btn {
@@ -308,15 +346,15 @@
   body{padding-right:252px}
   .afx-rail{position:fixed;top:0;right:0;width:252px;height:100vh;background:#111318;border-left:1px solid #2e3540;z-index:150;display:flex;flex-direction:column;direction:rtl;font-family:'Heebo',sans-serif}
   .afx-rail-head{height:56px;flex-shrink:0;display:flex;align-items:center;gap:8px;padding:0 18px;border-bottom:1px solid #232830}
-  .afx-rail-head b{font-size:12px;font-weight:800;letter-spacing:.1em;color:#b8c45a;text-transform:uppercase}
-  .afx-rail-head span{font-size:10px;color:#5a6278;font-family:'IBM Plex Mono',monospace}
+  .afx-rail-head b{font-size:12px;font-weight:800;letter-spacing:.1em;color:#2CE5FF;text-transform:uppercase}
+  .afx-rail-head span{font-size:10px;color:#76808F;font-family:'IBM Plex Mono',monospace}
   .afx-list{flex:1;overflow-y:auto;padding:8px 0 28px}
-  .afx-sep{font-size:10px;font-weight:800;letter-spacing:.1em;color:#aeb6c6;padding:14px 18px 6px}
-  .afx-link{display:flex;gap:10px;align-items:baseline;padding:8px 18px;color:#ffffff;font-size:13px;text-decoration:none;border-right:3px solid transparent;transition:background .15s,color .15s}
+  .afx-sep{font-size:10px;font-weight:800;letter-spacing:.1em;color:#A7B0BE;padding:14px 18px 6px}
+  .afx-link{display:flex;gap:10px;align-items:baseline;padding:8px 18px;color:#F4F7FA;font-size:13px;text-decoration:none;border-right:3px solid transparent;transition:background .15s,color .15s}
   .afx-link:hover{background:#181c22;color:#ffffff}
-  .afx-link.active{color:#b8c45a;background:rgba(184,196,90,.08);border-right-color:#b8c45a;font-weight:700}
-  .afx-num{font-family:'IBM Plex Mono',monospace;font-size:11px;color:#cfd5e0;min-width:26px}
-  .afx-link.active .afx-num{color:#b8c45a}
+  .afx-link.active{color:#2CE5FF;background:rgba(44,229,255,.08);border-right-color:#2CE5FF;font-weight:700}
+  .afx-num{font-family:'IBM Plex Mono',monospace;font-size:11px;color:#76808F;min-width:26px}
+  .afx-link.active .afx-num{color:#2CE5FF}
   .afx-list::-webkit-scrollbar{width:6px}
   .afx-list::-webkit-scrollbar-thumb{background:#2e3540;border-radius:3px}
   @media (max-width:900px){body{padding-right:0}.afx-rail{display:none}}
@@ -352,16 +390,25 @@
   </div>
 </nav>
 <script>
-  (function(){var f=(location.pathname.split('/').pop()||'').toLowerCase();document.querySelectorAll('.afx-link').forEach(function(a){if((a.getAttribute('data-file')||'').toLowerCase()===f)a.classList.add('active');});})();
+  (function(){
+    var p = (location.pathname || '').toLowerCase();
+    var f = (p.split('/').pop() || '').replace(/\.html$/, '');
+    document.querySelectorAll('.afx-link').forEach(function(a){
+      var href = (a.getAttribute('href') || '').toLowerCase().replace(/\.html$/, '');
+      var data = (a.getAttribute('data-file') || '').toLowerCase().replace(/\.html$/, '');
+      if (f && (data === f || href.endsWith(f) || (f === 'module-00' && data === 'module-00'))) {
+        a.classList.add('active');
+      }
+    });
+  })();
 </script>
 <!-- AFX-SIDEBAR END -->
-
 
 <!-- NAV -->
 <nav class="topnav">
   <span class="topnav-brand">AI Finance Transformation</span>
   <div class="topnav-right">
-    <a href="course-index.html" class="topnav-back">← כל המודולים</a>
+    <a href="/courses/ai-master-course" class="topnav-back">← כל המודולים</a>
     <span class="topnav-module">MODULE 00 / 16</span>
   </div>
 </nav>
@@ -619,6 +666,32 @@
         <button class="copy-btn" onclick="copyPrompt(this, 'אני CFO של חברת SaaS ישראלית, ~150 עובדים, ARR $18M, שלושה מוצרים. אנחנו עכשיו בשלב סגירת Q2. מה 3 הדברים שאתה יכול לעשות בשבילי השבועיים הקרובים שיחסכו לי הכי הרבה זמן וישפרו את איכות הדיווח לדירקטוריון?')">העתק Prompt</button>
       </div>
 
+      <!-- HIGH-CONTRAST CREAM CHECKLIST -->
+      <div class="checklist-cream">
+        <div class="checklist-cream-title">📋 רשימת בדיקה והערכה לאחר התרגיל</div>
+        <div class="checklist-cream-sub">סמן כל שלב שהשלמת בהצלחה כדי לוודא מוכנות מלאה לקורס:</div>
+        <div class="check-item-c" onclick="toggleCheckCream(this)">
+          <div class="check-box-c"></div>
+          <span>פתחתי חשבון פעיל ב-Claude.ai (רצוי גרסת Pro להפקת מקסימום ערך).</span>
+        </div>
+        <div class="check-item-c" onclick="toggleCheckCream(this)">
+          <div class="check-box-c"></div>
+          <span>העתקתי והרצתי את ה-Starter Prompt וראיתי את התשובה הראשונית של Claude.</span>
+        </div>
+        <div class="check-item-c" onclick="toggleCheckCream(this)">
+          <div class="check-box-c"></div>
+          <span>העתקתי והרצתי את ה-Advanced Prompt וראיתי את ההבדל בדיוק התשובה כאשר מספקים הקשר פיננסי.</span>
+        </div>
+        <div class="check-item-c" onclick="toggleCheckCream(this)">
+          <div class="check-box-c"></div>
+          <span>שמרתי את השיחה כדי להשוות מול היכולות שייבנו בסיום הקורס (Capstone ב-Module 14).</span>
+        </div>
+        <div class="check-item-c" onclick="toggleCheckCream(this)">
+          <div class="check-box-c"></div>
+          <span>אני מבין את היתרונות של Claude בעבודה פיננסית ומוכן לעבור למודול הבא (שלושת המודלים).</span>
+        </div>
+      </div>
+
       <div class="exercise-tip">
         <strong>שים לב להבדל:</strong> ה-Starter הוא כללי מאוד — Claude מנחש מה תצטרך. ה-Advanced נותן הקשר חברה — Claude מדייק. זה בדיוק מה שנלמד ב-Module 03 (PRICE Framework).
       </div>
@@ -627,11 +700,12 @@
 
   <!-- NEXT MODULE -->
   <div class="next-module">
-    <div>
+    <button class="prev-btn" onclick="window.location.href='/courses/ai-master-course'">→ חזרה לתוכן הקורס</button>
+    <div style="text-align:right">
       <div class="next-label">המודול הבא</div>
       <div class="next-title">Module 01 — שלושת המודלים של Claude</div>
     </div>
-    <button class="next-btn" onclick="window.location.href='/courses/ai-master-course/module-01'">המשך ← </button>
+    <button class="next-btn" onclick="window.location.href='/courses/ai-master-course/module-01'">המשך ל-Module 01 ←</button>
   </div>
 
 </main>
@@ -640,14 +714,20 @@
   function copyPrompt(btn, text) {
     navigator.clipboard.writeText(text).then(() => {
       btn.textContent = '✓ הועתק!';
-      btn.style.color = 'var(--green)';
-      btn.style.borderColor = 'var(--green)';
+      btn.style.color = 'var(--ok)';
+      btn.style.borderColor = 'var(--ok)';
       setTimeout(() => {
         btn.textContent = 'העתק Prompt';
         btn.style.color = '';
         btn.style.borderColor = '';
       }, 2000);
     });
+  }
+
+  function toggleCheckCream(el) {
+    const box = el.querySelector('.check-box-c');
+    box.classList.toggle('checked');
+    box.textContent = box.classList.contains('checked') ? '✓' : '';
   }
 
   // Mark this module as visited

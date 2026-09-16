@@ -3,166 +3,450 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>מנהל הכספים בעידן ה-AI | קורס Claude מעשי</title>
-  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800;900&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <title>מנהל הכספים בעידן ה-AI | קורס Claude מעשי — תוכן הקורס</title>
+  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800;900&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
+    /* ═══════════════════════════════════════════════════════════
+       DigiSave Pro Theme: Slate Navy, Electric Cyan & Violet
+       ═══════════════════════════════════════════════════════════ */
     :root {
-      --bg:       #0b0d10;
-      --bg2:      #111318;
-      --bg3:      #181c22;
-      --border:   #232830;
-      --border2:  #2e3540;
-      --accent:   #b8c45a;
-      --accent2:  #8a9a2f;
-      --text:     #e8eaf0;
-      --muted:    #7a8499;
-      --muted2:   #5a6278;
-      --mono:     'IBM Plex Mono', monospace;
-      --sans:     'Heebo', sans-serif;
+      --bg:         #141821;
+      --bg-2:       #1A1F2A;
+      --bg-3:       #222938;
+      --border:     rgba(255, 255, 255, 0.10);
+      --border-hl:  rgba(44, 229, 255, 0.35);
+      --ink:        #F4F7FA;
+      --dim:        #A7B0BE;
+      --dimmer:     #76808F;
+      --cy:         #2CE5FF;
+      --cy-soft:    rgba(44, 229, 255, 0.12);
+      --vi:         #8B7CFF;
+      --vi-soft:    rgba(139, 124, 255, 0.12);
+      --coral:      #FF5A3C;
+      --coral-soft: rgba(255, 90, 60, 0.12);
+      --ok:         #3DDC97;
+      --ok-soft:    rgba(61, 220, 151, 0.12);
+      --gold:       #F59E0B;
+      --gold-soft:  rgba(245, 158, 11, 0.12);
+      --mono:       'IBM Plex Mono', monospace;
+      --sans:       'Heebo', sans-serif;
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
       background: var(--bg);
-      color: var(--text);
+      color: var(--ink);
       font-family: var(--sans);
-      font-size: 15px;
+      font-size: 15.5px;
       line-height: 1.7;
+      position: relative;
       min-height: 100vh;
+      padding-right: 252px;
     }
 
     a { color: inherit; text-decoration: none; }
 
-    /* ── TOP NAV ─────────────────────────────────────── */
+    /* Ambient Background Glow Mesh */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      background:
+        radial-gradient(58% 42% at 82% -6%, rgba(44, 229, 255, 0.13), transparent 62%),
+        radial-gradient(48% 38% at 8% 18%, rgba(139, 124, 255, 0.10), transparent 64%),
+        radial-gradient(70% 50% at 50% 108%, rgba(44, 229, 255, 0.07), transparent 60%);
+    }
+
+    /* ── AFX SIDEBAR RAIL ───────────────────────────────── */
+    .afx-rail {
+      position: fixed;
+      top: 0;
+      right: 0;
+      width: 252px;
+      height: 100vh;
+      background: var(--bg-2);
+      border-left: 1px solid var(--border);
+      z-index: 150;
+      display: flex;
+      flex-direction: column;
+      direction: rtl;
+      font-family: var(--sans);
+      backdrop-filter: blur(16px);
+    }
+    .afx-rail-head {
+      height: 58px;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 18px;
+      border-bottom: 1px solid var(--border);
+      background: rgba(20, 24, 33, 0.5);
+    }
+    .afx-rail-head b {
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: .08em;
+      background: linear-gradient(96deg, var(--cy), var(--vi));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      text-transform: uppercase;
+    }
+    .afx-rail-head span {
+      font-size: 10.5px;
+      color: var(--dimmer);
+      font-family: var(--mono);
+      background: rgba(255, 255, 255, 0.05);
+      padding: 2px 7px;
+      border-radius: 4px;
+      border: 1px solid var(--border);
+    }
+    .afx-list {
+      flex: 1;
+      overflow-y: auto;
+      padding: 10px 0 32px;
+    }
+    .afx-sep {
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: .12em;
+      color: var(--dimmer);
+      padding: 16px 18px 6px;
+      text-transform: uppercase;
+    }
+    .afx-link {
+      display: flex;
+      gap: 10px;
+      align-items: baseline;
+      padding: 8px 18px;
+      color: var(--dim);
+      font-size: 13px;
+      text-decoration: none;
+      border-right: 3px solid transparent;
+      transition: background .15s, color .15s, border-color .15s;
+    }
+    .afx-link:hover {
+      background: rgba(44, 229, 255, 0.06);
+      color: var(--ink);
+    }
+    .afx-link.active {
+      color: var(--cy);
+      background: var(--cy-soft);
+      border-right-color: var(--cy);
+      font-weight: 700;
+    }
+    .afx-num {
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--dimmer);
+      min-width: 24px;
+    }
+    .afx-link.active .afx-num {
+      color: var(--cy);
+    }
+    .afx-list::-webkit-scrollbar { width: 5px; }
+    .afx-list::-webkit-scrollbar-track { background: transparent; }
+    .afx-list::-webkit-scrollbar-thumb { background: var(--bg-3); border-radius: 3px; }
+
+    @media (max-width: 900px) {
+      body { padding-right: 0; }
+      .afx-rail { display: none; }
+    }
+    @media print {
+      body { padding-right: 0; }
+      .afx-rail { display: none; }
+    }
+
+    /* ── TOP NAV ────────────────────────────────────────── */
     .topnav {
       position: sticky;
       top: 0;
       z-index: 100;
-      background: rgba(11,13,16,0.92);
-      backdrop-filter: blur(12px);
+      background: rgba(20, 24, 33, 0.92);
+      backdrop-filter: blur(14px);
       border-bottom: 1px solid var(--border);
       display: flex;
       align-items: center;
       justify-content: space-between;
       padding: 0 2rem;
-      height: 56px;
+      height: 58px;
     }
     .topnav-brand {
       font-size: 13px;
-      font-weight: 700;
-      color: var(--accent);
-      letter-spacing: .04em;
+      font-weight: 800;
+      background: linear-gradient(96deg, var(--cy), var(--vi));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      letter-spacing: .05em;
       text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      gap: 8px;
     }
     .topnav-links {
       display: flex;
-      gap: 1.6rem;
+      gap: 1.4rem;
       list-style: none;
     }
     .topnav-links a {
       font-size: 13px;
-      color: var(--muted);
+      color: var(--dim);
       font-weight: 500;
       transition: color .18s;
+      padding: 4px 8px;
+      border-radius: 6px;
     }
-    .topnav-links a:hover { color: var(--accent); }
+    .topnav-links a:hover {
+      color: var(--cy);
+      background: rgba(44, 229, 255, 0.06);
+    }
 
-    /* ── HERO ─────────────────────────────────────────── */
+    /* ── HERO ───────────────────────────────────────────── */
     .hero {
-      padding: 72px 2rem 56px;
-      max-width: 900px;
+      padding: 64px 2rem 48px;
+      max-width: 980px;
       margin: 0 auto;
       text-align: center;
+      position: relative;
+      z-index: 1;
     }
     .hero-badge {
-      display: inline-block;
-      background: rgba(184,196,90,.12);
-      border: 1px solid rgba(184,196,90,.3);
-      color: var(--accent);
-      font-size: 11px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--cy-soft);
+      border: 1px solid rgba(44, 229, 255, 0.3);
+      color: var(--cy);
+      font-size: 11.5px;
       font-weight: 700;
-      letter-spacing: .12em;
+      letter-spacing: .1em;
       text-transform: uppercase;
-      padding: 4px 14px;
-      border-radius: 20px;
-      margin-bottom: 20px;
+      padding: 5px 16px;
+      border-radius: 100px;
+      margin-bottom: 22px;
+      box-shadow: 0 0 20px rgba(44, 229, 255, 0.12);
+    }
+    .hero-badge-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--cy);
+      box-shadow: 0 0 8px var(--cy);
+      animation: pulseDot 2s infinite;
+    }
+    @keyframes pulseDot {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.4); opacity: .7; }
     }
     .hero h1 {
-      font-size: clamp(2rem, 5vw, 3.2rem);
+      font-size: clamp(2.2rem, 5.5vw, 3.4rem);
       font-weight: 900;
       line-height: 1.15;
-      color: var(--text);
-      margin-bottom: 12px;
+      color: var(--ink);
+      margin-bottom: 14px;
+      letter-spacing: -.02em;
     }
-    .hero h1 span { color: var(--accent); }
+    .hero h1 span {
+      background: linear-gradient(96deg, var(--cy), var(--vi));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
     .hero-sub {
-      font-size: 1.1rem;
-      color: var(--muted);
-      max-width: 600px;
+      font-size: 1.15rem;
+      color: var(--dim);
+      max-width: 680px;
       margin: 0 auto 36px;
       font-weight: 400;
+      line-height: 1.65;
     }
+
+    /* ── STATS GRID ─────────────────────────────────────── */
     .hero-stats {
-      display: flex;
-      justify-content: center;
-      gap: 2.5rem;
-      flex-wrap: wrap;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      max-width: 860px;
+      margin: 0 auto 40px;
     }
-    .stat {
+    @media (max-width: 700px) {
+      .hero-stats { grid-template-columns: repeat(2, 1fr); }
+    }
+    .stat-card {
+      background: var(--bg-2);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 18px 14px;
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 2px;
+      gap: 4px;
+      backdrop-filter: blur(10px);
+      transition: transform .2s ease, border-color .2s ease, box-shadow .2s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    .stat-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--cy), transparent);
+      opacity: 0;
+      transition: opacity .2s;
+    }
+    .stat-card:hover {
+      transform: translateY(-3px);
+      border-color: var(--border-hl);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+    }
+    .stat-card:hover::before {
+      opacity: 1;
     }
     .stat-num {
-      font-size: 2rem;
+      font-size: 2.1rem;
       font-weight: 900;
-      color: var(--accent);
       line-height: 1;
+      font-family: var(--mono);
+      background: linear-gradient(135deg, var(--ink), var(--cy));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
     }
     .stat-label {
-      font-size: 12px;
-      color: var(--muted);
-      font-weight: 500;
+      font-size: 12.5px;
+      color: var(--dim);
+      font-weight: 600;
+      text-align: center;
     }
-    .stat-divider {
-      width: 1px;
-      height: 40px;
-      background: var(--border2);
-      align-self: center;
+    .stat-sub {
+      font-size: 10.5px;
+      color: var(--dimmer);
+      font-family: var(--mono);
     }
 
-    /* ── AUDIENCE STRIP ──────────────────────────────── */
-    .audience-strip {
-      max-width: 900px;
-      margin: 0 auto 56px;
+    /* ── AUDIENCE STRIP ─────────────────────────────────── */
+    .audience-wrap {
+      max-width: 980px;
+      margin: 0 auto 48px;
       padding: 0 2rem;
+      text-align: center;
+      position: relative;
+      z-index: 1;
+    }
+    .audience-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--dimmer);
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+    .audience-strip {
       display: flex;
-      gap: 12px;
+      gap: 10px;
       flex-wrap: wrap;
       justify-content: center;
     }
     .audience-tag {
-      background: var(--bg2);
+      background: var(--bg-2);
       border: 1px solid var(--border);
-      color: var(--muted);
+      color: var(--dim);
       font-size: 13px;
       padding: 6px 16px;
-      border-radius: 6px;
+      border-radius: 100px;
       font-weight: 500;
+      backdrop-filter: blur(8px);
+      transition: all .2s ease;
+    }
+    .audience-tag:hover {
+      border-color: var(--border-hl);
+      color: var(--ink);
     }
     .audience-tag.highlight {
-      border-color: rgba(184,196,90,.4);
-      color: var(--accent);
-      background: rgba(184,196,90,.06);
+      border-color: rgba(44, 229, 255, 0.35);
+      color: var(--cy);
+      background: var(--cy-soft);
+      font-weight: 600;
+      box-shadow: 0 0 12px rgba(44, 229, 255, 0.08);
     }
 
-    /* ── SECTION HEADING ─────────────────────────────── */
+    /* ── PROGRESS BANNER ────────────────────────────────── */
+    .progress-banner {
+      max-width: 980px;
+      margin: 0 auto 52px;
+      padding: 0 2rem;
+      position: relative;
+      z-index: 1;
+    }
+    .progress-inner {
+      background: var(--bg-2);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 18px 24px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+    }
+    @media (max-width: 600px) {
+      .progress-inner { flex-direction: column; align-items: stretch; gap: 12px; }
+    }
+    .progress-label-wrap {
+      display: flex;
+      flex-direction: column;
+      min-width: 140px;
+    }
+    .progress-text {
+      font-size: 13.5px;
+      font-weight: 700;
+      color: var(--ink);
+    }
+    .progress-hint {
+      font-size: 11px;
+      color: var(--dimmer);
+    }
+    .progress-bar-wrap {
+      flex: 1;
+      background: var(--bg-3);
+      border-radius: 100px;
+      height: 8px;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+    .progress-bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--cy), var(--vi));
+      border-radius: 100px;
+      width: 0%;
+      transition: width .6s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: 0 0 12px rgba(44, 229, 255, 0.5);
+    }
+    .progress-pct {
+      font-size: 14px;
+      font-weight: 800;
+      color: var(--cy);
+      white-space: nowrap;
+      font-family: var(--mono);
+      min-width: 60px;
+      text-align: left;
+    }
+
+    /* ── PART SECTIONS ──────────────────────────────────── */
     .part-section {
       max-width: 980px;
       margin: 0 auto 56px;
       padding: 0 2rem;
+      position: relative;
+      z-index: 1;
     }
     .part-header {
       display: flex;
@@ -171,73 +455,88 @@
       margin-bottom: 24px;
       padding-bottom: 16px;
       border-bottom: 1px solid var(--border);
+      flex-wrap: wrap;
     }
     .part-num {
-      background: var(--accent);
-      color: var(--bg);
-      font-size: 11px;
+      background: var(--cy-soft);
+      border: 1px solid rgba(44, 229, 255, 0.3);
+      color: var(--cy);
+      font-size: 11.5px;
       font-weight: 800;
       letter-spacing: .1em;
       text-transform: uppercase;
-      padding: 4px 12px;
-      border-radius: 4px;
+      padding: 5px 14px;
+      border-radius: 100px;
       white-space: nowrap;
       font-family: var(--mono);
     }
     .part-num.bonus {
-      background: var(--bg3);
-      border: 1px solid var(--border2);
-      color: var(--accent);
+      background: var(--vi-soft);
+      border: 1px solid rgba(139, 124, 255, 0.3);
+      color: var(--vi);
     }
     .part-title {
-      font-size: 1.25rem;
+      font-size: 1.35rem;
       font-weight: 800;
-      color: var(--text);
+      color: var(--ink);
+      letter-spacing: -.01em;
     }
     .part-desc {
       font-size: 13px;
-      color: var(--muted);
+      color: var(--dimmer);
       margin-right: auto;
+      font-family: var(--mono);
+      background: rgba(255, 255, 255, 0.04);
+      padding: 3px 10px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
     }
 
-    /* ── MODULE GRID ─────────────────────────────────── */
+    /* ── MODULE GRID ────────────────────────────────────── */
     .module-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 14px;
+      grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+      gap: 18px;
     }
 
-    /* ── MODULE CARD ─────────────────────────────────── */
+    /* ── MODULE CARD ────────────────────────────────────── */
     .module-card {
-      background: var(--bg2);
+      background: var(--bg-2);
       border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 20px;
+      border-radius: 14px;
+      padding: 22px;
       display: flex;
       flex-direction: column;
-      gap: 10px;
-      transition: border-color .2s, transform .2s, box-shadow .2s;
+      gap: 12px;
+      transition: border-color .25s ease, transform .25s ease, box-shadow .25s ease;
       cursor: pointer;
       position: relative;
       overflow: hidden;
+      backdrop-filter: blur(10px);
+      text-decoration: none;
     }
     .module-card::before {
       content: '';
       position: absolute;
       top: 0;
       right: 0;
-      width: 3px;
+      width: 4px;
       height: 100%;
-      background: var(--accent);
+      background: linear-gradient(180deg, var(--cy), var(--vi));
       opacity: 0;
-      transition: opacity .2s;
+      transition: opacity .25s ease;
     }
     .module-card:hover {
-      border-color: var(--border2);
-      transform: translateY(-2px);
-      box-shadow: 0 8px 32px rgba(0,0,0,.4);
+      border-color: var(--border-hl);
+      transform: translateY(-4px);
+      box-shadow: 0 12px 36px rgba(0, 0, 0, 0.45);
     }
-    .module-card:hover::before { opacity: 1; }
+    .module-card:hover::before {
+      opacity: 1;
+    }
+    .module-card.is-completed {
+      border-color: rgba(61, 220, 151, 0.3);
+    }
 
     .module-card-top {
       display: flex;
@@ -246,223 +545,265 @@
     }
     .module-num {
       font-family: var(--mono);
-      font-size: 11px;
-      font-weight: 500;
-      color: var(--muted2);
-      letter-spacing: .06em;
-    }
-    .level-badge {
-      font-size: 10px;
+      font-size: 11.5px;
       font-weight: 700;
-      padding: 2px 8px;
-      border-radius: 4px;
+      color: var(--dimmer);
+      letter-spacing: .06em;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .module-check {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: var(--ok-soft);
+      color: var(--ok);
+      font-size: 10px;
+      opacity: 0;
+      transition: opacity .2s;
+    }
+    .module-card.is-completed .module-check {
+      opacity: 1;
+    }
+
+    .level-badge {
+      font-size: 10.5px;
+      font-weight: 800;
+      padding: 3px 9px;
+      border-radius: 100px;
       letter-spacing: .04em;
     }
-    .level-beginner  { background: rgba(101,196,102,.12); color: #65c466; border: 1px solid rgba(101,196,102,.25); }
-    .level-mid       { background: rgba(255,180,50,.10);  color: #f5b340; border: 1px solid rgba(255,180,50,.25); }
-    .level-advanced  { background: rgba(230,80,80,.10);   color: #e05555; border: 1px solid rgba(230,80,80,.25); }
-    .level-all       { background: rgba(184,196,90,.10);  color: var(--accent); border: 1px solid rgba(184,196,90,.25); }
+    .level-beginner {
+      background: var(--ok-soft);
+      color: var(--ok);
+      border: 1px solid rgba(61, 220, 151, 0.3);
+    }
+    .level-mid {
+      background: var(--gold-soft);
+      color: var(--gold);
+      border: 1px solid rgba(245, 158, 11, 0.3);
+    }
+    .level-advanced {
+      background: var(--coral-soft);
+      color: var(--coral);
+      border: 1px solid rgba(255, 90, 60, 0.3);
+    }
+    .level-all {
+      background: var(--cy-soft);
+      color: var(--cy);
+      border: 1px solid rgba(44, 229, 255, 0.3);
+    }
 
     .module-title-he {
-      font-size: 1rem;
+      font-size: 1.05rem;
       font-weight: 800;
-      color: var(--text);
-      line-height: 1.3;
+      color: var(--ink);
+      line-height: 1.35;
+      letter-spacing: -.01em;
     }
     .module-title-en {
-      font-size: 11px;
-      color: var(--muted2);
+      font-size: 11.5px;
+      color: var(--dimmer);
       font-family: var(--mono);
       direction: ltr;
       text-align: right;
+      font-weight: 500;
     }
     .module-desc {
-      font-size: 13px;
-      color: var(--muted);
-      line-height: 1.55;
+      font-size: 13.5px;
+      color: var(--dim);
+      line-height: 1.6;
       flex: 1;
     }
     .module-footer {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding-top: 10px;
+      padding-top: 14px;
       border-top: 1px solid var(--border);
       margin-top: auto;
+      gap: 10px;
     }
     .module-length {
-      font-size: 11px;
-      color: var(--muted2);
+      font-size: 11.5px;
+      color: var(--dimmer);
       display: flex;
       align-items: center;
-      gap: 4px;
+      gap: 5px;
+      font-family: var(--mono);
+      white-space: nowrap;
     }
-    .module-length svg { width: 12px; height: 12px; opacity: .6; }
+    .module-length svg {
+      width: 13px;
+      height: 13px;
+      color: var(--cy);
+    }
     .module-tools {
       display: flex;
-      gap: 5px;
+      gap: 6px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
     }
     .tool-tag {
-      font-size: 9px;
+      font-size: 9.5px;
       font-weight: 700;
-      padding: 2px 6px;
-      border-radius: 3px;
-      background: var(--bg3);
-      border: 1px solid var(--border2);
-      color: var(--muted2);
+      padding: 2px 7px;
+      border-radius: 4px;
+      background: var(--bg-3);
+      border: 1px solid var(--border);
+      color: var(--dim);
       letter-spacing: .04em;
       font-family: var(--mono);
     }
 
-    /* ── PROGRESS BAR ────────────────────────────────── */
-    .progress-banner {
-      max-width: 980px;
-      margin: 0 auto 56px;
-      padding: 0 2rem;
-    }
-    .progress-inner {
-      background: var(--bg2);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 20px 24px;
-      display: flex;
-      align-items: center;
-      gap: 20px;
-    }
-    .progress-text { font-size: 13px; color: var(--muted); }
-    .progress-bar-wrap { flex: 1; background: var(--bg3); border-radius: 4px; height: 6px; overflow: hidden; }
-    .progress-bar-fill { height: 100%; background: var(--accent); border-radius: 4px; width: 0%; transition: width .6s ease; }
-    .progress-pct { font-size: 13px; font-weight: 700; color: var(--accent); white-space: nowrap; font-family: var(--mono); }
-
-    /* ── FOOTER ──────────────────────────────────────── */
+    /* ── FOOTER ─────────────────────────────────────────── */
     .footer {
       border-top: 1px solid var(--border);
-      padding: 32px 2rem;
+      padding: 40px 2rem;
       text-align: center;
+      position: relative;
+      z-index: 1;
+      background: rgba(20, 24, 33, 0.8);
     }
-    .footer-brand { color: var(--accent); font-weight: 700; font-size: 14px; margin-bottom: 8px; }
-    .footer-sub { font-size: 12px; color: var(--muted2); }
+    .footer-brand {
+      background: linear-gradient(96deg, var(--cy), var(--vi));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      font-weight: 800;
+      font-size: 15px;
+      margin-bottom: 8px;
+      letter-spacing: .04em;
+    }
+    .footer-sub {
+      font-size: 12.5px;
+      color: var(--dimmer);
+    }
 
-    /* ── SCROLLBAR ───────────────────────────────────── */
+    /* ── SCROLLBAR ──────────────────────────────────────── */
     ::-webkit-scrollbar { width: 6px; }
     ::-webkit-scrollbar-track { background: var(--bg); }
-    ::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 3px; }
+    ::-webkit-scrollbar-thumb { background: var(--bg-3); border-radius: 3px; }
   </style>
 </head>
 <body>
-<!-- AFX-SIDEBAR START (static always-on rail — active item set by JS) -->
-<style>
-  body{padding-right:252px}
-  .afx-rail{position:fixed;top:0;right:0;width:252px;height:100vh;background:#111318;border-left:1px solid #2e3540;z-index:150;display:flex;flex-direction:column;direction:rtl;font-family:'Heebo',sans-serif}
-  .afx-rail-head{height:56px;flex-shrink:0;display:flex;align-items:center;gap:8px;padding:0 18px;border-bottom:1px solid #232830}
-  .afx-rail-head b{font-size:12px;font-weight:800;letter-spacing:.1em;color:#b8c45a;text-transform:uppercase}
-  .afx-rail-head span{font-size:10px;color:#5a6278;font-family:'IBM Plex Mono',monospace}
-  .afx-list{flex:1;overflow-y:auto;padding:8px 0 28px}
-  .afx-sep{font-size:10px;font-weight:800;letter-spacing:.1em;color:#aeb6c6;padding:14px 18px 6px}
-  .afx-link{display:flex;gap:10px;align-items:baseline;padding:8px 18px;color:#ffffff;font-size:13px;text-decoration:none;border-right:3px solid transparent;transition:background .15s,color .15s}
-  .afx-link:hover{background:#181c22;color:#ffffff}
-  .afx-link.active{color:#b8c45a;background:rgba(184,196,90,.08);border-right-color:#b8c45a;font-weight:700}
-  .afx-num{font-family:'IBM Plex Mono',monospace;font-size:11px;color:#cfd5e0;min-width:26px}
-  .afx-link.active .afx-num{color:#b8c45a}
-  .afx-list::-webkit-scrollbar{width:6px}
-  .afx-list::-webkit-scrollbar-thumb{background:#2e3540;border-radius:3px}
-  @media (max-width:900px){body{padding-right:0}.afx-rail{display:none}}
-  @media print{body{padding-right:0}.afx-rail{display:none}}
-</style>
+
+<!-- AFX-SIDEBAR (standard always-on rail) -->
 <nav class="afx-rail" aria-label="ניווט מודולים">
-  <div class="afx-rail-head"><b>תוכן הקורס</b><span>16 מודולים</span></div>
+  <div class="afx-rail-head">
+    <b>תוכן הקורס</b>
+    <span>16 מודולים</span>
+  </div>
   <div class="afx-list">
-    <a class="afx-link" href="course-index.html" data-file="course-index.html"><span class="afx-num">⌂</span> דף הבית — כל המודולים</a>
+    <a class="afx-link active" href="course-index.html" data-file="course-index.html"><span class="afx-num">⌂</span> דף הבית — כל המודולים</a>
     <div class="afx-sep">חלק 0 — מבוא</div>
-    <a class="afx-link" href="module-00.html" data-file="module-00.html"><span class="afx-num">00</span> ברוכים הבאים</a>
-    <a class="afx-link" href="module-01.html" data-file="module-01.html"><span class="afx-num">01</span> שלושת המודלים</a>
+    <a class="afx-link" href="/courses/ai-master-course/module-00" data-file="module-00"><span class="afx-num">00</span> ברוכים הבאים</a>
+    <a class="afx-link" href="/courses/ai-master-course/module-01" data-file="module-01"><span class="afx-num">01</span> שלושת המודלים</a>
     <div class="afx-sep">חלק 1 — הבסיס</div>
-    <a class="afx-link" href="module-02.html" data-file="module-02.html"><span class="afx-num">02</span> השיחה הפיננסית הראשונה</a>
-    <a class="afx-link" href="module-03.html" data-file="module-03.html"><span class="afx-num">03</span> מסגרת PRICE</a>
+    <a class="afx-link" href="/courses/ai-master-course/module-02" data-file="module-02"><span class="afx-num">02</span> השיחה הפיננסית הראשונה</a>
+    <a class="afx-link" href="/courses/ai-master-course/module-03" data-file="module-03"><span class="afx-num">03</span> מסגרת PRICE</a>
     <div class="afx-sep">חלק 2 — הפיצ׳רים</div>
-    <a class="afx-link" href="module-04.html" data-file="module-04.html"><span class="afx-num">04</span> Artifacts — הקנבס</a>
-    <a class="afx-link" href="module-05.html" data-file="module-05.html"><span class="afx-num">05</span> Skills — זיכרון מוסדי</a>
-    <a class="afx-link" href="module-06.html" data-file="module-06.html"><span class="afx-num">06</span> Projects — סביבת עבודה</a>
-    <a class="afx-link" href="module-07.html" data-file="module-07.html"><span class="afx-num">07</span> Connectors — Claude מחובר</a>
+    <a class="afx-link" href="/courses/ai-master-course/module-04" data-file="module-04"><span class="afx-num">04</span> Artifacts — הקנבס</a>
+    <a class="afx-link" href="/courses/ai-master-course/module-05" data-file="module-05"><span class="afx-num">05</span> Skills — זיכרון מוסדי</a>
+    <a class="afx-link" href="/courses/ai-master-course/module-06" data-file="module-06"><span class="afx-num">06</span> Projects — סביבת עבודה</a>
+    <a class="afx-link" href="/courses/ai-master-course/module-07" data-file="module-07"><span class="afx-num">07</span> Connectors — Claude מחובר</a>
     <div class="afx-sep">חלק 3 — כלים</div>
-    <a class="afx-link" href="module-08.html" data-file="module-08.html"><span class="afx-num">08</span> Claude ב-Excel</a>
-    <a class="afx-link" href="module-09.html" data-file="module-09.html"><span class="afx-num">09</span> Claude ב-PowerPoint</a>
-    <a class="afx-link" href="module-10.html" data-file="module-10.html"><span class="afx-num">10</span> Design &amp; Cowork</a>
+    <a class="afx-link" href="/courses/ai-master-course/module-08" data-file="module-08"><span class="afx-num">08</span> Claude ב-Excel</a>
+    <a class="afx-link" href="/courses/ai-master-course/module-09" data-file="module-09"><span class="afx-num">09</span> Claude ב-PowerPoint</a>
+    <a class="afx-link" href="/courses/ai-master-course/module-10" data-file="module-10"><span class="afx-num">10</span> Design &amp; Cowork</a>
     <div class="afx-sep">חלק 4 — מתקדם</div>
-    <a class="afx-link" href="module-11.html" data-file="module-11.html"><span class="afx-num">11</span> 10 עקרונות Prompting</a>
-    <a class="afx-link" href="module-12.html" data-file="module-12.html"><span class="afx-num">12</span> 102 Use Cases</a>
+    <a class="afx-link" href="/courses/ai-master-course/module-11" data-file="module-11"><span class="afx-num">11</span> 10 עקרונות Prompting</a>
+    <a class="afx-link" href="/courses/ai-master-course/module-12" data-file="module-12"><span class="afx-num">12</span> 102 Use Cases</a>
     <div class="afx-sep">חלק 5 — פרויקטים</div>
-    <a class="afx-link" href="module-13.html" data-file="module-13.html"><span class="afx-num">13</span> סגירת חודש</a>
-    <a class="afx-link" href="module-14.html" data-file="module-14.html"><span class="afx-num">14</span> דשבורד CFO (Capstone)</a>
+    <a class="afx-link" href="/courses/ai-master-course/module-13" data-file="module-13"><span class="afx-num">13</span> סגירת חודש</a>
+    <a class="afx-link" href="/courses/ai-master-course/module-14" data-file="module-14"><span class="afx-num">14</span> דשבורד CFO (Capstone)</a>
     <div class="afx-sep">בונוס</div>
-    <a class="afx-link" href="module-15.html" data-file="module-15.html"><span class="afx-num">15</span> Skills מוכנות (Bonus)</a>
+    <a class="afx-link" href="/courses/ai-master-course/module-15" data-file="module-15"><span class="afx-num">15</span> Skills מוכנות (Bonus)</a>
   </div>
 </nav>
-<script>
-  (function(){var f=(location.pathname.split('/').pop()||'').toLowerCase();document.querySelectorAll('.afx-link').forEach(function(a){if((a.getAttribute('data-file')||'').toLowerCase()===f)a.classList.add('active');});})();
-</script>
-<!-- AFX-SIDEBAR END -->
 
-
-
-<!-- NAV -->
+<!-- TOP NAV -->
 <nav class="topnav">
-  <span class="topnav-brand">AI Finance Transformation</span>
+  <div class="topnav-brand">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" style="color:var(--cy)">
+      <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+      <polyline points="2 17 12 22 22 17"></polyline>
+      <polyline points="2 12 12 17 22 12"></polyline>
+    </svg>
+    AI Finance Transformation
+  </div>
   <ul class="topnav-links">
-    <li><a href="#part0">מבוא</a></li>
-    <li><a href="#part1">בסיס</a></li>
-    <li><a href="#part2">פיצ׳רים</a></li>
-    <li><a href="#part3">כלים</a></li>
-    <li><a href="#part4">מתקדם</a></li>
-    <li><a href="#part5">פרויקטים</a></li>
+    <li><a href="#part0">חלק 0 · מבוא</a></li>
+    <li><a href="#part1">חלק 1 · בסיס</a></li>
+    <li><a href="#part2">חלק 2 · פיצ׳רים</a></li>
+    <li><a href="#part3">חלק 3 · כלים</a></li>
+    <li><a href="#part4">חלק 4 · מתקדם</a></li>
+    <li><a href="#part5">חלק 5 · פרויקטים</a></li>
+    <li><a href="#bonus">בונוס</a></li>
   </ul>
 </nav>
 
 <!-- HERO -->
 <section class="hero">
-  <div class="hero-badge">קורס Claude — AI Finance Transformation</div>
+  <div class="hero-badge">
+    <span class="hero-badge-dot"></span>
+    קורס Claude — AI Finance Transformation
+  </div>
   <h1>מנהל הכספים<br><span>בעידן ה-AI</span></h1>
   <p class="hero-sub">
     קורס Claude מעשי לאנשי כספים — מאפס ועד אוטומציה מלאה של סגירת חודש, דשבורד CFO, ומצגות דירקטוריון
   </p>
+
+  <!-- STATS GRID -->
   <div class="hero-stats">
-    <div class="stat">
+    <div class="stat-card">
       <span class="stat-num">16</span>
-      <span class="stat-label">מודולים</span>
+      <span class="stat-label">מודולים מקיפים</span>
+      <span class="stat-sub">00 עד 15 + בונוס</span>
     </div>
-    <div class="stat-divider"></div>
-    <div class="stat">
-      <span class="stat-num">~40</span>
-      <span class="stat-label">שעות תוכן</span>
+    <div class="stat-card">
+      <span class="stat-num">102</span>
+      <span class="stat-label">Use Cases מוכנים</span>
+      <span class="stat-sub">ספריית פרומפטים פיננסית</span>
     </div>
-    <div class="stat-divider"></div>
-    <div class="stat">
-      <span class="stat-num">6</span>
-      <span class="stat-label">חלקים</span>
+    <div class="stat-card">
+      <span class="stat-num">4</span>
+      <span class="stat-label">Skills מוכנות</span>
+      <span class="stat-sub">הורדה והתקנה מיידית</span>
     </div>
-    <div class="stat-divider"></div>
-    <div class="stat">
-      <span class="stat-num">20</span>
-      <span class="stat-label">תרגילים פיננסיים</span>
+    <div class="stat-card">
+      <span class="stat-num">100%</span>
+      <span class="stat-label">פרקטי ומעשי</span>
+      <span class="stat-sub">Zero Fluff · Hands-on</span>
     </div>
   </div>
 </section>
 
-<!-- AUDIENCE -->
-<div class="audience-strip">
-  <span class="audience-tag highlight">CFO</span>
-  <span class="audience-tag highlight">Controller</span>
-  <span class="audience-tag highlight">FP&A Manager</span>
-  <span class="audience-tag">VP Finance</span>
-  <span class="audience-tag">Financial Analyst</span>
-  <span class="audience-tag">מנהל כספים</span>
-  <span class="audience-tag">ללא ניסיון AI קודם ✓</span>
+<!-- AUDIENCE STRIP -->
+<div class="audience-wrap">
+  <div class="audience-title">מיועד במיוחד עבור:</div>
+  <div class="audience-strip">
+    <span class="audience-tag highlight">CFO</span>
+    <span class="audience-tag highlight">Controller</span>
+    <span class="audience-tag highlight">FP&A Manager</span>
+    <span class="audience-tag">VP Finance</span>
+    <span class="audience-tag">Financial Analyst</span>
+    <span class="audience-tag">מנהל כספים</span>
+    <span class="audience-tag highlight">ללא ניסיון AI קודם ✓</span>
+  </div>
 </div>
 
-<!-- PROGRESS -->
+<!-- PROGRESS BAR -->
 <div class="progress-banner">
   <div class="progress-inner">
-    <span class="progress-text">התקדמות בקורס</span>
+    <div class="progress-label-wrap">
+      <span class="progress-text">התקדמות בקורס</span>
+      <span class="progress-hint">מעקב השלמת מודולים אוטומטי</span>
+    </div>
     <div class="progress-bar-wrap">
       <div class="progress-bar-fill" id="prog-bar"></div>
     </div>
@@ -473,24 +814,28 @@
 <!-- ════════════════════════════════════════════
      PART 0 — מבוא
 ═════════════════════════════════════════════ -->
-<div class="part-section" id="part0">
+<section class="part-section" id="part0">
   <div class="part-header">
     <span class="part-num">חלק 0</span>
-    <span class="part-title">מבוא — ברוכים הבאים</span>
+    <h2 class="part-title">מבוא — ברוכים הבאים</h2>
     <span class="part-desc">2 מודולים · 35–45 דק׳</span>
   </div>
   <div class="module-grid">
 
-    <div class="module-card" onclick="openModule('module-00')">
+    <!-- MODULE 00 -->
+    <a class="module-card" id="card-module-00" href="/courses/ai-master-course/module-00" onclick="openModule('module-00', event)">
       <div class="module-card-top">
-        <span class="module-num">MODULE 00</span>
+        <span class="module-num">
+          <span class="module-check">✓</span>
+          MODULE 00
+        </span>
         <span class="level-badge level-beginner">מתחיל</span>
       </div>
       <div class="module-title-he">ברוכים הבאים — מה זה Claude?</div>
       <div class="module-title-en">Welcome & What is Claude?</div>
-      <div class="module-desc">
+      <p class="module-desc">
         מה זה Claude ולמה הוא שונה מ-ChatGPT? מה מחכה לך בקורס הזה? וסיור ראשון בממשק — הכל בלי ג׳רגון טכני.
-      </div>
+      </p>
       <div class="module-footer">
         <span class="module-length">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
@@ -500,18 +845,22 @@
           <span class="tool-tag">Claude App</span>
         </div>
       </div>
-    </div>
+    </a>
 
-    <div class="module-card" onclick="openModule('module-01')">
+    <!-- MODULE 01 -->
+    <a class="module-card" id="card-module-01" href="/courses/ai-master-course/module-01" onclick="openModule('module-01', event)">
       <div class="module-card-top">
-        <span class="module-num">MODULE 01</span>
+        <span class="module-num">
+          <span class="module-check">✓</span>
+          MODULE 01
+        </span>
         <span class="level-badge level-beginner">מתחיל</span>
       </div>
       <div class="module-title-he">מודלי Claude ו-Fable 5.1</div>
       <div class="module-title-en">Choosing the Right Model & Fable 5.1</div>
-      <div class="module-desc">
+      <p class="module-desc">
         Haiku לשגרה, Sonnet ל-80%, Opus לניתוח עמוק, ו-Fable 5.1 לסביבות עבודה אוטונומיות, דשבורדים וארטיפקטים.
-      </div>
+      </p>
       <div class="module-footer">
         <span class="module-length">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
@@ -523,32 +872,36 @@
           <span class="tool-tag">Fable 5.1</span>
         </div>
       </div>
-    </div>
+    </a>
 
   </div>
-</div>
+</section>
 
 <!-- ════════════════════════════════════════════
      PART 1 — הבסיס
 ═════════════════════════════════════════════ -->
-<div class="part-section" id="part1">
+<section class="part-section" id="part1">
   <div class="part-header">
     <span class="part-num">חלק 1</span>
-    <span class="part-title">הבסיס — השיחה הראשונה ומסגרת PRICE</span>
+    <h2 class="part-title">הבסיס — השיחה הראשונה ומסגרת PRICE</h2>
     <span class="part-desc">2 מודולים · 55–70 דק׳</span>
   </div>
   <div class="module-grid">
 
-    <div class="module-card" onclick="openModule('module-02')">
+    <!-- MODULE 02 -->
+    <a class="module-card" id="card-module-02" href="/courses/ai-master-course/module-02" onclick="openModule('module-02', event)">
       <div class="module-card-top">
-        <span class="module-num">MODULE 02</span>
+        <span class="module-num">
+          <span class="module-check">✓</span>
+          MODULE 02
+        </span>
         <span class="level-badge level-beginner">מתחיל</span>
       </div>
       <div class="module-title-he">השיחה הפיננסית הראשונה שלך</div>
       <div class="module-title-en">Your First Finance Conversation</div>
-      <div class="module-desc">
+      <p class="module-desc">
         איך לפתוח שיחה עם Claude ולקבל תשובה שימושית מהפעם הראשונה — עם דוגמאות מ-P&L, Variance ו-Budget.
-      </div>
+      </p>
       <div class="module-footer">
         <span class="module-length">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
@@ -558,18 +911,22 @@
           <span class="tool-tag">Claude App</span>
         </div>
       </div>
-    </div>
+    </a>
 
-    <div class="module-card" onclick="openModule('module-03')">
+    <!-- MODULE 03 -->
+    <a class="module-card" id="card-module-03" href="/courses/ai-master-course/module-03" onclick="openModule('module-03', event)">
       <div class="module-card-top">
-        <span class="module-num">MODULE 03</span>
+        <span class="module-num">
+          <span class="module-check">✓</span>
+          MODULE 03
+        </span>
         <span class="level-badge level-beginner">מתחיל</span>
       </div>
       <div class="module-title-he">מסגרת PRICE לכל Prompt</div>
       <div class="module-title-en">The PRICE Framework</div>
-      <div class="module-desc">
+      <p class="module-desc">
         5 שלבים שהופכים כל שאלה רפויה לבקשה מדויקת: Problem · Relevant Context · Instructions · Constraints · Examples.
-      </div>
+      </p>
       <div class="module-footer">
         <span class="module-length">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
@@ -579,32 +936,36 @@
           <span class="tool-tag">Claude App</span>
         </div>
       </div>
-    </div>
+    </a>
 
   </div>
-</div>
+</section>
 
 <!-- ════════════════════════════════════════════
      PART 2 — הפיצ׳רים
 ═════════════════════════════════════════════ -->
-<div class="part-section" id="part2">
+<section class="part-section" id="part2">
   <div class="part-header">
     <span class="part-num">חלק 2</span>
-    <span class="part-title">הפיצ׳רים המרכזיים</span>
+    <h2 class="part-title">הפיצ׳רים המרכזיים</h2>
     <span class="part-desc">4 מודולים · ~2 שעות</span>
   </div>
   <div class="module-grid">
 
-    <div class="module-card" onclick="openModule('module-04')">
+    <!-- MODULE 04 -->
+    <a class="module-card" id="card-module-04" href="/courses/ai-master-course/module-04" onclick="openModule('module-04', event)">
       <div class="module-card-top">
-        <span class="module-num">MODULE 04</span>
+        <span class="module-num">
+          <span class="module-check">✓</span>
+          MODULE 04
+        </span>
         <span class="level-badge level-mid">בינוני</span>
       </div>
       <div class="module-title-he">Artifacts — הקנבס של Claude</div>
       <div class="module-title-en">Creating Live Finance Artifacts</div>
-      <div class="module-desc">
+      <p class="module-desc">
         דשבורדים, מחשבונים ודוחות אינטראקטיביים שנפתחים בדפדפן — CFO KPI Dashboard, Board Pack, ו-HTML Variance Report.
-      </div>
+      </p>
       <div class="module-footer">
         <span class="module-length">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
@@ -615,18 +976,22 @@
           <span class="tool-tag">Claude App</span>
         </div>
       </div>
-    </div>
+    </a>
 
-    <div class="module-card" onclick="openModule('module-05')">
+    <!-- MODULE 05 -->
+    <a class="module-card" id="card-module-05" href="/courses/ai-master-course/module-05" onclick="openModule('module-05', event)">
       <div class="module-card-top">
-        <span class="module-num">MODULE 05</span>
+        <span class="module-num">
+          <span class="module-check">✓</span>
+          MODULE 05
+        </span>
         <span class="level-badge level-mid">בינוני</span>
       </div>
       <div class="module-title-he">Skills — הזיכרון המוסדי שלך</div>
       <div class="module-title-en">Reusable Finance Skills</div>
-      <div class="module-desc">
+      <p class="module-desc">
         מקודד פעם אחת את המתודולוגיה של הצוות — Variance Commentary, FP&A MBR, Board Deck — ומשחזר אותה בכל שיחה.
-      </div>
+      </p>
       <div class="module-footer">
         <span class="module-length">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
@@ -637,18 +1002,22 @@
           <span class="tool-tag">Claude App</span>
         </div>
       </div>
-    </div>
+    </a>
 
-    <div class="module-card" onclick="openModule('module-06')">
+    <!-- MODULE 06 -->
+    <a class="module-card" id="card-module-06" href="/courses/ai-master-course/module-06" onclick="openModule('module-06', event)">
       <div class="module-card-top">
-        <span class="module-num">MODULE 06</span>
+        <span class="module-num">
+          <span class="module-check">✓</span>
+          MODULE 06
+        </span>
         <span class="level-badge level-mid">בינוני</span>
       </div>
       <div class="module-title-he">Projects — סביבת עבודה עם זיכרון</div>
       <div class="module-title-en">AI Finance Workspaces</div>
-      <div class="module-desc">
+      <p class="module-desc">
         Claude Project שזוכר את החברה, המודל העסקי, ה-KPIs, וה-Budget — לתקציב שנתי, סגירת חודש, ודירקטוריון.
-      </div>
+      </p>
       <div class="module-footer">
         <span class="module-length">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
@@ -659,18 +1028,22 @@
           <span class="tool-tag">Claude App</span>
         </div>
       </div>
-    </div>
+    </a>
 
-    <div class="module-card" onclick="openModule('module-07')">
+    <!-- MODULE 07 -->
+    <a class="module-card" id="card-module-07" href="/courses/ai-master-course/module-07" onclick="openModule('module-07', event)">
       <div class="module-card-top">
-        <span class="module-num">MODULE 07</span>
+        <span class="module-num">
+          <span class="module-check">✓</span>
+          MODULE 07
+        </span>
         <span class="level-badge level-mid">בינוני</span>
       </div>
       <div class="module-title-he">Connectors — Claude מחובר</div>
       <div class="module-title-en">Connecting Claude to Live Data</div>
-      <div class="module-desc">
+      <p class="module-desc">
         חיבור Claude ל-Google Drive, Notion, ו-SharePoint — ניתוח Board Pack ישירות מ-Drive ללא Upload ידני.
-      </div>
+      </p>
       <div class="module-footer">
         <span class="module-length">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
@@ -681,32 +1054,36 @@
           <span class="tool-tag">Google Drive</span>
         </div>
       </div>
-    </div>
+    </a>
 
   </div>
-</div>
+</section>
 
 <!-- ════════════════════════════════════════════
      PART 3 — כלים
 ═════════════════════════════════════════════ -->
-<div class="part-section" id="part3">
+<section class="part-section" id="part3">
   <div class="part-header">
     <span class="part-num">חלק 3</span>
-    <span class="part-title">Claude בכלים שלך</span>
+    <h2 class="part-title">Claude בכלים שלך</h2>
     <span class="part-desc">3 מודולים · ~2 שעות</span>
   </div>
   <div class="module-grid">
 
-    <div class="module-card" onclick="openModule('module-08')">
+    <!-- MODULE 08 -->
+    <a class="module-card" id="card-module-08" href="/courses/ai-master-course/module-08" onclick="openModule('module-08', event)">
       <div class="module-card-top">
-        <span class="module-num">MODULE 08</span>
+        <span class="module-num">
+          <span class="module-check">✓</span>
+          MODULE 08
+        </span>
         <span class="level-badge level-mid">בינוני</span>
       </div>
       <div class="module-title-he">Claude ב-Excel</div>
       <div class="module-title-en">Claude Inside Excel</div>
-      <div class="module-desc">
+      <p class="module-desc">
         Commentary אוטומטי על סטיות, ניקוי Trial Balance, Management P&L, וScenario Analysis — ישירות מהגיליון.
-      </div>
+      </p>
       <div class="module-footer">
         <span class="module-length">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
@@ -716,18 +1093,22 @@
           <span class="tool-tag">Claude Excel</span>
         </div>
       </div>
-    </div>
+    </a>
 
-    <div class="module-card" onclick="openModule('module-09')">
+    <!-- MODULE 09 -->
+    <a class="module-card" id="card-module-09" href="/courses/ai-master-course/module-09" onclick="openModule('module-09', event)">
       <div class="module-card-top">
-        <span class="module-num">MODULE 09</span>
+        <span class="module-num">
+          <span class="module-check">✓</span>
+          MODULE 09
+        </span>
         <span class="level-badge level-mid">בינוני</span>
       </div>
       <div class="module-title-he">Claude ב-PowerPoint</div>
       <div class="module-title-en">Board Presentations with Claude</div>
-      <div class="module-desc">
+      <p class="module-desc">
         מספרים גולמיים → מצגת דירקטוריון מלוטשת תוך דקות. Insight-Led Titles, Speaker Notes, ו-8-Slide Board Pack.
-      </div>
+      </p>
       <div class="module-footer">
         <span class="module-length">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
@@ -737,18 +1118,22 @@
           <span class="tool-tag">Claude PPT</span>
         </div>
       </div>
-    </div>
+    </a>
 
-    <div class="module-card" onclick="openModule('module-10')">
+    <!-- MODULE 10 -->
+    <a class="module-card" id="card-module-10" href="/courses/ai-master-course/module-10" onclick="openModule('module-10', event)">
       <div class="module-card-top">
-        <span class="module-num">MODULE 10</span>
+        <span class="module-num">
+          <span class="module-check">✓</span>
+          MODULE 10
+        </span>
         <span class="level-badge level-mid">בינוני</span>
       </div>
       <div class="module-title-he">Claude Design & Cowork</div>
       <div class="module-title-en">Visual Intelligence & Desktop</div>
-      <div class="module-desc">
+      <p class="module-desc">
         Revenue Bridge Waterfall, גרפים מוכנים לדירקטוריון, וניתוח Cross-File מבלי לצאת מהמסמכים שלך.
-      </div>
+      </p>
       <div class="module-footer">
         <span class="module-length">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
@@ -759,32 +1144,36 @@
           <span class="tool-tag">Cowork</span>
         </div>
       </div>
-    </div>
+    </a>
 
   </div>
-</div>
+</section>
 
 <!-- ════════════════════════════════════════════
      PART 4 — מתקדם
 ═════════════════════════════════════════════ -->
-<div class="part-section" id="part4">
+<section class="part-section" id="part4">
   <div class="part-header">
     <span class="part-num">חלק 4</span>
-    <span class="part-title">טכניקות מתקדמות</span>
+    <h2 class="part-title">טכניקות מתקדמות</h2>
     <span class="part-desc">2 מודולים · ~2.5 שעות</span>
   </div>
   <div class="module-grid">
 
-    <div class="module-card" onclick="openModule('module-11')">
+    <!-- MODULE 11 -->
+    <a class="module-card" id="card-module-11" href="/courses/ai-master-course/module-11" onclick="openModule('module-11', event)">
       <div class="module-card-top">
-        <span class="module-num">MODULE 11</span>
+        <span class="module-num">
+          <span class="module-check">✓</span>
+          MODULE 11
+        </span>
         <span class="level-badge level-advanced">מתקדם</span>
       </div>
       <div class="module-title-he">10 עקרונות לשליפת המקסימום</div>
       <div class="module-title-en">10 Principles for Advanced Prompting</div>
-      <div class="module-desc">
+      <p class="module-desc">
         Effort Level, Specificity, XML Tags, Examples, Reasoning, Rich Context, Output Format, Constraints, Verbosity, Mega Prompt — מה שמפריד בין תשובה טובה לתשובה מדהימה.
-      </div>
+      </p>
       <div class="module-footer">
         <span class="module-length">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
@@ -795,22 +1184,26 @@
           <span class="tool-tag">Opus 4.8</span>
         </div>
       </div>
-    </div>
+    </a>
 
-    <div class="module-card" onclick="openModule('module-12')">
+    <!-- MODULE 12 -->
+    <a class="module-card" id="card-module-12" href="/courses/ai-master-course/module-12" onclick="openModule('module-12', event)">
       <div class="module-card-top">
-        <span class="module-num">MODULE 12</span>
+        <span class="module-num">
+          <span class="module-check">✓</span>
+          MODULE 12
+        </span>
         <span class="level-badge level-advanced">מתקדם</span>
       </div>
       <div class="module-title-he">102 Use Cases — ספריית הפיננסים</div>
       <div class="module-title-en">102 Finance Use Cases Library</div>
-      <div class="module-desc">
+      <p class="module-desc">
         22 קטגוריות, 102 Prompts מוכנים — מ-Variance Commentary ועד GL Reconciliation, FX Analysis, ו-Data Pipelines.
-      </div>
+      </p>
       <div class="module-footer">
         <span class="module-length">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
-          45–60 דק׳ + Reference
+          45–60 דק׳ + Ref
         </span>
         <div class="module-tools">
           <span class="tool-tag">Claude App</span>
@@ -818,32 +1211,36 @@
           <span class="tool-tag">Artifacts</span>
         </div>
       </div>
-    </div>
+    </a>
 
   </div>
-</div>
+</section>
 
 <!-- ════════════════════════════════════════════
      PART 5 — פרויקטים
 ═════════════════════════════════════════════ -->
-<div class="part-section" id="part5">
+<section class="part-section" id="part5">
   <div class="part-header">
     <span class="part-num">חלק 5</span>
-    <span class="part-title">פרויקטים מלאים — מקצה לקצה</span>
+    <h2 class="part-title">פרויקטים מלאים — מקצה לקצה</h2>
     <span class="part-desc">2 מודולים · ~3 שעות</span>
   </div>
   <div class="module-grid">
 
-    <div class="module-card" onclick="openModule('module-13')">
+    <!-- MODULE 13 -->
+    <a class="module-card" id="card-module-13" href="/courses/ai-master-course/module-13" onclick="openModule('module-13', event)">
       <div class="module-card-top">
-        <span class="module-num">MODULE 13</span>
+        <span class="module-num">
+          <span class="module-check">✓</span>
+          MODULE 13
+        </span>
         <span class="level-badge level-advanced">מתקדם</span>
       </div>
       <div class="module-title-he">סגירת חודש עם Claude</div>
       <div class="module-title-en">Month-End Close: Full Workflow</div>
-      <div class="module-desc">
+      <p class="module-desc">
         6 שלבים מ-Actuals ועד Commentary לדירקטוריון: Variance חישוב → Commentary → Dashboard HTML → CFO Narrative → Board Pack.
-      </div>
+      </p>
       <div class="module-footer">
         <span class="module-length">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
@@ -855,18 +1252,22 @@
           <span class="tool-tag">Skills</span>
         </div>
       </div>
-    </div>
+    </a>
 
-    <div class="module-card" onclick="openModule('module-14')">
+    <!-- MODULE 14 -->
+    <a class="module-card" id="card-module-14" href="/courses/ai-master-course/module-14" onclick="openModule('module-14', event)">
       <div class="module-card-top">
-        <span class="module-num">MODULE 14</span>
+        <span class="module-num">
+          <span class="module-check">✓</span>
+          MODULE 14
+        </span>
         <span class="level-badge level-advanced">מתקדם</span>
       </div>
       <div class="module-title-he">דשבורד CFO — Capstone Project</div>
       <div class="module-title-en">CFO Dashboard: The Capstone</div>
-      <div class="module-desc">
+      <p class="module-desc">
         6 KPI Cards עם RAG · EBITDA Bridge · Revenue Trend 8Q · Auto CFO Commentary · Toggle Board/Management · Print-Ready A4 — בשיחה אחת עם Claude.
-      </div>
+      </p>
       <div class="module-footer">
         <span class="module-length">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
@@ -877,32 +1278,36 @@
           <span class="tool-tag">Projects</span>
         </div>
       </div>
-    </div>
+    </a>
 
   </div>
-</div>
+</section>
 
 <!-- ════════════════════════════════════════════
      BONUS
 ═════════════════════════════════════════════ -->
-<div class="part-section" id="bonus">
+<section class="part-section" id="bonus">
   <div class="part-header">
     <span class="part-num bonus">BONUS</span>
-    <span class="part-title">Skills מוכנות להורדה</span>
+    <h2 class="part-title">Skills מוכנות להורדה</h2>
     <span class="part-desc">1 מודול · 20–30 דק׳</span>
   </div>
   <div class="module-grid">
 
-    <div class="module-card" onclick="openModule('module-15')">
+    <!-- MODULE 15 -->
+    <a class="module-card" id="card-module-15" href="/courses/ai-master-course/module-15" onclick="openModule('module-15', event)">
       <div class="module-card-top">
-        <span class="module-num">MODULE 15</span>
+        <span class="module-num">
+          <span class="module-check">✓</span>
+          MODULE 15
+        </span>
         <span class="level-badge level-all">כל הרמות</span>
       </div>
       <div class="module-title-he">Skills מוכנות — מוריד ומשתמש</div>
       <div class="module-title-en">Ready-to-Use Finance Skills</div>
-      <div class="module-desc">
+      <p class="module-desc">
         FP&A Commentary, Board Deck, ERP Data Cleaner, McKinsey Slides — 4 Skills מוכנות להתקנה, ללא בנייה מאפס.
-      </div>
+      </p>
       <div class="module-footer">
         <span class="module-length">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
@@ -913,15 +1318,15 @@
           <span class="tool-tag">Cowork</span>
         </div>
       </div>
-    </div>
+    </a>
 
   </div>
-</div>
+</section>
 
 <!-- FOOTER -->
 <footer class="footer">
   <div class="footer-brand">AI Finance Transformation</div>
-  <div class="footer-sub">רונן עמוס CPA · ronenamoscpa.co.il · © 2026</div>
+  <div class="footer-sub">רונן עמוס CPA · ronenamoscpa.co.il · © 2026 כל הזכויות שמורות</div>
 </footer>
 
 <script>
@@ -930,36 +1335,84 @@
   const storageKey = 'claude-course-progress';
 
   function loadProgress() {
-    try { return JSON.parse(localStorage.getItem(storageKey)) || {}; } catch { return {}; }
+    try {
+      return JSON.parse(localStorage.getItem(storageKey)) || {};
+    } catch {
+      return {};
+    }
   }
-  function saveProgress(p) { localStorage.setItem(storageKey, JSON.stringify(p)); }
+
+  function saveProgress(p) {
+    try {
+      localStorage.setItem(storageKey, JSON.stringify(p));
+    } catch (e) {
+      console.warn('Could not save progress to localStorage', e);
+    }
+  }
+
   function updateProgressUI() {
     const p = loadProgress();
-    const done = Object.values(p).filter(Boolean).length;
+    let done = 0;
+
+    for (let i = 0; i < TOTAL; i++) {
+      const pad = String(i).padStart(2, '0');
+      const modId = 'module-' + pad;
+      const card = document.getElementById('card-' + modId);
+
+      if (p[modId]) {
+        done++;
+        if (card) card.classList.add('is-completed');
+      } else {
+        if (card) card.classList.remove('is-completed');
+      }
+    }
+
     const pct = Math.round((done / TOTAL) * 100);
-    document.getElementById('prog-bar').style.width = pct + '%';
-    document.getElementById('prog-pct').textContent = done + ' / ' + TOTAL;
+    const bar = document.getElementById('prog-bar');
+    const label = document.getElementById('prog-pct');
+
+    if (bar) bar.style.width = pct + '%';
+    if (label) label.textContent = done + ' / ' + TOTAL + ' (' + pct + '%)';
   }
 
   // ── Module navigation ──────────────────────────────────
-  function openModule(id) {
-    // Mark as visited
+  function openModule(id, e) {
     const p = loadProgress();
     p[id] = true;
     saveProgress(p);
     updateProgressUI();
-    window.location.href = '/courses/ai-master-course/' + id;
+    // Allow natural anchor navigation or direct redirect
+    if (e && e.ctrlKey) return;
+    // normal click proceeds to href
   }
 
-  // ── Init ───────────────────────────────────────────────
-  updateProgressUI();
+  // ── Init on load ───────────────────────────────────────
+  document.addEventListener('DOMContentLoaded', () => {
+    updateProgressUI();
 
-  // Smooth anchor scroll
-  document.querySelectorAll('a[href^="#"]').forEach(a => {
-    a.addEventListener('click', e => {
-      e.preventDefault();
-      const el = document.querySelector(a.getAttribute('href'));
-      if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    // Smooth anchor scroll
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', e => {
+        const targetId = a.getAttribute('href');
+        if (targetId === '#') return;
+        const el = document.querySelector(targetId);
+        if (el) {
+          e.preventDefault();
+          el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+
+    // Mark current rail item
+    const f = (location.pathname.split('/').pop() || '').toLowerCase();
+    document.querySelectorAll('.afx-link').forEach(a => {
+      const dataFile = (a.getAttribute('data-file') || '').toLowerCase();
+      if (dataFile === 'course-index.html' || dataFile === '' || dataFile === f) {
+        if (f.includes('module-')) {
+          a.classList.remove('active');
+          if (dataFile === f) a.classList.add('active');
+        }
+      }
     });
   });
 </script>
