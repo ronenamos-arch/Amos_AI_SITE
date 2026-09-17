@@ -16,6 +16,8 @@ function parseFrontmatter(fileContent: string): {
   metadata: Record<string, any>;
   content: string;
 } {
+  // Strip UTF-8 BOM if present
+  fileContent = fileContent.replace(/^\uFEFF/, "");
   // Enhanced regex: matches '---' at the start of the file, then any content, 
   // then '---' that must be at the start of a line (preceded by a newline).
   const frontmatterRegex = /^---\r?\n([\s\S]*?)\r?\n---\s*/;
