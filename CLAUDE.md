@@ -48,6 +48,17 @@ area).
 * **The UI says ספריית פרומפטים; the route and directory stay `/skill-vault`.** Rename the label
   only — never the path.
 
+## Blog draft workflow
+
+* **New blog post MD files go in `content/posts/drafts/` first, never directly in
+  `content/posts/`.** This protects unreviewed drafts from being lost if another
+  concurrent session/process resets or cleans the working tree before Ronen has
+  reviewed them.
+* Only move a file from `content/posts/drafts/` into `content/posts/` after Ronen
+  has explicitly approved it in the Mini Agenda / preview review step.
+* `scripts/generate-posts-index.mjs` only reads `content/posts/` (not the drafts
+  subfolder), so a draft won't accidentally go live via the posts index.
+
 ## Committing in this repo
 
 * **Stage by explicit path.** This working tree usually holds unrelated in-progress work (home

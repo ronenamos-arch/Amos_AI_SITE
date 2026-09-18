@@ -28,6 +28,10 @@ yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 
+# unreviewed blog drafts - not for the live index, and gitignored so a plain
+# `git clean` by another process can't wipe them before Ronen reviews
+/content/posts/drafts/
+
 # env files
 .env*.local
 .env
