@@ -51,6 +51,7 @@ next-env.d.ts
 !content/prompts.json
 !vercel.json
 !.impeccable/design.json
+gsc-credentials.json
 
 # Windows backup copies (prevent TypeScript from compiling stale files)
 *.bak
