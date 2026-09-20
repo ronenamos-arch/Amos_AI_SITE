@@ -1,10 +1,23 @@
 import { NextRequest, NextResponse } from "next/server";
+import { createClient } from "@/lib/supabase/server";
 import { createAdminClient } from "@/lib/supabase-admin";
 import { sendBundlePurchaseEmail, sendAdminNotification } from "@/lib/mailer";
 
 export const dynamic = "force-dynamic";
 
+async function requireAdmin(): Promise<boolean> {
+    const supabase = await createClient();
+    const { data: { user } } = await supabase.auth.getUser();
+    return !!user && user.email === "ronenamos@gmail.com";
+}
+
 export async function POST(req: NextRequest) {
+    // Admin only — this route grants a free paid access token, so it must never
+    // be reachable by an unauthenticated visitor in production.
+    if (!(await requireAdmin())) {
+        return NextResponse.json({ error: "Unauthorized" }, { status: 403 });
+    }
+
     try {
         const body = await req.json();
         const { purchaseId, email, name, phone } = body;
@@ -80,6 +93,10 @@ export async function POST(req: NextRequest) {
 }
 
 export async function GET(req: NextRequest) {
+    if (!(await requireAdmin())) {
+        return NextResponse.json({ error: "Unauthorized" }, { status: 403 });
+    }
+
     const email = req.nextUrl.searchParams.get("email") || "ronenamos@gmail.com";
     const name = req.nextUrl.searchParams.get("name") || "רונן עמוס (בדיקה)";
     const phone = req.nextUrl.searchParams.get("phone") || "050-5500344";

@@ -5,13 +5,13 @@ import { createAdminClient } from "@/lib/supabase/admin";
 export const dynamic = "force-dynamic";
 
 export async function GET() {
-    if (process.env.NODE_ENV !== "development") {
-        const supabase = await createClient();
-        const { data: { user } } = await supabase.auth.getUser();
+    // Always require admin auth — this exports every subscriber's email and
+    // payment history, so it must never depend on how NODE_ENV happens to be set.
+    const supabase = await createClient();
+    const { data: { user } } = await supabase.auth.getUser();
 
-        if (!user || user.email !== "ronenamos@gmail.com") {
-            return NextResponse.json({ error: "Unauthorized" }, { status: 403 });
-        }
+    if (!user || user.email !== "ronenamos@gmail.com") {
+        return NextResponse.json({ error: "Unauthorized" }, { status: 403 });
     }
 
     const admin = createAdminClient();

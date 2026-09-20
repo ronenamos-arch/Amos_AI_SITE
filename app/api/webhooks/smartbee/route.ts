@@ -4,8 +4,30 @@ import { sendCoursePurchaseEmail, sendBundlePurchaseEmail, sendAdminNotification
 
 export const runtime = "nodejs";
 
+/**
+ * SmartBee has no documented HMAC signature on its webhook, so authenticity is
+ * enforced with a shared secret configured on both sides: set SMARTBEE_WEBHOOK_SECRET
+ * here and register the webhook URL in SmartBee as
+ * https://.../api/webhooks/smartbee?secret=<same value>. Without this, anyone could
+ * POST a known purchaseId (e.g. one they created via /api/course/create-order) and
+ * grant themselves a paid access token for free.
+ */
+function isAuthorized(req: NextRequest): boolean {
+    const expected = process.env.SMARTBEE_WEBHOOK_SECRET;
+    if (!expected) {
+        console.error("SMARTBEE_WEBHOOK_SECRET not set — rejecting webhook call");
+        return false;
+    }
+    const provided = req.headers.get("x-smartbee-secret") || req.nextUrl.searchParams.get("secret");
+    return provided === expected;
+}
+
 export async function POST(req: NextRequest) {
     try {
+        if (!isAuthorized(req)) {
+            return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+        }
+
         let body: any = {};
         const contentType = req.headers.get("content-type") || "";
 
@@ -62,9 +84,12 @@ export async function POST(req: NextRequest) {
                     .single();
 
                 if (!updateError && updatedOrder?.access_token) {
+                    // Send to the buyer's own email on record, never the caller-supplied
+                    // payerEmail — otherwise anyone posting this webhook with someone
+                    // else's purchaseId could redirect the paid access token to themselves.
                     await sendCoursePurchaseEmail({
-                        to: payerEmail || courseOrder.email,
-                        name: payerName || courseOrder.name || "לקוח יקר",
+                        to: courseOrder.email,
+                        name: courseOrder.name || payerName || "לקוח יקר",
                         accessToken: updatedOrder.access_token,
                     });
 
@@ -98,9 +123,10 @@ export async function POST(req: NextRequest) {
                     .single();
 
                 if (!bundleUpdateError && updatedBundle?.access_token) {
+                    // Same rationale as above: send to the buyer's own email on record.
                     await sendBundlePurchaseEmail({
-                        to: payerEmail || bundleOrder.email,
-                        name: payerName || bundleOrder.name || "לקוח יקר",
+                        to: bundleOrder.email,
+                        name: bundleOrder.name || payerName || "לקוח יקר",
                         accessToken: updatedBundle.access_token,
                     });
 
