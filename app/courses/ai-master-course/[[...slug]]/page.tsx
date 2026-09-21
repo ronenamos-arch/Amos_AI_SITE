@@ -21,6 +21,7 @@ const SLUG_TO_FILE: Record<string, string> = {
     "module-13": "module-13.html",
     "module-14": "module-14.html",
     "module-15": "module-15.html",
+    "module-16": "module-16.html",
     "102-prompt": "102-Prompt.html",
     "50-ways-ai": "50-ways-ai.html",
     "claude-code-guide": "claude-code-guide.html",

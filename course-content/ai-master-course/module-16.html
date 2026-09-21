@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Module 16 — FP&A Month-End Reporting Pack | קורס Claude</title>
+  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800;900&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    /* ═══════════════════════════════════════════════════════════
+       DigiSave Pro Theme: Slate Navy, Electric Cyan & Violet
+       ═══════════════════════════════════════════════════════════ */
+    :root {
+      --bg:        #141821;
+      --bg-2:      #1A1F2A;
+      --bg-3:      #222938;
+      --border:    rgba(255, 255, 255, 0.10);
+      --border-hl: rgba(44, 229, 255, 0.35);
+      --ink:       #F4F7FA;
+      --dim:       #A7B0BE;
+      --dimmer:    #76808F;
+      --cy:        #2CE5FF;
+      --cy-soft:   rgba(44, 229, 255, 0.13);
+      --vi:        #8B7CFF;
+      --vi-soft:   rgba(139, 124, 255, 0.14);
+      --coral:     #FF5A3C;
+      --coral-soft:rgba(255, 90, 60, 0.12);
+      --ok:        #3DDC97;
+      --ok-soft:   rgba(61, 220, 151, 0.13);
+      --bad:       #FF6B6B;
+      --bad-soft:  rgba(255, 107, 107, 0.12);
+      --gold:      #F59E0B;
+      --gold-soft: rgba(245, 158, 11, 0.14);
+      --cream:     #F5F1EC;
+      --on-cream:  #15181F;
+      --mono:      'IBM Plex Mono', monospace;
+      --sans:      'Heebo', sans-serif;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: var(--sans);
+      font-size: 15.5px;
+      line-height: 1.7;
+      position: relative;
+      min-height: 100vh;
+      padding-right: 252px;
+    }
+    a { color: inherit; text-decoration: none; }
+
+    /* Ambient Background Glow Mesh */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      background:
+        radial-gradient(55% 40% at 85% -5%, rgba(44, 229, 255, 0.14), transparent 60%),
+        radial-gradient(50% 35% at 10% 20%, rgba(139, 124, 255, 0.12), transparent 62%),
+        radial-gradient(65% 45% at 50% 105%, rgba(61, 220, 151, 0.08), transparent 58%);
+    }
+
+    /* ── NAV ── */
+    .topnav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(20, 24, 33, 0.92);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 2rem; height: 58px;
+    }
+    .topnav-brand {
+      font-size: 13px; font-weight: 800;
+      background: linear-gradient(96deg, var(--cy), var(--vi));
+      -webkit-background-clip: text; background-clip: text; color: transparent;
+      letter-spacing: .05em; text-transform: uppercase;
+    }
+    .topnav-right { display: flex; align-items: center; gap: 1.4rem; }
+    .topnav-back { font-size: 13px; color: var(--dim); font-weight: 600; transition: color .18s; }
+    .topnav-back:hover { color: var(--cy); }
+    .topnav-module { font-size: 12px; color: var(--dimmer); font-family: var(--mono); }
+
+    /* ── MODULE HERO ── */
+    .module-hero {
+      border-bottom: 1px solid var(--border);
+      padding: 56px 2rem 48px;
+      max-width: 900px; margin: 0 auto;
+      position: relative; z-index: 1;
+    }
+    .module-eyebrow {
+      display: flex; align-items: center; gap: 10px; margin-bottom: 20px; flex-wrap: wrap;
+    }
+    .eyebrow-num {
+      font-family: var(--mono); font-size: 11.5px; font-weight: 700;
+      color: var(--cy); background: var(--cy-soft);
+      border: 1px solid rgba(44, 229, 255, 0.28);
+      padding: 4px 12px; border-radius: 100px; letter-spacing: .05em;
+    }
+    .eyebrow-part { font-size: 12.5px; color: var(--dim); }
+    .eyebrow-sep { color: var(--dimmer); opacity: .5; }
+    .eyebrow-level {
+      font-size: 10.5px; font-weight: 800; padding: 3px 9px; border-radius: 100px;
+      background: var(--vi-soft); color: var(--vi); border: 1px solid rgba(139, 124, 255, 0.3);
+    }
+    .module-hero h1 {
+      font-size: clamp(1.9rem, 4.2vw, 2.9rem);
+      font-weight: 900; line-height: 1.18; margin-bottom: 12px; letter-spacing: -0.02em;
+    }
+    .module-hero h1 span {
+      background: linear-gradient(96deg, var(--cy), var(--vi));
+      -webkit-background-clip: text; background-clip: text; color: transparent;
+    }
+    .module-en {
+      font-size: 14px; color: var(--dimmer); font-family: var(--mono);
+      direction: ltr; margin-bottom: 22px;
+    }
+    .module-meta { display: flex; gap: 20px; flex-wrap: wrap; }
+    .meta-item { display: flex; align-items: center; gap: 7px; font-size: 13px; color: var(--dim); }
+    .meta-item svg { width: 15px; height: 15px; color: var(--cy); opacity: .85; }
+
+    /* ── LAYOUT ── */
+    .content { max-width: 900px; margin: 0 auto; padding: 0 2rem 80px; position: relative; z-index: 1; }
+    .sec-label {
+      font-size: 11px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase;
+      color: var(--cy); margin: 52px 0 16px; display: flex; align-items: center; gap: 8px;
+    }
+    .sec-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+    h2 { font-size: 1.35rem; font-weight: 800; color: var(--ink); margin-bottom: 12px; letter-spacing: -0.01em; }
+    h3 { font-size: 1.1rem; font-weight: 700; color: var(--ink); margin-bottom: 8px; }
+    p { color: var(--dim); margin-bottom: 16px; font-size: 15px; }
+    p strong { color: var(--ink); font-weight: 700; }
+
+    /* ── ARCHITECTURE CARDS & 4-LAYER GRID ── */
+    .arch-grid {
+      display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin: 24px 0 36px;
+    }
+    @media (max-width: 700px) { .arch-grid { grid-template-columns: 1fr; } }
+    .arch-card {
+      background: var(--bg-2); border: 1px solid var(--border);
+      border-radius: 14px; padding: 22px; position: relative;
+      transition: border-color .2s, transform .2s;
+    }
+    .arch-card:hover { border-color: var(--border-hl); transform: translateY(-2px); }
+    .arch-layer-badge {
+      font-family: var(--mono); font-size: 10.5px; font-weight: 700;
+      color: var(--cy); background: var(--cy-soft); padding: 3px 8px;
+      border-radius: 6px; display: inline-block; margin-bottom: 10px;
+    }
+    .arch-title { font-size: 1.05rem; font-weight: 800; color: var(--ink); margin-bottom: 6px; }
+    .arch-desc { font-size: 13.5px; color: var(--dim); line-height: 1.6; }
+    .arch-freq {
+      margin-top: 12px; padding-top: 10px; border-top: 1px solid var(--border);
+      font-size: 11.5px; color: var(--dimmer); display: flex; justify-content: space-between;
+    }
+    .arch-freq b { color: var(--ok); }
+
+    /* ── 5-STAGE WORKFLOW TIMELINE ── */
+    .stage-card {
+      background: var(--bg-2); border: 1px solid var(--border);
+      border-radius: 14px; margin-bottom: 18px; overflow: hidden;
+      border-right: 4px solid var(--cy);
+    }
+    .stage-header {
+      padding: 18px 22px; background: var(--bg-3); border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px;
+    }
+    .stage-title-wrap { display: flex; align-items: center; gap: 12px; }
+    .stage-badge {
+      font-family: var(--mono); font-size: 11px; font-weight: 800;
+      background: var(--cy-soft); color: var(--cy); padding: 4px 10px;
+      border-radius: 6px; border: 1px solid rgba(44,229,255,0.25);
+    }
+    .stage-name { font-size: 1.05rem; font-weight: 800; color: var(--ink); }
+    .stage-skill-pill {
+      font-family: var(--mono); font-size: 11.5px; color: var(--vi);
+      background: var(--vi-soft); padding: 3px 10px; border-radius: 100px;
+      border: 1px solid rgba(139,124,255,0.25); direction: ltr;
+    }
+    .stage-body { padding: 20px 22px; }
+    .stage-desc { font-size: 14px; color: var(--dim); margin-bottom: 14px; }
+    .stage-bullets {
+      list-style: none; display: flex; flex-direction: column; gap: 8px; margin-bottom: 14px;
+    }
+    .stage-bullets li {
+      display: flex; align-items: baseline; gap: 8px; font-size: 13.5px; color: var(--ink);
+    }
+    .stage-bullets li::before {
+      content: '▸'; color: var(--cy); font-size: 12px; flex-shrink: 0;
+    }
+
+    /* ── DOWNLOAD RESOURCE TILES ── */
+    .download-grid {
+      display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; margin: 24px 0 32px;
+    }
+    @media (max-width: 650px) { .download-grid { grid-template-columns: 1fr; } }
+    .dl-card {
+      background: var(--bg-2); border: 1px solid var(--border);
+      border-radius: 12px; padding: 18px; display: flex; flex-direction: column;
+      justify-content: space-between; transition: all .2s;
+    }
+    .dl-card:hover { border-color: var(--border-hl); background: #1C2330; transform: translateY(-2px); }
+    .dl-type {
+      font-family: var(--mono); font-size: 11px; font-weight: 700;
+      color: var(--gold); margin-bottom: 8px; display: flex; align-items: center; gap: 6px;
+    }
+    .dl-name { font-size: 14.5px; font-weight: 800; color: var(--ink); margin-bottom: 6px; }
+    .dl-desc { font-size: 12.5px; color: var(--dim); line-height: 1.5; margin-bottom: 14px; }
+    .dl-btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+      background: var(--bg-3); border: 1px solid var(--border);
+      color: var(--ink); font-size: 12.5px; font-weight: 700; padding: 8px 14px;
+      border-radius: 8px; cursor: pointer; transition: all .18s; font-family: var(--sans);
+    }
+    .dl-btn:hover { background: var(--cy-soft); border-color: var(--cy); color: var(--cy); }
+    .dl-btn-primary {
+      background: linear-gradient(96deg, rgba(44,229,255,0.18), rgba(139,124,255,0.18));
+      border-color: rgba(44,229,255,0.4); color: var(--cy);
+    }
+    .dl-btn-primary:hover {
+      background: linear-gradient(96deg, rgba(44,229,255,0.3), rgba(139,124,255,0.3));
+    }
+
+    /* ── CODE / PROMPT CONSOLES ── */
+    .prompt-box {
+      background: #0E1219; border: 1px solid var(--border);
+      border-radius: 10px; padding: 18px; margin-bottom: 16px;
+      position: relative;
+    }
+    .prompt-header {
+      display: flex; justify-content: space-between; align-items: center;
+      margin-bottom: 10px; padding-bottom: 8px; border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .prompt-tag { font-family: var(--mono); font-size: 11px; color: var(--cy); font-weight: 700; }
+    .prompt-text {
+      font-family: var(--mono); font-size: 12.8px; color: #FFFFFF;
+      direction: ltr; text-align: left; line-height: 1.65; white-space: pre-wrap;
+    }
+    .copy-btn {
+      background: var(--bg-3); border: 1px solid var(--border);
+      color: var(--dim); font-size: 11.5px; font-family: var(--sans); font-weight: 700;
+      padding: 5px 12px; border-radius: 6px; cursor: pointer; transition: all .18s;
+    }
+    .copy-btn:hover { border-color: var(--cy); color: var(--cy); }
+
+    /* ── HIGH CONTRAST CREAM CHECKLIST ── */
+    .checklist-cream {
+      background: var(--cream); color: var(--on-cream);
+      border-radius: 14px; padding: 24px 26px; margin: 32px 0 24px;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.25);
+    }
+    .checklist-cream-head {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 16px; padding-bottom: 12px; border-bottom: 1px solid rgba(0,0,0,0.12);
+    }
+    .checklist-cream-title {
+      font-size: 1.05rem; font-weight: 900; color: var(--on-cream);
+      display: flex; align-items: center; gap: 8px;
+    }
+    .checklist-cream-badge {
+      font-size: 10.5px; font-weight: 800; background: rgba(0,0,0,0.08);
+      color: var(--on-cream); padding: 3px 9px; border-radius: 100px;
+    }
+    .cream-check-item {
+      display: flex; align-items: flex-start; gap: 12px;
+      padding: 9px 0; border-bottom: 1px solid rgba(0,0,0,0.06);
+      font-size: 14px; font-weight: 600; line-height: 1.5; color: #2A303C;
+    }
+    .cream-check-item:last-child { border-bottom: none; }
+    .cream-box {
+      width: 18px; height: 18px; border: 2px solid #9CA3AF;
+      border-radius: 4px; flex-shrink: 0; margin-top: 2px;
+      cursor: pointer; display: flex; align-items: center; justify-content: center;
+      transition: all .15s; background: #FFFFFF; font-size: 11px; font-weight: 900;
+    }
+    .cream-box.checked {
+      background: #10B981; border-color: #10B981; color: #FFFFFF;
+    }
+
+    /* ── CALLOUT BOXES ── */
+    .callout {
+      background: var(--bg-2); border: 1px solid rgba(44, 229, 255, 0.22);
+      border-right: 4px solid var(--cy); border-radius: 12px;
+      padding: 20px 22px; margin: 24px 0;
+    }
+    .callout-label {
+      font-size: 11px; font-weight: 800; letter-spacing: .1em;
+      text-transform: uppercase; color: var(--cy); margin-bottom: 6px;
+    }
+    .callout p { color: var(--ink); margin: 0; font-size: 14.5px; }
+
+    /* ── CONGRATS BANNER ── */
+    .congrats {
+      background: linear-gradient(135deg, rgba(44, 229, 255, 0.12), rgba(139, 124, 255, 0.12));
+      border: 1px solid rgba(44, 229, 255, 0.35); border-radius: 16px;
+      padding: 36px 30px; margin-top: 48px; text-align: center; position: relative;
+    }
+    .congrats h3 {
+      font-size: 1.65rem; font-weight: 900; color: var(--ink); margin-bottom: 10px;
+    }
+    .congrats h3 span {
+      background: linear-gradient(96deg, var(--cy), var(--vi));
+      -webkit-background-clip: text; background-clip: text; color: transparent;
+    }
+    .congrats p { color: var(--dim); font-size: 15px; max-width: 680px; margin: 0 auto 24px; }
+    .congrats-btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: linear-gradient(96deg, var(--cy), var(--vi));
+      color: #0B0D10; font-weight: 900; font-size: 14px;
+      padding: 12px 28px; border-radius: 10px; border: none; cursor: pointer;
+      box-shadow: 0 4px 20px rgba(44, 229, 255, 0.35); transition: transform .18s;
+    }
+    .congrats-btn:hover { transform: translateY(-2px); }
+
+    /* ── NEXT / PREV NAVIGATION ── */
+    .next-module {
+      margin-top: 56px; padding-top: 32px; border-top: 1px solid var(--border);
+      display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px;
+    }
+    .prev-btn {
+      background: var(--bg-2); border: 1px solid var(--border); color: var(--dim);
+      font-size: 13px; font-weight: 700; padding: 10px 20px; border-radius: 8px;
+      cursor: pointer; transition: all .18s; font-family: var(--sans);
+    }
+    .prev-btn:hover { border-color: var(--cy); color: var(--cy); }
+    .next-label { font-size: 11px; color: var(--dimmer); text-transform: uppercase; letter-spacing: .08em; margin-bottom: 3px; }
+    .next-title { font-weight: 800; color: var(--ink); font-size: 1rem; }
+    .next-btn {
+      background: linear-gradient(96deg, var(--cy), var(--vi));
+      color: #0B0D10; font-size: 13.5px; font-weight: 900;
+      padding: 10px 24px; border-radius: 8px; cursor: pointer;
+      border: none; font-family: var(--sans); transition: transform .18s;
+    }
+    .next-btn:hover { transform: translateX(-3px); }
+
+    @media (max-width: 900px) { body { padding-right: 0; } }
+  </style>
+</head>
+<body>
+
+<!-- AFX-SIDEBAR START (Always-on Rail) -->
+<style>
+  .afx-rail{position:fixed;top:0;right:0;width:252px;height:100vh;background:#111318;border-left:1px solid #2e3540;z-index:150;display:flex;flex-direction:column;direction:rtl;font-family:'Heebo',sans-serif}
+  .afx-rail-head{height:58px;flex-shrink:0;display:flex;align-items:center;gap:8px;padding:0 18px;border-bottom:1px solid #232830}
+  .afx-rail-head b{font-size:12px;font-weight:800;letter-spacing:.1em;color:var(--cy,#2CE5FF);text-transform:uppercase}
+  .afx-rail-head span{font-size:10px;color:#76808F;font-family:'IBM Plex Mono',monospace}
+  .afx-list{flex:1;overflow-y:auto;padding:8px 0 28px}
+  .afx-sep{font-size:10px;font-weight:800;letter-spacing:.1em;color:#A7B0BE;padding:14px 18px 6px}
+  .afx-link{display:flex;gap:10px;align-items:baseline;padding:8px 18px;color:#F4F7FA;font-size:13px;text-decoration:none;border-right:3px solid transparent;transition:background .15s,color .15s}
+  .afx-link:hover{background:#1A1F2A;color:#FFFFFF}
+  .afx-link.active{color:var(--cy,#2CE5FF);background:rgba(44,229,255,0.08);border-right-color:var(--cy,#2CE5FF);font-weight:700}
+  .afx-num{font-family:'IBM Plex Mono',monospace;font-size:11px;color:#76808F;min-width:26px}
+  .afx-link.active .afx-num{color:var(--cy,#2CE5FF)}
+  .afx-list::-webkit-scrollbar{width:6px}
+  .afx-list::-webkit-scrollbar-thumb{background:#2e3540;border-radius:3px}
+  @media (max-width:900px){.afx-rail{display:none}}
+  @media print{.afx-rail{display:none}}
+</style>
+<nav class="afx-rail" aria-label="ניווט מודולים">
+  <div class="afx-rail-head"><b>תוכן הקורס</b><span>17 מודולים</span></div>
+  <div class="afx-list">
+    <a class="afx-link" href="course-index.html" data-file="course-index.html"><span class="afx-num">⌂</span> דף הבית — כל המודולים</a>
+    <div class="afx-sep">חלק 0 — מבוא</div>
+    <a class="afx-link" href="module-00.html" data-file="module-00.html"><span class="afx-num">00</span> ברוכים הבאים</a>
+    <a class="afx-link" href="module-01.html" data-file="module-01.html"><span class="afx-num">01</span> שלושת המודלים</a>
+    <div class="afx-sep">חלק 1 — הבסיס</div>
+    <a class="afx-link" href="module-02.html" data-file="module-02.html"><span class="afx-num">02</span> השיחה הפיננסית הראשונה</a>
+    <a class="afx-link" href="module-03.html" data-file="module-03.html"><span class="afx-num">03</span> מסגרת PRICE</a>
+    <div class="afx-sep">חלק 2 — הפיצ׳רים</div>
+    <a class="afx-link" href="module-04.html" data-file="module-04.html"><span class="afx-num">04</span> Artifacts — הקנבס</a>
+    <a class="afx-link" href="module-05.html" data-file="module-05.html"><span class="afx-num">05</span> Skills — זיכרון מוסדי</a>
+    <a class="afx-link" href="module-06.html" data-file="module-06.html"><span class="afx-num">06</span> Projects — סביבת עבודה</a>
+    <a class="afx-link" href="module-07.html" data-file="module-07.html"><span class="afx-num">07</span> Connectors — Claude מחובר</a>
+    <div class="afx-sep">חלק 3 — כלים</div>
+    <a class="afx-link" href="module-08.html" data-file="module-08.html"><span class="afx-num">08</span> Claude ב-Excel</a>
+    <a class="afx-link" href="module-09.html" data-file="module-09.html"><span class="afx-num">09</span> Claude ב-PowerPoint</a>
+    <a class="afx-link" href="module-10.html" data-file="module-10.html"><span class="afx-num">10</span> Design &amp; Cowork</a>
+    <div class="afx-sep">חלק 4 — מתקדם</div>
+    <a class="afx-link" href="module-11.html" data-file="module-11.html"><span class="afx-num">11</span> 10 עקרונות Prompting</a>
+    <a class="afx-link" href="module-12.html" data-file="module-12.html"><span class="afx-num">12</span> 102 Use Cases</a>
+    <div class="afx-sep">חלק 5 — פרויקטים</div>
+    <a class="afx-link" href="module-13.html" data-file="module-13.html"><span class="afx-num">13</span> סגירת חודש</a>
+    <a class="afx-link" href="module-14.html" data-file="module-14.html"><span class="afx-num">14</span> דשבורד CFO (Capstone)</a>
+    <div class="afx-sep">בונוס &amp; Enterprise</div>
+    <a class="afx-link" href="module-15.html" data-file="module-15.html"><span class="afx-num">15</span> ספריית Skills מוכנות</a>
+    <a class="afx-link active" href="module-16.html" data-file="module-16.html"><span class="afx-num">16</span> FP&amp;A Reporting Pack</a>
+  </div>
+</nav>
+<script>
+  (function(){
+    var f=(location.pathname.split('/').pop()||'').toLowerCase();
+    document.querySelectorAll('.afx-link').forEach(function(a){
+      if((a.getAttribute('data-file')||'').toLowerCase()===f || (f==='module-16' && a.getAttribute('data-file')==='module-16.html')) {
+        a.classList.add('active');
+      }
+    });
+  })();
+</script>
+<!-- AFX-SIDEBAR END -->
+
+<nav class="topnav">
+  <span class="topnav-brand">AI Finance Transformation</span>
+  <div class="topnav-right">
+    <a href="/courses/ai-master-course" class="topnav-back">← כל המודולים</a>
+    <span class="topnav-module">MODULE 16 / 16</span>
+  </div>
+</nav>
+
+<header class="module-hero">
+  <div class="module-eyebrow">
+    <span class="eyebrow-num">MODULE 16</span>
+    <span class="eyebrow-sep">·</span>
+    <span class="eyebrow-part">Enterprise Capstone Blueprint</span>
+    <span class="eyebrow-sep">·</span>
+    <span class="eyebrow-level">Master Level</span>
+  </div>
+  <h1>FP&amp;A Month-End Reporting Pack<br><span>המערכת האוטונומית השלמה</span></h1>
+  <div class="module-en">From Multi-Entity Month-End Close to Automated Board Pack Presentation</div>
+  <div class="module-meta">
+    <span class="meta-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+      45–60 דקות
+    </span>
+    <span class="meta-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+      Enterprise Claude Project + 5 Production Skills
+    </span>
+  </div>
+</header>
+
+<main class="content">
+
+  <!-- INTRO -->
+  <div class="sec-label">סקירת מערכת הדגל</div>
+  <h2>פרויקט מודל: איך נראית מחלקת כספים אוטונומית ב-Enterprise</h2>
+  <p>
+    במודולים הקודמים למדתם על <strong>Projects</strong>, על <strong>Skills</strong>, על <strong>Connectors</strong> ועל כתיבת מצגות ב-<strong>PowerPoint</strong>. עכשיו, הגיע הרגע לחבר את הכל יחד ל<strong>מכונה פיננסית אחת שלמה</strong>.
+  </p>
+  <p>
+    פרויקט הדגל הזה מבוסס על מבנה קבוצת חברות גלובלית (3 חברות בנות: <strong>Company A</strong> — יצרנית מכשור, <strong>Company B</strong> — שירותי שטח, ו-<strong>Company C</strong> — תוכנת SaaS). המערכת לוקחת את נתוני סגירת החודש ישירות מ-Microsoft 365, מריצה בקרות תקינות, מחשבת סטיות, בונה תחזית מתגלגלת (Rolling Forecast), ומפיקה <strong>מצגת הנהלה ודירקטוריון מלאה ב-PowerPoint</strong> באופן אוטונומי לחלוטין.
+  </p>
+
+  <!-- 4-LAYER ARCHITECTURE -->
+  <div class="sec-label">ארכיטקטורת המערכת</div>
+  <h2>הפרדת הקבוע מהמשתנה: 4 שכבות הפרויקט</h2>
+  <p>
+    הסוד של מערכת AI פיננסית יציבה הוא <strong>הפרדה מוחלטת בין הידע הקבוע לבין הנתונים המשתנים מדי חודש</strong>. האנליסט לא מגדיר מחדש את החוקים בכל חודש — הוא רק מזין את האירועים העסקיים הייחודיים של אותו חודש.
+  </p>
+
+  <div class="arch-grid">
+    <div class="arch-card">
+      <span class="arch-layer-badge">LAYER 1 · INSTRUCTIONS</span>
+      <div class="arch-title">Project Standing Rules</div>
+      <div class="arch-desc">הגדרת תפקיד האנליסט, היררכיית מקורות המידע, סדר הפעלת ה-Skills, וחוקי פורמט קפדניים (עברית/אנגלית, מספרים, עיגולים).</div>
+      <div class="arch-freq">תדירות עדכון: <b>קבוע (מוגדר פעם אחת)</b></div>
+    </div>
+    <div class="arch-card">
+      <span class="arch-layer-badge">LAYER 2 · 5 PRODUCTION SKILLS</span>
+      <div class="arch-title">Institutional Skills Library</div>
+      <div class="arch-desc">5 קובצי מיומנות מתקדמים: סגירת חודש, דוחות רוו״ה ו-KPIs, ניתוח סטיות ו-EBITDA Bridge, תחזית מתגלגלת, ויצירת מצגת PPTX.</div>
+      <div class="arch-freq">תדירות עדכון: <b>קבוע (מוטמע ב-Settings)</b></div>
+    </div>
+    <div class="arch-card">
+      <span class="arch-layer-badge">LAYER 3 · CONNECTOR DATA</span>
+      <div class="arch-title">Microsoft 365 Live Folder</div>
+      <div class="arch-desc">תיקיית SharePoint / OneDrive ייעודית שמכילה את קובצי ה-P&amp;L החודשיים של החברות (A, B, C) וקובץ Master Data מרכזי.</div>
+      <div class="arch-freq">תדירות עדכון: <b>חודשי (עדכון קבצים שוטף)</b></div>
+    </div>
+    <div class="arch-card">
+      <span class="arch-layer-badge">LAYER 4 · MASTER PROMPT</span>
+      <div class="arch-title">Monthly Execution Trigger</div>
+      <div class="arch-desc">פרומפט קצר ומדויק בן מספר שורות שבו האנליסט ממלא רק את שם החודש, אירועים עסקיים חריגים ושאלות מיוחדות של ההנהלה.</div>
+      <div class="arch-freq">תדירות עדכון: <b>מדי סגירת חודש (קלט קצר)</b></div>
+    </div>
+  </div>
+
+  <!-- 5-STAGE WORKFLOW -->
+  <div class="sec-label">תהליך הביצוע ב-5 שלבים</div>
+  <h2>איך Claude מריץ את החודש: משלב הבקרה ועד ל-Deck</h2>
+
+  <!-- Stage 1 -->
+  <div class="stage-card">
+    <div class="stage-header">
+      <div class="stage-title-wrap">
+        <span class="stage-badge">STAGE 01</span>
+        <span class="stage-name">בקרת שלמות והתאמת נתונים (Data Quality Gate)</span>
+      </div>
+      <span class="stage-skill-pill">fpa-month-end-close.skill</span>
+    </div>
+    <div class="stage-body">
+      <div class="stage-desc">לפני שמתחילים בניתוח, המערכת מוודאת שכל קובצי ה-P&amp;L של שלוש החברות הגיעו, בודקת התאמת יתרות מול ה-Consolidated View, ומנפיקה סטטוס מוכנות.</div>
+      <ul class="stage-bullets">
+        <li>אימות שקובצי החברות (Company A, B, C) עדכניים ומכילים נתוני Actual ו-Budget.</li>
+        <li>בדיקת שלמות שורות ה-P&amp;L (Revenue, COGS, Gross Margin, OpEx, EBITDA).</li>
+        <li>חיווי שער: <code>READY</code> (ממשיכים הלאה) או <code>NOT READY</code> (עצירה ודיווח על חוסרים).</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Stage 2 -->
+  <div class="stage-card">
+    <div class="stage-header">
+      <div class="stage-title-wrap">
+        <span class="stage-badge">STAGE 02</span>
+        <span class="stage-name">דוחות רוו״ה וכרטיסיית KPIs (Management Reporting)</span>
+      </div>
+      <span class="stage-skill-pill">fpa-management-reporting-kpis.skill</span>
+    </div>
+    <div class="stage-body">
+      <div class="stage-desc">בניית דוח רווח והפסד מאוחד ודוחות נפרדים לכל ישות, ברמת חודש נוכחי וברמת YTD, יחד עם כרטיסיית מדדים תפעוליים (Scorecard).</div>
+      <ul class="stage-bullets">
+        <li>איחוד נתונים אוטומטי של שלוש הישויות לפורמט Group Management P&amp;L.</li>
+        <li>חישוב מדדים ייעודיים: Revenue per FTE (יצרנית), Billable Utilization (שירותים), ARR &amp; NRR (חברת ה-SaaS).</li>
+        <li>הוספת אינדיקטורי RAG (ירוק/צהוב/אדום) מול יעדי התקציב.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Stage 3 -->
+  <div class="stage-card">
+    <div class="stage-header">
+      <div class="stage-title-wrap">
+        <span class="stage-badge">STAGE 03</span>
+        <span class="stage-name">ניתוח סטיות מבוסס גורמי שורש (Variance &amp; EBITDA Bridge)</span>
+      </div>
+      <span class="stage-skill-pill">fpa-variance-analysis.skill</span>
+    </div>
+    <div class="stage-body">
+      <div class="stage-desc">פירוק מתמטי של סטיות תקציב מול ביצוע לפי מנועי השפעה (Price / Volume / Mix), בניית מפל EBITDA Waterfall וכתיבת הסברי הנהלה מקצועיים.</div>
+      <ul class="stage-bullets">
+        <li>זיהוי סטיות מהותיות (Materiality Threshold: סטיות מעל $50K או 5%).</li>
+        <li>בניית גשרי EBITDA: מעבר מתקציב לביצוע בפועל לפי חברות ופונקציות הוצאה.</li>
+        <li>כתיבת Commentary מקצועי ברמת CFO: סיבת השורש, בעל התפקיד האחראי ופעולת התיקון.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Stage 4 -->
+  <div class="stage-card">
+    <div class="stage-header">
+      <div class="stage-title-wrap">
+        <span class="stage-badge">STAGE 04</span>
+        <span class="stage-name">תחזית מתגלגלת וסגירת שנה (Rolling Forecast &amp; LE)</span>
+      </div>
+      <span class="stage-skill-pill">fpa-rolling-forecast.skill</span>
+    </div>
+    <div class="stage-body">
+      <div class="stage-desc">חישוב תמונת ה-Latest Estimate (LE) המלאה של השנה (למשל: ספטמבר = 9 חודשי Actuals + 3 חודשי Forecast) כולל תרחישי Base / Upside / Downside.</div>
+      <ul class="stage-bullets">
+        <li>ניתוח פער לסגירת השנה (Gap to Target Analysis).</li>
+        <li>טבלת סיכונים והזדמנויות (Risks &amp; Opportunities Register) עם סבירות והשפעה דולרית.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Stage 5 -->
+  <div class="stage-card">
+    <div class="stage-header">
+      <div class="stage-title-wrap">
+        <span class="stage-badge">STAGE 05</span>
+        <span class="stage-name">הפקת מצגת הנהלה ודירקטוריון מלאה (PowerPoint Deck)</span>
+      </div>
+      <span class="stage-skill-pill">fpa-management-pack-presentation.skill</span>
+    </div>
+    <div class="stage-body">
+      <div class="stage-desc">הפיכת כלל הניתוחים והטבלאות למצגת הנהלה תקנית ומעוצבת בת 8–10 שקופיות — מוכנה להקרנה בדירקטוריון או לשליחה כקובץ PPTX.</div>
+      <ul class="stage-bullets">
+        <li>מבנה קבוע: Executive Summary, Consolidated P&amp;L, EBITDA Bridge, Entity Deep-Dives, Outlook &amp; Decisions.</li>
+        <li>כותרות מבוססות תובנה אקטיבית (Action Titles) בסגנון McKinsey/BCG במקום כותרות סטטיות.</li>
+        <li>הפקת קובץ PowerPoint מושלם כולל Speaker Notes מפורטים לכל שקופית.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- DOWNLOADS & ASSETS -->
+  <div class="sec-label">חבילת ההורדות של הפרויקט</div>
+  <h2>הורד את כל הנכסים למחשב שלך</h2>
+  <p>כל הקבצים, ההוראות וה-Skills של פרויקט הדגל זמינים עבורך להורדה ישירה:</p>
+
+  <div class="download-grid">
+    <div class="dl-card">
+      <div>
+        <div class="dl-type">📊 SAMPLE POWERPOINT DECK</div>
+        <div class="dl-name">Monthly_Management_Pack_Sep_2026.pptx</div>
+        <div class="dl-desc">מצגת ההנהלה המלאה (800KB) שהופקה אוטומטית עבור ספטמבר 2026 — כולל כל השקופיות, הטבלאות וה-Speaker Notes.</div>
+      </div>
+      <a href="/api/course/download/Monthly_Management_Pack_Sep_2026_SAMPLE.pptx" class="dl-btn dl-btn-primary" download>⬇ הורד מצגת דוגמה (.pptx)</a>
+    </div>
+
+    <div class="dl-card">
+      <div>
+        <div class="dl-type">📄 PROJECT BLUEPRINT</div>
+        <div class="dl-name">01_Claude_Project_Blueprint.docx</div>
+        <div class="dl-desc">מדריך הארכיטקטורה המלא: כיצד להקים את הפרויקט, להגדיר תיקיות ב-M365 ולתזמן הפקה חודשית אוטומטית.</div>
+      </div>
+      <a href="/api/course/download/01_Claude_Project_Blueprint_Month_End_Reporting_Pack.docx" class="dl-btn" download>⬇ הורד Blueprint (.docx)</a>
+    </div>
+
+    <div class="dl-card">
+      <div>
+        <div class="dl-type">⚙️ SYSTEM INSTRUCTIONS</div>
+        <div class="dl-name">02_Project_Instructions.docx</div>
+        <div class="dl-desc">ההוראות הקבועות (Standing Rules) להדבקה ישירה בשדה ה-Instructions של ה-Claude Project שלך.</div>
+      </div>
+      <a href="/api/course/download/02_Project_Instructions_Month_End_Reporting_Pack.docx" class="dl-btn" download>⬇ הורד Instructions (.docx)</a>
+    </div>
+
+    <div class="dl-card">
+      <div>
+        <div class="dl-type">📦 ALL-IN-ONE BUNDLE</div>
+        <div class="dl-name">Monthly_Management_Pack_Bundle.zip</div>
+        <div class="dl-desc">החבילה המלאה: המצגת, מסמכי ההוראות וכל 5 קובצי ה-Skills בארכיון ZIP אחד מרוכז.</div>
+      </div>
+      <a href="/api/course/download/monthly-management-pack-sep-2026-sample.zip" class="dl-btn dl-btn-primary" download>⬇ הורד חבילה מלאה (.zip)</a>
+    </div>
+  </div>
+
+  <!-- 5 SKILLS DOWNLOAD STRIP -->
+  <div class="callout">
+    <div class="callout-label">⚡ 5 קובצי ה-Skills הייעודיים לפרויקט</div>
+    <p style="margin-bottom: 12px;">ניתן להוריד כל מיומנות (Skill) בנפרד ולהעלות ישירות ל-Claude ב-Settings → Capabilities:</p>
+    <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+      <a href="/api/course/download/fpa-month-end-close.zip" class="dl-btn" download>⬇ fpa-month-end-close</a>
+      <a href="/api/course/download/fpa-management-reporting-kpis.zip" class="dl-btn" download>⬇ fpa-management-reporting-kpis</a>
+      <a href="/api/course/download/fpa-variance-analysis.zip" class="dl-btn" download>⬇ fpa-variance-analysis</a>
+      <a href="/api/course/download/fpa-rolling-forecast.zip" class="dl-btn" download>⬇ fpa-rolling-forecast</a>
+      <a href="/api/course/download/fpa-management-pack-presentation.zip" class="dl-btn" download>⬇ fpa-management-pack-presentation</a>
+    </div>
+  </div>
+
+  <!-- MASTER PROMPT BOX -->
+  <div class="sec-label">הפרומפט החודשי (Master Prompt)</div>
+  <h2>איך מפעילים את הפרויקט מדי חודש</h2>
+  <p>אחרי שהפרויקט מוגדר עם ה-Instructions וה-Skills, כל מה שנשאר לאנליסט לעשות ב-3 לחודש הוא להדביק את הפרומפט הבא:</p>
+
+  <div class="prompt-box">
+    <div class="prompt-header">
+      <span class="prompt-tag">MASTER MONTHLY TRIGGER · SEPTEMBER 2026 SIMULATION</span>
+      <button class="copy-btn" onclick="copyPromptText(this)">העתק Prompt</button>
+    </div>
+    <div class="prompt-text" id="master-prompt">Please prepare the Monthly Management Pack for September 2026 (YTD Month 9).
+
+Context &amp; Key Events of the Month:
+- Period: 2026-09 (Q3 close, 9 months YTD)
+- Company A: Component shortage resolved; factory ran overtime to clear backlog; gross margin +1.8% vs budget.
+- Company B: Won 2 enterprise service contracts in DACH; revenue +$140K vs budget; one-off recruitment fees in OpEx.
+- Company C: SaaS churn dropped to 0.7% (best quarter ever); ARR reached $18.4M; migration to new cloud host caused $45K one-off setup cost.
+- Group Cash: $31.2M; no debt covenant issues.
+
+Management Questions to Address:
+1. What is the full-year landing estimate (9+3) for Group EBITDA vs the $48.5M budget target?
+2. Explain the drivers behind Company B's margin compression despite the revenue beat.
+3. Prepare the 8-slide presentation deck with Speaker Notes for the board meeting on Thursday.
+
+Execute the standard 5-stage workflow (Close Gate -> KPIs -> Variances &amp; EBITDA Bridge -> Rolling Forecast -> PPTX Pack).</div>
+  </div>
+
+  <!-- CREAM CHECKLIST -->
+  <div class="checklist-cream">
+    <div class="checklist-cream-head">
+      <div class="checklist-cream-title">✓ רשימת בדיקה להטמעת ה-Enterprise Pack</div>
+      <span class="checklist-cream-badge">בקרת איכות</span>
+    </div>
+    <div class="cream-check-item">
+      <div class="cream-box" onclick="toggleCheckCream(this)"></div>
+      <span>הורדתי את קובץ ה-Instructions והדבקתי בשדה ה-Project Instructions של ה-Claude Project</span>
+    </div>
+    <div class="cream-check-item">
+      <div class="cream-box" onclick="toggleCheckCream(this)"></div>
+      <span>העליתי את 5 קובצי ה-Skills לאזור ה-Capabilities ב-Claude</span>
+    </div>
+    <div class="cream-check-item">
+      <div class="cream-box" onclick="toggleCheckCream(this)"></div>
+      <span>חיברתי את תיקיית Microsoft 365 עם קובצי ה-P&amp;L של החברות הבנות</span>
+    </div>
+    <div class="cream-check-item">
+      <div class="cream-box" onclick="toggleCheckCream(this)"></div>
+      <span>הרצתי את ה-Master Prompt של ספטמבר 2026 ואימתתי מעבר תקין של שער ה-Close Gate</span>
+    </div>
+    <div class="cream-check-item">
+      <div class="cream-box" onclick="toggleCheckCream(this)"></div>
+      <span>הורדתי ופתחתי את קובץ ה-PowerPoint ובדקתי את ה-EBITDA Bridge וכרטיסיות המדדים</span>
+    </div>
+  </div>
+
+  <!-- CONGRATULATIONS & FINISH -->
+  <div class="congrats">
+    <h3>🏆 מזל טוב — <span>סיימת את קורס ה-AI Master Course המלא!</span></h3>
+    <p>
+      עברת מסלול הכשרה מקיף של 17 מודולים — מפרומפטים פיננסיים ראשונים ועד לבניית מערכות AI אוטונומיות מקצה לקצה. עכשיו יש לך את כל הכלים, הידע וה-Skills להוביל את מהפכת ה-AI בארגון שלך.
+    </p>
+    <button class="congrats-btn" onclick="window.location.href='/courses/ai-master-course'">
+      חזרה לאינדקס הקורס המלא ←
+    </button>
+  </div>
+
+  <!-- NEXT / PREV -->
+  <div class="next-module">
+    <button class="prev-btn" onclick="window.location.href='/courses/ai-master-course/module-15'">→ Module 15: ספריית Skills</button>
+    <div style="text-align:right">
+      <div class="next-label">סיום הקורס</div>
+      <div class="next-title">כל 17 המודולים</div>
+    </div>
+    <button class="next-btn" onclick="window.location.href='/courses/ai-master-course'">דף הבית של הקורס ⌂</button>
+  </div>
+
+</main>
+
+<script>
+  function copyPromptText(btn) {
+    const text = document.getElementById('master-prompt').innerText;
+    navigator.clipboard.writeText(text).then(() => {
+      const orig = btn.innerText;
+      btn.innerText = '✓ הועתק!';
+      btn.style.color = 'var(--ok, #3DDC97)';
+      btn.style.borderColor = 'var(--ok, #3DDC97)';
+      setTimeout(() => {
+        btn.innerText = orig;
+        btn.style.color = '';
+        btn.style.borderColor = '';
+      }, 2000);
+    });
+  }
+
+  function toggleCheckCream(el) {
+    el.classList.toggle('checked');
+    el.textContent = el.classList.contains('checked') ? '✓' : '';
+  }
+
+  try {
+    const p = JSON.parse(localStorage.getItem('claude-course-progress')) || {};
+    p['module-16'] = true;
+    localStorage.setItem('claude-course-progress', JSON.stringify(p));
+  } catch(e) {}
+</script>
+
+</body>
+</html>

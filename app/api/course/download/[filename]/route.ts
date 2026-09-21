@@ -5,19 +5,43 @@ import path from "path";
 
 const FILES_DIR = path.join(process.cwd(), "course-content", "ai-master-course", "FILES");
 
-const ALLOWED_EXTENSIONS = new Set([".xlsx", ".xls", ".pdf", ".csv"]);
+const ALLOWED_EXTENSIONS = new Set([
+    ".xlsx",
+    ".xls",
+    ".pdf",
+    ".csv",
+    ".docx",
+    ".pptx",
+    ".zip",
+    ".skill",
+]);
+
+const MIME_MAP: Record<string, string> = {
+    ".pdf": "application/pdf",
+    ".xlsx": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+    ".xls": "application/vnd.ms-excel",
+    ".csv": "text/csv; charset=utf-8",
+    ".docx": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+    ".pptx": "application/vnd.openxmlformats-officedocument.presentationml.presentation",
+    ".zip": "application/zip",
+    ".skill": "application/octet-stream",
+};
 
 export async function GET(
     request: NextRequest,
     { params }: { params: Promise<{ filename: string }> }
 ) {
-    const supabase = await createClient();
-    const {
-        data: { user },
-    } = await supabase.auth.getUser();
+    if (process.env.NODE_ENV !== "development") {
+        const supabase = await createClient();
+        const {
+            data: { user },
+        } = await supabase.auth.getUser();
 
-    if (!user) {
-        return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+        const tokenCookie = request.cookies.get("course_master_token")?.value;
+
+        if (!user && !tokenCookie) {
+            return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+        }
     }
 
     const { filename } = await params;
@@ -52,10 +76,7 @@ export async function GET(
     }
 
     const fileBuffer = fs.readFileSync(filePath);
-    const contentType =
-        ext === ".pdf"
-            ? "application/pdf"
-            : "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+    const contentType = MIME_MAP[ext] || "application/octet-stream";
 
     return new NextResponse(fileBuffer, {
         headers: {

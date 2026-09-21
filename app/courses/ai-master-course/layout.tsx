@@ -11,6 +11,11 @@ export default async function CourseMasterLayout({
 }: {
     children: React.ReactNode;
 }) {
+    // In development mode, always allow full access for local testing and review
+    if (process.env.NODE_ENV === "development") {
+        return <>{children}</>;
+    }
+
     const cookieStore = await cookies();
     const tokenCookie = cookieStore.get("course_master_token")?.value;
 
@@ -36,6 +41,11 @@ export default async function CourseMasterLayout({
     } = await supabase.auth.getUser();
 
     if (user) {
+        // Admin user always has access
+        if (user.email === "ronenamos@gmail.com") {
+            return <>{children}</>;
+        }
+
         const { data: access } = await supabase
             .from("course_access")
             .select("has_access")
@@ -43,6 +53,17 @@ export default async function CourseMasterLayout({
             .maybeSingle();
 
         if (access?.has_access) {
+            return <>{children}</>;
+        }
+
+        // Check profile subscription status
+        const { data: profile } = await supabase
+            .from("profiles")
+            .select("subscription_status")
+            .eq("id", user.id)
+            .maybeSingle();
+
+        if (profile?.subscription_status === "lifetime" || profile?.subscription_status === "monthly") {
             return <>{children}</>;
         }
     }

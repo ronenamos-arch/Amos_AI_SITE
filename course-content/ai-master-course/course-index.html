@@ -696,7 +696,7 @@
 <nav class="afx-rail" aria-label="ניווט מודולים">
   <div class="afx-rail-head">
     <b>תוכן הקורס</b>
-    <span>16 מודולים</span>
+    <span>17 מודולים</span>
   </div>
   <div class="afx-list">
     <a class="afx-link active" href="course-index.html" data-file="course-index.html"><span class="afx-num">⌂</span> דף הבית — כל המודולים</a>
@@ -721,8 +721,9 @@
     <div class="afx-sep">חלק 5 — פרויקטים</div>
     <a class="afx-link" href="/courses/ai-master-course/module-13" data-file="module-13"><span class="afx-num">13</span> סגירת חודש</a>
     <a class="afx-link" href="/courses/ai-master-course/module-14" data-file="module-14"><span class="afx-num">14</span> דשבורד CFO (Capstone)</a>
-    <div class="afx-sep">בונוס</div>
-    <a class="afx-link" href="/courses/ai-master-course/module-15" data-file="module-15"><span class="afx-num">15</span> Skills מוכנות (Bonus)</a>
+    <div class="afx-sep">בונוס &amp; Enterprise</div>
+    <a class="afx-link" href="/courses/ai-master-course/module-15" data-file="module-15"><span class="afx-num">15</span> ספריית Skills מוכנות</a>
+    <a class="afx-link" href="/courses/ai-master-course/module-16" data-file="module-16"><span class="afx-num">16</span> FP&amp;A Reporting Pack</a>
   </div>
 </nav>
 
@@ -761,9 +762,9 @@
   <!-- STATS GRID -->
   <div class="hero-stats">
     <div class="stat-card">
-      <span class="stat-num">16</span>
+      <span class="stat-num">17</span>
       <span class="stat-label">מודולים מקיפים</span>
-      <span class="stat-sub">00 עד 15 + בונוס</span>
+      <span class="stat-sub">00 עד 16 + Enterprise</span>
     </div>
     <div class="stat-card">
       <span class="stat-num">102</span>
@@ -771,7 +772,7 @@
       <span class="stat-sub">ספריית פרומפטים פיננסית</span>
     </div>
     <div class="stat-card">
-      <span class="stat-num">4</span>
+      <span class="stat-num">9</span>
       <span class="stat-label">Skills מוכנות</span>
       <span class="stat-sub">הורדה והתקנה מיידית</span>
     </div>
@@ -807,7 +808,7 @@
     <div class="progress-bar-wrap">
       <div class="progress-bar-fill" id="prog-bar"></div>
     </div>
-    <span class="progress-pct" id="prog-pct">0 / 16</span>
+    <span class="progress-pct" id="prog-pct">0 / 17</span>
   </div>
 </div>
 
@@ -1320,6 +1321,33 @@
       </div>
     </a>
 
+    <!-- MODULE 16 -->
+    <a class="module-card" id="card-module-16" href="/courses/ai-master-course/module-16" onclick="openModule('module-16', event)">
+      <div class="module-card-top">
+        <span class="module-num">
+          <span class="module-check">✓</span>
+          MODULE 16
+        </span>
+        <span class="level-badge level-advanced">Master Capstone</span>
+      </div>
+      <div class="module-title-he">FP&A Month-End Reporting Pack</div>
+      <div class="module-title-en">Autonomous Multi-Entity Enterprise System</div>
+      <p class="module-desc">
+        פרויקט דגל מלא: מסגירת חודש של קבוצת חברות דרך M365 ו-5 Skills ייעודיות ועד להפקת מצגת דירקטוריון אוטומטית ב-PowerPoint.
+      </p>
+      <div class="module-footer">
+        <span class="module-length">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+          45–60 דק׳
+        </span>
+        <div class="module-tools">
+          <span class="tool-tag">Enterprise</span>
+          <span class="tool-tag">5 Skills</span>
+          <span class="tool-tag">PowerPoint</span>
+        </div>
+      </div>
+    </a>
+
   </div>
 </section>
 
@@ -1331,7 +1359,7 @@
 
 <script>
   // ── Progress tracking (localStorage) ──────────────────
-  const TOTAL = 16;
+  const TOTAL = 17;
   const storageKey = 'claude-course-progress';
 
   function loadProgress() {
