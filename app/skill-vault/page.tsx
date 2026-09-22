@@ -1,396 +1,507 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import React, { useState, useMemo } from "react";
+import Image from "next/image";
 import Link from "next/link";
-import "../skills-vault.css";
-import promptsData from "../../content/prompts.json";
+import {
+  Search,
+  Sparkles,
+  Layers,
+  Flame,
+  CheckCircle2,
+  Lock,
+  ChevronDown,
+  HelpCircle,
+  X,
+  SlidersHorizontal,
+  FileCode,
+  Laptop,
+  Crown,
+  FileSpreadsheet,
+  ArrowRight,
+  TrendingUp,
+  ShieldCheck,
+  BookOpen,
+} from "lucide-react";
+import {
+  ALL_VAULT_PROMPTS,
+  VAULT_SURFACES,
+  VAULT_CATEGORIES,
+  VAULT_LEVELS,
+  type VaultPrompt,
+} from "@/lib/prompts-vault-data";
+import { PromptCard } from "@/components/skill-vault/PromptCard";
+import { PromptModal } from "@/components/skill-vault/PromptModal";
+import { VaultQuickWins } from "@/components/skill-vault/VaultQuickWins";
+import { VisualDataPipeline } from "@/components/skill-vault/VisualDataPipeline";
+import { HeroBookVisual } from "@/components/skill-vault/HeroBookVisual";
+import DataCleaningModule from "@/components/skill-vault/DataCleaningModule";
+import { VaultPricingComparison } from "@/components/skill-vault/VaultPricingComparison";
 import { VaultCTA } from "@/components/skill-vault/VaultCTA";
 
-// Category Icon Mapping
-const CATEGORY_ICONS: Record<string, string> = {
-  "Automated Financial Reporting": "📊",
-  "Financial Forecasting": "📈",
-  "Financial Reporting Prompts": "📋",
-  "Audit & Compliance Prompts": "🔍",
-  "Budget Analysis and Cost Optimization": "💰",
-  "Budgeting & Forecasting Prompts": "📅",
-  "Contract & Policy Review Prompts": "📜",
-  "Credit Scoring and Loan Assessment": "💳",
-  "Due Diligence & M&A": "🤝",
-  "ESG Analysis": "🌱",
-  "Financial Operating": "💼",
-  General: "✨",
-};
+const FAQS = [
+  {
+    q: "באיזה כלי AI מומלץ להשתמש עם הפרומפטים שבספרייה?",
+    a: "כל הפרומפטים נבדקו והותאמו ל-Claude (3.5 Sonnet / 3.7 Sonnet), ChatGPT (GPT-4o / o1 / o3), ו-Google Gemini. פרומפטים מסוימים מסומנים במיוחד עבור Claude in Excel, Artifacts, או Google Colab.",
+  },
+  {
+    q: "האם הנתונים הפיננסיים של החברה שלי נשארים מאובטחים?",
+    a: "כן. הפרומפטים מיועדים להרצה ישירה בסביבת ה-AI הפרטית שלך (Claude / OpenAI / Colab). שום נתון שתעתיק או תדביק אינו עובר או נשמר בשרתי האתר שלנו. תמיד מומלץ להסיר נתונים מזהים (PII) או להשתמש בחשבון Enterprise/Team בעל מדיניות אי-אימון מודלים (Zero Data Retention).",
+  },
+  {
+    q: "מה ההבדל בין הפרומפטים החינמיים לפרומפטי ה-PRO?",
+    a: "הפרומפטים החינמיים מספקים פתרונות מהירים למשימות נפוצות (חריגות תקציב, סיכום מנהלים, ניקוי אקסל בסיסי). מנויי PRO מקבלים גישה מלאה לכל 102 הפרומפטים, כולל מודלים אינטראקטיביים (Artifacts), סקריפטים מלאים ב-Python ו-VBA, פרומפטי ביקורת עמוקים וקהילת WhatsApp סגורה עם רונן עמוס.",
+  },
+  {
+    q: "איך מפעילים את הפרומפטים של Claude בתוך אקסל?",
+    a: "מתקינים את תוסף Claude for Excel מה-Office Add-ins Store, פותחים את לשונית ה-Add-in, מדביקים את הפרומפט ובוחרים את טווח התאים הרצוי. Claude יקרא ויכתוב ישירות לתוך הגיליון.",
+  },
+];
 
-// First 2 categories open by default
-const DEFAULT_OPEN = new Set([
-  "Automated Financial Reporting",
-  "Financial Forecasting",
-]);
-
-// Quick-win prompt IDs shown in the featured section
-const QUICK_WIN_IDS = ["budget-variance", "kpi-analysis", "exec-summary"];
-
-interface PromptItem {
-  id: string;
-  title: string;
-  category: string;
-  description: string;
-  prompt: string;
-}
-
-const prompts = promptsData as PromptItem[];
-
-// ─── Quick Win Card ────────────────────────────────────────────────────────────
-function QuickWinCard({
-  item,
-  onCopy,
-}: {
-  item: PromptItem;
-  onCopy: (text: string) => void;
-}) {
-  const preview = item.prompt.slice(0, 220).replace(/\r\n/g, "\n");
-  return (
-    <div className="qw-card">
-      <div className="qw-card-top">
-        <span className="vault-card-badge">{item.category}</span>
-        <span className="qw-free-tag">חינם</span>
-      </div>
-      <h3 className="qw-card-title">{item.title}</h3>
-      <p className="qw-card-desc">{item.description}</p>
-      <div className="qw-prompt-preview">
-        <div className="qw-prompt-bar">
-          <span className="qw-prompt-label">Prompt</span>
-        </div>
-        <p className="qw-prompt-text">{preview}…</p>
-      </div>
-      <button
-        className="qw-copy-btn"
-        onClick={() => onCopy(item.prompt)}
-      >
-        📋 העתק Prompt
-      </button>
-    </div>
-  );
-}
-
-// ─── Main Page ─────────────────────────────────────────────────────────────────
 export default function SkillVaultPage() {
   const [searchQuery, setSearchQuery] = useState("");
-  const [activeCategory, setActiveCategory] = useState("all");
-  const [openSections, setOpenSections] = useState<Set<string>>(DEFAULT_OPEN);
-  const [selectedPrompt, setSelectedPrompt] = useState<PromptItem | null>(null);
-  const [showToast, setShowToast] = useState(false);
+  const [selectedSurface, setSelectedSurface] = useState("all");
+  const [selectedLevel, setSelectedLevel] = useState("all");
+  const [selectedCategory, setSelectedCategory] = useState("all");
+  const [accessFilter, setAccessFilter] = useState<"all" | "free" | "pro">("all");
+  const [visibleCount, setVisibleCount] = useState(24);
 
-  const quickWins = useMemo(
-    () =>
-      QUICK_WIN_IDS.map((id) => prompts.find((p) => p.id === id)).filter(
-        Boolean
-      ) as PromptItem[],
-    []
-  );
+  const [selectedPrompt, setSelectedPrompt] = useState<VaultPrompt | null>(null);
+  const [copiedId, setCopiedId] = useState<string | null>(null);
+  const [toastMessage, setToastMessage] = useState<string | null>(null);
 
-  const categories = useMemo(() => {
-    const cats = Array.from(new Set(prompts.map((p) => p.category)));
-    return ["all", ...cats];
-  }, []);
-
-  const filteredGroups = useMemo(() => {
-    const filtered = prompts.filter((item) => {
-      const matchesCategory =
-        activeCategory === "all" || item.category === activeCategory;
-      const matchesSearch =
-        item.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        item.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        item.category.toLowerCase().includes(searchQuery.toLowerCase());
-      return matchesCategory && matchesSearch;
-    });
-
-    return filtered.reduce(
-      (acc, item) => {
-        if (!acc[item.category]) acc[item.category] = [];
-        acc[item.category].push(item);
-        return acc;
-      },
-      {} as Record<string, PromptItem[]>
-    );
-  }, [searchQuery, activeCategory]);
-
-  const toggleSection = (cat: string) => {
-    const next = new Set(openSections);
-    if (next.has(cat)) next.delete(cat);
-    else next.add(cat);
-    setOpenSections(next);
+  // Copy handler with visual feedback
+  const handleCopy = (text: string, idOrEvent?: string | React.MouseEvent) => {
+    if (idOrEvent && typeof idOrEvent !== "string") {
+      idOrEvent.stopPropagation();
+    }
+    navigator.clipboard.writeText(text);
+    const id = typeof idOrEvent === "string" ? idOrEvent : "modal";
+    setCopiedId(id);
+    setToastMessage("הפרומפט הועתק ללוח בהצלחה!");
+    setTimeout(() => {
+      setCopiedId(null);
+      setToastMessage(null);
+    }, 2500);
   };
 
-  const copyPrompt = (text: string) => {
-    navigator.clipboard.writeText(text);
-    setShowToast(true);
-    setTimeout(() => setShowToast(false), 2500);
+  // Filtered prompts calculation
+  const filteredPrompts = useMemo(() => {
+    return ALL_VAULT_PROMPTS.filter((p) => {
+      const matchesSearch =
+        searchQuery.trim() === "" ||
+        p.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        p.prompt.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        p.category.toLowerCase().includes(searchQuery.toLowerCase());
+
+      const matchesSurface =
+        selectedSurface === "all" || p.surface === selectedSurface;
+
+      const matchesLevel =
+        selectedLevel === "all" || p.level === selectedLevel;
+
+      const matchesCategory =
+        selectedCategory === "all" || p.category === selectedCategory;
+
+      const matchesAccess =
+        accessFilter === "all" ||
+        (accessFilter === "free" && p.isFree) ||
+        (accessFilter === "pro" && !p.isFree);
+
+      return matchesSearch && matchesSurface && matchesLevel && matchesCategory && matchesAccess;
+    });
+  }, [searchQuery, selectedSurface, selectedLevel, selectedCategory, accessFilter]);
+
+  const displayedPrompts = useMemo(() => {
+    return filteredPrompts.slice(0, visibleCount);
+  }, [filteredPrompts, visibleCount]);
+
+  const hasActiveFilters =
+    searchQuery !== "" ||
+    selectedSurface !== "all" ||
+    selectedLevel !== "all" ||
+    selectedCategory !== "all" ||
+    accessFilter !== "all";
+
+  const clearFilters = () => {
+    setSearchQuery("");
+    setSelectedSurface("all");
+    setSelectedLevel("all");
+    setSelectedCategory("all");
+    setAccessFilter("all");
+    setVisibleCount(24);
+  };
+
+  // JSON-LD Schema for SEO / GEO
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "ItemList",
+        name: "AI Finance Skill Vault — ספריית הפרומפטים והמודלים הפיננסיים",
+        description: "102 פרומפטים וסקריפטים מוכנים לשימוש לאנשי כספים, CFOs, Controllers ו-FP&A",
+        numberOfItems: ALL_VAULT_PROMPTS.length,
+        itemListElement: ALL_VAULT_PROMPTS.slice(0, 15).map((p, index) => ({
+          "@type": "ListItem",
+          position: index + 1,
+          name: p.title,
+          description: `פרומפט ${p.category} ברמת ${p.level} עבור ${p.surface}`,
+        })),
+      },
+      {
+        "@type": "FAQPage",
+        mainEntity: FAQS.map((faq) => ({
+          "@type": "Question",
+          name: faq.q,
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: faq.a,
+          },
+        })),
+      },
+    ],
   };
 
   return (
-    <div className="vault-container">
+    <div className="min-h-screen bg-space-950 text-slate-100 font-sans selection:bg-cyan-400 selection:text-slate-950 pt-2 pb-20 overflow-x-hidden">
+      {/* Inject Structured Data */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
 
-      {/* ── Hero ─────────────────────────────────────────────────────────── */}
-      <section className="vault-hero">
-        <div className="vault-inner">
-          <p className="vault-hero-eyebrow">Free AI Finance Tools</p>
-          <h1 className="vault-hero-headline">
-            פרומפטים מוכנים לאנשי{" "}
-            <span className="vault-gradient-text">פיננסים</span>
-          </h1>
-          <p className="vault-hero-subtitle">
-            תקציב · P&L · תזרים · תחזית · דוחות לדירקטוריון
-            <br />
-            העתק, הדבק בכל AI — וקבל תוצאות מקצועיות תוך דקות.
-          </p>
+      {/* ── 1. Hero Section (Option 3 Editorial & 3D Visual with Brand Colors) ─────────────────────── */}
+      <section className="relative overflow-hidden border-b border-cyan-500/20 bg-gradient-to-b from-slate-900 via-space-950 to-slate-950 pt-10 pb-16 lg:pb-20 shadow-2xl">
+        {/* Ambient Gradient Glows */}
+        <div className="pointer-events-none absolute -top-24 left-1/2 -translate-x-1/2 h-96 w-[900px] max-w-full rounded-full bg-gradient-to-b from-cyan-500/15 via-royal-500/10 to-transparent blur-3xl z-0" />
 
-          <div className="vault-stats-row">
-            <div className="vault-stat">
-              <span className="vault-gradient-text font-bold text-2xl">22</span>
-              <span className="text-xs text-gray-400">Prompt Templates</span>
+        <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+            {/* Right Column: Copy & Actions */}
+            <div className="lg:col-span-7 text-right">
+              <div className="inline-flex items-center gap-2 rounded-full border border-cyan-400/30 bg-cyan-950/40 px-4 py-1.5 text-xs font-mono font-bold text-cyan-300 shadow-lg shadow-cyan-950/40 backdrop-blur-md mb-6">
+                <Sparkles className="w-4 h-4 text-cyan-400" /> AI Finance Transformation Vault
+              </div>
+
+              <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black text-white tracking-tight leading-[1.15] mb-6">
+                אוצר פרומפטים מובחר ל-
+                <span className="bg-gradient-to-l from-cyan-300 via-teal-300 to-amber-200 bg-clip-text text-transparent">
+                  AI בפיננסים וכספים
+                </span>
+              </h1>
+
+              <p className="text-base sm:text-lg text-slate-300 leading-relaxed mb-8 max-w-xl">
+                פתח תובנות מקצועיות עם ספריית הפרומפטים והמודלים המובילה לאנשי כספים בישראל — תקציב, דוחות, ניתוח סטיות וניקוי נתונים.
+              </p>
+
+              {/* Action Buttons */}
+              <div className="flex flex-col sm:flex-row items-center gap-4 mb-10">
+                <a
+                  href="#prompts"
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-cyan-400 via-teal-400 to-cyan-300 px-8 py-4 text-base font-black text-slate-950 shadow-xl shadow-cyan-500/25 hover:opacity-95 transition-all"
+                >
+                  <Sparkles className="w-5 h-5 text-slate-950" />
+                  <span>גלה את כל הפרומפטים ↓</span>
+                </a>
+                <a
+                  href="#cleaning"
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-2xl border border-cyan-500/30 bg-slate-900/80 px-6 py-4 text-base font-bold text-cyan-300 hover:bg-slate-900 hover:border-cyan-400 transition-all backdrop-blur-md"
+                >
+                  <FileSpreadsheet className="w-5 h-5 text-cyan-400" />
+                  <span>סדנת ניקוי נתונים באקסל</span>
+                </a>
+              </div>
+
+              {/* Stats Row */}
+              <div className="grid grid-cols-3 gap-3 max-w-lg">
+                <div className="rounded-2xl border border-white/10 bg-slate-900/60 p-3.5 text-center backdrop-blur-md">
+                  <span className="block font-mono text-2xl font-black text-cyan-400">102</span>
+                  <span className="text-[11px] text-slate-400 font-medium">פרומפטים מוכנים</span>
+                </div>
+                <div className="rounded-2xl border border-white/10 bg-slate-900/60 p-3.5 text-center backdrop-blur-md">
+                  <span className="block font-mono text-2xl font-black text-amber-300">CFO</span>
+                  <span className="text-[11px] text-slate-400 font-medium">רמת דיוק עסקית</span>
+                </div>
+                <div className="rounded-2xl border border-white/10 bg-slate-900/60 p-3.5 text-center backdrop-blur-md">
+                  <span className="block font-mono text-2xl font-black text-emerald-400">100%</span>
+                  <span className="text-[11px] text-slate-400 font-medium">העתקה מיידית</span>
+                </div>
+              </div>
             </div>
-            <div className="vault-stat-divider" />
-            <div className="vault-stat">
-              <span className="vault-gradient-text font-bold text-2xl">100%</span>
-              <span className="text-xs text-gray-400">Copy & Use</span>
-            </div>
-            <div className="vault-stat-divider" />
-            <div className="vault-stat">
-              <span className="vault-gradient-text font-bold text-2xl">CFO</span>
-              <span className="text-xs text-gray-400">Level Output</span>
+
+            {/* Left Column: 3D Master Vault Visual Book & Prompts Reader with Gumroad Link */}
+            <div className="lg:col-span-5 relative flex justify-center">
+              <HeroBookVisual />
             </div>
           </div>
         </div>
       </section>
 
-      {/* ── Quick Wins ───────────────────────────────────────────────────── */}
-      <section className="vault-skills-section" style={{ paddingTop: 0, paddingBottom: "48px" }}>
-        <div className="vault-inner">
-          <div className="qw-header">
-            <span className="qw-fire">🔥</span>
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mt-12">
+        {/* ── 2. Visual Workflow Pipeline (Option 3 Feature) ───────────── */}
+        <VisualDataPipeline />
+
+        {/* ── 3. Quick Wins Section (Free Starter Prompts) ─────────────── */}
+        <VaultQuickWins onCopy={handleCopy} copiedId={copiedId} />
+
+        {/* ── 4. Data Cleaning & Workflow Studio ─────────────────────────── */}
+        <section id="cleaning" className="mb-20 scroll-mt-20">
+          <DataCleaningModule />
+        </section>
+
+        {/* ── 5. The 102 Prompts Catalog & Search Engine ───────────────── */}
+        <section id="prompts" className="my-16 scroll-mt-20">
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8">
             <div>
-              <h2 className="vault-section-title" style={{ textAlign: "right", marginBottom: "4px" }}>
-                התחל כאן — 3 פרומפטים שתוכל להשתמש בהם עכשיו
+              <div className="inline-flex items-center gap-1.5 font-mono text-xs font-bold text-cyan-400 uppercase tracking-wider mb-2">
+                <Layers className="w-3.5 h-3.5" /> Full Catalog
+              </div>
+              <h2 className="text-2xl sm:text-3xl font-black text-white">
+                קטלוג 102 הפרומפטים והמודלים
               </h2>
-              <p className="vault-section-subtitle" style={{ textAlign: "right", marginBottom: 0 }}>
-                לחץ על "העתק Prompt" והדבק ב-ChatGPT, Claude או Gemini
+              <p className="text-xs sm:text-sm text-slate-400 mt-1">
+                סנן לפי סביבת עבודה, רמת קושי או קטגוריה מקצועית · לחץ על פרומפט לצפייה והעתקה
               </p>
             </div>
-          </div>
 
-          <div className="qw-grid">
-            {quickWins.map((item) => (
-              <QuickWinCard key={item.id} item={item} onCopy={copyPrompt} />
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ── 102 Prompts resource ─────────────────────────────────────────── */}
-      <section className="vault-skills-section" style={{ paddingTop: 0, paddingBottom: "48px" }}>
-        <div className="vault-inner">
-          <div className="vault-for-card" style={{ textAlign: "center" }}>
-            <h2 className="vault-section-title" style={{ marginBottom: "12px" }}>
-              102 פרומפטים <span className="vault-gradient-text">לאנשי כספים</span>
-            </h2>
-            <p className="vault-section-subtitle" style={{ marginBottom: "28px" }}>
-              אוסף מלא של 102 פרומפטים מוכנים לשימוש — דוחות, תחזיות, ניתוח סטיות, ביקורת ובקרה —
-              מסודרים לפי תחום ומוכנים להעתקה.
-            </p>
-            <Link
-              href="/resources/102-prompt"
-              className="inline-flex items-center gap-3 bg-gradient-to-l from-neon-cyan to-neon-teal text-space-950 font-black text-xl px-12 py-6 rounded-2xl shadow-2xl shadow-neon-cyan/20 hover:opacity-90 transition-opacity"
-            >
-              <span>לכל 102 הפרומפטים</span>
-              <span aria-hidden="true">←</span>
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* ── Who Is This For ──────────────────────────────────────────────── */}
-      <section className="vault-for-section">
-        <div className="vault-inner">
-          <h2 className="vault-section-title">
-            למי זה <span className="vault-gradient-text">מתאים?</span>
-          </h2>
-          <div className="vault-for-grid">
-            <div className="vault-for-card">
-              <div className="vault-for-icon">📊</div>
-              <h3>FP&A Analysts</h3>
-              <p>תחזיות, ניתוח סטיות תקציב, דוחות ביצוע חודשיים</p>
-            </div>
-            <div className="vault-for-card">
-              <div className="vault-for-icon">🏦</div>
-              <h3>CFOs & Controllers</h3>
-              <p>סיכומי מנהלים לדירקטוריון, ניתוח KPI, תחזית תזרים</p>
-            </div>
-            <div className="vault-for-card">
-              <div className="vault-for-icon">🧾</div>
-              <h3>רואי חשבון</h3>
-              <p>ביקורת יומנים, ניתוח התאמות, דוחות ציות ורגולציה</p>
+            {/* Access Toggle Filter (All vs Free vs Pro) */}
+            <div className="flex items-center rounded-xl border border-white/10 bg-slate-900/90 p-1 self-start md:self-auto shadow-lg">
+              <button
+                type="button"
+                onClick={() => setAccessFilter("all")}
+                className={`rounded-lg px-3 py-1.5 text-xs font-bold transition-all ${
+                  accessFilter === "all"
+                    ? "bg-cyan-500/20 text-cyan-300 border border-cyan-500/30"
+                    : "text-slate-400 hover:text-white"
+                }`}
+              >
+                הכל ({ALL_VAULT_PROMPTS.length})
+              </button>
+              <button
+                type="button"
+                onClick={() => setAccessFilter("free")}
+                className={`rounded-lg px-3 py-1.5 text-xs font-bold transition-all ${
+                  accessFilter === "free"
+                    ? "bg-emerald-500/20 text-emerald-300 border border-emerald-500/30"
+                    : "text-slate-400 hover:text-white"
+                }`}
+              >
+                חינם בלבד ({ALL_VAULT_PROMPTS.filter((p) => p.isFree).length})
+              </button>
+              <button
+                type="button"
+                onClick={() => setAccessFilter("pro")}
+                className={`rounded-lg px-3 py-1.5 text-xs font-bold transition-all ${
+                  accessFilter === "pro"
+                    ? "bg-amber-500/20 text-amber-300 border border-amber-500/30"
+                    : "text-slate-400 hover:text-white"
+                }`}
+              >
+                פרומפטי Pro ({ALL_VAULT_PROMPTS.filter((p) => !p.isFree).length})
+              </button>
             </div>
           </div>
-        </div>
-      </section>
 
-      {/* ── All Prompts ──────────────────────────────────────────────────── */}
-      <section id="skills" className="vault-skills-section">
-        <div className="vault-inner">
-          <h2 className="vault-section-title">
-            כל ה-<span className="vault-gradient-text">Prompts</span>
-          </h2>
-          <p className="vault-section-subtitle">
-            לחץ על קטגוריה לפתיחה · לחץ על "העתק Prompt" לשימוש מיידי
-          </p>
-
-          <div className="vault-filter-controls">
-            <div className="vault-search-wrapper">
+          {/* Search Bar & Multi-Filters */}
+          <div className="rounded-3xl border border-white/10 bg-slate-900/70 p-5 sm:p-6 backdrop-blur-xl mb-8 space-y-5 shadow-2xl">
+            {/* Search Input Row */}
+            <div className="relative">
               <input
                 type="text"
-                placeholder="חפש פרומפט..."
-                className="vault-search-input"
+                placeholder="חפש לפי מילת מפתח (תקציב, P&L, ביקורת, תזרים, Excel, Python...)"
                 value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
+                onChange={(e) => {
+                  setSearchQuery(e.target.value);
+                  setVisibleCount(24);
+                }}
+                className="w-full rounded-2xl border border-white/15 bg-slate-950/90 py-3.5 pr-12 pl-10 text-sm text-white placeholder:text-slate-500 focus:border-cyan-400 focus:outline-none focus:ring-2 focus:ring-cyan-500/20 transition-all text-right shadow-inner"
               />
-              <span className="absolute right-4 top-1/2 -translate-y-1/2 opacity-60">
-                🔍
-              </span>
-            </div>
-            <div className="vault-category-filters">
-              {categories.map((cat) => (
+              <Search className="absolute right-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
+              {searchQuery && (
                 <button
-                  key={cat}
-                  className={`vault-filter-chip ${activeCategory === cat ? "active" : ""}`}
-                  onClick={() => setActiveCategory(cat)}
+                  onClick={() => setSearchQuery("")}
+                  className="absolute left-4 top-1/2 -translate-y-1/2 rounded-full p-1 text-slate-400 hover:bg-white/10 hover:text-white"
                 >
-                  {cat === "all" ? "הכל" : cat}
+                  <X className="w-4 h-4" />
+                </button>
+              )}
+            </div>
+
+            {/* Surface Tabs */}
+            <div className="flex flex-wrap items-center gap-2">
+              <span className="text-xs font-bold text-slate-400 ml-2">סביבת עבודה:</span>
+              {VAULT_SURFACES.map((s) => (
+                <button
+                  key={s.id}
+                  onClick={() => {
+                    setSelectedSurface(s.id);
+                    setVisibleCount(24);
+                  }}
+                  className={`rounded-xl px-3.5 py-1.5 text-xs font-medium transition-all ${
+                    selectedSurface === s.id
+                      ? "border border-cyan-400/60 bg-cyan-400/20 text-cyan-300 font-bold shadow-sm"
+                      : "border border-white/10 bg-white/5 text-slate-300 hover:bg-white/10 hover:text-white"
+                  }`}
+                >
+                  {s.label}
                 </button>
               ))}
             </div>
-          </div>
 
-          <div className="vault-skills-container">
-            {Object.keys(filteredGroups).map((cat, index) => {
-              const items = filteredGroups[cat];
-              const isGroupOpen =
-                activeCategory !== "all" ||
-                searchQuery.length > 0 ||
-                openSections.has(cat);
-
-              return (
-                <section key={cat} className="vault-category-section">
+            {/* Sub-Filters: Level & Category */}
+            <div className="flex flex-wrap items-center justify-between gap-4 pt-3 border-t border-white/10 text-xs">
+              <div className="flex flex-wrap items-center gap-2">
+                <span className="font-bold text-slate-400 ml-1">רמת קושי:</span>
+                {VAULT_LEVELS.map((lvl) => (
                   <button
-                    className="vault-category-header"
-                    onClick={() => toggleSection(cat)}
+                    key={lvl.id}
+                    onClick={() => {
+                      setSelectedLevel(lvl.id);
+                      setVisibleCount(24);
+                    }}
+                    className={`rounded-lg px-2.5 py-1 font-bold transition-all ${
+                      selectedLevel === lvl.id
+                        ? "bg-cyan-500/20 text-cyan-300 border border-cyan-500/30"
+                        : "bg-white/5 text-slate-300 hover:text-white border border-white/5"
+                    }`}
                   >
-                    <div className="vault-category-title">
-                      <span>{CATEGORY_ICONS[cat] || "✨"}</span>
-                      <span>{cat}</span>
-                    </div>
-                    <div className="flex items-center gap-4">
-                      <span className="vault-card-badge">{items.length}</span>
-                      <span
-                        className={`transition-transform duration-300 ${isGroupOpen ? "rotate-180" : ""}`}
-                      >
-                        ▼
-                      </span>
-                    </div>
+                    {lvl.label}
                   </button>
+                ))}
+              </div>
 
-                  {isGroupOpen && (
-                    <div className="vault-category-content">
-                      {items.map((item) => (
-                        <article
-                          key={item.id}
-                          className="vault-card"
-                          onClick={() => setSelectedPrompt(item)}
-                        >
-                          <div className="text-3xl mb-2">
-                            {CATEGORY_ICONS[cat] || "✨"}
-                          </div>
-                          <div className="vault-card-badge">{cat}</div>
-                          <h3 className="vault-card-title">{item.title}</h3>
-                          <p className="vault-card-desc">{item.description}</p>
-                          <button
-                            className="vault-btn-copy"
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              copyPrompt(item.prompt);
-                            }}
-                          >
-                            העתק Prompt
-                          </button>
-                        </article>
-                      ))}
-                    </div>
-                  )}
-                </section>
-              );
-            })}
-          </div>
-        </div>
-      </section>
-
-      {/* ── CTA ──────────────────────────────────────────────────────────── */}
-      <VaultCTA />
-
-      {/* ── Modal ────────────────────────────────────────────────────────── */}
-      {selectedPrompt && (
-        <div
-          className="vault-modal-overlay"
-          onClick={() => setSelectedPrompt(null)}
-        >
-          <div
-            className="vault-modal-box"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <div className="flex justify-between items-center mb-6">
-              <h3 className="vault-card-title text-xl">
-                {selectedPrompt.title}
-              </h3>
-              <button
-                className="text-gray-400 hover:text-white text-2xl"
-                onClick={() => setSelectedPrompt(null)}
-              >
-                ✕
-              </button>
+              <div className="flex items-center gap-2">
+                <span className="font-bold text-slate-400">קטגוריה:</span>
+                <select
+                  value={selectedCategory}
+                  onChange={(e) => {
+                    setSelectedCategory(e.target.value);
+                    setVisibleCount(24);
+                  }}
+                  className="rounded-lg border border-white/15 bg-slate-950 px-3 py-1.5 text-xs text-slate-200 focus:border-cyan-400 focus:outline-none"
+                >
+                  <option value="all">כל הקטגוריות ({VAULT_CATEGORIES.length})</option>
+                  {VAULT_CATEGORIES.map((cat) => (
+                    <option key={cat} value={cat}>
+                      {cat}
+                    </option>
+                  ))}
+                </select>
+              </div>
             </div>
-            <p className="text-sm text-gray-300 mb-4 text-right">
-              העתק את ה-Prompt הבא והדבק בכל כלי AI:
-            </p>
-            <div className="bg-black/30 border border-teal-900/50 rounded-lg p-6 mb-6 text-right dir-rtl">
-              <p className="whitespace-pre-wrap leading-relaxed text-gray-100">
-                {selectedPrompt.prompt}
+
+            {/* Results Counter & Clear Filter */}
+            <div className="flex items-center justify-between text-xs text-slate-400 pt-1">
+              <span>
+                מציג <strong className="text-cyan-400 font-bold">{filteredPrompts.length}</strong> פרומפטים
+                {hasActiveFilters ? ` מתוך ${ALL_VAULT_PROMPTS.length}` : ""}
+              </span>
+              {hasActiveFilters && (
+                <button
+                  type="button"
+                  onClick={clearFilters}
+                  className="flex items-center gap-1 text-xs text-cyan-400 hover:underline font-bold"
+                >
+                  <X className="w-3.5 h-3.5" /> נקה סינונים
+                </button>
+              )}
+            </div>
+          </div>
+
+          {/* Prompts Cards Grid */}
+          {filteredPrompts.length === 0 ? (
+            <div className="rounded-3xl border border-white/10 bg-slate-900/40 p-12 text-center">
+              <Search className="w-10 h-10 text-slate-600 mx-auto mb-3" />
+              <h3 className="text-lg font-bold text-white mb-1">לא נמצאו פרומפטים תואמים</h3>
+              <p className="text-xs text-slate-400 mb-4">
+                נסה לשנות את מילת החיפוש או לאפס את המסננים.
               </p>
-            </div>
-            <div className="flex gap-4">
               <button
-                className="vault-btn-copy flex-1 py-3 text-base font-bold bg-teal-400 text-black hover:bg-teal-300"
-                onClick={() => {
-                  copyPrompt(selectedPrompt.prompt);
-                  setSelectedPrompt(null);
-                }}
+                type="button"
+                onClick={clearFilters}
+                className="rounded-xl border border-cyan-500/30 bg-cyan-500/10 px-4 py-2 text-xs font-bold text-cyan-300 hover:bg-cyan-500/20"
               >
-                📋 העתק Prompt
-              </button>
-              <button
-                className="flex-1 py-3 border border-gray-700 rounded-lg text-gray-400 hover:text-white"
-                onClick={() => setSelectedPrompt(null)}
-              >
-                סגור
+                איפוס כל המסננים
               </button>
             </div>
-          </div>
-        </div>
-      )}
+          ) : (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+              {displayedPrompts.map((p) => (
+                <PromptCard
+                  key={p.id}
+                  prompt={p}
+                  onOpenModal={(item) => setSelectedPrompt(item)}
+                  onCopy={(text, e) => handleCopy(text, e)}
+                  isCopied={copiedId === "modal" || copiedId === p.id}
+                />
+              ))}
+            </div>
+          )}
 
-      {/* ── Toast ────────────────────────────────────────────────────────── */}
-      {showToast && (
-        <div className="fixed bottom-10 left-1/2 -translate-x-1/2 bg-teal-500/20 border border-teal-500 text-teal-400 px-8 py-3 rounded-full font-bold shadow-2xl z-[300] animate-bounce">
-          ✅ הועתק ללוח
+          {/* Load More Button */}
+          {filteredPrompts.length > visibleCount && (
+            <div className="mt-10 text-center">
+              <button
+                type="button"
+                onClick={() => setVisibleCount((prev) => prev + 24)}
+                className="inline-flex items-center gap-2 rounded-2xl border border-cyan-500/30 bg-slate-900 px-8 py-3.5 text-sm font-bold text-cyan-300 hover:bg-slate-850 hover:border-cyan-500/50 shadow-lg shadow-cyan-950/40 transition-all"
+              >
+                <span>טען עוד פרומפטים ({filteredPrompts.length - visibleCount} נותרו)</span>
+                <ChevronDown className="w-4 h-4" />
+              </button>
+            </div>
+          )}
+        </section>
+
+        {/* ── 6. Value Stack Comparison Matrix (Free vs Pro) ─────────────── */}
+        <VaultPricingComparison />
+
+        {/* ── 7. Zero-Click SEO & FAQ Section ─────────────────────────────── */}
+        <section className="my-16 max-w-4xl mx-auto">
+          <div className="text-center mb-8">
+            <div className="inline-flex items-center gap-1.5 font-mono text-xs font-bold text-cyan-400 uppercase tracking-wider mb-2">
+              <HelpCircle className="w-3.5 h-3.5" /> שאלות נפוצות
+            </div>
+            <h2 className="text-2xl sm:text-3xl font-black text-white">
+              כל מה שצריך לדעת על השימוש ב-Skill Vault
+            </h2>
+          </div>
+
+          <div className="space-y-4">
+            {FAQS.map((faq, index) => (
+              <div
+                key={index}
+                className="rounded-2xl border border-white/10 bg-slate-900/60 p-5 sm:p-6 backdrop-blur-xl text-right shadow-md"
+              >
+                <h3 className="text-base sm:text-lg font-bold text-white mb-2 flex items-center gap-2">
+                  <span className="text-cyan-400 font-black">Q.</span>
+                  {faq.q}
+                </h3>
+                <p className="text-xs sm:text-sm text-slate-300 leading-relaxed pr-6">
+                  {faq.a}
+                </p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* ── 8. Community & Newsletter CTA ──────────────────────────────── */}
+        <VaultCTA />
+      </div>
+
+      {/* ── Prompt Modal ─────────────────────────────────────────────────── */}
+      <PromptModal
+        prompt={selectedPrompt}
+        onClose={() => setSelectedPrompt(null)}
+        onCopy={(text) => handleCopy(text, selectedPrompt?.id)}
+        isCopied={copiedId === selectedPrompt?.id || copiedId === "modal"}
+      />
+
+      {/* ── Floating Toast Confirmation ──────────────────────────────────── */}
+      {toastMessage && (
+        <div className="fixed bottom-8 left-1/2 -translate-x-1/2 z-50 flex items-center gap-2 rounded-full border border-emerald-500/40 bg-slate-900/95 px-6 py-3 font-mono text-xs font-bold text-emerald-300 shadow-2xl backdrop-blur-xl animate-in slide-in-from-bottom-5">
+          <CheckCircle2 className="w-4 h-4 text-emerald-400" />
+          <span>{toastMessage}</span>
         </div>
       )}
     </div>
