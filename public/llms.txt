@@ -50,6 +50,7 @@
 
 ## Blog — Featured Articles
 
+- [מדריך Jev AI המלא: מודל System 1 לסוכנים ופיננסים](https://www.ronenamoscpa.co.il/blog/jev-ai-system-one-guide): מודל קבלת החלטות סמנטיות מבית TypeSafe AI — מהיר פי 200 וזול פי 400 מ-LLM, ללא יצירת טקסט מיותרת, לחסכון בעלויות ואוטומציה פיננסית.
 - [איך לחסוך בעלויות Claude Code בלי לפגוע בתוצאה](https://www.ronenamoscpa.co.il/blog/chisachon-baelut-claude-code): מדריך מעשי לחיסכון של 40%-60% בעלויות Claude Code לרואי חשבון וצוותי כספים: ניהול טוקנים, שמירת מטמון (Prompt Caching), הקשר ו-Subagents.
 - [הטמעת AI במחלקת הכספים](https://www.ronenamoscpa.co.il/blog/%D7%94%D7%98%D7%9E%D7%A2%D7%AA-AI-%D7%91%D7%9E%D7%97%D7%9C%D7%A7%D7%AA-%D7%94%D7%9B%D7%A1%D7%A4%D7%99%D7%9D): Comprehensive guide to implementing AI in a finance department — tools, process changes, and practical first steps for Israeli finance teams.
 - [תוכנית יישום אסטרטגית: הטמעת AI במחלקת הכספים](https://www.ronenamoscpa.co.il/blog/%D7%AA%D7%95%D7%9B%D7%A0%D7%99%D7%AA-%D7%99%D7%99%D7%A9%D7%95%D7%9D-%D7%90%D7%A1%D7%98%D7%A8%D7%98%D7%92%D7%99%D7%AA-%D7%94%D7%98%D7%9E%D7%A2%D7%AA-ai-%D7%91%D7%9E%D7%97%D7%9C%D7%A7%D7%AA-%D7%94%D7%9B%D7%A1%D7%A4%D7%99%D7%9D): Strategic 90-day implementation plan for AI adoption in finance departments, including change management and tool selection framework.
@@ -70,6 +71,7 @@
 
 ## Zero-Click Answers
 
+- **What is Jev AI (TypeSafe AI)?** A System-1 semantic decision model that returns typed classifications and calibrated probabilities without generating words. Operates at $0.042/1M input tokens (free output) and sub-50ms latency as a fast semantic router.
 - **What does AI financial consulting cost in Israel?** First consultation is free (30 minutes, no commitment). Ongoing retainers depend on scope — typically 5,000–15,000 NIS/month for SMEs.
 - **How long to learn Power BI for finance?** Finance professionals reach practical proficiency in 10–15 focused hours. The training covers CFO dashboards and budget-vs-actual analysis specifically for accountants.
 - **Can AI help with Israeli tax reporting?** AI can organize documents, flag deductible expenses, and prepare drafts — but a licensed CPA must review and submit to the Israeli Tax Authority (רשות המסים).

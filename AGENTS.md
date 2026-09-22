@@ -1,25 +1,38 @@
-# AI Finance — Ronen Amos CPA Site
-
-## Project Info
-
-- **Repo:** https://github.com/ronenamos-arch/Amos_AI_SITE
-- **Live URL:** https://www.ronenamoscpa.co.il
-- **Hosting:** Vercel (auto-deploys from `main` branch)
-- **Database:** Supabase (PostgreSQL + Auth)
-- **Payments:** PayPal (production + sandbox)
-- **Email:** Resend (transactional emails)
-- **Email domain:** amosbudget.com (verified in Resend — `RESEND_FROM_EMAIL=AI Finance <noreply@amosbudget.com>`)
-
-## Tech Stack
-
-- Next.js 16 (App Router)
-- React 19
-- TypeScript
-- Tailwind CSS 4
-- Supabase (auth + DB)
-- PayPal (`@paypal/react-paypal-js`)
-- Resend (email sending)
-- Google Generative AI (Gemini chatbot)
+# AI Finance — Ronen Amos CPA Site
+
+## 🛑 STRICT WORKFLOW & DEPLOYMENT RULES (MUST FOLLOW)
+
+1. **NEVER auto-deploy (`git push`) without explicit user permission.**
+   - All content creation, asset downloads, and edits are strictly local first.
+   - Always run `node scripts/generate-posts-index.mjs`.
+   - Provide a clickable **`http://localhost:3000/blog/<slug>`** URL for the user to review first.
+   - Wait for the user's explicit approval before committing or pushing to `origin main`.
+2. **Project Separation & Scope:**
+   - This project is **`ronenamoscpa.co.il`** (AI Finance Transformation for Israeli CFOs, FP&A, CPAs).
+   - Content sources: **Gmail newsletters** (via Composio) or **Direct user input** (NO Notion).
+   - CTAs: Finance AI Services (`/services`), Courses (`/courses/ai-mastery`, `/courses/notebook-master`), Skill Vault (`/skill-vault`), Guides (`/guides`), Newsletter (`/api/subscribe`).
+   - Use the dedicated workspace skill: `ronenamoscpa-content-publisher`.
+
+## Project Info
+
+- **Repo:** https://github.com/ronenamos-arch/Amos_AI_SITE
+- **Live URL:** https://www.ronenamoscpa.co.il
+- **Hosting:** Vercel (auto-deploys from `main` branch)
+- **Database:** Supabase (PostgreSQL + Auth)
+- **Payments:** PayPal (production + sandbox)
+- **Email:** Resend (transactional emails)
+- **Email domain:** amosbudget.com (verified in Resend — `RESEND_FROM_EMAIL=AI Finance <noreply@amosbudget.com>`)
+
+## Tech Stack
+
+- Next.js 16 (App Router)
+- React 19
+- TypeScript
+- Tailwind CSS 4
+- Supabase (auth + DB)
+- PayPal (`@paypal/react-paypal-js`)
+- Resend (email sending)
+- Google Generative AI (Gemini chatbot)
 - Framer Motion (animations)
 
 ## Key Directories
