@@ -37,24 +37,26 @@ export function ResourcesDropdown() {
 
             {open && (
                 <div
-                    className="absolute top-full right-0 mt-2 w-64 rounded-xl overflow-hidden z-50"
+                    className="absolute top-full right-0 mt-2 w-64 rounded-xl overflow-hidden z-50 shadow-2xl"
                     style={{
-                        background: "rgba(2, 6, 23, 0.98)",
-                        backdropFilter: "blur(20px)",
-                        border: "1px solid rgba(255,255,255,0.08)",
+                        background: "#080D1A",
+                        border: "1px solid rgba(255, 255, 255, 0.16)",
+                        boxShadow: "0 20px 40px -10px rgba(0,0,0,0.9), 0 0 0 1px rgba(255,255,255,0.08)",
                     }}
                 >
-                    {resources.map((resource) => (
-                        <Link
-                            key={resource.slug}
-                            href={`/resources/${resource.slug}`}
-                            onClick={() => setOpen(false)}
-                            className="block px-4 py-3 text-sm transition-colors hover:text-teal-400 hover:bg-white/5"
-                            style={{ color: "#e2e8f0" }}
-                        >
-                            {resource.title}
-                        </Link>
-                    ))}
+                    <div className="py-1">
+                        {resources.map((resource) => (
+                            <Link
+                                key={resource.slug}
+                                href={`/resources/${resource.slug}`}
+                                onClick={() => setOpen(false)}
+                                className="block px-4 py-3 text-sm font-medium transition-colors hover:text-cyan-300 hover:bg-slate-800/80"
+                                style={{ color: "#F1F5F9" }}
+                            >
+                                {resource.title}
+                            </Link>
+                        ))}
+                    </div>
                 </div>
             )}
         </div>

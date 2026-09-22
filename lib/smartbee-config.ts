@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Central SmartBee payment configuration for ronenamoscpa.co.il
  * Replaces PayPal with SmartBee (Max terminal, Bit, credit cards, automatic digital invoices)
  */
@@ -47,6 +47,12 @@ export const SMARTBEE_CONFIG = {
             price: 100,
             currency: "ILS",
             url: "https://smartbee.co.il/public-pages/?redirect-path=pay/6aa952983d393becc5dd0bd1",
+        },
+        arCommandCenter: {
+            name: "חמ״ל ניהול חייבים ותזרים ב-AI (AR Command Center v2.4)",
+            price: 99,
+            currency: "ILS",
+            url: "", // Will be filled once Ronen generates the SmartBee payment page
         },
     },
 } as const;

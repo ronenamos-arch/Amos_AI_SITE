@@ -11,6 +11,7 @@ const navLinks = [
   { href: "/", label: "בית" },
   { href: "/about", label: "אודות" },
   { href: "/services", label: "שירותים" },
+  { href: "/products", label: "מוצרים" },
   { href: "/training", label: "הכשרות" },
   { href: "/courses", label: "קורסים" },
   { href: "/skill-vault", label: "ספריית פרומפטים" },

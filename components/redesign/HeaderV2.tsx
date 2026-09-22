@@ -8,6 +8,7 @@ import { createClient } from "@/lib/supabase/client";
 import { SMARTBEE_CONFIG } from "@/lib/smartbee-config";
 
 const resources = [
+    { href: "/products", label: "מוצרים דיגיטליים" },
     { href: "/guides", label: "מדריכים" },
     { href: "/skill-vault", label: "ספריית הפרומפטים והסקילים" },
     { href: "/lessons", label: "וובינרים" },
@@ -83,15 +84,15 @@ export function HeaderV2() {
                             <ChevronDown size={14} />
                         </button>
                         {resourcesOpen && (
-                            <div className="absolute top-full right-0 w-56 rounded-xl border border-[var(--rv2-border-strong)] bg-[var(--rv2-surface)] p-2 shadow-xl">
+                            <div className="absolute top-full right-0 w-60 rounded-xl border border-white/20 bg-[#080D1A] p-2 shadow-2xl z-50">
                                 {resources.map((r) => (
-                                    <Link
-                                        key={r.href}
-                                        href={r.href}
-                                        className="rv2-link block rounded-lg px-3 py-2 text-sm hover:bg-[var(--rv2-surface-2)]"
-                                    >
-                                        {r.label}
-                                    </Link>
+                                     <Link
+                                         key={r.href}
+                                         href={r.href}
+                                         className="block rounded-lg px-3.5 py-2.5 text-sm font-medium text-slate-100 hover:bg-slate-800/90 hover:text-cyan-300 transition-colors"
+                                     >
+                                         {r.label}
+                                     </Link>
                                 ))}
                             </div>
                         )}
