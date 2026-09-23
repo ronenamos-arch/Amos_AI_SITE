@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createAdminClient } from "@/lib/supabase-admin";
-import { sendCoursePurchaseEmail, sendBundlePurchaseEmail, sendAdminNotification } from "@/lib/mailer";
+import { sendCoursePurchaseEmail, sendBundlePurchaseEmail, sendAdminNotification, sendPurchaseEmail } from "@/lib/mailer";
 
 export const runtime = "nodejs";
 
@@ -173,27 +173,155 @@ export async function POST(req: NextRequest) {
             }
         }
 
-        // 3. Fallback: Log payment record if table exists
-        try {
-            await supabase
+        // 3. Subscription or General Payment Handling (e.g. Monthly Pro Subscription ₪100)
+        const normalizedEmail = payerEmail?.toLowerCase().trim();
+        if (normalizedEmail) {
+            const transactionId = (purchaseId ? String(purchaseId) : null)
+                || (invoiceNumber ? `Smartbee-${invoiceNumber}` : `Smartbee-${Date.now().toString().slice(-6)}`);
+
+            // Idempotency: check if this payment was already processed
+            const { data: existingPayment } = await supabase
                 .from("payment_records")
-                .insert({
-                    provider: "smartbee",
-                    payer_email: payerEmail || "unknown",
-                    payer_name: payerName,
-                    amount: amount ? Number(amount) : null,
-                    invoice_number: invoiceNumber || null,
-                    invoice_url: documentUrl || null,
-                    raw_payload: body,
-                    created_at: new Date().toISOString(),
-                })
-                .select()
+                .select("id")
+                .eq("paypal_order_id", transactionId)
                 .maybeSingle();
-        } catch {
-            // non-fatal
+
+            if (existingPayment) {
+                console.log(`[SmartBee Webhook] Transaction ${transactionId} already recorded, skipping.`);
+                return NextResponse.json({ success: true, alreadyProcessed: true });
+            }
+
+            // A. Find or create user in Supabase auth
+            const { data: usersData } = await supabase.auth.admin.listUsers();
+            let user = usersData?.users.find((u) => u.email?.toLowerCase() === normalizedEmail);
+            let userId: string;
+
+            if (user) {
+                userId = user.id;
+            } else {
+                const tempPassword = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+                const { data: newUser, error: createErr } = await supabase.auth.admin.createUser({
+                    email: normalizedEmail,
+                    password: tempPassword,
+                    email_confirm: true,
+                    user_metadata: {
+                        full_name: payerName,
+                    },
+                });
+
+                if (createErr || !newUser?.user) {
+                    console.error("[SmartBee Webhook] Error creating auth user:", createErr);
+                    throw createErr || new Error("Failed to create user");
+                }
+
+                userId = newUser.user.id;
+            }
+
+            // B. Upsert Profile with active monthly subscription
+            const now = new Date();
+            const endDate = new Date(now.getTime() + 30 * 24 * 60 * 60 * 1000).toISOString();
+
+            const { error: profileErr } = await supabase.from("profiles").upsert({
+                id: userId,
+                email: normalizedEmail,
+                subscription_status: "monthly",
+                subscription_end_date: endDate,
+                is_premium: true,
+                updated_at: now.toISOString(),
+            });
+
+            if (profileErr) {
+                console.error("[SmartBee Webhook] Error updating profile:", profileErr);
+            }
+
+            // C. Insert Payment Record
+            const paidAmount = amount ? Number(amount) : 100;
+            const { error: paymentErr } = await supabase.from("payment_records").insert({
+                user_id: userId,
+                amount: paidAmount,
+                currency: "ILS",
+                paypal_order_id: transactionId,
+                status: "COMPLETED",
+                created_at: now.toISOString(),
+            });
+
+            if (paymentErr) {
+                console.warn("[SmartBee Webhook] Payment record insert warning:", paymentErr.message);
+            }
+
+            // D. Upsert newsletter subscriber & sync to Resend Audience
+            try {
+                await supabase.from("newsletter_subscribers").upsert(
+                    {
+                        email: normalizedEmail,
+                        name: payerName !== "לקוח יקר" ? payerName : null,
+                        source: "smartbee-subscription",
+                        status: "active",
+                        subscribed_at: now.toISOString(),
+                    },
+                    { onConflict: "email" }
+                );
+            } catch {
+                // non-fatal
+            }
+
+            const audienceId = process.env.RESEND_AUDIENCE_ID;
+            if (audienceId) {
+                try {
+                    const { getResend } = await import("@/lib/resend");
+                    await getResend().contacts.create({
+                        audienceId,
+                        email: normalizedEmail,
+                        firstName: payerName.split(" ")[0] || undefined,
+                        lastName: payerName.split(" ").slice(1).join(" ") || undefined,
+                        unsubscribed: false,
+                    });
+                } catch (resendErr) {
+                    console.warn("[SmartBee Webhook] Resend audience sync warning:", resendErr);
+                }
+            }
+
+            // E. Generate 1-click magic login link
+            const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.ronenamoscpa.co.il";
+            let loginUrl: string | null = null;
+            try {
+                const { data: linkData, error: linkErr } = await supabase.auth.admin.generateLink({
+                    type: "magiclink",
+                    email: normalizedEmail,
+                });
+
+                if (!linkErr && linkData?.properties?.hashed_token) {
+                    loginUrl = `${siteUrl}/auth/confirm?token_hash=${linkData.properties.hashed_token}&type=magiclink&next=%2Fdashboard`;
+                }
+            } catch (linkEx) {
+                console.warn("[SmartBee Webhook] Error generating login link:", linkEx);
+            }
+
+            // F. Send Welcome Purchase Email to Customer
+            await sendPurchaseEmail({
+                to: normalizedEmail,
+                planName: "מנוי חודשי גמיש",
+                amount: paidAmount,
+                orderId: transactionId,
+                loginUrl,
+            }).catch((emailErr) => {
+                console.error("[SmartBee Webhook] Customer welcome email failed:", emailErr);
+            });
+
+            // G. Send Admin Notification to Ronen
+            await sendAdminNotification({
+                eventType: "רכישת מנוי חודשי חדשה (SmartBee)",
+                userEmail: normalizedEmail,
+                details: `מנוי חודשי הופעל בהצלחה!\nשם: ${payerName}\nאימייל: ${normalizedEmail}\nסכום: ₪${paidAmount}\nמזהה: ${transactionId}\nחשבונית: ${documentUrl || invoiceNumber || "הופקה ב-SmartBee"}\nתוקף מנוי: ${endDate}\nIP: ${clientIp}`,
+            }).catch((adminErr) => {
+                console.error("[SmartBee Webhook] Admin notification email failed:", adminErr);
+            });
+
+            return NextResponse.json({ success: true, processed: "monthly_subscription" });
         }
 
-        return NextResponse.json({ success: true, logged: true });
+        console.warn("[SmartBee Webhook] Unrecognized event without customer email:", body);
+        return NextResponse.json({ success: true, logged: false, reason: "no_email" });
     } catch (err: any) {
         console.error("[SmartBee Webhook Error]:", err);
         return NextResponse.json(

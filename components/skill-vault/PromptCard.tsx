@@ -9,6 +9,7 @@ interface PromptCardProps {
   onOpenModal: (prompt: VaultPrompt) => void;
   onCopy: (text: string, e: React.MouseEvent) => void;
   isCopied: boolean;
+  isPro?: boolean;
 }
 
 const LEVEL_COLORS: Record<string, { bg: string; text: string; border: string }> = {
@@ -35,23 +36,26 @@ const LEVEL_LABELS: Record<string, string> = {
   Advanced: "מתקדם",
 };
 
-export function PromptCard({ prompt, onOpenModal, onCopy, isCopied }: PromptCardProps) {
+export function PromptCard({ prompt, onOpenModal, onCopy, isCopied, isPro }: PromptCardProps) {
   const levelStyle = LEVEL_COLORS[prompt.level] || LEVEL_COLORS.Beginner;
   const levelLabel = LEVEL_LABELS[prompt.level] || prompt.level;
+  const isUnlocked = prompt.isFree || Boolean(isPro);
 
   return (
     <div
       onClick={() => onOpenModal(prompt)}
       className={`group relative flex flex-col justify-between rounded-2xl border p-5 backdrop-blur-xl transition-all duration-300 hover:-translate-y-1.5 cursor-pointer overflow-hidden ${
-        prompt.isFree
-          ? "border-cyan-500/20 bg-gradient-to-b from-slate-900/90 via-slate-900/80 to-space-950/95 shadow-lg shadow-black/40 hover:border-cyan-400 hover:shadow-[0_12px_35px_rgba(34,211,238,0.18)]"
+        isUnlocked
+          ? prompt.isFree
+            ? "border-cyan-500/20 bg-gradient-to-b from-slate-900/90 via-slate-900/80 to-space-950/95 shadow-lg shadow-black/40 hover:border-cyan-400 hover:shadow-[0_12px_35px_rgba(34,211,238,0.18)]"
+            : "border-teal-500/30 bg-gradient-to-b from-slate-900/90 via-slate-900/80 to-teal-950/25 shadow-lg shadow-black/40 hover:border-teal-400 hover:shadow-[0_12px_35px_rgba(45,212,191,0.2)]"
           : "border-amber-400/30 bg-gradient-to-b from-slate-900/90 via-slate-900/90 to-amber-950/25 shadow-lg shadow-black/40 hover:border-amber-400 hover:shadow-[0_12px_35px_rgba(251,191,36,0.18)]"
       }`}
     >
       {/* Ambient background glow on hover */}
       <div
         className={`pointer-events-none absolute -top-20 -right-20 h-40 w-40 rounded-full blur-3xl transition-opacity duration-300 group-hover:opacity-100 opacity-25 ${
-          prompt.isFree ? "bg-cyan-500/20" : "bg-amber-400/20"
+          isUnlocked ? "bg-cyan-500/20" : "bg-amber-400/20"
         }`}
       />
 
@@ -72,6 +76,10 @@ export function PromptCard({ prompt, onOpenModal, onCopy, isCopied }: PromptCard
             {prompt.isFree ? (
               <span className="rounded-md border border-emerald-500/40 bg-emerald-500/15 px-2.5 py-0.5 font-mono text-[11px] font-bold text-emerald-300 shadow-sm">
                 חינם
+              </span>
+            ) : isPro ? (
+              <span className="rounded-md border border-teal-400/40 bg-gradient-to-r from-teal-400/20 via-cyan-400/20 to-teal-500/20 px-2.5 py-0.5 font-mono text-[11px] font-bold text-teal-300 flex items-center gap-1 shadow-sm">
+                <Crown className="w-3 h-3 text-teal-400" /> PRO פתוח
               </span>
             ) : (
               <span className="rounded-md border border-amber-400/40 bg-gradient-to-r from-amber-400/20 via-yellow-400/20 to-amber-500/20 px-2.5 py-0.5 font-mono text-[11px] font-bold text-amber-300 flex items-center gap-1 shadow-sm">
@@ -97,7 +105,7 @@ export function PromptCard({ prompt, onOpenModal, onCopy, isCopied }: PromptCard
 
         {/* Preview snippet */}
         <div className="relative rounded-xl border border-white/10 bg-slate-950/80 p-3 mb-4 font-mono text-xs leading-relaxed overflow-hidden">
-          {prompt.isFree ? (
+          {isUnlocked ? (
             <p className="line-clamp-3 dir-ltr text-left font-sans text-xs text-slate-300">
               {prompt.prompt.slice(0, 160)}...
             </p>
@@ -119,10 +127,10 @@ export function PromptCard({ prompt, onOpenModal, onCopy, isCopied }: PromptCard
       {/* Card Footer Actions */}
       <div className="pt-3 border-t border-white/5 flex items-center justify-between gap-2">
         <span className="text-xs text-slate-400 flex items-center gap-1 group-hover:text-cyan-300 transition-colors font-medium">
-          {prompt.isFree ? "פתח פרומפט מלא ←" : "פרטים ושדרוג ←"}
+          {isUnlocked ? "פתח פרומפט מלא ←" : "פרטים ושדרוג ←"}
         </span>
 
-        {prompt.isFree ? (
+        {isUnlocked ? (
           <button
             type="button"
             onClick={(e) => onCopy(prompt.prompt, e)}

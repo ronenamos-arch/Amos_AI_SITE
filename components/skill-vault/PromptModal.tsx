@@ -11,9 +11,10 @@ interface PromptModalProps {
   onClose: () => void;
   onCopy: (text: string) => void;
   isCopied: boolean;
+  isPro?: boolean;
 }
 
-export function PromptModal({ prompt, onClose, onCopy, isCopied }: PromptModalProps) {
+export function PromptModal({ prompt, onClose, onCopy, isCopied, isPro }: PromptModalProps) {
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape") onClose();
@@ -30,6 +31,7 @@ export function PromptModal({ prompt, onClose, onCopy, isCopied }: PromptModalPr
 
   if (!prompt) return null;
 
+  const isUnlocked = prompt.isFree || Boolean(isPro);
   const subscribeUrl = SMARTBEE_CONFIG.products.monthlySubscription.url;
 
   return (
@@ -65,6 +67,10 @@ export function PromptModal({ prompt, onClose, onCopy, isCopied }: PromptModalPr
             <span className="rounded-md border border-emerald-500/30 bg-emerald-500/15 px-2.5 py-1 font-mono text-xs font-bold text-emerald-300">
               חינם לשימוש
             </span>
+          ) : isPro ? (
+            <span className="rounded-md border border-teal-400/40 bg-teal-400/15 px-2.5 py-1 font-mono text-xs font-bold text-teal-300 flex items-center gap-1 shadow-sm">
+              <Crown className="w-3.5 h-3.5 text-teal-400" /> פתוח במנוי ה-Pro שלך
+            </span>
           ) : (
             <span className="rounded-md border border-amber-400/40 bg-amber-400/15 px-2.5 py-1 font-mono text-xs font-bold text-amber-300 flex items-center gap-1 shadow-sm">
               <Crown className="w-3.5 h-3.5 text-amber-400" /> בלעדי למנויי Pro
@@ -77,7 +83,7 @@ export function PromptModal({ prompt, onClose, onCopy, isCopied }: PromptModalPr
         </h2>
 
         {/* Content Body */}
-        {prompt.isFree ? (
+        {isUnlocked ? (
           <div>
             <p className="text-sm text-slate-300 mb-3 leading-relaxed">
               העתק את הפרומפט המלא להלן והדבק אותו ישירות ב-Claude, ChatGPT או בתוסף המתאים:
