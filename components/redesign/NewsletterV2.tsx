@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { Loader2, CheckCircle2 } from "lucide-react";
+import { trackMeta } from "@/lib/metaPixel";
 
 export function NewsletterV2() {
     const [email, setEmail] = useState("");
@@ -17,7 +18,9 @@ export function NewsletterV2() {
         try {
             const { subscribeToNewsletter } = await import("@/lib/actions/newsletter");
             const res = await subscribeToNewsletter(email, "home");
-            setStatus(res?.success === false ? "error" : "success");
+            const ok = res?.success !== false;
+            if (ok) trackMeta("CompleteRegistration", { content_name: "newsletter_home" });
+            setStatus(ok ? "success" : "error");
         } catch {
             setStatus("error");
         }

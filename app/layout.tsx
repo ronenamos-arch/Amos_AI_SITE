@@ -8,6 +8,7 @@ import { FooterV2 } from "@/components/redesign/FooterV2";
 import { Chrome } from "@/components/layout/Chrome";
 import { WhatsAppFloat } from "@/components/ui/WhatsAppFloat";
 import { CookieConsent } from "@/components/ui/CookieConsent";
+import { MetaPixel } from "@/components/analytics/MetaPixel";
 import StructuredData from "@/components/seo/StructuredData";
 import { LazyAIChat, LazyStickyNewsletterBar } from "@/components/ui/LazyClientComponents";
 
@@ -140,6 +141,7 @@ export default function RootLayout({
           </div>
         </Chrome>
         <CookieConsent />
+        <MetaPixel />
       </body>
     </html>
   );

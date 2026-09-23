@@ -7,6 +7,7 @@ import * as z from "zod";
 import Image from "next/image";
 import { Mail, CheckCircle2, Loader2, Calendar, Clock, Video, Gift } from "lucide-react";
 import { subscribeToNewsletter } from "@/lib/actions/newsletter";
+import { trackMeta } from "@/lib/metaPixel";
 
 const schema = z.object({
     email: z.string().email("כתובת אימייל לא תקינה"),
@@ -34,6 +35,7 @@ export default function WebinarCashflowPage() {
         try {
             const result = await subscribeToNewsletter(data.email, "cashflow-webinar");
             if (!result.success) throw new Error(result.error);
+            trackMeta("CompleteRegistration", { content_name: "webinar_cashflow" });
             setIsSuccess(true);
             reset();
         } catch (err) {

@@ -58,17 +58,21 @@ export default function LegalPage() {
                         <section id="cookies">
                             <h2 className="text-xl font-bold text-text-primary mb-4 border-b border-white/10 pb-2">6. מדיניות עוגיות (Cookies)</h2>
                             <p className="mb-3">
-                                האתר משתמש בעוגיות (cookies) לצורך ניתוח תנועה ושיפור חוויית המשתמש. אנו מפעילים את Google Analytics 4 בלבד — <strong>לא נעשה שימוש בעוגיות לצורכי פרסום ממוקד</strong>.
+                                האתר משתמש בעוגיות (cookies) לצורך ניתוח תנועה ושיפור חוויית המשתמש. אנו מפעילים את Google Analytics 4 ואת Meta Pixel (פייסבוק/אינסטגרם) לצורך מדידת קמפיינים ופרסום. <strong>העוגיות מופעלות רק לאחר שאישרת אותן בבאנר ההסכמה</strong>.
                             </p>
                             <p className="mb-2 font-semibold text-text-primary">עוגיות בשימוש:</p>
                             <ul className="list-disc list-inside space-y-1 mb-3 text-sm">
                                 <li><span className="font-mono text-teal-400">_ga</span> — מזהה מבקר ייחודי של Google Analytics. תפוגה: 2 שנים.</li>
                                 <li><span className="font-mono text-teal-400">_ga_EWLVGXCWLK</span> — מצב הסשן הנוכחי. תפוגה: 2 שנים.</li>
+                                <li><span className="font-mono text-teal-400">_fbp</span> — מזהה דפדפן של Meta Pixel למדידת פרסום. תפוגה: 3 חודשים.</li>
                             </ul>
                             <p className="mb-3">
                                 הנתונים מועברים לשרתי Google LLC בהתאם למדיניות הפרטיות של Google.{" "}
                                 <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer" className="text-teal-400 hover:text-teal-300 underline">
                                     מדיניות הפרטיות של Google
+                                </a>. נתוני Meta Pixel מועברים ל-Meta Platforms בהתאם ל
+                                <a href="https://www.facebook.com/privacy/policy" target="_blank" rel="noopener noreferrer" className="text-teal-400 hover:text-teal-300 underline">
+                                    מדיניות הפרטיות של Meta
                                 </a>.
                             </p>
                             <p className="mb-2 font-semibold text-text-primary">זכויותיך בהתאם לתיקון 13א לחוק הגנת הפרטיות:</p>

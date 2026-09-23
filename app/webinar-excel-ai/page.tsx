@@ -18,6 +18,7 @@ import {
     Lightbulb,
 } from "lucide-react";
 import { subscribeToNewsletter } from "@/lib/actions/newsletter";
+import { trackMeta } from "@/lib/metaPixel";
 
 const schema = z.object({
     email: z.string().email("כתובת אימייל לא תקינה"),
@@ -66,6 +67,7 @@ export default function WebinarExcelAIPage() {
         try {
             const result = await subscribeToNewsletter(data.email, "excel-ai-webinar");
             if (!result.success) throw new Error(result.error);
+            trackMeta("CompleteRegistration", { content_name: "webinar_excel_ai" });
             setIsSuccess(true);
             reset();
         } catch (err) {

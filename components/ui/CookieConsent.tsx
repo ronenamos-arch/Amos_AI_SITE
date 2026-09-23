@@ -37,12 +37,14 @@ export function CookieConsent() {
   function handleAccept() {
     localStorage.setItem("cookie-consent", "granted");
     updateGtagConsent("granted");
+    window.dispatchEvent(new Event("cookie-consent-change"));
     setVisible(false);
   }
 
   function handleDecline() {
     localStorage.setItem("cookie-consent", "denied");
     updateGtagConsent("denied");
+    window.dispatchEvent(new Event("cookie-consent-change"));
     setVisible(false);
   }
 
@@ -58,7 +60,7 @@ export function CookieConsent() {
       <div className="mx-auto max-w-5xl flex flex-col sm:flex-row items-start sm:items-center gap-4">
         <div className="flex-1 text-sm text-gray-300 leading-relaxed">
           <span className="font-semibold text-white">אנו משתמשים בעוגיות</span>{" "}
-          לצורך ניתוח תנועה באתר (Google Analytics) ושיפור חוויית המשתמש. לא נשתמש בעוגיות לפרסום.{" "}
+          לצורך ניתוח תנועה באתר (Google Analytics), שיפור חוויית המשתמש ומדידת קמפיינים ופרסום (Meta Pixel). העוגיות יופעלו רק אם תאשר.{" "}
           <Link
             href="/legal#cookies"
             className="text-teal-400 hover:text-teal-300 underline underline-offset-2 whitespace-nowrap"

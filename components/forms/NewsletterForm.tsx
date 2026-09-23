@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/Button";
 import { GlassCard } from "@/components/ui/GlassCard";
 import { Mail, CheckCircle2, Loader2 } from "lucide-react";
 import { subscribeToNewsletter } from "@/lib/actions/newsletter";
+import { trackMeta } from "@/lib/metaPixel";
 
 const schema = z.object({
     email: z.string().email("כתובת אימייל לא תקינה"),
@@ -41,6 +42,7 @@ export function NewsletterForm({ source = "footer", variant = "inline" }: Newsle
         try {
             const result = await subscribeToNewsletter(data.email, source);
             if (!result.success) throw new Error(result.error);
+            trackMeta("CompleteRegistration", { content_name: "newsletter_form" });
             setIsSuccess(true);
             reset();
         } catch (err) {

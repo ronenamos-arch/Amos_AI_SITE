@@ -10,6 +10,7 @@ import { Button } from "@/components/ui/Button";
 import { Send, CheckCircle2, Loader2 } from "lucide-react";
 
 import { createClient } from "@/lib/supabase/client";
+import { trackMeta } from "@/lib/metaPixel";
 
 const contactFormSchema = z.object({
     name: z.string().min(2, "השם חייב להכיל לפחות 2 תווים"),
@@ -52,6 +53,7 @@ export function ContactForm() {
 
             if (error) throw error;
 
+            trackMeta("Lead", { content_name: "contact_form" });
             setIsSuccess(true);
             reset();
         } catch (error) {
