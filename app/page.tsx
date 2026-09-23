@@ -45,6 +45,14 @@ export const metadata: Metadata = {
             "מדריכים, פרומפטים ווובינרים מוקלטים לאנשי כספים — לחסוך שעות עבודה עם AI ואוטומציה פיננסית.",
         url: "https://www.ronenamoscpa.co.il",
         type: "website",
+        images: [
+            {
+                url: "/images/og/og-cfo-dashboards-square.png",
+                width: 1024,
+                height: 1024,
+                alt: 'רונן עמוס | רו"ח ויועץ AI פיננסי',
+            },
+        ],
     },
 };
 

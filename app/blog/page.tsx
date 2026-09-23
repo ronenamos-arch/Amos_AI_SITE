@@ -33,6 +33,14 @@ export const metadata: Metadata = {
       "מאמרים מקצועיים על שילוב AI וטכנולוגיה בעולם הכספים. Power BI, אוטומציה, ASC 606 ועוד.",
     url: "https://www.ronenamoscpa.co.il/blog",
     type: "website",
+    images: [
+      {
+        url: "/images/og/og-desk-workspace-square.png",
+        width: 1024,
+        height: 1024,
+        alt: "בלוג AI ופיננסים | רונן עמוס",
+      },
+    ],
   },
 };
 

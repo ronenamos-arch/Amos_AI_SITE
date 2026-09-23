@@ -23,6 +23,14 @@ export const metadata: Metadata = {
       'הזמן פגישת ייעוץ ראשונה חינמית – רו"ח מוסמך ויועץ AI פיננסי.',
     url: "https://www.ronenamoscpa.co.il/contact",
     type: "website",
+    images: [
+      {
+        url: "/images/og/og-cfo-dashboards-square.png",
+        width: 1024,
+        height: 1024,
+        alt: "צור קשר | רונן עמוס",
+      },
+    ],
   },
 };
 

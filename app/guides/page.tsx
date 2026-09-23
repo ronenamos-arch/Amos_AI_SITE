@@ -28,6 +28,14 @@ export const metadata: Metadata = {
             "למדו כיצד משתמשים בClaude וChatGPT לאוטומציה בחשבונאות.",
         url: "https://www.ronenamoscpa.co.il/guides",
         type: "website",
+        images: [
+            {
+                url: "/images/og/og-desk-workspace-square.png",
+                width: 1024,
+                height: 1024,
+                alt: "מדריכים AI לחשבונאים | רונן עמוס",
+            },
+        ],
     },
 };
 
