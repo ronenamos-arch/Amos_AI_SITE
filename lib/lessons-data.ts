@@ -28,6 +28,21 @@ const SITE = "https://www.ronenamoscpa.co.il/resources/webiners";
 
 export const lessons: Lesson[] = [
     {
+        slug: "webiner-antigravity",
+        title: "Antigravity לרואי חשבון — סביבת העבודה החדשה של איש הכספים",
+        description:
+            "סביבת עבודה אוטונומית לאנשי כספים: מפה מעודכנת של Antigravity, Subagents, MCP Connectors, Skills, Projects ותזמון משימות.",
+        topic: "Antigravity",
+        context: "וובינר",
+        date: "24 בספטמבר 2026",
+        minutes: 60,
+        materials: [
+            { kind: "skills", label: "Skills & Connectors" },
+            { kind: "code", label: "Workflows & Artifacts" },
+        ],
+        href: `${SITE}/webiner-antigravity`,
+    },
+    {
         slug: "webinar-05-skills",
         title: "Claude Skills — בונים Skills שבאמת עובדים",
         description:
