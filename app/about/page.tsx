@@ -26,6 +26,14 @@ export const metadata: Metadata = {
       'רו"ח מוסמך המשלב מומחיות חשבונאית עם כלי AI, Power BI ואוטומציה לטובת עסקים בצמיחה.',
     url: "https://www.ronenamoscpa.co.il/about",
     type: "website",
+    images: [
+      {
+        url: "/images/og/og-skyline-brand-square.png",
+        width: 1024,
+        height: 1024,
+        alt: 'רונן עמוס | מומחיות חשבונאית פוגשת בינה מלאכותית',
+      },
+    ],
   },
 };
 

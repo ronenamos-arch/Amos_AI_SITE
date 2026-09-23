@@ -28,6 +28,14 @@ export const metadata: Metadata = {
         type: "website",
         locale: "he_IL",
         url: "https://www.ronenamoscpa.co.il/courses/sell-page",
+        images: [
+            {
+                url: "/images/og/og-desk-workspace-square.png",
+                width: 1024,
+                height: 1024,
+                alt: "AI לרואי חשבון קורס מעשי | AI Finance Master",
+            },
+        ],
     }
 };
 

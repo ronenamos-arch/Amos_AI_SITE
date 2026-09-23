@@ -27,6 +27,14 @@ export const metadata: Metadata = {
       "ייעוץ פיננסי מבוסס נתונים, Power BI, אוטומציה ו-ASC 606. ROI מדיד – לקוחות חוסכים שעות עבודה מדי שבוע.",
     url: "https://www.ronenamoscpa.co.il/services",
     type: "website",
+    images: [
+      {
+        url: "/images/og/og-cfo-dashboards-square.png",
+        width: 1024,
+        height: 1024,
+        alt: "שירותי ייעוץ פיננסי ודשבורדים ל-CFO | רונן עמוס",
+      },
+    ],
   },
 };
 
