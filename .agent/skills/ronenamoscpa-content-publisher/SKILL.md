@@ -25,29 +25,36 @@ This skill defines the complete, production-grade publishing pipeline for **rone
 
 ---
 
-## 🎯 Target Audience & Positioning
+## 🎯 Target Audience, Positioning & Israeli Localization
 
 * **Audience:** Israeli CFOs, Finance Directors (סמנכ"לי כספים), Controllers (חשבים), FP&A Managers, CPAs (רואי חשבון), and tech/startup finance professionals.
 * **Tone:** Authoritative, practical, practitioner-to-practitioner, ROI-driven, with actionable workflows, code/prompt templates, and architecture breakdowns.
 * **Language:** Professional Hebrew (RTL), keeping technical and industry terms in English where standard (e.g. System 1, FP&A, Tokens, Reasoning Effort, Order Book).
+* **🇮🇱 Israeli Persona & Community Alignment:**
+  * **Community Name:** Always reference the official community: **AI Finance Transformation של רונן עמוס**.
+  * **Local Examples:** Adapt foreign names or overseas case studies from incoming newsletters into Israeli personas (e.g., "בשיחה שקיימתי עם דוד, CFO פרקציונלי מוביל, בקהילת AI Finance Transformation של רונן עמוס...").
+  * **Israeli Finance Ecosystem:** Use ILS currency (₪), local tax and audit terminology, and standard Israeli ERPs (Priority, NetSuite).
 
 ---
 
 ## 📥 1. Content Ingestion (Gmail & Direct Input)
 
 Sources for this website are **strictly**:
-1. **Gmail Ingestion:** Newsletters, substacks, or tech announcements received in Gmail (e.g., Linas's Newsletter, AI announcements) fetched via Composio / Gmail tool.
+1. **Gmail Ingestion:** Newsletters, substacks, or tech announcements received in Gmail fetched via Composio / Gmail tool.
 2. **Direct User Input:** Drafts, notes, voice transcripts, or outlines provided directly in the chat.
 3. *(NOT from Notion or external third-party DBs).*
 
 ---
 
-## 🖼️ 2. Media & Image Handling
+## 🖼️ 2. Media, Images & Infographic Standards
 
 1. All images from the email or source MUST be downloaded and stored locally in:
    `public/images/blog/<slug>-<descriptor>.<ext>`
 2. Never rely on external ephemeral URLs (like Substack temporary CDNs or expired tokens).
-3. In the Markdown post, embed images with descriptive Hebrew alt tags:
+3. **🎨 White / Light Background Infographic Standard:**
+   * Hero infographics and custom process diagrams must always use a **clean white/light background** (`#ffffff` / `#f8fafc`) with sharp dark typography (`#0f172a`), distinct card containers (teal, sky-blue, purple accents), and Hebrew labels.
+   * Brand watermark/footer: `רונן עמוס רו״ח • קהילת AI Finance Transformation • ronenamoscpa.co.il`.
+4. In the Markdown post, embed images with descriptive Hebrew alt tags:
    ```markdown
    ![תיאור התמונה בעברית עבור נגישות ו-SEO](/images/blog/<image-name>.png)
    ```
@@ -63,17 +70,17 @@ Create the file in: `content/posts/<slug>.md`
 title: "כותרת מושכת וממוקדת ערך בעברית (כולל מילת מפתח עיקרית)"
 date: "YYYY-MM-DD"
 excerpt: "תקציר תמציתי ומסקרן (עד 2 משפטים) המציג את הבעיה, הפתרון והערך המעשי לקורא."
-image: "/images/blog/<main-header-image>.png"
+image: "/images/blog/<slug>-header.png"
 tags: ["AI for Finance", "CFO", "Automation", "FP&A", "Claude"]
 premium: "false"
 ---
 
-![כותרת תמונת נושא](/images/blog/<main-header-image>.png)
+![כותרת תמונת נושא](/images/blog/<slug>-header.png)
 
 > **תשובה מהירה (Zero-Click Answer):**  
 > [הגדרה תמציתית, עובדתית ומדויקת של 2-3 משפטים המסבירה את נושא המאמר, היתרונות והשורה התחתונה עבור מנועי AI ומנועי חיפוש].
 
-[פסקת פתיחה חזקה - ה-Hook, הרקע, והשורה התחתונה מנקודת מבטו של רונן עמוס רו"ח ויועץ AI פיננסי]
+[פסקת פתיחה חזקה - ה-Hook, הרקע, והשורה התחתונה מנקודת מבטו של רונן עמוס רו"ח ויועץ AI פיננסי בקהילת AI Finance Transformation]
 
 ## [כותרת H2 ברורה ומכוונת תועלת]
 ...
@@ -82,27 +89,28 @@ premium: "false"
 ### 📋 Mandatory Content Elements:
 
 1. **Zero-Click Answer Block:** Always place a blockquote with `> **תשובה מהירה (Zero-Click Answer):**` right below the hero image for LLM citations (Google AI Overviews, Perplexity, ChatGPT Search).
-2. **Toggle View for Code Blocks:** Every long code snippet (>10 lines) MUST be placed inside an expandable `<details>` block:
+2. **HTML Blocks & Flowcharts (Zero-Indent Rule):**
+   * Raw HTML components (process flowcards, alert boxes) must have **ZERO leading 4-space indentation** to prevent Markdown parsers (`marked`) from mistakenly wrapping them in `<pre><code>` black code boxes.
+   * Style process cards with light backgrounds (`background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 1rem;`).
+3. **Toggle View for Long Code/Prompts:** Every long code snippet (>10 lines) MUST be placed inside an unindented expandable `<details>` block:
    ```html
    <details style="margin: 1.5rem 0; padding: 1.25rem; border-radius: 0.75rem; border: 1px solid #e2e8f0; background: #f8fafc;">
-   <summary style="cursor: pointer; font-weight: 600; color: #1d4ed8; font-size: 1.05rem; outline: none;">👉 לחצו כאן לצפייה בדוגמת הקוד המלאה (TypeScript / API Call)</summary>
+   <summary style="cursor: pointer; font-weight: 600; color: #1d4ed8; font-size: 1.05rem; outline: none;">👉 לחצו כאן לצפייה בדוגמת הקוד / הפרומפט המלאה</summary>
 
    ```typescript
-   // code here
+   // code or prompt here
    ```
 
    </details>
    ```
-3. **Internal Backlinks (3–5 Contextual Links):** Always link to existing relevant blog posts and core pages, e.g.:
+4. **Internal Backlinks (3–5 Contextual Links):** Always link to existing relevant blog posts and core pages, e.g.:
    * `/blog/ai-token-optimization-finance` (צמצום צריכת Tokens)
    * `/blog/model-veeffort-claude-code` (בחירת מודל ומאמץ חשיבה)
    * `/blog/agent-skills-financial-audit` (סוכני ביקורת פיננסית)
    * `/blog/אימות-נתונים-לפני-הכל-אל-תתנו-ל-ai-לנתח-לפני-שווידאתם-ששורות` (אימות נתונים)
-   * `/blog/בניית-skills-לצוות-fpa` (בניית סקילים ל-FP&A)
-   * `/blog/claude-skills-building-guide` (מדריך בניית סקילים)
    * `/courses/ai-mastery` (קורס AI למנהלי כספים)
    * `/services` (שירותי ייעוץ והטמעה)
-4. **Standard Content Library CTA Button:** Insert this exact CTA section before the final summary:
+5. **Standard Content Library CTA Button:** Insert this exact CTA section before the final summary:
    ```html
    ## הצעד הבא
 
@@ -128,7 +136,7 @@ premium: "false"
      </a>
    </div>
    ```
-5. **Sync `public/llms.txt`:** Always append the post title, URL, description, and zero-click answer to `public/llms.txt`.
+6. **Sync `public/llms.txt`:** Always append the post title, URL, description, and zero-click answer to `public/llms.txt`.
 
 ---
 
@@ -139,18 +147,43 @@ After creating the post and saving images:
    ```bash
    node scripts/generate-posts-index.mjs
    ```
-2. Check active dev server port (e.g. 3000 or 3005).
+2. Check active dev server port (`http://localhost:3000`).
 3. Output the local review URL:
    `http://localhost:<port>/blog/<slug>`
 
 ---
 
-## 🚀 5. Production Release (Only After Explicit User Approval)
+## 🚀 5. Production Release & SEO Indexing (Only After User Approval)
 
 Once the user reviews and explicitly approves the localhost preview:
+
 ```bash
-git add content/posts/<slug>.md public/images/blog/<slug>-* public/llms.txt lib/generated/posts-index.ts
+# 1. Commit and push to main
+git add content/posts/<slug>.md public/images/blog/<slug>-* public/llms.txt scripts/generate-header-infographic.mjs
 git commit -m "feat(blog): publish <slug> article"
 git pull --rebase origin main
 git push origin main
+
+# 2. Submit to Google Search Console
+python scripts/gsc_client.py submit-sitemap https://www.ronenamoscpa.co.il/sitemap.xml
+
+# 3. Submit to IndexNow (Bing & Search Engines)
+node -e "
+const https = require('https');
+const postData = JSON.stringify({
+  host: 'www.ronenamoscpa.co.il',
+  key: 'f9826b1b81c34964b0fa14797b4af314',
+  keyLocation: 'https://www.ronenamoscpa.co.il/f9826b1b81c34964b0fa14797b4af314.txt',
+  urlList: ['https://www.ronenamoscpa.co.il/blog/<slug>', 'https://www.ronenamoscpa.co.il/sitemap.xml', 'https://www.ronenamoscpa.co.il/blog']
+});
+const req = https.request({
+  hostname: 'api.indexnow.org',
+  port: 443,
+  path: '/indexnow',
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json; charset=utf-8', 'Content-Length': Buffer.byteLength(postData) }
+}, (res) => console.log('IndexNow status:', res.statusCode));
+req.write(postData);
+req.end();
+"
 ```
