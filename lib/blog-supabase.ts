@@ -1,23 +1,26 @@
 import { createAdminClient } from "@/lib/supabase/admin";
 
-export interface DBArticle {
+export interface DBArticleSummary {
     id: string;
     slug: string;
     title: string;
     meta_title: string | null;
     description: string;
-    content: string;
     image_url: string;
     is_premium: boolean;
     published_at: string;
     tags: string[];
 }
 
-export async function getDBPosts() {
+export interface DBArticle extends DBArticleSummary {
+    content: string;
+}
+
+export async function getDBPosts(): Promise<DBArticleSummary[]> {
     const supabase = createAdminClient();
     const { data, error } = await supabase
         .from('articles')
-        .select('*')
+        .select('id, slug, title, meta_title, description, image_url, is_premium, published_at, tags')
         .order('published_at', { ascending: false });
 
     if (error) {
@@ -25,10 +28,10 @@ export async function getDBPosts() {
         return [];
     }
 
-    return data as DBArticle[];
+    return data as DBArticleSummary[];
 }
 
-export async function getDBPostBySlug(slug: string) {
+export async function getDBPostBySlug(slug: string): Promise<DBArticle | null> {
     const supabase = createAdminClient();
     const { data, error } = await supabase
         .from('articles')

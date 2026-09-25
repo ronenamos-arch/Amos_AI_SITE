@@ -33,7 +33,7 @@ export function HeaderV2() {
         const nameFrom = (user: { user_metadata?: { full_name?: string; name?: string }; email?: string } | null) =>
             user ? user.user_metadata?.full_name ?? user.user_metadata?.name ?? user.email?.split("@")[0] ?? null : null;
 
-        supabase.auth.getUser().then(({ data: { user } }) => setDisplayName(nameFrom(user)));
+        supabase.auth.getSession().then(({ data: { session } }) => setDisplayName(nameFrom(session?.user ?? null)));
         const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) =>
             setDisplayName(nameFrom(session?.user ?? null))
         );

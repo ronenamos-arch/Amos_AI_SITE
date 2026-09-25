@@ -20,31 +20,53 @@ export async function updateSession(request: NextRequest) {
         return supabaseResponse;
     }
 
-    const supabase = createServerClient(
-        process.env.NEXT_PUBLIC_SUPABASE_URL,
-        process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
-        {
-            cookies: {
-                getAll() {
-                    return request.cookies.getAll();
-                },
-                setAll(cookiesToSet) {
-                    cookiesToSet.forEach(({ name, value, options }) => request.cookies.set(name, value));
-                    supabaseResponse = NextResponse.next({
-                        request,
-                    });
-                    cookiesToSet.forEach(({ name, value, options }) =>
-                        supabaseResponse.cookies.set(name, value, options)
-                    );
-                },
-            },
-        }
+    const path = request.nextUrl.pathname;
+    const allCookies = request.cookies.getAll();
+    const hasAuthCookie = allCookies.some(
+        (c) => c.name.startsWith("sb-") && (c.name.includes("-auth-token") || c.name.includes("access-token"))
     );
 
-    // refreshing the auth token
-    const { data: { user } } = await supabase.auth.getUser();
+    // Fast-path for unauthenticated users on admin route: redirect immediately without hitting Supabase
+    if (path.startsWith('/admin')) {
+        if (process.env.NODE_ENV !== "development" && !hasAuthCookie) {
+            const redirectUrl = request.nextUrl.clone();
+            redirectUrl.pathname = '/';
+            redirectUrl.search = '';
+            return NextResponse.redirect(redirectUrl);
+        }
+    }
 
-    const path = request.nextUrl.pathname;
+    // Only instantiate Supabase client and query auth if user has auth cookies or visits a protected resource
+    let user = null;
+    let supabase = null;
+
+    if (hasAuthCookie || path.startsWith('/resources/webiners') || path.startsWith('/admin')) {
+        supabase = createServerClient(
+            process.env.NEXT_PUBLIC_SUPABASE_URL,
+            process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
+            {
+                cookies: {
+                    getAll() {
+                        return request.cookies.getAll();
+                    },
+                    setAll(cookiesToSet) {
+                        cookiesToSet.forEach(({ name, value }) => request.cookies.set(name, value));
+                        supabaseResponse = NextResponse.next({
+                            request,
+                        });
+                        cookiesToSet.forEach(({ name, value, options }) =>
+                            supabaseResponse.cookies.set(name, value, options)
+                        );
+                    },
+                },
+            }
+        );
+
+        if (hasAuthCookie) {
+            const { data } = await supabase.auth.getUser();
+            user = data.user;
+        }
+    }
 
     if (path.startsWith('/admin')) {
         if (process.env.NODE_ENV !== "development" && (!user || user.email !== "ronenamos@gmail.com")) {
@@ -68,7 +90,7 @@ export async function updateSession(request: NextRequest) {
         }
 
         let hasAccess = isTemporarilyFree;
-        if (!isTemporarilyFree && user) {
+        if (!isTemporarilyFree && user && supabase) {
             const { data: profile } = await supabase
                 .from('profiles')
                 .select('subscription_status, subscription_end_date')
