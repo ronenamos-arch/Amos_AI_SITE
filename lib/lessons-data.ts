@@ -28,6 +28,21 @@ const SITE = "https://www.ronenamoscpa.co.il/resources/webiners";
 
 export const lessons: Lesson[] = [
     {
+        slug: "webiner-grok-bot",
+        title: "Grok Bot לאנשי כספים — סוכנים אוטונומיים למשימות כספיות",
+        description:
+            "מדריך מעשי לשימוש בסוכן ה-AI החדש של xAI: מעבר מצ'אט ל-Desktop App הפועל במערכות הארגוניות, חיבור ל-Slack, Mail, CRM ואוטומציית תהליכים.",
+        topic: "Grok",
+        context: "וובינר",
+        date: "25 בספטמבר 2026",
+        minutes: 60,
+        materials: [
+            { kind: "code", label: "Grok Bot Desktop App" },
+            { kind: "skills", label: "סוכנים פיננסיים" },
+        ],
+        href: `${SITE}/webiner-grok-bot`,
+    },
+    {
         slug: "webiner-antigravity",
         title: "Antigravity לרואי חשבון — סביבת העבודה החדשה של איש הכספים",
         description:
