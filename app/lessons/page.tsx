@@ -3,17 +3,19 @@ import type { Metadata } from "next";
 import { HeaderV2 } from "@/components/redesign/HeaderV2";
 import { FooterV2 } from "@/components/redesign/FooterV2";
 import { NewsletterV2 } from "@/components/redesign/NewsletterV2";
+import Image from "next/image";
 import Link from "next/link";
-import { Lock } from "lucide-react";
+import { Lock, Sparkles, Video, Clock, FolderDown } from "lucide-react";
 import { lessons, lessonTopics, totalLessonMinutes, totalMaterials } from "@/lib/lessons-data";
 import { LessonLibrary } from "./LessonLibrary";
+import { LessonsHero } from "./LessonsHero";
 import { getSubscriptionAccess } from "@/lib/subscription-access";
 import { SMARTBEE_CONFIG } from "@/lib/smartbee-config";
 
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
-    title: "שיעורים בלייב ווובינרים | רונן עמוס",
+    title: "הדרכות לייב ווובינרים | הקלטות לצפייה | רונן עמוס",
     description:
         "ספריית השיעורים המוקלטים: מפגשים של שעה על Claude, Excel, אוטומציה ו-FP&A, עם מצגות, חוברות וקבצים להורדה.",
     robots: { index: false, follow: false },
@@ -21,27 +23,25 @@ export const metadata: Metadata = {
 
 export default async function LessonsPage() {
     const hours = Math.round(totalLessonMinutes / 60);
-    const { user, hasAccess } = await getSubscriptionAccess();
+    const { user, hasAccess: subscriptionAccess } = await getSubscriptionAccess();
+    const isDev = process.env.NODE_ENV === "development";
+    const hasAccess = isDev || subscriptionAccess;
 
     return (
-        <div className="rv2 min-h-[100dvh]">
+        <div className="rv2 min-h-[100dvh] relative overflow-hidden">
+            {/* Ambient Lighting Orbs */}
+            <div className="pointer-events-none absolute -top-24 right-1/4 h-[420px] w-[420px] rounded-full bg-amber-500/15 blur-[130px]" />
+            <div className="pointer-events-none absolute top-36 left-10 h-[500px] w-[500px] rounded-full bg-cyan-500/15 blur-[150px]" />
+            <div className="pointer-events-none absolute top-1/2 right-12 h-[600px] w-[600px] rounded-full bg-amber-400/10 blur-[170px]" />
+            <div className="pointer-events-none absolute bottom-1/4 left-1/3 h-[500px] w-[500px] rounded-full bg-cyan-400/10 blur-[160px]" />
+
             <HeaderV2 />
 
-            <section className="rv2-container py-16 lg:py-20">
-                <div className="rv2-rise max-w-3xl">
-                    <div className="rv2-kicker mb-4">הספרייה</div>
-                    <h1 className="rv2-display text-4xl sm:text-5xl lg:text-[3.2rem]">
-                        שיעורים בלייב ווובינרים
-                    </h1>
-                    <p className="mt-5 text-lg text-[var(--rv2-text-2)]">
-                        <span dir="ltr">{lessons.length}</span> מפגשים מוקלטים,{" "}
-                        <span dir="ltr">{hours}</span> שעות של עבודה על המסך, ו-
-                        <span dir="ltr">{totalMaterials}</span> קבצים להורדה — חוברות Excel,
-                        פרומפטים, מצגות וקוד. כל שיעור נבנה סביב בעיה אמיתית מהעבודה השוטפת
-                        של אנשי כספים.
-                    </p>
-                </div>
-            </section>
+            <LessonsHero
+                lessonsCount={lessons.length}
+                hours={hours}
+                totalMaterials={totalMaterials}
+            />
 
             {hasAccess ? (
                 <section className="rv2-container py-14 lg:py-20">

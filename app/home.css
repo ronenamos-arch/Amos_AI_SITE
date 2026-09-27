@@ -423,6 +423,52 @@
   outline-offset: 3px;
 }
 
+/* --- Luxury Gold Lesson Cards --- */
+.rv2 .rv2-lesson-card {
+  position: relative;
+  background: linear-gradient(180deg, rgba(15, 23, 42, 0.88) 0%, rgba(7, 11, 20, 0.96) 100%);
+  border: 1px solid rgba(234, 179, 8, 0.32);
+  border-radius: 1.25rem;
+  box-shadow:
+    0 10px 30px -10px rgba(0, 0, 0, 0.6),
+    0 0 15px rgba(234, 179, 8, 0.08),
+    inset 0 1px 0 rgba(254, 240, 138, 0.22);
+  transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+  overflow: hidden;
+}
+
+.rv2 .rv2-lesson-card:hover {
+  border-color: rgba(250, 204, 21, 0.65);
+  box-shadow:
+    0 20px 40px -12px rgba(0, 0, 0, 0.7),
+    0 0 25px rgba(234, 179, 8, 0.22),
+    inset 0 1px 0 rgba(255, 255, 255, 0.35);
+  transform: translateY(-4px);
+}
+
+.rv2 .rv2-lesson-card .rv2-poster {
+  border-bottom: 1px solid rgba(234, 179, 8, 0.25);
+}
+
+.rv2 .rv2-lesson-card .rv2-play {
+  border-color: rgba(234, 179, 8, 0.5);
+  background: rgba(234, 179, 8, 0.15);
+  color: #fef08a;
+  box-shadow: 0 0 15px rgba(234, 179, 8, 0.25);
+}
+
+.rv2 .rv2-lesson-card .rv2-play:hover {
+  background: linear-gradient(135deg, #fde047 0%, #eab308 100%);
+  color: #070b14;
+  box-shadow: 0 0 25px rgba(234, 179, 8, 0.6);
+}
+
+.rv2 .rv2-lesson-card .rv2-poster-topic {
+  border: 1px solid rgba(234, 179, 8, 0.35);
+  background: rgba(15, 23, 42, 0.85);
+  color: #fef08a;
+}
+
 /* --- Brand logo ------------------------------------------------------ */
 /* The supplied logo is blue artwork on an opaque white JPG background.
    Inverting knocks the white to black so the screen blend drops it out, then the

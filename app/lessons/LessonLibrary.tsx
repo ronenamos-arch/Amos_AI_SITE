@@ -66,9 +66,9 @@ export function LessonLibrary({ lessons, topics }: { lessons: Lesson[]; topics: 
                     אין עדיין שיעורים בנושא הזה. נסו קטגוריה אחרת.
                 </p>
             ) : (
-                <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+                <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
                     {visible.map((lesson) => (
-                        <article key={lesson.slug} className="rv2-surface flex flex-col overflow-hidden">
+                        <article key={lesson.slug} className="rv2-lesson-card flex flex-col overflow-hidden group">
                             <div
                                 className="rv2-poster"
                                 style={{ "--angle": `${posterAngle(lesson.slug)}deg` } as React.CSSProperties}
@@ -76,10 +76,10 @@ export function LessonLibrary({ lessons, topics }: { lessons: Lesson[]; topics: 
                                 {/* Hero art is collected per-slug under public/images/lessons. */}
                                 <Image
                                     src={`/images/lessons/${lesson.slug}.png`}
-                                    alt=""
+                                    alt={lesson.title}
                                     fill
                                     sizes="(min-width: 1280px) 380px, (min-width: 768px) 45vw, 90vw"
-                                    className="rv2-poster-img"
+                                    className="rv2-poster-img transition-transform duration-500 group-hover:scale-105"
                                 />
                                 <span className="rv2-poster-topic">{lesson.topic}</span>
                                 <a
@@ -97,21 +97,23 @@ export function LessonLibrary({ lessons, topics }: { lessons: Lesson[]; topics: 
                             </div>
 
                             <div className="flex flex-1 flex-col p-6">
-                                <div className="rv2-mono text-xs text-[var(--rv2-text-2)]">
+                                <div className="rv2-mono text-xs font-semibold text-amber-300/90">
                                     {lesson.context}
                                 </div>
-                                <h2 className="mt-2 text-lg font-bold leading-snug">{lesson.title}</h2>
-                                <p className="mt-2 flex-1 text-sm text-[var(--rv2-text-2)]">
+                                <h2 className="mt-2 text-lg font-bold leading-snug text-white group-hover:text-amber-200 transition-colors duration-200">
+                                    {lesson.title}
+                                </h2>
+                                <p className="mt-2 flex-1 text-sm text-[var(--rv2-text-2)] leading-relaxed">
                                     {lesson.description}
                                 </p>
 
-                                <ul className="rv2-divider mt-5 flex flex-wrap gap-x-4 gap-y-2 pt-4 text-xs text-[var(--rv2-text-2)]">
+                                <ul className="rv2-divider mt-5 flex flex-wrap gap-x-4 gap-y-2 pt-4 text-xs text-[var(--rv2-text-2)] border-t border-amber-400/15">
                                     {lesson.materials.map((m) => {
                                         const Icon = MATERIAL_ICON[m.kind];
                                         return (
                                             <li key={m.label} className="flex items-center gap-1.5">
-                                                <Icon size={14} className="text-[var(--rv2-accent)]" />
-                                                {m.label}
+                                                <Icon size={14} className="text-amber-400" />
+                                                <span>{m.label}</span>
                                             </li>
                                         );
                                     })}
@@ -121,7 +123,7 @@ export function LessonLibrary({ lessons, topics }: { lessons: Lesson[]; topics: 
                                     <a
                                         href={lesson.href}
                                         {...linkTarget(lesson)}
-                                        className="rv2-btn rv2-btn-primary text-sm"
+                                        className="rv2-btn rv2-btn-primary text-sm shadow-[0_0_15px_rgba(34,211,238,0.2)]"
                                     >
                                         לדף הוובינר
                                         <ArrowLeft size={16} className="rv2-arrow" />

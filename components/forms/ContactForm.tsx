@@ -9,7 +9,7 @@ import { Textarea } from "@/components/ui/Textarea";
 import { Button } from "@/components/ui/Button";
 import { Send, CheckCircle2, Loader2 } from "lucide-react";
 
-import { createClient } from "@/lib/supabase/client";
+import { submitContactForm } from "@/lib/actions/contacts";
 import { trackMeta } from "@/lib/metaPixel";
 
 const contactFormSchema = z.object({
@@ -25,7 +25,6 @@ type ContactFormValues = z.infer<typeof contactFormSchema>;
 export function ContactForm() {
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [isSuccess, setIsSuccess] = useState(false);
-    const supabase = createClient();
 
     const {
         register,
@@ -39,19 +38,17 @@ export function ContactForm() {
     const onSubmit = async (data: ContactFormValues) => {
         setIsSubmitting(true);
         try {
-            const { error } = await supabase
-                .from('contact_submissions')
-                .insert([
-                    {
-                        name: data.name,
-                        email: data.email,
-                        phone: data.phone || null,
-                        subject: data.subject,
-                        message: data.message,
-                    },
-                ]);
+            const res = await submitContactForm({
+                name: data.name,
+                email: data.email,
+                phone: data.phone || null,
+                subject: data.subject,
+                message: data.message,
+            });
 
-            if (error) throw error;
+            if (!res.success) {
+                throw new Error(res.error || "Failed to submit contact");
+            }
 
             trackMeta("Lead", { content_name: "contact_form" });
             setIsSuccess(true);
