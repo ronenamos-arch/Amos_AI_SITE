@@ -169,3 +169,40 @@ export async function sendCoursePurchaseEmail({ to, name, accessToken }: SendCou
     }
 }
 
+import { buildAiMasteryPurchaseEmail } from "@/lib/emails/ai-mastery-purchase";
+
+interface SendAiMasteryPurchaseEmailParams {
+    to: string;
+    name?: string;
+    courseUrl?: string;
+    password?: string;
+}
+
+export async function sendAiMasteryPurchaseEmail({
+    to,
+    name = "לקוח יקר",
+    courseUrl = "https://gamma.app/docs/ChatGPT--wrvbq68o6zujsmt",
+    password = "masterai2",
+}: SendAiMasteryPurchaseEmailParams) {
+    try {
+        const { data, error } = await getResend().emails.send({
+            from: EMAIL_FROM,
+            to,
+            subject: "AI לכספים: המדריך למתחילים — פרטי הגישה והסיסמה שלך 🎓",
+            html: buildAiMasteryPurchaseEmail({ name, courseUrl, password }),
+        });
+
+        if (error) {
+            console.error("Resend ai-mastery email error:", error);
+            return { success: false, error: error.message };
+        }
+
+        return { success: true, id: data?.id };
+    } catch (err) {
+        console.error("Failed to send ai-mastery purchase email:", err);
+        return { success: false, error: String(err) };
+    }
+}
+
+
+

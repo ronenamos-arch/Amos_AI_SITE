@@ -36,7 +36,7 @@ export function VaultCTA() {
             </p>
           </div>
           <a
-            href="https://chat.whatsapp.com/CS6dgqnK45Q9XAMqScNr6R?mode=gi_t"
+            href="https://chat.whatsapp.com/F1Y1Q35QIZ3L6rcrXuEnNN"
             target="_blank"
             rel="noopener noreferrer"
             className="w-full flex items-center justify-center gap-2 rounded-xl bg-emerald-500 px-5 py-3 text-sm font-bold text-slate-950 hover:bg-emerald-400 transition-all shadow-lg shadow-emerald-500/20 text-center"

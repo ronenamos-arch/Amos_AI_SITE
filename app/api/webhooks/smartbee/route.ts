@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createAdminClient } from "@/lib/supabase-admin";
-import { sendCoursePurchaseEmail, sendBundlePurchaseEmail, sendAdminNotification, sendPurchaseEmail } from "@/lib/mailer";
+import { sendCoursePurchaseEmail, sendAiMasteryPurchaseEmail, sendBundlePurchaseEmail, sendAdminNotification, sendPurchaseEmail } from "@/lib/mailer";
 
 export const runtime = "nodejs";
 
@@ -105,20 +105,31 @@ export async function POST(req: NextRequest) {
                     .single();
 
                 if (!updateError && updatedOrder?.access_token) {
-                    // Send to the buyer's own email on record, never the caller-supplied
-                    // payerEmail — otherwise anyone posting this webhook with someone
-                    // else's purchaseId could redirect the paid access token to themselves.
-                    await sendCoursePurchaseEmail({
-                        to: courseOrder.email,
-                        name: courseOrder.name || payerName || "לקוח יקר",
-                        accessToken: updatedOrder.access_token,
-                    });
+                    const isAiMastery = courseOrder.amount === 250 || Number(amount) === 250;
+                    if (isAiMastery) {
+                        await sendAiMasteryPurchaseEmail({
+                            to: courseOrder.email,
+                            name: courseOrder.name || payerName || "לקוח יקר",
+                        });
 
-                    await sendAdminNotification({
-                        eventType: "רכישת קורס AI Finance Master חדשה (SmartBee)",
-                        userEmail: courseOrder.email,
-                        details: `רכישה הושלמה בהצלחה!\nשם: ${courseOrder.name}\nאימייל: ${courseOrder.email}\nסכום: ₪599\nחשבונית: ${documentUrl || "הופקה ב-SmartBee"}\nIP: ${clientIp}`
-                    });
+                        await sendAdminNotification({
+                            eventType: "רכישת קורס AI לכספים: המדריך למתחילים חדשה (SmartBee ₪250)",
+                            userEmail: courseOrder.email,
+                            details: `רכישה הושלמה בהצלחה!\nשם: ${courseOrder.name}\nאימייל: ${courseOrder.email}\nסכום: ₪250\nחשבונית: ${documentUrl || "הופקה ב-SmartBee"}\nIP: ${clientIp}`
+                        });
+                    } else {
+                        await sendCoursePurchaseEmail({
+                            to: courseOrder.email,
+                            name: courseOrder.name || payerName || "לקוח יקר",
+                            accessToken: updatedOrder.access_token,
+                        });
+
+                        await sendAdminNotification({
+                            eventType: "רכישת קורס AI Finance Master חדשה (SmartBee)",
+                            userEmail: courseOrder.email,
+                            details: `רכישה הושלמה בהצלחה!\nשם: ${courseOrder.name}\nאימייל: ${courseOrder.email}\nסכום: ₪599\nחשבונית: ${documentUrl || "הופקה ב-SmartBee"}\nIP: ${clientIp}`
+                        });
+                    }
                 }
 
                 return NextResponse.json({ success: true, processed: "course_purchases" });
@@ -297,7 +308,60 @@ export async function POST(req: NextRequest) {
                 console.warn("[SmartBee Webhook] Error generating login link:", linkEx);
             }
 
-            // F. Send Welcome Purchase Email to Customer
+            // F. Send Welcome Purchase Email to Customer based on product/amount
+            if (paidAmount === 250) {
+                await sendAiMasteryPurchaseEmail({
+                    to: normalizedEmail,
+                    name: payerName,
+                }).catch((emailErr) => {
+                    console.error("[SmartBee Webhook] AI Mastery welcome email failed:", emailErr);
+                });
+
+                await sendAdminNotification({
+                    eventType: "רכישת קורס AI לכספים: המדריך למתחילים חדשה (SmartBee ₪250)",
+                    userEmail: normalizedEmail,
+                    details: `רכישה הושלמה בהצלחה!\nשם: ${payerName}\nאימייל: ${normalizedEmail}\nסכום: ₪250\nמזהה: ${transactionId}\nחשבונית: ${documentUrl || invoiceNumber || "הופקה ב-SmartBee"}\nIP: ${clientIp}`,
+                }).catch((adminErr) => {
+                    console.error("[SmartBee Webhook] Admin notification email failed:", adminErr);
+                });
+
+                return NextResponse.json({ success: true, processed: "ai_mastery_purchase" });
+            }
+
+            if (paidAmount === 150) {
+                // Generate token for bundle
+                const token = (await import("crypto")).randomBytes(32).toString("hex");
+                await supabase.from("bundle_purchases").insert({
+                    email: normalizedEmail,
+                    name: payerName,
+                    amount: 150,
+                    currency: "ILS",
+                    status: "paid",
+                    access_token: token,
+                    invoice_url: documentUrl || null,
+                    paid_at: now.toISOString(),
+                });
+
+                await sendBundlePurchaseEmail({
+                    to: normalizedEmail,
+                    name: payerName,
+                    accessToken: token,
+                }).catch((emailErr) => {
+                    console.error("[SmartBee Webhook] Bundle welcome email failed:", emailErr);
+                });
+
+                await sendAdminNotification({
+                    eventType: "רכישת בנדל Claude חדשה (SmartBee ₪150)",
+                    userEmail: normalizedEmail,
+                    details: `רכישה הושלמה בהצלחה!\nשם: ${payerName}\nאימייל: ${normalizedEmail}\nסכום: ₪150\nמזהה: ${transactionId}\nחשבונית: ${documentUrl || invoiceNumber || "הופקה ב-SmartBee"}\nIP: ${clientIp}`,
+                }).catch((adminErr) => {
+                    console.error("[SmartBee Webhook] Admin notification email failed:", adminErr);
+                });
+
+                return NextResponse.json({ success: true, processed: "bundle_purchase" });
+            }
+
+            // Default: Monthly Pro Subscription (₪100)
             await sendPurchaseEmail({
                 to: normalizedEmail,
                 planName: "מנוי חודשי גמיש",

@@ -1,4 +1,4 @@
-﻿/**
+/**
  * HTML email template for AI Finance Master course purchase confirmation.
  */
 
@@ -74,7 +74,7 @@ export function buildCoursePurchaseEmail({ name, accessUrl }: CoursePurchaseEmai
                                     <td style="padding:20px;text-align:center;">
                                         <p style="margin:0 0 8px;font-size:15px;font-weight:bold;color:#25d366;">💬 קהילת הוואטסאפ הבלעדית</p>
                                         <p style="margin:0 0 14px;font-size:13px;color:#d1d5db;">הצטרפו לקבוצה הסגורה לשאלות, התייעצויות ועדכוני AI שוטפים:</p>
-                                        <a href="https://chat.whatsapp.com/CS6dgqnK45Q9XAMqScNr6R" style="display:inline-block;padding:10px 24px;background-color:#25d366;color:#ffffff;font-weight:bold;font-size:14px;text-decoration:none;border-radius:8px;">
+                                        <a href="https://chat.whatsapp.com/F1Y1Q35QIZ3L6rcrXuEnNN" style="display:inline-block;padding:10px 24px;background-color:#25d366;color:#ffffff;font-weight:bold;font-size:14px;text-decoration:none;border-radius:8px;">
                                             הצטרפות לקבוצת הוואטסאפ
                                         </a>
                                     </td>
