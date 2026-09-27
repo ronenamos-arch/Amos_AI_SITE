@@ -1,25 +1,25 @@
 import type { Metadata } from "next";
 import { createClient } from "@/lib/supabase/server";
+import { createAdminClient } from "@/lib/supabase-admin";
 import { checkProfileAccess } from "@/lib/subscription-access";
+import { redirect } from "next/navigation";
+import { getDBPosts } from "@/lib/blog-supabase";
+import { getAllPosts } from "@/lib/blog";
+import { getAllGuides } from "@/lib/guides-data";
+import {
+    DashboardClient,
+    CourseAccessItem,
+    PaymentItem,
+    RecentArticleItem,
+    GuideItem,
+} from "@/components/dashboard/DashboardClient";
+
+export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
+    title: "האזור האישי | רונן עמוס",
     robots: { index: false, follow: false },
 };
-import { redirect } from "next/navigation";
-import { GlassCard } from "@/components/ui/GlassCard";
-import { Button } from "@/components/ui/Button";
-import { Badge } from "@/components/ui/Badge";
-import {
-    User,
-    Settings,
-    CreditCard,
-    BookOpen,
-    Trophy,
-    Zap,
-    ArrowLeft,
-    Crown
-} from "lucide-react";
-import Link from "next/link";
 
 export default async function DashboardPage() {
     const supabase = await createClient();
@@ -32,148 +32,229 @@ export default async function DashboardPage() {
         return redirect("/login");
     }
 
-    // Fetch profile data
+    const adminSupabase = createAdminClient();
+    const userEmail = user.email ? user.email.toLowerCase().trim() : "";
+    const isAdmin = userEmail === "ronenamos@gmail.com";
+
+    // 1. Fetch profile data
     const { data: profile } = await supabase
         .from("profiles")
         .select("*")
         .eq("id", user.id)
-        .single();
+        .maybeSingle();
 
-    const isPremium = checkProfileAccess(profile);
+    const isPremium = checkProfileAccess(profile) || isAdmin;
+
+    // 2. Fetch course_access table
+    const { data: courseAccessRow } = await supabase
+        .from("course_access")
+        .select("has_access")
+        .eq("user_id", user.id)
+        .maybeSingle();
+
+    // 3. Fetch course_purchases for user
+    const { data: coursePurchases } = userEmail
+        ? await adminSupabase
+              .from("course_purchases")
+              .select("*")
+              .eq("email", userEmail)
+        : { data: [] };
+
+    // 4. Fetch bundle_purchases for user
+    const { data: bundlePurchases } = userEmail
+        ? await adminSupabase
+              .from("bundle_purchases")
+              .select("*")
+              .eq("email", userEmail)
+        : { data: [] };
+
+    // 5. Fetch payment_records for user
+    const { data: paymentRecords } = await supabase
+        .from("payment_records")
+        .select("*")
+        .eq("user_id", user.id)
+        .order("created_at", { ascending: false });
+
+    // Determine Course Unlocks
+    const paidCoursePurchases = (coursePurchases || []).filter(
+        (p) => p.status === "paid" || p.status === "completed"
+    );
+    const paidBundlePurchases = (bundlePurchases || []).filter(
+        (p) => p.status === "paid" || p.status === "completed"
+    );
+
+    // AI Finance Master 599 ₪
+    const hasMasterCourse =
+        isPremium ||
+        courseAccessRow?.has_access === true ||
+        paidCoursePurchases.some((p) => !p.amount || Number(p.amount) >= 500);
+
+    // Claude Bundle 150 ₪
+    const hasClaudeBundle =
+        isPremium ||
+        paidBundlePurchases.length > 0;
+
+    const coursesList: CourseAccessItem[] = [
+        {
+            id: "ai-finance-master",
+            slug: "ai-finance-master",
+            title: "AI Finance Master (קורס הדגל)",
+            description: "שליטה עמוקה ב-AI לאוטומציה, ניתוח מתקדם, דוחות כספיים וביקורת. 16 מודולים מעשיים.",
+            price: "₪599",
+            level: "מתקדמים",
+            duration: "16 מודולים",
+            image: "/course-assets/ai-master-course/images/before-after.png",
+            href: "/courses/sell-page",
+            unlockedHref: "/courses/ai-master-course",
+            isUnlocked: hasMasterCourse,
+            unlockedLabel: "כניסה לנגן הקורס המלא",
+        },
+        {
+            id: "claude-bundle",
+            slug: "claude-bundle",
+            title: "בנדל Claude לפרודוקטיביות פיננסית",
+            description: "מאגר פרומפטים מובנה, סקילים ומדריכי יישום לעבודה יומיומית עם Claude בפיננסים.",
+            price: "₪150",
+            level: "לכל הרמות",
+            duration: "מאגר דיגיטלי",
+            image: "/course-assets/ai-master-course/images/c-logo.png",
+            href: "/claude-bundle",
+            unlockedHref: paidBundlePurchases[0]?.access_token
+                ? `/claude-bundle/access/${paidBundlePurchases[0].access_token}`
+                : "/claude-bundle/access/member",
+            isUnlocked: hasClaudeBundle,
+            unlockedLabel: "כניסה לאזור הצפייה וההורדות",
+        },
+    ];
+
+    // Compile Payments History List
+    const paymentsList: PaymentItem[] = [];
+
+    // 1. Add course purchases
+    (coursePurchases || []).forEach((p) => {
+        let title = "קורס AI Finance Master";
+        if (Number(p.amount) === 250) title = "קורס AI לכספים: המדריך למתחילים";
+        if (Number(p.amount) === 150) title = "קורס Mastering NotebookLM";
+
+        paymentsList.push({
+            id: p.id,
+            title,
+            amount: Number(p.amount) || 599,
+            currency: p.currency || "ILS",
+            status: p.status === "completed" || p.status === "paid" ? "paid" : "pending",
+            date: p.created_at || new Date().toISOString(),
+            provider: p.payment_provider || (p.paypal_order_id ? "PayPal" : "SmartBee"),
+            invoiceUrl: p.invoice_url || null,
+            invoiceNumber: p.invoice_number || null,
+        });
+    });
+
+    // 2. Add bundle purchases
+    (bundlePurchases || []).forEach((b) => {
+        paymentsList.push({
+            id: b.id,
+            title: "בנדל Claude לפרודוקטיביות פיננסית",
+            amount: Number(b.amount) || 150,
+            currency: b.currency || "ILS",
+            status: b.status === "paid" || b.status === "completed" ? "paid" : "pending",
+            date: b.created_at || new Date().toISOString(),
+            provider: b.paypal_order_id ? "PayPal" : "SmartBee",
+            invoiceUrl: b.invoice_url || null,
+        });
+    });
+
+    // 3. Add subscription payment records
+    (paymentRecords || []).forEach((pr) => {
+        paymentsList.push({
+            id: pr.id,
+            title: "מנוי חודשי Pro - AI Finance",
+            amount: Number(pr.amount) || 100,
+            currency: pr.currency || "ILS",
+            status: pr.status === "COMPLETED" || pr.status === "completed" ? "paid" : "pending",
+            date: pr.created_at || new Date().toISOString(),
+            provider: "PayPal",
+        });
+    });
+
+    // Sort payments by date descending
+    paymentsList.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+
+    // Fetch dynamic recent blog posts
+    let recentArticles: RecentArticleItem[] = [];
+    try {
+        const dbPosts = await getDBPosts();
+        const staticPosts = getAllPosts();
+
+        const combined = [
+            ...dbPosts.map((p) => ({
+                slug: p.slug,
+                title: p.title,
+                description: p.description,
+                date: p.published_at ? new Date(p.published_at).toLocaleDateString("he-IL") : "",
+                is_premium: p.is_premium,
+                tags: p.tags,
+            })),
+            ...staticPosts.map((p) => ({
+                slug: p.slug,
+                title: p.title,
+                description: p.description,
+                date: p.date,
+                is_premium: p.premium,
+                tags: p.tags,
+            })),
+        ];
+
+        // Unique by slug
+        const seen = new Set<string>();
+        recentArticles = combined.filter((item) => {
+            if (seen.has(item.slug)) return false;
+            seen.add(item.slug);
+            return true;
+        }).slice(0, 3);
+    } catch (e) {
+        console.error("Error fetching recent articles for dashboard:", e);
+    }
+
+    // Fetch featured guides
+    let featuredGuides: GuideItem[] = [];
+    try {
+        const guides = getAllGuides();
+        featuredGuides = guides.slice(0, 3).map((g) => ({
+            slug: g.slug,
+            title: g.title,
+            description: g.description,
+            category: g.category,
+        }));
+    } catch (e) {
+        console.error("Error fetching featured guides for dashboard:", e);
+    }
+
+    const fullName =
+        user.user_metadata?.full_name ??
+        user.user_metadata?.name ??
+        profile?.full_name ??
+        "";
+
+    const phone =
+        user.user_metadata?.phone ??
+        profile?.phone ??
+        "";
 
     return (
-        <div className="pt-24 pb-16 min-h-screen">
-            <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-                {/* Header */}
-                <div className="mb-12 flex flex-col md:flex-row md:items-end justify-between gap-6">
-                    <div>
-                        <div className="flex items-center gap-3 mb-4">
-                            <Link href="/" className="text-text-muted hover:text-teal-400 transition-colors">
-                                <ArrowLeft className="h-5 w-5" />
-                            </Link>
-                            <h1 className="text-4xl font-bold">האזור האישי</h1>
-                        </div>
-                        <p className="text-text-secondary">ברוך הבא, {user.email}</p>
-                    </div>
-
-                    <div className="flex gap-4">
-                        {isPremium ? (
-                            <Badge variant="royal" className="px-4 py-2 text-sm">
-                                <Crown className="h-4 w-4 ml-2" /> מנוי PRO פעיל
-                            </Badge>
-                        ) : (
-                            <Badge variant="muted" className="px-4 py-2 text-sm font-medium">
-                                משתמש רשום (חינם)
-                            </Badge>
-                        )}
-                    </div>
-                </div>
-
-                <div className="grid gap-8 lg:grid-cols-3">
-                    {/* Main Content Side */}
-                    <div className="lg:col-span-2 space-y-8">
-                        {/* Membership Card */}
-                        <GlassCard className="p-8 border-t-2 border-teal-400/30">
-                            <div className="flex items-center gap-4 mb-6">
-                                <div className="h-12 w-12 rounded-xl bg-teal-400/10 flex items-center justify-center border border-teal-400/20">
-                                    <Zap className="h-6 w-6 text-teal-400" />
-                                </div>
-                                <div>
-                                    <h2 className="text-xl font-bold">סטטוס המנוי שלך</h2>
-                                    <p className="text-sm text-text-secondary">נהל את הגישה שלך לתכנים</p>
-                                </div>
-                            </div>
-
-                            {isPremium ? (
-                                <div className="space-y-4">
-                                    <p className="text-text-primary">יש לך גישה מלאה לכל התכנים באתר! תהנה מהמדריכים, הפרומפטים והקורסים הבלעדיים.</p>
-                                    <div className="pt-4 flex gap-4">
-                                        <Button href="/blog">עבור לבלוג הפרימיום</Button>
-                                        <Button variant="ghost" href="/courses">צפה בקורסים שלי</Button>
-                                    </div>
-                                </div>
-                            ) : (
-                                <div className="space-y-4">
-                                    <p className="text-text-secondary">כרגע אתה רשום למסלול החינמי. שדרג ל-PRO כדי לפתוח את כל המדריכים המקצועיים והפרומפטים לחשבונאים.</p>
-                                    <div className="pt-4">
-                                        <Button href="/" variant="primary">שדרג עכשיו ל-PRO</Button>
-                                    </div>
-                                </div>
-                            )}
-                        </GlassCard>
-
-                        {/* Recent Activity / Content Recommendations */}
-                        <div className="grid gap-6 md:grid-cols-2">
-                            <GlassCard className="p-6" hover={true}>
-                                <div className="flex items-center gap-3 mb-4">
-                                    <BookOpen className="h-5 w-5 text-teal-400" />
-                                    <h3 className="font-bold">תכנים מומלצים</h3>
-                                </div>
-                                <ul className="space-y-3">
-                                    <li>
-                                        <Link href="/blog" className="text-sm text-text-secondary hover:text-teal-400 transition-colors block border-b border-white/5 pb-2">
-                                            איך להטמיע את NotebookLM בביקורת
-                                        </Link>
-                                    </li>
-                                    <li>
-                                        <Link href="/blog" className="text-sm text-text-secondary hover:text-teal-400 transition-colors block border-b border-white/5 pb-2">
-                                            5 פרומפטים לניתוח דוחות כספיים
-                                        </Link>
-                                    </li>
-                                </ul>
-                            </GlassCard>
-
-                            <GlassCard className="p-6" hover={true}>
-                                <div className="flex items-center gap-3 mb-4">
-                                    <Trophy className="h-5 w-5 text-royal-400" />
-                                    <h3 className="font-bold">ההתקדמות שלי</h3>
-                                </div>
-                                <div className="text-center py-4">
-                                    <p className="text-xs text-text-muted mb-2">טרם התחלת קורסים פעילים</p>
-                                    <Button href="/courses" variant="ghost" size="sm">מצא קורס</Button>
-                                </div>
-                            </GlassCard>
-                        </div>
-                    </div>
-
-                    {/* Sidebar Area */}
-                    <div className="space-y-8">
-                        <GlassCard className="p-6">
-                            <h3 className="font-bold mb-6 flex items-center gap-2">
-                                <Settings className="h-5 w-5 text-text-muted" />
-                                ניהול חשבון
-                            </h3>
-                            <nav className="space-y-2">
-                                <button className="w-full flex items-center justify-between p-3 rounded-lg hover:bg-white/5 text-sm text-text-secondary transition-colors">
-                                    <div className="flex items-center gap-3">
-                                        <User className="h-4 w-4" />
-                                        עדכון פרטים
-                                    </div>
-                                </button>
-                                <button className="w-full flex items-center justify-between p-3 rounded-lg hover:bg-white/5 text-sm text-text-secondary transition-colors">
-                                    <div className="flex items-center gap-3">
-                                        <CreditCard className="h-4 w-4" />
-                                        היסטוריית תשלומים
-                                    </div>
-                                </button>
-                                <form action="/auth/signout" method="post">
-                                    <button type="submit" className="w-full text-right p-3 rounded-lg hover:bg-red-500/10 text-sm text-red-400 transition-colors">
-                                        התנתק מהמערכת
-                                    </button>
-                                </form>
-                            </nav>
-                        </GlassCard>
-
-                        <GlassCard className="p-6 bg-royal-500/5 border-royal-500/20">
-                            <h3 className="font-bold mb-4">צריך עזרה?</h3>
-                            <p className="text-sm text-text-secondary mb-4 leading-relaxed">
-                                נתקלת בבעיה בגישה לתכנים? רוצה לשאול על פרויקט אוטומציה?
-                            </p>
-                            <Button href="/contact" variant="ghost" className="w-full text-sm">פנה לתמיכה בוואטסאפ</Button>
-                        </GlassCard>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <DashboardClient
+            user={{
+                id: user.id,
+                email: user.email || "",
+                fullName,
+                phone,
+            }}
+            isPremium={isPremium}
+            subscriptionStatus={profile?.subscription_status || "free"}
+            subscriptionEndDate={profile?.subscription_end_date}
+            courses={coursesList}
+            payments={paymentsList}
+            recentArticles={recentArticles}
+            featuredGuides={featuredGuides}
+        />
     );
 }

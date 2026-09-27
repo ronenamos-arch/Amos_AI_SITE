@@ -56,6 +56,21 @@ export default async function CourseMasterLayout({
             return <>{children}</>;
         }
 
+        // Check if user has paid course purchase by email
+        if (user.email) {
+            const adminSupabase = createAdminClient();
+            const { data: purchase } = await adminSupabase
+                .from("course_purchases")
+                .select("id")
+                .eq("email", user.email.toLowerCase().trim())
+                .in("status", ["paid", "completed"])
+                .limit(1);
+
+            if (purchase && purchase.length > 0) {
+                return <>{children}</>;
+            }
+        }
+
         // Check profile subscription status
         const { data: profile } = await supabase
             .from("profiles")

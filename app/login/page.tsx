@@ -200,6 +200,17 @@ function LoginContent() {
                         <Chrome className="h-4 w-4" />
                         התחבר עם Google
                     </Button>
+
+                    {process.env.NODE_ENV === "development" && (
+                        <div className="mt-6 pt-6 border-t border-teal-500/20">
+                            <a
+                                href={`/api/auth/dev-login?next=${encodeURIComponent(nextUrl)}`}
+                                className="w-full py-2.5 px-4 rounded-xl bg-teal-500/20 hover:bg-teal-500/30 border border-teal-400/40 text-teal-300 font-bold text-xs flex items-center justify-center gap-2 transition-all"
+                            >
+                                ⚡ כניסה מיידית מקומית כמנהל (פיתוח בלוקאל)
+                            </a>
+                        </div>
+                    )}
                 </GlassCard>
 
                 <p className="mt-8 text-center text-sm text-text-muted">

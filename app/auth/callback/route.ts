@@ -6,10 +6,11 @@ export async function GET(request: Request) {
     const { searchParams, origin } = new URL(request.url);
     const code = searchParams.get("code");
     // if "next" is in search params, use it as the redirection URL after successful connection
-    const next = searchParams.get("next") ?? "/";
+    const next = searchParams.get("next") ?? "/dashboard";
 
-    // Use NEXT_PUBLIC_SITE_URL if available (production), otherwise fall back to origin (local dev)
-    const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || origin;
+    // Preserve local development origin (localhost/127.0.0.1) so local testing stays on localhost
+    const isLocalEnv = origin.includes("localhost") || origin.includes("127.0.0.1");
+    const siteUrl = isLocalEnv ? origin : (process.env.NEXT_PUBLIC_SITE_URL || origin);
 
     if (code) {
         const supabase = await createClient();

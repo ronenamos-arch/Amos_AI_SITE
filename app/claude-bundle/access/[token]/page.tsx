@@ -47,21 +47,65 @@ export default async function BundleAccessPage({
 }) {
     const { token } = await params;
 
-    // Validate token
+    // Validate token or user session
     const supabase = createAdminClient();
+    let purchaseName = "חבר יקר";
+    let isAuthorized = false;
+
     const { data: purchase } = await supabase
         .from("bundle_purchases")
         .select("id, name, email, status")
         .eq("access_token", token)
-        .eq("status", "paid")
+        .in("status", ["paid", "completed"])
         .maybeSingle();
 
-    if (!purchase) {
+    if (purchase) {
+        isAuthorized = true;
+        purchaseName = purchase.name || "חבר יקר";
+    } else {
+        // Fallback: check logged-in user
+        const { createClient } = await import("@/lib/supabase/server");
+        const authSupabase = await createClient();
+        const { data: { user } } = await authSupabase.auth.getUser();
+
+        if (user) {
+            const userEmail = user.email ? user.email.toLowerCase().trim() : "";
+            if (userEmail === "ronenamos@gmail.com") {
+                isAuthorized = true;
+                purchaseName = "רונן עמוס";
+            } else {
+                const { data: profile } = await authSupabase
+                    .from("profiles")
+                    .select("subscription_status")
+                    .eq("id", user.id)
+                    .maybeSingle();
+
+                if (profile?.subscription_status === "lifetime" || profile?.subscription_status === "monthly") {
+                    isAuthorized = true;
+                    purchaseName = user.user_metadata?.full_name || "מנוי יקר";
+                } else if (userEmail) {
+                    const { data: userBundle } = await supabase
+                        .from("bundle_purchases")
+                        .select("id, name")
+                        .eq("email", userEmail)
+                        .in("status", ["paid", "completed"])
+                        .limit(1);
+
+                    if (userBundle && userBundle.length > 0) {
+                        isAuthorized = true;
+                        purchaseName = userBundle[0].name || user.user_metadata?.full_name || "לקוח יקר";
+                    }
+                }
+            }
+        }
+    }
+
+    if (!isAuthorized) {
         notFound();
     }
 
     const hours = Math.round(totalBundleMinutes / 60);
-    const firstName = purchase.name.split(" ")[0];
+    const firstName = purchaseName.split(" ")[0];
 
     return (
         <>

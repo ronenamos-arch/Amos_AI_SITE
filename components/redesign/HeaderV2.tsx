@@ -26,29 +26,127 @@ const navLinks = [
 export function HeaderV2() {
     const [mobileOpen, setMobileOpen] = useState(false);
     const [resourcesOpen, setResourcesOpen] = useState(false);
-    const [displayName, setDisplayName] = useState<string | null>(null);
+    const [userState, setUserState] = useState<{
+        isLoggedIn: boolean;
+        isSubscriber: boolean;
+        displayName: string | null;
+    }>({
+        isLoggedIn: false,
+        isSubscriber: false,
+        displayName: null,
+    });
 
     useEffect(() => {
-        const supabase = createClient();
-        const nameFrom = (user: { user_metadata?: { full_name?: string; name?: string }; email?: string } | null) =>
-            user ? user.user_metadata?.full_name ?? user.user_metadata?.name ?? user.email?.split("@")[0] ?? null : null;
+        const fetchStatus = async () => {
+            try {
+                const res = await fetch("/api/user/access-status");
+                if (res.ok) {
+                    const data = await res.json();
+                    setUserState(data);
+                    return;
+                }
+            } catch (err) {
+                console.error("Failed to fetch user access status in header:", err);
+            }
+            setUserState({ isLoggedIn: false, isSubscriber: false, displayName: null });
+        };
 
-        supabase.auth.getSession().then(({ data: { session } }) => setDisplayName(nameFrom(session?.user ?? null)));
-        const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) =>
-            setDisplayName(nameFrom(session?.user ?? null))
-        );
+        fetchStatus();
+
+        const supabase = createClient();
+        const { data: { subscription } } = supabase.auth.onAuthStateChange(() => {
+            fetchStatus();
+        });
+
         return () => subscription.unsubscribe();
     }, []);
 
-    const accountLink = displayName ? (
-        <Link href="/dashboard" className="rv2-link flex items-center gap-1.5 text-sm" title="לאזור האישי">
-            <UserCircle2 size={18} className="text-[var(--rv2-accent)]" />
-            <span className="max-w-[9rem] truncate">{displayName}</span>
-        </Link>
+    const desktopActions = userState.isLoggedIn ? (
+        userState.isSubscriber ? (
+            <Link
+                href="/dashboard"
+                className="rv2-btn rv2-btn-primary px-5 py-2 text-sm flex items-center gap-2 shadow-lg shadow-teal-500/20"
+                title="כניסה לאזור האישי"
+            >
+                <UserCircle2 size={18} />
+                <span>כניסה לאזור האישי</span>
+            </Link>
+        ) : (
+            <div className="flex items-center gap-3">
+                <Link href="/dashboard" className="rv2-link flex items-center gap-1.5 text-sm" title="לאזור האישי">
+                    <UserCircle2 size={18} className="text-[var(--rv2-accent)]" />
+                    <span className="max-w-[8rem] truncate">{userState.displayName}</span>
+                </Link>
+                <a
+                    href={SMARTBEE_CONFIG.products.monthlySubscription.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="rv2-btn rv2-btn-primary px-5 py-2 text-sm"
+                >
+                    רכוש מנוי
+                </a>
+            </div>
+        )
     ) : (
-        <Link href="/login" className="rv2-link text-sm">
-            התחברות
-        </Link>
+        <div className="flex items-center gap-3">
+            <Link href="/login" className="rv2-link text-sm">
+                התחברות
+            </Link>
+            <a
+                href={SMARTBEE_CONFIG.products.monthlySubscription.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="rv2-btn rv2-btn-primary px-5 py-2 text-sm"
+            >
+                רכוש מנוי
+            </a>
+        </div>
+    );
+
+    const mobileActions = userState.isLoggedIn ? (
+        userState.isSubscriber ? (
+            <Link
+                href="/dashboard"
+                onClick={() => setMobileOpen(false)}
+                className="rv2-btn rv2-btn-primary w-full text-center py-2.5 text-sm flex items-center justify-center gap-2"
+            >
+                <UserCircle2 size={18} />
+                <span>כניסה לאזור האישי ({userState.displayName})</span>
+            </Link>
+        ) : (
+            <div className="flex flex-col gap-3 w-full">
+                <Link
+                    href="/dashboard"
+                    onClick={() => setMobileOpen(false)}
+                    className="rv2-link flex items-center justify-center gap-1.5 text-sm py-1"
+                >
+                    <UserCircle2 size={18} className="text-[var(--rv2-accent)]" />
+                    <span>האזור האישי ({userState.displayName})</span>
+                </Link>
+                <a
+                    href={SMARTBEE_CONFIG.products.monthlySubscription.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="rv2-btn rv2-btn-primary w-full text-center py-2 text-sm"
+                >
+                    רכוש מנוי Pro
+                </a>
+            </div>
+        )
+    ) : (
+        <div className="flex items-center gap-4 w-full justify-between">
+            <a
+                href={SMARTBEE_CONFIG.products.monthlySubscription.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="rv2-btn rv2-btn-primary text-sm flex-1 text-center"
+            >
+                רכוש מנוי
+            </a>
+            <Link href="/login" onClick={() => setMobileOpen(false)} className="rv2-link text-sm px-2">
+                התחברות
+            </Link>
+        </div>
     );
 
     return (
@@ -105,15 +203,7 @@ export function HeaderV2() {
                 </nav>
 
                 <div className="hidden items-center gap-3 lg:flex">
-                    {accountLink}
-                    <a
-                        href={SMARTBEE_CONFIG.products.monthlySubscription.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="rv2-btn rv2-btn-primary px-5 py-2 text-sm"
-                    >
-                        רכוש מנוי
-                    </a>
+                    {desktopActions}
                 </div>
 
                 <button
@@ -139,16 +229,8 @@ export function HeaderV2() {
                             {l.label}
                         </Link>
                     ))}
-                    <div className="mt-4 flex items-center gap-4">
-                        <a
-                            href={SMARTBEE_CONFIG.products.monthlySubscription.url}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="rv2-btn rv2-btn-primary text-sm"
-                        >
-                            רכוש מנוי
-                        </a>
-                        {accountLink}
+                    <div className="mt-4 flex items-center">
+                        {mobileActions}
                     </div>
                 </div>
             )}
