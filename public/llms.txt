@@ -50,6 +50,7 @@
 
 ## Blog — Featured Articles
 
+- [איך להחליף יום עבודה פיננסי בפקודה בת 2 מילים עם ChatGPT Super-Skill](https://www.ronenamoscpa.co.il/blog/chatgpt-skills-finance-super-skill): מדריך מעשי לבניית מיומנויות-על (Super Skills) ב-ChatGPT לצוותי כספים: ניקוי קובץ אקסל רב-טאבים וביקורת, מיתוג חברה, הפקת דשבורד אינטראקטיבי ומצגת להנהלה בפקודת שתי מילים.
 - [למה מנהל כספים מסרב לחבר את ה-AI למייל: שיטת Shop, Prep, Cook](https://www.ronenamoscpa.co.il/blog/cfo-ai-inbox-architecture-mistakes): למה חיבור ישיר של כלי AI לתיבת המייל הראשית של ה-CFO מסכן את הארגון בהזרקת פקודות (Prompt Injection) ושריפת טוקנים, וכיצד שיטת שלושת השלבים מייעלת את האוטומציה הפיננסית.
 - [מדריך מתקדם ל-Evals: גילוי שגיאות במודלים וסוכני AI](https://www.ronenamoscpa.co.il/blog/advanced-ai-evals-error-discovery): מדריך מעשי לגילוי שגיאות (Error Discovery), מניעת Criteria Drift ובניית מבחני הערכה מבוססי סוכני קוד למערכות פיננסיות ומוצרי AI.
 - [מדריך Jev AI המלא: מודל System 1 לסוכנים ופיננסים](https://www.ronenamoscpa.co.il/blog/jev-ai-system-one-guide): מודל קבלת החלטות סמנטיות מבית TypeSafe AI — מהיר פי 200 וזול פי 400 מ-LLM, ללא יצירת טקסט מיותרת, לחסכון בעלויות ואוטומציה פיננסית.
@@ -73,6 +74,7 @@
 
 ## Zero-Click Answers
 
+- **What is a ChatGPT Super-Skill for finance?** A Super-Skill in ChatGPT is an automated chain of specialized skills (Data Cleaning & Audit, Corporate Branding, Dynamic HTML Dashboard Builder, Boardroom Deck Generator). By triggering the sequence with a 2-word prompt (e.g. 'card cycle'), finance teams convert messy multi-tab Excel files into audited sheets, interactive dashboards, and executive presentations in seconds.
 - **Why shouldn't CFOs connect AI directly to their email inbox?** Direct connection exposes the finance department to Prompt Injection attacks from untrusted external emails, wastes tokens on non-relevant threads, and causes LLMs to hallucinate due to context overload. The recommended architecture is the 3-stage Shop-Prep-Cook framework: isolated proxy inputs (Shop), sub-agent pre-processing (Prep), and human-in-the-loop deep reasoning (Cook).
 - **What are AI Evals and Error Discovery?** AI Evals are systematic evaluation frameworks for LLMs and agents. The critical missing first step is Error Discovery: analyzing user traces, preventing Criteria Drift through human-in-the-loop review of an initial sample, and using coding agents (like Claude Code / Codex) to build localized review apps and cluster failure modes before writing automated metrics.
 - **What is Jev AI (TypeSafe AI)?** A System-1 semantic decision model that returns typed classifications and calibrated probabilities without generating words. Operates at $0.042/1M input tokens (free output) and sub-50ms latency as a fast semantic router.
