@@ -63,7 +63,7 @@ export function ResourceGuideLayout({ guide }: ResourceGuideLayoutProps) {
   const claudeOneChapters = [
     { num: '01', title: 'מה השתנה — המיזוג בין Cowork לצ\'אט למקום אחד' },
     { num: '02', title: 'שימושים ל-FP&A — ניירות עבודה, מזכרי סטיות ומצגות שקפים' },
-    { num: '03', title: 'שגרת יום שני בבוקר — תהליך עבודה מלא שלב-אחר-שלב' },
+    { num: '03', title: 'שגרת יום ראשון בבוקר — תהליך עבודה מלא שלב-אחר-שלב' },
     { num: '04', title: 'לוח הבקרה — חיבור למערכות נתונים ואוטומציות' },
     { num: '05', title: 'בחירת מודל — התאמת Sonnet, Haiku ו-Opus למשימות פיננסיות' },
     { num: '06', title: 'ספריית פרומפטים מעשית — תבניות מוכנות להעתקה' },
@@ -232,7 +232,7 @@ export function ResourceGuideLayout({ guide }: ResourceGuideLayoutProps) {
       {/* ── Quote / Insight Box ── */}
       <div className="relative rounded-2xl p-6 sm:p-8 bg-gradient-to-r from-space-900 via-space-900/90 to-space-950 border-r-4 border-lime-400 border-y border-l border-white/10">
         <blockquote className="text-lg sm:text-xl font-medium text-slate-100 leading-relaxed italic">
-          ״שיחה אחת נושאת עכשיו שאלה מהירה, מזכר סטיות מפורט וחמישה שקפים לפגישת ההנהלה של יום שני — בלי להחליט מראש לאן המשימה שייכת ובלי לעבור בין כלים.״
+          ״שיחה אחת נושאת עכשיו שאלה מהירה, מזכר סטיות מפורט וחמישה שקפים לפגישת ההנהלה של יום ראשון — בלי להחליט מראש לאן המשימה שייכת ובלי לעבור בין כלים.״
         </blockquote>
         <div className="mt-4 flex items-center justify-between text-xs text-slate-400 font-mono">
           <span>רונן עמוס, CPA</span>
