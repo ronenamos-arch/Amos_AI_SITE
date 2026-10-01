@@ -6,6 +6,7 @@ import { getGuideBySlug, getRelatedGuides, getAllGuides } from '@/lib/guides-dat
 import { GuideCard } from '@/components/guides/GuideCard';
 import { NewsletterForm } from '@/components/forms/NewsletterForm';
 import { Paywall } from '@/components/blog/Paywall';
+import { ResourceGuideLayout } from '@/components/guides/ResourceGuideLayout';
 import { createClient } from '@/lib/supabase/server';
 import { checkProfileAccess } from '@/lib/subscription-access';
 
@@ -211,23 +212,7 @@ export default async function GuideDetailPage({
           </div>
         </header>
 
-        {/* Description */}
-        <p className="text-lg text-slate-300 leading-relaxed mb-10">
-          {guide.longDescription ?? guide.description}
-        </p>
-
-        {/* Resource entries carry their own body copy in place of a Gamma deck. */}
-        {guide.summary && (
-          <div className="mb-10 space-y-5">
-            {guide.summary.split('\n\n').map((paragraph) => (
-              <p key={paragraph.slice(0, 40)} className="text-xl text-slate-300 leading-loose">
-                {paragraph}
-              </p>
-            ))}
-          </div>
-        )}
-
-        {/* Gamma embed, resource link, or paywall */}
+        {/* Resource entries use rich structured layout; native Gamma decks use embed */}
         {isLocked ? (
           <>
             {guide.thumbnail && (
@@ -247,41 +232,40 @@ export default async function GuideDetailPage({
             />
           </>
         ) : guide.resourceSlug ? (
-          <div className="mb-4 flex justify-center">
-            <Link
-              href={`/resources/${guide.resourceSlug}`}
-              className="inline-flex items-center gap-3 bg-gradient-to-l from-neon-cyan to-neon-teal text-space-950 font-black text-xl px-12 py-6 rounded-2xl shadow-2xl shadow-neon-cyan/20 hover:opacity-90 transition-opacity"
-            >
-              <span>פתח את המשאב המלא</span>
-              <span aria-hidden="true">←</span>
-            </Link>
-          </div>
+          <ResourceGuideLayout guide={guide} />
         ) : (
-          <div className="mb-4">
-            <div
-              className="relative w-full rounded-xl overflow-hidden glass-panel"
-              style={{ paddingTop: '110%' /* even taller on all devices */ }}
-            >
-              <iframe
-                src={embedUrl}
-                className="absolute inset-0 w-full h-full border-0"
-                allowFullScreen
-                loading="lazy"
-                title={guide.title}
-              />
-            </div>
-            <div className="mt-3 text-left">
-              <a
-                href={guide.gammaUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-sm text-slate-500 hover:text-neon-cyan transition-colors inline-flex items-center gap-1"
+          <>
+            {/* Description */}
+            <p className="text-lg text-slate-300 leading-relaxed mb-10">
+              {guide.longDescription ?? guide.description}
+            </p>
+
+            <div className="mb-4">
+              <div
+                className="relative w-full rounded-xl overflow-hidden glass-panel"
+                style={{ paddingTop: '110%' /* even taller on all devices */ }}
               >
-                <span>פתח את המדריך ב-Gamma</span>
-                <span>↗</span>
-              </a>
+                <iframe
+                  src={embedUrl}
+                  className="absolute inset-0 w-full h-full border-0"
+                  allowFullScreen
+                  loading="lazy"
+                  title={guide.title}
+                />
+              </div>
+              <div className="mt-3 text-left">
+                <a
+                  href={guide.gammaUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-sm text-slate-500 hover:text-neon-cyan transition-colors inline-flex items-center gap-1"
+                >
+                  <span>פתח את המדריך ב-Gamma</span>
+                  <span>↗</span>
+                </a>
+              </div>
             </div>
-          </div>
+          </>
         )}
 
         {/* Thumbnail fallback for og/share — visually hidden but helps crawlers */}
