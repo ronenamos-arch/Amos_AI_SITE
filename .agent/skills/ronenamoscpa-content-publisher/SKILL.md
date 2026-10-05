@@ -51,8 +51,9 @@ Sources for this website are **strictly**:
 1. All images from the email or source MUST be downloaded and stored locally in:
    `public/images/blog/<slug>-<descriptor>.<ext>`
 2. Never rely on external ephemeral URLs (like Substack temporary CDNs or expired tokens).
-3. **🎨 White / Light Background Infographic Standard:**
+3. **🎨 White / Light Background Infographic Standard & SVG Typography:**
    * Hero infographics and custom process diagrams must always use a **clean white/light background** (`#ffffff` / `#f8fafc`) with sharp dark typography (`#0f172a`), distinct card containers (teal, sky-blue, purple accents), and Hebrew labels.
+   * **SVG Text Alignment:** Always center text in cards (`text-anchor="middle"`) or use explicit LTR coordinates. Never combine `direction="rtl"` with `text-anchor="end"` on container boundaries to prevent text cutoff.
    * Brand watermark/footer: `רונן עמוס רו״ח • קהילת AI Finance Transformation • ronenamoscpa.co.il`.
 4. In the Markdown post, embed images with descriptive Hebrew alt tags:
    ```markdown
@@ -69,7 +70,7 @@ Create the file in: `content/posts/<slug>.md`
 ---
 title: "כותרת מושכת וממוקדת ערך בעברית (כולל מילת מפתח עיקרית)"
 date: "YYYY-MM-DD"
-excerpt: "תקציר תמציתי ומסקרן (עד 2 משפטים) המציג את הבעיה, הפתרון והערך המעשי לקורא."
+excerpt: 'תקציר תמציתי ומסקרן (עד 2 משפטים) המציג את הבעיה, הפתרון והערך המעשי לקורא.'
 image: "/images/blog/<slug>-header.png"
 tags: ["AI for Finance", "CFO", "Automation", "FP&A", "Claude"]
 premium: "false"
@@ -89,17 +90,27 @@ premium: "false"
 ### 📋 Mandatory Content Elements:
 
 1. **Zero-Click Answer Block:** Always place a blockquote with `> **תשובה מהירה (Zero-Click Answer):**` right below the hero image for LLM citations (Google AI Overviews, Perplexity, ChatGPT Search).
-2. **HTML Blocks & Flowcharts (Zero-Indent Rule):**
+2. **YAML Frontmatter Quotes:** When Hebrew titles or excerpts contain double quotes (e.g. סמנכ"לי, רו"ח), use single quotes `'...'` in the frontmatter to prevent unwanted backslash escaping (`\"`).
+3. **HTML Blocks & Flowcards (Dark Mode Compatible & Zero-Indent Rule):**
    * Raw HTML components (process flowcards, alert boxes) must have **ZERO leading 4-space indentation** to prevent Markdown parsers (`marked`) from mistakenly wrapping them in `<pre><code>` black code boxes.
-   * Style process cards with light backgrounds (`background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 1rem;`).
-3. **Toggle View for Long Code/Prompts:** Every long code snippet (>10 lines) MUST be placed inside an unindented expandable `<details>` block:
+   * **Dark Mode Container Standard:** The site uses dark mode styling (`prose-invert`). Never use plain pale white cards (`#ffffff`/`#f8fafc`) without dark text overrides. Use sleek dark slate / navy cards (`background: #0f172a; border: 1px solid #1e293b; color: #e2e8f0;`) with glowing colored borders (Teal, Sky, Emerald, Violet) and bright headings (`#f8fafc` / `#5eead4`).
+4. **Closed & Open Styling for Long Code/Prompts (`<details>`):** Every long prompt or code snippet MUST be styled as a standout interactive container:
    ```html
-   <details style="margin: 1.5rem 0; padding: 1.25rem; border-radius: 0.75rem; border: 1px solid #e2e8f0; background: #f8fafc;">
-   <summary style="cursor: pointer; font-weight: 600; color: #1d4ed8; font-size: 1.05rem; outline: none;">👉 לחצו כאן לצפייה בדוגמת הקוד / הפרומפט המלאה</summary>
+   <details style="margin: 2rem 0; padding: 1.25rem 1.5rem; border-radius: 0.85rem; border: 1.5px solid #0d9488; background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); box-shadow: 0 4px 20px rgba(13, 148, 136, 0.15);">
+   <summary style="cursor: pointer; font-weight: 700; color: #2dd4bf; font-size: 1.05rem; outline: none; margin-bottom: 0.75rem; display: flex; align-items: center; justify-content: space-between;">
+     <span>👉 לחצו כאן לצפייה בפרומפט / הקוד המלא</span>
+     <span style="background: rgba(13, 148, 136, 0.2); color: #5eead4; border: 1px solid #0d9488; font-size: 0.78rem; font-weight: 700; padding: 0.25rem 0.75rem; border-radius: 9999px;">PROMPT</span>
+   </summary>
 
-   ```typescript
+   <div style="position: relative; background: #000000; border-radius: 0.5rem; border: 1px solid #334155; margin-top: 0.75rem; overflow: hidden;">
+   <div style="display: flex; justify-content: space-between; align-items: center; background: #18181b; padding: 0.5rem 1rem; border-bottom: 1px solid #27272a;">
+   <span style="font-size: 0.8rem; color: #a1a1aa; font-family: ui-monospace, monospace; font-weight: 500;">PROMPT</span>
+   <button onclick="const t = this.closest('div').parentElement.querySelector('pre').innerText; navigator.clipboard.writeText(t); this.innerText = '✓ הועתק!'; this.style.color = '#10b981'; setTimeout(() => { this.innerText = '📋 העתק פרומפט'; this.style.color = '#e4e4e7'; }, 2000);" style="background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15); color: #e4e4e7; padding: 0.3rem 0.75rem; border-radius: 0.375rem; font-size: 0.8rem; cursor: pointer; transition: all 0.2s; font-family: system-ui, sans-serif; display: flex; align-items: center; gap: 0.35rem;">📋 העתק פרומפט</button>
+   </div>
+   <pre style="color: #ffffff; padding: 1.25rem; margin: 0; overflow-x: auto; font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; font-size: 0.92rem; line-height: 1.6; direction: ltr; text-align: left; white-space: pre-wrap; background: transparent; border: none;">
    // code or prompt here
-   ```
+   </pre>
+   </div>
 
    </details>
    ```
