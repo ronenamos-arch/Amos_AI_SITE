@@ -18,6 +18,7 @@ export default function robots(): MetadataRoute.Robots {
                     '/claude-bundle/access/',
                     '/claude-bundle/thanks',
                     '/courses/ai-mastery/thanks',
+                    '/thanks-pro',
                 ],
             },
             // Tier 1: AI search crawlers (ChatGPT, Claude, Perplexity)

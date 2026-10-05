@@ -1,15 +1,16 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
 import Script from "next/script";
-import { META_PIXEL_ID } from "@/lib/metaPixel";
+import { META_PIXEL_ID, trackMetaCustom } from "@/lib/metaPixel";
 
 // Loads the Meta Pixel only after cookie consent was granted,
-// and sends a PageView on every client-side route change.
+// sends PageView on route change, and tracks EngagedVisit (30s on page OR scrolled to 50%).
 export function MetaPixel() {
   const [allowed, setAllowed] = useState(false);
   const pathname = usePathname();
+  const engagedFiredRef = useRef(false);
 
   useEffect(() => {
     const check = () => {
@@ -24,10 +25,58 @@ export function MetaPixel() {
     return () => window.removeEventListener("cookie-consent-change", check);
   }, []);
 
+  // Track PageView on route changes
   useEffect(() => {
     if (allowed && typeof window.fbq === "function") {
       window.fbq("track", "PageView");
     }
+  }, [pathname, allowed]);
+
+  // Track EngagedVisit (custom event): fired once per page view after 30s OR scrolling 50% of the page
+  useEffect(() => {
+    if (!allowed) return;
+
+    engagedFiredRef.current = false;
+    let timer: ReturnType<typeof setTimeout> | null = null;
+
+    const cleanup = () => {
+      if (timer) {
+        clearTimeout(timer);
+        timer = null;
+      }
+      window.removeEventListener("scroll", handleScroll);
+    };
+
+    const triggerEngaged = () => {
+      if (engagedFiredRef.current) return;
+      engagedFiredRef.current = true;
+      trackMetaCustom("EngagedVisit");
+      cleanup();
+    };
+
+    const handleScroll = () => {
+      if (engagedFiredRef.current) return;
+      const scrollTop = window.scrollY || document.documentElement.scrollTop;
+      const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const scrolledHalfway = scrollHeight > 0 && scrollTop / scrollHeight >= 0.5;
+      const reachedMidPage = scrollTop + window.innerHeight >= document.documentElement.scrollHeight * 0.5;
+
+      if (scrolledHalfway || reachedMidPage) {
+        triggerEngaged();
+      }
+    };
+
+    // Timer: 30 seconds
+    timer = setTimeout(() => {
+      triggerEngaged();
+    }, 30000);
+
+    // Scroll listener
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    // Run an initial check in case page is loaded with scroll restore or already halfway
+    handleScroll();
+
+    return cleanup;
   }, [pathname, allowed]);
 
   if (!allowed) return null;
