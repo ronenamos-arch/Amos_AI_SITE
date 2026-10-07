@@ -5,7 +5,7 @@ const postData = JSON.stringify({
   key: 'f9826b1b81c34964b0fa14797b4af314',
   keyLocation: 'https://www.ronenamoscpa.co.il/f9826b1b81c34964b0fa14797b4af314.txt',
   urlList: [
-    'https://www.ronenamoscpa.co.il/blog/chatgpt-skills-finance-super-skill',
+    'https://www.ronenamoscpa.co.il/blog/how-to-make-finance-team-ai-native',
     'https://www.ronenamoscpa.co.il/sitemap.xml',
     'https://www.ronenamoscpa.co.il/blog'
   ]
