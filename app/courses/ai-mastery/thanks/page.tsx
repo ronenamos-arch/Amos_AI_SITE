@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { GlassCard } from "@/components/ui/GlassCard";
 import { Badge } from "@/components/ui/Badge";
-import { CheckCircle2, ExternalLink, Mail, KeyRound, Sparkles, BookOpen, FileSpreadsheet, ArrowLeft, MessageCircle } from "lucide-react";
+import { CheckCircle2, ExternalLink, Mail, KeyRound, Sparkles, BookOpen, FileSpreadsheet, ArrowLeft, MessageCircle, PlayCircle } from "lucide-react";
 import { PasswordBox } from "./PasswordBox";
 
 export const metadata: Metadata = {
@@ -61,21 +61,28 @@ export default function AiMasteryThanksPage() {
                     {/* Password Box */}
                     <PasswordBox password={password} />
 
-                    {/* Primary CTA Button to Gamma */}
-                    <div className="my-8">
+                    {/* Primary CTA Button to Course Player */}
+                    <div className="my-8 flex flex-col sm:flex-row items-center justify-center gap-4">
+                        <Link
+                            href="/courses/ai-mastery/learn"
+                            className="inline-flex items-center justify-center gap-3 w-full sm:w-auto px-10 py-5 text-xl font-bold bg-gradient-to-r from-teal-400 via-teal-500 to-royal-500 text-space-950 rounded-2xl shadow-xl shadow-teal-500/25 hover:shadow-teal-500/40 hover:scale-[1.03] active:scale-[0.98] transition-all duration-300"
+                        >
+                            <span>🚀 כניסה מידית לנגן הקורס באתר</span>
+                            <PlayCircle className="w-6 h-6 text-space-950" />
+                        </Link>
                         <a
                             href={courseUrl}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="inline-flex items-center justify-center gap-3 w-full sm:w-auto px-10 py-5 text-xl font-bold bg-gradient-to-r from-teal-400 via-teal-500 to-royal-500 text-space-950 rounded-2xl shadow-xl shadow-teal-500/25 hover:shadow-teal-500/40 hover:scale-[1.03] active:scale-[0.98] transition-all duration-300"
+                            className="inline-flex items-center justify-center gap-2 px-6 py-4 text-sm font-medium text-text-secondary hover:text-white bg-white/5 hover:bg-white/10 border border-white/10 rounded-xl transition-all"
                         >
-                            <span>🚀 כניסה לקורס ב-Gamma</span>
-                            <ExternalLink className="w-6 h-6 text-space-950" />
+                            <span>פתיחה ב-Gamma</span>
+                            <ExternalLink className="w-4 h-4" />
                         </a>
-                        <p className="mt-3 text-xs text-text-muted">
-                            נפתח בחלון חדש • הזינו את הסיסמה <span className="font-mono text-amber-300 font-bold">{password}</span> בעת הכניסה
-                        </p>
                     </div>
+                    <p className="mt-2 text-xs text-text-muted">
+                        הקורס זמין עבורך ישירות באתר • סיסמת גיבוי ל-Gamma: <span className="font-mono text-amber-300 font-bold">{password}</span>
+                    </p>
 
                     {/* What's Inside Grid */}
                     <div className="grid gap-4 sm:grid-cols-3 my-10 text-right">

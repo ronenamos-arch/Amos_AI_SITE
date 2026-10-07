@@ -4,15 +4,19 @@ import { useState, useEffect } from "react";
 import { createClient } from "@/lib/supabase/client";
 import { GlassCard } from "@/components/ui/GlassCard";
 import { Button } from "@/components/ui/Button";
-import { Send, Loader2, Users, CheckCircle2, Eye, X, ChevronDown, ChevronUp, Calendar, RefreshCw } from "lucide-react";
+import { Send, Loader2, Users, CheckCircle2, Eye, X, ChevronDown, ChevronUp, Calendar, RefreshCw, GraduationCap, Sparkles, BookOpen } from "lucide-react";
 import RichTextEditor from "@/components/admin/RichTextEditor";
 import {
     sendNewsletter, sendTestNewsletter,
     getSubscriberCount, getSubscribers, getSubscriberSources, getNewsletterHistory,
     scheduleNewsletter, getScheduledNewsletters, cancelScheduledNewsletter,
     bulkSyncToResend,
+    getProSubscribers,
+    sendCourseAnnouncementToPro,
 } from "@/lib/actions/newsletter";
 import { buildNewsletterEmail } from "@/lib/emails/newsletter";
+import { PLAYER_COURSES } from "@/lib/courses-player-data";
+import { guides } from "@/lib/guides-data";
 
 type Subscriber = { email: string; source: string; subscribed_at: string };
 type SourceInfo = { source: string; count: number };
@@ -55,6 +59,16 @@ export default function AdminNewsletterPage() {
     const [triggeringSequence, setTriggeringSequence] = useState(false);
     const [sequenceTriggerResult, setSequenceTriggerResult] = useState<{ success: boolean; message: string } | null>(null);
 
+    // Pro Course Campaign state
+    const [showProCampaign, setShowProCampaign] = useState(false);
+    const [proCourseSlug, setProCourseSlug] = useState<string>("notebook-master");
+    const [proHighlightNote, setProHighlightNote] = useState<string>("כל 8 השיעורים, הפרומפטים ומחברות ה-AI הוטמעו ישירות באתר ופתוחים עבורך ללא הגבלה.");
+    const [proGuide1Slug, setProGuide1Slug] = useState<string>(guides[0]?.slug || "");
+    const [proGuide2Slug, setProGuide2Slug] = useState<string>(guides[1]?.slug || "");
+    const [proSubscribersList, setProSubscribersList] = useState<string[]>([]);
+    const [sendingProCampaign, setSendingProCampaign] = useState(false);
+    const [proCampaignResult, setProCampaignResult] = useState<{ success: boolean; message: string } | null>(null);
+
     const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.ronenamoscpa.co.il";
 
     useEffect(() => {
@@ -73,6 +87,7 @@ export default function AdminNewsletterPage() {
         });
         getNewsletterHistory().then((data) => setHistory(data as SendRecord[]));
         getScheduledNewsletters().then((data) => setScheduledItems(data as ScheduledRecord[]));
+        getProSubscribers().then(setProSubscribersList);
     }, []);
 
     // Update filtered count when selection changes
@@ -261,6 +276,53 @@ export default function AdminNewsletterPage() {
         }
     };
 
+    const handleSendProCourseAnnouncement = async () => {
+        const targetCourse = PLAYER_COURSES[proCourseSlug];
+        if (!targetCourse) return;
+
+        setSendingProCampaign(true);
+        setProCampaignResult(null);
+
+        const selectedGuides = [
+            guides.find((g) => g.slug === proGuide1Slug),
+            guides.find((g) => g.slug === proGuide2Slug),
+        ].filter(Boolean).map((g) => ({
+            title: g!.title,
+            description: g!.description,
+            slug: g!.slug,
+            category: g!.category,
+        }));
+
+        try {
+            const result = await sendCourseAnnouncementToPro({
+                courseTitle: targetCourse.title,
+                courseSubtitle: targetCourse.tagline,
+                courseSlug: targetCourse.slug,
+                courseDuration: targetCourse.duration,
+                lessonsCount: targetCourse.lessons.length,
+                highlightText: proHighlightNote,
+                guides: selectedGuides,
+            });
+
+            if (result.success) {
+                setProCampaignResult({
+                    success: true,
+                    message: `הודעת הקורס נשלחה בהצלחה ל-${result.sent} מנויי Pro (${result.failed} שגיאות)`,
+                });
+            } else {
+                setProCampaignResult({
+                    success: false,
+                    message: result.error || "שגיאה בשליחה",
+                });
+            }
+        } catch (err: unknown) {
+            const message = err instanceof Error ? err.message : "שגיאת רשת";
+            setProCampaignResult({ success: false, message });
+        } finally {
+            setSendingProCampaign(false);
+        }
+    };
+
     const previewHtml = bodyHtml
         ? buildNewsletterEmail({ bodyHtml, siteUrl, unsubscribeUrl: "#" })
         : "";
@@ -369,6 +431,126 @@ export default function AdminNewsletterPage() {
                             <p className={`mt-2 text-xs ${sequenceTriggerResult.success ? "text-teal-400" : "text-red-400"}`}>
                                 {sequenceTriggerResult.success ? "✓ " : "✗ "}{sequenceTriggerResult.message}
                             </p>
+                        )}
+                    </GlassCard>
+                </div>
+
+                {/* Pro Subscribers Course Announcement Campaign Card */}
+                <div className="mb-8" dir="rtl">
+                    <GlassCard className="border border-teal-400/30 bg-gradient-to-b from-teal-500/5 to-transparent">
+                        <div className="flex items-center justify-between gap-4 mb-4">
+                            <div className="flex items-center gap-2.5">
+                                <GraduationCap className="h-5 w-5 text-teal-400" />
+                                <div>
+                                    <h3 className="text-base font-bold text-white">שליחת עדכון קורס + מדריכים למנויי Pro</h3>
+                                    <p className="text-xs text-text-muted">
+                                        שליחה ממוקדת במייל מעוצב לכל {proSubscribersList.length} מנויי Pro הפעילים (בלי להציף את כלל הרשומים)
+                                    </p>
+                                </div>
+                            </div>
+                            <button
+                                onClick={() => setShowProCampaign(!showProCampaign)}
+                                className="text-xs text-teal-300 hover:text-teal-200 border border-teal-400/30 px-3 py-1.5 rounded-lg flex items-center gap-1 transition-colors"
+                            >
+                                {showProCampaign ? <><ChevronUp className="h-3.5 w-3.5" /> סגור טופס</> : <><ChevronDown className="h-3.5 w-3.5" /> פתח קמפיין Pro</>}
+                            </button>
+                        </div>
+
+                        {showProCampaign && (
+                            <div className="space-y-4 pt-3 border-t border-white/10">
+                                <div className="grid sm:grid-cols-2 gap-4">
+                                    {/* Select Course */}
+                                    <div>
+                                        <label className="block text-xs font-bold text-text-secondary mb-1.5">
+                                            1. בחר קורס להכרזה:
+                                        </label>
+                                        <select
+                                            value={proCourseSlug}
+                                            onChange={(e) => setProCourseSlug(e.target.value)}
+                                            className="w-full bg-space-900 border border-white/15 rounded-xl px-3.5 py-2.5 text-sm text-white focus:outline-none focus:border-teal-400"
+                                        >
+                                            <option value="notebook-master">Mastering NotebookLM (8 שיעורים)</option>
+                                            <option value="ai-mastery">AI לכספים: המדריך למתחילים (8 שיעורים)</option>
+                                        </select>
+                                    </div>
+
+                                    {/* Custom Highlight Note */}
+                                    <div>
+                                        <label className="block text-xs font-bold text-text-secondary mb-1.5">
+                                            2. הערה מודגשת למנויים:
+                                        </label>
+                                        <input
+                                            type="text"
+                                            value={proHighlightNote}
+                                            onChange={(e) => setProHighlightNote(e.target.value)}
+                                            className="w-full bg-space-900 border border-white/15 rounded-xl px-3.5 py-2.5 text-sm text-white focus:outline-none focus:border-teal-400"
+                                            placeholder="טקסט הדגשה..."
+                                        />
+                                    </div>
+                                </div>
+
+                                <div className="grid sm:grid-cols-2 gap-4">
+                                    {/* Guide 1 Selector */}
+                                    <div>
+                                        <label className="block text-xs font-bold text-text-secondary mb-1.5 flex items-center gap-1">
+                                            <BookOpen className="w-3.5 h-3.5 text-teal-400" /> מדריך מומלץ #1 במייל:
+                                        </label>
+                                        <select
+                                            value={proGuide1Slug}
+                                            onChange={(e) => setProGuide1Slug(e.target.value)}
+                                            className="w-full bg-space-900 border border-white/15 rounded-xl px-3.5 py-2.5 text-sm text-white focus:outline-none focus:border-teal-400 text-xs"
+                                        >
+                                            {guides.map((g) => (
+                                                <option key={g.slug} value={g.slug}>
+                                                    {g.title.slice(0, 50)}... ({g.category})
+                                                </option>
+                                            ))}
+                                        </select>
+                                    </div>
+
+                                    {/* Guide 2 Selector */}
+                                    <div>
+                                        <label className="block text-xs font-bold text-text-secondary mb-1.5 flex items-center gap-1">
+                                            <BookOpen className="w-3.5 h-3.5 text-royal-400" /> מדריך מומלץ #2 במייל:
+                                        </label>
+                                        <select
+                                            value={proGuide2Slug}
+                                            onChange={(e) => setProGuide2Slug(e.target.value)}
+                                            className="w-full bg-space-900 border border-white/15 rounded-xl px-3.5 py-2.5 text-sm text-white focus:outline-none focus:border-teal-400 text-xs"
+                                        >
+                                            {guides.map((g) => (
+                                                <option key={g.slug} value={g.slug}>
+                                                    {g.title.slice(0, 50)}... ({g.category})
+                                                </option>
+                                            ))}
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div className="pt-3 flex items-center justify-between gap-4">
+                                    <span className="text-xs text-teal-300">
+                                        🎓 {proSubscribersList.length} מנויי Pro יקבלו מייל ישיר עם כניסה לנגן + 2 המדריכים
+                                    </span>
+                                    <button
+                                        onClick={handleSendProCourseAnnouncement}
+                                        disabled={sendingProCampaign || proSubscribersList.length === 0}
+                                        className="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl font-bold text-sm bg-gradient-to-r from-teal-400 to-teal-500 text-space-950 hover:from-teal-300 hover:to-teal-400 transition-all shadow-md shadow-teal-500/20 disabled:opacity-40 disabled:cursor-not-allowed"
+                                    >
+                                        {sendingProCampaign ? <Loader2 className="w-4 h-4 animate-spin" /> : <Send className="w-4 h-4" />}
+                                        <span>שלח עכשיו לכל מנויי Pro ({proSubscribersList.length})</span>
+                                    </button>
+                                </div>
+
+                                {proCampaignResult && (
+                                    <div className={`p-3 rounded-xl text-xs text-center border ${
+                                        proCampaignResult.success 
+                                            ? "bg-teal-500/10 border-teal-500/30 text-teal-300"
+                                            : "bg-red-500/10 border-red-500/30 text-red-400"
+                                    }`}>
+                                        {proCampaignResult.message}
+                                    </div>
+                                )}
+                            </div>
                         )}
                     </GlassCard>
                 </div>

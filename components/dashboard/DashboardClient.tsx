@@ -170,6 +170,42 @@ export function DashboardClient({
                 <div className="grid gap-8 lg:grid-cols-3">
                     {/* Main Content (2 cols) */}
                     <div className="lg:col-span-2 space-y-10">
+                        {/* Pro Subscriber Exclusive Course Launcher */}
+                        {isPremium && (
+                            <div className="p-6 rounded-2xl bg-gradient-to-r from-teal-500/15 via-royal-500/10 to-teal-500/5 border border-teal-400/40 relative overflow-hidden shadow-lg shadow-teal-950/30">
+                                <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                                    <div>
+                                        <div className="flex items-center gap-2 mb-1.5">
+                                            <Badge variant="teal" className="text-xs">הטבת Pro פרימיום 👑</Badge>
+                                            <span className="text-xs text-teal-300 font-medium">פתוח לצפייה ללא הגבלה</span>
+                                        </div>
+                                        <h3 className="text-lg font-black text-white">
+                                            הקורסים הבלעדיים שלך מוכנים ללמידה
+                                        </h3>
+                                        <p className="text-xs text-text-secondary mt-0.5">
+                                            בחר קורס וכנס ישירות לנגן האינטראקטיבי:
+                                        </p>
+                                    </div>
+                                    <div className="flex flex-wrap gap-2.5 w-full sm:w-auto">
+                                        <Link
+                                            href="/courses/notebook-master/learn"
+                                            className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-xl bg-teal-400 hover:bg-teal-300 text-space-950 font-bold text-xs shadow-md shadow-teal-500/20 transition-all hover:scale-[1.02]"
+                                        >
+                                            <PlayCircle className="w-4 h-4" />
+                                            <span>Mastering NotebookLM</span>
+                                        </Link>
+                                        <Link
+                                            href="/courses/ai-mastery/learn"
+                                            className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-xl bg-royal-500 hover:bg-royal-400 text-white font-bold text-xs shadow-md shadow-royal-500/20 transition-all hover:scale-[1.02]"
+                                        >
+                                            <PlayCircle className="w-4 h-4" />
+                                            <span>AI לכספים למתחילים</span>
+                                        </Link>
+                                    </div>
+                                </div>
+                            </div>
+                        )}
+
                         {/* Section 1: My Courses & Access */}
                         <div>
                             <div className="flex items-center justify-between mb-6">

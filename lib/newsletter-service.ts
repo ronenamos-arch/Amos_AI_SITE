@@ -5,6 +5,7 @@
 import { createAdminClient } from "@/lib/supabase/admin";
 import { getResend, EMAIL_FROM } from "@/lib/resend";
 import { buildNewsletterEmail } from "@/lib/emails/newsletter";
+import { buildCourseAnnouncementEmail, CourseAnnouncementEmailParams } from "@/lib/emails/course-announcement";
 
 // ---------------------------------------------------------------------------
 // Internal helpers
@@ -233,4 +234,81 @@ export async function bulkSyncToResendCore() {
     }
 
     return { success: true, synced, failed, total: subscribers.length };
+}
+
+// ---------------------------------------------------------------------------
+// Pro Subscribers & Course Announcements
+// ---------------------------------------------------------------------------
+
+export async function getProSubscribersCore(): Promise<string[]> {
+    const adminSupabase = createAdminClient();
+    const { data, error } = await adminSupabase
+        .from("profiles")
+        .select("email, subscription_status")
+        .in("subscription_status", ["monthly", "lifetime"]);
+
+    if (error || !data) {
+        console.error("Get Pro subscribers error:", error);
+        return [];
+    }
+
+    const emails = data
+        .map((p) => p.email?.toLowerCase().trim())
+        .filter((e): e is string => Boolean(e));
+
+    return Array.from(new Set(emails));
+}
+
+export async function sendCourseAnnouncementToProCore(params: CourseAnnouncementEmailParams) {
+    const adminSupabase = createAdminClient();
+    const proEmails = await getProSubscribersCore();
+    const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.ronenamoscpa.co.il";
+
+    if (!proEmails.length) {
+        return { success: false, error: "No active Pro subscribers found" };
+    }
+
+    const batchSize = 50;
+    let sent = 0;
+    let failed = 0;
+
+    for (let i = 0; i < proEmails.length; i += batchSize) {
+        const batch = proEmails.slice(i, i + batchSize);
+
+        const emails = batch.map((email) => {
+            const unsubscribeUrl = `${siteUrl}/api/newsletter/unsubscribe?email=${Buffer.from(email).toString("base64")}`;
+            return {
+                from: EMAIL_FROM,
+                to: email,
+                subject: `🎓 [Pro] נפתח לך קורס חדש: ${params.courseTitle}`,
+                html: buildCourseAnnouncementEmail({
+                    ...params,
+                    siteUrl,
+                    unsubscribeUrl,
+                }),
+            };
+        });
+
+        try {
+            const { error } = await getResend().batch.send(emails);
+            if (error) {
+                console.error("Resend batch error (course announcement):", error);
+                failed += batch.length;
+            } else {
+                sent += batch.length;
+            }
+        } catch (err) {
+            console.error("Course announcement batch send failed:", err);
+            failed += batch.length;
+        }
+    }
+
+    await adminSupabase.from("newsletter_sends").insert({
+        subject: `🎓 [Pro] ${params.courseTitle}`,
+        recipient_count: sent,
+        failed_count: failed,
+        sources: ["pro_subscribers"],
+    });
+
+    return { success: true, sent, failed, total: proEmails.length };
 }

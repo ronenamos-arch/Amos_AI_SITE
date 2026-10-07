@@ -10,7 +10,10 @@ import {
     getScheduledNewslettersCore,
     cancelScheduledNewsletterCore,
     bulkSyncToResendCore,
+    getProSubscribersCore,
+    sendCourseAnnouncementToProCore,
 } from "@/lib/newsletter-service";
+import type { CourseAnnouncementEmailParams } from "@/lib/emails/course-announcement";
 
 // Auth for all actions is enforced by middleware (/admin/* requires ronenamos@gmail.com)
 
@@ -241,4 +244,12 @@ export async function cancelScheduledNewsletter(id: string) {
 
 export async function bulkSyncToResend() {
     return bulkSyncToResendCore();
+}
+
+export async function getProSubscribers() {
+    return getProSubscribersCore();
+}
+
+export async function sendCourseAnnouncementToPro(params: CourseAnnouncementEmailParams) {
+    return sendCourseAnnouncementToProCore(params);
 }

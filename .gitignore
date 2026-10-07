@@ -69,3 +69,6 @@ gsc-credentials.json
 # Local dev noise
 dev.log
 /.playwright-mcp/
+brag-output/
+*.xlsx
+public/preview-*.html

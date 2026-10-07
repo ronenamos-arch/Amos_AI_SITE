@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { GlassCard } from "@/components/ui/GlassCard";
 import { Button } from "@/components/ui/Button";
 import { Badge } from "@/components/ui/Badge";
@@ -97,19 +98,24 @@ export default function AIMasteryCoursePage() {
                                 הצטרף לקורס המקיף ביותר בישראל המלמד אנשי פיננסים איך לרתום את עוצמת ה-Generative AI
                                 לחיסכון של שעות עבודה, שיפור הדיוק והובלה טכנולוגית בארגון.
                             </p>
-                            <div className="flex flex-wrap justify-center gap-6 items-center">
-                                <div className="min-w-[200px]">
-                                    <a
-                                        href={SMARTBEE_CONFIG.products.aiMastery.url}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        className="inline-block bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-lg text-lg transition-colors"
-                                    >
-                                        רכוש גישה עכשיו — ₪250
-                                    </a>
-                                </div>
-                                <Button size="lg" variant="ghost" href="#curriculum" className="px-10 py-7 text-xl border-white/10 hover:bg-white/5 h-fit">
-                                    הסילבוס המלא
+                            <div className="flex flex-wrap justify-center gap-4 items-center">
+                                <Link
+                                    href="/courses/ai-mastery/learn"
+                                    className="inline-flex items-center gap-2 bg-gradient-to-r from-teal-400 to-teal-500 hover:from-teal-300 hover:to-teal-400 text-space-950 font-black py-3.5 px-8 rounded-xl text-lg shadow-lg shadow-teal-500/25 transition-all hover:scale-105"
+                                >
+                                    <PlayCircle className="w-5 h-5" />
+                                    <span>כניסה לנגן הקורס המלא (כלול ב-Pro)</span>
+                                </Link>
+                                <a
+                                    href={SMARTBEE_CONFIG.products.aiMastery.url}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="inline-block bg-white/10 hover:bg-white/15 text-white font-bold py-3.5 px-8 rounded-xl text-lg border border-white/15 transition-all"
+                                >
+                                    רכישת קורס בודד — ₪250
+                                </a>
+                                <Button size="lg" variant="ghost" href="#curriculum" className="px-6 py-3.5 text-base border-white/10 hover:bg-white/5 h-fit">
+                                    הסילבוס
                                 </Button>
                             </div>
                         </div>

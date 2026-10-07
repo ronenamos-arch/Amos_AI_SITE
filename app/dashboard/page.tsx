@@ -83,22 +83,63 @@ export default async function DashboardPage() {
         (p) => p.status === "paid" || p.status === "completed"
     );
 
-    // AI Finance Master 599 ₪
-    const hasMasterCourse =
+    // 1. AI לכספים: המדריך למתחילים (250 ₪) - כלול ב-Pro!
+    const hasAiMastery =
         isPremium ||
+        isAdmin ||
+        paidCoursePurchases.some((p) => Number(p.amount) === 250 || p.product_name?.includes("AI לכספים"));
+
+    // 2. Mastering NotebookLM (150 ₪) - כלול ב-Pro!
+    const hasNotebookMaster =
+        isPremium ||
+        isAdmin ||
+        paidCoursePurchases.some((p) => Number(p.amount) === 150 || p.product_name?.includes("Notebook"));
+
+    // 3. AI Finance Master 599 ₪ (מתקדמים)
+    const hasMasterCourse =
+        isAdmin ||
         courseAccessRow?.has_access === true ||
         paidCoursePurchases.some((p) => !p.amount || Number(p.amount) >= 500);
 
-    // Claude Bundle 150 ₪
+    // 4. Claude Bundle 150 ₪
     const hasClaudeBundle =
         isPremium ||
+        isAdmin ||
         paidBundlePurchases.length > 0;
 
     const coursesList: CourseAccessItem[] = [
         {
+            id: "notebook-master",
+            slug: "notebook-master",
+            title: "Mastering NotebookLM: קורס מעשי לאנשי פיננסים",
+            description: "שליטה מלאה ב-NotebookLM להכנה לדירקטוריון, Deep Research ומצוינות רגולטורית ללא הזיות. 8 שיעורים של פרקטיקה.",
+            price: "₪150",
+            level: "מתחילים - מתקדמים",
+            duration: "8 שיעורים",
+            image: "/images/courses/notebook-master-syllabus.png",
+            href: "/courses/notebook-master",
+            unlockedHref: "/courses/notebook-master/learn",
+            isUnlocked: hasNotebookMaster,
+            unlockedLabel: "כניסה לנגן הקורס המלא",
+        },
+        {
+            id: "ai-mastery",
+            slug: "ai-mastery",
+            title: "AI לכספים: המדריך למתחילים",
+            description: "ChatGPT לפיננסים וחשבונאות ארגונית. קורס יסוד של 8 שיעורים שיהפוך אותך לחשבונאי של העתיד.",
+            price: "₪250",
+            level: "מתחילים - בינוני",
+            duration: "8 שיעורים",
+            image: "/images/courses/ai-mastery-syllabus.png",
+            href: "/courses/ai-mastery",
+            unlockedHref: "/courses/ai-mastery/learn",
+            isUnlocked: hasAiMastery,
+            unlockedLabel: "כניסה לנגן הקורס המלא",
+        },
+        {
             id: "ai-finance-master",
             slug: "ai-finance-master",
-            title: "AI Finance Master (קורס הדגל)",
+            title: "AI Finance Master (קורס הדגל למתקדמים)",
             description: "שליטה עמוקה ב-AI לאוטומציה, ניתוח מתקדם, דוחות כספיים וביקורת. 16 מודולים מעשיים.",
             price: "₪599",
             level: "מתקדמים",
