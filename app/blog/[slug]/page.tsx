@@ -127,10 +127,20 @@ export default async function BlogPostPage({
   const hasAccess = !post.premium || checkProfileAccess(profile);
   const isLocked = post.premium && !hasAccess;
 
-  // Show only first paragraph for locked posts
-  // For DB posts (HTML), we look for first <p> or split by \n
+  // Check if post has an explicit paywall delimiter (<!-- paywall --> or <!-- more -->)
+  const hasExplicitPaywall = post.content.includes('<!-- paywall -->') || post.content.includes('<!-- more -->');
+
+  // Show free teaser portion for locked posts
   const displayContent = isLocked
-    ? (isDBPost ? post.content.split('</p>')[0] + '</p>' : post.content.split('\n\n')[0])
+    ? (
+        hasExplicitPaywall
+          ? (post.content.includes('<!-- paywall -->')
+              ? post.content.split('<!-- paywall -->')[0]
+              : post.content.split('<!-- more -->')[0])
+          : (isDBPost
+              ? post.content.split('</p>')[0] + '</p>'
+              : post.content.split('\n\n')[0])
+      )
     : post.content;
 
   const rawHtml = (isDBPost && !isLocked)
@@ -216,7 +226,7 @@ export default async function BlogPostPage({
 
         {/* Content */}
         <div
-          className={`prose prose-invert max-w-none text-text-secondary prose-headings:text-text-primary prose-a:text-teal-400 prose-strong:text-text-primary prose-img:rounded-xl prose-img:mx-auto prose-img:max-w-full prose-pre:overflow-x-auto break-words overflow-x-hidden ${isLocked ? 'overflow-hidden max-h-[400px] mask-fade-bottom' : ''}`}
+          className={`prose prose-invert max-w-none text-text-secondary prose-headings:text-text-primary prose-a:text-teal-400 prose-strong:text-text-primary prose-img:rounded-xl prose-img:mx-auto prose-img:max-w-full prose-pre:overflow-x-auto break-words overflow-x-hidden ${isLocked && !hasExplicitPaywall ? 'overflow-hidden max-h-[400px] mask-fade-bottom' : ''}`}
           dangerouslySetInnerHTML={{ __html: contentHtml }}
         />
 
