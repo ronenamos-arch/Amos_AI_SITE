@@ -130,18 +130,28 @@ export default async function BlogPostPage({
   // Check if post has an explicit paywall delimiter (<!-- paywall --> or <!-- more -->)
   const hasExplicitPaywall = post.content.includes('<!-- paywall -->') || post.content.includes('<!-- more -->');
 
-  // Show free teaser portion for locked posts
-  const displayContent = isLocked
-    ? (
-        hasExplicitPaywall
-          ? (post.content.includes('<!-- paywall -->')
-              ? post.content.split('<!-- paywall -->')[0]
-              : post.content.split('<!-- more -->')[0])
-          : (isDBPost
-              ? post.content.split('</p>')[0] + '</p>'
-              : post.content.split('\n\n')[0])
-      )
-    : post.content;
+  // Show free teaser portion for locked posts; strip teaser blocks completely for unlocked Pro subscribers
+  let displayContent: string;
+
+  if (isLocked) {
+    if (hasExplicitPaywall) {
+      displayContent = post.content.includes('<!-- paywall -->')
+        ? post.content.split('<!-- paywall -->')[0]
+        : post.content.split('<!-- more -->')[0];
+    } else if (isDBPost) {
+      displayContent = post.content.split('</p>')[0] + '</p>';
+    } else {
+      displayContent = post.content.split('\n\n')[0];
+    }
+    // Clean up teaser comment markers in free view
+    displayContent = displayContent.replace(/<!--\s*\/?teaser\s*-->/gi, '');
+  } else {
+    // Unlocked Pro subscriber: strip out preview teasers so they read seamlessly without sales/teaser cards
+    displayContent = post.content
+      .replace(/<!--\s*teaser\s*-->[\s\S]*?<!--\s*\/teaser\s*-->/gi, '')
+      .replace(/<!--\s*paywall\s*-->/gi, '')
+      .replace(/<!--\s*more\s*-->/gi, '');
+  }
 
   const rawHtml = (isDBPost && !isLocked)
     ? displayContent

@@ -73,7 +73,10 @@ Required in `.env.local` and Vercel:
   - `lib/blog.ts` — markdown parsing, `getAllPosts()`, `getPostBySlug()`, `linkify()`
   - `lib/blog-supabase.ts` — `getDBPosts()`, `getDBPostBySlug()`
   - `lib/actions/articles.ts` — `updateArticle()` server action
-- **Premium content:** `is_premium` field on articles; checked against `profiles.subscription_status`
+- **Premium content:** `is_premium` field on articles (or `premium: "true"` in frontmatter); checked against `profiles.subscription_status`
+- **Partial Paywall & Teaser Tags:**
+  - `<!-- paywall -->` (or `<!-- more -->`): Delimiter separating the free preview (~30%) from the locked Pro content.
+  - `<!-- teaser -->...<!-- /teaser -->`: Preview teaser box shown ONLY to free visitors before the paywall. Automatically stripped for unlocked/paying Pro subscribers so they read seamlessly without sales/preview interruptions.
 
 ## Guides Page (`/guides`)
 

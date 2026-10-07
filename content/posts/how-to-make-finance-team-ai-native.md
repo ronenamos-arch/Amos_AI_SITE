@@ -77,6 +77,7 @@ premium: "true"
 
 באותו שבוע פתחנו ערוץ ייעודי במחלקה לכל נושאי ה-AI, והמפגש הזה הפך לריטואל חודשי קבוע. ברגע שהצוות ראה שמנהל הכספים בונה בעצמו, מתמודד עם שגיאות ופותר אותן — מחסום הפחד הראשוני נשבר.
 
+<!-- teaser -->
 <div style="background: linear-gradient(135deg, rgba(15, 23, 42, 0.95) 0%, rgba(30, 41, 59, 0.95) 100%); border: 1.5px solid rgba(20, 184, 166, 0.4); border-radius: 1rem; padding: 1.75rem 2rem; margin: 2.5rem 0; box-shadow: 0 10px 30px rgba(13, 148, 136, 0.1);">
 <div style="display: flex; align-items: center; gap: 0.5rem; color: #2dd4bf; font-weight: 800; font-size: 1.15rem; margin-bottom: 0.75rem;">
   <span>🔒</span>
@@ -92,6 +93,7 @@ premium: "true"
   <li><strong>החלטה 5:</strong> איך מחלקת הכספים הופכת למובילת ה-AI של כלל החברה (כולל מכירות ופיתוח).</li>
 </ul>
 </div>
+<!-- /teaser -->
 
 <!-- paywall -->
 
