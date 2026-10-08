@@ -10,6 +10,8 @@ export interface BlogPost {
   content: string;
   image?: string;
   premium?: boolean;
+  paywallFeatures?: string[];
+  paywallTitle?: string;
 }
 
 function parseFrontmatter(fileContent: string): {
@@ -76,6 +78,10 @@ export function getAllPosts(): BlogPost[] {
       content,
       image: metadata.image || "",
       premium: metadata.premium === "true" || metadata.premium === true,
+      paywallFeatures: Array.isArray(metadata.paywall_features)
+        ? metadata.paywall_features
+        : undefined,
+      paywallTitle: metadata.paywall_title || undefined,
     };
   });
 

@@ -267,7 +267,10 @@ export default async function BlogPostPage({
         )}
 
         {isLocked ? (
-          <Paywall />
+          <Paywall
+            features={(post as any)?.paywallFeatures}
+            title={(post as any)?.paywallTitle}
+          />
         ) : (
           /* CTA */
           <div className="mt-12 rounded-2xl bg-gradient-to-br from-teal-400/10 to-royal-500/10 p-8 text-center border border-white/5">
