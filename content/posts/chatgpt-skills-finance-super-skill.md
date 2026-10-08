@@ -4,7 +4,7 @@ date: "2026-09-28"
 excerpt: "מדריך מעשי לבניית מיומנויות-על (Super Skills) ב-ChatGPT: ניקוי קובץ אקסל מרובה טאבים עם ביקורת מובנית, החלת מיתוג חברה אוטומטי, יצירת דשבורד סטטיסטי אינטראקטיבי והפקת מצגת להנהלה – בפקודה אחת."
 image: "/images/blog/chatgpt-skills-finance/01-chatgpt-skills-concept.png"
 tags: ["AI for Finance", "CFO", "Automation", "FP&A", "ChatGPT", "Excel"]
-premium: "false"
+premium: "true"
 ---
 
 ![ארכיטקטורת ChatGPT Skills ומיומנות-על פיננסית](/images/blog/chatgpt-skills-finance/01-chatgpt-skills-concept.png)
@@ -112,6 +112,8 @@ premium: "false"
 </details>
 
 ---
+
+<!-- paywall -->
 
 ## שלב 2: בניית מיומנות מיתוג ושפה עיצובית (Branding Skill)
 

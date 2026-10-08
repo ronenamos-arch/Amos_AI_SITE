@@ -4,7 +4,7 @@ date: "2026-09-12"
 excerpt: "שני הכפתורים שנראים דומים אבל שולטים בדברים שונים לגמרי — ואיך לבחור בין Opus, Sonnet ו-Fable לפי סוג המשימה."
 image: "/images/blog/effort-model-1.png"
 tags: ["Claude Code", "AI", "פרודוקטיביות"]
-premium: "false"
+premium: "true"
 ---
 
 ![Model ו-Effort ב-Claude Code](/images/blog/effort-model-1.png)
@@ -22,6 +22,8 @@ premium: "false"
 מאחורי הקלעים, כל מה שיש לClaude — ה-system prompt, הגדרות הכלים, ה-CLAUDE.md, היסטוריית השיחה וההודעה שלכם — נשלח יחד כבקשה אחת. הטקסט מפוצל ל"טוקנים" (יחידות טקסט קטנות), וה"משקלים" של המודל הם אלה שממירים את הטוקנים האלה לתשובה — טוקן אחד בכל פעם, בהתבסס על הסתברות.
 
 ![המודל בוחר את הטוקן הבא לפי הסתברות — הפער בין הניחוש הסביר לניחוש הלא סביר הוא עצום](/images/blog/effort-model-3.png)
+
+<!-- paywall -->
 
 ## Effort: כמה עבודה Claude עושה בפועל
 

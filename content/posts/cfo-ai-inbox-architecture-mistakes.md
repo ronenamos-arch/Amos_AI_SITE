@@ -4,7 +4,7 @@ date: "2026-09-24"
 excerpt: "חיבור ישיר של כלי AI לתיבת הדואר של ה-CFO חושף את הארגון להזרקות פרומפטים, שריפת טוקנים ופלט מטעה. כך תיישמו את מתודולוגיית Shop, Prep, Cook לאוטומציה פיננסית מדויקת ובטוחה."
 image: "/images/blog/cfo-ai-inbox-architecture-mistakes-header.png"
 tags: ["AI for Finance", "CFO", "Automation", "FP&A", "Claude", "Security"]
-premium: "false"
+premium: "true"
 ---
 
 ![מדוע מנהל כספים מסרב לחבר את ה-AI למייל - מתודולוגיית 3 השלבים](/images/blog/cfo-ai-inbox-architecture-mistakes-header.png)
@@ -76,6 +76,8 @@ premium: "false"
 </div>
 
 ---
+
+<!-- paywall -->
 
 ## שלב 1: Shop – לבחור בקפידה מה נכנס למטבח
 

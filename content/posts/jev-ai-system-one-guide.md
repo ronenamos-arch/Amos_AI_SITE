@@ -4,7 +4,7 @@ date: "2026-09-22"
 excerpt: "דיוגו אלמיידה, ממפתחי ChatGPT, השיק את Jev — מודל שלא מייצר מילים, אלא מקבל החלטות סמנטיות מהירות ב-400x פחות עלות. מדריך מקיף לארכיטקטורת סוכנים וחיסכון בעלויות."
 image: "/images/blog/jev-ai-system-one-header.png"
 tags: ["Jev AI", "AI Agents", "System 1", "Cost Optimization", "Automation", "Finance Ops"]
-premium: "false"
+premium: "true"
 ---
 
 ![מדריך Jev AI המלא - מודל קבלת החלטות סמנטיות מבית TypeSafe](/images/blog/jev-ai-system-one-header.png)
@@ -41,6 +41,8 @@ Jev מגיע בדיוק כדי לפתור את הכשל הזה.
 > 💡 **הגדרה הנדסית:** Jev הוא למעשה `switch statement` סמנטי וחכם במיוחד — מסווג נתונים אולטרה-מהיר עם האינטליגנציה והגמישות של מודלי 2026.
 
 ---
+
+<!-- paywall -->
 
 ## 3 מקרי בוחן מוכחים מהשטח
 

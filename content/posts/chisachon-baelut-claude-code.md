@@ -4,7 +4,7 @@ date: "2026-09-12"
 excerpt: "מדריך מעשי לחיסכון של 40%-60% בעלויות Claude Code לרואי חשבון וצוותי כספים: ניהול טוקנים, שמירת מטמון (Prompt Caching), הקשר ו-Subagents."
 image: "/images/blog/token-efficiency-1.png"
 tags: ["Claude Code", "AI", "חיסכון בעלויות", "אוטומציה פיננסית", "טיפים טכניים"]
-premium: "false"
+premium: "true"
 ---
 
 ![איך לחסוך בעלויות Claude Code](/images/blog/token-efficiency-1.png)
@@ -27,6 +27,8 @@ premium: "false"
 ![ארבעת הגורמים שמנפחים עלויות: סשנים ארוכים, עודף בהקשר, מודל גדול מהנדרש ושבירת מטמון](/images/blog/token-efficiency-2.png)
 
 ---
+
+<!-- paywall -->
 
 ## שבעה הרגלים שחוסכים כסף ועלויות ב-Claude Code
 

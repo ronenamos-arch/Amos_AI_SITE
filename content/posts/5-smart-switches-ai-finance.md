@@ -4,7 +4,7 @@ date: "2026-10-05"
 excerpt: 'מדריך מעשי לסמנכ"לי כספים, חשבים וצוותי FP&A: כיצד למנוע ניפוח קונטקסט (Context Bloat), לחתוך דרמטית את עלויות הטוקנים ולהחזיר את הדיוק למודלי ה-AI באמצעות 5 מתגים פשוטים.'
 image: "/images/blog/5-smart-switches-ai-finance-header.png"
 tags: ["AI for Finance", "CFO", "Automation", "FP&A", "Claude", "Cost Optimization"]
-premium: "false"
+premium: "true"
 ---
 
 ![5 המתגים החכמים לחיסכון ב-AI למחלקות כספים](/images/blog/5-smart-switches-ai-finance-header.png)
@@ -91,6 +91,8 @@ premium: "false"
 כפי שפירטנו במאמר על [התאמת מודל AI ומאמץ חשיבה למשימות פיננסיות](/blog/model-veeffort-claude-code), התחילו תמיד עם Sonnet. אם וכאשר המשימה דורשת העמקה ייחודית – רק אז העבירו את השרביט למודל הכבד.
 
 ---
+
+<!-- paywall -->
 
 ## מתג 2: המירו קובצי PDF ל-Markdown לפני ההעלאה
 

@@ -4,7 +4,7 @@ date: "2026-09-22"
 excerpt: "למה 90% מצוותי ה-AI קופצים ישר למדדים ומודדים את הדברים הלא נכונים? מדריך מעשי לגילוי שגיאות (Error Discovery), מיפוי Traces, התמודדות עם Criteria Drift ובניית Evals מבוססי סוכני קוד."
 image: "/images/blog/advanced-ai-evals-error-discovery-hero.png"
 tags: ["AI for Finance", "Evals", "Error Discovery", "CFO", "Automation", "FP&A", "Claude Code"]
-premium: "false"
+premium: "true"
 ---
 
 ![גילוי שגיאות מונחה נתונים - השלב הקריטי בבניית מערכות Evals למוצרי AI](/images/blog/advanced-ai-evals-error-discovery-hero.png)
@@ -73,6 +73,8 @@ premium: "false"
 המסקנה הברורה: אוטומציה מלאה נכשלת, ועבודה ידנית בלבד אינה ניתנת להרחבה. הפתרון הוא **תהליך היברידי (Active Learning)** המשלב שיקול דעת אנושי עם סוכני קוד.
 
 ---
+
+<!-- paywall -->
 
 ## שלושת השלבים לגילוי שגיאות שיטתי (Error Discovery Framework)
 
