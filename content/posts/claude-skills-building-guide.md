@@ -1,242 +1,272 @@
 ---
-title: "המדריך המלא לבניית Skills ב-Claude"
-date: "2026-06-18"
-excerpt: "Skills של Claude הם הדרך להפוך ידע מקצועי לתהליכים שטוענים אוטומטית בכל שיחה — בלי להעתיק הוראות מחדש. המדריך הזה מסביר איך בונים אותם מ-A עד Z."
-image: "/images/blog/claude-skills-1.png"
-tags: ["Claude", "Skills", "AI", "אוטומציה", "Cowork"]
-premium: "false"
+title: 'המדריך המלא לבניית Skills ב-Claude: מארכיטקטורת תיקיות ועד אוטומציה ארגונית'
+date: '2026-06-18'
+excerpt: 'Skills של Claude הם הדרך להפוך ידע מקצועי לתהליכים שנטענים אוטומטית בכל שיחה — בלי להעתיק הוראות מחדש. במקום להתחיל כל שיחה מאפס, בונים ארכיטקטורה מודולרית של שלוש שכבות המאפשרת לארגון להטמיע מומחיות ומתודולוגיה קבועה.'
+image: '/images/blog/claude-skills-building-guide-header.png'
+tags: ["Claude", "Skills", "AI for Finance", "CFO", "אוטומציה", "FP&A", "ארכיטקטורת AI"]
+premium: 'true'
 ---
 
-![המדריך המלא לבניית Skills ב-Claude](/images/blog/claude-skills-1.png)
+![המדריך המלא לבניית Skills ב-Claude](/images/blog/claude-skills-building-guide-header.png)
 
-## הבעיה שכולם מכירים
-
-כל שיחה חדשה עם Claude — מתחילים מאפס. הפורמט המועדף עליך, סגנון הכתיבה של הצוות, המינוח המקצועי שלך, סטנדרטים האיכות — הכל נעלם. אתה מבלה את הדקות הראשונות בלבנות מחדש הקשר שכבר בנית בשיחה הקודמת.
-
-לפרויקט חד-פעמי — בסדר. לעבודה מקצועית שחוזרת על עצמה — זה מס על כל שיחה.
-
-**Claude Skills הם הפתרון.** Skill הוא תיקייה עם הוראות שאתה בונה פעם אחת, ו-Claude טוען אוטומטית כשהמשימה מתאימה. ההעדפות שלך, ה-workflow, הידע הדומיין — מוטמעים ב-Skill, לא מודבקים מחדש בכל צ'אט.
-
-Skills הושקו באוקטובר 2025 ומהר מאוד הפכו לדרך הדומיננטית לתת ל-Claude יכולות ספציפיות לדומיין. מאגר ה-Skills הרשמי של Anthropic ב-**[github.com/anthropics/skills](https://github.com/anthropics/skills)** כבר עבר 141,000 כוכבים ו-16,000+ forks.
+> **תשובה מהירה (Zero-Click Answer):**  
+> **Claude Skills** הם ארכיטקטורת תיקיות מודולרית מבוססת קובץ `SKILL.md` ותיקיות עזר, המאפשרת למודל לטעון ידע מקצועי, הנחיות עבודה, סקריפטים ובקרות איכות באופן אוטומטי ומותנה-הקשר (Progressive Disclosure) — מבלי להעמיס טוקנים על חלון ההקשר ומבלי להדביק פרומפטים מחדש בכל שיחה. במקום מודל כללי שמתחיל כל שיחה מאפס, Skill מטמיע את נהלי העבודה, מבנה הנתונים וחוקי העסק של הארגון ישירות בסביבת ה-AI (באפליקציית Claude.ai, ב-Claude Code ובפריסה ארגונית רחבה), ומבטיח תוצרים עקביים, מבוקרים וחסכוניים בעלויות שימוש.
 
 ---
 
-## מה זה בעצם Skill?
+כל מי שעובד עם מודלי שפה על בסיס יומיומי מכיר היטב את "מס ההקמה" הכבד: פותחים שיחה חדשה עם Claude — ומתחילים הכל מאפס. הפורמט המועדף על ההנהלה, סגנון הכתיבה של הצוות, המינוח המקצועי המדויק, מבנה החשבונות וסטנדרטי האיכות — הכל נעלם. אתם מוצאים את עצמכם מבזבזים דקות ארוכות בכל בוקר על שחזור הקשר שכבר הסברתם אתמול.
 
-Skill הוא **תיקייה**. בתוכה קובץ `SKILL.md` (חובה) ואופציונלית:
+לפרויקט חד-פעמי — אפשר לחיות עם זה. אבל עבור עבודה מקצועית שוטפת במחלקת כספים או בארגון טכנולוגי — זהו בזבוז משאבים משווע שמונע סקיילינג אמיתי.
 
-```
+בקהילת **AI Finance Transformation של רונן עמוס**, אנחנו מלמדים עיקרון יסוד: **אל תנהלו שיחות עם AI — תבנו מערכות**.
+
+**Claude Skills הם הפתרון המבני לבעיה הזו.** Skill הוא תיקייה מובנית המכילה הוראות, תבניות וקוד, אותה אתם בונים פעם אחת בלבד. Claude טוען את המיומנות הזו באופן אוטונומי ברגע שהשיחה עוסקת בנושא המתאים. הידע המקצועי, תהליכי העבודה (Workflows) והבקרות מוטמעים במערכת לצמיתות.
+
+מאז השקתם כסטנדרט פתוח ב-[agentskills.io](https://agentskills.io/), מאגר ה-Skills הרשמי של Anthropic ב-**[github.com/anthropics/skills](https://github.com/anthropics/skills)** חצה 141,000 כוכבים ואלפי ארגונים אימצו אותו כארכיטקטורת האוטומציה המרכזית שלהם.
+
+---
+
+## צפו במדריך המעשי: בניית Skills ב-Claude שלב-אחר-שלב
+
+לפני שנצלול לקרביים הטכניים של הארכיטקטורה, הכנתי עבורכם מדריך וידאו מעשי שמדגים את תהליך ההקמה בפועל:
+
+<div style="background: #0f172a; border: 1px solid #1e293b; border-radius: 1rem; padding: 1.5rem; margin: 2rem 0; box-shadow: 0 8px 30px rgba(0,0,0,0.35);">
+  <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem; flex-wrap: wrap; gap: 0.5rem;">
+    <div style="display: flex; align-items: center; gap: 0.5rem;">
+      <span style="background: #ef4444; color: #ffffff; font-weight: 800; font-size: 0.8rem; padding: 0.25rem 0.65rem; border-radius: 9999px;">VIDEO</span>
+      <span style="color: #f8fafc; font-weight: 700; font-size: 1.05rem;">מדריך וידאו מעשי: בניית Skills ב-Claude שלב-אחר-שלב</span>
+    </div>
+    <span style="color: #94a3b8; font-size: 0.85rem;">צפייה ישירה (16:9)</span>
+  </div>
+
+  <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 0.65rem; border: 1px solid #334155; background: #000000;">
+    <iframe src="https://www.youtube.com/embed/opfuy7WrmFE" title="מדריך מעשי לבניית Skills ב-Claude" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+  </div>
+
+  <p style="color: #94a3b8; font-size: 0.88rem; margin: 0.85rem 0 0 0; line-height: 1.5;">
+    בסרטון נדגים כיצד לפתוח את תיקיית ה-Skill, לנסח את קובץ ה-`SKILL.md`, להגדיר את תנאי ההפעלה האוטומטיים (Triggers), ולהריץ תהליך אוטומציה שלם מקצה לקצה.
+  </p>
+</div>
+
+---
+
+## הארכיטקטורה השלמה: מהגדרת קוד ועד לתוצר הנהלה
+
+![תהליך העבודה השלם: מהגדרת קוד ועד לתוצר הנהלה](/images/blog/claude-skills-building-guide-diagram.png)
+
+כפי שמומחש בתרשים הארכיטקטורה, תהליך העבודה של Skill מורכב משלושה מרכיבים עיקריים:
+1. **ארכיטקטורה וקוד (Repository & Definitions):** קובץ `SKILL.md` המגדיר חוקי ביצוע, תיקיות `references/` לידע עמוק, וסקריפטים לאוטומציה.
+2. **מוח הבינה המלאכותית (Intelligent AI Processor):** מודל ה-AI קורא את ההוראות, מאמת את הנתונים ומבצע את העבודה ב-Reasoning מבוקר וללא הזיות.
+3. **תוצר הנהלה מוכן (Business Value):** הפקת תוצר עסקי סופי באיכות הגבוהה ביותר — בין אם מדובר במצגת דירקטוריון (Board Deck), דוח כספי מנותח או [דוח נסיעות מבוקר לעובדים](/blog/ai-employee-travel-report-skill).
+
+---
+
+## מה זה בעצם Skill? (המבנה הטכני הפשוט)
+
+מבחינה טכנית, Skill אינו מודל חדש, אינו תוסף בתשלום ואינו קוד מסובך. Skill הוא פשוט **תיקייה בעלת מבנה מוגדר**:
+
+```text
 your-skill-name/
-├── SKILL.md              # חובה — קובץ ה-skill הראשי
-├── scripts/              # אופציונלי — קוד להרצה
+├── SKILL.md              # חובה — קובץ ה-Skill הראשי עם ההוראות וה-Frontmatter
+├── scripts/              # אופציונלי — סקריפטים להרצה (Python, Bash, JS)
 │   ├── process_data.py
-│   └── validate.sh
-├── references/           # אופציונלי — תיעוד שנטען לפי צורך
-│   ├── api-guide.md
-│   └── examples/
-└── assets/               # אופציונלי — תבניות, גופנים, אייקונים
-    └── report-template.md
+│   └── validate_financials.py
+├── references/           # אופציונלי — מסמכי עזר, מתודולוגיה ותיעוד שנטענים לפי צורך
+│   ├── accounting_standards.md
+│   └── presentation_guidelines.md
+└── assets/               # אופציונלי — תבניות קבצים, סגנונות וסמלילים
+    └── board_deck_template.pptx
 ```
 
-זו **כל ההגדרה הטכנית**. Skills הם לא מודלים, לא plugins במובן של WordPress, לא תוספות בתשלום. הם הוראות Markdown בקוד פתוח + קבצים נלווים.
+### מערכת שלוש השכבות (Progressive Disclosure)
 
-### מערכת שלוש השכבות
+הסוד של Claude Skills נעוץ במנגנון החשיפה המדורגת (**Progressive Disclosure**). במקום להעמיס את כל הוראות העבודה על המודל ולבזבז עשרות אלפי טוקנים בכל שיחה (שגם מייקרים עלויות וגם פוגעים בדיוק, כפי שהסברנו במדריך על [צמצום צריכת Tokens](/blog/ai-token-optimization-finance)), Claude מחלק את הידע ל-3 שכבות:
 
-הכוח האמיתי טמון בארכיטקטורה. Claude משתמש במערכת **Progressive Disclosure** עם שלוש שכבות:
+<div style="background: #0f172a; border: 1px solid #1e293b; border-radius: 0.75rem; padding: 1.25rem; margin: 1.5rem 0;">
+<table style="width: 100%; border-collapse: collapse; color: #cbd5e1; font-size: 0.95rem;">
+  <thead>
+    <tr style="border-bottom: 2px solid #334155; text-align: right;">
+      <th style="padding: 0.6rem; color: #5eead4;">שכבה</th>
+      <th style="padding: 0.6rem; color: #5eead4;">מה נטען במודל</th>
+      <th style="padding: 0.6rem; color: #5eead4;">מתי זה נטען?</th>
+      <th style="padding: 0.6rem; color: #5eead4;">עלות טוקנים</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr style="border-bottom: 1px solid #1e293b;">
+      <td style="padding: 0.6rem; font-weight: bold; color: #f8fafc;">1. YAML Frontmatter</td>
+      <td style="padding: 0.6rem;">שם ה-Skill ושדה ה-Description בלבד</td>
+      <td style="padding: 0.6rem; color: #38bdf8;">תמיד — בכל שיחה ושיחה</td>
+      <td style="padding: 0.6rem; color: #4ade80;">זניחה (~100 טוקנים)</td>
+    </tr>
+    <tr style="border-bottom: 1px solid #1e293b;">
+      <td style="padding: 0.6rem; font-weight: bold; color: #f8fafc;">2. גוף ה-SKILL.md</td>
+      <td style="padding: 0.6rem;">מתודולוגיית העבודה וחוקי הברזל</td>
+      <td style="padding: 0.6rem; color: #facc15;">רק כאשר השאילתה מתאימה ל-Trigger</td>
+      <td style="padding: 0.6rem;">לפי גודל ההנחיות</td>
+    </tr>
+    <tr>
+      <td style="padding: 0.6rem; font-weight: bold; color: #f8fafc;">3. תיקיית references/</td>
+      <td style="padding: 0.6rem;">מדריכים מעמיקים, קוד ותבניות</td>
+      <td style="padding: 0.6rem; color: #f43f5e;">רק כשהמשימה הספציפית דורשת זאת</td>
+      <td style="padding: 0.6rem;">קריאה נקודתית בלבד</td>
+    </tr>
+  </tbody>
+</table>
+</div>
 
-| שכבה | מה נטען | עלות |
-|---|---|---|
-| **YAML frontmatter** | תמיד — בכל שיחה | ~100 טוקנים לכל Skill |
-| **גוף SKILL.md** | רק כש-Claude מזהה רלוונטיות | לפי הצורך |
-| **קבצי references/** | רק כשהמשימה דורשת | לפי הצורך |
-
-המשמעות: אפשר להתקין עשרות Skills מבלי להכביד על ה-context — רק ה-frontmatter של כל Skill נטען כברירת מחדל.
-
-### ה-Skill מול MCP
-
-לצוותים שבונים על שרתי MCP: Skills מוסיפים **שכבת ידע** מעל ה-connectivity.
-
-כפי ש-Anthropic מסביר: MCP מספק את המטבח המקצועי — גישה לכלים, מרכיבים וציוד. Skills מספקים את המתכונים וההוראות לייצור משהו בעל ערך. MCP אומר ל-Claude **מה** הוא יכול לעשות. Skills אומרים לו **איך** לעשות זאת טוב.
-
----
-
-## תכנון לפני שכותבים שורה אחת
-
-הטעות הנפוצה: מתחילים עם מבנה הקבצים במקום עם תרחיש השימוש. ה-**[מדריך הרשמי של Anthropic](https://resources.anthropic.com/hubfs/The-Complete-Guide-to-Building-Skill-for-Claude.pdf)** ברור: הגדר 2-3 תרחישים קונקרטיים לפני שנוגעים בקבצים.
-
-### ארבע שאלות לפני שמתחילים
-
-1. **מה המשתמש רוצה להשיג?**
-2. **איזה workflow רב-שלבי זה דורש?**
-3. **אילו כלים נחוצים** — יכולות מובנות של Claude, או כלים מחוברים דרך MCP?
-4. **איזה ידע דומיין או best practices כדאי להטמיע** שהמשתמש אחרת היה צריך להסביר בכל שיחה?
-
-### שלוש קטגוריות עיקריות של Skills
-
-**יצירת מסמכים ונכסים** — פלט עקבי ואיכותי: מסמכים, מצגות, עיצובים, קוד. מוטמעים מדריכי סגנון ו-checklists. דוגמאות מהמאגר הרשמי: `docx`, `pdf`, `pptx`, `xlsx`, `frontend-design`.
-
-**אוטומציה של Workflow** — תהליכים רב-שלביים עם מתודולוגיה קבועה: pipelines של מחקר, workflow תוכן, רצפי onboarding. ה-`skill-creator` הוא הדוגמה הקנונית — הוא מנחה את המשתמש צעד אחרי צעד.
-
-**שיפור MCP** — שכבת ידע מעל שרת MCP עובד. אם המשתמשים שלך חיברו Notion, Linear, או Sentry דרך MCP אבל לא יודעים אילו workflows להריץ — Skill של שיפור MCP מספק את שכבת הידע.
-
-### קריטריוני הצלחה לפני ה-build
-
-**כמותיים:** Skill מתעורר על לפחות 90% מהשאילתות הרלוונטיות; מסיים workflow במספר tool calls מוגדר.
-
-**איכותיים:** משתמשים לא צריכים לתקן את Claude באמצע ה-workflow; תוצאות עקביות בין ריצות חוזרות; משתמש חדש מצליח בניסיון הראשון.
+**המשמעות הכלכלית והביצועית:** ארגון יכול להחזיק ספרייה של 50 Skills שונים במחשבי העובדים, מבלי שסביבת העבודה תסבול מאיטיות או מניפוח חשבון ה-API.
 
 ---
 
-## הדרישות הטכניות
+### מה ההבדל בין Skill לבין MCP (Model Context Protocol)?
 
-כאן רוב ה-Skills נכשלים בשקט. הכללים נוקשים, והשגיאות מבלבלות כי Claude פשוט לא יטען Skill שמפר אותם — **ללא הודעת שגיאה**.
+שאלה שעולה תדיר בקרב מנהלי טכנולוגיה ו-CFOs: *"אם חיברנו שרת MCP למערכת ה-ERP או ל-Salesforce, לשם מה נחוצים Skills?"*
 
-### כללי שמות — קריטיים
+<div style="background: #0f172a; border: 1px solid #1e293b; border-radius: 0.85rem; padding: 1.5rem; margin: 1.5rem 0; box-shadow: 0 4px 20px rgba(0,0,0,0.3);">
+<h3 style="color: #38bdf8; margin-top: 0; font-size: 1.25rem; display: flex; align-items: center; gap: 0.5rem;">
+  <span>🍽️</span>
+  <span>אנלוגיית המטבח: MCP מול Skills</span>
+</h3>
 
-| כלל | נכון | שגוי |
-|---|---|---|
-| שם קובץ | `SKILL.md` | `skill.md`, `Skill.md`, `SKILL.MD` |
-| שם תיקייה | `kebab-case` בלבד | רווחים, underscores, אותיות גדולות |
-| לא לשים | — | `README.md` בתוך תיקיית ה-Skill |
-| שמות שמורים | — | לא להכיל "claude" או "anthropic" |
-| ב-frontmatter | — | אין תגיות XML עם < > |
+<ul style="margin-bottom: 0; padding-right: 1.25rem; color: #cbd5e1; line-height: 1.8;">
+  <li style="margin-bottom: 0.75rem;"><strong style="color: #f8fafc;">שרת MCP הוא המטבח המקצועי:</strong> הוא מספק את התשתית, את כלי העבודה ואת הגישה למקרר — חיבור למאגרי נתונים, גישה ל-APIs והרשאות קריאה וכתיבה. MCP אומר ל-Claude <em>מה הוא יכול לעשות</em>.</li>
+  <li style="margin-bottom: 0;"><strong style="color: #f8fafc;">Skill הוא ספר המתכונים של השף:</strong> הוא מגדיר את סדר הפעולות, את המינונים, את בקרת האיכות ואת שלבי הבדיקה. Skill אומר ל-Claude <em>איך להכין מנה ברמת כוכב מישלן</em>.</li>
+</ul>
+</div>
 
-### YAML Frontmatter — הפורמט המינימלי
+ללא Skill, חיבור MCP נשאר צינור טכני בלבד. עובד יכול לשלוף נתונים, אך המודל עלול לפרש אותם באופן שגוי או לחשב מדדים בלי להכיר את מדיניות החברה (קראו עוד על [בקרות בינה מלאכותית וממשל תאגידי](/blog/ai-governance-finance)).
+
+---
+
+<!-- teaser -->
+<div style="background: linear-gradient(135deg, rgba(15, 23, 42, 0.98) 0%, rgba(30, 41, 59, 0.98) 100%); border: 2px solid #14b8a6; border-radius: 1rem; padding: 2rem 2.25rem; margin: 2.5rem 0; box-shadow: 0 12px 35px rgba(20, 184, 166, 0.2);">
+<div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem; flex-wrap: wrap; gap: 0.5rem;">
+  <span style="background: #14b8a6; color: #042f2e; font-weight: 900; font-size: 0.85rem; padding: 0.35rem 0.85rem; border-radius: 9999px; letter-spacing: 0.5px;">⚡ ארכיטקטורת פרודקשן למנהלי כספים</span>
+  <span style="color: #5eead4; font-weight: 700; font-size: 0.9rem;">🔒 תוכן פרימיום בלעדי למנויי AI Finance Pro</span>
+</div>
+
+<h3 style="color: #ffffff; font-size: 1.35rem; font-weight: 900; margin: 0.5rem 0 1rem 0; line-height: 1.4;">
+רוצים לבנות Skills שעובדים בארגון בלי שגיאות שקטות ובלי התרסקויות?
+</h3>
+
+<p style="color: #cbd5e1; font-size: 1rem; line-height: 1.7; margin-bottom: 1.25rem;">
+רוב ה-Skills נכשלים בשקט בגלל כללי תחביר נוקשים של שמות קבצים וניסוח שגוי של ה-Frontmatter. בחלק המלא של המדריך פירטנו את כל מה שדרוש להטמעה מבצעית מלאה:
+</p>
+
+<div style="display: grid; grid-template-columns: 1fr; gap: 0.75rem; margin-bottom: 1.5rem;">
+  <div style="background: rgba(15, 23, 42, 0.8); border: 1px solid rgba(20, 184, 166, 0.3); border-radius: 0.5rem; padding: 0.85rem 1rem; color: #e2e8f0; font-size: 0.95rem; line-height: 1.6;">
+    📐 <strong style="color: #5eead4;">חוקי הברזל למניעת כשלים שקטים:</strong> אותיות קטנות (kebab-case), מניעת תגיות XML, ואיסור מוחלט על שמות שמורים.
+  </div>
+  <div style="background: rgba(15, 23, 42, 0.8); border: 1px solid rgba(20, 184, 166, 0.3); border-radius: 0.5rem; padding: 0.85rem 1rem; color: #e2e8f0; font-size: 0.95rem; line-height: 1.6;">
+    📋 <strong style="color: #5eead4;">קוד Skill מלא להעתקה (FP&A Board Deck):</strong> פרויקט מוכן של 8 שקפי הנהלה, אימות Actuals מול Budget, ובקרת סטיות.
+  </div>
+  <div style="background: rgba(15, 23, 42, 0.8); border: 1px solid rgba(20, 184, 166, 0.3); border-radius: 0.5rem; padding: 0.85rem 1rem; color: #e2e8f0; font-size: 0.95rem; line-height: 1.6;">
+    🧪 <strong style="color: #5eead4;">חבילת בדיקות איכות (Triggering, QA & Regression):</strong> מתודולוגיה לבדיקת דיוק הפעלה מעל 90%.
+  </div>
+  <div style="background: rgba(15, 23, 42, 0.8); border: 1px solid rgba(20, 184, 166, 0.3); border-radius: 0.5rem; padding: 0.85rem 1rem; color: #e2e8f0; font-size: 0.95rem; line-height: 1.6;">
+    🏢 <strong style="color: #5eead4;">פריסה ארגונית מרוכזת (Enterprise Deployment):</strong> הפצה מרכזית לכל עובדי הארגון ב-Claude Code וב-Claude.ai.
+  </div>
+</div>
+
+<p style="color: #94a3b8; font-size: 0.9rem; margin: 0; font-style: italic;">
+המשך המדריך זמין מיידית למנויי ספריית התוכן והקהילה של AI Finance Transformation.
+</p>
+</div>
+<!-- /teaser -->
+
+<!-- paywall -->
+
+---
+
+## הדרישות הטכניות: איפה רוב ה-Skills נכשלים בשקט?
+
+כאן רוב המפתחים ומנהלי האוטומציה נתקעים: מנוע ה-Skills של Anthropic נוקשה ביותר. כאשר ישנה חריגה מחוקי התחביר, **המודל אינו פולט שגיאה — הוא פשוט מתעלם מקיומו של ה-Skill**.
+
+<div style="background: #0f172a; border: 1px solid #1e293b; border-radius: 0.75rem; padding: 1.25rem; margin: 1.5rem 0;">
+<table style="width: 100%; border-collapse: collapse; color: #cbd5e1; font-size: 0.95rem;">
+  <thead>
+    <tr style="border-bottom: 2px solid #334155; text-align: right;">
+      <th style="padding: 0.6rem; color: #5eead4;">כלל טכני</th>
+      <th style="padding: 0.6rem; color: #5eead4;">פורמט נכון ✓</th>
+      <th style="padding: 0.6rem; color: #5eead4;">פורמט שגוי ✗</th>
+      <th style="padding: 0.6rem; color: #5eead4;">השלכה בעת שגיאה</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr style="border-bottom: 1px solid #1e293b;">
+      <td style="padding: 0.6rem; font-weight: bold; color: #f8fafc;">שם קובץ ההוראות</td>
+      <td style="padding: 0.6rem; color: #4ade80;"><code>SKILL.md</code> (אותיות גדולות בלבד)</td>
+      <td style="padding: 0.6rem; color: #f43f5e;"><code>skill.md</code>, <code>Skill.md</code></td>
+      <td style="padding: 0.6rem; color: #94a3b8;">הקובץ אינו מזוהה</td>
+    </tr>
+    <tr style="border-bottom: 1px solid #1e293b;">
+      <td style="padding: 0.6rem; font-weight: bold; color: #f8fafc;">שם התיקייה</td>
+      <td style="padding: 0.6rem; color: #4ade80;"><code>kebab-case</code> (למשל: <code>fpa-board-deck</code>)</td>
+      <td style="padding: 0.6rem; color: #f43f5e;">רווחים, אותיות גדולות או מקף תחתון <code>_</code></td>
+      <td style="padding: 0.6rem; color: #94a3b8;">כשל בטעינה</td>
+    </tr>
+    <tr style="border-bottom: 1px solid #1e293b;">
+      <td style="padding: 0.6rem; font-weight: bold; color: #f8fafc;">קבצים אסורים</td>
+      <td style="padding: 0.6rem; color: #4ade80;">הסבר ב-<code>SKILL.md</code> או בשורש ה-repo</td>
+      <td style="padding: 0.6rem; color: #f43f5e;"><code>README.md</code> בתוך תיקיית ה-Skill</td>
+      <td style="padding: 0.6rem; color: #94a3b8;">התנגשות בהקשר</td>
+    </tr>
+    <tr style="border-bottom: 1px solid #1e293b;">
+      <td style="padding: 0.6rem; font-weight: bold; color: #f8fafc;">שמות שמורים</td>
+      <td style="padding: 0.6rem; color: #4ade80;">שם ספציפי של הדומיין (<code>variance-review</code>)</td>
+      <td style="padding: 0.6rem; color: #f43f5e;">שימוש במילים "claude" או "anthropic"</td>
+      <td style="padding: 0.6rem; color: #94a3b8;">חסימת רישום מובנית</td>
+    </tr>
+    <tr>
+      <td style="padding: 0.6rem; font-weight: bold; color: #f8fafc;">תוכן ב-Frontmatter</td>
+      <td style="padding: 0.6rem; color: #4ade80;">טקסט פשוט בעברית או באנגלית ללא תגיות</td>
+      <td style="padding: 0.6rem; color: #f43f5e;">תגיות XML עם <code>&lt; &gt;</code></td>
+      <td style="padding: 0.6rem; color: #94a3b8;">שגיאת Parsing של ה-YAML</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+---
+
+## ניסוח ה-Frontmatter: נוסחת ה-Triggering המושלמת
+
+שדה ה-`description` ב-YAML Frontmatter הוא **הקריטי ביותר בכל המערכת**. זהו החלק היחיד שנטען בכל שיחה, והוא שקובע האם Claude יעיר את ה-Skill משנתו או יתעלם ממנו:
 
 ```yaml
 ---
 name: your-skill-name
-description: מה זה עושה. השתמש כש... [ביטויים ספציפיים].
----
-```
-
-**הפורמט המלא עם כל השדות האופציונליים:**
-
-```yaml
----
-name: your-skill-name
-description: מה זה עושה ומתי להשתמש. (עד 1024 תווים, ללא תגיות XML)
+description: [מה זה עושה] + [מתי להשתמש וביטויי מפתח] + [מה אסור לעשות].
 license: MIT
-compatibility: דורש Claude Code עם Python 3.9+ בסביבה.
+compatibility: דורש Claude Code עם סביבת Python 3.9+.
 metadata:
-  author: השם שלך
+  author: Ronen Amos CPA
   version: 1.0.0
-  mcp-server: שם-השירות
 ---
 ```
 
-**חשוב:** `description` יכול להכיל עד **1024 תווים**. זהו השדה הקריטי ביותר — הוא קובע אם Claude יטען את ה-Skill או לא.
+> **כלל זהב לניסוח `description`:**  
+> כללו תמיד שמות קבצים ספציפיים (`.xlsx`, `.csv`), מונחים מקצועיים של המשתמש ("board deck", "התאמת בנק", "ניתוח סטיות"), ורשימת ביטויים של מתי **לא** להשתמש במיומנות — כדי למנוע הפעלות שווא (False Positives).
 
 ---
 
-## כתיבת Skills שעובדים
+## פרויקט מלא להעתקה: FP&A Board Deck Generator
 
-### נוסחת שדה ה-description
+להלן הגדרת Skill מבצעית מלאה, המיועדת למנהלי כספים, חשבים וצוותי FP&A. ה-Skill קולט נתוני אקסל (Actuals מול Budget מול שנה קודמת), ומפיק מצגת דירקטוריון מלאה בת 8 שקפים עם הערות דובר (Speaker Notes) לסמנכ"ל הכספים.
 
-המבנה שמייצר triggering אמין: **[מה זה עושה]** + **[מתי להשתמש]** + **[יכולות מפתח]**.
+<details style="margin: 2rem 0; padding: 1.25rem 1.5rem; border-radius: 0.85rem; border: 1.5px solid #0d9488; background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); box-shadow: 0 4px 20px rgba(13, 148, 136, 0.15);">
+<summary style="cursor: pointer; font-weight: 700; color: #2dd4bf; font-size: 1.05rem; outline: none; margin-bottom: 0.75rem; display: flex; align-items: center; justify-content: space-between;">
+  <span>👉 לחצו כאן לצפייה בקוד ה-Skill המלא (SKILL.md)</span>
+  <span style="background: rgba(13, 148, 136, 0.2); color: #5eead4; border: 1px solid #0d9488; font-size: 0.78rem; font-weight: 700; padding: 0.25rem 0.75rem; border-radius: 9999px;">CLAUDE SKILL SPEC</span>
+</summary>
 
-**תיאורים טובים:**
-
-```yaml
-# טוב — משימה ספציפית, ביטויי trigger ספציפיים, סוג קובץ מוזכר
-description: מנתח קבצי Figma ומייצר תיעוד handoff למפתחים.
-  השתמש כש... קבצי .fig, "design specs", "component documentation",
-  או "design-to-code handoff".
-
-# טוב — שירות בשם, שפה ספציפית של trigger
-description: מנהל workflows של Linear כולל תכנון sprint, יצירת משימות
-  ומעקב סטטוס. השתמש כש... "sprint", "Linear tasks", "project planning",
-  או "create tickets".
-```
-
-**תיאורים גרועים:**
-
-```yaml
-# גרוע — מעורפל, אין תנאי trigger
-description: עוזר עם קבצי עיצוב.
-
-# גרוע — אין ביטויי trigger, אין משימה ספציפית
-description: Skill לאוטומציה של workflow.
-```
-
-### מבנה גוף ההוראות
-
-אחרי ה-frontmatter, כתוב הוראות ב-Markdown:
-
-```markdown
-# שם ה-Skill
-
-## הוראות
-
-### שלב 1: [השלב הראשון]
-הסבר ברור של מה קורה ולמה.
-
-\`\`\`bash
-python scripts/fetch_data.py --project-id PROJECT_ID
-\`\`\`
-
-פלט צפוי: [תאר איך נראה הצלחה]
-
-## דוגמאות
-
-### דוגמה 1: [תרחיש נפוץ]
-**המשתמש אומר**: "צור Board Deck לרבעון Q3 — מצרף אקסל עם Actuals ו-Budget"
-**פעולות:**
-קרא את קובץ ה-Excel וחלץ Actuals, Budget, Prior Year
-הרץ את scripts/generate_deck.py עם הנתונים
-**תוצאה:** קובץ PPTX מוכן עם 8 שקפים + speaker notes לסמנכ"ל
-
-## פתרון בעיות
-
-### שגיאה: [הודעת שגיאה נפוצה]
-**סיבה:** [למה זה קורה]
-**פתרון:** [איך לתקן שלב אחרי שלב]
-```
-
-**ארבעה עקרונות שהופכים הוראות לאמינות:**
-- **ספציפיות** — פקודות מדויקות עם פלטים צפויים, לא הנחיות מעורפלות
-- **טיפול בשגיאות** — לכל כשל צפוי
-- **הפניות ברורות לקבצים** — עם נתיב מדויק
-- **Progressive disclosure** — הוראות ליבה ב-SKILL.md, פרטים מורחבים ב-`references/`
-
----
-
-## Skill עובד מלא — דוגמה מ-A עד Z: FP&A Board Deck
-
-הנה Skill מוכן לייצור שמקצועני פיננסים בונים כדי שסמנכ"ל הכספים יוכל לייצר מצגת Board Deck מוכנה ברגע שמספקים לו נתונים.
-
-**מבנה התיקייה:**
-
-```
-fpa-board-deck/
-├── SKILL.md
-└── references/
-    └── slides.md        # תבניות PptxGenJS לכל אחד מ-8 השקפים
-```
-
-<details style="
-  padding: 1.25rem 1.5rem;
-  border: 1px solid rgba(20, 184, 166, 0.2);
-  border-radius: 0.75rem;
-  background: rgba(20, 184, 166, 0.05);
-  cursor: pointer;
-  margin: 1.5rem 0;
-" onmouseover="this.style.background='rgba(20, 184, 166, 0.1)'; this.style.borderColor='rgba(20, 184, 166, 0.4)';" onmouseout="this.style.background='rgba(20, 184, 166, 0.05)'; this.style.borderColor='rgba(20, 184, 166, 0.2)';">
-  <summary style="
-    font-weight: 600;
-    font-size: 1rem;
-    color: rgb(20, 184, 166);
-    outline: none;
-    list-style: none;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  ">
-    📄 SKILL.md — הצג את קוד ה-Skill המלא
-    <span style="margin-right: 0.5rem; font-size: 0.85rem;">▼</span>
-  </summary>
-
-```yaml
+<div style="position: relative; background: #000000; border-radius: 0.5rem; border: 1px solid #334155; margin-top: 0.75rem; overflow: hidden;">
+<div style="display: flex; justify-content: space-between; align-items: center; background: #18181b; padding: 0.5rem 1rem; border-bottom: 1px solid #27272a;">
+<span style="font-size: 0.8rem; color: #a1a1aa; font-family: ui-monospace, monospace; font-weight: 500;">fpa-board-deck / SKILL.md</span>
+<button onclick="const t = this.closest('div').parentElement.querySelector('pre').innerText; navigator.clipboard.writeText(t); this.innerText = '✓ הועתק!'; this.style.color = '#10b981'; setTimeout(() => { this.innerText = '📋 העתק קוד'; this.style.color = '#e4e4e7'; }, 2000);" style="background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15); color: #e4e4e7; padding: 0.3rem 0.75rem; border-radius: 0.375rem; font-size: 0.8rem; cursor: pointer; transition: all 0.2s; font-family: system-ui, sans-serif; display: flex; align-items: center; gap: 0.35rem;">📋 העתק קוד</button>
+</div>
+<pre style="color: #ffffff; padding: 1.25rem; margin: 0; overflow-x: auto; font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; font-size: 0.9rem; line-height: 1.6; direction: ltr; text-align: left; white-space: pre-wrap; background: transparent; border: none;">
 ---
 name: fpa-board-deck
 description: Creates board-ready financial presentations from FP&A data.
@@ -252,121 +282,126 @@ metadata:
   version: 1.0.0
 ---
 
-# FP&A Board Deck
+# FP&A Board Deck Generator
+
+## Purpose & Boundaries
+Generate an 8-slide executive board presentation from verified corporate financial records.
+Refuse generation if source actuals or approved budget datasets are missing or contradictory.
+Do not invent narrative drivers; flag unverified fluctuations for human CFO review.
 
 ## Workflow
 
-### Step 1: Ingest & Validate
-Request three required datasets: Actuals, Budget/Plan, Prior Year.
-Ask for optional: revenue segments, KPIs list, forward forecast.
-Refuse to generate if Actuals or Budget is missing — output an error message.
+### Step 1: Ingest & Validate Financial Sources
+1. Request and verify three mandatory data sources:
+   - Current Period Actuals (P&L line items)
+   - Board-Approved Budget / Plan
+   - Prior Year Comparative Period (YoY)
+2. Verify mathematical reconciliation across all sheets. If rounding variances exceed 0.1%, halt and flag discrepancies.
 
-### Step 2: Generate (8 slides)
-1. Title Slide — company name, period, board attribution
-2. Executive Summary — 3-5 "what happened → why it matters" bullets
-3. P&L Summary — Actuals vs Budget vs Prior Year with variance color-coding
-4. Revenue Deep Dive — grouped bar chart by segment + driver commentary
-5. Key Metrics Dashboard — 5-8 KPI cards with trend indicators
-6. Waterfall Commentary — bridge chart from Budget to Actuals
-7. Risks & Opportunities — two-column layout (red/green)
-8. Outlook — forecast table + key assumptions
+### Step 2: Executive Slide Structure (8 Slides)
+1. Slide 1 - Title: Corporate Identity, Reporting Period, Executive Attribution.
+2. Slide 2 - Executive Summary: 3-5 macro takeaways answering "What happened and why it matters".
+3. Slide 3 - P&L Financial Performance: Actuals vs. Budget vs. Prior Year with variance highlights.
+4. Slide 4 - Revenue Segmentation: Segment analysis with volume/mix drivers.
+5. Slide 5 - Strategic KPI Dashboard: 6 metric cards (ARR, Net Margin, CAC, Burn Rate, Runway, Rule of 40).
+6. Slide 6 - Profitability Waterfall: Budget-to-Actual variance bridge.
+7. Slide 7 - Risk Matrix & Strategic Opportunities: Balanced two-column breakdown.
+8. Slide 8 - Rolling Forecast & Outlook: 12-month projection with core assumptions.
 
-### Step 3: QA
-Extract text from generated PPTX and verify every number matches source data.
-Flag any variance > 0.1% as a potential rounding error.
-
-## Style Rules
-- Color palette "Midnight Executive": navy #1B2A4A, accent blue #3B82F6
-- Green #16A34A for favorable variances, red #DC2626 for unfavorable
-- Dollar amounts: $X.XM format. Percentages: 1 decimal. Negatives: (parentheses)
-- Commentary leads with "so what" — implications first, numbers second
-- Max 6 bullets per slide. Every slide includes CFO speaker notes.
-```
-
+### Step 3: Quality Assurance & CFO Speaker Notes
+- Every slide must include structured speaker notes in Hebrew/English for executive presentation.
+- Color formatting standards: Favorable variance #16A34A (Green), Unfavorable #DC2626 (Red).
+- Currency presentation: Formatted in thousands/millions with consistent currency symbols (₪ / $).
+- Label output: "DRAFT FOR CFO & AUDIT REVIEW — NOT FINALIZED".
+</pre>
+</div>
 </details>
 
-**תוצאה לדוגמה:**
+---
 
-![Financial Performance Overview — Board Deck שנוצר על ידי ה-Skill](/images/blog/fpa-board-deck-result-1.png)
+## פרומפט מוכן להרצה ישירה בצ'אט (Quick-Start Prompt)
+
+אם אינכם עובדים עדיין בסביבת Skills מקומית וברצונכם להריץ בדיקה מיידית ב-Claude.ai או ב-ChatGPT, השתמשו בפרומפט הבא המכיל את כל הגבולות החשבונאיים:
+
+<details style="margin: 2rem 0; padding: 1.25rem 1.5rem; border-radius: 0.85rem; border: 1.5px solid #0284c7; background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); box-shadow: 0 4px 20px rgba(2, 132, 199, 0.15);">
+<summary style="cursor: pointer; font-weight: 700; color: #38bdf8; font-size: 1.05rem; outline: none; margin-bottom: 0.75rem; display: flex; align-items: center; justify-content: space-between;">
+  <span>👉 לחצו כאן לצפייה בפרומפט להרצה מהירה בצ'אט</span>
+  <span style="background: rgba(2, 132, 199, 0.2); color: #38bdf8; border: 1px solid #0284c7; font-size: 0.78rem; font-weight: 700; padding: 0.25rem 0.75rem; border-radius: 9999px;">CHAT PROMPT</span>
+</summary>
+
+<div style="position: relative; background: #000000; border-radius: 0.5rem; border: 1px solid #334155; margin-top: 0.75rem; overflow: hidden;">
+<div style="display: flex; justify-content: space-between; align-items: center; background: #18181b; padding: 0.5rem 1rem; border-bottom: 1px solid #27272a;">
+<span style="font-size: 0.8rem; color: #a1a1aa; font-family: ui-monospace, monospace; font-weight: 500;">FP&A BOARD DECK CHAT PROMPT</span>
+<button onclick="const t = this.closest('div').parentElement.querySelector('pre').innerText; navigator.clipboard.writeText(t); this.innerText = '✓ הועתק!'; this.style.color = '#10b981'; setTimeout(() => { this.innerText = '📋 העתק פרומפט'; this.style.color = '#e4e4e7'; }, 2000);" style="background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15); color: #e4e4e7; padding: 0.3rem 0.75rem; border-radius: 0.375rem; font-size: 0.8rem; cursor: pointer; transition: all 0.2s; font-family: system-ui, sans-serif; display: flex; align-items: center; gap: 0.35rem;">📋 העתק פרומפט</button>
+</div>
+<pre style="color: #ffffff; padding: 1.25rem; margin: 0; overflow-x: auto; font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; font-size: 0.9rem; line-height: 1.6; direction: ltr; text-align: left; white-space: pre-wrap; background: transparent; border: none;">
+פעל כארכיטקט FP&A ויועץ AI בכיר להכנת מצגת דירקטוריון (Board Deck) מנתונים פיננסיים.
+
+הנתונים המצורפים:
+1. דוח ביצוע בפועל (Actuals) לתקופה המדווחת.
+2. תקציב מאושר (Budget).
+3. נתוני השוואה לשנה קודמת (Prior Year).
+
+הנחיות עבודה קשיחות לבקרה פיננסית:
+1. בצע אימות נתונים מקדים: ודא שאין פערי סיכום או סתירות מתמטיות מעל 0.1%.
+2. אל תמציא סיבות עסקיות לסטיות: אם סיבת הסטייה אינה מופיעה בהערות, סמן אותה כ"דורשת בירור מול מנהל היחידה העסקית".
+3. בנה מבנה שקפים מקצועי בן 8 שקפים: תקציר מנהלים, דוח רווח והפסד השוואתי, פילוח הכנסות, לוח מדדי מפתח (KPIs), גשר סטיות (Waterfall), סיכונים והזדמנויות, ותחזית קדימה.
+4. הוסף עבור כל שקף הערות דובר (Speaker Notes) מפורטות בעברית לסמנכ"ל הכספים.
+5. סמן בראש המסמך: "טיוטת עבודה לבדיקה ואישור של סמנכ"ל הכספים".
+</pre>
+</div>
+</details>
 
 ---
 
-## בדיקת ה-Skill
+## מתודולוגיית בדיקות איכות (Acceptance & Regression Testing)
 
-Anthropic ממליץ על שלושה סוגי בדיקות:
+לפני שמשחררים Skill לשימוש נרחב בצוות, יש להריץ עליו חבילת בדיקות שיטתית:
 
-**1. בדיקות Triggering** — האם ה-Skill נטען כשצריך? האם הוא שקט כשלא צריך?
-
-```
-צריך להתעורר:
-  "צור Board Deck לישיבת הדירקטוריון של Q3"
-  "הכן מצגת סקירה פיננסית מהנתונים המצורפים"
-  "quarterly review presentation — הנה ה-actuals מול budget"
-
-לא אמור להתעורר:
-  "סכם לי את הדוח השנתי"
-  "עזור לי לכתוב מייל לספק"
-  "תקן את הנוסחה באקסל הזה"
-```
-
-הרץ 10-20 שאילתות וודא שלפחות 90% מפעילות את ה-Skill אוטומטית.
-
-**2. בדיקות איכות תוצאות** — הרץ את אותה בקשה 3-5 פעמים והשווה עקביות. בדוק edge cases: נתונים חסרים (ללא Prior Year), תקופות לא סטנדרטיות (חצי שנה, LTM).
-
-**3. בדיקות Regression** — אחרי כל שינוי ב-frontmatter, הרץ את כל ה-suite מחדש. עריכות בשדה ה-description הן הסיבה הנפוצה ביותר ל-regression.
+1. **בדיקת Triggering (הפעלה אוטונומית):** הריצו 10 בקשות רלוונטיות (למשל: *"צור מצגת לישיבת הדירקטוריון"* או *"מצורף אקסל ביצוע מול תקציב"*) ו-10 בקשות לא רלוונטיות (*"תקן נוסחה באקסל"*, *"נסח מייל לקוח"*). ודאו שה-Skill מתעורר בלפחות 90% מהבקשות הרלוונטיות ונשאר רדום בשאר.
+2. **בדיקת עקביות (Output Consistency):** הריצו את אותה משימה 3 פעמים עם פרמטרי חשיבה שונים (קראו עוד על [בחירת מודל ומאמץ חשיבה ב-Claude Code](/blog/model-veeffort-claude-code)) ובדקו שמבנה השקפים והחישובים נשמרים בעקביות מלאה.
+3. **בדיקת Regression (נסיגת ביצועים):** בכל עדכון עתידי של קובץ ה-`SKILL.md`, הריצו מחדש את מבחני הקבצה כדי לוודא שתוספת חוק חדש לא שברה את יכולת ההפעלה האוטומטית.
 
 ---
 
-## הפצת ה-Skill
+## הפצה והטמעה ארגונית (Enterprise Deployment)
 
-**Claude.ai:** zip את תיקיית ה-Skill ← Settings > Capabilities > Skills ← Upload.
+Anthropic מאפשרת להפיץ Skills במספר ערוצים מקבילים:
 
-**Claude Code — התקנה גלובלית:**
-
-```bash
-mkdir -p ~/.claude/skills
-cp -r your-skill-name/ ~/.claude/skills/
-```
-
-**Claude Code — התקנה ברמת פרויקט:**
-
-```bash
-mkdir -p ./.claude/skills
-cp -r your-skill-name/ ./.claude/skills/
-```
-
-**רמת ארגון:** אדמינים יכולים לפרוס Skills לכל חברי הארגון — יכולת שהושקה ב-18 בדצמבר 2025. ברגע שנפרס ברמת הארגון, כל instance של Claude של עובד טוען את ה-Skill ללא התקנה אישית.
-
-**GitHub:** שים את ה-README הקריא-לאדם בשורש ה-repo, **לא** בתוך תיקיית ה-Skill. הוראות התקנה:
-
-```bash
-/plugin marketplace add your-org/your-repo
-/plugin install your-skill-name@your-marketplace-name
-```
-
-Anthropic פרסם את Agent Skills כ**סטנדרט פתוח** ב-[agentskills.io](https://agentskills.io/) — הפורמט עובד ב-Claude ובפלטפורמות AI נוספות שאימצו אותו.
+* **אפליקציית Claude.ai:** מכווצים את תיקיית ה-Skill לקובץ ZIP, נכנסים ל-`Settings > Capabilities > Skills` ומעלים את הקובץ.
+* **התקנה גלובלית ב-Claude Code:**
+  ```bash
+  mkdir -p ~/.claude/skills
+  cp -r fpa-board-deck/ ~/.claude/skills/
+  ```
+* **התקנה ברמת הפרויקט (Project Scope):**
+  ```bash
+  mkdir -p ./.claude/skills
+  cp -r fpa-board-deck/ ./.claude/skills/
+  ```
+* **פריסה ארגונית מרכזית (Enterprise Org-Level):** מנהלי מערכת (Admins) ב-Claude Enterprise יכולים לפרוס תיקיית Skills לכלל עובדי הארגון במרוכז דרך לוח הניהול. ברגע שה-Skill נפרס ברמת הארגון, כל עובד מקבל את היכולת מיידית ללא צורך בהתקנה מקומית.
 
 ---
 
-## שגיאות נפוצות ופתרונות
+## שאלות נפוצות (FAQ)
 
-| בעיה | סיבה סבירה | פתרון |
-|---|---|---|
-| Skill לא מתעורר אף פעם | description מעורפל, חסרים ביטויי trigger | כתוב מחדש עם שפה ספציפית מול המשתמש |
-| Skill מתעורר כל הזמן | description רחב מדי | הוסף תנאי "אל תשתמש כש..." |
-| הוראות מתעלמים מהן | הנחיות מעורפלות או סותרות | ספציפיות: פקודות מדויקות, פלטים צפויים |
-| MCP calls נכשלים | השרת לא רץ או auth פג | הוסף שלבי reconnection לסעיף פתרון בעיות |
-| עובד ב-Claude.ai, נכשל ב-Code | חסרות תלויות סביבה | תעד דרישות בשדה compatibility |
-| תוצאות לא עקביות בין ריצות | הוראות גמישות מדי | הוסף checklist איכות + דרוש self-verification |
+### האם Claude Skills דורשים ידע בתכנות כדי לבנות אותם?
+ממש לא. כפי שראיתם, קובץ ה-`SKILL.md` נכתב בשפת Markdown פשוטה וטקסט חופשי. הידע החשוב ביותר הוא המתודולוגיה וההבנה החשבונאית שלכם, ולא שורות קוד.
+
+### האם הנתונים המועלים ל-Skill משמשים לאימון מודלים של Anthropic?
+במסלולי Claude Pro, Team ו-Enterprise, Anthropic מתחייבת מפורשות שנתוני המשתמשים ושיחותיהם אינם משמשים לאימון מודלים. מומלץ לקרוא את המדריך המלא שלנו על [ממשל תאגידי ובקרת AI במחלקת כספים](/blog/ai-governance-finance).
+
+### מה קורה אם שרת ה-MCP מתנתק באמצע הפעלת ה-Skill?
+ה-Skill יזהה שהכלי אינו זמין ויציג הודעת שגיאה מובנית המבקשת מהמשתמש לבדוק את החיבור, מבלי להמציא נתונים פיקטיביים.
 
 ---
 
-## הצעד הבא — Skills ב-AI Finance Transformation
+## הצעד הבא
 
-Skills הם לא רק כלי לצוותי IT. כ-CFO, קונטרולר, או מנהל FP&A — **הידע המקצועי שלך** הוא בדיוק מה שצריך להיות מוטמע ב-Skill. תהליך ה-month-end close, תבניות דוחות, מינוח חשבונאי, סטנדרטים של audit — כל אלה יכולים להפוך ל-Skills שעובדים עבורך בכל שיחה.
+הצעד הבא שלך הוא לעוד מידע, תוכן ומדריכים לפני כולם. הירשם לספריית התוכן AI Finance Transformation.
 
 <div style="display: flex; justify-content: center; margin: 3rem 0;">
-  <a href="https://www.ronenamoscpa.co.il/pricing" style="
+  <a href="https://www.ronenamoscpa.co.il/" style="
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -381,6 +416,16 @@ Skills הם לא רק כלי לצוותי IT. כ-CFO, קונטרולר, או מ�
     box-shadow: 0 0 30px rgba(20, 184, 166, 0.5), 0 10px 25px rgba(20, 184, 166, 0.3);
     border: 1px solid rgba(20, 184, 166, 0.3);
   " onmouseover="this.style.boxShadow='0 0 40px rgba(20, 184, 166, 0.8), 0 15px 35px rgba(20, 184, 166, 0.5)'; this.style.transform='translateY(-2px)';" onmouseout="this.style.boxShadow='0 0 30px rgba(20, 184, 166, 0.5), 0 10px 25px rgba(20, 184, 166, 0.3)'; this.style.transform='translateY(0)';">
-    הצטרפו למנוי — גישה לכל המדריכים הפיננסיים
+    להרשמה ורכישת מנוי לספריית התוכן ←
   </a>
 </div>
+
+---
+
+### לבנות תהליכי AI אוטונומיים במחלקת הכספים
+בקהילת **AI Finance Transformation של רונן עמוס** אנו מלווים מנהלי כספים, חשבים וצוותי FP&A בבניית תהליכי עבודה אוטונומיים, מבוקרים ומאובטחים — מבניית Skills מותאמים אישית ועד אוטומציה של סגירת חודש ותחזיות תזרים.
+
+* 💬 **[הצטרפו לקהילת הוואטסאפ של AI Finance Transformation](https://chat.whatsapp.com/CS6dgqnK45Q9XAMqScNr6R)** לדיונים, תבניות ושיתוף מתודולוגיות עם מובילי כספים בישראל.
+* 🎓 **[קורסי AI פיננסי מעשיים](/courses/ai-mastery):** הכשרה מעמיקה לצוותי כספים לבניית סוכנים, Skills ואוטומציות ללא צורך בידע מוקדם בתכנות.
+* 💼 **[שירותי ייעוץ והטמעת AI בארגונים](/services):** ליווי אישי של רונן עמוס רו"ח בבניית בקרות, ארכיטקטורת נתונים והטמעת כלי AI בסביבת העבודה הארגונית.
+* 📊 **[קראו עוד על הטמעת AI במחלקת כספים מבקרה ועד ROI](/blog/ai-finance-implementation)** לקבלת תמונת המצב המלאה על מהפכת ה-AI בעולם הכספים.
