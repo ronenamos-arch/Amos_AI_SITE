@@ -50,6 +50,7 @@
 
 ## Blog — Featured Articles
 
+- [הטמעת בינה מלאכותית במחלקת כספים: מבקרה ועד החזר השקעה (ROI)](https://www.ronenamoscpa.co.il/blog/ai-finance-implementation): מדריך מעשי למנהלי כספים, חשבים וצוותי FP&A להטמעת AI בארגון: איכות נתונים, הרשאות, מודל קרחון ה-AI הפיננסי, הפרדת חישוב מניסוח, ומדידת החזר השקעה (ROI) נטו.
 - [AI Finance: מדריך מעשי לאנשי כספים וחשבות](https://www.ronenamoscpa.co.il/blog/ai-finance-practical-guide): מדריך מעשי ליישום AI Finance: ייעול דוחות ניהוליים, סגירת חודש, תחזיות ובקרות בעזרת AI, הפרדת נתוני מקור, פלט מובנה (Structured Outputs) ופיילוט 30 יום עם אימות אנושי לצוותי כספים בישראל.
 - [איך לבנות AI Dashboard פיננסי שמוביל להחלטות טובות יותר](https://www.ronenamoscpa.co.il/blog/ai-financial-dashboard-better-decisions): מדריך מעשי ל-CFO, חשבים ומנהלי FP&A לבניית AI Dashboard: בחירת מדדים ממוקדי החלטה, יצירת שכבת אמת חשבונאית, ספי פעולה, הרשאות שורה (RLS) ולולאת אימות שמונעת הזיות.
 - [איך להפוך את מחלקת הכספים ל-AI-Native: 5 ההחלטות הניהוליות שמשנות הכל](https://www.ronenamoscpa.co.il/blog/how-to-make-finance-team-ai-native): מדריך מעשי לסמנכ"לי כספים, מנהלי FP&A וחשבים: חמש ההחלטות הניהוליות שהפכו צוות פיננסי שמרני למחלקת כספים אוטונומית שמופעלת על ידי סוכני AI ופיקוח אנושי.
