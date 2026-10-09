@@ -50,6 +50,7 @@
 
 ## Blog — Featured Articles
 
+- [הטמעת בינה מלאכותית במחלקת כספים: איך מתחילים בלי לאבד שליטה](https://www.ronenamoscpa.co.il/blog/ai-governance-finance): מדריך מעשי למנהלי כספים, חשבים וצוותי FP&A להטמעת ממשל תאגידי ל-AI (AI Governance): מדיניות שימוש, סיווג רגישות נתונים, סולם בדיקות (Tiers), תוכנית 90 יום ומבנה אישור בעמוד אחד להנהלה.
 - [הטמעת בינה מלאכותית במחלקת כספים: מבקרה ועד החזר השקעה (ROI)](https://www.ronenamoscpa.co.il/blog/ai-finance-implementation): מדריך מעשי למנהלי כספים, חשבים וצוותי FP&A להטמעת AI בארגון: איכות נתונים, הרשאות, מודל קרחון ה-AI הפיננסי, הפרדת חישוב מניסוח, ומדידת החזר השקעה (ROI) נטו.
 - [AI Finance: מדריך מעשי לאנשי כספים וחשבות](https://www.ronenamoscpa.co.il/blog/ai-finance-practical-guide): מדריך מעשי ליישום AI Finance: ייעול דוחות ניהוליים, סגירת חודש, תחזיות ובקרות בעזרת AI, הפרדת נתוני מקור, פלט מובנה (Structured Outputs) ופיילוט 30 יום עם אימות אנושי לצוותי כספים בישראל.
 - [איך לבנות AI Dashboard פיננסי שמוביל להחלטות טובות יותר](https://www.ronenamoscpa.co.il/blog/ai-financial-dashboard-better-decisions): מדריך מעשי ל-CFO, חשבים ומנהלי FP&A לבניית AI Dashboard: בחירת מדדים ממוקדי החלטה, יצירת שכבת אמת חשבונאית, ספי פעולה, הרשאות שורה (RLS) ולולאת אימות שמונעת הזיות.
