@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>מדריך מעשי: דוח נסיעות לעובדים עם AI — רונן עמוס רו"ח</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800;900&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#090d16;--surface:#0f172a;--surface2:#1e293b;
+  --accent:#22d3ee;--accent-strong:#06b6d4;--accent-dim:rgba(34,211,238,0.12);
+  --teal:#14b8a6;--teal-dim:rgba(20,184,166,0.12);
+  --lime:#a3e635;--lime-dim:rgba(163,230,53,0.12);
+  --text:#f8fafc;--text-muted:#cbd5e1;--text-faint:#94a3b8;
+  --border:rgba(255,255,255,0.08);--border-focus:rgba(34,211,238,0.4);
+  --radius-sm:8px;--radius-md:16px;--radius-lg:24px;
+  --font:Heebo,system-ui,sans-serif;--mono:"IBM Plex Mono",monospace;
+}
+html{scroll-behavior:smooth}
+body{font-family:var(--font);background:var(--bg);color:var(--text);line-height:1.6;direction:rtl;min-height:100vh}
+a{color:inherit;text-decoration:none}
+.inner{max-width:1140px;margin:0 auto;padding:0 1.5rem}
+
+/* TOPBAR */
+.topbar{position:sticky;top:0;z-index:100;background:rgba(9,13,22,0.94);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);padding:0 1.5rem}
+.topbar-inner{max-width:1140px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:60px;gap:1rem}
+.topbar-brand{display:flex;align-items:center;gap:.75rem;font-weight:700;font-size:.95rem;color:var(--accent)}
+.topbar-brand span{color:#fff}
+.topbar-badge{font-family:var(--mono);font-size:.7rem;padding:.2rem .6rem;border-radius:999px;background:var(--teal-dim);border:1px solid var(--teal);color:var(--teal)}
+.topbar-nav{display:flex;gap:1.5rem;align-items:center}
+.topbar-nav a{font-size:.85rem;color:var(--text-faint);transition:color .2s;font-weight:500}
+.topbar-nav a:hover{color:var(--accent)}
+.btn-back{background:rgba(255,255,255,0.06);border:1px solid var(--border);color:var(--text);padding:.4rem 1rem;border-radius:var(--radius-sm);font-size:.82rem;font-weight:600;display:inline-flex;align-items:center;gap:.4rem;transition:all .2s}
+.btn-back:hover{background:rgba(255,255,255,0.12);color:var(--accent)}
+
+/* HERO */
+.hero{padding:4.5rem 1.5rem 3rem;background:radial-gradient(ellipse 80% 50% at 50% -20%,rgba(34,211,238,0.15),transparent)}
+.hero-inner{max-width:900px;margin:0 auto;text-align:center;display:flex;flex-direction:column;align-items:center;gap:1.25rem}
+.hero-tag{display:inline-flex;align-items:center;gap:.5rem;padding:.35rem 1rem;border-radius:999px;background:var(--accent-dim);border:1px solid rgba(34,211,238,0.3);color:var(--accent);font-size:.8rem;font-weight:700}
+.hero-title{font-size:clamp(2.2rem,5vw,3.6rem);font-weight:900;line-height:1.15;letter-spacing:-.02em}
+.hero-title span{background:linear-gradient(135deg,var(--accent) 0%,var(--teal) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.hero-desc{font-size:1.15rem;color:var(--text-muted);max-width:720px;line-height:1.7}
+
+/* METRICS */
+.metrics{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem;margin-top:1.5rem;width:100%}
+.metric-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-md);padding:1.25rem 1rem;text-align:center;transition:transform .2s,border-color .2s}
+.metric-card:hover{transform:translateY(-3px);border-color:var(--border-focus)}
+.metric-num{font-size:2rem;font-weight:900;color:var(--accent);font-family:var(--mono)}
+.metric-label{font-size:.85rem;color:var(--text-faint);margin-top:.25rem}
+
+/* TABS */
+.tabs-wrapper{position:sticky;top:60px;z-index:90;background:rgba(9,13,22,0.96);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:.75rem 0}
+.tabs-nav{display:flex;gap:.5rem;overflow-x:auto;padding-bottom:.25rem;scrollbar-width:none}
+.tabs-nav::-webkit-scrollbar{display:none}
+.tab-btn{background:transparent;border:1px solid var(--border);color:var(--text-muted);padding:.6rem 1.25rem;border-radius:999px;font-size:.88rem;font-weight:600;font-family:var(--font);cursor:pointer;white-space:nowrap;transition:all .2s;display:flex;align-items:center;gap:.5rem}
+.tab-btn:hover{background:var(--surface);color:#fff}
+.tab-btn.active{background:linear-gradient(135deg,var(--teal) 0%,var(--accent) 100%);color:#042f2e;font-weight:800;border-color:transparent;box-shadow:0 0 20px rgba(34,211,238,0.35)}
+
+/* CONTENT PANELS */
+.tab-panel{display:none;padding:3rem 0 5rem;animation:panelFade .3s ease}
+.tab-panel.active{display:block}
+@keyframes panelFade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+
+/* SECTIONS & CARDS */
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-md);padding:2rem;margin-bottom:1.75rem;box-shadow:0 10px 30px rgba(0,0,0,0.25)}
+.card-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem;border-bottom:1px solid var(--border);padding-bottom:.85rem;flex-wrap:wrap;gap:.5rem}
+.card-title{font-size:1.35rem;font-weight:800;color:#fff;display:flex;align-items:center;gap:.6rem}
+.badge{font-size:.75rem;padding:.25rem .65rem;border-radius:999px;font-weight:700}
+.badge-teal{background:var(--teal-dim);color:var(--teal);border:1px solid var(--teal)}
+.badge-lime{background:var(--lime-dim);color:var(--lime);border:1px solid var(--lime)}
+.badge-cyan{background:var(--accent-dim);color:var(--accent);border:1px solid var(--accent)}
+
+/* HIGHLIGHT BOXES */
+.callout{border-radius:var(--radius-sm);padding:1.25rem 1.5rem;margin:1.25rem 0;font-size:.95rem;line-height:1.7}
+.callout-info{background:rgba(34,211,238,0.06);border-right:4px solid var(--accent);color:#e2e8f0}
+.callout-warning{background:rgba(244,63,94,0.06);border-right:4px solid #f43f5e;color:#fecdd3}
+.callout-success{background:rgba(20,184,166,0.06);border-right:4px solid var(--teal);color:#ccfbf1}
+
+/* DATA TABLE */
+.table-wrap{overflow-x:auto;margin:1.5rem 0;border-radius:var(--radius-sm);border:1px solid var(--border)}
+table{width:100%;border-collapse:collapse;font-size:.92rem;text-align:right}
+th{background:var(--surface2);color:var(--accent);padding:.85rem 1rem;font-weight:700;border-bottom:1px solid var(--border)}
+td{padding:.85rem 1rem;border-bottom:1px solid var(--border);color:var(--text-muted)}
+tr:last-child td{border-bottom:none}
+tr:hover td{background:rgba(255,255,255,0.02)}
+
+/* CODE & PROMPT BLOCKS */
+.code-container{position:relative;background:#000;border:1px solid #334155;border-radius:var(--radius-sm);margin:1.25rem 0;overflow:hidden}
+.code-bar{display:flex;justify-content:space-between;align-items:center;background:#18181b;padding:.5rem 1rem;border-bottom:1px solid #27272a}
+.code-label{font-family:var(--mono);font-size:.78rem;color:#a1a1aa;font-weight:600}
+.copy-btn{background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);color:#e4e4e7;padding:.3rem .75rem;border-radius:4px;font-size:.78rem;font-weight:600;cursor:pointer;transition:all .2s;display:flex;align-items:center;gap:.35rem;font-family:var(--font)}
+.copy-btn:hover{background:rgba(255,255,255,0.18);color:#fff}
+pre{padding:1.25rem;margin:0;overflow-x:auto;font-family:var(--mono);font-size:.88rem;line-height:1.65;direction:ltr;text-align:left;color:#e2e8f0;white-space:pre-wrap}
+
+/* GRID 2 COLS */
+.grid-2{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:1.5rem}
+
+/* FOOTER */
+.guide-footer{border-top:1px solid var(--border);padding:3rem 0;text-align:center;background:var(--surface)}
+.footer-cta{max-width:600px;margin:0 auto;display:flex;flex-direction:column;align-items:center;gap:1.25rem}
+.btn-primary{background:linear-gradient(135deg,var(--teal) 0%,var(--accent) 100%);color:#042f2e;font-weight:800;font-size:1.05rem;padding:.9rem 2.25rem;border-radius:var(--radius-md);box-shadow:0 0 25px rgba(34,211,238,0.4);transition:all .3s}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 0 35px rgba(34,211,238,0.6)}
+
+@media(max-width:768px){
+  .hero{padding:3rem 1rem 2rem}
+  .card{padding:1.25rem}
+  .topbar-nav{display:none}
+}
+</style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="topbar-brand">
+      <a href="/guides" class="btn-back">← חזרה לספריית המדריכים</a>
+      <span>AI Finance Transformation</span>
+      <span class="topbar-badge" style="background:rgba(234,179,8,0.12);border-color:#eab308;color:#facc15;">PREMIUM PLAYBOOK • מנויי PRO</span>
+    </div>
+    <nav class="topbar-nav">
+      <a href="#principles" onclick="switchTab('tab-principles')">עקרונות היסוד</a>
+      <a href="#il-rules" onclick="switchTab('tab-rules')">התאמות לישראל</a>
+      <a href="#cases" onclick="switchTab('tab-cases')">מקרי בוחן מהשטח</a>
+      <a href="#code" onclick="switchTab('tab-code')">קוד ה-Skill</a>
+      <a href="#test" onclick="switchTab('tab-test')">ארגז בדיקות</a>
+    </nav>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="inner hero-inner">
+    <div class="hero-tag">⚡ ספריית המדריכים • רונן עמוס רו"ח</div>
+    <h1 class="hero-title">
+      דוח נסיעות לעובדים עם AI:<br />
+      <span>המדריך המעשי לבניית Skill מבוקר</span>
+    </h1>
+    <p class="hero-desc">
+      איסוף קבלות ממייל ומובייל, הצלבה מול דפי פירוט כרטיסי אשראי, בידוד כרטיס החברה מהחזר לעובד, חישובי מט״ח ודרישות מע״מ ומס בישראל — מקצה לקצה.
+    </p>
+
+    <div class="metrics">
+      <div class="metric-card">
+        <div class="metric-num">85%</div>
+        <div class="metric-label">חיסכון בזמן הכנה ובדיקה בחשבות</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-num">100%</div>
+        <div class="metric-label">הפרדה הרמטית בין כרטיס חברה להחזר</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-num">3-Way</div>
+        <div class="metric-label">הצלבה: הוצאה ⟷ אסמכתא ⟷ תנועה</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-num">0%</div>
+        <div class="metric-label">הזיות: כל פער מסומן לבדיקה אנושית</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STICKY TABS NAV -->
+<div class="tabs-wrapper">
+  <div class="inner">
+    <div class="tabs-nav">
+      <button class="tab-btn active" onclick="switchTab('tab-start')">🚀 1. איך מתחילים מחר בבוקר?</button>
+      <button class="tab-btn" onclick="switchTab('tab-principles')">🎯 2. עקרונות וההפרדה המשולשת</button>
+      <button class="tab-btn" onclick="switchTab('tab-rules')">🇮🇱 3. כללי כספים בישראל</button>
+      <button class="tab-btn" onclick="switchTab('tab-reconcile')">⚙️ 4. מנוע ההתאמות והבקרות</button>
+      <button class="tab-btn" onclick="switchTab('tab-cases')">💼 5. שלושה מקרי בוחן מהשטח</button>
+      <button class="tab-btn" onclick="switchTab('tab-code')">💻 6. קוד SKILL.md ופרומפטים</button>
+      <button class="tab-btn" onclick="switchTab('tab-test')">🧪 7. ארגז 8 מקרי קצה לבדיקה</button>
+    </div>
+  </div>
+</div>
+
+<!-- MAIN CONTENT WRAPPER -->
+<main class="inner">
+
+  <!-- TAB 1: QUICKSTART -->
+  <section id="tab-start" class="tab-panel active">
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title">🚀 איך מתחילים מחר בבוקר? (המדריך המעשי ב-3 צעדים)</div>
+        <span class="badge badge-lime">להתחיל ב-5 דקות</span>
+      </div>
+
+      <p style="color:var(--text-muted);font-size:1.05rem;line-height:1.7;margin-bottom:1.5rem;">
+        אם אתם מרגישים שדוחות הנסיעה שואבים שעות עבודה ידניות בצוות, החדשות הטובות הן שלא צריך לפתח תוכנה, לא צריך לרכוש מערכת יקרה, ולא צריך לדעת לתכנת. הנה כל מה שצריך לדעת כדי להפעיל את ה-Skill מחר בבוקר:
+      </p>
+
+      <div class="grid-2" style="margin-bottom:2rem;">
+        <div style="background:var(--surface2);border-radius:var(--radius-sm);padding:1.5rem;border-right:3px solid var(--accent);">
+          <h3 style="color:var(--accent);font-size:1.15rem;margin-bottom:.5rem;">❓ מה זה בכלל "Skill"? (בשפה פשוטה)</h3>
+          <p style="color:var(--text-muted);font-size:.92rem;line-height:1.7;">
+            תחשבו על Skill כמו על <strong>"תיק נהלים חכם"</strong> לחשב או עוזר כספים חדש.<br />
+            במקום שבכל פעם שעובד חוזר מחו״ל תצטרכו להקליד מחדש לצ'אט פרומפט ארוך של 50 שורות (<em>"תפריד כרטיס חברה, מע״מ זר אינו מע״מ תשומות, תבדוק טיפים ותקזז מקדמות..."</em>) — ה-Skill הוא קובץ הוראות מובנה ששומר את כל חוקי הברזל שלכם מראש. אתם מגדירים אותו פעם אחת, והמודל כבר "יודע את העבודה".
+          </p>
+        </div>
+
+        <div style="background:var(--surface2);border-radius:var(--radius-sm);padding:1.5rem;border-right:3px solid var(--teal);">
+          <h3 style="color:var(--teal);font-size:1.15rem;margin-bottom:.5rem;">🤖 עם איזה AI עובדים? ואיפה מדביקים?</h3>
+          <p style="color:var(--text-muted);font-size:.92rem;line-height:1.7;">
+            <strong>האפשרות המומלצת ביותר: Claude Projects (במסלול Pro / Team):</strong><br />
+            1. פותחים פרויקט חדש ב-Claude בשם <em>"דוחות נסיעות עובדים"</em>.<br />
+            2. ב-<strong>Project Instructions</strong> מדביקים את קוד ה-<code>SKILL.md</code> המצורף בלשונית קוד.<br />
+            3. ב-<strong>Project Knowledge</strong> מעלים את נוהל הנסיעות של החברה (אם יש).<br />
+            4. <strong>איך מריצים?</strong> פשוט גוררים את קובץ האשראי ואת הקבלות וכותבים: <em>"תכין דוח נסיעה לרועי ללונדון"</em>!
+          </p>
+        </div>
+      </div>
+
+      <div class="callout callout-info" style="margin-bottom:2rem;">
+        <h4 style="color:#fff;margin-bottom:.5rem;font-size:1.05rem;">📍 3 צעדים פשוטים להרצה ראשונה:</h4>
+        <ol style="padding-right:1.25rem;color:var(--text-muted);line-height:1.8;font-size:.95rem;">
+          <li><strong>צעד 1 (תיקיית מקורות):</strong> פותחים תיקייה במחשב ושמים בה 5-10 קבלות מנסיעה אחרונה + קובץ Excel של פירוט האשראי לאותם תאריכים.</li>
+          <li><strong>צעד 2 (הדבקת ההוראות):</strong> מעתיקים את תוכן ה-<code>SKILL.md</code> (מטאב 6 במדריך זה) לתוך Claude Project Instructions פעם אחת בלבד.</li>
+          <li><strong>צעד 3 (הרצת הפיילוט):</strong> מעלים את הקבצים לפרויקט, נותנים ל-AI להצליב את הנתונים, ובודקים את טבלת ההוצאות והיתרה המוצעת לתשלום.</li>
+        </ol>
+      </div>
+
+      <div style="text-align:center;padding:1rem 0;">
+        <button class="btn-primary" onclick="switchTab('tab-principles')" style="cursor:pointer;border:none;">
+          המשך לעקרונות ההפרדה החשבונאית ←
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- TAB 2: PRINCIPLES -->
+  <section id="tab-principles" class="tab-panel">
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title">⚖️ ההפרדה החשבונאית המשולשת (The 3-Way Separation)</div>
+        <span class="badge badge-teal">עקרון ליבה</span>
+      </div>
+      <p style="color:var(--text-muted);font-size:1.02rem;margin-bottom:1.25rem;">
+        הטעות הנפוצה ביותר באוטומציית דוחות נסיעות היא ההנחה שכל קבלה מייצגת הוצאה חדשה, וכל חיוב אשראי הוא קבלה. במחלקת כספים מקצועית, אלו שלוש ישויות נפרדות לחלוטין:
+      </p>
+
+      <div class="grid-2">
+        <div style="background:var(--surface2);border-radius:var(--radius-sm);padding:1.5rem;border-right:3px solid var(--accent);">
+          <h4 style="color:#fff;margin-bottom:.5rem;">1. אירוע ההוצאה (Expense Event)</h4>
+          <p style="color:var(--text-muted);font-size:.9rem;">האירוע הכלכלי האמיתי. לדוגמה: שהייה של 3 לילות במלון Hilton בלונדון. מקבל מזהה ייחודי: <code>EXP-001</code>.</p>
+        </div>
+        <div style="background:var(--surface2);border-radius:var(--radius-sm);padding:1.5rem;border-right:3px solid var(--teal);">
+          <h4 style="color:#fff;margin-bottom:.5rem;">2. מסמך האסמכתא (Document / Evidence)</h4>
+          <p style="color:var(--text-muted);font-size:.9rem;">החשבונית ב-PDF, צילום הקבלה מהדלפק או אישור ההזמנה במייל. לעיתים לאותה הוצאה יש 3 מסמכים! מקבל מזהה: <code>DOC-001</code>.</p>
+        </div>
+        <div style="background:var(--surface2);border-radius:var(--radius-sm);padding:1.5rem;border-right:3px solid var(--lime);">
+          <h4 style="color:#fff;margin-bottom:.5rem;">3. תנועת התשלום (Payment Transaction)</h4>
+          <p style="color:var(--text-muted);font-size:.9rem;">החיוב שירד בפועל בכרטיס האשראי, העברה בנקאית או משיכת מזומן. מקבל מזהה: <code>TX-001</code>.</p>
+        </div>
+        <div style="background:var(--surface2);border-radius:var(--radius-sm);padding:1.5rem;border-right:3px solid #f59e0b;">
+          <h4 style="color:#fff;margin-bottom:.5rem;">4. מקור המימון (Funding Source)</h4>
+          <p style="color:var(--text-muted);font-size:.9rem;">מי מימן את העסקה בפועל: כרטיס החברה (Corporate Card), כספי העובד מכיסו, או מקדמה שניתנה מראש.</p>
+        </div>
+      </div>
+
+      <div class="callout callout-info">
+        <strong>💡 מדוע ההפרדה קריטית?</strong> אם עובד צילם קבלת מונית ב-WhatsApp ושלח גם את אישור ה-Uber במייל — ספירה עיוורת תייצר הוצאה כפולה. מנגד, אם העובד נסע פעמיים באותו יום ברכבת ושילם מחיר זהה לחלוטין — איחוד עיוור ימחק הוצאה אמיתית! ה-Skill מנהל מזהים נפרדים ומונע שגיאות.
+      </div>
+    </div>
+  </section>
+
+  <!-- TAB 2: IL RULES -->
+  <section id="tab-rules" class="tab-panel">
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title">🇮🇱 חמשת עקרונות הברזל למחלקת כספים בישראל</div>
+        <span class="badge badge-lime">רגולציה ובקרה</span>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:1.5rem;">
+        <div style="background:rgba(255,255,255,0.02);padding:1.25rem;border-radius:var(--radius-sm);border:1px solid var(--border);">
+          <h3 style="color:var(--accent);font-size:1.15rem;margin-bottom:.4rem;">1. כרטיס החברה אינו החזר לעובד</h3>
+          <p style="color:var(--text-muted);font-size:.92rem;">
+            הוצאה ששולמה בכרטיס אשראי של החברה (Corporate Card) נרשמת בדוח הנסיעה לצורך שיוך פרויקטלי ובקרה תקציבית — אך <strong>שווה 0 ש"ח בהחזר לעובד</strong>. תשלום מקדמה (Advance) מקזז את היתרה מול העובד ולא מקטין את סך ההוצאה העסקית.
+          </p>
+        </div>
+
+        <div style="background:rgba(255,255,255,0.02);padding:1.25rem;border-radius:var(--radius-sm);border:1px solid var(--border);">
+          <h3 style="color:var(--teal);font-size:1.15rem;margin-bottom:.4rem;">2. שמירת מטבע מקור לצד סכום בשקלים (₪)</h3>
+          <p style="color:var(--text-muted);font-size:.92rem;">
+            קבלה באירו (€) וחיוב בשקלים (₪) אינם זהים בהמרה ישירה בגלל פערי ימי עסקים, מרווחי שער ועמלות חברת האשראי. ה-Skill שומר תמיד את הסכום במטבע המקור, את סכום החיוב בפועל באשראי, ואת השער היציג של בנק ישראל במועד ההוצאה במידה ואין חיוב אשראי ישיר. איסור מוחלט על "סלט מטבעות"!
+          </p>
+        </div>
+
+        <div style="background:rgba(255,255,255,0.02);padding:1.25rem;border-radius:var(--radius-sm);border:1px solid var(--border);">
+          <h3 style="color:#f43f5e;font-size:1.15rem;margin-bottom:.4rem;">3. הפרדה בין מע״מ זר למע״מ תשומות ישראלי ומספרי הקצאה</h3>
+          <p style="color:var(--text-muted);font-size:.92rem;">
+            מע״מ זר (VAT) המופיע בקבלה בחו״ל <strong>אינו ניתן לקיזוז אוטומטי כמע״מ תשומות בישראל</strong>. עבור הוצאות בישראל יש לבדוק עמידה בחוק "חשבוניות ישראל" וקיומו של מספר הקצאה מרשות המיסים לחשבוניות מעל הסף.
+          </p>
+        </div>
+
+        <div style="background:rgba(255,255,255,0.02);padding:1.25rem;border-radius:var(--radius-sm);border:1px solid var(--border);">
+          <h3 style="color:var(--lime);font-size:1.15rem;margin-bottom:.4rem;">4. אי-קיבוע תקרות מס בתוך ההוראות (External Policy)</h3>
+          <p style="color:var(--text-muted);font-size:.92rem;">
+            תקנות מס הכנסה לגבי נסיעות לחו״ל (תקרות לינה, רכב וארוחות) מתעדכנות מדי שנה ומשתנות לפי מדינת היעד. את הכללים מנהלים בקובץ מדיניות נפרד (<code>company-policy.md</code>) המאושר על ידי החשב, ולא מקבעים סכומים קשיחים בתוך הקוד.
+          </p>
+        </div>
+
+        <div style="background:rgba(255,255,255,0.02);padding:1.25rem;border-radius:var(--radius-sm);border:1px solid var(--border);">
+          <h3 style="color:#facc15;font-size:1.15rem;margin-bottom:.4rem;">5. ניהול אש״ל (Per Diem) ונסיעות משולבות (עסקי + פרטי)</h3>
+          <p style="color:var(--text-muted);font-size:.92rem;">
+            תשלום אש״ל יומי מחושב לפי ימי שהייה עסקיים בלבד, ללא כפל פיצוי מול ארוחות ששולמו בכרטיס החברה. בנסיעה ששילבה ימי חופשה פרטיים, ה-Skill מבודד את החלק העסקי ומשאיר את השאר פתוח לבירור.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TAB 3: RECONCILIATION ENGINE -->
+  <section id="tab-reconcile" class="tab-panel">
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title">⚙️ ארכיטקטורת מנוע ההתאמה (Reconciliation Engine)</div>
+        <span class="badge badge-cyan">Workflow</span>
+      </div>
+
+      <p style="color:var(--text-muted);margin-bottom:1.5rem;">
+        ה-Skill מבצע התאמה דינמית בין תיקיית המסמכים לבין ייצוא קובץ תנועות האשראי ומסווג כל פריט לאחד מארבעה סטטוסים ברורים:
+      </p>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>סטטוס התאמה</th>
+              <th>משמעות חשבונאית</th>
+              <th>פעולת ה-Skill</th>
+              <th>המשך טיפול בכספים</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="color:var(--lime);font-weight:bold;">MATCHED_EXACT</td>
+              <td>התאמה מלאה: ספק, תאריך וסכום תואמים</td>
+              <td>מקשר בין המסמך לתנועה ומחשב סכום שקלי סופי</td>
+              <td>אישור שוטף ללא חיכוך</td>
+            </tr>
+            <tr>
+              <td style="color:#facc15;font-weight:bold;">MATCHED_PROPOSED</td>
+              <td>התאמה סבירה אך קיימת סטייה בסכום (טיפ/עמלה)</td>
+              <td>מציג את נימוק ההתאמה ומבודד את סכום הסטייה</td>
+              <td>החשב מוודא שהפער הוא טיפ ולא חיוב כפול</td>
+            </tr>
+            <tr>
+              <td style="color:#38bdf8;font-weight:bold;">DOC_WITHOUT_TX</td>
+              <td>קיימת קבלה אך אין חיוב אשראי תואם</td>
+              <td>בודק אם שולם במזומן; אם חסר חיוב - מסמן כהוצאה פתוחה</td>
+              <td>אימות מול העובד מאיזה אמצעי שולם</td>
+            </tr>
+            <tr>
+              <td style="color:#f43f5e;font-weight:bold;">TX_WITHOUT_DOC</td>
+              <td>קיים חיוב באשראי ללא אסמכתא תומכת</td>
+              <td>מייצר שורת התראה באינדקס אסמכתאות חסרות</td>
+              <td>דרישה מהעובד להמצאת קבלה תקינה</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3 style="color:#fff;margin:1.75rem 0 .75rem;">מבנה תיקיית העבודה המומלץ:</h3>
+      <div class="code-container">
+        <div class="code-bar">
+          <span class="code-label">DIRECTORY STRUCTURE</span>
+        </div>
+        <pre>
+travel-report-2026-london/
+├── trip-details.md          # פרטי הנסיעה: עובד, יעד, תאריכים, פרויקט
+├── company-policy.md        # מדיניות נסיעות, שערי המרה ותקרות מאושרות
+├── receipts/                # תיקיית הקבלות (PDF, סריקות, צילומי WhatsApp)
+├── transactions/            # ייצוא תנועות כרטיסי אשראי (CSV / Excel)
+├── advances/                # אישורי מקדמות והחזרים קודמים
+└── output/                  # דוח הוצאות סופי: XLSX + סיכום Markdown
+        </pre>
+      </div>
+    </div>
+  </section>
+
+  <!-- TAB 4: REAL CASES -->
+  <section id="tab-cases" class="tab-panel">
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title">💼 שלושה מקרי בוחן מעשיים מהשטח הישראלי</div>
+        <span class="badge badge-teal">דוגמאות אמיתיות</span>
+      </div>
+
+      <!-- CASE 1 -->
+      <div style="background:var(--surface2);border-radius:var(--radius-sm);padding:1.5rem;margin-bottom:1.5rem;border-right:4px solid var(--accent);">
+        <h3 style="color:var(--accent);margin-bottom:.5rem;">מקרה בוחן 1: סטארטאפ SaaS — 3 עובדים בכנס SaaStr בסן פרנסיסקו</h3>
+        <p style="color:var(--text-muted);font-size:.92rem;line-height:1.7;">
+          <strong>האתגר:</strong> מנהל המכירות שילם על המלון של כל הצוות ($3,200) בכרטיס החברה. שני אנשי פיתוח קיבלו מקדמה של ₪2,000 כל אחד ושילמו על טיסות, מוניות Uber ומסעדות בכרטיסיהם הפרטיים. הקבלות הגיעו חלקן במייל וחלקן בצילומי פתקי נייר מקומטים.<br />
+          <strong>פתרון ה-Skill:</strong> המערכת קלטה את כל 42 המסמכים. הלינה שויכה כהוצאה כוללת של החברה (₪0 להחזר). עבור כל מפתח חושבו הוצאותיו בדולרים, הומרו לפי שערי החיוב בדפי פירוט האשראי, וקוזזו במדויק מול המקדמה של ₪2,000. שתי ארוחות שכללו טיפ של 20% פוצלו לסכום ארוחה + טיפ לצורך בדיקת עמידה בתקרת האש״ל.<br />
+          <strong>תוצאה כספית:</strong> דוח בדוק תוך 25 דקות במקום יומיים עבודה של מנהלת החשבונות; איתור זיכוי של $120 על ביטול חדר שלא דווח.
+        </p>
+      </div>
+
+      <!-- CASE 2 -->
+      <div style="background:var(--surface2);border-radius:var(--radius-sm);padding:1.5rem;margin-bottom:1.5rem;border-right:4px solid var(--teal);">
+        <h3 style="color:var(--teal);margin-bottom:.5rem;">מקרה בוחן 2: חברת ייעוץ פיננסי — נסיעה משולבת בלונדון וציריך</h3>
+        <p style="color:var(--text-muted);font-size:.92rem;line-height:1.7;">
+          <strong>האתגר:</strong> יועץ בכיר נסע ל-4 ימי פגישות בלונדון ו-3 ימים בציריך, והאריך לסוף שבוע פרטי באלפים. הוצאות ב-GBP וב-CHF, קבלות רכבת מרובות עם סכומים זהים (כפילויות לכאורה).<br />
+          <strong>פתרון ה-Skill:</strong> המערכת חילקה את ימי השהייה ל-7 ימים עסקיים ו-2 ימים פרטיים. המלון בסופ״ש נגרע מהדוח. כרטיסי הרכבת נבדקו מול שעות הנסיעה והוכח שמדובר בנסיעות נפרדות (שני כיוונים). הוצאות ה-CHF הומרו לפי שער בנק ישראל בהיעדר דף אשראי ישיר.<br />
+          <strong>תוצאה כספית:</strong> הפרדה מדויקת בין הוצאה מוכרת להוצאה פרטית, מניעת זקיפת שכר שגויה לעובד.
+        </p>
+      </div>
+
+      <!-- CASE 3 -->
+      <div style="background:var(--surface2);border-radius:var(--radius-sm);padding:1.5rem;border-right:4px solid var(--lime);">
+        <h3 style="color:var(--lime);margin-bottom:.5rem;">מקרה בוחן 3: חברת חומרה וביטחון — רכש ציוד מעבדה דחוף בגרמניה</h3>
+        <p style="color:var(--text-muted);font-size:.92rem;line-height:1.7;">
+          <strong>האתגר:</strong> מהנדס רכש רכיבים אלקטרוניים בסך €4,500 במזומן ובאשראי אישי, כולל מע״מ גרמני (MwSt 19%).<br />
+          <strong>פתרון ה-Skill:</strong> המערכת זיהתה את ה-MwSt ומנעה סיווג שגוי שלו כמע״מ תשומות לקיזוז בישראל, אלא רשמה אותו כחלק מעלות הציוד (CAPEX/R&D). בנוסף נוצרה התראת בדיקת מכס בעת הכניסה לארץ.<br />
+          <strong>תוצאה כספית:</strong> מניעת דוח מע״מ שגוי וקנס מרשות המסים; החזר מהיר ומדויק למהנדס.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- TAB 5: CODE & SPEC -->
+  <section id="tab-code" class="tab-panel">
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title">💻 קוד ה-Skill הרשמי להעתקה (`SKILL.md`)</div>
+        <span class="badge badge-teal">Production Ready</span>
+      </div>
+
+      <p style="color:var(--text-muted);font-size:.92rem;margin-bottom:1rem;">
+        העתיקו את הקוד ושמרו אותו בתיקיית <code>.claude/skills/employee-travel-report-il/SKILL.md</code> או בסביבת הסוכנים שלכם:
+      </p>
+
+      <div class="code-container">
+        <div class="code-bar">
+          <span class="code-label">SKILL.MD SPECIFICATION</span>
+          <button class="copy-btn" onclick="copyCode('skill-code', this)">📋 העתק קוד</button>
+        </div>
+        <pre id="skill-code">---
+name: employee-travel-report-il
+description: Prepare a reviewable employee business-travel expense report for an Israeli company from receipts, invoices, transaction exports and approved policy. Reconcile evidence, flag gaps and calculate a proposed employee settlement without submitting, posting or paying.
+---
+
+# הכנת דוח נסיעה עסקית לעובד בחברה ישראלית
+
+## מטרה
+הכן דוח נסיעה מלא ככל שהראיות מאפשרות, בעברית, עם רשימת הוצאות, התאמות, אסמכתאות, סיכום ושאלות פתוחות. מסמך חסר או התאמה לא ודאית חייבים להישאר גלויים. דוח מוכן לבדיקה אינו דוח מאושר.
+
+## שלבי עבודה
+1. ערוך רשימת מקורות: קבצים, הודעות, תנועות והרשאות. ציין מסמכים שאינך יכול לקרוא.
+2. שמור מזהה יציב לכל מקור (DOC-XXX) ולכל אירוע הוצאה (EXP-XXX).
+3. חלץ נתונים שנראים במקור: ספק, תאריך, סכום, מטבע, מס מקומי וטיפ. אל תנחש נתון לא קריא.
+4. קבץ עותקים של אותו מסמך בלי למחוק אותם ובלי לאחד רכישות נפרדות בעלות סכום זהה.
+5. הצע התאמות לתנועות האשראי (MATCHED_EXACT / MATCHED_PROPOSED / UNMATCHED) והצג נימוק.
+6. הצג גם חיובים ללא קבלה וגם קבלות ללא חיוב.
+7. רשום זיכוי כהוצאה שלילית וקשר לרכישה המקורית. אל תפחית זיכוי פעמיים.
+8. לטיפ, דרוש ראיה לסכום הסופי. אל תוסיף טיפ שוב אם נכלל כבר בחיוב.
+9. קבע מקור מימון לכל הוצאה: עובד, חברה או לא ידוע. כרטיס חברה שווה 0 בהחזר לעובד!
+10. שמור מטבע מקורי והמר לשקלים רק על בסיס חיוב אשראי בפועל או שער יציג מאושר.
+11. הפרד בין אישור לפי מדיניות, הכרה למס הכנסה וניכוי מע״מ תשומות (מס זר אינו מע״מ ישראלי).
+12. חשב אש״ל לפי ימים זכאים ללא כפל פיצוי מול ארוחות ששולמו בכרטיס החברה.
+13. הפק סיכום התחשבנות סופי: סכום מוצע לתשלום לעובד = הוצאות שאושרו לעובד - מקדמות - זיכויים.
+        </pre>
+      </div>
+
+      <h3 style="color:#fff;margin:2rem 0 .75rem;">פרומפט הרצה ישיר לצ'אט (Quick Run Prompt):</h3>
+      <div class="code-container">
+        <div class="code-bar">
+          <span class="code-label">PROMPT TEMPLATE</span>
+          <button class="copy-btn" onclick="copyCode('prompt-code', this)">📋 העתק פרומפט</button>
+        </div>
+        <pre id="prompt-code">פעל כעוזר חשבות להכנת דוח נסיעה עסקית לעובד בחברה ישראלית.
+
+פרטי הנסיעה:
+עובד: [שם]
+יעד ותאריכים: [למשל: סן פרנסיסקו, 10-15 באוקטובר 2026]
+מטרה עסקית: [פרויקט / כנס]
+תיקיית קבלות ופירוט אשראי: [קבצים מצורפים]
+מקדמות ששולמו: [למשל: 2,000 ש"ח]
+שערי המרה: [לפי דפי החיוב באשראי / שער יציג]
+
+כללי ברזל לבקרה:
+1. אל תנחש שום מספר או תאריך שלא נראה במקור.
+2. הפרד באופן מלא בין כרטיס החברה (אינו להחזר לעובד) להוצאות ששילם העובד.
+3. קבץ עותקים של אותה קבלה, אך אל תאחד רכישות נפרדות באותו סכום.
+4. מס זר (VAT/MwSt) אינו מע״מ ישראלי לקיזוז.
+5. הצג דוח בעברית: טבלת הוצאות, אינדקס אסמכתאות, סיכום התחשבנות סופי ורשימת שאלות פתוחות.
+        </pre>
+      </div>
+    </div>
+  </section>
+
+  <!-- TAB 6: TESTS & AUDIT -->
+  <section id="tab-test" class="tab-panel">
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title">🧪 ארגז 8 מקרי קצה לבדיקה (Acceptance Test Suite)</div>
+        <span class="badge badge-lime">בדיקות קבלה</span>
+      </div>
+
+      <p style="color:var(--text-muted);font-size:.95rem;margin-bottom:1.5rem;">
+        לפני הטמעת ה-Skill בארגון, הריצו עליו את 8 הבדיקות הבאות באמצעות נתוני עבר כדי לוודא עקביות:
+      </p>
+
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1rem;">
+        <div style="background:var(--surface2);padding:1.25rem;border-radius:var(--radius-sm);border:1px solid var(--border);">
+          <div style="color:var(--accent);font-weight:700;font-size:1.05rem;margin-bottom:.35rem;">1. עותקים כפולים של אותה קבלה</div>
+          <p style="color:var(--text-muted);font-size:.88rem;">העלאת PDF וצילום מסך של אותה חשבונית. המערכת חייבת לייצר שורת הוצאה אחת עם 2 מסמכים מקושרים.</p>
+        </div>
+        <div style="background:var(--surface2);padding:1.25rem;border-radius:var(--radius-sm);border:1px solid var(--border);">
+          <div style="color:var(--accent);font-weight:700;font-size:1.05rem;margin-bottom:.35rem;">2. שתי עסקאות זהות באותו יום</div>
+          <p style="color:var(--text-muted);font-size:.88rem;">שתי נסיעות רכבת בסך €18 כל אחת. אסור לאחד אותן ללא הוכחה ברורה לכפילות.</p>
+        </div>
+        <div style="background:var(--surface2);padding:1.25rem;border-radius:var(--radius-sm);border:1px solid var(--border);">
+          <div style="color:var(--accent);font-weight:700;font-size:1.05rem;margin-bottom:.35rem;">3. זיכוי כספי (Refund)</div>
+          <p style="color:var(--text-muted);font-size:.88rem;">זיכוי על ביטול מונית חייב להפחית מהיתרה פעם אחת בלבד ולהיות משויך לגורם ששילם.</p>
+        </div>
+        <div style="background:var(--surface2);padding:1.25rem;border-radius:var(--radius-sm);border:1px solid var(--border);">
+          <div style="color:var(--accent);font-weight:700;font-size:1.05rem;margin-bottom:.35rem;">4. טיפ כלול בחיוב</div>
+          <p style="color:var(--text-muted);font-size:.88rem;">חשבונית מסעדה $100 + טיפ $18 שחויב באשראי ב-$118. לוודא שהטיפ לא מתווסף פעם נוספת!</p>
+        </div>
+        <div style="background:var(--surface2);padding:1.25rem;border-radius:var(--radius-sm);border:1px solid var(--border);">
+          <div style="color:var(--accent);font-weight:700;font-size:1.05rem;margin-bottom:.35rem;">5. מסמך מטושטש או חלקי</div>
+          <p style="color:var(--text-muted);font-size:.88rem;">סכום לא קריא חייב להישאר מסומן בסטטוס "דרוש בירור ידני" ואסור למודל לנחש מספר.</p>
+        </div>
+        <div style="background:var(--surface2);padding:1.25rem;border-radius:var(--radius-sm);border:1px solid var(--border);">
+          <div style="color:var(--accent);font-weight:700;font-size:1.05rem;margin-bottom:.35rem;">6. חיוב בכרטיס החברה</div>
+          <p style="color:var(--text-muted);font-size:.88rem;">מלון בסך ₪3,500 ששולם בכרטיס החברה חייב לתת ₪0 בשורת ההחזר לעובד.</p>
+        </div>
+        <div style="background:var(--surface2);padding:1.25rem;border-radius:var(--radius-sm);border:1px solid var(--border);">
+          <div style="color:var(--accent);font-weight:700;font-size:1.05rem;margin-bottom:.35rem;">7. מטבע חסר שער המרה</div>
+          <p style="color:var(--text-muted);font-size:.88rem;">הוצאה ב-JPY ללא שער או דף אשראי נשארת במטבע המקור ואינה מתחברת לסך השקלי.</p>
+        </div>
+        <div style="background:var(--surface2);padding:1.25rem;border-radius:var(--radius-sm);border:1px solid var(--border);">
+          <div style="color:var(--accent);font-weight:700;font-size:1.05rem;margin-bottom:.35rem;">8. קיזוז מקדמה מלא</div>
+          <p style="color:var(--text-muted);font-size:.88rem;">מקדמה מקזזת במדויק את יתרת החוב מול העובד מבלי לשנות את סך עלות הפרויקט.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- FOOTER -->
+<footer class="guide-footer">
+  <div class="inner footer-cta">
+    <h3 style="font-size:1.8rem;font-weight:900;color:#fff;">רוצים להטמיע את ה-Skill בצוות הכספים שלכם?</h3>
+    <p style="color:var(--text-muted);font-size:1.05rem;">
+      בקהילת <strong>AI Finance Transformation של רונן עמוס</strong> אנחנו מלווים סמנכ"לי כספים, חשבים וצוותי FP&A במעבר לעבודה אוטונומית ומאובטחת.
+    </p>
+    <a href="https://www.ronenamoscpa.co.il/" class="btn-primary">להרשמה לספריית התוכן והקהילה ←</a>
+  </div>
+</footer>
+
+<script>
+function switchTab(tabId) {
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  
+  const target = document.getElementById(tabId);
+  if(target) target.classList.add('active');
+  
+  const activeBtn = Array.from(document.querySelectorAll('.tab-btn')).find(b => b.getAttribute('onclick').includes(tabId));
+  if(activeBtn) activeBtn.classList.add('active');
+  
+  window.scrollTo({ top: document.querySelector('.tabs-wrapper').offsetTop - 65, behavior: 'smooth' });
+}
+
+function copyCode(elementId, btn) {
+  const text = document.getElementById(elementId).innerText;
+  navigator.clipboard.writeText(text);
+  const orig = btn.innerText;
+  btn.innerText = '✓ הועתק!';
+  btn.style.color = '#10b981';
+  setTimeout(() => {
+    btn.innerText = orig;
+    btn.style.color = '#e4e4e7';
+  }, 2000);
+}
+</script>
+</body>
+</html>

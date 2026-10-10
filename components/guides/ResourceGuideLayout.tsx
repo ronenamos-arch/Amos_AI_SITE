@@ -23,6 +23,42 @@ interface ResourceGuideLayoutProps {
 
 export function ResourceGuideLayout({ guide }: ResourceGuideLayoutProps) {
   const isClaudeOne = guide.slug === 'claude-one-fpna';
+  const isTravelReport = guide.slug === 'ai-employee-travel-report-guide';
+
+  const travelReportCards = [
+    {
+      num: '01',
+      badge: 'הפרדה משולשת',
+      title: 'הוצאה, אסמכתא ותנועת אשראי',
+      desc: 'מזהים נפרדים לכל אירוע (EXP), מסמך (DOC) ותנועה (TX). מניעת כפילויות של קבלות מרובות ושמירה על עסקאות זהות.',
+      icon: Layers,
+      accent: 'from-cyan-500/20 to-blue-500/10 border-cyan-500/30 text-cyan-400',
+    },
+    {
+      num: '02',
+      badge: 'כספים בישראל',
+      title: 'כרטיס חברה, מע״מ ומספרי הקצאה',
+      desc: 'בידוד כרטיסי החברה (₪0 בהחזר לעובד), בדיקת מע״מ זר מול תשומות, מספרי הקצאה לפי חוק חשבוניות ישראל ושערי בנק ישראל.',
+      icon: CheckCircle2,
+      accent: 'from-emerald-500/20 to-lime-500/10 border-lime-500/30 text-lime-400',
+    },
+    {
+      num: '03',
+      badge: 'מנוע Reconciliation',
+      title: 'הצלבת קבלות לאשראי ובידוד מקדמות',
+      desc: 'מנוע התאמה חכם עם 4 סטטוסים ברורים, טיפול בטיפים וזיכויים, וסגירת התחשבנות מדויקת בשקלים.',
+      icon: Zap,
+      accent: 'from-amber-500/20 to-yellow-500/10 border-amber-500/30 text-amber-400',
+    },
+    {
+      num: '04',
+      badge: 'Skill מוכן להטמעה',
+      title: 'קוד SKILL.md ו-8 מקרי קצה לבדיקה',
+      desc: 'מפרט רשמי מלא ל-Claude עם 13 חוקי בקרה קשיחים, פרומפט להרצה מהירה בצ׳אט ו-8 מקרי מבחן קבלה (Acceptance Tests).',
+      icon: Terminal,
+      accent: 'from-purple-500/20 to-indigo-500/10 border-purple-500/30 text-purple-400',
+    },
+  ];
 
   // Custom highlights for claude-one-fpna or generated from summary
   const claudeOneCards = [
@@ -58,6 +94,17 @@ export function ResourceGuideLayout({ guide }: ResourceGuideLayoutProps) {
       icon: Cpu,
       accent: 'from-purple-500/20 to-indigo-500/10 border-purple-500/30 text-purple-400',
     },
+  ];
+
+  const travelReportChapters = [
+    { num: '01', title: 'ההפרדה החשבונאית המשולשת — הוצאה, אסמכתא ותנועת תשלום' },
+    { num: '02', title: 'חמשת עקרונות הברזל למחלקת כספים בישראל — מע״מ זר, מספרי הקצאה ושערי מט״ח' },
+    { num: '03', title: 'מנוע ההתאמה (Reconciliation) — סיווג 4 סטטוסים ובידוד טיפים וזיכויים' },
+    { num: '04', title: 'מקרה בוחן 1: סטארטאפ SaaS — 3 עובדים בכנס SaaStr בארה״ב' },
+    { num: '05', title: 'מקרה בוחן 2: חברת ייעוץ — נסיעה משולבת בלונדון וציריך (עסקי + פרטי)' },
+    { num: '06', title: 'מקרה בוחן 3: חברת חומרה — רכש ציוד מעבדה ומע״מ בגרמניה' },
+    { num: '07', title: 'קוד ה-SKILL.md המלא ופרומפטים מוכנים להעתקה' },
+    { num: '08', title: 'ארגז 8 מקרי קצה לבדיקה (Acceptance Test Suite) לפני פריסה' },
   ];
 
   const claudeOneChapters = [
@@ -138,7 +185,7 @@ export function ResourceGuideLayout({ guide }: ResourceGuideLayoutProps) {
               <CheckCircle2 className="w-4 h-4 text-neon-cyan" /> כולל פרומפטים מוכנים להעתקה
             </span>
             <span className="flex items-center gap-1.5">
-              <CheckCircle2 className="w-4 h-4 text-neon-cyan" /> גישה חופשית
+              <CheckCircle2 className={`w-4 h-4 ${guide.isPremium ? 'text-amber-400' : 'text-neon-cyan'}`} /> {guide.isPremium ? 'תוכן פרימיום בלעדי' : 'גישה חופשית'}
             </span>
           </div>
         </div>
@@ -156,9 +203,9 @@ export function ResourceGuideLayout({ guide }: ResourceGuideLayoutProps) {
           <span className="text-xs sm:text-sm text-slate-400 font-mono">4 יכולות ליבה</span>
         </div>
 
-        {isClaudeOne ? (
+        {isClaudeOne || isTravelReport ? (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-            {claudeOneCards.map((c) => {
+            {(isClaudeOne ? claudeOneCards : travelReportCards).map((c) => {
               const CardIcon = c.icon;
               return (
                 <div
@@ -202,7 +249,7 @@ export function ResourceGuideLayout({ guide }: ResourceGuideLayoutProps) {
       </div>
 
       {/* ── Structure / Curriculum Breakdown ── */}
-      {isClaudeOne && (
+      {(isClaudeOne || isTravelReport) && (
         <div className="glass-panel rounded-2xl p-6 sm:p-8 border border-white/10 space-y-6">
           <div className="flex items-center gap-3 border-b border-white/10 pb-4">
             <BookOpen className="w-6 h-6 text-lime-400" />
@@ -212,7 +259,7 @@ export function ResourceGuideLayout({ guide }: ResourceGuideLayoutProps) {
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
-            {claudeOneChapters.map((ch) => (
+            {(isClaudeOne ? claudeOneChapters : travelReportChapters).map((ch) => (
               <div
                 key={ch.num}
                 className="flex items-center gap-3.5 p-3.5 rounded-xl bg-white/[0.03] border border-white/5 hover:border-lime-400/30 hover:bg-white/[0.06] transition-colors"
