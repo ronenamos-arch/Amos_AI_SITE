@@ -4,7 +4,7 @@ date: "2026-10-11"
 excerpt: 'הדשבורד מציג חריגה, אבל הטיפול בה עדיין מתנהל באקסל ובמייל? כך משלבים נתונים, AI ותהליכי עבודה (Write-back) באפליקציה פיננסית אחת.'
 image: "/images/blog/ai-financial-dashboard-applications-header.jpg"
 tags: ["AI for Finance", "Power BI", "FP&A", "דוחות כספיים", "תזרים מזומנים", "אוטומציה"]
-premium: "false"
+premium: "true"
 ---
 
 ![דשבורד פיננסי חכם עם AI Copilot לצוותי כספים ו-FP&A](/images/blog/ai-financial-dashboard-applications-header.jpg)
@@ -75,6 +75,44 @@ premium: "false"
 </details>
 
 כפי שאנו מדגישים בבניית [סוכני ביקורת פיננסית](/blog/agent-skills-financial-audit), עבודה נכונה עם [אימות נתונים פיננסיים](/blog/אימות-נתונים-לפני-הכל-אל-תתנו-ל-ai-לנתח-לפני-שווידאתם-ששורות) מונעת הלוצינציות ומבטיחה שרק נתונים מאומתים יגיעו להנהלה.
+
+<!-- teaser -->
+<div style="background: linear-gradient(135deg, rgba(15, 23, 42, 0.98) 0%, rgba(30, 41, 59, 0.98) 100%); border: 2px solid #14b8a6; border-radius: 1rem; padding: 2rem 2.25rem; margin: 2.5rem 0; box-shadow: 0 12px 35px rgba(20, 184, 166, 0.2);">
+<div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem; flex-wrap: wrap; gap: 0.5rem;">
+  <span style="background: #14b8a6; color: #042f2e; font-weight: 900; font-size: 0.85rem; padding: 0.35rem 0.85rem; border-radius: 9999px; letter-spacing: 0.5px;">⚡ המעבר מדוחות לפעולות בארגון</span>
+  <span style="color: #5eead4; font-weight: 700; font-size: 0.9rem;">🔒 תוכן פרימיום בלעדי למנויי AI Finance Pro</span>
+</div>
+
+<h3 style="color: #ffffff; font-size: 1.35rem; font-weight: 900; margin: 0.5rem 0 1rem 0; line-height: 1.4;">
+רוצים לראות איך בונים את האפליקציה המלאה עם בקרת Write-back, תרחישי תזרים ומשימות אוטומטיות?
+</h3>
+
+<p style="color: #cbd5e1; font-size: 1rem; line-height: 1.7; margin-bottom: 1.25rem;">
+בחלק הסגור של המדריך תגלו את הארכיטקטורה המדויקת שלוקחת את ה-BI הארגוני שלכם צעד אחד קדימה אל סביבה אופרטיבית מבוקרת:
+</p>
+
+<div style="display: grid; grid-template-columns: 1fr; gap: 0.75rem; margin-bottom: 1.5rem;">
+  <div style="background: rgba(15, 23, 42, 0.8); border: 1px solid rgba(20, 184, 166, 0.3); border-radius: 0.5rem; padding: 0.85rem 1rem; color: #e2e8f0; font-size: 0.95rem; line-height: 1.6;">
+    🚀 <strong style="color: #5eead4;">מסך העבודה לגבייה ואוטומציה:</strong> הרצף המלא מאיסוף היתרות ועד שליפת טיוטת מייל במערכת משימות סגורה.
+  </div>
+  <div style="background: rgba(15, 23, 42, 0.8); border: 1px solid rgba(20, 184, 166, 0.3); border-radius: 0.5rem; padding: 0.85rem 1rem; color: #e2e8f0; font-size: 0.95rem; line-height: 1.6;">
+    📊 <strong style="color: #5eead4;">מחשבון תרחישי תזרים What-If:</strong> הפרדה מתמטית בין מנוע החישוב הקשיח לשכבת ההסברים של ה-AI.
+  </div>
+  <div style="background: rgba(15, 23, 42, 0.8); border: 1px solid rgba(20, 184, 166, 0.3); border-radius: 0.5rem; padding: 0.85rem 1rem; color: #e2e8f0; font-size: 0.95rem; line-height: 1.6;">
+    🛡️ <strong style="color: #5eead4;">ארכיטקטורת 3 הרבדים ל-Write-back:</strong> איך לאפשר עדכון נתונים מבלי לסכן את ה-ERP של החברה, כולל Audit Trail מלא.
+  </div>
+  <div style="background: rgba(15, 23, 42, 0.8); border: 1px solid rgba(20, 184, 166, 0.3); border-radius: 0.5rem; padding: 0.85rem 1rem; color: #e2e8f0; font-size: 0.95rem; line-height: 1.6;">
+    🧭 <strong style="color: #5eead4;">תוכנית פיילוט מובנית לחשבים:</strong> שלבי יישום צעד-אחר-צעד לבדיקת חריגות תקציב מול ביצוע בתוך 14 יום.
+  </div>
+</div>
+
+<p style="color: #94a3b8; font-size: 0.9rem; margin: 0; font-style: italic;">
+המשך המדריך זמין מיידית למנויי ספריית התוכן והקהילה של AI Finance Transformation.
+</p>
+</div>
+<!-- /teaser -->
+
+<!-- paywall -->
 
 ---
 
