@@ -138,6 +138,35 @@ export async function updateSession(request: NextRequest) {
             }
         }
 
+        // Check if logged-in user purchased the bundle (so they have access even without token in URL)
+        if (!hasAccess && user?.email) {
+            const adminSupabase = createServerClient(
+                process.env.NEXT_PUBLIC_SUPABASE_URL!,
+                process.env.SUPABASE_SERVICE_ROLE_KEY!,
+                {
+                    cookies: {
+                        getAll() { return request.cookies.getAll(); },
+                        setAll() {}
+                    }
+                }
+            );
+
+            const { data: userPurchase } = await adminSupabase
+                .from('bundle_purchases')
+                .select('access_token')
+                .eq('email', user.email.toLowerCase().trim())
+                .eq('status', 'paid')
+                .limit(1)
+                .maybeSingle();
+
+            if (userPurchase) {
+                hasAccess = true;
+                if (userPurchase.access_token) {
+                    supabaseResponse.cookies.set('claude_bundle_token', userPurchase.access_token, { maxAge: 60 * 60 * 24 * 365, path: '/' });
+                }
+            }
+        }
+
         if (!hasAccess) {
             const redirectUrl = request.nextUrl.clone();
             redirectUrl.pathname = '/lessons';
