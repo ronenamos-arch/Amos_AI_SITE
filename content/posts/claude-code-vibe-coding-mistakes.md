@@ -144,42 +144,39 @@ image_url = await providers.generate(
 כשאתם שוכרים את החלק המורכב, אתם שוכרים גם את האיטיות שלו וגם את שגיאותיו. אינכם יכולים להפוך את הספק למהיר יותר, אבל אתם יכולים לתכנן ארכיטקטורה שמבודדת את הכשלים שלו ולא מעבירה את החשבון למשתמש שלכם.
 
 <div dir="rtl" style="margin: 2.5rem 0; padding: 2rem; border-radius: 1rem; border: 1.5px solid #0d9488; background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); box-shadow: 0 10px 25px rgba(13, 148, 136, 0.15); text-align: right;">
-  <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #334155; padding-bottom: 1rem; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 0.75rem;">
-    <h3 style="margin: 0; color: #5eead4; font-size: 1.35rem; font-weight: 800;">ארכיטקטורת תשתית: השוואת Vibe Coding מול Vibe Engineering</h3>
-    <span style="background: rgba(13, 148, 136, 0.25); color: #5eead4; border: 1px solid #0d9488; font-size: 0.8rem; font-weight: 700; padding: 0.25rem 0.75rem; border-radius: 9999px;">השוואת ביצועים ועלויות</span>
-  </div>
-
-  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem;">
-    <div style="background: rgba(239, 68, 68, 0.08); border: 1.5px solid rgba(239, 68, 68, 0.35); border-radius: 0.75rem; padding: 1.25rem;">
-      <div style="color: #f87171; font-weight: 800; font-size: 1.1rem; margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.5rem;">
-        <span>❌ המלכודת: Vibe Coding נאיבי</span>
-      </div>
-      <ul style="margin: 0; padding-right: 1.25rem; color: #cbd5e1; font-size: 0.93rem; line-height: 1.7;">
-        <li><strong>קריאה כבדה ב-HTTP:</strong> נעילת תהליך השרת ל-40 שניות ומעלה.</li>
-        <li><strong>Server Starvation:</strong> דף הבית ומסך ההתחברות קורסים בעומס.</li>
-        <li><strong>דליפת תקציב 30%:</strong> תשלום מלא על קריאות שנכשלו או נחסמו.</li>
-        <li><strong>המשך חיוב בנטישה:</strong> סגירת טאב לא עוצרת את ה-GPU.</li>
-        <li><strong>סחרור משתמשים:</strong> לחיצות חוזרות מייצרות חיובים כפולים ו-Chargebacks.</li>
-      </ul>
-    </div>
-
-    <div style="background: rgba(13, 148, 136, 0.12); border: 1.5px solid rgba(13, 148, 136, 0.45); border-radius: 0.75rem; padding: 1.25rem;">
-      <div style="color: #2dd4bf; font-weight: 800; font-size: 1.1rem; margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.5rem;">
-        <span>✓ הפתרון: Vibe Engineering חסין</span>
-      </div>
-      <ul style="margin: 0; padding-right: 1.25rem; color: #cbd5e1; font-size: 0.93rem; line-height: 1.7;">
-        <li><strong>מענה מיידי (40ms):</strong> החזרת Job ID ושחרור מידי של ה-Worker.</li>
-        <li><strong>Background Queue:</strong> עיבוד אסינכרוני מבודד (Redis / Celery / BullMQ).</li>
-        <li><strong>ספר עלויות (Cost Ledger):</strong> מעקב שקוף ואימות חיובים ב-DB.</li>
-        <li><strong>AbortSignal לספק:</strong> עצירת חיוב מיידית כשהלקוח מתנתק.</li>
-        <li><strong>זיכוי אוטומטי בכשל:</strong> שמירה על אמון הלקוחות והימנעות מקנסות סליקה.</li>
-      </ul>
-    </div>
-  </div>
-
-  <div style="margin-top: 1.25rem; padding-top: 1rem; border-top: 1px solid #334155; text-align: center; color: #94a3b8; font-size: 0.85rem;">
-    רונן עמוס רו״ח • קהילת AI Finance Transformation • ronenamoscpa.co.il
-  </div>
+<div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #334155; padding-bottom: 1rem; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 0.75rem;">
+<h3 style="margin: 0; color: #5eead4; font-size: 1.35rem; font-weight: 800;">ארכיטקטורת תשתית: השוואת Vibe Coding מול Vibe Engineering</h3>
+<span style="background: rgba(13, 148, 136, 0.25); color: #5eead4; border: 1px solid #0d9488; font-size: 0.8rem; font-weight: 700; padding: 0.25rem 0.75rem; border-radius: 9999px;">השוואת ביצועים ועלויות</span>
+</div>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem;">
+<div style="background: rgba(239, 68, 68, 0.08); border: 1.5px solid rgba(239, 68, 68, 0.35); border-radius: 0.75rem; padding: 1.25rem;">
+<div style="color: #f87171; font-weight: 800; font-size: 1.1rem; margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.5rem;">
+<span>❌ המלכודת: Vibe Coding נאיבי</span>
+</div>
+<ul style="margin: 0; padding-right: 1.25rem; color: #cbd5e1; font-size: 0.93rem; line-height: 1.7;">
+<li><strong>קריאה כבדה ב-HTTP:</strong> נעילת תהליך השרת ל-40 שניות ומעלה.</li>
+<li><strong>Server Starvation:</strong> דף הבית ומסך ההתחברות קורסים בעומס.</li>
+<li><strong>דליפת תקציב 30%:</strong> תשלום מלא על קריאות שנכשלו או נחסמו.</li>
+<li><strong>המשך חיוב בנטישה:</strong> סגירת טאב לא עוצרת את ה-GPU.</li>
+<li><strong>סחרור משתמשים:</strong> לחיצות חוזרות מייצרות חיובים כפולים ו-Chargebacks.</li>
+</ul>
+</div>
+<div style="background: rgba(13, 148, 136, 0.12); border: 1.5px solid rgba(13, 148, 136, 0.45); border-radius: 0.75rem; padding: 1.25rem;">
+<div style="color: #2dd4bf; font-weight: 800; font-size: 1.1rem; margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.5rem;">
+<span>✓ הפתרון: Vibe Engineering חסין</span>
+</div>
+<ul style="margin: 0; padding-right: 1.25rem; color: #cbd5e1; font-size: 0.93rem; line-height: 1.7;">
+<li><strong>מענה מיידי (40ms):</strong> החזרת Job ID ושחרור מידי של ה-Worker.</li>
+<li><strong>Background Queue:</strong> עיבוד אסינכרוני מבודד (Redis / Celery / BullMQ).</li>
+<li><strong>ספר עלויות (Cost Ledger):</strong> מעקב שקוף ואימות חיובים ב-DB.</li>
+<li><strong>AbortSignal לספק:</strong> עצירת חיוב מיידית כשהלקוח מתנתק.</li>
+<li><strong>זיכוי אוטומטי בכשל:</strong> שמירה על אמון הלקוחות והימנעות מקנסות סליקה.</li>
+</ul>
+</div>
+</div>
+<div style="margin-top: 1.25rem; padding-top: 1rem; border-top: 1px solid #334155; text-align: center; color: #94a3b8; font-size: 0.85rem;">
+רונן עמוס רו״ח • קהילת AI Finance Transformation • ronenamoscpa.co.il
+</div>
 </div>
 
 כאן בדיוק נולד המושג **Vibe Engineering**:

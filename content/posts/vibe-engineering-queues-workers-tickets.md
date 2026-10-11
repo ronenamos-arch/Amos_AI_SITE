@@ -115,40 +115,37 @@ premium: "false"
 ## השוואה חזותית: Vibe Coding מול Vibe Engineering בתהליכים כבדים
 
 <div dir="rtl" style="margin: 2.5rem 0; padding: 2rem; border-radius: 1rem; border: 1.5px solid #0d9488; background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); box-shadow: 0 10px 25px rgba(13, 148, 136, 0.15); text-align: right;">
-  <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #334155; padding-bottom: 1rem; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 0.75rem;">
-    <h3 style="margin: 0; color: #5eead4; font-size: 1.35rem; font-weight: 800;">ארכיטקטורת תהליכי AI איטיים: השוואת ביצועים ועלויות</h3>
-    <span style="background: rgba(13, 148, 136, 0.25); color: #5eead4; border: 1px solid #0d9488; font-size: 0.8rem; font-weight: 700; padding: 0.25rem 0.75rem; border-radius: 9999px;">Job & Queue Architecture</span>
-  </div>
-
-  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem;">
-    <div style="background: rgba(239, 68, 68, 0.08); border: 1.5px solid rgba(239, 68, 68, 0.35); border-radius: 0.75rem; padding: 1.25rem;">
-      <div style="color: #f87171; font-weight: 800; font-size: 1.1rem; margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.5rem;">
-        <span>❌ תהליך סינכרוני נאיבי (Vibe Coding)</span>
-      </div>
-      <ul style="margin: 0; padding-right: 1.25rem; color: #cbd5e1; font-size: 0.93rem; line-height: 1.7;">
-        <li><strong>המתנה פתוחה:</strong> הדפדפן תלוי בבקשה של 40–120 שניות.</li>
-        <li><strong>רגישות לניתוק:</strong> סגירת טאב שורפת את התוצאה והכסף.</li>
-        <li><strong>קריסה בעלייה לגרסה:</strong> אתחול שרת מוחק את כל הפעולות שבאמצע.</li>
-        <li><strong>התפוצצות תקציב:</strong> קפיצת משתמשים מייצרת מאות קריאות GPU במקביל ללא רסן.</li>
-      </ul>
-    </div>
-
-    <div style="background: rgba(13, 148, 136, 0.12); border: 1.5px solid rgba(13, 148, 136, 0.45); border-radius: 0.75rem; padding: 1.25rem;">
-      <div style="color: #2dd4bf; font-weight: 800; font-size: 1.1rem; margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.5rem;">
-        <span>✓ תשתית משימות וכרטיסים (Vibe Engineering)</span>
-      </div>
-      <ul style="margin: 0; padding-right: 1.25rem; color: #cbd5e1; font-size: 0.93rem; line-height: 1.7;">
-        <li><strong>מענה מיידי (30ms):</strong> המשתמש מקבל Ticket והשרת משתחרר.</li>
-        <li><strong>עמידות מלאה:</strong> המשתמש יכול לסגור את המחשב ולחזור לתוצאה מוכנה.</li>
-        <li><strong>תור עמיד ב-DB/Redis:</strong> שורד Redeploy ואתחולי תשתית.</li>
-        <li><strong>מחסום הוצאות טבעי:</strong> מספר העובדים קובע תקרת חיוב מדויקת לכל רגע.</li>
-      </ul>
-    </div>
-  </div>
-
-  <div style="margin-top: 1.25rem; padding-top: 1rem; border-top: 1px solid #334155; text-align: center; color: #94a3b8; font-size: 0.85rem;">
-    רונן עמוס רו״ח • קהילת AI Finance Transformation • ronenamoscpa.co.il
-  </div>
+<div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #334155; padding-bottom: 1rem; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 0.75rem;">
+<h3 style="margin: 0; color: #5eead4; font-size: 1.35rem; font-weight: 800;">ארכיטקטורת תהליכי AI איטיים: השוואת ביצועים ועלויות</h3>
+<span style="background: rgba(13, 148, 136, 0.25); color: #5eead4; border: 1px solid #0d9488; font-size: 0.8rem; font-weight: 700; padding: 0.25rem 0.75rem; border-radius: 9999px;">Job & Queue Architecture</span>
+</div>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem;">
+<div style="background: rgba(239, 68, 68, 0.08); border: 1.5px solid rgba(239, 68, 68, 0.35); border-radius: 0.75rem; padding: 1.25rem;">
+<div style="color: #f87171; font-weight: 800; font-size: 1.1rem; margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.5rem;">
+<span>❌ תהליך סינכרוני נאיבי (Vibe Coding)</span>
+</div>
+<ul style="margin: 0; padding-right: 1.25rem; color: #cbd5e1; font-size: 0.93rem; line-height: 1.7;">
+<li><strong>המתנה פתוחה:</strong> הדפדפן תלוי בבקשה של 40–120 שניות.</li>
+<li><strong>רגישות לניתוק:</strong> סגירת טאב שורפת את התוצאה והכסף.</li>
+<li><strong>קריסה בעלייה לגרסה:</strong> אתחול שרת מוחק את כל הפעולות שבאמצע.</li>
+<li><strong>התפוצצות תקציב:</strong> קפיצת משתמשים מייצרת מאות קריאות GPU במקביל ללא רסן.</li>
+</ul>
+</div>
+<div style="background: rgba(13, 148, 136, 0.12); border: 1.5px solid rgba(13, 148, 136, 0.45); border-radius: 0.75rem; padding: 1.25rem;">
+<div style="color: #2dd4bf; font-weight: 800; font-size: 1.1rem; margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.5rem;">
+<span>✓ תשתית משימות וכרטיסים (Vibe Engineering)</span>
+</div>
+<ul style="margin: 0; padding-right: 1.25rem; color: #cbd5e1; font-size: 0.93rem; line-height: 1.7;">
+<li><strong>מענה מיידי (30ms):</strong> המשתמש מקבל Ticket והשרת משתחרר.</li>
+<li><strong>עמידות מלאה:</strong> המשתמש יכול לסגור את המחשב ולחזור לתוצאה מוכנה.</li>
+<li><strong>תור עמיד ב-DB/Redis:</strong> שורד Redeploy ואתחולי תשתית.</li>
+<li><strong>מחסום הוצאות טבעי:</strong> מספר העובדים קובע תקרת חיוב מדויקת לכל רגע.</li>
+</ul>
+</div>
+</div>
+<div style="margin-top: 1.25rem; padding-top: 1rem; border-top: 1px solid #334155; text-align: center; color: #94a3b8; font-size: 0.85rem;">
+רונן עמוס רו״ח • קהילת AI Finance Transformation • ronenamoscpa.co.il
+</div>
 </div>
 
 ---
