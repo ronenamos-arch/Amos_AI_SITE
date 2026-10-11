@@ -72,3 +72,8 @@ dev.log
 brag-output/
 *.xlsx
 public/preview-*.html
+
+# Content source drafts & heavy raw documents (100MB+)
+/content/posts/_source/
+excel-hell-page.png
+

@@ -50,12 +50,17 @@ Sources for this website are **strictly**:
 
 1. All images from the email or source MUST be downloaded and stored locally in:
    `public/images/blog/<slug>-<descriptor>.<ext>`
-2. Never rely on external ephemeral URLs (like Substack temporary CDNs or expired tokens).
-3. **🎨 White / Light Background Infographic Standard & SVG Typography:**
+2. **Image Optimization & Compression (Crucial for Vercel Storage):**
+   * All images must be compressed before committing.
+   * Maximum width: 1200px.
+   * Format: WebP or compressed PNG/JPG (quality ~80). Never commit uncompressed PNGs > 500KB or raw animated GIFs > 2MB.
+   * You can run `node scripts/compress-images.mjs` to auto-compress newly added images.
+3. Never rely on external ephemeral URLs (like Substack temporary CDNs or expired tokens).
+4. **🎨 White / Light Background Infographic Standard & SVG Typography:**
    * Hero infographics and custom process diagrams must always use a **clean white/light background** (`#ffffff` / `#f8fafc`) with sharp dark typography (`#0f172a`), distinct card containers (teal, sky-blue, purple accents), and Hebrew labels.
    * **SVG Text Alignment:** Always center text in cards (`text-anchor="middle"`) or use explicit LTR coordinates. Never combine `direction="rtl"` with `text-anchor="end"` on container boundaries to prevent text cutoff.
    * Brand watermark/footer: `רונן עמוס רו״ח • קהילת AI Finance Transformation • ronenamoscpa.co.il`.
-4. In the Markdown post, embed images with descriptive Hebrew alt tags:
+5. In the Markdown post, embed images with descriptive Hebrew alt tags:
    ```markdown
    ![תיאור התמונה בעברית עבור נגישות ו-SEO](/images/blog/<image-name>.png)
    ```
