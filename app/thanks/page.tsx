@@ -3,6 +3,7 @@ import { GlassCard } from "@/components/ui/GlassCard";
 import { Button } from "@/components/ui/Button";
 import { CheckCircle2, ArrowRight, BookOpen, Crown, Mail } from "lucide-react";
 import { createClient } from "@/lib/supabase/server";
+import { ThanksTracker } from "./ThanksTracker";
 
 export const metadata: Metadata = {
     title: "תודה רבה! | AI FINANCE",
@@ -17,6 +18,7 @@ export default async function ThankYouPage() {
 
     return (
         <div className="pt-24 pb-16 min-h-[80vh] flex items-center">
+            <ThanksTracker />
             <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
                 <GlassCard className="p-8 md:p-12 text-center border-t-4 border-teal-400">
                     <div className="mb-6 inline-flex h-20 w-20 items-center justify-center rounded-full bg-teal-400/10">

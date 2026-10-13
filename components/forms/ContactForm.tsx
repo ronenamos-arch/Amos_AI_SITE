@@ -11,6 +11,7 @@ import { Send, CheckCircle2, Loader2 } from "lucide-react";
 
 import { submitContactForm } from "@/lib/actions/contacts";
 import { trackMeta } from "@/lib/metaPixel";
+import { trackLead } from "@/lib/analytics";
 
 const contactFormSchema = z.object({
     name: z.string().min(2, "השם חייב להכיל לפחות 2 תווים"),
@@ -51,6 +52,7 @@ export function ContactForm() {
             }
 
             trackMeta("Lead", { content_name: "contact_form" });
+            trackLead({ formName: "contact_form", leadType: "cfo_consultation" });
             setIsSuccess(true);
             reset();
         } catch (error) {

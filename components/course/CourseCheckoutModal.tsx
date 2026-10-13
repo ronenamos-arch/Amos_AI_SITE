@@ -4,6 +4,7 @@ import { useState, useCallback, useEffect } from "react";
 import { createPortal } from "react-dom";
 import { Loader2, X, Shield, Sparkles, CheckCircle2 } from "lucide-react";
 import { SMARTBEE_CONFIG } from "@/lib/smartbee-config";
+import { trackBeginCheckout } from "@/lib/analytics";
 
 interface FormData {
     name: string;
@@ -221,6 +222,21 @@ export function CourseCheckoutModal({
 
                         <a
                             href={getSmartBeeCheckoutUrl()}
+                            onClick={() => {
+                                trackBeginCheckout({
+                                    value: 599,
+                                    currency: "ILS",
+                                    provider: "smartbee",
+                                    items: [
+                                        {
+                                            item_name: "קורס AI Finance Master המלא",
+                                            price: 599,
+                                            quantity: 1,
+                                            item_category: "course",
+                                        },
+                                    ],
+                                });
+                            }}
                             target="_blank"
                             rel="noopener noreferrer"
                             className="w-full py-4 rounded-xl font-bold text-lg bg-teal-400 hover:bg-teal-300 text-space-950 flex items-center justify-center gap-2 transition-all shadow-xl shadow-teal-500/25 cursor-pointer text-center"

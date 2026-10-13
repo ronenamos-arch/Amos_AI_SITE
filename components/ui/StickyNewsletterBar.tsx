@@ -7,6 +7,7 @@ import * as z from "zod";
 import { Mail, X, CheckCircle2, Loader2 } from "lucide-react";
 import { subscribeToNewsletter } from "@/lib/actions/newsletter";
 import { trackMeta } from "@/lib/metaPixel";
+import { trackNewsletterSignup } from "@/lib/analytics";
 
 const schema = z.object({
     email: z.string().email("אימייל לא תקין"),
@@ -47,6 +48,7 @@ export function StickyNewsletterBar() {
             const result = await subscribeToNewsletter(data.email, "sticky-bar");
             if (!result.success) throw new Error(result.error);
             trackMeta("CompleteRegistration", { content_name: "newsletter_sticky_bar" });
+            trackNewsletterSignup({ placement: "sticky_bar" });
             setIsSuccess(true);
             setTimeout(dismiss, 2500);
         } catch {

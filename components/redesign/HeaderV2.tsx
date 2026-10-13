@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { Menu, X, ChevronDown, UserCircle2 } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
 import { SMARTBEE_CONFIG } from "@/lib/smartbee-config";
+import { trackBeginCheckout } from "@/lib/analytics";
 
 const resources = [
     { href: "/products", label: "מוצרים דיגיטליים" },
@@ -61,6 +62,22 @@ export function HeaderV2() {
         return () => subscription.unsubscribe();
     }, []);
 
+    const handleProSubscribeClick = () => {
+        trackBeginCheckout({
+            value: 100,
+            currency: "ILS",
+            provider: "smartbee",
+            items: [
+                {
+                    item_name: "מנוי חודשי AI Finance Pro",
+                    price: 100,
+                    quantity: 1,
+                    item_category: "subscription",
+                },
+            ],
+        });
+    };
+
     const desktopActions = userState.isLoggedIn ? (
         userState.isSubscriber ? (
             <Link
@@ -79,6 +96,7 @@ export function HeaderV2() {
                 </Link>
                 <a
                     href={SMARTBEE_CONFIG.products.monthlySubscription.url}
+                    onClick={handleProSubscribeClick}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="rv2-btn rv2-btn-primary px-5 py-2 text-sm"
@@ -94,6 +112,7 @@ export function HeaderV2() {
             </Link>
             <a
                 href={SMARTBEE_CONFIG.products.monthlySubscription.url}
+                onClick={handleProSubscribeClick}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="rv2-btn rv2-btn-primary px-5 py-2 text-sm"
@@ -125,6 +144,10 @@ export function HeaderV2() {
                 </Link>
                 <a
                     href={SMARTBEE_CONFIG.products.monthlySubscription.url}
+                    onClick={() => {
+                        handleProSubscribeClick();
+                        setMobileOpen(false);
+                    }}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="rv2-btn rv2-btn-primary w-full text-center py-2 text-sm"
@@ -137,6 +160,10 @@ export function HeaderV2() {
         <div className="flex items-center gap-4 w-full justify-between">
             <a
                 href={SMARTBEE_CONFIG.products.monthlySubscription.url}
+                onClick={() => {
+                    handleProSubscribeClick();
+                    setMobileOpen(false);
+                }}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="rv2-btn rv2-btn-primary text-sm flex-1 text-center"

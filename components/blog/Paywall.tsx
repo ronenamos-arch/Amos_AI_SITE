@@ -1,7 +1,11 @@
+"use client";
+
+import { useEffect, useRef } from "react";
 import { GlassCard } from "@/components/ui/GlassCard";
 import { Button } from "@/components/ui/Button";
 import { Lock, Sparkles, CheckCircle2, ArrowLeft } from "lucide-react";
 import { SMARTBEE_CONFIG } from "@/lib/smartbee-config";
+import { trackPaywallView, trackPaywallCtaClick, trackBeginCheckout } from "@/lib/analytics";
 
 interface PaywallProps {
     title?: string;
@@ -24,6 +28,31 @@ export function Paywall({
     priceText = "100 ₪ / חודש בלבד",
     checkoutUrl = SMARTBEE_CONFIG.products.monthlySubscription.url
 }: PaywallProps) {
+    const hasTrackedView = useRef(false);
+
+    useEffect(() => {
+        if (!hasTrackedView.current) {
+            hasTrackedView.current = true;
+            trackPaywallView({ title });
+        }
+    }, [title]);
+
+    const handleSubscribeClick = () => {
+        trackPaywallCtaClick({ plan: "monthly_subscription" });
+        trackBeginCheckout({
+            value: 100,
+            currency: "ILS",
+            provider: "smartbee",
+            items: [
+                {
+                    item_name: "מנוי חודשי AI Finance Pro",
+                    price: 100,
+                    quantity: 1,
+                    item_category: "subscription",
+                },
+            ],
+        });
+    };
     return (
         <div className="relative mt-8">
             {/* Fade overlay for content above */}
@@ -73,6 +102,7 @@ export function Paywall({
                     <div className="flex flex-col sm:flex-row items-center justify-center gap-4 w-full sm:w-auto">
                         <Button 
                             href={checkoutUrl} 
+                            onClick={handleSubscribeClick}
                             size="lg" 
                             className="w-full sm:w-auto min-w-[240px] bg-gradient-to-r from-teal-500 to-sky-500 hover:from-teal-400 hover:to-sky-400 text-white font-bold shadow-lg shadow-teal-500/25 flex items-center justify-center gap-2"
                         >

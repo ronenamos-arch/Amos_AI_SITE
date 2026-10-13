@@ -5,6 +5,7 @@ import Link from "next/link";
 import { X, Copy, Check, Lock, Sparkles, ArrowLeft, ShieldCheck, CheckCircle2, Crown } from "lucide-react";
 import type { VaultPrompt } from "@/lib/prompts-vault-data";
 import { SMARTBEE_CONFIG } from "@/lib/smartbee-config";
+import { trackBeginCheckout, trackPaywallCtaClick } from "@/lib/analytics";
 
 interface PromptModalProps {
   prompt: VaultPrompt | null;
@@ -164,6 +165,22 @@ export function PromptModal({ prompt, onClose, onCopy, isCopied, isPro }: Prompt
               <div className="flex flex-col sm:flex-row items-center gap-3">
                 <a
                   href={subscribeUrl}
+                  onClick={() => {
+                    trackPaywallCtaClick({ plan: "monthly_subscription" });
+                    trackBeginCheckout({
+                      value: 100,
+                      currency: "ILS",
+                      provider: "smartbee",
+                      items: [
+                        {
+                          item_name: "מנוי חודשי AI Finance Pro",
+                          price: 100,
+                          quantity: 1,
+                          item_category: "subscription",
+                        },
+                      ],
+                    });
+                  }}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="w-full sm:flex-1 flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-cyan-400 via-teal-400 to-cyan-300 px-6 py-3.5 text-sm font-black text-slate-950 shadow-xl shadow-cyan-500/30 hover:opacity-95 transition-all text-center"

@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { subscribeToNewsletter } from "@/lib/actions/newsletter";
 import { trackMeta } from "@/lib/metaPixel";
+import { trackNewsletterSignup } from "@/lib/analytics";
 import { Button } from "./Button";
 import { Input } from "./Input";
 import { X, CheckCircle, ArrowRight } from "lucide-react";
@@ -55,6 +56,7 @@ export function NewsletterPopup() {
       const result = await subscribeToNewsletter(email, "popup");
       if (result.success) {
         trackMeta("CompleteRegistration", { content_name: "newsletter_popup" });
+        trackNewsletterSignup({ placement: "popup" });
         setIsSuccess(true);
         // Auto-close after 4 seconds to keep gift link visible briefly
         setTimeout(() => {

@@ -4,6 +4,7 @@ import { PayPalButtons, usePayPalScriptReducer } from "@paypal/react-paypal-js";
 import { useState, useEffect } from "react";
 import { updateUserSubscription, createGuestPayment } from "@/lib/actions/subscription";
 import { createClient } from "@/lib/supabase/client";
+import { trackBeginCheckout, trackPurchase } from "@/lib/analytics";
 
 interface PayPalPaymentButtonProps {
     amount: string;
@@ -62,6 +63,21 @@ export function PayPalPaymentButton({ amount, onSuccess, planId, subscriptionTyp
                     shape: "pill",
                     label: planId ? "subscribe" : "pay",
                 }}
+                onClick={() => {
+                    trackBeginCheckout({
+                        value: parseFloat(amount),
+                        currency: "ILS",
+                        provider: "paypal",
+                        items: [
+                            {
+                                item_name: subscriptionType === "lifetime" ? "מנוי AI Finance Pro לכל החיים" : "מנוי AI Finance Pro חודשי",
+                                price: parseFloat(amount),
+                                quantity: 1,
+                                item_category: "subscription",
+                            },
+                        ],
+                    });
+                }}
                 createOrder={
                     planId
                         ? undefined
@@ -108,6 +124,22 @@ export function PayPalPaymentButton({ amount, onSuccess, planId, subscriptionTyp
                         if (!payerEmail && details?.payer?.email_address) {
                             payerEmail = details.payer.email_address;
                         }
+
+                        // Track GA4 purchase event
+                        trackPurchase({
+                            transactionId: orderId || `pp_${Date.now()}`,
+                            value: parseFloat(amount),
+                            currency: "ILS",
+                            provider: "paypal",
+                            items: [
+                                {
+                                    item_name: subscriptionType === "lifetime" ? "מנוי AI Finance Pro לכל החיים" : "מנוי AI Finance Pro חודשי",
+                                    price: parseFloat(amount),
+                                    quantity: 1,
+                                    item_category: "subscription",
+                                },
+                            ],
+                        });
 
                         // If logged in: update subscription for authenticated user
                         if (isLoggedIn && subscriptionType) {

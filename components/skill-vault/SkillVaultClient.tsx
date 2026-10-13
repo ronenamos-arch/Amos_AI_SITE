@@ -38,6 +38,7 @@ import { HeroBookVisual } from "@/components/skill-vault/HeroBookVisual";
 import DataCleaningModule from "@/components/skill-vault/DataCleaningModule";
 import { VaultPricingComparison } from "@/components/skill-vault/VaultPricingComparison";
 import { VaultCTA } from "@/components/skill-vault/VaultCTA";
+import { trackPromptCopy } from "@/lib/analytics";
 
 const FAQS = [
   {
@@ -76,7 +77,7 @@ export function SkillVaultClient({ userEmail, isPro }: SkillVaultClientProps) {
   const [toastMessage, setToastMessage] = useState<string | null>(null);
 
   // Copy handler with visual feedback
-  const handleCopy = (text: string, idOrEvent?: string | React.MouseEvent) => {
+  const handleCopy = (text: string, idOrEvent?: string | React.MouseEvent, promptObj?: VaultPrompt | null) => {
     if (idOrEvent && typeof idOrEvent !== "string") {
       idOrEvent.stopPropagation();
     }
@@ -84,6 +85,17 @@ export function SkillVaultClient({ userEmail, isPro }: SkillVaultClientProps) {
     const id = typeof idOrEvent === "string" ? idOrEvent : "modal";
     setCopiedId(id);
     setToastMessage("הפרומפט הועתק ללוח בהצלחה!");
+
+    if (promptObj) {
+      trackPromptCopy({
+        promptId: promptObj.id,
+        promptTitle: promptObj.title,
+        category: promptObj.category,
+        level: promptObj.level,
+        isPro,
+      });
+    }
+
     setTimeout(() => {
       setCopiedId(null);
       setToastMessage(null);
@@ -455,7 +467,7 @@ export function SkillVaultClient({ userEmail, isPro }: SkillVaultClientProps) {
                   key={p.id}
                   prompt={p}
                   onOpenModal={(item) => setSelectedPrompt(item)}
-                  onCopy={(text, e) => handleCopy(text, e)}
+                  onCopy={(text, e) => handleCopy(text, e, p)}
                   isCopied={copiedId === "modal" || copiedId === p.id}
                   isPro={isPro}
                 />
@@ -518,7 +530,7 @@ export function SkillVaultClient({ userEmail, isPro }: SkillVaultClientProps) {
       <PromptModal
         prompt={selectedPrompt}
         onClose={() => setSelectedPrompt(null)}
-        onCopy={(text) => handleCopy(text)}
+        onCopy={(text) => handleCopy(text, undefined, selectedPrompt)}
         isCopied={copiedId === "modal"}
         isPro={isPro}
       />

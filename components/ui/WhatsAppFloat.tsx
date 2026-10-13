@@ -2,6 +2,7 @@
 
 import { MessageCircle } from "lucide-react";
 import { trackMeta } from "@/lib/metaPixel";
+import { trackWhatsAppClick } from "@/lib/analytics";
 
 export function WhatsAppFloat() {
     const phoneNumber = "972505500344"; // Correct format for international WhatsApp link
@@ -13,7 +14,10 @@ export function WhatsAppFloat() {
             href={whatsappUrl}
             target="_blank"
             rel="noopener noreferrer"
-            onClick={() => trackMeta("Contact", { content_name: "whatsapp_float" })}
+            onClick={() => {
+                trackMeta("Contact", { content_name: "whatsapp_float" });
+                trackWhatsAppClick({ channel: "float" });
+            }}
             className="fixed bottom-6 right-6 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-[#25D366] text-white shadow-lg transition-all duration-300 hover:scale-110 hover:shadow-[#25D366]/40 active:scale-95 group"
             aria-label="צור קשר בוואטסאפ"
         >

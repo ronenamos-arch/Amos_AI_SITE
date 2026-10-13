@@ -40,7 +40,7 @@ export function Button({
 
   if (href && !disabled) {
     return (
-      <Link href={href} className={baseClasses}>
+      <Link href={href} onClick={onClick} className={baseClasses}>
         {children}
       </Link>
     );

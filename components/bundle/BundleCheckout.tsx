@@ -3,6 +3,7 @@
 import { useState, useCallback } from "react";
 import { Loader2, Shield, ArrowLeft, CheckCircle2, Lock } from "lucide-react";
 import { SMARTBEE_CONFIG } from "@/lib/smartbee-config";
+import { trackBeginCheckout } from "@/lib/analytics";
 
 interface FormData {
     name: string;
@@ -167,6 +168,21 @@ export function BundleCheckout() {
                     {/* SmartBee Direct Checkout Button */}
                     <a
                         href={getSmartBeeCheckoutUrl()}
+                        onClick={() => {
+                            trackBeginCheckout({
+                                value: 150,
+                                currency: "ILS",
+                                provider: "smartbee",
+                                items: [
+                                    {
+                                        item_name: "באנדל Claude והסוכנים",
+                                        price: 150,
+                                        quantity: 1,
+                                        item_category: "bundle",
+                                    },
+                                ],
+                            });
+                        }}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="rv2-btn rv2-btn-primary w-full py-3.5 text-base font-bold flex items-center justify-center gap-2 shadow-lg shadow-teal-500/20"

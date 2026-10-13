@@ -5,6 +5,7 @@ import Link from "next/link";
 import { Check, X, Sparkles, ArrowLeft, ShieldCheck, Zap, Crown } from "lucide-react";
 import { SMARTBEE_CONFIG } from "@/lib/smartbee-config";
 import { SUBSCRIPTION_PRICE, SUBSCRIPTION_PERIOD } from "@/lib/paypal-subscribe";
+import { trackBeginCheckout, trackPaywallCtaClick } from "@/lib/analytics";
 
 export function VaultPricingComparison() {
   const subscribeUrl = SMARTBEE_CONFIG.products.monthlySubscription.url;
@@ -115,6 +116,22 @@ export function VaultPricingComparison() {
           <div className="space-y-3">
             <a
               href={subscribeUrl}
+              onClick={() => {
+                trackPaywallCtaClick({ plan: "monthly_subscription" });
+                trackBeginCheckout({
+                  value: 100,
+                  currency: "ILS",
+                  provider: "smartbee",
+                  items: [
+                    {
+                      item_name: "מנוי חודשי AI Finance Pro",
+                      price: 100,
+                      quantity: 1,
+                      item_category: "subscription",
+                    },
+                  ],
+                });
+              }}
               target="_blank"
               rel="noopener noreferrer"
               className="w-full flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-cyan-400 via-teal-400 to-cyan-300 px-6 py-4 text-sm sm:text-base font-black text-slate-950 shadow-xl shadow-cyan-500/30 hover:opacity-95 transition-all text-center"
