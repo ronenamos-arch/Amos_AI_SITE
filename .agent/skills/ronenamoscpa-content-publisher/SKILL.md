@@ -32,6 +32,7 @@ This skill defines the complete, production-grade publishing pipeline for **rone
 * **Language:** Professional Hebrew (RTL), keeping technical and industry terms in English where standard (e.g. System 1, FP&A, Tokens, Reasoning Effort, Order Book).
 * **🇮🇱 Israeli Persona & Community Alignment:**
   * **Community Name:** Always reference the official community: **AI Finance Transformation של רונן עמוס**.
+  * **Strict Solo Attribution (בלעדיות כתיבה לרונן עמוס):** Even if an article is inspired by an external video, newsletter, or tech demo, **NEVER mention the external creator, YouTube channel, video timestamps, or external origin** in the article. The guide is 100% authored by **רונן עמוס רו"ח** as his proprietary playbook for the AI Finance Transformation community.
   * **Local Examples:** Adapt foreign names or overseas case studies from incoming newsletters into Israeli personas (e.g., "בשיחה שקיימתי עם דוד, CFO פרקציונלי מוביל, בקהילת AI Finance Transformation של רונן עמוס...").
   * **Israeli Finance Ecosystem:** Use ILS currency (₪), local tax and audit terminology, and standard Israeli ERPs (Priority, NetSuite).
 
@@ -56,11 +57,17 @@ Sources for this website are **strictly**:
    * Format: WebP or compressed PNG/JPG (quality ~80). Never commit uncompressed PNGs > 500KB or raw animated GIFs > 2MB.
    * You can run `node scripts/compress-images.mjs` to auto-compress newly added images.
 3. Never rely on external ephemeral URLs (like Substack temporary CDNs or expired tokens).
-4. **🎨 White / Light Background Infographic Standard & SVG Typography:**
+4. **🎨 Ronen's Portrait & Hero Infographic Standards:**
+   * **Ronen's Portrait Folder:** Use portraits from `C:\Users\Ronen\Documents\Projects\Business\AI FINANCE TRANSFORMATION\Images\me` to incorporate Ronen's photo/avatar into post header infographics.
    * Hero infographics and custom process diagrams must always use a **clean white/light background** (`#ffffff` / `#f8fafc`) with sharp dark typography (`#0f172a`), distinct card containers (teal, sky-blue, purple accents), and Hebrew labels.
    * **SVG Text Alignment:** Always center text in cards (`text-anchor="middle"`) or use explicit LTR coordinates. Never combine `direction="rtl"` with `text-anchor="end"` on container boundaries to prevent text cutoff.
    * Brand watermark/footer: `רונן עמוס רו״ח • קהילת AI Finance Transformation • ronenamoscpa.co.il`.
-5. In the Markdown post, embed images with descriptive Hebrew alt tags:
+5. **🖥️ Hyper-Realistic Windows 11 UI Screenshots (Zero Low-Quality Placeholders):**
+   * When screenshots of Windows software (Copilot, Outlook, Excel, Copilot Studio, Teams) are needed, **never use blank or wireframe placeholder boxes**.
+   * Generate photorealistic Windows 11 screenshots via headless Edge:
+     `& 'C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe' --headless --disable-gpu --screenshot=... --window-size=1200,680 <html-file>`
+   * Include authentic Windows 11 window chrome (titlebar with minimize/maximize/close, dark/light theme, Segoe UI typography, Microsoft 365 header bar, realistic Israeli finance prompts and data).
+6. In the Markdown post, embed images with descriptive Hebrew alt tags:
    ```markdown
    ![תיאור התמונה בעברית עבור נגישות ו-SEO](/images/blog/<image-name>.png)
    ```
@@ -152,7 +159,13 @@ premium: "false"
      </a>
    </div>
    ```
-6. **Sync `public/llms.txt`:** Always append the post title, URL, description, and zero-click answer to `public/llms.txt`.
+6. **Premium Content, Partial Paywall & Teaser Architecture:**
+   * Frontmatter: `premium: "true"`.
+   * **Free preview (~30-35%):** Hook, Zero-Click Answer, foundational architecture, Step 1.
+   * **`<!-- teaser -->...<!-- /teaser -->`:** Sleek dark card summarizing the locked actionable assets (templates, checklists, advanced configs) shown only to free visitors.
+   * **`<!-- paywall -->`:** Strict delimiter separating free from Pro content.
+   * **Locked section:** Full prompt templates, `SKILL.md` specifications, code snippets, and implementation checklists.
+7. **Sync `public/llms.txt`:** Always append the post title, URL, description, and zero-click answer to `public/llms.txt`.
 
 ---
 
