@@ -26,9 +26,9 @@ export const metadata: Metadata = {
         type: "website",
         images: [
             {
-                url: "/images/webinar/ronen-avatar.jpg",
-                width: 800,
-                height: 1120,
+                url: "/images/webinar/ronen-hero.jpg",
+                width: 1024,
+                height: 1024,
                 alt: "רונן עמוס, רואה חשבון",
             },
         ],
@@ -101,14 +101,14 @@ export default function WebinarExcelPage() {
                     </div>
                 </div>
 
-                <div className="flex-1 min-w-[280px] max-w-[400px] mx-auto flex justify-center">
-                    <div className="relative w-full aspect-[400/560] max-h-[560px]">
+                <div className="flex-1 min-w-[280px] max-w-[420px] mx-auto flex justify-center">
+                    <div className="relative w-full aspect-square max-h-[460px]">
                         <Image
-                            src="/images/webinar/ronen-avatar.jpg"
+                            src="/images/webinar/ronen-hero.jpg"
                             alt="רונן עמוס, רואה חשבון"
                             fill
                             priority
-                            sizes="(max-width: 768px) 100vw, 400px"
+                            sizes="(max-width: 768px) 100vw, 420px"
                             className="object-cover rounded-[32px] border-2 border-[#3b6cc0] shadow-[0_0_60px_rgba(74,156,240,0.35)]"
                         />
                     </div>
@@ -227,7 +227,7 @@ export default function WebinarExcelPage() {
                 <div className="flex flex-wrap gap-8 items-center bg-[rgba(15,33,71,0.7)] border-2 border-[#3b6cc0] rounded-[32px] p-8 sm:p-10 shadow-[0_8px_32px_rgba(0,0,0,0.25)]">
                     <div className="relative w-36 h-36 sm:w-40 sm:h-40 shrink-0 mx-auto sm:mx-0">
                         <Image
-                            src="/images/webinar/ronen-avatar.jpg"
+                            src="/images/webinar/ronen-headshot.jpg"
                             alt="רונן עמוס"
                             fill
                             sizes="160px"
