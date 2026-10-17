@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createAdminClient } from "@/lib/supabase-admin";
-import { sendCoursePurchaseEmail, sendAiMasteryPurchaseEmail, sendBundlePurchaseEmail, sendAdminNotification, sendPurchaseEmail } from "@/lib/mailer";
+import { sendCoursePurchaseEmail, sendAiMasteryPurchaseEmail, sendBundlePurchaseEmail, sendAdminNotification, sendPurchaseEmail, sendWebinarConfirmationEmail } from "@/lib/mailer";
 
 export const runtime = "nodejs";
 
@@ -61,9 +61,11 @@ export async function POST(req: NextRequest) {
         const purchaseId = body.purchaseId || body.clientReference || body.custom || body.orderId;
         const payerEmail = body.email || body.clientEmail || body.customerEmail;
         const payerName = body.fullName || body.clientName || body.customerName || "לקוח יקר";
+        const payerPhone = body.phone || body.clientPhone || body.customerPhone || body.cellular || null;
         const documentUrl = body.documentUrl || body.invoiceUrl || body.docUrl;
         const invoiceNumber = body.invoiceNumber || body.docNumber;
         const amount = body.amount || body.totalAmount;
+        const pageId = body.pageId || body.paymentPageId || body.payment_page_id || body.publicPageId;
 
         const supabase = createAdminClient();
 
@@ -184,8 +186,113 @@ export async function POST(req: NextRequest) {
             }
         }
 
-        // 3. Subscription or General Payment Handling (e.g. Monthly Pro Subscription ₪100)
         const normalizedEmail = payerEmail?.toLowerCase().trim();
+
+        // 3. Check if this is a Webinar Registration (e.g. Excel to Presentation Webinar ₪50)
+        const isWebinar =
+            pageId === "6ad2c5a7df60761d6682562f" ||
+            String(body.custom || "").includes("6ad2c5a7df60761d6682562f") ||
+            String(body.redirectPath || "").includes("6ad2c5a7df60761d6682562f") ||
+            String(body.description || body.itemName || body.productName || "").includes("Excel") ||
+            Number(amount) === 50;
+
+        if (isWebinar && normalizedEmail) {
+            const transactionId = (purchaseId ? String(purchaseId) : null)
+                || (invoiceNumber ? `Smartbee-${invoiceNumber}` : `Smartbee-webinar-${Date.now().toString().slice(-6)}`);
+
+            // Idempotency: check if this payment was already processed
+            const { data: existingReg } = await supabase
+                .from("webinar_registrations")
+                .select("id")
+                .eq("smartbee_transaction_id", transactionId)
+                .maybeSingle();
+
+            if (existingReg) {
+                console.log(`[SmartBee Webhook] Webinar transaction ${transactionId} already recorded, skipping.`);
+                return NextResponse.json({ success: true, alreadyProcessed: true });
+            }
+
+            // Fetch webinar ID
+            const { data: webinarData } = await supabase
+                .from("webinars")
+                .select("id")
+                .eq("slug", "excel-to-deck-2026-10-22")
+                .maybeSingle();
+
+            const webinarId = webinarData?.id || null;
+
+            // Insert registration into webinar_registrations
+            const { error: regError } = await supabase
+                .from("webinar_registrations")
+                .insert({
+                    webinar_id: webinarId,
+                    full_name: payerName,
+                    email: normalizedEmail,
+                    phone: payerPhone,
+                    amount: Number(amount) || 50,
+                    currency: body.currency || "ILS",
+                    smartbee_transaction_id: transactionId,
+                    payment_status: "completed",
+                    raw_payload: body,
+                });
+
+            if (regError) {
+                console.error("[SmartBee Webhook] Error saving webinar registration:", regError);
+            }
+
+            // Newsletter subscriber & Resend Audience sync
+            try {
+                await supabase.from("newsletter_subscribers").upsert(
+                    {
+                        email: normalizedEmail,
+                        name: payerName !== "לקוח יקר" ? payerName : null,
+                        source: "webinar-excel-2026-10-22",
+                        status: "active",
+                        subscribed_at: new Date().toISOString(),
+                    },
+                    { onConflict: "email" }
+                );
+            } catch {
+                // non-fatal
+            }
+
+            const audienceId = process.env.RESEND_AUDIENCE_ID;
+            if (audienceId) {
+                try {
+                    const { getResend } = await import("@/lib/resend");
+                    await getResend().contacts.create({
+                        audienceId,
+                        email: normalizedEmail,
+                        firstName: payerName.split(" ")[0] || undefined,
+                        lastName: payerName.split(" ").slice(1).join(" ") || undefined,
+                        unsubscribed: false,
+                    });
+                } catch (resendErr) {
+                    console.warn("[SmartBee Webhook] Resend audience sync warning:", resendErr);
+                }
+            }
+
+            // Send confirmation email with Resend
+            await sendWebinarConfirmationEmail({
+                to: normalizedEmail,
+                name: payerName,
+            }).catch((emailErr) => {
+                console.error("[SmartBee Webhook] Webinar confirmation email failed:", emailErr);
+            });
+
+            // Send Admin Notification to Ronen
+            await sendAdminNotification({
+                eventType: "נרשם חדש לוובינר Excel למצגת הנהלה (SmartBee ₪50)",
+                userEmail: normalizedEmail,
+                details: `נרשם חדש לוובינר!\nשם: ${payerName}\nאימייל: ${normalizedEmail}\nטלפון: ${payerPhone || "לא צוין"}\nסכום: ₪50\nמזהה עסקה: ${transactionId}\nחשבונית: ${documentUrl || invoiceNumber || "הופקה ב-SmartBee"}\nIP: ${clientIp}`,
+            }).catch((adminErr) => {
+                console.error("[SmartBee Webhook] Admin notification email failed:", adminErr);
+            });
+
+            return NextResponse.json({ success: true, processed: "webinar_registration" });
+        }
+
+        // 4. Subscription or General Payment Handling (e.g. Monthly Pro Subscription ₪100)
         if (normalizedEmail) {
             const transactionId = (purchaseId ? String(purchaseId) : null)
                 || (invoiceNumber ? `Smartbee-${invoiceNumber}` : `Smartbee-${Date.now().toString().slice(-6)}`);

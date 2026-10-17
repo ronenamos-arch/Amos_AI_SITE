@@ -7,7 +7,7 @@ import { usePathname } from "next/navigation";
  * redesign preview routes, which render their own scoped chrome.
  */
 /** Routes that ship their own HeaderV2/FooterV2 and must not get the global pair. */
-const V2_CHROME_ROUTES = ["/lessons", "/courses/ai-master-course"];
+const V2_CHROME_ROUTES = ["/lessons", "/courses/ai-master-course", "/webinar-excel"];
 
 export function Chrome({ children }: { children: React.ReactNode }) {
     const pathname = usePathname();

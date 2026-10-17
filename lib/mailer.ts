@@ -204,5 +204,40 @@ export async function sendAiMasteryPurchaseEmail({
     }
 }
 
+import { buildWebinarConfirmationEmail } from "@/lib/emails/webinar-confirmation";
+
+interface SendWebinarConfirmationEmailParams {
+    to: string;
+    name?: string;
+}
+
+export async function sendWebinarConfirmationEmail({
+    to,
+    name = "משתתף/ת יקר/ה",
+}: SendWebinarConfirmationEmailParams) {
+    const siteUrl = process.env.NODE_ENV === "development"
+        ? "http://localhost:3000"
+        : (process.env.NEXT_PUBLIC_SITE_URL || "https://www.ronenamoscpa.co.il");
+
+    try {
+        const { data, error } = await getResend().emails.send({
+            from: EMAIL_FROM,
+            to,
+            subject: "אישור הרשמה: וובינר מ-Excel למצגת הנהלה בשעה אחת – עם Claude 🎬",
+            html: buildWebinarConfirmationEmail({ name, siteUrl }),
+        });
+
+        if (error) {
+            console.error("Resend webinar confirmation email error:", error);
+            return { success: false, error: error.message };
+        }
+
+        return { success: true, id: data?.id };
+    } catch (err) {
+        console.error("Failed to send webinar confirmation email:", err);
+        return { success: false, error: String(err) };
+    }
+}
+
 
 
