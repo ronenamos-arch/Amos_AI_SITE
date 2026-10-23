@@ -186,5 +186,23 @@ export async function updateSession(request: NextRequest) {
         }
     }
 
+    // Auto-sync claude_bundle_token from /claude-bundle/access/[token] or ?bundle_token=... into cookie
+    if (path.startsWith('/claude-bundle/access/')) {
+        const tokenFromPath = path.split('/claude-bundle/access/')[1]?.split('/')[0]?.split('?')[0];
+        if (tokenFromPath && tokenFromPath !== 'member') {
+            supabaseResponse.cookies.set('claude_bundle_token', tokenFromPath, {
+                maxAge: 60 * 60 * 24 * 365,
+                path: '/',
+            });
+        }
+    }
+    const queryBundleToken = request.nextUrl.searchParams.get('bundle_token');
+    if (queryBundleToken) {
+        supabaseResponse.cookies.set('claude_bundle_token', queryBundleToken, {
+            maxAge: 60 * 60 * 24 * 365,
+            path: '/',
+        });
+    }
+
     return supabaseResponse;
 }
