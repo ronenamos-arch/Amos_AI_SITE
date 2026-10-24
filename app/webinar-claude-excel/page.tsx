@@ -5,7 +5,7 @@ import { SMARTBEE_CONFIG } from "@/lib/smartbee-config";
 
 const SMARTBEE_PAY_URL =
     SMARTBEE_CONFIG.products.excelWebinar?.url ||
-    "https://smartbee.co.il/public-pages/?redirect-path=pay/6ad2c5a7df60761d6682562f";
+    "https://smartbee.co.il/public-pages/?redirect-path=pay/6add37d2453941eb6ea96eef";
 
 export const metadata: Metadata = {
     title: {
