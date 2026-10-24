@@ -223,7 +223,7 @@ export async function sendWebinarConfirmationEmail({
         const { data, error } = await getResend().emails.send({
             from: EMAIL_FROM,
             to,
-            subject: "אישור הרשמה: וובינר מ-Excel למצגת הנהלה בשעה אחת – עם Claude 🎬",
+            subject: "אישור הרשמה: וובינר Claude בתוך האקסל: 3 משימות FP&A בלייב 🎬",
             html: buildWebinarConfirmationEmail({ name, siteUrl }),
         });
 

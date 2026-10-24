@@ -55,13 +55,14 @@ export const SMARTBEE_CONFIG = {
             url: "", // Will be filled once Ronen generates the SmartBee payment page
         },
         excelWebinar: {
-            name: "מ-Excel למצגת הנהלה בשעה אחת – עם Claude",
-            price: 50,
+            name: "Claude בתוך האקסל: 3 משימות FP&A בלייב",
+            price: 30,
             currency: "ILS",
             url: "https://smartbee.co.il/public-pages/?redirect-path=pay/6ad2c5a7df60761d6682562f",
             pageId: "6ad2c5a7df60761d6682562f",
-            slug: "excel-to-deck-2026-10-22",
-            category: "וובינר Excel למצגת – 22.10",
+            slug: "claude-in-excel-2026-10-29",
+            category: "וובינר Claude ב-Excel – 29.10",
+            startsAt: "2026-10-29T20:00:00+03:00",
         },
     },
 } as const;

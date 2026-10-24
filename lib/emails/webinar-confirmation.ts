@@ -13,9 +13,9 @@ export function buildWebinarConfirmationEmail({
     siteUrl,
 }: WebinarConfirmationEmailParams): string {
     const googleCalendarUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(
-        "מ-Excel למצגת הנהלה בשעה אחת – עם Claude | רונן עמוס"
-    )}&dates=20261022T170000Z/20261022T180000Z&details=${encodeURIComponent(
-        "וובינר מעשי לאנשי כספים: ניתוח ב-Claude in Excel, מצגת ב-Claude Design וייצוא ל-PowerPoint.\nקישור ההצטרפות יישלח במייל."
+        "Claude בתוך האקסל: 3 משימות FP&A בלייב | רונן עמוס"
+    )}&dates=20261029T170000Z/20261029T180000Z&details=${encodeURIComponent(
+        "וובינר מעשי לאנשי כספים: Budget vs Actuals, Revenue Forecast ו-Scenario Analysis עם Claude בתוך Excel, ובונוס Skill לדוחות Pivot.\nקישור ההצטרפות יישלח במייל."
     )}&location=${encodeURIComponent("Zoom (פרטי הצטרפות נשלחו במייל)")}`;
 
     return `
@@ -44,7 +44,7 @@ export function buildWebinarConfirmationEmail({
                         <td style="padding:36px 40px;">
                             <h2 style="margin:0 0 16px;font-size:22px;color:#ffffff;font-weight:bold;">שלום ${name}, מקומך שוריין! 🎉</h2>
                             <p style="margin:0 0 24px;font-size:16px;line-height:1.8;color:#c7d3e8;">
-                                תודה על הרשמתך לוובינר <strong>"מ-Excel למצגת הנהלה בשעה אחת – עם Claude"</strong>.
+                                תודה על הרשמתך לוובינר <strong>"Claude בתוך האקסל: 3 משימות FP&amp;A בלייב"</strong>.
                                 התשלום נקלט בהצלחה ופרטי ההרשמה שמורים במערכת.
                             </p>
 
@@ -53,7 +53,7 @@ export function buildWebinarConfirmationEmail({
                                 <tr>
                                     <td style="padding:22px 24px;">
                                         <div style="font-size:13px;color:#4a9cf0;font-weight:bold;margin-bottom:6px;">מועד הוובינר</div>
-                                        <div style="font-size:17px;color:#ffffff;font-weight:bold;margin-bottom:12px;">📅 יום חמישי, 22 באוקטובר 2026</div>
+                                        <div style="font-size:17px;color:#ffffff;font-weight:bold;margin-bottom:12px;">📅 יום חמישי, 29 באוקטובר 2026</div>
                                         <div style="font-size:15px;color:#e3e8f2;margin-bottom:6px;">⏰ שעה: <strong>20:00 (שעון ישראל)</strong> · משך: 60 דקות</div>
                                         <div style="font-size:15px;color:#e3e8f2;margin-bottom:6px;">💻 מיקום: <strong>Zoom (מקוון)</strong></div>
                                         <div style="font-size:13px;color:#9fb0cc;margin-top:10px;line-height:1.6;">
@@ -79,10 +79,11 @@ export function buildWebinarConfirmationEmail({
                                 <tr>
                                     <td style="padding:20px 24px;">
                                         <p style="margin:0 0 10px;font-size:15px;font-weight:bold;color:#4fd1c5;">מה מחכה לנו במפגש:</p>
-                                        <p style="margin:0 0 8px;font-size:14px;color:#d1d5db;line-height:1.6;">🔹 <strong>תרגיל 1:</strong> ניתוח סטיות תקציב מול ביצוע ב-Claude in Excel</p>
-                                        <p style="margin:0 0 8px;font-size:14px;color:#d1d5db;line-height:1.6;">🔹 <strong>תרגיל 2:</strong> בניית 6 שקפי הנהלה ממותגים ב-Claude Design</p>
-                                        <p style="margin:0 0 8px;font-size:14px;color:#d1d5db;line-height:1.6;">🔹 <strong>תרגיל 3:</strong> ייצוא ל-PowerPoint וצ'קליסט בקרה פיננסית</p>
-                                        <p style="margin:0;font-size:13px;color:#9fb0cc;line-height:1.6;">* כל הנרשמים מקבלים את ההקלטה המלאה, קובץ הדמו ותבנית הפרומפטים.</p>
+                                        <p style="margin:0 0 8px;font-size:14px;color:#d1d5db;line-height:1.6;">🔹 <strong>דמו 1:</strong> ניתוח סטיות תקציב מול ביצוע (Budget vs Actuals)</p>
+                                        <p style="margin:0 0 8px;font-size:14px;color:#d1d5db;line-height:1.6;">🔹 <strong>דמו 2:</strong> תחזית הכנסות ל-12 חודשים (Revenue Forecast)</p>
+                                        <p style="margin:0 0 8px;font-size:14px;color:#d1d5db;line-height:1.6;">🔹 <strong>דמו 3:</strong> ניתוח תרחישים Bear / Base / Bull (Scenario Analysis)</p>
+                                        <p style="margin:0 0 8px;font-size:14px;color:#d1d5db;line-height:1.6;">🔹 <strong>בונוס:</strong> Skill שהופך טבלה גולמית לדוח Pivot</p>
+                                        <p style="margin:0;font-size:13px;color:#9fb0cc;line-height:1.6;">* כל הנרשמים מקבלים במייל את ההקלטה המלאה, המצגת, חוברת התרגילים וה-Skill.</p>
                                     </td>
                                 </tr>
                             </table>

@@ -7,7 +7,7 @@ export const metadata: Metadata = {
     title: {
         absolute: "ההרשמה לוובינר התקבלה בהצלחה! | רונן עמוס, CPA",
     },
-    description: "פרטי ההרשמה לוובינר Excel למצגת הנהלה עם Claude אושרו בהצלחה.",
+    description: "פרטי ההרשמה לוובינר Claude בתוך האקסל אושרו בהצלחה.",
     robots: {
         index: false,
         follow: false,
@@ -33,7 +33,7 @@ export default function WebinarThanksPage() {
                     AI FINANCE TRANSFORMATION
                 </Link>
                 <Link
-                    href="/webinar-excel"
+                    href="/webinar-claude-excel"
                     className="text-sm text-[#9fb0cc] hover:text-[#4fd1c5] transition-colors"
                 >
                     חזרה לדף הוובינר
@@ -66,7 +66,7 @@ export default function WebinarThanksPage() {
                             פרטי המפגש
                         </div>
                         <h2 className="text-xl sm:text-2xl font-bold text-white mb-5">
-                            מ-Excel למצגת הנהלה בשעה אחת – עם Claude
+                            Claude בתוך האקסל: 3 משימות FP&amp;A בלייב
                         </h2>
 
                         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-[#e3e8f2]">
@@ -74,7 +74,7 @@ export default function WebinarThanksPage() {
                                 <CalendarIcon className="w-5 h-5 text-[#4fd1c5] shrink-0" />
                                 <div>
                                     <div className="text-xs text-[#9fb0cc]">תאריך</div>
-                                    <div className="font-bold text-sm sm:text-base">חמישי, 22.10.2026</div>
+                                    <div className="font-bold text-sm sm:text-base">חמישי, 29.10.2026</div>
                                 </div>
                             </div>
 
@@ -110,11 +110,11 @@ export default function WebinarThanksPage() {
                             שריינו את המועד ביומן כדי לא לפספס:
                         </div>
                         <AddToCalendar
-                            title="מ-Excel למצגת הנהלה בשעה אחת – עם Claude | רונן עמוס"
-                            description="וובינר מעשי לאנשי כספים: ניתוח ב-Claude in Excel, מצגת ב-Claude Design וייצוא ל-PowerPoint. קישור ההצטרפות נשלח במייל."
+                            title="Claude בתוך האקסל: 3 משימות FP&A בלייב | רונן עמוס"
+                            description="וובינר מעשי לאנשי כספים: Budget vs Actuals, Revenue Forecast ו-Scenario Analysis עם Claude בתוך Excel, ובונוס Skill לדוחות Pivot. קישור ההצטרפות נשלח במייל."
                             location="Zoom (פרטי הצטרפות נשלחו במייל)"
-                            startDate="20261022T170000Z"
-                            endDate="20261022T180000Z"
+                            startDate="20261029T170000Z"
+                            endDate="20261029T180000Z"
                         />
                     </div>
 

@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createAdminClient } from "@/lib/supabase-admin";
+import { SMARTBEE_CONFIG } from "@/lib/smartbee-config";
 import { sendCoursePurchaseEmail, sendAiMasteryPurchaseEmail, sendBundlePurchaseEmail, sendAdminNotification, sendPurchaseEmail, sendWebinarConfirmationEmail } from "@/lib/mailer";
 
 export const runtime = "nodejs";
@@ -188,12 +189,15 @@ export async function POST(req: NextRequest) {
 
         const normalizedEmail = payerEmail?.toLowerCase().trim();
 
-        // 3. Check if this is a Webinar Registration (e.g. Excel to Presentation Webinar ₪50)
+        // 3. Check if this is a Webinar Registration (current webinar is defined in SMARTBEE_CONFIG.products.excelWebinar)
+        const webinarConfig = SMARTBEE_CONFIG.products.excelWebinar;
+        const webinarPageId = webinarConfig.pageId;
         const isWebinar =
-            pageId === "6ad2c5a7df60761d6682562f" ||
-            String(body.custom || "").includes("6ad2c5a7df60761d6682562f") ||
-            String(body.redirectPath || "").includes("6ad2c5a7df60761d6682562f") ||
+            pageId === webinarPageId ||
+            String(body.custom || "").includes(webinarPageId) ||
+            String(body.redirectPath || "").includes(webinarPageId) ||
             String(body.description || body.itemName || body.productName || "").includes("Excel") ||
+            Number(amount) === webinarConfig.price ||
             Number(amount) === 50;
 
         if (isWebinar && normalizedEmail) {
@@ -212,12 +216,34 @@ export async function POST(req: NextRequest) {
                 return NextResponse.json({ success: true, alreadyProcessed: true });
             }
 
-            // Fetch webinar ID
-            const { data: webinarData } = await supabase
+            // Fetch webinar ID (create the webinar row on first registration if it doesn't exist yet)
+            let { data: webinarData } = await supabase
                 .from("webinars")
                 .select("id")
-                .eq("slug", "excel-to-deck-2026-10-22")
+                .eq("slug", webinarConfig.slug)
                 .maybeSingle();
+
+            if (!webinarData) {
+                const { data: createdWebinar, error: createWebinarError } = await supabase
+                    .from("webinars")
+                    .upsert(
+                        {
+                            slug: webinarConfig.slug,
+                            title: webinarConfig.name,
+                            category: webinarConfig.category,
+                            starts_at: webinarConfig.startsAt,
+                            price: webinarConfig.price,
+                            smartbee_page_id: webinarPageId,
+                        },
+                        { onConflict: "slug" }
+                    )
+                    .select("id")
+                    .maybeSingle();
+                if (createWebinarError) {
+                    console.error("[SmartBee Webhook] Error creating webinar row:", createWebinarError);
+                }
+                webinarData = createdWebinar;
+            }
 
             const webinarId = webinarData?.id || null;
 
@@ -229,7 +255,7 @@ export async function POST(req: NextRequest) {
                     full_name: payerName,
                     email: normalizedEmail,
                     phone: payerPhone,
-                    amount: Number(amount) || 50,
+                    amount: Number(amount) || webinarConfig.price,
                     currency: body.currency || "ILS",
                     smartbee_transaction_id: transactionId,
                     payment_status: "completed",
@@ -246,7 +272,7 @@ export async function POST(req: NextRequest) {
                     {
                         email: normalizedEmail,
                         name: payerName !== "לקוח יקר" ? payerName : null,
-                        source: "webinar-excel-2026-10-22",
+                        source: `webinar-${webinarConfig.slug}`,
                         status: "active",
                         subscribed_at: new Date().toISOString(),
                     },
@@ -282,9 +308,9 @@ export async function POST(req: NextRequest) {
 
             // Send Admin Notification to Ronen
             await sendAdminNotification({
-                eventType: "נרשם חדש לוובינר Excel למצגת הנהלה (SmartBee ₪50)",
+                eventType: `נרשם חדש לוובינר ${webinarConfig.category} (SmartBee)`,
                 userEmail: normalizedEmail,
-                details: `נרשם חדש לוובינר!\nשם: ${payerName}\nאימייל: ${normalizedEmail}\nטלפון: ${payerPhone || "לא צוין"}\nסכום: ₪50\nמזהה עסקה: ${transactionId}\nחשבונית: ${documentUrl || invoiceNumber || "הופקה ב-SmartBee"}\nIP: ${clientIp}`,
+                details: `נרשם חדש לוובינר!\nשם: ${payerName}\nאימייל: ${normalizedEmail}\nטלפון: ${payerPhone || "לא צוין"}\nסכום: ₪${Number(amount) || webinarConfig.price}\nמזהה עסקה: ${transactionId}\nחשבונית: ${documentUrl || invoiceNumber || "הופקה ב-SmartBee"}\nIP: ${clientIp}`,
             }).catch((adminErr) => {
                 console.error("[SmartBee Webhook] Admin notification email failed:", adminErr);
             });

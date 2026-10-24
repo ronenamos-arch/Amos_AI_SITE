@@ -35,7 +35,7 @@ export function AddToCalendar({
             "BEGIN:VALARM",
             "TRIGGER:-PT30M",
             "ACTION:DISPLAY",
-            "DESCRIPTION:תזכורת: וובינר Excel למצגת הנהלה עם רונן עמוס",
+            "DESCRIPTION:תזכורת: וובינר עם רונן עמוס",
             "END:VALARM",
             "END:VEVENT",
             "END:VCALENDAR",
@@ -44,7 +44,7 @@ export function AddToCalendar({
         const blob = new Blob([icsContent], { type: "text/calendar;charset=utf-8" });
         const link = document.createElement("a");
         link.href = window.URL.createObjectURL(blob);
-        link.setAttribute("download", "webinar-excel-to-deck.ics");
+        link.setAttribute("download", "webinar-ronen-amos.ics");
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
