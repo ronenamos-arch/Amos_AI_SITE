@@ -62,7 +62,7 @@ export const SMARTBEE_CONFIG = {
             pageId: "6add37d2453941eb6ea96eef",
             slug: "claude-in-excel-2026-10-29",
             category: "וובינר Claude ב-Excel – 29.10",
-            startsAt: "2026-10-29T20:00:00+03:00",
+            startsAt: "2026-10-29T20:00:00+02:00",
         },
     },
 } as const;

@@ -14,7 +14,7 @@ export function buildWebinarConfirmationEmail({
 }: WebinarConfirmationEmailParams): string {
     const googleCalendarUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(
         "Claude בתוך האקסל: 3 משימות FP&A בלייב | רונן עמוס"
-    )}&dates=20261029T170000Z/20261029T180000Z&details=${encodeURIComponent(
+    )}&dates=20261029T180000Z/20261029T190000Z&details=${encodeURIComponent(
         "וובינר מעשי לאנשי כספים: Budget vs Actuals, Revenue Forecast ו-Scenario Analysis עם Claude בתוך Excel, ובונוס Skill לדוחות Pivot.\nקישור ההצטרפות יישלח במייל."
     )}&location=${encodeURIComponent("Zoom (פרטי הצטרפות נשלחו במייל)")}`;
 

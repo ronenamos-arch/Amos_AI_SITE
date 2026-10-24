@@ -113,8 +113,8 @@ export default function WebinarThanksPage() {
                             title="Claude בתוך האקסל: 3 משימות FP&A בלייב | רונן עמוס"
                             description="וובינר מעשי לאנשי כספים: Budget vs Actuals, Revenue Forecast ו-Scenario Analysis עם Claude בתוך Excel, ובונוס Skill לדוחות Pivot. קישור ההצטרפות נשלח במייל."
                             location="Zoom (פרטי הצטרפות נשלחו במייל)"
-                            startDate="20261029T170000Z"
-                            endDate="20261029T180000Z"
+                            startDate="20261029T180000Z"
+                            endDate="20261029T190000Z"
                         />
                     </div>
 
